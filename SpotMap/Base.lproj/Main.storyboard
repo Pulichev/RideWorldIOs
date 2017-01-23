@@ -1,26 +1,171 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main Form Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainFormController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="dIK-To-kjX">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <items>
+                                    <barButtonItem id="DDe-Co-3ec">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hUv-Jl-cDy">
+                                            <rect key="frame" x="16" y="7" width="115" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Add new spot"/>
+                                            <connections>
+                                                <action selector="AddNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A07-q0-Cmq"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w8G-iW-QKa">
+                                <rect key="frame" x="0.0" y="28" width="320" height="496"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="a9J-0n-5TV"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="w8G-iW-QKa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="4MC-Zu-SCV"/>
+                            <constraint firstItem="w8G-iW-QKa" firstAttribute="leading" secondItem="dIK-To-kjX" secondAttribute="leading" id="AZL-Dn-tb9"/>
+                            <constraint firstItem="dIK-To-kjX" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="BJp-Rw-xVl"/>
+                            <constraint firstItem="dIK-To-kjX" firstAttribute="top" secondItem="w8G-iW-QKa" secondAttribute="bottom" id="cQu-WC-jVb"/>
+                            <constraint firstItem="w8G-iW-QKa" firstAttribute="trailing" secondItem="dIK-To-kjX" secondAttribute="trailing" id="gEF-Td-qOA"/>
+                            <constraint firstAttribute="trailing" secondItem="w8G-iW-QKa" secondAttribute="trailing" id="vNp-t9-RHM"/>
+                            <constraint firstItem="w8G-iW-QKa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zPx-h8-yNu"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="w8G-iW-QKa" id="hst-SK-MUj"/>
+                        <segue destination="LlJ-V1-BNZ" kind="presentation" identifier="spotDetailsTapped" id="PBI-SR-cuB"/>
+                        <segue destination="28g-9l-NVL" kind="presentation" identifier="addNewSpot" id="ewa-GH-wcd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="88.799999999999997" y="141.67916041979012"/>
+        </scene>
+        <!--Camera Roll Controller-->
+        <scene sceneID="hrt-Z5-8f9">
+            <objects>
+                <viewController id="28g-9l-NVL" userLabel="Camera Roll Controller" customClass="NewSpotController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7bo-0z-85p"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Fa-YJ-abt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MSF-p0-ANE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JKR-dD-JOV">
+                                <rect key="frame" x="16" y="28" width="288" height="243"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="243" id="EUG-PY-aPn"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRn-js-1yR">
+                                <rect key="frame" x="16" y="518" width="288" height="30"/>
+                                <state key="normal" title="Save new spot"/>
+                                <connections>
+                                    <action selector="saveSpotDetails:" destination="28g-9l-NVL" eventType="touchUpInside" id="BwP-pW-cG6"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Some Des" borderStyle="roundedRect" placeholder="Spot Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KNT-dO-hMW">
+                                <rect key="frame" x="16" y="451" width="288" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="SomeSpot" borderStyle="roundedRect" placeholder="Spot Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b0b-S2-wIf">
+                                <rect key="frame" x="16" y="394" width="288" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KNT-dO-hMW" firstAttribute="leading" secondItem="JRn-js-1yR" secondAttribute="leading" id="7cF-kl-5nS"/>
+                            <constraint firstItem="JKR-dD-JOV" firstAttribute="trailing" secondItem="MSF-p0-ANE" secondAttribute="trailingMargin" id="9P8-6O-MUw"/>
+                            <constraint firstItem="JKR-dD-JOV" firstAttribute="leading" secondItem="b0b-S2-wIf" secondAttribute="leading" id="KLu-w4-8cR"/>
+                            <constraint firstItem="KNT-dO-hMW" firstAttribute="top" secondItem="b0b-S2-wIf" secondAttribute="bottom" constant="27" id="RSB-0z-DmJ"/>
+                            <constraint firstItem="JRn-js-1yR" firstAttribute="top" secondItem="KNT-dO-hMW" secondAttribute="bottom" constant="37" id="UK0-KP-4HX"/>
+                            <constraint firstItem="KNT-dO-hMW" firstAttribute="trailing" secondItem="JRn-js-1yR" secondAttribute="trailing" id="XN9-Iy-4Nw"/>
+                            <constraint firstItem="b0b-S2-wIf" firstAttribute="trailing" secondItem="KNT-dO-hMW" secondAttribute="trailing" id="Yyf-GJ-1HM"/>
+                            <constraint firstItem="JKR-dD-JOV" firstAttribute="leading" secondItem="MSF-p0-ANE" secondAttribute="leadingMargin" id="j4h-Nn-QPy"/>
+                            <constraint firstItem="JKR-dD-JOV" firstAttribute="top" secondItem="7bo-0z-85p" secondAttribute="bottom" constant="8" symbolic="YES" id="nGi-Of-aRg"/>
+                            <constraint firstAttribute="bottom" secondItem="JRn-js-1yR" secondAttribute="bottom" constant="20" symbolic="YES" id="oZd-AI-wF6"/>
+                            <constraint firstItem="b0b-S2-wIf" firstAttribute="leading" secondItem="KNT-dO-hMW" secondAttribute="leading" id="pNl-uG-s1x"/>
+                            <constraint firstItem="JKR-dD-JOV" firstAttribute="trailing" secondItem="b0b-S2-wIf" secondAttribute="trailing" id="s6u-xd-9DF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bottomConstraint" destination="oZd-AI-wF6" id="Wqd-Uc-LRE"/>
+                        <outlet property="imageView" destination="JKR-dD-JOV" id="6ik-dV-K7T"/>
+                        <outlet property="spotDescription" destination="KNT-dO-hMW" id="rBL-5M-X7s"/>
+                        <outlet property="spotTitle" destination="b0b-S2-wIf" id="fgi-8X-h0L"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="completeAdding" id="Vya-rg-RYo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N2a-xc-cSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="88.125" y="931.69014084507046"/>
+        </scene>
+        <!--Adding Photo Controller-->
+        <scene sceneID="SgR-aE-cqU">
+            <objects>
+                <viewController id="JjD-ah-u2I" userLabel="Adding Photo Controller" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5NH-bx-Idf"/>
+                        <viewControllerLayoutGuide type="bottom" id="SaU-JZ-arv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aRI-3u-gev">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dRg-HV-Kro" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1012" y="932"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="6sC-96-HMd">
+            <objects>
+                <viewController id="LlJ-V1-BNZ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Eay-uF-Zo2"/>
+                        <viewControllerLayoutGuide type="bottom" id="xLa-BH-f7x"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Frl-6S-pCe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h24-NX-eSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="999" y="142"/>
         </scene>
     </scenes>
 </document>

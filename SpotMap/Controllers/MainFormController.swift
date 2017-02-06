@@ -175,7 +175,7 @@ extension MainFormController: MKMapViewDelegate
         
         let spotDetailsPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotMainPhotoURLs/" + (spotPin.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
         
-        DispatchQueue.global(qos: .userInteractive).async(execute: {
+        DispatchQueue.global(qos: .userInitiated).async(execute: {
             if let imageURL = URL(string: spotDetailsPhotoURL) {
                 if let imageData = NSData(contentsOf: imageURL) {
                     let logo = UIImage(data: imageData as Data)
@@ -184,7 +184,7 @@ extension MainFormController: MKMapViewDelegate
                     })
                 }
             }
-        }) 
+        })
         
         imageView.layer.cornerRadius = imageView.frame.size.height / 8
         imageView.layer.masksToBounds = true
@@ -228,14 +228,14 @@ extension MainFormController: CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
-        let location = locations[0]
+//        let location = locations[0]
         
         self.mapView.showsUserLocation = true
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
     {
-        print("CLLocationManager error :(")
+        print("CLLocationManager error: \(error.localizedDescription)")
     }
     
     @IBAction func AddNewSpot(_ sender: Any)

@@ -26,7 +26,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         backendless = Backendless.sharedInstance()
         
         loadSpotPosts()
-        loadSpotPostCellsTextInfo()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -41,23 +40,26 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         dataQuery.whereClause = whereClause
         
         var error: Fault?
-        let spotPostsList = backendless.data.of(SpotPost.ofClass()).find(dataQuery, fault: &error)
+        
+        let spotPostsList = self.backendless.data.of(SpotPost.ofClass()).find(dataQuery, fault: &error)
         
         if error != nil
         {
             //when no posts on this spot
             let whenNoPostsAvailable = SpotPost()
             whenNoPostsAvailable.postDescription = ""
-            whenNoPostsAvailable.spotId = spotDetails.objectId
+            whenNoPostsAvailable.spotId = self.spotDetails.objectId
             whenNoPostsAvailable.userId = ""
             whenNoPostsAvailable.objectId = "noPosts" //passing this id cz our picture from server called noPosts.jpeg
             
-            spotPosts.insert(whenNoPostsAvailable, at: 0)
+            self.spotPosts.insert(whenNoPostsAvailable, at: 0)
             print("Server reported an error: \(spotPostsList)")
-            return
         }
-        
-        spotPosts = spotPostsList?.data as! [SpotPost]
+        else
+        {
+            self.spotPosts = spotPostsList?.data as! [SpotPost]
+            self.loadSpotPostCellsTextInfo() //when posts loaded we can add text info on cells
+        }
     }
     
     //First add must have info. Text info.

@@ -6,13 +6,15 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
+//!!!DO NOT COMMIT THIS FILE!!!
+
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate
 {
-    let APP_ID = "4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00"
-    let SECRET_KEY = "D1553446-10C2-A4E3-FFDF-AB5DEB65F800"
+    let APP_ID = "4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00" //App Id uses to generate links to files. Dont forget it
+    let SECRET_KEY = "A406030E-2CC8-5845-FF66-ADB6A424DB00"
     let VERSION_NUM = "v1"
     
     var backendless = Backendless.sharedInstance()
@@ -27,9 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let defaults = UserDefaults.standard
-        let token = defaults.string(forKey: "userLoggedIn")
+        let isUserLoggedIn = defaults.string(forKey: "userLoggedIn")
         
-        if(token != nil)
+        if(isUserLoggedIn != nil)
         {
             self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainFormController")
         }

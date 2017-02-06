@@ -174,12 +174,18 @@ extension MainFormController: MKMapViewDelegate
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         
         let spotDetailsPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotMainPhotoURLs/" + (spotPin.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
-        let imageURL = URL(string: spotDetailsPhotoURL)
-        let imageData = NSData(contentsOf: imageURL!)
         
-        let logo = UIImage(data: imageData as! Data)
+        DispatchQueue.global(qos: .userInteractive).async(execute: {
+            if let imageURL = URL(string: spotDetailsPhotoURL) {
+                if let imageData = NSData(contentsOf: imageURL) {
+                    let logo = UIImage(data: imageData as Data)
+                    DispatchQueue.main.async(execute: {
+                        imageView.image = logo
+                    })
+                }
+            }
+        })
         
-        imageView.image = logo
         imageView.layer.cornerRadius = imageView.frame.size.height / 8
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 0

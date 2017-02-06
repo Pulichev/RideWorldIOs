@@ -13,7 +13,7 @@
         <!--Login Controller-->
         <scene sceneID="O8p-QR-S3K">
             <objects>
-                <viewController storyboardIdentifier="LoginController" id="Qa7-P3-OGI" userLabel="Login Controller" customClass="LoginController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginController" id="Qa7-P3-OGI" userLabel="Login Controller" customClass="LoginController" customModule="SpotMap" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="a4O-xN-4ki"/>
                         <viewControllerLayoutGuide type="bottom" id="4Bd-CQ-gMq"/>
@@ -617,7 +617,7 @@
         <image name="respectActive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vya-rg-RYo"/>
-        <segue reference="XrL-fs-2O4"/>
+        <segue reference="eml-DT-HAU"/>
+        <segue reference="PBI-SR-cuB"/>
     </inferredMetricsTieBreakers>
 </document>

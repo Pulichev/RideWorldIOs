@@ -9,26 +9,27 @@
 /* Begin PBXBuildFile section */
 		731AD27307E50B3192B4422B /* Pods_SpotMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */; };
 		7E70B15F5DAC197C3216DA6E /* Pods_SpotMapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFE0AF727D03D36C374021 /* Pods_SpotMapUITests.framework */; };
-		9F07E4C51E3BB4520030A18C /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F07E4C41E3BB4520030A18C /* LoginController.swift */; };
-		9F07E4C71E3BB6580030A18C /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F07E4C61E3BB6580030A18C /* RegistrationController.swift */; };
-		9F113EB21E313188009AF9FD /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F113EB11E313188009AF9FD /* CustomPin.swift */; };
-		9F113EB41E313E04009AF9FD /* SpotDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F113EB31E313E04009AF9FD /* SpotDetailsController.swift */; };
-		9F113EB91E32A509009AF9FD /* SpotDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F113EB81E32A509009AF9FD /* SpotDetails.swift */; };
-		9F113EBB1E32A52F009AF9FD /* SpotPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F113EBA1E32A52F009AF9FD /* SpotPost.swift */; };
-		9F113EBD1E32A56E009AF9FD /* LoggedInUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F113EBC1E32A56E009AF9FD /* LoggedInUser.swift */; };
-		9F194B5C1E473B9C00D69170 /* plus-512.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9F194B5B1E473B9C00D69170 /* plus-512.gif */; };
-		9F61363C1E367618007AA7DE /* SpotPostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61363B1E367618007AA7DE /* SpotPostsCell.swift */; };
-		9F61363E1E37BC05007AA7DE /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61363D1E37BC05007AA7DE /* NewPostController.swift */; };
 		9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F65321B1E3CD12700F58C18 /* Assets.xcassets */; };
-		9F6532261E3E111500F58C18 /* PostLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6532251E3E111500F58C18 /* PostLike.swift */; };
-		9F6532281E439A6C00F58C18 /* SpotPostsCellCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6532271E439A6B00F58C18 /* SpotPostsCellCache.swift */; };
-		9F91C3061E33D762005BBEA8 /* NewSpotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F91C3051E33D762005BBEA8 /* NewSpotController.swift */; };
 		9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */; };
-		9FB681B81E2E70CE00D9A436 /* MainFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681B71E2E70CE00D9A436 /* MainFormController.swift */; };
 		9FB681BB1E2E70CE00D9A436 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681B91E2E70CE00D9A436 /* Main.storyboard */; };
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
 		9FB681CB1E2E70CE00D9A436 /* SpotMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681CA1E2E70CE00D9A436 /* SpotMapTests.swift */; };
 		9FB681D61E2E70CE00D9A436 /* SpotMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */; };
+		9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FC91E48E5E30097579B /* LoginController.swift */; };
+		9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCA1E48E5E30097579B /* MainFormController.swift */; };
+		9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCB1E48E5E30097579B /* NewPostController.swift */; };
+		9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCC1E48E5E30097579B /* NewSpotController.swift */; };
+		9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCD1E48E5E30097579B /* RegistrationController.swift */; };
+		9FC14FD41E48E5E30097579B /* SpotDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCE1E48E5E30097579B /* SpotDetailsController.swift */; };
+		9FC14FD61E48E7300097579B /* plus-512.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9FC14FD51E48E7300097579B /* plus-512.gif */; };
+		9FC14FD91E48E7510097579B /* SpotPostsCellCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FD81E48E7510097579B /* SpotPostsCellCache.swift */; };
+		9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDB1E48E7690097579B /* CustomPin.swift */; };
+		9FC14FDF1E48E7690097579B /* CustomPinAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDC1E48E7690097579B /* CustomPinAnnotation.swift */; };
+		9FC14FE01E48E7690097579B /* SpotPostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDD1E48E7690097579B /* SpotPostsCell.swift */; };
+		9FC14FE51E48E7790097579B /* LoggedInUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FE11E48E7790097579B /* LoggedInUser.swift */; };
+		9FC14FE61E48E7790097579B /* PostLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FE21E48E7790097579B /* PostLike.swift */; };
+		9FC14FE71E48E7790097579B /* SpotDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FE31E48E7790097579B /* SpotDetails.swift */; };
+		9FC14FE81E48E7790097579B /* SpotPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FE41E48E7790097579B /* SpotPost.swift */; };
 		AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,23 +59,9 @@
 		5A752A6ABE4F4F31D015688F /* Pods-SpotMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.debug.xcconfig"; sourceTree = "<group>"; };
 		8580589E3175367EF665865F /* Pods-SpotMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.release.xcconfig"; sourceTree = "<group>"; };
 		8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F07E4C41E3BB4520030A18C /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
-		9F07E4C61E3BB6580030A18C /* RegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
-		9F113EB11E313188009AF9FD /* CustomPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPin.swift; sourceTree = "<group>"; };
-		9F113EB31E313E04009AF9FD /* SpotDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotDetailsController.swift; sourceTree = "<group>"; };
-		9F113EB81E32A509009AF9FD /* SpotDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotDetails.swift; sourceTree = "<group>"; };
-		9F113EBA1E32A52F009AF9FD /* SpotPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPost.swift; sourceTree = "<group>"; };
-		9F113EBC1E32A56E009AF9FD /* LoggedInUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedInUser.swift; sourceTree = "<group>"; };
-		9F194B5B1E473B9C00D69170 /* plus-512.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "plus-512.gif"; sourceTree = "<group>"; };
-		9F61363B1E367618007AA7DE /* SpotPostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPostsCell.swift; sourceTree = "<group>"; };
-		9F61363D1E37BC05007AA7DE /* NewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostController.swift; sourceTree = "<group>"; };
 		9F65321B1E3CD12700F58C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9F6532251E3E111500F58C18 /* PostLike.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLike.swift; sourceTree = "<group>"; };
-		9F6532271E439A6B00F58C18 /* SpotPostsCellCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPostsCellCache.swift; sourceTree = "<group>"; };
-		9F91C3051E33D762005BBEA8 /* NewSpotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSpotController.swift; sourceTree = "<group>"; };
 		9FB681B21E2E70CE00D9A436 /* SpotMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9FB681B71E2E70CE00D9A436 /* MainFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFormController.swift; sourceTree = "<group>"; };
 		9FB681BA1E2E70CE00D9A436 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9FB681BF1E2E70CE00D9A436 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FB681C11E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,6 +71,21 @@
 		9FB681D11E2E70CE00D9A436 /* SpotMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMapUITests.swift; sourceTree = "<group>"; };
 		9FB681D71E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FC14FC91E48E5E30097579B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controllers/LoginController.swift; sourceTree = "<group>"; };
+		9FC14FCA1E48E5E30097579B /* MainFormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainFormController.swift; path = Controllers/MainFormController.swift; sourceTree = "<group>"; };
+		9FC14FCB1E48E5E30097579B /* NewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewPostController.swift; path = Controllers/NewPostController.swift; sourceTree = "<group>"; };
+		9FC14FCC1E48E5E30097579B /* NewSpotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewSpotController.swift; path = Controllers/NewSpotController.swift; sourceTree = "<group>"; };
+		9FC14FCD1E48E5E30097579B /* RegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegistrationController.swift; path = Controllers/RegistrationController.swift; sourceTree = "<group>"; };
+		9FC14FCE1E48E5E30097579B /* SpotDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotDetailsController.swift; path = Controllers/SpotDetailsController.swift; sourceTree = "<group>"; };
+		9FC14FD51E48E7300097579B /* plus-512.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "plus-512.gif"; path = "Pictures/plus-512.gif"; sourceTree = "<group>"; };
+		9FC14FD81E48E7510097579B /* SpotPostsCellCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotPostsCellCache.swift; path = Core/SpotPostsCellCache.swift; sourceTree = "<group>"; };
+		9FC14FDB1E48E7690097579B /* CustomPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPin.swift; path = CustomUIElements/CustomPin.swift; sourceTree = "<group>"; };
+		9FC14FDC1E48E7690097579B /* CustomPinAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPinAnnotation.swift; path = CustomUIElements/CustomPinAnnotation.swift; sourceTree = "<group>"; };
+		9FC14FDD1E48E7690097579B /* SpotPostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotPostsCell.swift; path = CustomUIElements/SpotPostsCell.swift; sourceTree = "<group>"; };
+		9FC14FE11E48E7790097579B /* LoggedInUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggedInUser.swift; path = Data/LoggedInUser.swift; sourceTree = "<group>"; };
+		9FC14FE21E48E7790097579B /* PostLike.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostLike.swift; path = Data/PostLike.swift; sourceTree = "<group>"; };
+		9FC14FE31E48E7790097579B /* SpotDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotDetails.swift; path = Data/SpotDetails.swift; sourceTree = "<group>"; };
+		9FC14FE41E48E7790097579B /* SpotPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotPost.swift; path = Data/SpotPost.swift; sourceTree = "<group>"; };
 		C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,28 +127,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		9F113EB51E32A3FE009AF9FD /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				9FB681B71E2E70CE00D9A436 /* MainFormController.swift */,
-				9F113EB31E313E04009AF9FD /* SpotDetailsController.swift */,
-				9F61363D1E37BC05007AA7DE /* NewPostController.swift */,
-				9F91C3051E33D762005BBEA8 /* NewSpotController.swift */,
-				9F61363B1E367618007AA7DE /* SpotPostsCell.swift */,
-				9F07E4C41E3BB4520030A18C /* LoginController.swift */,
-				9F07E4C61E3BB6580030A18C /* RegistrationController.swift */,
-				9F6532271E439A6B00F58C18 /* SpotPostsCellCache.swift */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
 		9F113EB71E32A4D3009AF9FD /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				9F113EB81E32A509009AF9FD /* SpotDetails.swift */,
-				9F113EBA1E32A52F009AF9FD /* SpotPost.swift */,
-				9F113EBC1E32A56E009AF9FD /* LoggedInUser.swift */,
-				9F6532251E3E111500F58C18 /* PostLike.swift */,
+				9FC14FE11E48E7790097579B /* LoggedInUser.swift */,
+				9FC14FE21E48E7790097579B /* PostLike.swift */,
+				9FC14FE31E48E7790097579B /* SpotDetails.swift */,
+				9FC14FE41E48E7790097579B /* SpotPost.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -154,7 +141,7 @@
 		9F2380721E34DA20009D41E8 /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
-				9F194B5B1E473B9C00D69170 /* plus-512.gif */,
+				9FC14FD51E48E7300097579B /* plus-512.gif */,
 			);
 			name = Pictures;
 			sourceTree = "<group>";
@@ -184,15 +171,16 @@
 		9FB681B41E2E70CE00D9A436 /* SpotMap */ = {
 			isa = PBXGroup;
 			children = (
+				9FC14FDA1E48E7590097579B /* CustomUIElements */,
+				9FC14FD71E48E7380097579B /* Core */,
+				9FC14FC61E48E5CB0097579B /* Controllers */,
 				9F2380721E34DA20009D41E8 /* Pictures */,
 				9F113EB71E32A4D3009AF9FD /* Data */,
-				9F113EB51E32A3FE009AF9FD /* Controllers */,
 				9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */,
 				9FB681B91E2E70CE00D9A436 /* Main.storyboard */,
 				9F65321B1E3CD12700F58C18 /* Assets.xcassets */,
 				9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */,
 				9FB681C11E2E70CE00D9A436 /* Info.plist */,
-				9F113EB11E313188009AF9FD /* CustomPin.swift */,
 			);
 			path = SpotMap;
 			sourceTree = "<group>";
@@ -213,6 +201,37 @@
 				9FB681D71E2E70CE00D9A436 /* Info.plist */,
 			);
 			path = SpotMapUITests;
+			sourceTree = "<group>";
+		};
+		9FC14FC61E48E5CB0097579B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9FC14FC91E48E5E30097579B /* LoginController.swift */,
+				9FC14FCA1E48E5E30097579B /* MainFormController.swift */,
+				9FC14FCB1E48E5E30097579B /* NewPostController.swift */,
+				9FC14FCC1E48E5E30097579B /* NewSpotController.swift */,
+				9FC14FCD1E48E5E30097579B /* RegistrationController.swift */,
+				9FC14FCE1E48E5E30097579B /* SpotDetailsController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		9FC14FD71E48E7380097579B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				9FC14FD81E48E7510097579B /* SpotPostsCellCache.swift */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		9FC14FDA1E48E7590097579B /* CustomUIElements */ = {
+			isa = PBXGroup;
+			children = (
+				9FC14FDB1E48E7690097579B /* CustomPin.swift */,
+				9FC14FDC1E48E7690097579B /* CustomPinAnnotation.swift */,
+				9FC14FDD1E48E7690097579B /* SpotPostsCell.swift */,
+			);
+			name = CustomUIElements;
 			sourceTree = "<group>";
 		};
 		CF90D077CFC09096E77DE243 /* Pods */ = {
@@ -348,7 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */,
-				9F194B5C1E473B9C00D69170 /* plus-512.gif in Resources */,
+				9FC14FD61E48E7300097579B /* plus-512.gif in Resources */,
 				9FB681BB1E2E70CE00D9A436 /* Main.storyboard in Resources */,
 				9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */,
 			);
@@ -513,20 +532,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F07E4C51E3BB4520030A18C /* LoginController.swift in Sources */,
-				9F113EBB1E32A52F009AF9FD /* SpotPost.swift in Sources */,
-				9F6532281E439A6C00F58C18 /* SpotPostsCellCache.swift in Sources */,
-				9F113EB91E32A509009AF9FD /* SpotDetails.swift in Sources */,
-				9F113EB21E313188009AF9FD /* CustomPin.swift in Sources */,
-				9F6532261E3E111500F58C18 /* PostLike.swift in Sources */,
-				9F91C3061E33D762005BBEA8 /* NewSpotController.swift in Sources */,
-				9FB681B81E2E70CE00D9A436 /* MainFormController.swift in Sources */,
-				9F61363C1E367618007AA7DE /* SpotPostsCell.swift in Sources */,
-				9F113EB41E313E04009AF9FD /* SpotDetailsController.swift in Sources */,
+				9FC14FE71E48E7790097579B /* SpotDetails.swift in Sources */,
+				9FC14FE81E48E7790097579B /* SpotPost.swift in Sources */,
+				9FC14FE61E48E7790097579B /* PostLike.swift in Sources */,
+				9FC14FD41E48E5E30097579B /* SpotDetailsController.swift in Sources */,
+				9FC14FE01E48E7690097579B /* SpotPostsCell.swift in Sources */,
+				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */,
-				9F61363E1E37BC05007AA7DE /* NewPostController.swift in Sources */,
-				9F07E4C71E3BB6580030A18C /* RegistrationController.swift in Sources */,
-				9F113EBD1E32A56E009AF9FD /* LoggedInUser.swift in Sources */,
+				9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */,
+				9FC14FE51E48E7790097579B /* LoggedInUser.swift in Sources */,
+				9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */,
+				9FC14FDF1E48E7690097579B /* CustomPinAnnotation.swift in Sources */,
+				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
+				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,
+				9FC14FD91E48E7510097579B /* SpotPostsCellCache.swift in Sources */,
+				9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,7 +24,6 @@
 		9FC14FD61E48E7300097579B /* plus-512.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9FC14FD51E48E7300097579B /* plus-512.gif */; };
 		9FC14FD91E48E7510097579B /* SpotPostsCellCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FD81E48E7510097579B /* SpotPostsCellCache.swift */; };
 		9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDB1E48E7690097579B /* CustomPin.swift */; };
-		9FC14FDF1E48E7690097579B /* CustomPinAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDC1E48E7690097579B /* CustomPinAnnotation.swift */; };
 		9FC14FE01E48E7690097579B /* SpotPostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDD1E48E7690097579B /* SpotPostsCell.swift */; };
 		9FC14FE51E48E7790097579B /* LoggedInUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FE11E48E7790097579B /* LoggedInUser.swift */; };
 		9FC14FE61E48E7790097579B /* PostLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FE21E48E7790097579B /* PostLike.swift */; };
@@ -80,7 +79,6 @@
 		9FC14FD51E48E7300097579B /* plus-512.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "plus-512.gif"; path = "Pictures/plus-512.gif"; sourceTree = "<group>"; };
 		9FC14FD81E48E7510097579B /* SpotPostsCellCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotPostsCellCache.swift; path = Core/SpotPostsCellCache.swift; sourceTree = "<group>"; };
 		9FC14FDB1E48E7690097579B /* CustomPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPin.swift; path = CustomUIElements/CustomPin.swift; sourceTree = "<group>"; };
-		9FC14FDC1E48E7690097579B /* CustomPinAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPinAnnotation.swift; path = CustomUIElements/CustomPinAnnotation.swift; sourceTree = "<group>"; };
 		9FC14FDD1E48E7690097579B /* SpotPostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotPostsCell.swift; path = CustomUIElements/SpotPostsCell.swift; sourceTree = "<group>"; };
 		9FC14FE11E48E7790097579B /* LoggedInUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggedInUser.swift; path = Data/LoggedInUser.swift; sourceTree = "<group>"; };
 		9FC14FE21E48E7790097579B /* PostLike.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostLike.swift; path = Data/PostLike.swift; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 			isa = PBXGroup;
 			children = (
 				9FC14FDB1E48E7690097579B /* CustomPin.swift */,
-				9FC14FDC1E48E7690097579B /* CustomPinAnnotation.swift */,
 				9FC14FDD1E48E7690097579B /* SpotPostsCell.swift */,
 			);
 			name = CustomUIElements;
@@ -542,7 +539,6 @@
 				9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */,
 				9FC14FE51E48E7790097579B /* LoggedInUser.swift in Sources */,
 				9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */,
-				9FC14FDF1E48E7690097579B /* CustomPinAnnotation.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
 				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,
 				9FC14FD91E48E7510097579B /* SpotPostsCellCache.swift in Sources */,

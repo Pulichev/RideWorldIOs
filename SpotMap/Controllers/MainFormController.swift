@@ -224,9 +224,6 @@ extension MainFormController: CLLocationManagerDelegate
     {
         let location = locations[0]
         
-        //print(location.altitude)
-        //print(location.speed)
-        
         self.mapView.showsUserLocation = true
     }
     

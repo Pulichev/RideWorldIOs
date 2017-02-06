@@ -184,7 +184,7 @@ extension MainFormController: MKMapViewDelegate
                     })
                 }
             }
-        })
+        }) 
         
         imageView.layer.cornerRadius = imageView.frame.size.height / 8
         imageView.layer.masksToBounds = true

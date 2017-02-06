@@ -1,7 +1,4 @@
 //
-//  ViewController.swift
-//  SpotMap
-//
 //  Created by Владислав Пуличев on 17.01.17.
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
@@ -14,7 +11,11 @@ class MainFormController: UIViewController
 {
     var backendless: Backendless!
     
+    var loggedInUser: LoggedInUser!
+    
     var spotsFromDB = [SpotDetails]()
+    
+    var spotDetailsForSendToSpotDetailsController: SpotDetails!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -28,16 +29,21 @@ class MainFormController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        let defaults = UserDefaults.standard
+        let token = defaults.string(forKey: "userLoggedIn")
+        
+        loggedInUser = LoggedInUser()
+        loggedInUser.userLogin = token
+        
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        //addPinOnMap()
         
         backendless = Backendless.sharedInstance()
         
-        //addSomeSpotsToDB()
         loadSpotsOnMap()
         setStartRegion()
         
@@ -72,11 +78,19 @@ class MainFormController: UIViewController
             pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
             pin.title = spot.spotName
             pin.subtitle = spot.spotDescription
-            pin.spotMainPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotMainPhotoURLs/" + (spot.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
+            pin.spotDetails = spot
             
-            //mapView.centerCoordinate = pin.coordinate
             mapView.addAnnotation(pin)
         }
+    }
+    
+    @IBAction func logoutButtonTapped(_ sender: Any)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(nil, forKey: "userLoggedIn")
+        defaults.synchronize()
+        
+        self.performSegue(withIdentifier: "userLogouted", sender: self)
     }
     
     func displayAdditionalOptions()
@@ -119,6 +133,13 @@ class MainFormController: UIViewController
 //MARK: - MKMapViewDelegate
 extension MainFormController: MKMapViewDelegate
 {
+    //download pictures and etc on tap on pin
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let customPin = view.annotation as! CustomPin
+        
+        configureDetailView(annotationView: view, spotPin: customPin.spotDetails)
+    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             return nil
@@ -138,14 +159,10 @@ extension MainFormController: MKMapViewDelegate
             annotationView!.annotation = annotation
         }
         
-        let cpa = annotation as! CustomPin
-        
-        configureDetailView(annotationView: annotationView!, spotDetailsPhoto: cpa.spotMainPhotoURL!)
-        
         return annotationView
     }
     
-    func configureDetailView(annotationView: MKAnnotationView, spotDetailsPhoto: String)
+    func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotDetails)
     {
         let width = 200
         let height = 200
@@ -155,7 +172,9 @@ extension MainFormController: MKMapViewDelegate
         snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[snapshotView(200)]", options: [], metrics: nil, views: views))
         snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[snapshotView(200)]", options: [], metrics: nil, views: views))
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        let imageURL = URL(string: spotDetailsPhoto)
+        
+        let spotDetailsPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotMainPhotoURLs/" + (spotPin.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
+        let imageURL = URL(string: spotDetailsPhotoURL)
         let imageData = NSData(contentsOf: imageURL!)
         
         let logo = UIImage(data: imageData as! Data)
@@ -176,6 +195,9 @@ extension MainFormController: MKMapViewDelegate
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl)
     {
         print("details tapped")
+        let customAnnotation = view.annotation as! CustomPin
+        self.spotDetailsForSendToSpotDetailsController = customAnnotation.spotDetails
+        
         self.performSegue(withIdentifier: "spotDetailsTapped", sender: self)
     }
 }
@@ -202,8 +224,8 @@ extension MainFormController: CLLocationManagerDelegate
     {
         let location = locations[0]
         
-        print(location.altitude)
-        print(location.speed)
+        //print(location.altitude)
+        //print(location.speed)
         
         self.mapView.showsUserLocation = true
     }
@@ -226,6 +248,12 @@ extension MainFormController: CLLocationManagerDelegate
             let newSpotController = (segue.destination as! NewSpotController)
             newSpotController.spotLatitude = mapView.userLocation.coordinate.latitude //Passing latitude
             newSpotController.spotLongitude = mapView.userLocation.coordinate.longitude //Passing latitude
+        }
+        
+        if(segue.identifier == "spotDetailsTapped")
+        {
+            let spotDetailsController = (segue.destination as! SpotDetailsController)
+            spotDetailsController.spotDetails = spotDetailsForSendToSpotDetailsController
         }
     }
 }

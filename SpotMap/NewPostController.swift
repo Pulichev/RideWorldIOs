@@ -1,24 +1,23 @@
 //
-//  CameraRollController.swift
+//  NewPostController.swift
 //  SpotMap
 //
-//  Created by Владислав Пуличев on 21.01.17.
+//  Created by Владислав Пуличев on 24.01.17.
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import MapKit
+import CoreLocation
 import MobileCoreServices
 
-class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
+class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate
 {
     var backendless: Backendless!
     
-    var spotLatitude: Double!
-    var spotLongitude: Double!
+    var spotDetails: SpotDetails!
     
-    @IBOutlet weak var spotTitle: UITextField!
-    @IBOutlet weak var spotDescription: UITextField!
+    @IBOutlet weak var postDescription: UITextView!
     
     @IBOutlet weak var imageView: UIImageView!
     var newMedia: Bool?
@@ -26,20 +25,32 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINa
     override func viewDidLoad()
     {
         backendless = Backendless.sharedInstance()
-        
         imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
-
+        placeBorderOnTextField()
+        
         //adding method on spot main photo tap
         let tap = UITapGestureRecognizer(target:self, action:#selector(takePhoto(_:)))
         imageView.addGestureRecognizer(tap)
         imageView.isUserInteractionEnabled = true
         
-        self.spotTitle.delegate = self
-        self.spotDescription.delegate = self
+        self.postDescription.delegate = self
         
         //For scrolling the view if keyboard on
-        NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func placeBorderOnTextField()
+    {
+        postDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
+        postDescription.layer.borderWidth = 1.0
+        postDescription.layer.cornerRadius = 5
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        let numberOfChars = newText.characters.count
+        return numberOfChars < 150
     }
     
     @IBAction func takePhoto(_ sender: Any)
@@ -99,25 +110,36 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     @IBAction func saveSpotDetails(_ sender: Any)
     {
-        let spotDetails = SpotDetails()
-        spotDetails.latitude = self.spotLatitude
-        spotDetails.longitude = self.spotLongitude
-        spotDetails.spotName = self.spotTitle.text!
-        spotDetails.spotDescription = self.spotDescription.text!
+        let defaults = UserDefaults.standard
+        let userId = defaults.string(forKey: "userLoggedInObjectId")
         
-        let savedSpotID = backendless.persistenceService.of(spotDetails.ofClass()).save(spotDetails) as! SpotDetails
-        uploadRecordSync(spotID: savedSpotID.objectId!)
+        let spotPost = SpotPost()
+        spotPost.userId = userId
+        spotPost.spotId = spotDetails.objectId
+        spotPost.postDescription = self.postDescription.text
         
-        self.performSegue(withIdentifier: "completeAdding", sender: self) //back to map
+        let savedSpotPostID = backendless.persistenceService.of(spotPost.ofClass()).save(spotPost) as! SpotPost
+        uploadRecordSync(postId: savedSpotPostID.objectId!)
+        
+        self.performSegue(withIdentifier: "backToPosts", sender: self) //back to spot posts
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if(segue.identifier == "backToPosts")
+        {
+            let spotDetailsController = (segue.destination as! SpotDetailsController)
+            spotDetailsController.spotDetails = self.spotDetails
+        }
     }
     
     //Uploading files with the SYNC API
-    func uploadRecordSync(spotID: String)
+    func uploadRecordSync(postId: String)
     {
         Types.tryblock({ () -> Void in
             
-            let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.1)!
-            let uploadedFile = self.backendless.fileService.saveFile("media/spotMainPhotoURLs/" + spotID.replacingOccurrences(of: "-", with: "") + ".jpeg", content: data, overwriteIfExist: true)
+            let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.3)!
+            let uploadedFile = self.backendless.fileService.saveFile("media/SpotPostPhotos/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg", content: data, overwriteIfExist: true)
             print("File has been uploaded. File URL is - \(uploadedFile?.fileURL)")
         },
                        catchblock: { (exception) -> Void in
@@ -127,7 +149,6 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     //PART FOR RESIZE VIEW WHEN KEYBOARD ON
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    
     var bottomConstraintValue: CGFloat = 40.0 //Start value of constraint
     
     //Function of changing bottom constraint
@@ -143,7 +164,7 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINa
             bottomConstraintValue = 40.0
         }
         
-        UIView.animate(withDuration: 1.5, animations: { () -> Void in
+        UIView.animate(withDuration: 3.0, animations: { () -> Void in
             self.bottomConstraint.constant = self.bottomConstraintValue
         })
     }

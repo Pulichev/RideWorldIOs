@@ -11,6 +11,6 @@ import MapKit
 
 class CustomPin: MKPointAnnotation
 {
-    var spotMainPhotoURL: String?
+    var spotDetails: SpotDetails!
 }
 

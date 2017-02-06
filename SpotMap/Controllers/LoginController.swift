@@ -34,10 +34,8 @@ class LoginController: UIViewController, UITextFieldDelegate
     {
         let backendless = Backendless.sharedInstance()
         
-        backendless?.userService.login(
-            userLogin.text, password:userPassword.text,
+        backendless?.userService.login(userLogin.text, password:userPassword.text,
             response: { ( user : BackendlessUser?) -> Void in
-                
                 let defaults = UserDefaults.standard
                 defaults.set(self.userLogin.text, forKey: "userLoggedIn")
                 defaults.set(user?.objectId, forKey: "userLoggedInObjectId")

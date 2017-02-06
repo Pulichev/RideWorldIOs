@@ -5,6 +5,7 @@
 //  Created by Владислав Пуличев on 23.01.17.
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
+//  Using this class to cache text info from SpotPostCells
 
 import Foundation
 
@@ -32,7 +33,7 @@ class SpotPostsCellCache
         var error: Fault?
         let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
         
-        if(likesList!.data.count == 1) {
+        if(likesList!.data.count == 1) { //If user has liked this post already
             postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
         }

@@ -6,15 +6,17 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
+//BEL - BackEndLess
+
 import Foundation
 
 class SpotPost: NSObject
 {
-    var objectId: String?
+    var objectId: String? //this is BEL const
+    var created: Date?    //this is BEL const too
     
     var spotId: String?
-    var created: Date?
-    
     var userId: String?
+    
     var postDescription: String?
 }

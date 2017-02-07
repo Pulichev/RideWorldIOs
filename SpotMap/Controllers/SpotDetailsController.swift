@@ -41,20 +41,12 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         
         let spotPostsList = self.backendless.data.of(SpotPost.ofClass()).find(dataQuery, fault: &error)
         
-        if error != nil {
-            //when no posts on this spot
-            let whenNoPostsAvailable = SpotPost()
-            whenNoPostsAvailable.postDescription = ""
-            whenNoPostsAvailable.spotId = self.spotDetails.objectId
-            whenNoPostsAvailable.userId = ""
-            whenNoPostsAvailable.objectId = "noPosts" //passing this id cz our picture from server called noPosts.jpeg
-            
-            self.spotPosts.insert(whenNoPostsAvailable, at: 0)
-            print("Server reported an error: \(spotPostsList)")
-        }
-        else {
+        if error == nil {
             self.spotPosts = spotPostsList?.data as! [SpotPost]
             self.loadSpotPostCellsTextInfo() //when posts loaded we can add text info on cells
+        }
+        else {
+            print("Server reported an error: \(error?.message)")
         }
     }
     
@@ -104,10 +96,8 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         cell.postIsLiked = cellFromCache.postIsLiked
         cell.isLikedPhoto.image = cellFromCache.isLikedPhoto.image
         setImageOnCellFromCacheOrDownload(cell: cell, cacheKey: row) //cell.spotPostPhoto setting async
+        cell.addDoubleTapGestureOnPostPhotos()
         
-        DispatchQueue.main.async {
-            cell.addDoubleTapGestureOnPostPhotos()
-        }
         return cell
     }
     

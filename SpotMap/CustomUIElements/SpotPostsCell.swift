@@ -17,18 +17,17 @@ class SpotPostsCell: UITableViewCell {
     @IBOutlet weak var postDate: UILabel!
     @IBOutlet weak var postDescription: UITextView!
     @IBOutlet weak var isLikedPhoto: UIImageView!
-    var postIsLiked: Bool!
     @IBOutlet weak var likesCount: UILabel!
+    var postIsLiked: Bool!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        //         Initialization code
+        //Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        //          Configure the view for the selected state
+        //Configure the view for the selected state
     }
     
     func addDoubleTapGestureOnPostPhotos() {
@@ -40,17 +39,13 @@ class SpotPostsCell: UITableViewCell {
     }
     
     func postLiked(_ sender: Any) {
-        let backendless = Backendless.sharedInstance()
+        backendless = Backendless.sharedInstance()
         
         let defaults = UserDefaults.standard
         let userId = defaults.string(forKey: "userLoggedInObjectId")
         
         if(!self.postIsLiked) {
-            let postLike = PostLike()
-            postLike.postId = self.postId
-            postLike.userId = userId
-            
-            backendless?.persistenceService.of(PostLike.ofClass()).save(postLike)
+            addNewLike(userId: userId!)
             
             self.postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
@@ -58,21 +53,36 @@ class SpotPostsCell: UITableViewCell {
             self.likesCount.text = String(countOfLikesInt! + 1)
         }
         else {
-            //1) Finding postlike object of this cell
-            //2) Delete this object from database
-            let whereClause = "postId = '\(self.postId!)' AND userId = '\(userId!)'"
-            let dataQuery = BackendlessDataQuery()
-            dataQuery.whereClause = whereClause
-            
-            var error: Fault?
-            let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error) //Finding
-            
-            backendless?.persistenceService.of(PostLike.ofClass()).remove(likesList?.data[0]) //Deleting
+            removeExistedLike(userId: userId!)
             
             self.postIsLiked = false
             self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
             let countOfLikesInt = Int(self.likesCount.text!)
             self.likesCount.text = String(countOfLikesInt! - 1)
+        }
+    }
+    
+    func addNewLike(userId: String) {
+        let postLike = PostLike()
+        postLike.postId = self.postId
+        postLike.userId = userId
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.backendless.persistenceService.of(PostLike.ofClass()).save(postLike)
+        }
+    }
+    
+    func removeExistedLike(userId: String) {
+        let whereClause = "postId = '\(self.postId!)' AND userId = '\(userId)'"
+        let dataQuery = BackendlessDataQuery()
+        dataQuery.whereClause = whereClause
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            var error: Fault?
+            //1) Finding postlike object of this cell
+            let likesList = self.backendless.data.of(PostLike.ofClass()).find(dataQuery, fault: &error) //Finding
+            //2) Delete this object from database
+            self.backendless.persistenceService.of(PostLike.ofClass()).remove(likesList?.data[0]) //Deleting
         }
     }
 }

@@ -36,7 +36,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
             userLogin.text, password:userPassword.text, response: {
                 (user : BackendlessUser?) -> Void in
                 self.setDefaultsForUser(user: user!)
-
+                
                 self.performSegue(withIdentifier: "loggedIn", sender: self)
         },
             error: { ( fault : Fault?) -> Void in

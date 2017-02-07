@@ -9,8 +9,7 @@
 
 import Foundation
 
-class SpotPostsCellCache
-{
+class SpotPostsCellCache {
     var backendless = Backendless.sharedInstance()
     
     var postId = String()
@@ -21,8 +20,7 @@ class SpotPostsCellCache
     var postIsLiked = Bool()
     var likesCount = Int()
     
-    func userLikedThisPost()
-    {
+    func userLikedThisPost() {
         let defaults = UserDefaults.standard
         let userId = defaults.string(forKey: "userLoggedInObjectId")
         
@@ -33,7 +31,7 @@ class SpotPostsCellCache
         var error: Fault?
         let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
         
-        if(likesList!.data.count == 1) { //If user has liked this post already
+        if (likesList!.data.count == 1) { //If user has liked this post already
             postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
         }
@@ -43,12 +41,10 @@ class SpotPostsCellCache
         }
     }
     
-    func countPostLikes()
-    {
+    func countPostLikes() {
         let whereClause = "postId = '\(self.postId)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
-        
         var error: Fault?
         let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
         likesCount = likesList!.data.count

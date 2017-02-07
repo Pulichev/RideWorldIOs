@@ -37,17 +37,21 @@ class RegistrationController: UIViewController {
         user.name = userLogin.text as NSString!
         let addedUser = backendless?.userService.registering(user)
         
-        let defaults = UserDefaults.standard
-        defaults.set(self.userEmail.text, forKey: "userLoggedIn")
-        defaults.set(addedUser?.objectId, forKey: "userLoggedInObjectId")
-        defaults.set(user.name, forKey: "userLoggedInNickName")
-        defaults.synchronize()
+        setUserDefaults(userObjectId: addedUser?.objectId as! String, userName: user.name as String)
         
         self.performSegue(withIdentifier: "registrationCompleted", sender: self)
     }
     
+    func setUserDefaults(userObjectId: String, userName: String) {
+        let defaults = UserDefaults.standard
+        defaults.set(self.userEmail.text, forKey: "userLoggedIn")
+        defaults.set(userObjectId, forKey: "userLoggedInObjectId")
+        defaults.set(userName, forKey: "userLoggedInNickName")
+        defaults.synchronize()
+    }
+    
     var keyBoardAlreadyShowed = false //using this to not let app to scroll view
-                                      //if we tapped UITextField and then another UITextField
+    //if we tapped UITextField and then another UITextField
     func keyboardWillShow(notification: NSNotification) {
         if !keyBoardAlreadyShowed {
             self.view.frame.origin.y -= 150

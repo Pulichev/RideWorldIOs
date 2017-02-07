@@ -12,7 +12,7 @@ import CoreLocation
 import MobileCoreServices
 
 class NewPostController: UIViewController, UIImagePickerControllerDelegate,
-                         UINavigationControllerDelegate, UITextViewDelegate {
+UINavigationControllerDelegate, UITextViewDelegate {
     
     var backendless: Backendless!
     
@@ -25,13 +25,8 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate,
     
     override func viewDidLoad() {
         backendless = Backendless.sharedInstance()
-        imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
-        placeBorderOnTextField()
         
-        //adding method on spot main photo tap
-        let tap = UITapGestureRecognizer(target:self, action:#selector(takePhoto(_:)))
-        imageView.addGestureRecognizer(tap)
-        imageView.isUserInteractionEnabled = true
+        UICustomizing()
         
         self.postDescription.delegate = self
         
@@ -40,10 +35,24 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate,
         NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
+    func UICustomizing() {
+        //adding method on spot main photo tap
+        addGestureToOpenCameraOnPhotoTap()
+        
+        imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
+        placeBorderOnTextField()
+    }
+    
     func placeBorderOnTextField() {
         postDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
         postDescription.layer.borderWidth = 1.0
         postDescription.layer.cornerRadius = 5
+    }
+    
+    func addGestureToOpenCameraOnPhotoTap() {
+        let tap = UITapGestureRecognizer(target:self, action:#selector(takePhoto(_:)))
+        imageView.addGestureRecognizer(tap)
+        imageView.isUserInteractionEnabled = true
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -57,8 +66,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate,
             let imagePicker = UIImagePickerController()
             
             imagePicker.delegate = self
-            imagePicker.sourceType =
-                UIImagePickerControllerSourceType.camera
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.mediaTypes = [kUTTypeImage as String]
             imagePicker.allowsEditing = false
             
@@ -83,8 +91,8 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate,
             imageView.layer.borderWidth = 0
             
             if (newMedia == true) {
-                UIImageWriteToSavedPhotosAlbum(image, self,
-                                               #selector(NewSpotController.image(image:didFinishSavingWithError:contextInfo:)), nil)
+                UIImageWriteToSavedPhotosAlbum(
+                    image, self, #selector(NewSpotController.image(image:didFinishSavingWithError:contextInfo:)), nil)
             } else if mediaType.isEqual(to: kUTTypeMovie as String) {
                 // Code to support video here
             }
@@ -114,9 +122,19 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate,
         spotPost.postDescription = self.postDescription.text
         
         let savedSpotPostID = backendless.persistenceService.of(spotPost.ofClass()).save(spotPost) as! SpotPost
-        uploadRecordSync(postId: savedSpotPostID.objectId!)
+        uploadPhoto(postId: savedSpotPostID.objectId!)
         
         self.performSegue(withIdentifier: "backToPosts", sender: self) //back to spot posts
+    }
+    
+    //Uploading files with the SYNC API
+    func uploadPhoto(postId: String) {
+        let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.3)!
+        let postPhotoUrl = "media/SpotPostPhotos/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
+        DispatchQueue.global(qos: .userInitiated).async {
+            let uploadedFile = self.backendless.fileService.saveFile(postPhotoUrl, content: data, overwriteIfExist: true)
+            print("File has been uploaded. File URL is - \(uploadedFile?.fileURL)")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -126,21 +144,8 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate,
         }
     }
     
-    //Uploading files with the SYNC API
-    func uploadRecordSync(postId: String) {
-        Types.tryblock({ () -> Void in
-            
-            let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.3)!
-            let uploadedFile = self.backendless.fileService.saveFile("media/SpotPostPhotos/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg", content: data, overwriteIfExist: true)
-            print("File has been uploaded. File URL is - \(uploadedFile?.fileURL)")
-        },
-                       catchblock: { (exception) -> Void in
-                        print("Server reported an error: \(exception as! Fault)")
-        })
-    }
-    
     var keyBoardAlreadyShowed = false //using this to not let app to scroll view
-                                      //if we tapped UITextField and then another UITextField
+    //if we tapped UITextField and then another UITextField
     func keyboardWillShow(notification: NSNotification) {
         if !keyBoardAlreadyShowed {
             self.view.frame.origin.y -= 200

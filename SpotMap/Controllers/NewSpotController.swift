@@ -11,7 +11,7 @@ import UIKit
 import MobileCoreServices
 
 class NewSpotController: UIViewController, UIImagePickerControllerDelegate,
-                         UINavigationControllerDelegate, UITextFieldDelegate {
+UINavigationControllerDelegate, UITextFieldDelegate {
     
     var backendless: Backendless!
     
@@ -28,7 +28,7 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate,
         backendless = Backendless.sharedInstance()
         
         imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
-
+        
         //adding method on spot main photo tap
         let tap = UITapGestureRecognizer(target:self, action:#selector(takePhoto(_:)))
         imageView.addGestureRecognizer(tap)
@@ -102,26 +102,23 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate,
         spotDetails.spotDescription = self.spotDescription.text!
         
         let savedSpotID = backendless.persistenceService.of(spotDetails.ofClass()).save(spotDetails) as! SpotDetails
-        uploadRecordSync(spotID: savedSpotID.objectId!)
+        uploadPhoto(spotID: savedSpotID.objectId!)
         
         self.performSegue(withIdentifier: "completeAdding", sender: self) //back to map
     }
     
     //Uploading files with the SYNC API
-    func uploadRecordSync(spotID: String) {
-        Types.tryblock({ () -> Void in
-            
-            let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.1)!
-            let uploadedFile = self.backendless.fileService.saveFile("media/spotMainPhotoURLs/" + spotID.replacingOccurrences(of: "-", with: "") + ".jpeg", content: data, overwriteIfExist: true)
+    func uploadPhoto(spotID: String) {
+        let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.1)!
+        let spotPhotoUrl = "media/spotMainPhotoURLs/" + spotID.replacingOccurrences(of: "-", with: "") + ".jpeg"
+        DispatchQueue.global(qos: .userInitiated).async {
+            let uploadedFile = self.backendless.fileService.saveFile(spotPhotoUrl, content: data, overwriteIfExist: true)
             print("File has been uploaded. File URL is - \(uploadedFile?.fileURL)")
-        },
-                       catchblock: { (exception) -> Void in
-                        print("Server reported an error: \(exception as! Fault)")
-        })
+        }
     }
     
     var keyBoardAlreadyShowed = false //using this to not let app to scroll view
-                                      //if we tapped UITextField and then another UITextField
+    //if we tapped UITextField and then another UITextField
     func keyboardWillShow(notification: NSNotification) {
         if !keyBoardAlreadyShowed {
             self.view.frame.origin.y -= 200

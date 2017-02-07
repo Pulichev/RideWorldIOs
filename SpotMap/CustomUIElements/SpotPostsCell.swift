@@ -8,8 +8,7 @@
 
 import Foundation
 
-class SpotPostsCell: UITableViewCell
-{
+class SpotPostsCell: UITableViewCell {
     var backendless: Backendless!
     
     var postId: String?
@@ -32,8 +31,7 @@ class SpotPostsCell: UITableViewCell
         //          Configure the view for the selected state
     }
     
-    func addDoubleTapGestureOnPostPhotos()
-    {
+    func addDoubleTapGestureOnPostPhotos() {
         //adding method on spot main photo tap
         let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
         tap.numberOfTapsRequired = 2
@@ -41,15 +39,13 @@ class SpotPostsCell: UITableViewCell
         spotPostPhoto.isUserInteractionEnabled = true
     }
     
-    func postLiked(_ sender: Any)
-    {
+    func postLiked(_ sender: Any) {
         let backendless = Backendless.sharedInstance()
         
         let defaults = UserDefaults.standard
         let userId = defaults.string(forKey: "userLoggedInObjectId")
         
-        if(!self.postIsLiked)
-        {
+        if(!self.postIsLiked) {
             let postLike = PostLike()
             postLike.postId = self.postId
             postLike.userId = userId
@@ -61,8 +57,7 @@ class SpotPostsCell: UITableViewCell
             let countOfLikesInt = Int(self.likesCount.text!)
             self.likesCount.text = String(countOfLikesInt! + 1)
         }
-        else
-        {
+        else {
             //1) Finding postlike object of this cell
             //2) Delete this object from database
             let whereClause = "postId = '\(self.postId!)' AND userId = '\(userId!)'"

@@ -8,8 +8,8 @@
 
 import Foundation
 
-class SpotDetails: NSObject
-{
+class SpotDetails: NSObject {
+    
     var objectId: String?
     var spotName: String = "Name"
     var spotDescription: String = "Desc"

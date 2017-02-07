@@ -7,8 +7,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MainFormController: UIViewController
-{
+class MainFormController: UIViewController {
     var backendless: Backendless!
     
     var spotsFromDB = [SpotDetails]()
@@ -24,8 +23,7 @@ class MainFormController: UIViewController
         return manager
     }()
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         backendless = Backendless.sharedInstance()
@@ -34,8 +32,7 @@ class MainFormController: UIViewController
         loadSpotsOnMap()
     }
     
-    func mapViewInitialize()
-    {
+    func mapViewInitialize() {
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -50,8 +47,7 @@ class MainFormController: UIViewController
         //openMapInTransitMode()
     }
     
-    func loadSpotsOnMap()
-    {
+    func loadSpotsOnMap() {
         let whereClause = ""
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
@@ -69,8 +65,7 @@ class MainFormController: UIViewController
         addPinsOnMap(spotList: spotsFromDB)
     }
     
-    func addPinsOnMap(spotList: [SpotDetails])
-    {
+    func addPinsOnMap(spotList: [SpotDetails]) {
         for spot in spotList {
             let pin = CustomPin()
             pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
@@ -82,8 +77,7 @@ class MainFormController: UIViewController
         }
     }
     
-    @IBAction func logoutButtonTapped(_ sender: Any)
-    {
+    @IBAction func logoutButtonTapped(_ sender: Any) {
         let defaults = UserDefaults.standard
         defaults.set(nil, forKey: "userLoggedIn")
         defaults.synchronize()
@@ -91,15 +85,13 @@ class MainFormController: UIViewController
         self.performSegue(withIdentifier: "userLogouted", sender: self)
     }
     
-    func displayAdditionalOptions()
-    {
+    func displayAdditionalOptions() {
         mapView.showsCompass = true
         mapView.showsTraffic = true
         mapView.showsScale = true
     }
     
-    func displayInFlyoverMode()
-    {
+    func displayInFlyoverMode() {
         mapView.mapType = .satelliteFlyover
         mapView.showsBuildings = true
         
@@ -112,8 +104,7 @@ class MainFormController: UIViewController
         mapView.setCamera(camera, animated: true)
     }
     
-    func openMapInTransitMode()
-    {
+    func openMapInTransitMode() {
         let startLocation = CLLocationCoordinate2D(latitude: 51.50722, longitude: -0.12750)
         let startPlacemark = MKPlacemark(coordinate: startLocation, addressDictionary: nil)
         let start = MKMapItem(placemark: startPlacemark)
@@ -129,8 +120,7 @@ class MainFormController: UIViewController
 }
 
 //MARK: - MKMapViewDelegate
-extension MainFormController: MKMapViewDelegate
-{
+extension MainFormController: MKMapViewDelegate {
     //download pictures and etc on tap on pin
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let customPin = view.annotation as! CustomPin
@@ -160,8 +150,7 @@ extension MainFormController: MKMapViewDelegate
         return annotationView
     }
     
-    func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotDetails)
-    {
+    func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotDetails) {
         let width = 200
         let height = 200
         
@@ -196,8 +185,7 @@ extension MainFormController: MKMapViewDelegate
         annotationView.rightCalloutAccessoryView = btn
     }
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl)
-    {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("details tapped")
         let customAnnotation = view.annotation as! CustomPin
         self.spotDetailsForSendToSpotDetailsController = customAnnotation.spotDetails
@@ -207,52 +195,43 @@ extension MainFormController: MKMapViewDelegate
 }
 
 //MARK: - CLLocationManagerDelegate
-extension MainFormController: CLLocationManagerDelegate
-{
-    func setStartRegion()
-    {
+extension MainFormController: CLLocationManagerDelegate {
+    func setStartRegion() {
         let span:MKCoordinateSpan = MKCoordinateSpanMake(0.1, 0.1)
         let myLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(55.925314, 37.824127)
         let region:MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
         mapView.setRegion(region, animated: true)
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
-    {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if case .authorizedWhenInUse = status {
             manager.requestLocation()
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        let location = locations[0]
         
         self.mapView.showsUserLocation = true
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
-    {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("CLLocationManager error: \(error.localizedDescription)")
     }
     
-    @IBAction func AddNewSpot(_ sender: Any)
-    {
+    @IBAction func AddNewSpot(_ sender: Any) {
         self.performSegue(withIdentifier: "addNewSpot", sender: self)
     }
     
     //Overriding function for passing data through two views
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if(segue.identifier == "addNewSpot")
-        {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "addNewSpot") {
             let newSpotController = (segue.destination as! NewSpotController)
             newSpotController.spotLatitude = mapView.userLocation.coordinate.latitude //Passing latitude
             newSpotController.spotLongitude = mapView.userLocation.coordinate.longitude //Passing latitude
         }
         
-        if(segue.identifier == "spotDetailsTapped")
-        {
+        if(segue.identifier == "spotDetailsTapped") {
             let spotDetailsController = (segue.destination as! SpotDetailsController)
             spotDetailsController.spotDetails = spotDetailsForSendToSpotDetailsController
         }

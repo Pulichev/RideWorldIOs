@@ -8,16 +8,15 @@
 
 import Foundation
 
-class RegistrationController: UIViewController
-{
+class RegistrationController: UIViewController {
+    
     var backendless: Backendless!
     
     @IBOutlet weak var userEmail: UITextField!
     @IBOutlet weak var userLogin: UITextField!
     @IBOutlet weak var userPassword: UITextField!
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         //For scrolling the view if keyboard on
         NotificationCenter.default.addObserver(self, selector: #selector(RegistrationController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RegistrationController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -25,14 +24,12 @@ class RegistrationController: UIViewController
         super.viewDidLoad()
     }
     
-    override func didReceiveMemoryWarning()
-    {
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func signUpButtonTapped(_ sender: Any)
-    {
+    @IBAction func signUpButtonTapped(_ sender: Any) {
         let backendless = Backendless.sharedInstance()
         let user: BackendlessUser = BackendlessUser()
         user.email = userEmail.text as NSString!

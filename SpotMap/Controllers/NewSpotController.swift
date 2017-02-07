@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 import MobileCoreServices
 
-class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate
-{
+class NewSpotController: UIViewController, UIImagePickerControllerDelegate,
+                         UINavigationControllerDelegate, UITextFieldDelegate {
+    
     var backendless: Backendless!
     
     var spotLatitude: Double!
@@ -23,8 +24,7 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINa
     @IBOutlet weak var imageView: UIImageView!
     var newMedia: Bool?
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         backendless = Backendless.sharedInstance()
         
         imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
@@ -42,10 +42,8 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINa
         NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    @IBAction func takePhoto(_ sender: Any)
-    {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
-        {
+    @IBAction func takePhoto(_ sender: Any) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
             
             imagePicker.delegate = self
@@ -83,8 +81,7 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
-    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafeRawPointer)
-    {
+    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafeRawPointer) {
         if error != nil {
             let alert = UIAlertController(title: "Save Failed",
                                           message: "Failed to save image",
@@ -97,8 +94,7 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
-    @IBAction func saveSpotDetails(_ sender: Any)
-    {
+    @IBAction func saveSpotDetails(_ sender: Any) {
         let spotDetails = SpotDetails()
         spotDetails.latitude = self.spotLatitude
         spotDetails.longitude = self.spotLongitude
@@ -112,8 +108,7 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINa
     }
     
     //Uploading files with the SYNC API
-    func uploadRecordSync(spotID: String)
-    {
+    func uploadRecordSync(spotID: String) {
         Types.tryblock({ () -> Void in
             
             let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.1)!

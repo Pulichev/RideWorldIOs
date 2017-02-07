@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LoggedInUser
-{
+class LoggedInUser {
+    
     var userLogin: String!
 }

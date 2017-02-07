@@ -10,8 +10,8 @@
 
 import Foundation
 
-class SpotPost: NSObject
-{
+class SpotPost: NSObject {
+    
     var objectId: String? //this is BEL const
     var created: Date?    //this is BEL const too
     

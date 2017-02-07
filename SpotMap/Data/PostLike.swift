@@ -8,8 +8,8 @@
 
 import Foundation
 
-class PostLike: NSObject
-{
+class PostLike: NSObject {
+    
     var objectId: String?
     
     var postId: String?

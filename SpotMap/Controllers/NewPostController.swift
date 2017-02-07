@@ -11,8 +11,9 @@ import MapKit
 import CoreLocation
 import MobileCoreServices
 
-class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate
-{
+class NewPostController: UIViewController, UIImagePickerControllerDelegate,
+                         UINavigationControllerDelegate, UITextViewDelegate {
+    
     var backendless: Backendless!
     
     var spotDetails: SpotDetails!
@@ -22,8 +23,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
     @IBOutlet weak var imageView: UIImageView!
     var newMedia: Bool?
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         backendless = Backendless.sharedInstance()
         imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
         placeBorderOnTextField()
@@ -40,8 +40,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
         NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    func placeBorderOnTextField()
-    {
+    func placeBorderOnTextField() {
         postDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
         postDescription.layer.borderWidth = 1.0
         postDescription.layer.cornerRadius = 5
@@ -53,10 +52,8 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
         return numberOfChars < 150
     }
     
-    @IBAction func takePhoto(_ sender: Any)
-    {
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
-        {
+    @IBAction func takePhoto(_ sender: Any) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
             
             imagePicker.delegate = self
@@ -94,8 +91,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
-    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafeRawPointer)
-    {
+    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafeRawPointer) {
         if error != nil {
             let alert = UIAlertController(title: "Save Failed",
                                           message: "Failed to save image",
@@ -108,8 +104,7 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
         }
     }
     
-    @IBAction func saveSpotDetails(_ sender: Any)
-    {
+    @IBAction func saveSpotDetails(_ sender: Any) {
         let defaults = UserDefaults.standard
         let userId = defaults.string(forKey: "userLoggedInObjectId")
         
@@ -124,18 +119,15 @@ class NewPostController: UIViewController, UIImagePickerControllerDelegate, UINa
         self.performSegue(withIdentifier: "backToPosts", sender: self) //back to spot posts
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if(segue.identifier == "backToPosts")
-        {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "backToPosts") {
             let spotDetailsController = (segue.destination as! SpotDetailsController)
             spotDetailsController.spotDetails = self.spotDetails
         }
     }
     
     //Uploading files with the SYNC API
-    func uploadRecordSync(postId: String)
-    {
+    func uploadRecordSync(postId: String) {
         Types.tryblock({ () -> Void in
             
             let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.3)!

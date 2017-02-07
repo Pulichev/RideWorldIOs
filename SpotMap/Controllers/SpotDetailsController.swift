@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SpotDetailsController: UIViewController, UITableViewDataSource, UITableViewDelegate
-{
+class SpotDetailsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
     var backendless: Backendless!
     
     @IBOutlet weak var tableView: UITableView!
@@ -21,8 +21,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     var imageCache = NSMutableDictionary()
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         backendless = Backendless.sharedInstance()
         
         loadSpotPosts()
@@ -33,8 +32,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
     }
     
-    func loadSpotPosts()
-    {
+    func loadSpotPosts() {
         let whereClause = "spotId = '\(spotDetails.objectId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
@@ -43,8 +41,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         
         let spotPostsList = self.backendless.data.of(SpotPost.ofClass()).find(dataQuery, fault: &error)
         
-        if error != nil
-        {
+        if error != nil {
             //when no posts on this spot
             let whenNoPostsAvailable = SpotPost()
             whenNoPostsAvailable.postDescription = ""
@@ -55,21 +52,18 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             self.spotPosts.insert(whenNoPostsAvailable, at: 0)
             print("Server reported an error: \(spotPostsList)")
         }
-        else
-        {
+        else {
             self.spotPosts = spotPostsList?.data as! [SpotPost]
             self.loadSpotPostCellsTextInfo() //when posts loaded we can add text info on cells
         }
     }
     
     //First add must have info. Text info.
-    func loadSpotPostCellsTextInfo()
-    {
+    func loadSpotPostCellsTextInfo() {
         var i = 0
         let userNickName = getUserNickName()
         
-        for spot in spotPosts
-        {
+        for spot in spotPosts {
             let newSpotPostCellCache = SpotPostsCellCache()
             
             newSpotPostCellCache.postId = spot.objectId!
@@ -89,18 +83,15 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     //Main table filling region
-    func numberOfSections(in tableView: UITableView) -> Int
-    {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.spotPosts.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotPostsCell", for: indexPath) as! SpotPostsCell
         let row = indexPath.row
         let cellFromCache = spotPostsCellsCache[row]
@@ -120,8 +111,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
-    func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int)
-    {
+    func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
         //Downloading and caching images
         let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (spotPosts[cacheKey].objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
         
@@ -143,13 +133,11 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         } //end downloading and caching images
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func getUserNickName() -> String
-    {
+    func getUserNickName() -> String {
         let defaults = UserDefaults.standard
         let userNickName = defaults.string(forKey: "userLoggedInNickName")
         
@@ -157,15 +145,12 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     //ENDTABLE filling region
     
-    @IBAction func addNewPost(_ sender: Any)
-    {
+    @IBAction func addNewPost(_ sender: Any) {
         self.performSegue(withIdentifier: "addNewPost", sender: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if(segue.identifier == "addNewPost")
-        {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "addNewPost") {
             let newPostController = (segue.destination as! NewPostController)
             newPostController.spotDetails = self.spotDetails
         }

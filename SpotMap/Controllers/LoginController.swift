@@ -9,15 +9,14 @@
 import Foundation
 import UIKit
 
-class LoginController: UIViewController, UITextFieldDelegate
-{
+class LoginController: UIViewController, UITextFieldDelegate {
+    
     @IBOutlet weak var userLogin: UITextField!
     @IBOutlet weak var userPassword: UITextField!
     
     @IBOutlet weak var errorLabel: UILabel!
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         errorLabel.text = "" //Make no errors
         
         self.userLogin.delegate = self
@@ -30,32 +29,35 @@ class LoginController: UIViewController, UITextFieldDelegate
         super.viewDidLoad()
     }
     
-    @IBAction func loginButtonTapped(_ sender: Any)
-    {
+    @IBAction func loginButtonTapped(_ sender: Any) {
         let backendless = Backendless.sharedInstance()
         
-        backendless?.userService.login(userLogin.text, password:userPassword.text,
-                                       response: { ( user : BackendlessUser?) -> Void in
-                                        let defaults = UserDefaults.standard
-                                        defaults.set(self.userLogin.text, forKey: "userLoggedIn")
-                                        defaults.set(user?.objectId, forKey: "userLoggedInObjectId")
-                                        defaults.set(user?.name, forKey: "userLoggedInNickName")
-                                        defaults.synchronize()
-                                        
-                                        self.performSegue(withIdentifier: "loggedIn", sender: self)
+        backendless?.userService.login(
+            userLogin.text, password:userPassword.text, response: {
+                (user : BackendlessUser?) -> Void in
+                self.setDefaultsForUser(user: user!)
+
+                self.performSegue(withIdentifier: "loggedIn", sender: self)
         },
-                                       error: { ( fault : Fault?) -> Void in
-                                        self.errorLabel.text = "Wrong login or password!"
+            error: { ( fault : Fault?) -> Void in
+                self.errorLabel.text = "Wrong login or password!"
         })
     }
     
-    @IBAction func registrationButtonTapped(_ sender: Any)
-    {
+    func setDefaultsForUser(user: BackendlessUser) {
+        let defaults = UserDefaults.standard
+        defaults.set(self.userLogin.text, forKey: "userLoggedIn")
+        defaults.set(user.objectId, forKey: "userLoggedInObjectId")
+        defaults.set(user.name, forKey: "userLoggedInNickName")
+        defaults.synchronize()
+    }
+    
+    @IBAction func registrationButtonTapped(_ sender: Any) {
         self.performSegue(withIdentifier: "registration", sender: self)
     }
     
     var keyBoardAlreadyShowed = false //using this to not let app to scroll view
-                                      //if we tapped UITextField and then another UITextField
+    //if we tapped UITextField and then another UITextField
     func keyboardWillShow(notification: NSNotification) {
         if !keyBoardAlreadyShowed {
             self.view.frame.origin.y -= 50

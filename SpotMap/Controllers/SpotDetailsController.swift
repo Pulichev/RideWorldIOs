@@ -67,6 +67,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     {
         var i = 0
         let userNickName = getUserNickName()
+        
         for spot in spotPosts
         {
             let newSpotPostCellCache = SpotPostsCellCache()
@@ -98,8 +99,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         return self.spotPosts.count
     }
     
-    //ЗАПОЛНИТЬ В ОТДЕЛЬНОМ ПОТОКЕ ВСЕ ТЕКСТОВЫЕ ПОЛЯ
-    //В ДРУГОМ ФОТКИ
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotPostsCell", for: indexPath) as! SpotPostsCell
@@ -107,10 +106,25 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         let cellFromCache = spotPostsCellsCache[row]
         
         cell.postId = cellFromCache.postId
+        cell.userNickName.text = cellFromCache.userNickName.text
+        cell.postDate.text = cellFromCache.postDate.text
+        cell.postDescription.text = cellFromCache.postDescription.text
+        cell.likesCount.text = String(cellFromCache.likesCount)
+        cell.postIsLiked = cellFromCache.postIsLiked
+        cell.isLikedPhoto.image = cellFromCache.isLikedPhoto.image
+        setImageOnCellFromCacheOrDownload(cell: cell, cacheKey: row) //cell.spotPostPhoto setting async
         
+        DispatchQueue.main.async {
+            cell.addDoubleTapGestureOnPostPhotos()
+        }
+        return cell
+    }
+    
+    func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int)
+    {
         //Downloading and caching images
-        let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (spotPosts[row].objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
-        let cacheKey = indexPath.row
+        let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (spotPosts[cacheKey].objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
+        
         if (self.imageCache.object(forKey: cacheKey) != nil) {
             cell.spotPostPhoto.image = self.imageCache.object(forKey: cacheKey) as? UIImage
         } else {
@@ -119,25 +133,14 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                     if let data = NSData(contentsOf: url) {
                         let image: UIImage = UIImage(data: data as Data)!
                         self.imageCache.setObject(image, forKey: cacheKey as NSCopying)
+                        
                         DispatchQueue.main.async(execute: {
                             cell.spotPostPhoto.image = image
                         })
                     }
                 }
             })
-        } //end d and c images
-        
-        cell.userNickName.text = cellFromCache.userNickName.text
-        cell.postDate.text = cellFromCache.postDate.text
-        cell.postDescription.text = cellFromCache.postDescription.text
-        cell.likesCount.text = String(cellFromCache.likesCount)
-        cell.postIsLiked = cellFromCache.postIsLiked
-        cell.isLikedPhoto.image = cellFromCache.isLikedPhoto.image
-        
-        DispatchQueue.main.async {
-            cell.addDoubleTapGestureOnPostPhotos()
-        }
-        return cell
+        } //end downloading and caching images
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)

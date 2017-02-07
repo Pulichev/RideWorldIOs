@@ -11,8 +11,6 @@ class MainFormController: UIViewController
 {
     var backendless: Backendless!
     
-    var loggedInUser: LoggedInUser!
-    
     var spotsFromDB = [SpotDetails]()
     
     var spotDetailsForSendToSpotDetailsController: SpotDetails!
@@ -30,23 +28,23 @@ class MainFormController: UIViewController
     {
         super.viewDidLoad()
         
-        let defaults = UserDefaults.standard
-        let token = defaults.string(forKey: "userLoggedIn")
+        backendless = Backendless.sharedInstance()
         
-        loggedInUser = LoggedInUser()
-        loggedInUser.userLogin = token
-        
+        mapViewInitialize()
+        loadSpotsOnMap()
+    }
+    
+    func mapViewInitialize()
+    {
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        backendless = Backendless.sharedInstance()
-        
-        loadSpotsOnMap()
         setStartRegion()
         
+        //Some map customisation
         //displayAdditionalOptions()
         //displayInFlyoverMode()
         //openMapInTransitMode()

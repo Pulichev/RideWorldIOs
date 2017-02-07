@@ -106,7 +106,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomConstraint" destination="FEX-HM-thQ" id="Gok-Oh-sZq"/>
                         <outlet property="errorLabel" destination="nwl-x1-o0F" id="dTe-8W-MbI"/>
                         <outlet property="userLogin" destination="TcQ-Ca-XWa" id="kUb-mi-g4i"/>
                         <outlet property="userPassword" destination="8Mi-bf-7Oa" id="YP1-jg-Yso"/>
@@ -184,7 +183,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomConstraint" destination="jZY-DG-pkd" id="f0h-5r-Ggf"/>
                         <outlet property="userEmail" destination="gbV-ec-zR7" id="xd7-B6-Lvg"/>
                         <outlet property="userLogin" destination="885-uW-Tnk" id="UgX-vH-fRG"/>
                         <outlet property="userPassword" destination="6z7-RQ-RwM" id="6Pq-bK-tpt"/>
@@ -345,10 +343,10 @@
             </objects>
             <point key="canvasLocation" x="1548.75" y="884.15492957746483"/>
         </scene>
-        <!--Camera Roll Controller-->
+        <!--New Spot Controller-->
         <scene sceneID="hrt-Z5-8f9">
             <objects>
-                <viewController id="28g-9l-NVL" userLabel="Camera Roll Controller" customClass="NewSpotController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="28g-9l-NVL" customClass="NewSpotController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7bo-0z-85p"/>
                         <viewControllerLayoutGuide type="bottom" id="2Fa-YJ-abt"/>
@@ -400,7 +398,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomConstraint" destination="oZd-AI-wF6" id="Wqd-Uc-LRE"/>
                         <outlet property="imageView" destination="JKR-dD-JOV" id="6ik-dV-K7T"/>
                         <outlet property="spotDescription" destination="KNT-dO-hMW" id="rBL-5M-X7s"/>
                         <outlet property="spotTitle" destination="b0b-S2-wIf" id="fgi-8X-h0L"/>
@@ -431,7 +428,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="474"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kZK-Ti-fyZ" id="f8k-cG-rM6">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="473"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="473.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IQd-HU-KSF">
@@ -599,7 +596,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomConstraint" destination="KvX-I1-j9P" id="A7r-i5-qqu"/>
                         <outlet property="imageView" destination="Gwm-Jr-XS3" id="hql-WT-RA1"/>
                         <outlet property="postDescription" destination="b6x-qq-LDc" id="Off-0L-KpR"/>
                         <segue destination="LlJ-V1-BNZ" kind="presentation" identifier="backToPosts" id="XrL-fs-2O4"/>
@@ -617,7 +613,7 @@
         <image name="respectActive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eml-DT-HAU"/>
-        <segue reference="PBI-SR-cuB"/>
+        <segue reference="Vya-rg-RYo"/>
+        <segue reference="XrL-fs-2O4"/>
     </inferredMetricsTieBreakers>
 </document>

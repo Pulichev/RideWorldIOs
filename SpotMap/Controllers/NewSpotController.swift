@@ -125,40 +125,21 @@ class NewSpotController: UIViewController, UIImagePickerControllerDelegate, UINa
         })
     }
     
-    //PART FOR RESIZE VIEW WHEN KEYBOARD ON
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    
-    var bottomConstraintValue: CGFloat = 40.0 //Start value of constraint
-    
-    //Function of changing bottom constraint
-    func adjustingHeight(show:Bool, notification:NSNotification) {
-        
-        var userInfo = notification.userInfo!
-        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        if show == true {
-            if bottomConstraintValue == 40.0 {
-                bottomConstraintValue = (keyboardFrame.height + 40.0)
-            }
-        } else {
-            bottomConstraintValue = 40.0
+    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
+                                      //if we tapped UITextField and then another UITextField
+    func keyboardWillShow(notification: NSNotification) {
+        if !keyBoardAlreadyShowed {
+            self.view.frame.origin.y -= 200
+            keyBoardAlreadyShowed = true
         }
-        
-        UIView.animate(withDuration: 1.5, animations: { () -> Void in
-            self.bottomConstraint.constant = self.bottomConstraintValue
-        })
     }
     
-    func keyboardWillShow(notification:NSNotification) {
-        adjustingHeight(show: true, notification: notification)
+    func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y += 200
+        keyBoardAlreadyShowed = false
     }
     
-    func keyboardWillHide(notification:NSNotification) {
-        adjustingHeight(show: false, notification: notification)
-    }
-    
-    //This is for the keyboard to GO AWAYY !! when user clicks anywhere on the view
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    //END PART
 }

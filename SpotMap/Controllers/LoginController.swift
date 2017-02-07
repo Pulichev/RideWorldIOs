@@ -35,17 +35,17 @@ class LoginController: UIViewController, UITextFieldDelegate
         let backendless = Backendless.sharedInstance()
         
         backendless?.userService.login(userLogin.text, password:userPassword.text,
-            response: { ( user : BackendlessUser?) -> Void in
-                let defaults = UserDefaults.standard
-                defaults.set(self.userLogin.text, forKey: "userLoggedIn")
-                defaults.set(user?.objectId, forKey: "userLoggedInObjectId")
-                defaults.set(user?.name, forKey: "userLoggedInNickName")
-                defaults.synchronize()
-                
-                self.performSegue(withIdentifier: "loggedIn", sender: self)
+                                       response: { ( user : BackendlessUser?) -> Void in
+                                        let defaults = UserDefaults.standard
+                                        defaults.set(self.userLogin.text, forKey: "userLoggedIn")
+                                        defaults.set(user?.objectId, forKey: "userLoggedInObjectId")
+                                        defaults.set(user?.name, forKey: "userLoggedInNickName")
+                                        defaults.synchronize()
+                                        
+                                        self.performSegue(withIdentifier: "loggedIn", sender: self)
         },
-            error: { ( fault : Fault?) -> Void in
-                self.errorLabel.text = "Wrong login or password!"
+                                       error: { ( fault : Fault?) -> Void in
+                                        self.errorLabel.text = "Wrong login or password!"
         })
     }
     
@@ -54,37 +54,20 @@ class LoginController: UIViewController, UITextFieldDelegate
         self.performSegue(withIdentifier: "registration", sender: self)
     }
     
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    //Start value of constraint
-    var bottomConstraintValue: CGFloat = 174.0
-    
-    //Function of changing bottom constraint
-    func adjustingHeight(show:Bool, notification:NSNotification) {
-        
-        var userInfo = notification.userInfo!
-        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        if show == true {
-            if bottomConstraintValue == 174.0 {
-                bottomConstraintValue = (keyboardFrame.height + 40.0)
-            }
-        } else {
-            bottomConstraintValue = 174.0
+    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
+                                      //if we tapped UITextField and then another UITextField
+    func keyboardWillShow(notification: NSNotification) {
+        if !keyBoardAlreadyShowed {
+            self.view.frame.origin.y -= 50
+            keyBoardAlreadyShowed = true
         }
-        
-        UIView.animate(withDuration: 5.0, animations: { () -> Void in
-            self.bottomConstraint.constant = self.bottomConstraintValue
-        })
     }
     
-    func keyboardWillShow(notification:NSNotification) {
-        adjustingHeight(show: true, notification: notification)
+    func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y += 50
+        keyBoardAlreadyShowed = false
     }
     
-    func keyboardWillHide(notification:NSNotification) {
-        adjustingHeight(show: false, notification: notification)
-    }
-    
-    //This is for the keyboard to GO AWAYY !! when user clicks anywhere on the view
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }

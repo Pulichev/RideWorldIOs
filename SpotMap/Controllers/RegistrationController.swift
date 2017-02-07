@@ -31,41 +31,6 @@ class RegistrationController: UIViewController
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    //Start value of constraint
-    var bottomConstraintValue: CGFloat = 40.0
-    
-    //Function of changing bottom constraint
-    func adjustingHeight(show:Bool, notification:NSNotification) {
-        
-        var userInfo = notification.userInfo!
-        let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
-        if show == true {
-            if bottomConstraintValue == 40.0 {
-                bottomConstraintValue = (keyboardFrame.height + 40.0)
-            }
-        } else {
-            bottomConstraintValue = 40.0
-        }
-        
-        UIView.animate(withDuration: 1.5, animations: { () -> Void in
-            self.bottomConstraint.constant = self.bottomConstraintValue
-        })
-    }
-    
-    func keyboardWillShow(notification:NSNotification) {
-        adjustingHeight(show: true, notification: notification)
-    }
-    
-    func keyboardWillHide(notification:NSNotification) {
-        adjustingHeight(show: false, notification: notification)
-    }
-    
-    //This is for the keyboard to GO AWAYY !! when user clicks anywhere on the view
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
     @IBAction func signUpButtonTapped(_ sender: Any)
     {
         let backendless = Backendless.sharedInstance()
@@ -82,5 +47,23 @@ class RegistrationController: UIViewController
         defaults.synchronize()
         
         self.performSegue(withIdentifier: "registrationCompleted", sender: self)
+    }
+    
+    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
+                                      //if we tapped UITextField and then another UITextField
+    func keyboardWillShow(notification: NSNotification) {
+        if !keyBoardAlreadyShowed {
+            self.view.frame.origin.y -= 150
+            keyBoardAlreadyShowed = true
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y += 150
+        keyBoardAlreadyShowed = false
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

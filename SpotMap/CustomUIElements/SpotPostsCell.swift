@@ -20,6 +20,8 @@ class SpotPostsCell: UITableViewCell {
     @IBOutlet weak var likesCount: UILabel!
     var postIsLiked: Bool!
     
+    var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         //Initialization code
@@ -39,6 +41,7 @@ class SpotPostsCell: UITableViewCell {
     }
     
     func postLiked(_ sender: Any) {
+        userLikedOrDeletedLike = true
         backendless = Backendless.sharedInstance()
         
         let defaults = UserDefaults.standard

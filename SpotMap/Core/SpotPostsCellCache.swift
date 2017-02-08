@@ -29,9 +29,10 @@ class SpotPostsCellCache {
         dataQuery.whereClause = whereClause
         
         var error: Fault?
-        let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
         
-        if (likesList!.data.count == 1) { //If user has liked this post already
+        let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
+            
+        if (likesList!.data.count != 0) { //If user has liked this post already
             postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
         }
@@ -48,5 +49,18 @@ class SpotPostsCellCache {
         var error: Fault?
         let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
         likesCount = likesList!.data.count
+    }
+    
+    func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked
+        if (!postIsLiked) { //If user has liked this post already
+            postIsLiked = true
+            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+            likesCount += 1
+        }
+        else {
+            postIsLiked = false
+            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+            likesCount -= 1
+        }
     }
 }

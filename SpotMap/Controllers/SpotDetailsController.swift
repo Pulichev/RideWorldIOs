@@ -86,6 +86,12 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotPostsCell", for: indexPath) as! SpotPostsCell
         let row = indexPath.row
+        
+        if cell.userLikedOrDeletedLike { //when cell appears checking if like was tapped
+            cell.userLikedOrDeletedLike = false
+            updateCellLikesCache(objectId: cell.postId!) //if yes updating cache
+        }
+        
         let cellFromCache = spotPostsCellsCache[row]
         
         cell.postId = cellFromCache.postId
@@ -95,6 +101,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         cell.likesCount.text = String(cellFromCache.likesCount)
         cell.postIsLiked = cellFromCache.postIsLiked
         cell.isLikedPhoto.image = cellFromCache.isLikedPhoto.image
+        cell.spotPostPhoto.image = nil //start initialise. To not provide duplication of cells photos
         setImageOnCellFromCacheOrDownload(cell: cell, cacheKey: row) //cell.spotPostPhoto setting async
         cell.addDoubleTapGestureOnPostPhotos()
         
@@ -121,6 +128,16 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                 }
             })
         } //end downloading and caching images
+    }
+    
+    func updateCellLikesCache(objectId: String) {
+        for postCellCache in spotPostsCellsCache {
+            if postCellCache.postId == objectId {
+                DispatchQueue.main.async {
+                    postCellCache.changeLikeToDislikeAndViceVersa()
+                }
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

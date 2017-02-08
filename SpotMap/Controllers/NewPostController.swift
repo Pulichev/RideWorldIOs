@@ -10,6 +10,8 @@ import UIKit
 import MapKit
 import CoreLocation
 import MobileCoreServices
+import AVKit
+import AVFoundation
 
 class NewPostController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UITextViewDelegate {
@@ -21,7 +23,9 @@ UINavigationControllerDelegate, UITextViewDelegate {
     @IBOutlet weak var postDescription: UITextView!
     
     @IBOutlet weak var imageView: UIImageView!
+    var newVideoUrl: Any!
     var newMedia: Bool?
+    var isNewMediaIsPhoto: Bool? //if true - photo, false - video
     
     override func viewDidLoad() {
         backendless = Backendless.sharedInstance()
@@ -50,7 +54,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
     }
     
     func addGestureToOpenCameraOnPhotoTap() {
-        let tap = UITapGestureRecognizer(target:self, action:#selector(takePhoto(_:)))
+        let tap = UITapGestureRecognizer(target:self, action:#selector(takeMedia(_:)))
         imageView.addGestureRecognizer(tap)
         imageView.isUserInteractionEnabled = true
     }
@@ -61,7 +65,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
         return numberOfChars < 150
     }
     
-    @IBAction func takePhoto(_ sender: Any) {
+    @IBAction func takeMedia(_ sender: Any) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
             
@@ -81,7 +85,9 @@ UINavigationControllerDelegate, UITextViewDelegate {
         
         self.dismiss(animated: true, completion: nil)
         
-        if mediaType.isEqual(to: kUTTypeImage as String) {
+        if mediaType.isEqual(to: kUTTypeImage as String) { //photo
+            self.isNewMediaIsPhoto = true
+            
             let image = info[UIImagePickerControllerOriginalImage]
                 as! UIImage
             
@@ -91,16 +97,27 @@ UINavigationControllerDelegate, UITextViewDelegate {
             imageView.layer.borderWidth = 0
             
             UIImageWriteToSavedPhotosAlbum(image, self,
-                #selector(NewPostController.image(image:didFinishSavingWithError:contextInfo:)), nil)
+                                           #selector(NewPostController.image(image:didFinishSavingWithError:contextInfo:)), nil)
         } else { //video
-            let mediaType = info[UIImagePickerControllerMediaType] as! NSString
-            dismiss(animated: true, completion: nil)
+            self.isNewMediaIsPhoto = false
+            
             // Handle a movie capture
             if mediaType == kUTTypeMovie {
-                guard let path = (info[UIImagePickerControllerMediaURL] as! NSURL).path else { return }
+                //TODO: Add returning video on new post details like photo
+                
+                
+                //                let player = AVPlayer(url: (info[UIImagePickerControllerMediaURL] as! NSURL) as URL!)
+                //                let playerLayer = AVPlayerLayer(player: player)
+                //                playerLayer.frame = self.view.bounds
+                //                self.view.layer.addSublayer(playerLayer)
+                //                player.play()
+                
+                self.newVideoUrl = info[UIImagePickerControllerMediaURL]
+                
+                guard let path = (self.newVideoUrl as! NSURL).path else { return }
                 if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
                     UISaveVideoAtPathToSavedPhotosAlbum(path, self,
-                        #selector(NewPostController.video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
+                                                        #selector(NewPostController.video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
                 }
             }
         }
@@ -112,23 +129,20 @@ UINavigationControllerDelegate, UITextViewDelegate {
                                           message: "Failed to save image",
                                           preferredStyle: UIAlertControllerStyle.alert)
             
-            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            
-            alert.addAction(cancelAction)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }
     
     func video(videoPath: NSString, didFinishSavingWithError error: NSError?, contextInfo info: AnyObject) {
-        var title = "Success"
-        var message = "Video was saved"
-        if let _ = error {
-            title = "Error"
-            message = "Video failed to save"
+        if error != nil {
+            let alert = UIAlertController(title: "Save Failed",
+                                          message: "Failed to save video",
+                                          preferredStyle: UIAlertControllerStyle.alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func saveSpotDetails(_ sender: Any) {
@@ -141,7 +155,11 @@ UINavigationControllerDelegate, UITextViewDelegate {
         spotPost.postDescription = self.postDescription.text
         
         let savedSpotPostID = backendless.persistenceService.of(spotPost.ofClass()).save(spotPost) as! SpotPost
-        uploadPhoto(postId: savedSpotPostID.objectId!) //add check if its video
+        if (self.isNewMediaIsPhoto)! {
+            uploadPhoto(postId: savedSpotPostID.objectId!)
+        } else {
+            uploadVideo(postId: savedSpotPostID.objectId!)
+        }
         
         self.performSegue(withIdentifier: "backToPosts", sender: self) //back to spot posts
     }
@@ -152,7 +170,21 @@ UINavigationControllerDelegate, UITextViewDelegate {
         let postPhotoUrl = "media/SpotPostPhotos/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
         DispatchQueue.global(qos: .userInitiated).async {
             let uploadedFile = self.backendless.fileService.saveFile(postPhotoUrl, content: data, overwriteIfExist: true)
-            print("File has been uploaded. File URL is - \(uploadedFile?.fileURL)")
+            print("File has been uploaded. File URL is - \(uploadedFile?.fileURL!)")
+        }
+    }
+    
+    func uploadVideo(postId: String) {
+        do {
+            let data = try Data(contentsOf: self.newVideoUrl as! URL, options: .mappedIfSafe)
+            
+            let postVideoUrl = "media/SpotPostVideos/" + postId.replacingOccurrences(of: "-", with: "") + ".m4v"
+            DispatchQueue.global(qos: .userInitiated).async {
+                let uploadedFile = self.backendless.fileService.saveFile(postVideoUrl, content: data, overwriteIfExist: true)
+                print("File has been uploaded. File URL is - \(uploadedFile?.fileURL!)")
+            }
+        } catch {
+            print(error)
         }
     }
     

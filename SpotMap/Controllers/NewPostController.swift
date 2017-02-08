@@ -21,8 +21,9 @@ UINavigationControllerDelegate, UITextViewDelegate {
     var spotDetails: SpotDetails!
     
     @IBOutlet weak var postDescription: UITextView!
+    @IBOutlet weak var photoOrVideoView: UIView!
+    var imageView = UIImageView()
     
-    @IBOutlet weak var imageView: UIImageView!
     var newVideoUrl: Any!
     var newMedia: Bool?
     var isNewMediaIsPhoto: Bool? //if true - photo, false - video
@@ -44,6 +45,9 @@ UINavigationControllerDelegate, UITextViewDelegate {
         addGestureToOpenCameraOnPhotoTap()
         
         imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
+        imageView.layer.frame = self.photoOrVideoView.bounds
+        photoOrVideoView.layer.addSublayer(imageView.layer)
+        
         placeBorderOnTextField()
     }
     
@@ -55,8 +59,8 @@ UINavigationControllerDelegate, UITextViewDelegate {
     
     func addGestureToOpenCameraOnPhotoTap() {
         let tap = UITapGestureRecognizer(target:self, action:#selector(takeMedia(_:)))
-        imageView.addGestureRecognizer(tap)
-        imageView.isUserInteractionEnabled = true
+        photoOrVideoView.addGestureRecognizer(tap)
+        photoOrVideoView.isUserInteractionEnabled = true
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -79,6 +83,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
         }
     }
     
+    //TODO: MAKE NOT AN IMAGE IN CELLS, SPOTADD and etc -> UIVIEW
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
@@ -92,9 +97,9 @@ UINavigationControllerDelegate, UITextViewDelegate {
                 as! UIImage
             
             imageView.image = image
-            imageView.layer.cornerRadius = imageView.frame.size.height / 8
-            imageView.layer.masksToBounds = true
-            imageView.layer.borderWidth = 0
+            imageView.layer.frame = self.photoOrVideoView.bounds
+            
+            self.photoOrVideoView.layer.addSublayer(imageView.layer)
             
             UIImageWriteToSavedPhotosAlbum(image, self,
                                            #selector(NewPostController.image(image:didFinishSavingWithError:contextInfo:)), nil)
@@ -105,12 +110,13 @@ UINavigationControllerDelegate, UITextViewDelegate {
             if mediaType == kUTTypeMovie {
                 //TODO: Add returning video on new post details like photo
                 
+                let player = AVPlayer(url: (info[UIImagePickerControllerMediaURL] as! NSURL) as URL!)
+                let playerLayer = AVPlayerLayer(player: player)
+                playerLayer.frame = self.photoOrVideoView.bounds
                 
-                //                let player = AVPlayer(url: (info[UIImagePickerControllerMediaURL] as! NSURL) as URL!)
-                //                let playerLayer = AVPlayerLayer(player: player)
-                //                playerLayer.frame = self.view.bounds
-                //                self.view.layer.addSublayer(playerLayer)
-                //                player.play()
+                self.photoOrVideoView.layer.addSublayer(playerLayer)
+                
+                player.play()
                 
                 self.newVideoUrl = info[UIImagePickerControllerMediaURL]
                 

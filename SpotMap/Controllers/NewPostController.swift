@@ -67,7 +67,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
             
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-            imagePicker.mediaTypes = [kUTTypeImage as String]
+            imagePicker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as NSString as String]
             imagePicker.allowsEditing = false
             
             self.present(imagePicker, animated: true, completion: nil)
@@ -90,11 +90,18 @@ UINavigationControllerDelegate, UITextViewDelegate {
             imageView.layer.masksToBounds = true
             imageView.layer.borderWidth = 0
             
-            if (newMedia == true) {
-                UIImageWriteToSavedPhotosAlbum(
-                    image, self, #selector(NewSpotController.image(image:didFinishSavingWithError:contextInfo:)), nil)
-            } else if mediaType.isEqual(to: kUTTypeMovie as String) {
-                // Code to support video here
+            UIImageWriteToSavedPhotosAlbum(image, self,
+                #selector(NewPostController.image(image:didFinishSavingWithError:contextInfo:)), nil)
+        } else { //video
+            let mediaType = info[UIImagePickerControllerMediaType] as! NSString
+            dismiss(animated: true, completion: nil)
+            // Handle a movie capture
+            if mediaType == kUTTypeMovie {
+                guard let path = (info[UIImagePickerControllerMediaURL] as! NSURL).path else { return }
+                if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
+                    UISaveVideoAtPathToSavedPhotosAlbum(path, self,
+                        #selector(NewPostController.video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
+                }
             }
         }
     }
@@ -112,6 +119,18 @@ UINavigationControllerDelegate, UITextViewDelegate {
         }
     }
     
+    func video(videoPath: NSString, didFinishSavingWithError error: NSError?, contextInfo info: AnyObject) {
+        var title = "Success"
+        var message = "Video was saved"
+        if let _ = error {
+            title = "Error"
+            message = "Video failed to save"
+        }
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func saveSpotDetails(_ sender: Any) {
         let defaults = UserDefaults.standard
         let userId = defaults.string(forKey: "userLoggedInObjectId")
@@ -122,7 +141,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
         spotPost.postDescription = self.postDescription.text
         
         let savedSpotPostID = backendless.persistenceService.of(spotPost.ofClass()).save(spotPost) as! SpotPost
-        uploadPhoto(postId: savedSpotPostID.objectId!)
+        uploadPhoto(postId: savedSpotPostID.objectId!) //add check if its video
         
         self.performSegue(withIdentifier: "backToPosts", sender: self) //back to spot posts
     }

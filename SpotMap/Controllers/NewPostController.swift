@@ -22,9 +22,9 @@ UINavigationControllerDelegate, UITextViewDelegate {
     
     @IBOutlet weak var postDescription: UITextView!
     @IBOutlet weak var photoOrVideoView: UIView!
-    var imageView = UIImageView()
-    
+
     var newVideoUrl: Any!
+    var newPhoto: UIImage!
     var newMedia: Bool?
     var isNewMediaIsPhoto: Bool? //if true - photo, false - video
     
@@ -43,7 +43,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
     func UICustomizing() {
         //adding method on spot main photo tap
         addGestureToOpenCameraOnPhotoTap()
-        
+        let imageView = UIImageView()
         imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
         imageView.layer.frame = self.photoOrVideoView.bounds
         photoOrVideoView.layer.addSublayer(imageView.layer)
@@ -63,6 +63,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
         photoOrVideoView.isUserInteractionEnabled = true
     }
     
+    //TextView max count of symbols = 150
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
         let numberOfChars = newText.characters.count
@@ -86,6 +87,8 @@ UINavigationControllerDelegate, UITextViewDelegate {
     //TODO: MAKE NOT AN IMAGE IN CELLS, SPOTADD and etc -> UIVIEW
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
+        self.photoOrVideoView.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
+        
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
         
         self.dismiss(animated: true, completion: nil)
@@ -93,9 +96,11 @@ UINavigationControllerDelegate, UITextViewDelegate {
         if mediaType.isEqual(to: kUTTypeImage as String) { //photo
             self.isNewMediaIsPhoto = true
             
+            let imageView = UIImageView()
             let image = info[UIImagePickerControllerOriginalImage]
                 as! UIImage
             
+            self.newPhoto = image
             imageView.image = image
             imageView.layer.frame = self.photoOrVideoView.bounds
             
@@ -172,7 +177,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
     
     //Uploading files with the SYNC API
     func uploadPhoto(postId: String) {
-        let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.3)!
+        let data: Data = UIImageJPEGRepresentation(self.newPhoto!, 0.3)!
         let postPhotoUrl = "media/SpotPostPhotos/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
         DispatchQueue.global(qos: .userInitiated).async {
             let uploadedFile = self.backendless.fileService.saveFile(postPhotoUrl, content: data, overwriteIfExist: true)

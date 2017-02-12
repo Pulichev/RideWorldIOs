@@ -22,9 +22,9 @@ UINavigationControllerDelegate, UITextViewDelegate {
     
     @IBOutlet weak var postDescription: UITextView!
     @IBOutlet weak var photoOrVideoView: UIView!
-
+    
     var newVideoUrl: Any!
-    var newPhoto: UIImage!
+    var photoView = UIImageView()
     var newMedia: Bool?
     var isNewMediaIsPhoto: Bool? //if true - photo, false - video
     
@@ -43,10 +43,9 @@ UINavigationControllerDelegate, UITextViewDelegate {
     func UICustomizing() {
         //adding method on spot main photo tap
         addGestureToOpenCameraOnPhotoTap()
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
-        imageView.layer.frame = self.photoOrVideoView.bounds
-        photoOrVideoView.layer.addSublayer(imageView.layer)
+        photoView.image = UIImage(named: "plus-512.gif") //Setting default picture
+        photoView.layer.frame = self.photoOrVideoView.bounds
+        photoOrVideoView.layer.addSublayer(photoView.layer)
         
         placeBorderOnTextField()
     }
@@ -94,42 +93,11 @@ UINavigationControllerDelegate, UITextViewDelegate {
         self.dismiss(animated: true, completion: nil)
         
         if mediaType.isEqual(to: kUTTypeImage as String) { //photo
-            self.isNewMediaIsPhoto = true
-            
-            let imageView = UIImageView()
-            let image = info[UIImagePickerControllerOriginalImage]
-                as! UIImage
-            
-            self.newPhoto = image
-            imageView.image = image
-            imageView.layer.frame = self.photoOrVideoView.bounds
-            
-            self.photoOrVideoView.layer.addSublayer(imageView.layer)
-            
-            UIImageWriteToSavedPhotosAlbum(image, self,
-                                           #selector(NewPostController.image(image:didFinishSavingWithError:contextInfo:)), nil)
-        } else { //video
-            self.isNewMediaIsPhoto = false
-            
-            // Handle a movie capture
-            if mediaType == kUTTypeMovie {
-                //TODO: Add returning video on new post details like photo
-                
-                let player = AVPlayer(url: (info[UIImagePickerControllerMediaURL] as! NSURL) as URL!)
-                let playerLayer = AVPlayerLayer(player: player)
-                playerLayer.frame = self.photoOrVideoView.bounds
-                
-                self.photoOrVideoView.layer.addSublayer(playerLayer)
-                
-                player.play()
-                
-                self.newVideoUrl = info[UIImagePickerControllerMediaURL]
-                
-                guard let path = (self.newVideoUrl as! NSURL).path else { return }
-                if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
-                    UISaveVideoAtPathToSavedPhotosAlbum(path, self,
-                                                        #selector(NewPostController.video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
-                }
+            newPhotoAdded(info: info)
+        } else {
+            if mediaType == kUTTypeMovie { //video
+                // Handle a movie capture
+                newVideoAdded(info: info)
             }
         }
     }
@@ -156,6 +124,44 @@ UINavigationControllerDelegate, UITextViewDelegate {
         }
     }
     
+    func newPhotoAdded(info: [String: Any]) {
+        self.isNewMediaIsPhoto = true
+        
+        let image = info[UIImagePickerControllerOriginalImage]
+            as! UIImage
+        
+        self.photoView.image = image
+        self.photoView.contentMode = .scaleAspectFill
+        //self.photoView.layer.frame = self.photoOrVideoView.bounds
+        
+        self.photoOrVideoView.layer.addSublayer(photoView.layer)
+        
+        UIImageWriteToSavedPhotosAlbum(image, self,
+                                       #selector(NewPostController.image(image:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    func newVideoAdded(info: [String: Any]) {
+        self.isNewMediaIsPhoto = false
+        self.photoView.image = nil
+        
+        let player = AVPlayer(url: (info[UIImagePickerControllerMediaURL] as! NSURL) as URL!)
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        playerLayer.frame = self.photoOrVideoView.bounds
+        
+        self.photoOrVideoView.layer.addSublayer(playerLayer)
+        
+        player.play()
+        
+        self.newVideoUrl = info[UIImagePickerControllerMediaURL]
+        
+        guard let path = (self.newVideoUrl as! NSURL).path else { return }
+        if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
+            UISaveVideoAtPathToSavedPhotosAlbum(path, self,
+                                                #selector(NewPostController.video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
     @IBAction func saveSpotDetails(_ sender: Any) {
         let defaults = UserDefaults.standard
         let userId = defaults.string(forKey: "userLoggedInObjectId")
@@ -177,7 +183,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
     
     //Uploading files with the SYNC API
     func uploadPhoto(postId: String) {
-        let data: Data = UIImageJPEGRepresentation(self.newPhoto!, 0.3)!
+        let data: Data = UIImageJPEGRepresentation(self.photoView.image!, 0.3)!
         let postPhotoUrl = "media/SpotPostPhotos/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
         DispatchQueue.global(qos: .userInitiated).async {
             let uploadedFile = self.backendless.fileService.saveFile(postPhotoUrl, content: data, overwriteIfExist: true)

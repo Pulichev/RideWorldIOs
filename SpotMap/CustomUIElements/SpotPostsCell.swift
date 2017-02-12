@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 class SpotPostsCell: UITableViewCell {
     var backendless: Backendless!
     
     var postId: String?
     @IBOutlet weak var spotPostPhoto: UIImageView!
-    @IBOutlet weak var userNickName: UILabel!
     @IBOutlet weak var postDate: UILabel!
+    @IBOutlet weak var userNickName: UIButton!
     @IBOutlet weak var postDescription: UITextView!
     @IBOutlet weak var isLikedPhoto: UIImageView!
     @IBOutlet weak var likesCount: UILabel!

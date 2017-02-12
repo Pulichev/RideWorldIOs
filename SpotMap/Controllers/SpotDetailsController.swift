@@ -95,7 +95,8 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         let cellFromCache = spotPostsCellsCache[row]
         
         cell.postId = cellFromCache.postId
-        cell.userNickName.text = cellFromCache.userNickName.text
+        cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
+        cell.userNickName.addTarget(self, action: #selector(SpotDetailsController.nickNameTapped), for: .touchUpInside)
         cell.postDate.text = cellFromCache.postDate.text
         cell.postDescription.text = cellFromCache.postDescription.text
         cell.likesCount.text = String(cellFromCache.likesCount)
@@ -161,5 +162,10 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             let newPostController = (segue.destination as! NewPostController)
             newPostController.spotDetails = self.spotDetails
         }
+    }
+    
+    //go to riders profile
+    func nickNameTapped() {
+        self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
     }
 }

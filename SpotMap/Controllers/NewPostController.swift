@@ -135,7 +135,6 @@ UINavigationControllerDelegate, UITextViewDelegate {
         
         self.photoView.image = image
         self.photoView.contentMode = .scaleAspectFill
-        //self.photoView.layer.frame = self.photoOrVideoView.bounds
         
         self.photoOrVideoView.layer.addSublayer(photoView.layer)
         
@@ -234,4 +233,5 @@ UINavigationControllerDelegate, UITextViewDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-    }}
+    }
+}

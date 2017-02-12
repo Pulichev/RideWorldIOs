@@ -24,7 +24,10 @@ UINavigationControllerDelegate, UITextViewDelegate {
     @IBOutlet weak var photoOrVideoView: UIView!
     
     var newVideoUrl: Any!
+    var playerLooper: NSObject? //for looping video. It should be class variable
+    
     var photoView = UIImageView()
+    
     var newMedia: Bool?
     var isNewMediaIsPhoto: Bool? //if true - photo, false - video
     
@@ -144,8 +147,11 @@ UINavigationControllerDelegate, UITextViewDelegate {
         self.isNewMediaIsPhoto = false
         self.photoView.image = nil
         
-        let player = AVPlayer(url: (info[UIImagePickerControllerMediaURL] as! NSURL) as URL!)
+        let player = AVQueuePlayer()
+        
         let playerLayer = AVPlayerLayer(player: player)
+        let playerItem = AVPlayerItem(url: (info[UIImagePickerControllerMediaURL] as! NSURL) as URL!)
+        playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
         playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         playerLayer.frame = self.photoOrVideoView.bounds
         

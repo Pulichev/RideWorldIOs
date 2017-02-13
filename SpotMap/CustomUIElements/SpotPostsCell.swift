@@ -13,12 +13,14 @@ class SpotPostsCell: UITableViewCell {
     var backendless: Backendless!
     
     var postId: String?
-    @IBOutlet weak var spotPostPhoto: UIImageView!
+    
+    @IBOutlet var spotPostMedia: UIView!
     @IBOutlet weak var postDate: UILabel!
     @IBOutlet weak var userNickName: UIButton!
     @IBOutlet weak var postDescription: UITextView!
     @IBOutlet weak var isLikedPhoto: UIImageView!
     @IBOutlet weak var likesCount: UILabel!
+    var isPhoto: Bool!
     var postIsLiked: Bool!
     
     var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post
@@ -37,8 +39,8 @@ class SpotPostsCell: UITableViewCell {
         //adding method on spot main photo tap
         let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
         tap.numberOfTapsRequired = 2
-        spotPostPhoto.addGestureRecognizer(tap)
-        spotPostPhoto.isUserInteractionEnabled = true
+        spotPostMedia.addGestureRecognizer(tap)
+        spotPostMedia.isUserInteractionEnabled = true
     }
     
     func postLiked(_ sender: Any) {

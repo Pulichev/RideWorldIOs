@@ -16,6 +16,7 @@ class SpotPostsCellCache {
     var userNickName = UILabel()
     var postDate = UILabel()
     var postDescription = UITextView()
+    var isPhoto = Bool()
     var isLikedPhoto = UIImageView()
     var postIsLiked = Bool()
     var likesCount = Int()

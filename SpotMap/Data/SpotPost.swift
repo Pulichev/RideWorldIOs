@@ -19,4 +19,5 @@ class SpotPost: NSObject {
     var userId: String?
     
     var postDescription: String?
+    var isPhoto: Bool = true //default photo
 }

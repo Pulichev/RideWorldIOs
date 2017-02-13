@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import AVFoundation
 
 class SpotDetailsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var backendless: Backendless!
     
     @IBOutlet weak var tableView: UITableView!
+    
+    var playerLooper: NSObject? //for looping video. It should be class variable
+    var imageView = UIImageView()
     
     var spotDetails: SpotDetails!
     
@@ -66,6 +70,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
             newSpotPostCellCache.postDate.text = finalDate
             newSpotPostCellCache.postDescription.text = spot.postDescription
+            newSpotPostCellCache.isPhoto = spot.isPhoto
             newSpotPostCellCache.userLikedThisPost()
             newSpotPostCellCache.countPostLikes()
             
@@ -93,7 +98,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         let cellFromCache = spotPostsCellsCache[row]
-        
         cell.postId = cellFromCache.postId
         cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
         cell.userNickName.addTarget(self, action: #selector(SpotDetailsController.nickNameTapped), for: .touchUpInside)
@@ -102,33 +106,55 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         cell.likesCount.text = String(cellFromCache.likesCount)
         cell.postIsLiked = cellFromCache.postIsLiked
         cell.isLikedPhoto.image = cellFromCache.isLikedPhoto.image
-        cell.spotPostPhoto.image = nil //start initialise. To not provide duplication of cells photos
         setImageOnCellFromCacheOrDownload(cell: cell, cacheKey: row) //cell.spotPostPhoto setting async
         cell.addDoubleTapGestureOnPostPhotos()
         
         return cell
     }
     
+    //TODO: Make code review
     func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
-        //Downloading and caching images
-        let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (spotPosts[cacheKey].objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
-        
-        if (self.imageCache.object(forKey: cacheKey) != nil) {
-            cell.spotPostPhoto.image = self.imageCache.object(forKey: cacheKey) as? UIImage
-        } else {
-            DispatchQueue.global(qos: .userInteractive).async(execute: {
-                if let url = URL(string: postPhotoURL) {
-                    if let data = NSData(contentsOf: url) {
-                        let image: UIImage = UIImage(data: data as Data)!
-                        self.imageCache.setObject(image, forKey: cacheKey as NSCopying)
-                        
-                        DispatchQueue.main.async(execute: {
-                            cell.spotPostPhoto.image = image
-                        })
+        //Downloading and caching media
+        if spotPosts[cacheKey].isPhoto {
+            let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (spotPosts[cacheKey].objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
+            
+            if (self.imageCache.object(forKey: cacheKey) != nil) {
+                let myLayer = CALayer()
+                myLayer.frame = cell.spotPostMedia.bounds
+                myLayer.contents = (self.imageCache.object(forKey: cacheKey) as? UIImage)?.cgImage
+                cell.spotPostMedia.layer.addSublayer(myLayer)
+            } else {
+                DispatchQueue.global(qos: .userInteractive).async(execute: {
+                    if let url = URL(string: postPhotoURL) {
+                        if let data = NSData(contentsOf: url) {
+                            let image: UIImage = UIImage(data: data as Data)!
+                            self.imageCache.setObject(image, forKey: cacheKey as NSCopying)
+                            
+                            DispatchQueue.main.async(execute: {
+                                let myLayer = CALayer()
+                                myLayer.frame = cell.spotPostMedia.bounds
+                                myLayer.contents = (self.imageCache.object(forKey: cacheKey) as? UIImage)?.cgImage
+                                cell.spotPostMedia.layer.addSublayer(myLayer)
+                            })
+                        }
                     }
-                }
-            })
-        } //end downloading and caching images
+                })
+            } //end downloading and caching images
+        } else { //TODO: add caching videos. As data maybe?
+            let postVideoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostVideos/" + (spotPosts[cacheKey].objectId!).replacingOccurrences(of: "-", with: "") + ".m4v"
+            
+            let player = AVQueuePlayer()
+            
+            let playerLayer = AVPlayerLayer(player: player)
+            let playerItem = AVPlayerItem(url: URL(string: postVideoURL)!)
+            playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
+            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.frame = cell.spotPostMedia.bounds
+            
+            cell.spotPostMedia.layer.addSublayer(playerLayer)
+            
+            player.play()
+        }
     }
     
     func updateCellLikesCache(objectId: String) {

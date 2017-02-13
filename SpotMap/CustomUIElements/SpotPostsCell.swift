@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class SpotPostsCell: UITableViewCell {
     var backendless: Backendless!
@@ -15,6 +16,8 @@ class SpotPostsCell: UITableViewCell {
     var postId: String?
     
     @IBOutlet var spotPostMedia: UIView!
+    var player: AVPlayer!
+    
     @IBOutlet weak var postDate: UILabel!
     @IBOutlet weak var userNickName: UIButton!
     @IBOutlet weak var postDescription: UITextView!

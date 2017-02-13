@@ -175,6 +175,11 @@ UINavigationControllerDelegate, UITextViewDelegate {
         spotPost.userId = userId
         spotPost.spotId = spotDetails.objectId
         spotPost.postDescription = self.postDescription.text
+        if self.isNewMediaIsPhoto! {
+            spotPost.isPhoto = true
+        } else {
+            spotPost.isPhoto = false
+        }
         
         let savedSpotPostID = backendless.persistenceService.of(spotPost.ofClass()).save(spotPost) as! SpotPost
         if (self.isNewMediaIsPhoto)! {

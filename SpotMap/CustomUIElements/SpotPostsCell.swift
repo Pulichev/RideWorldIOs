@@ -40,7 +40,7 @@ class SpotPostsCell: UITableViewCell {
     
     func addDoubleTapGestureOnPostPhotos() {
         //adding method on spot main photo tap
-        let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
+        let tap = UITapGestureRecognizer(target:self.spotPostMedia, action:#selector(postLiked(_:))) //target was only self
         tap.numberOfTapsRequired = 2
         spotPostMedia.addGestureRecognizer(tap)
         spotPostMedia.isUserInteractionEnabled = true

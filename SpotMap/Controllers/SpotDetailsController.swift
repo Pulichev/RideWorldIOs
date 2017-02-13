@@ -15,7 +15,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var tableView: UITableView!
     
-    var imageView = UIImageView()
+    //var imageView = UIImageView()
     
     var spotDetails: SpotDetails!
     
@@ -106,73 +106,90 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         cell.postIsLiked = cellFromCache.postIsLiked
         cell.isPhoto = cellFromCache.isPhoto
         cell.isLikedPhoto.image = cellFromCache.isLikedPhoto.image
-        setImageOnCellFromCacheOrDownload(cell: cell, cacheKey: row) //cell.spotPostPhoto setting async
+        setMediaOnCellFromCacheOrDownload(cell: cell, cacheKey: row) //cell.spotPostPhoto setting async
         cell.addDoubleTapGestureOnPostPhotos()
         
         return cell
     }
     
     //TODO: Make code review
-    func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
+    func setMediaOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
         cell.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
         
         //Downloading and caching media
         if spotPosts[cacheKey].isPhoto {
-            let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (spotPosts[cacheKey].objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
-            
-            if (self.mediaCache.object(forKey: cacheKey) != nil) {
-                let myLayer = CALayer()
-                myLayer.frame = cell.spotPostMedia.bounds
-                myLayer.contents = (self.mediaCache.object(forKey: cacheKey) as? UIImage)?.cgImage
-                cell.spotPostMedia.layer.addSublayer(myLayer)
-            } else {
-                DispatchQueue.global(qos: .userInteractive).async(execute: {
-                    if let url = URL(string: postPhotoURL) {
-                        if let data = NSData(contentsOf: url) {
-                            let image: UIImage = UIImage(data: data as Data)!
-                            self.mediaCache.setObject(image, forKey: cacheKey as NSCopying)
-                            
-                            DispatchQueue.main.async(execute: {
-                                let myLayer = CALayer()
-                                myLayer.frame = cell.spotPostMedia.bounds
-                                myLayer.contents = (self.mediaCache.object(forKey: cacheKey) as? UIImage)?.cgImage
-                                cell.spotPostMedia.layer.addSublayer(myLayer)
-                            })
-                        }
-                    }
-                })
-            } //end downloading and caching images
+            setImageOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
         } else {
-            if (self.mediaCache.object(forKey: cacheKey) != nil) {
-                let cachedAsset = self.mediaCache.object(forKey: cacheKey) as? AVAsset
-                cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
-                let playerLayer = AVPlayerLayer(player: (cell.player))
-                playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                playerLayer.frame = cell.spotPostMedia.bounds
-                cell.spotPostMedia.layer.addSublayer(playerLayer)
-                
-                cell.player.play()
-            } else {
-                let postVideoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostVideos/" + (spotPosts[cacheKey].objectId!).replacingOccurrences(of: "-", with: "") + ".m4v"
-                DispatchQueue.global(qos: .userInteractive).async(execute: {
-                    if let url = URL(string: postVideoURL) {
-                        let assetForCache = AVAsset(url: url)
-                        //let playerItem = AVPlayerItem(url: url)
-                        self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
+            setVideoOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
+        }
+    }
+    
+    func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
+        let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (spotPosts[cacheKey].objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
+        
+        if (self.mediaCache.object(forKey: cacheKey) != nil) {
+//            let myLayer = CALayer()
+//            myLayer.frame = cell.spotPostMedia.bounds
+//            myLayer.contents = self.mediaCache.object(forKey: cacheKey) as? UIImage
+//            cell.spotPostMedia.layer.addSublayer(myLayer)
+//            
+            let imageFromCache = self.mediaCache.object(forKey: cacheKey) as? UIImage
+            let imageViewForView = UIImageView()
+            imageViewForView.image = imageFromCache
+            imageViewForView.frame = cell.spotPostMedia.bounds
+            cell.spotPostMedia.addSubview(imageViewForView)
+        } else {
+            DispatchQueue.global(qos: .userInteractive).async(execute: {
+                if let url = URL(string: postPhotoURL) {
+                    if let data = NSData(contentsOf: url) {
+                        let imageFromCache: UIImage = UIImage(data: data as Data)!
+                        self.mediaCache.setObject(imageFromCache, forKey: cacheKey as NSCopying)
                         
                         DispatchQueue.main.async(execute: {
-                            cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-                            let playerLayer = AVPlayerLayer(player: (cell.player))
-                            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                            playerLayer.frame = cell.spotPostMedia.bounds
-                            
-                            cell.spotPostMedia.layer.addSublayer(playerLayer)
-                            
-                            cell.player.play()
+//                            let myLayer = CALayer()
+//                            myLayer.frame = cell.spotPostMedia.bounds
+//                            myLayer.contents = image
+//                            cell.spotPostMedia.layer.addSublayer(myLayer)
+                            let imageViewForView = UIImageView()
+                            imageViewForView.image = imageFromCache
+                            imageViewForView.frame = cell.spotPostMedia.bounds
+                            cell.spotPostMedia.addSubview(imageViewForView)
                         })
                     }
-                })
-            }
+                }
+            })
+        } //end downloading and caching images
+    }
+    
+    func setVideoOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
+        if (self.mediaCache.object(forKey: cacheKey) != nil) {
+            let cachedAsset = self.mediaCache.object(forKey: cacheKey) as? AVAsset
+            cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
+            let playerLayer = AVPlayerLayer(player: (cell.player))
+            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.frame = cell.spotPostMedia.bounds
+            cell.spotPostMedia.layer.addSublayer(playerLayer)
+            
+            cell.player.play()
+        } else {
+            let postVideoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostVideos/" + (spotPosts[cacheKey].objectId!).replacingOccurrences(of: "-", with: "") + ".m4v"
+            DispatchQueue.global(qos: .userInteractive).async(execute: {
+                if let url = URL(string: postVideoURL) {
+                    let assetForCache = AVAsset(url: url)
+                    self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
+                    
+                    DispatchQueue.main.async(execute: {
+                        cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+                        let playerLayer = AVPlayerLayer(player: (cell.player))
+                        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                        playerLayer.frame = cell.spotPostMedia.bounds
+                        
+                        cell.spotPostMedia.layer.addSublayer(playerLayer)
+                        
+                        cell.player.play()
+                    })
+                }
+            })
         }
     }
     

@@ -257,6 +257,7 @@
 				9FB681B01E2E70CD00D9A436 /* Resources */,
 				FDB9AE72B71986345285DC92 /* [CP] Embed Pods Frameworks */,
 				6194BFCE891A03A80D7AFCF7 /* [CP] Copy Pods Resources */,
+				9FD648D21E5351F300C673CA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -461,6 +462,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9FD648D21E5351F300C673CA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\nexit 1\nfi";
 		};
 		DA398A463813291B7027ADD8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

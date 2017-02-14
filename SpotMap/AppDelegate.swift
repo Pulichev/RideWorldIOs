@@ -11,35 +11,31 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate
-{
-    let APP_ID = "4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00" //App Id uses to generate links to files. Dont forget it
-    let SECRET_KEY = "A406030E-2CC8-5845-FF66-ADB6A424DB00"
-    let VERSION_NUM = "v1"
-    
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    let appId = "4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00" //App Id uses to generate links to files. Dont forget it
+    let secretKey = "A406030E-2CC8-5845-FF66-ADB6A424DB00"
+    let versionNum = "v1"
+
     var backendless = Backendless.sharedInstance()
-    
+
     var window: UIWindow?
-    
-    var storyboard : UIStoryboard?
-    
+
+    var storyboard: UIStoryboard?
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        backendless?.initApp(APP_ID, secret:SECRET_KEY, version:VERSION_NUM)
-        
+        backendless?.initApp(appId, secret:secretKey, version:versionNum)
+
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let defaults = UserDefaults.standard
         let isUserLoggedIn = defaults.string(forKey: "userLoggedIn")
-        
-        if(isUserLoggedIn != nil)
-        {
+
+        if(isUserLoggedIn != nil) {
             self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainFormController")
-        }
-        else
-        {
+        } else {
             self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginController")
         }
-        
+
         return true
     }
 
@@ -64,9 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+
     func applicationDidFinishLaunching(_ application: UIApplication) {
-    
+
     }
 }
-

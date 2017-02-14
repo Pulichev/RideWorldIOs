@@ -9,9 +9,9 @@
 import Foundation
 
 class PostLike: NSObject {
-    
+
     var objectId: String?
-    
+
     var postId: String?
     var userId: String?
 }

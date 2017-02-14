@@ -9,6 +9,6 @@
 import Foundation
 
 class LoggedInUser {
-    
+
     var userLogin: String!
 }

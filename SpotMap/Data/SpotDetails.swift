@@ -9,11 +9,11 @@
 import Foundation
 
 class SpotDetails: NSObject {
-    
+
     var objectId: String?
     var spotName: String = "Name"
     var spotDescription: String = "Desc"
-    
+
     var latitude: Double = 0.00000
     var longitude: Double = 0.00000
 }

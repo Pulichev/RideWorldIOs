@@ -11,7 +11,7 @@ import Foundation
 
 class SpotPostsCellCache {
     var backendless = Backendless.sharedInstance()
-    
+
     var postId = String()
     var userNickName = UILabel()
     var postDate = UILabel()
@@ -20,29 +20,28 @@ class SpotPostsCellCache {
     var isLikedPhoto = UIImageView()
     var postIsLiked = Bool()
     var likesCount = Int()
-    
+
     func userLikedThisPost() {
         let defaults = UserDefaults.standard
         let userId = defaults.string(forKey: "userLoggedInObjectId")
-        
+
         let whereClause = "postId = '\(self.postId)' AND userId = '\(userId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
-        
+
         var error: Fault?
-        
+
         let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
-            
+
         if (likesList!.data.count != 0) { //If user has liked this post already
             postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-        }
-        else {
+        } else {
             postIsLiked = false
             self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
         }
     }
-    
+
     func countPostLikes() {
         let whereClause = "postId = '\(self.postId)'"
         let dataQuery = BackendlessDataQuery()
@@ -51,14 +50,13 @@ class SpotPostsCellCache {
         let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
         likesCount = likesList!.data.count
     }
-    
+
     func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked
         if (!postIsLiked) { //If user has liked this post already
             postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
             likesCount += 1
-        }
-        else {
+        } else {
             postIsLiked = false
             self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
             likesCount -= 1

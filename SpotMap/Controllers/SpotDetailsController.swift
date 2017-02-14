@@ -128,6 +128,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             let imageFromCache = self.mediaCache.object(forKey: cacheKey as NSCopying) as? UIImage
             let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
             imageViewForView.image = imageFromCache
+            imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
             cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
         } else {
             DispatchQueue.global(qos: .userInteractive).async(execute: {
@@ -140,6 +141,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                             let imageFromCache = self.mediaCache.object(forKey: cacheKey as NSCopying) as? UIImage
                             let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                             imageViewForView.image = imageFromCache
+                            imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
                             cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
                         })
                     }

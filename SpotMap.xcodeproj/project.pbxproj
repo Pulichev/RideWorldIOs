@@ -31,6 +31,7 @@
 		9FC14FE81E48E7790097579B /* SpotPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FE41E48E7790097579B /* SpotPost.swift */; };
 		9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D31E54587800C673CA /* RidersProfileController.swift */; };
 		9FD648D61E54745100C673CA /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D51E54745100C673CA /* Users.swift */; };
+		9FD648DA1E55E1FE00C673CA /* RidersProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D91E55E1FE00C673CA /* RidersProfileCollectionViewCell.swift */; };
 		AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		9FC14FE41E48E7790097579B /* SpotPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotPost.swift; path = Data/SpotPost.swift; sourceTree = "<group>"; };
 		9FD648D31E54587800C673CA /* RidersProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileController.swift; path = Controllers/RidersProfileController.swift; sourceTree = "<group>"; };
 		9FD648D51E54745100C673CA /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Users.swift; path = Data/Users.swift; sourceTree = "<group>"; };
+		9FD648D91E55E1FE00C673CA /* RidersProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileCollectionViewCell.swift; path = Core/RidersProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				9FC14FD81E48E7510097579B /* SpotPostsCellCache.swift */,
+				9FD648D91E55E1FE00C673CA /* RidersProfileCollectionViewCell.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				9FC14FE61E48E7790097579B /* PostLike.swift in Sources */,
 				9FC14FD41E48E5E30097579B /* SpotDetailsController.swift in Sources */,
 				9FC14FE01E48E7690097579B /* SpotPostsCell.swift in Sources */,
+				9FD648DA1E55E1FE00C673CA /* RidersProfileCollectionViewCell.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */,
 				9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */,

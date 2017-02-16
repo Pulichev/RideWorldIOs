@@ -292,7 +292,7 @@
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xqz-1K-Be3">
                                         <rect key="frame" x="0.0" y="96" width="288" height="96"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -315,7 +315,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="DbA-hp-43o" firstAttribute="leading" secondItem="FAT-5b-s8o" secondAttribute="trailing" constant="8" symbolic="YES" id="5c8-aJ-5kD"/>
                                     <constraint firstAttribute="trailing" secondItem="mep-uq-G9T" secondAttribute="trailing" constant="-2" id="5mr-4R-ddH"/>
@@ -335,9 +335,9 @@
                                     <constraint firstItem="FAT-5b-s8o" firstAttribute="top" secondItem="mep-uq-G9T" secondAttribute="bottom" constant="25" id="wfZ-l9-dlu"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-VA-zc6">
-                                <rect key="frame" x="16" y="268" width="288" height="300"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-VA-zc6">
+                                <rect key="frame" x="0.0" y="268" width="320" height="300"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="gGF-JA-hwA"/>
                                 </constraints>
@@ -348,15 +348,28 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="068-Gc-wdG">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RidersProfileCollectionViewCell" id="068-Gc-wdG" customClass="RidersProfileCollectionViewCell" customModule="SpotMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="81" height="77"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="81" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f6c-1h-dLp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="81" height="77"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
                                         </view>
+                                        <connections>
+                                            <outlet property="postPicture" destination="f6c-1h-dLp" id="rqr-rU-XhR"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="MKp-Ss-8Kb" id="dao-Aw-GQl"/>
+                                    <outlet property="delegate" destination="MKp-Ss-8Kb" id="3cc-G3-U6h"/>
+                                </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VladPulichev" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGY-2J-ldK">
                                 <rect key="frame" x="0.0" y="20" width="320" height="31"/>
@@ -369,9 +382,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xJu-t2-VWD" firstAttribute="trailing" secondItem="Npn-VA-zc6" secondAttribute="trailing" id="ATO-Aq-8B4"/>
+                            <constraint firstItem="xJu-t2-VWD" firstAttribute="trailing" secondItem="Npn-VA-zc6" secondAttribute="trailing" constant="-16" id="ATO-Aq-8B4"/>
                             <constraint firstItem="kGY-2J-ldK" firstAttribute="centerX" secondItem="xJu-t2-VWD" secondAttribute="centerX" id="KAC-z3-g1h"/>
                             <constraint firstAttribute="trailing" secondItem="kGY-2J-ldK" secondAttribute="trailing" id="O7t-lB-qVh"/>
                             <constraint firstItem="kGY-2J-ldK" firstAttribute="leading" secondItem="Li1-zP-62y" secondAttribute="leading" id="Rcv-6C-kzT"/>
@@ -380,7 +393,7 @@
                             <constraint firstItem="Npn-VA-zc6" firstAttribute="top" secondItem="xJu-t2-VWD" secondAttribute="bottom" constant="10" id="gj9-gB-UZQ"/>
                             <constraint firstItem="xJu-t2-VWD" firstAttribute="top" secondItem="kGY-2J-ldK" secondAttribute="bottom" constant="15" id="kFW-gS-3Mp"/>
                             <constraint firstItem="Npn-VA-zc6" firstAttribute="bottom" secondItem="G3a-J6-6BS" secondAttribute="top" id="mCv-D6-JiS"/>
-                            <constraint firstItem="xJu-t2-VWD" firstAttribute="leading" secondItem="Npn-VA-zc6" secondAttribute="leading" id="xfH-yi-bjv"/>
+                            <constraint firstItem="xJu-t2-VWD" firstAttribute="leading" secondItem="Npn-VA-zc6" secondAttribute="leading" constant="16" id="xfH-yi-bjv"/>
                         </constraints>
                     </view>
                     <connections>

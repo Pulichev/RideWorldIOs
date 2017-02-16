@@ -29,6 +29,8 @@
 		9FC14FE61E48E7790097579B /* PostLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FE21E48E7790097579B /* PostLike.swift */; };
 		9FC14FE71E48E7790097579B /* SpotDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FE31E48E7790097579B /* SpotDetails.swift */; };
 		9FC14FE81E48E7790097579B /* SpotPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FE41E48E7790097579B /* SpotPost.swift */; };
+		9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D31E54587800C673CA /* RidersProfileController.swift */; };
+		9FD648D61E54745100C673CA /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D51E54745100C673CA /* Users.swift */; };
 		AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +86,8 @@
 		9FC14FE21E48E7790097579B /* PostLike.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostLike.swift; path = Data/PostLike.swift; sourceTree = "<group>"; };
 		9FC14FE31E48E7790097579B /* SpotDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotDetails.swift; path = Data/SpotDetails.swift; sourceTree = "<group>"; };
 		9FC14FE41E48E7790097579B /* SpotPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotPost.swift; path = Data/SpotPost.swift; sourceTree = "<group>"; };
+		9FD648D31E54587800C673CA /* RidersProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileController.swift; path = Controllers/RidersProfileController.swift; sourceTree = "<group>"; };
+		9FD648D51E54745100C673CA /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Users.swift; path = Data/Users.swift; sourceTree = "<group>"; };
 		C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +136,7 @@
 				9FC14FE21E48E7790097579B /* PostLike.swift */,
 				9FC14FE31E48E7790097579B /* SpotDetails.swift */,
 				9FC14FE41E48E7790097579B /* SpotPost.swift */,
+				9FD648D51E54745100C673CA /* Users.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -210,6 +215,7 @@
 				9FC14FCC1E48E5E30097579B /* NewSpotController.swift */,
 				9FC14FCD1E48E5E30097579B /* RegistrationController.swift */,
 				9FC14FCE1E48E5E30097579B /* SpotDetailsController.swift */,
+				9FD648D31E54587800C673CA /* RidersProfileController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -475,6 +481,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#if which swiftlint >/dev/null; then\n#swiftlint\n#else\n#echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\n#exit 1\n#fi";
+			showEnvVarsInLog = 0;
 		};
 		DA398A463813291B7027ADD8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -551,9 +558,11 @@
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */,
 				9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */,
+				9FD648D61E54745100C673CA /* Users.swift in Sources */,
 				9FC14FE51E48E7790097579B /* LoggedInUser.swift in Sources */,
 				9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
+				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
 				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,
 				9FC14FD91E48E7510097579B /* SpotPostsCellCache.swift in Sources */,
 				9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */,

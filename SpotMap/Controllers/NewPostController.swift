@@ -24,6 +24,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
     @IBOutlet weak var photoOrVideoView: UIView!
 
     var newVideoUrl: Any!
+    var player: AVQueuePlayer!
     var playerLooper: NSObject? //for looping video. It should be class variable
 
     var photoView = UIImageView()
@@ -85,8 +86,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
             newMedia = true
         }
     }
-
-    //TODO: MAKE NOT AN IMAGE IN CELLS, SPOTADD and etc -> UIVIEW
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
 
         self.photoOrVideoView.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
@@ -146,7 +146,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
         self.isNewMediaIsPhoto = false
         self.photoView.image = nil
 
-        let player = AVQueuePlayer()
+        player = AVQueuePlayer()
 
         let playerLayer = AVPlayerLayer(player: player)
         let playerItem = AVPlayerItem(url: (info[UIImagePickerControllerMediaURL] as! NSURL) as URL!)
@@ -187,7 +187,9 @@ UINavigationControllerDelegate, UITextViewDelegate {
         } else {
             uploadVideo(postId: savedSpotPostID.objectId!)
         }
-
+        
+        player.pause()
+        player = nil
         self.performSegue(withIdentifier: "backToPosts", sender: self) //back to spot posts
     }
 

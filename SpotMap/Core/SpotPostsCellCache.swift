@@ -20,6 +20,7 @@ class SpotPostsCellCache {
     var isLikedPhoto = UIImageView()
     var postIsLiked = Bool()
     var likesCount = Int()
+    var userInfo = Users()
 
     func userLikedThisPost() {
         let defaults = UserDefaults.standard

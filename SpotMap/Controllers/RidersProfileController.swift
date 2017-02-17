@@ -16,7 +16,6 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     var backendless: Backendless!
     
     @IBOutlet var userNameAndSename: UILabel!
-    @IBOutlet var userNickName: UILabel!
     @IBOutlet var recpectedTimes: UILabel!
     @IBOutlet var ridersBio: UITextView!
     @IBOutlet var ridersProfilePhoto: UIImageView!
@@ -37,7 +36,6 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     func initializeUserTextInfo() {
-        self.userNickName.text = ridersInfo.name
         self.ridersBio.text = ridersInfo.userBioDescription
         self.userNameAndSename.text = ridersInfo.userNameAndSename
         
@@ -143,6 +141,11 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.postPicture.image = self.spotsPostsImages[indexPath.row].image
         
+        let tap = UITapGestureRecognizer(target:self, action:#selector(goToPostInfo(_:))) //target was only self
+        tap.numberOfTapsRequired = 1
+        cell.postPicture.addGestureRecognizer(tap)
+        cell.postPicture.isUserInteractionEnabled = true
+        
         return cell
     }
     
@@ -151,5 +154,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         print("You selected cell #\(indexPath.item)!")
+    }
+    
+    func goToPostInfo(_ sender: Any) {
+        self.performSegue(withIdentifier: "goToPostInfo", sender: self)
     }
 }

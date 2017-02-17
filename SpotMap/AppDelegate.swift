@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let isUserLoggedIn = defaults.string(forKey: "userLoggedIn")
 
         if(isUserLoggedIn != nil) {
-            self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainFormController")
+            self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainFormNavigationController")
         } else {
             self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginController")
         }

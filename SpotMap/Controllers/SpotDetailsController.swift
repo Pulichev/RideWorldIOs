@@ -194,6 +194,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         
         do {
             let asset = AVURLAsset(url: filePath , options: nil)
+            
             let imgGenerator = AVAssetImageGenerator(asset: asset)
             imgGenerator.appliesPreferredTrackTransform = true
             let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
@@ -213,7 +214,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let customCell = cell as! SpotPostsCell
-        if (!customCell.isPhoto) {
+        if (!customCell.isPhoto && customCell.player != nil) {
             if (customCell.player.rate != 0 && (customCell.player.error == nil)) {
                 // player is playing
                 customCell.player.pause()

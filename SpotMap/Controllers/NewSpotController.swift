@@ -11,7 +11,7 @@ import UIKit
 import MobileCoreServices
 
 class NewSpotController: UIViewController, UIImagePickerControllerDelegate,
-UINavigationControllerDelegate, UITextFieldDelegate {
+UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
 
     var backendless: Backendless!
 
@@ -19,8 +19,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     var spotLongitude: Double!
 
     @IBOutlet weak var spotTitle: UITextField!
-    @IBOutlet weak var spotDescription: UITextField!
-
+    @IBOutlet var spotDescription: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     var newMedia: Bool?
 
@@ -36,10 +35,18 @@ UINavigationControllerDelegate, UITextFieldDelegate {
 
         self.spotTitle.delegate = self
         self.spotDescription.delegate = self
+        
+        placeBorderOnTextView()
 
         //For scrolling the view if keyboard on
         NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func placeBorderOnTextView() {
+        spotDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
+        spotDescription.layer.borderWidth = 1.0
+        spotDescription.layer.cornerRadius = 5
     }
 
     @IBAction func takePhoto(_ sender: Any) {

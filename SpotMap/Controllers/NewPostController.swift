@@ -70,7 +70,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
         let numberOfChars = newText.characters.count
-        return numberOfChars < 150
+        return numberOfChars < 100
     }
 
     @IBAction func takeMedia(_ sender: Any) {

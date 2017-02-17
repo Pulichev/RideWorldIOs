@@ -703,8 +703,8 @@
                     <navigationItem key="navigationItem" id="zpC-Ow-CQ1"/>
                     <connections>
                         <outlet property="tableView" destination="1JN-k2-5ma" id="cl3-1G-8gn"/>
-                        <segue destination="f5g-1l-QE8" kind="show" identifier="openRidersProfileFromSpotDetails" id="NnU-b5-HNH"/>
                         <segue destination="ULr-hs-bKD" kind="show" identifier="addNewPost" id="Pkb-eI-ySc"/>
+                        <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromSpotDetails" id="6R6-CY-IE2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h24-NX-eSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -860,5 +860,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Vya-rg-RYo"/>
         <segue reference="PDm-Oj-MlC"/>
+        <segue reference="6R6-CY-IE2"/>
     </inferredMetricsTieBreakers>
 </document>

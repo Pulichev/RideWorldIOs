@@ -268,8 +268,9 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             newPostController.spotDetails = self.spotDetails
         }
         if(segue.identifier == "openRidersProfileFromSpotDetails") {
-            let nav = (segue.destination as! UINavigationController)
-            let newRidersProfileController = nav.topViewController as! RidersProfileController
+            //let nav = (segue.destination as! UINavigationController)
+            let newRidersProfileController = (segue.destination as! RidersProfileController)
+            //let newRidersProfileController = nav.topViewController as! RidersProfileController
             newRidersProfileController.ridersInfo = ridersInfoForSending
             newRidersProfileController.title = ridersInfoForSending.name
         }

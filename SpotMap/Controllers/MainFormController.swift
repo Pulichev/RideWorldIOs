@@ -26,10 +26,12 @@ class MainFormController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        backendless = Backendless.sharedInstance()
-
-        mapViewInitialize()
-        loadSpotsOnMap()
+        DispatchQueue.main.async {
+            self.backendless = Backendless.sharedInstance()
+            
+            self.mapViewInitialize()
+            self.loadSpotsOnMap()
+        }
     }
 
     func mapViewInitialize() {

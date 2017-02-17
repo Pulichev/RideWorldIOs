@@ -25,13 +25,15 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     var spotsPostsImages = [UIImageView]()
     
     override func viewDidLoad() {
-        self.backendless = Backendless.sharedInstance()
-        
-        initializeUserTextInfo() //async loading user
-        initializeUserPhoto()
-        initializeUserPostsPhotos()
-        
         super.viewDidLoad()
+        
+        DispatchQueue.main.async {
+            self.backendless = Backendless.sharedInstance()
+            
+            self.initializeUserTextInfo() //async loading user
+            self.initializeUserPhoto()
+            self.initializeUserPostsPhotos()
+        }
     }
     
     func initializeUserTextInfo() {
@@ -79,7 +81,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
             
             DispatchQueue.main.async {
                 self.ridersProfilePhoto.image = userPhoto
-                self.ridersProfilePhoto.layer.cornerRadius = self.ridersProfilePhoto.frame.size.height / 6
+                self.ridersProfilePhoto.layer.cornerRadius = self.ridersProfilePhoto.frame.size.height / 2
             }
         }
     }

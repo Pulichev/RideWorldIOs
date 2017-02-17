@@ -23,14 +23,16 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     var mediaCache = NSMutableDictionary()
     
     override func viewDidLoad() {
-        backendless = Backendless.sharedInstance()
-        
-        loadSpotPosts()
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
         super.viewDidLoad()
+        
+        DispatchQueue.main.async {
+            self.backendless = Backendless.sharedInstance()
+            
+            self.loadSpotPosts()
+            
+            self.tableView.delegate = self
+            self.tableView.dataSource = self
+        }
     }
     
     func loadSpotPosts() {
@@ -71,6 +73,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             newSpotPostCellCache.countPostLikes()
             
             spotPostsCellsCache.append(newSpotPostCellCache)
+            self.tableView.reloadData()
             i += 1
         }
     }

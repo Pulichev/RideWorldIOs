@@ -169,7 +169,8 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             if let url = URL(string: postVideoURL) {
                 
                 DispatchQueue.global(qos: .userInteractive).async(execute: {
-                    self.makeThumbnailFirst(url: url, cell: cell)
+                    //self.makeThumbnailFirst(url: url, cell: cell)
+                    self.makeThumbnailFirst(postId: self.spotPosts[cacheKey].objectId!, cell: cell)
                     
                     let assetForCache = AVAsset(url: url)
                     self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
@@ -189,26 +190,19 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    func makeThumbnailFirst(url: URL, cell: SpotPostsCell) {
-        let filePath: URL = url
+    func makeThumbnailFirst(postId: String, cell: SpotPostsCell) {
+        let thumbnailUrl = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotPostMediaThumbnails/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
         
-        do {
-            let asset = AVURLAsset(url: filePath , options: nil)
-            
-            let imgGenerator = AVAssetImageGenerator(asset: asset)
-            imgGenerator.appliesPreferredTrackTransform = true
-            let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
-            let thumbnail = UIImage(cgImage: cgImage)
-            
-            DispatchQueue.main.async {
-                // thumbnail
-                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                imageViewForView.image = thumbnail
-                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-            }
-        } catch let error {
-            print("*** Error generating thumbnail: \(error.localizedDescription)")
+        let url = URL(string: thumbnailUrl)
+        let data = NSData(contentsOf: url!)
+        let thumbnail: UIImage = UIImage(data: data as! Data)!
+        
+        DispatchQueue.main.async {
+            // thumbnail
+            let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+            imageViewForView.image = thumbnail
+            imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+            cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
         }
     }
     

@@ -11,6 +11,4 @@ import UIKit
 
 class RidersProfileCollectionViewCell: UICollectionViewCell {
     @IBOutlet var postPicture: UIImageView!
-    
-    
 }

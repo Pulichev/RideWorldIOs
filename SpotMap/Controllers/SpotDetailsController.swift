@@ -263,14 +263,12 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     var ridersInfoForSending: Users!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "addNewPost") {
+        if segue.identifier == "addNewPost" {
             let newPostController = (segue.destination as! NewPostController)
             newPostController.spotDetails = self.spotDetails
         }
-        if(segue.identifier == "openRidersProfileFromSpotDetails") {
-            //let nav = (segue.destination as! UINavigationController)
+        if segue.identifier == "openRidersProfileFromSpotDetails" {
             let newRidersProfileController = (segue.destination as! RidersProfileController)
-            //let newRidersProfileController = nav.topViewController as! RidersProfileController
             newRidersProfileController.ridersInfo = ridersInfoForSending
             newRidersProfileController.title = ridersInfoForSending.name
         }

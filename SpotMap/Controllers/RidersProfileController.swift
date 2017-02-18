@@ -21,6 +21,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet var ridersProfilePhoto: UIImageView!
     
     @IBOutlet var riderProfileCollection: UICollectionView!
+    var spotPosts = [SpotPost]()
     var spotsPostsImages = [UIImageView]()
     
     override func viewDidLoad() {
@@ -93,30 +94,15 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
             var error: Fault?
             
             let spotPostsList = self.backendless.data.of(SpotPost.ofClass()).find(dataQuery, fault: &error)
+            self.spotPosts = spotPostsList?.data as! [SpotPost]
             
-            for spotPost in (spotPostsList?.data as! [SpotPost]) {
+            for spotPost in self.spotPosts {
                 var photo = UIImage()
                 var mediaURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/"
                 
-                if spotPost.isPhoto {
-                    mediaURL += "SpotPostPhotos/" + (spotPost.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
-                    let photoData = NSData(contentsOf: URL(string: mediaURL)!)
-                    photo = UIImage(data: photoData as! Data)!
-                } else {
-                    mediaURL += "SpotPostVideos/" + (spotPost.objectId!).replacingOccurrences(of: "-", with: "") + ".m4v"
-                    let filePath = URL(string: mediaURL)
-                    
-                    do {
-                        let asset = AVURLAsset(url: filePath! , options: nil)
-                        let imgGenerator = AVAssetImageGenerator(asset: asset)
-                        imgGenerator.appliesPreferredTrackTransform = true
-                        let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
-                        photo = UIImage(cgImage: cgImage)
-                    } catch let error {
-                        print("*** Error generating thumbnail: \(error.localizedDescription)")
-                    }
-                }
-                
+                mediaURL += "spotPostMediaThumbnails/" + (spotPost.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
+                let photoData = NSData(contentsOf: URL(string: mediaURL)!)
+                photo = UIImage(data: photoData as! Data)!
                 let photoView = UIImageView(image: photo)
                 
                 DispatchQueue.main.async {
@@ -141,22 +127,24 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.postPicture.image = self.spotsPostsImages[indexPath.row].image
         
-        let tap = UITapGestureRecognizer(target:self, action:#selector(goToPostInfo(_:))) //target was only self
-        tap.numberOfTapsRequired = 1
-        cell.postPicture.addGestureRecognizer(tap)
-        cell.postPicture.isUserInteractionEnabled = true
-        
         return cell
     }
     
     // MARK: - UICollectionViewDelegate protocol
     
+    var selectedCellId: Int!
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
-        print("You selected cell #\(indexPath.item)!")
+        self.selectedCellId = indexPath.item
+        self.performSegue(withIdentifier: "goToPostInfo", sender: self)
     }
     
-    func goToPostInfo(_ sender: Any) {
-        self.performSegue(withIdentifier: "goToPostInfo", sender: self)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToPostInfo" {
+            let newPostInfoController = (segue.destination as! PostInfoViewController)
+            newPostInfoController.postInfo = spotPosts[selectedCellId]
+            newPostInfoController.user = ridersInfo
+        }
     }
 }

@@ -32,6 +32,7 @@
 		9FD648D61E54745100C673CA /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D51E54745100C673CA /* Users.swift */; };
 		9FD648DA1E55E1FE00C673CA /* RidersProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D91E55E1FE00C673CA /* RidersProfileCollectionViewCell.swift */; };
 		9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD648DB1E573F0600C673CA /* Main.storyboard */; };
+		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
 		AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		9FD648D51E54745100C673CA /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Users.swift; path = Data/Users.swift; sourceTree = "<group>"; };
 		9FD648D91E55E1FE00C673CA /* RidersProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileCollectionViewCell.swift; path = Core/RidersProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		9FD648DB1E573F0600C673CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
 		C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -218,6 +220,7 @@
 				9FC14FCD1E48E5E30097579B /* RegistrationController.swift */,
 				9FC14FCE1E48E5E30097579B /* SpotDetailsController.swift */,
 				9FD648D31E54587800C673CA /* RidersProfileController.swift */,
+				9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				9FC14FD41E48E5E30097579B /* SpotDetailsController.swift in Sources */,
 				9FC14FE01E48E7690097579B /* SpotPostsCell.swift in Sources */,
 				9FD648DA1E55E1FE00C673CA /* RidersProfileCollectionViewCell.swift in Sources */,
+				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */,
 				9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */,

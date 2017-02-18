@@ -71,8 +71,7 @@ UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
         self.dismiss(animated: true, completion: nil)
 
         if mediaType.isEqual(to: kUTTypeImage as String) {
-            let image = info[UIImagePickerControllerOriginalImage]
-                as! UIImage
+            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
 
             imageView.image = image
             imageView.layer.cornerRadius = imageView.frame.size.height / 8

@@ -49,6 +49,7 @@ class PostInfoViewController: UIViewController {
             self.userLikedThisPost()
             self.addDoubleTapGestureOnPostMedia()
         }
+        self.addMediaToView()
     }
     
     func addDoubleTapGestureOnPostMedia() {
@@ -146,6 +147,64 @@ class PostInfoViewController: UIViewController {
             postIsLiked = false
             self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
             likesCountInt -= 1
+        }
+    }
+    
+    func addMediaToView() {
+        if self.postInfo.isPhoto {
+            let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (postInfo.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
+            DispatchQueue.global(qos: .userInteractive).async(execute: {
+                if let url = URL(string: postPhotoURL) {
+                    if let data = NSData(contentsOf: url) {
+                        let imageFromCache: UIImage = UIImage(data: data as Data)!
+                        
+                        DispatchQueue.main.async(execute: {
+                            let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+                            imageViewForView.image = imageFromCache
+                            imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                            self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                        })
+                    }
+                }
+            })
+        } else {
+            let postVideoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostVideos/" + (postInfo.objectId!).replacingOccurrences(of: "-", with: "") + ".m4v"
+            if let url = URL(string: postVideoURL) {
+                
+                DispatchQueue.global(qos: .userInteractive).async(execute: {
+
+                    self.makeThumbnailFirst(postId: self.postInfo.objectId!)
+                    
+                    let assetForCache = AVAsset(url: url)
+                    
+                    DispatchQueue.main.async(execute: {
+                        self.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+                        let playerLayer = AVPlayerLayer(player: self.player)
+                        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                        playerLayer.frame = self.spotPostMedia.bounds
+                        
+                        self.spotPostMedia.layer.addSublayer(playerLayer)
+                        
+                        self.player.play()
+                    })
+                })
+            }
+        }
+    }
+    
+    func makeThumbnailFirst(postId: String) {
+        let thumbnailUrl = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotPostMediaThumbnails/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
+        
+        let url = URL(string: thumbnailUrl)
+        let data = NSData(contentsOf: url!)
+        let thumbnail: UIImage = UIImage(data: data as! Data)!
+        
+        DispatchQueue.main.async {
+            // thumbnail
+            let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+            imageViewForView.image = thumbnail
+            imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+            self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
         }
     }
 }

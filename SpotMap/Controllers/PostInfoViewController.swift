@@ -151,6 +151,8 @@ class PostInfoViewController: UIViewController {
     }
     
     func addMediaToView() {
+        self.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
+        
         if self.postInfo.isPhoto {
             let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (postInfo.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
             DispatchQueue.global(qos: .userInteractive).async(execute: {

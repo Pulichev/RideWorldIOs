@@ -74,6 +74,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
     }
     
     @IBAction func takeMedia(_ sender: Any) {
+        self.performSegue(withIdentifier: "goToCameraFromNewPost", sender: self)
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             let imagePicker = UIImagePickerController()
             
@@ -81,6 +82,8 @@ UINavigationControllerDelegate, UITextViewDelegate {
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as NSString as String]
             imagePicker.allowsEditing = false
+            imagePicker.showsCameraControls = true
+            //imagePicker.cameraOverlayView
             
             self.present(imagePicker, animated: true, completion: nil)
             newMedia = true

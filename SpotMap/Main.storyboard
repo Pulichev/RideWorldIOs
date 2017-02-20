@@ -323,7 +323,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJu-t2-VWD">
-                                <rect key="frame" x="16" y="28" width="288" height="192"/>
+                                <rect key="frame" x="16" y="72" width="288" height="148"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vzh-Kq-S3x">
                                         <rect key="frame" x="0.0" y="0.0" width="89" height="88"/>
@@ -783,10 +783,10 @@
             </objects>
             <point key="canvasLocation" x="4611" y="39"/>
         </scene>
-        <!--Item 2-->
+        <!--TakeMediaFromCamera-->
         <scene sceneID="SYm-cI-QHd">
             <objects>
-                <viewController id="toh-Mg-aUi" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TakeMediaFromCamera" id="toh-Mg-aUi" userLabel="TakeMediaFromCamera" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iiT-A9-JNc"/>
                         <viewControllerLayoutGuide type="bottom" id="J71-uL-erl"/>
@@ -796,16 +796,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="yuC-fV-wlc"/>
+                    <tabBarItem key="tabBarItem" title="Take from camera" id="yuC-fV-wlc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lz3-uh-zpG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5695" y="1554"/>
+            <point key="canvasLocation" x="5168" y="2123"/>
         </scene>
-        <!--Item 1-->
+        <!--TakeMediaFromLibrary-->
         <scene sceneID="O9z-4D-B7L">
             <objects>
-                <viewController id="OdO-IN-LGP" sceneMemberID="viewController">
+                <viewController id="OdO-IN-LGP" userLabel="TakeMediaFromLibrary" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R1y-ML-PQC"/>
                         <viewControllerLayoutGuide type="bottom" id="WD7-u9-wyx"/>
@@ -815,11 +815,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="Rvk-Ce-oVi"/>
+                    <tabBarItem key="tabBarItem" title="Camera library" id="Rvk-Ce-oVi"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Q6-Du-H5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5695" y="887"/>
+            <point key="canvasLocation" x="4050" y="2124"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="3Va-Jf-Drh">
@@ -929,8 +929,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Vya-rg-RYo"/>
-        <segue reference="TN2-SS-S6r"/>
-        <segue reference="Y3E-su-1Ct"/>
+        <segue reference="CzX-Mc-6Hc"/>
         <segue reference="6R6-CY-IE2"/>
+        <segue reference="FyF-za-RIC"/>
     </inferredMetricsTieBreakers>
 </document>

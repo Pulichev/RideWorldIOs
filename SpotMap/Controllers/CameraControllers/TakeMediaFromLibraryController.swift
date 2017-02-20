@@ -8,3 +8,8 @@
 
 import Foundation
 
+class TakeMediaFromLibraryController: UIViewController {
+    override func viewDidLoad() {
+        
+    }
+}

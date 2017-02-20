@@ -8,3 +8,9 @@
 
 import Foundation
 
+class TakeMediaFromCameraController: UIViewController {
+    override func viewDidLoad() {
+        
+    }
+}
+

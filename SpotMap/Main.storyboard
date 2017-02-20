@@ -786,7 +786,7 @@
         <!--TakeMediaFromCamera-->
         <scene sceneID="SYm-cI-QHd">
             <objects>
-                <viewController storyboardIdentifier="TakeMediaFromCamera" id="toh-Mg-aUi" userLabel="TakeMediaFromCamera" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TakeMediaFromCamera" id="toh-Mg-aUi" userLabel="TakeMediaFromCamera" customClass="TakeMediaFromCameraController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iiT-A9-JNc"/>
                         <viewControllerLayoutGuide type="bottom" id="J71-uL-erl"/>
@@ -805,7 +805,7 @@
         <!--TakeMediaFromLibrary-->
         <scene sceneID="O9z-4D-B7L">
             <objects>
-                <viewController id="OdO-IN-LGP" userLabel="TakeMediaFromLibrary" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TakeMediaFromLibrary" id="OdO-IN-LGP" userLabel="TakeMediaFromLibrary" customClass="TakeMediaFromLibraryController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R1y-ML-PQC"/>
                         <viewControllerLayoutGuide type="bottom" id="WD7-u9-wyx"/>
@@ -928,7 +928,7 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Vya-rg-RYo"/>
+        <segue reference="eml-DT-HAU"/>
         <segue reference="CzX-Mc-6Hc"/>
         <segue reference="6R6-CY-IE2"/>
         <segue reference="FyF-za-RIC"/>

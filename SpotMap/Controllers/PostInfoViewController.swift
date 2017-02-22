@@ -161,7 +161,7 @@ class PostInfoViewController: UIViewController {
                         let imageFromCache: UIImage = UIImage(data: data as Data)!
                         
                         DispatchQueue.main.async(execute: {
-                            let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+                            let imageViewForView = UIImageView(frame: self.spotPostMedia.bounds)
                             imageViewForView.image = imageFromCache
                             imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
                             self.spotPostMedia.layer.addSublayer(imageViewForView.layer)

@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		731AD27307E50B3192B4422B /* Pods_SpotMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */; };
 		7E70B15F5DAC197C3216DA6E /* Pods_SpotMapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFE0AF727D03D36C374021 /* Pods_SpotMapUITests.framework */; };
-		9F0EEB631E5B6C330042738F /* TakeMediaFromCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EEB621E5B6C330042738F /* TakeMediaFromCameraController.swift */; };
-		9F0EEB651E5B6C4D0042738F /* TakeMediaFromLibraryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0EEB641E5B6C4D0042738F /* TakeMediaFromLibraryController.swift */; };
 		9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F65321B1E3CD12700F58C18 /* Assets.xcassets */; };
 		9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */; };
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
@@ -64,8 +62,6 @@
 		5A752A6ABE4F4F31D015688F /* Pods-SpotMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.debug.xcconfig"; sourceTree = "<group>"; };
 		8580589E3175367EF665865F /* Pods-SpotMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.release.xcconfig"; sourceTree = "<group>"; };
 		8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F0EEB621E5B6C330042738F /* TakeMediaFromCameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TakeMediaFromCameraController.swift; path = Controllers/CameraControllers/TakeMediaFromCameraController.swift; sourceTree = "<group>"; };
-		9F0EEB641E5B6C4D0042738F /* TakeMediaFromLibraryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TakeMediaFromLibraryController.swift; path = Controllers/CameraControllers/TakeMediaFromLibraryController.swift; sourceTree = "<group>"; };
 		9F65321B1E3CD12700F58C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FB681B21E2E70CE00D9A436 /* SpotMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,15 +131,6 @@
 				36EFE0AF727D03D36C374021 /* Pods_SpotMapUITests.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9F0EEB611E5B6C120042738F /* CameraControllers */ = {
-			isa = PBXGroup;
-			children = (
-				9F0EEB621E5B6C330042738F /* TakeMediaFromCameraController.swift */,
-				9F0EEB641E5B6C4D0042738F /* TakeMediaFromLibraryController.swift */,
-			);
-			name = CameraControllers;
 			sourceTree = "<group>";
 		};
 		9F113EB71E32A4D3009AF9FD /* Data */ = {
@@ -226,7 +213,6 @@
 		9FC14FC61E48E5CB0097579B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9F0EEB611E5B6C120042738F /* CameraControllers */,
 				9FC14FC91E48E5E30097579B /* LoginController.swift */,
 				9FC14FCA1E48E5E30097579B /* MainFormController.swift */,
 				9FC14FCB1E48E5E30097579B /* NewPostController.swift */,
@@ -570,10 +556,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F0EEB631E5B6C330042738F /* TakeMediaFromCameraController.swift in Sources */,
 				9FC14FE71E48E7790097579B /* SpotDetails.swift in Sources */,
 				9FC14FE81E48E7790097579B /* SpotPost.swift in Sources */,
-				9F0EEB651E5B6C4D0042738F /* TakeMediaFromLibraryController.swift in Sources */,
 				9FC14FE61E48E7790097579B /* PostLike.swift in Sources */,
 				9FC14FD41E48E5E30097579B /* SpotDetailsController.swift in Sources */,
 				9FC14FE01E48E7690097579B /* SpotPostsCell.swift in Sources */,

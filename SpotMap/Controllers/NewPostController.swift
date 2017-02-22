@@ -12,9 +12,9 @@ import CoreLocation
 import MobileCoreServices
 import AVKit
 import AVFoundation
+import Fusuma
 
-class NewPostController: UIViewController, UIImagePickerControllerDelegate,
-UINavigationControllerDelegate, UITextViewDelegate {
+class NewPostController: UIViewController, UITextViewDelegate, FusumaDelegate {
     
     var backendless: Backendless!
     
@@ -74,84 +74,53 @@ UINavigationControllerDelegate, UITextViewDelegate {
     }
     
     @IBAction func takeMedia(_ sender: Any) {
-        self.performSegue(withIdentifier: "goToCameraFromNewPost", sender: self)
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
-            let imagePicker = UIImagePickerController()
-            
-            imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-            imagePicker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as NSString as String]
-            imagePicker.allowsEditing = false
-            imagePicker.showsCameraControls = true
-            //imagePicker.cameraOverlayView
-            
-            self.present(imagePicker, animated: true, completion: nil)
-            newMedia = true
-        }
+        let fusuma = FusumaViewController()
+        fusuma.delegate = self
+        fusuma.hasVideo = true // If you want to let the users allow to use video.
+        self.present(fusuma, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        self.photoOrVideoView.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
-        
-        let mediaType = info[UIImagePickerControllerMediaType] as! NSString
-        
-        self.dismiss(animated: true, completion: nil)
-        
-        if mediaType.isEqual(to: kUTTypeImage as String) { //photo
-            newPhotoAdded(info: info)
-        } else {
-            if mediaType == kUTTypeMovie { //video
-                // Handle a movie capture
-                newVideoAdded(info: info)
-            }
+    // MARK: FusumaDelegate Protocol
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
+        switch source {
+        case .camera:
+            print("Image captured from Camera")
+        case .library:
+            print("Image selected from Camera Roll")
+        default:
+            print("Image selected")
         }
-    }
-    
-    func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo: UnsafeRawPointer) {
-        if error != nil {
-            let alert = UIAlertController(title: "Save Failed",
-                                          message: "Failed to save image",
-                                          preferredStyle: UIAlertControllerStyle.alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func video(videoPath: NSString, didFinishSavingWithError error: NSError?, contextInfo info: AnyObject) {
-        if error != nil {
-            let alert = UIAlertController(title: "Save Failed",
-                                          message: "Failed to save video",
-                                          preferredStyle: UIAlertControllerStyle.alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func newPhotoAdded(info: [String: Any]) {
+        
         self.isNewMediaIsPhoto = true
-        
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         
         self.photoView.image = image
         self.photoView.contentMode = .scaleAspectFill
         
         self.photoOrVideoView.layer.addSublayer(photoView.layer)
         
-        UIImageWriteToSavedPhotosAlbum(image, self,
-                                       #selector(NewPostController.image(image:didFinishSavingWithError:contextInfo:)), nil)
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil , nil) //saving image to camera roll
     }
     
-    func newVideoAdded(info: [String: Any]) {
+    func fusumaImageSelected(_ image: UIImage) {
+//        print("Image mediatype: \(metaData.mediaType)")
+//        print("Source image size: \(metaData.pixelWidth)x\(metaData.pixelHeight)")
+//        print("Creation date: \(metaData.creationDate)")
+//        print("Modification date: \(metaData.modificationDate)")
+//        print("Video duration: \(metaData.duration)")
+//        print("Is favourite: \(metaData.isFavourite)")
+//        print("Is hidden: \(metaData.isHidden)")
+//        print("Location: \(metaData.location)")
+    }
+    
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+        
         self.isNewMediaIsPhoto = false
         self.photoView.image = nil
         
         player = AVQueuePlayer()
         
         let playerLayer = AVPlayerLayer(player: player)
-        let playerItem = AVPlayerItem(url: (info[UIImagePickerControllerMediaURL] as! NSURL) as URL!)
+        let playerItem = AVPlayerItem(url: fileURL)
         playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
         playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
         playerLayer.frame = self.photoOrVideoView.bounds
@@ -160,13 +129,54 @@ UINavigationControllerDelegate, UITextViewDelegate {
         
         player.play()
         
-        self.newVideoUrl = info[UIImagePickerControllerMediaURL]
+        self.newVideoUrl = fileURL
         
-        guard let path = (self.newVideoUrl as! NSURL).path else { return }
+        guard let path = (fileURL as NSURL).path else { return }
         if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
-            UISaveVideoAtPathToSavedPhotosAlbum(path, self,
-                                                #selector(NewPostController.video(videoPath:didFinishSavingWithError:contextInfo:)), nil)
+            UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
         }
+        
+        print("video completed and output to file: \(fileURL)")
+    }
+    
+    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
+        switch source {
+        case .camera:
+            print("Called just after dismissed FusumaViewController using Camera")
+        case .library:
+            print("Called just after dismissed FusumaViewController using Camera Roll")
+        default:
+            print("Called just after dismissed FusumaViewController")
+        }
+    }
+    
+    func fusumaCameraRollUnauthorized() {
+        
+        print("Camera roll unauthorized")
+        
+        let alert = UIAlertController(title: "Access Requested", message: "Saving image needs to access your photo album", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (action) -> Void in
+            
+            if let url = URL(string:UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.openURL(url)
+            }
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func fusumaClosed() {
+        print("Called when the FusumaViewController disappeared")
+    }
+    
+    func fusumaWillClosed() {
+        print("Called when the close button is pressed")
     }
     
     @IBAction func saveSpotDetails(_ sender: Any) {

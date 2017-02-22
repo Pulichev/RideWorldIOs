@@ -25,7 +25,6 @@ class NewPostController: UIViewController, UITextViewDelegate {
     
     var photoView = UIImageView()
     
-    var newMedia: Bool?
     var isNewMediaIsPhoto = true //if true - photo, false - video. Default - true
     
     override func viewDidLoad() {

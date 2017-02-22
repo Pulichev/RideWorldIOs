@@ -7,10 +7,6 @@
 //
 
 import UIKit
-import MapKit
-import CoreLocation
-import MobileCoreServices
-import AVKit
 import AVFoundation
 import Fusuma
 
@@ -102,14 +98,7 @@ class NewPostController: UIViewController, UITextViewDelegate, FusumaDelegate {
     }
     
     func fusumaImageSelected(_ image: UIImage) {
-//        print("Image mediatype: \(metaData.mediaType)")
-//        print("Source image size: \(metaData.pixelWidth)x\(metaData.pixelHeight)")
-//        print("Creation date: \(metaData.creationDate)")
-//        print("Modification date: \(metaData.modificationDate)")
-//        print("Video duration: \(metaData.duration)")
-//        print("Is favourite: \(metaData.isFavourite)")
-//        print("Is hidden: \(metaData.isHidden)")
-//        print("Location: \(metaData.location)")
+        //look example on https://github.com/ytakzk/Fusuma
     }
     
     func fusumaVideoCompleted(withFileURL fileURL: URL) {
@@ -208,7 +197,7 @@ class NewPostController: UIViewController, UITextViewDelegate, FusumaDelegate {
     //Uploading files with the SYNC API
     func uploadPhoto(postId: String) {
         //saving original image with low compression
-        let dataLowCompression: Data = UIImageJPEGRepresentation(self.photoView.image!, 0.3)!
+        let dataLowCompression: Data = UIImageJPEGRepresentation(self.photoView.image!, 0.8)!
         let postPhotoUrlLowCompression = "media/SpotPostPhotos/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
         
         //saving thumbnail image with high compression

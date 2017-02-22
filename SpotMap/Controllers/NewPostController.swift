@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Fusuma
 
-class NewPostController: UIViewController, UITextViewDelegate, FusumaDelegate {
+class NewPostController: UIViewController, UITextViewDelegate {
     
     var backendless: Backendless!
     
@@ -67,105 +67,6 @@ class NewPostController: UIViewController, UITextViewDelegate, FusumaDelegate {
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
         let numberOfChars = newText.characters.count
         return numberOfChars < 100
-    }
-    
-    @IBAction func takeMedia(_ sender: Any) {
-        let fusuma = FusumaViewController()
-        fusuma.delegate = self
-        fusuma.hasVideo = true // If you want to let the users allow to use video.
-        self.present(fusuma, animated: true, completion: nil)
-    }
-    
-    // MARK: FusumaDelegate Protocol
-    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
-        switch source {
-        case .camera:
-            print("Image captured from Camera")
-        case .library:
-            print("Image selected from Camera Roll")
-        default:
-            print("Image selected")
-        }
-        
-        self.isNewMediaIsPhoto = true
-        
-        self.photoView.image = image
-        self.photoView.contentMode = .scaleAspectFill
-        
-        self.photoOrVideoView.layer.addSublayer(photoView.layer)
-        
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil , nil) //saving image to camera roll
-    }
-    
-    func fusumaImageSelected(_ image: UIImage) {
-        //look example on https://github.com/ytakzk/Fusuma
-    }
-    
-    func fusumaVideoCompleted(withFileURL fileURL: URL) {
-        
-        self.isNewMediaIsPhoto = false
-        self.photoView.image = nil
-        
-        player = AVQueuePlayer()
-        
-        let playerLayer = AVPlayerLayer(player: player)
-        let playerItem = AVPlayerItem(url: fileURL)
-        playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
-        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        playerLayer.frame = self.photoOrVideoView.bounds
-        
-        self.photoOrVideoView.layer.addSublayer(playerLayer)
-        
-        player.play()
-        
-        self.newVideoUrl = fileURL
-        
-        guard let path = (fileURL as NSURL).path else { return }
-        if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
-            UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
-        }
-        
-        print("video completed and output to file: \(fileURL)")
-    }
-    
-    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
-        switch source {
-        case .camera:
-            print("Called just after dismissed FusumaViewController using Camera")
-        case .library:
-            print("Called just after dismissed FusumaViewController using Camera Roll")
-        default:
-            print("Called just after dismissed FusumaViewController")
-        }
-    }
-    
-    func fusumaCameraRollUnauthorized() {
-        
-        print("Camera roll unauthorized")
-        
-        let alert = UIAlertController(title: "Access Requested", message: "Saving image needs to access your photo album", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (action) -> Void in
-            
-            if let url = URL(string:UIApplicationOpenSettingsURLString) {
-                UIApplication.shared.openURL(url)
-            }
-            
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
-            
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func fusumaClosed() {
-        print("Called when the FusumaViewController disappeared")
-    }
-    
-    func fusumaWillClosed() {
-        print("Called when the close button is pressed")
     }
     
     @IBAction func saveSpotDetails(_ sender: Any) {
@@ -277,19 +178,119 @@ class NewPostController: UIViewController, UITextViewDelegate, FusumaDelegate {
             spotDetailsController.spotDetails = self.spotDetails
         }
     }
+}
+
+//Fusuma
+extension NewPostController: FusumaDelegate {
+    @IBAction func takeMedia(_ sender: Any) {
+        let fusuma = FusumaViewController()
+        fusuma.delegate = self
+        fusuma.hasVideo = true // If you want to let the users allow to use video.
+        self.present(fusuma, animated: true, completion: nil)
+    }
     
-    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
+    // MARK: FusumaDelegate Protocol
+    func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
+        switch source {
+        case .camera:
+            print("Image captured from Camera")
+        case .library:
+            print("Image selected from Camera Roll")
+        default:
+            print("Image selected")
+        }
+        
+        self.isNewMediaIsPhoto = true
+        
+        self.photoView.image = image
+        self.photoView.contentMode = .scaleAspectFill
+        
+        self.photoOrVideoView.layer.addSublayer(photoView.layer)
+        
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil , nil) //saving image to camera roll
+    }
+    
+    func fusumaImageSelected(_ image: UIImage) {
+        //look example on https://github.com/ytakzk/Fusuma
+    }
+    
+    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+        
+        self.isNewMediaIsPhoto = false
+        self.photoView.image = nil
+        
+        player = AVQueuePlayer()
+        
+        let playerLayer = AVPlayerLayer(player: player)
+        let playerItem = AVPlayerItem(url: fileURL)
+        playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
+        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        playerLayer.frame = self.photoOrVideoView.bounds
+        
+        self.photoOrVideoView.layer.addSublayer(playerLayer)
+        
+        player.play()
+        
+        self.newVideoUrl = fileURL
+        
+        guard let path = (fileURL as NSURL).path else { return }
+        if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
+            UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
+        }
+        
+        print("video completed and output to file: \(fileURL)")
+    }
+    
+    func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
+        switch source {
+        case .camera:
+            print("Called just after dismissed FusumaViewController using Camera")
+        case .library:
+            print("Called just after dismissed FusumaViewController using Camera Roll")
+        default:
+            print("Called just after dismissed FusumaViewController")
+        }
+    }
+    
+    func fusumaCameraRollUnauthorized() {
+        
+        print("Camera roll unauthorized")
+        
+        let alert = UIAlertController(title: "Access Requested", message: "Saving image needs to access your photo album", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (action) -> Void in
+            
+            if let url = URL(string:UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.openURL(url)
+            }
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func fusumaClosed() {
+        print("Called when the FusumaViewController disappeared")
+    }
+    
+    func fusumaWillClosed() {
+        print("Called when the close button is pressed")
+    }
+}
+
+//Keyboard manipulations
+extension NewPostController {
     //if we tapped UITextField and then another UITextField
     func keyboardWillShow(notification: NSNotification) {
-        if !keyBoardAlreadyShowed {
-            self.view.frame.origin.y -= 200
-            keyBoardAlreadyShowed = true
-        }
+        self.view.frame.origin.y -= 200
     }
     
     func keyboardWillHide(notification: NSNotification) {
         self.view.frame.origin.y += 200
-        keyBoardAlreadyShowed = false
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

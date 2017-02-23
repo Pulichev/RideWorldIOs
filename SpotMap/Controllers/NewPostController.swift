@@ -167,6 +167,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
             
             let dataThumbnailForVideo: Data = UIImageJPEGRepresentation(thumbnail, 0.1)!
             let postThumbnailForVideo = "media/spotPostMediaThumbnails/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
+            
             DispatchQueue.global(qos: .userInitiated).async {
                 let uploadedFile = self.backendless.fileService.saveFile(postThumbnailForVideo, content: dataThumbnailForVideo, overwriteIfExist: true)
                 print("File has been uploaded. File URL is - \(uploadedFile?.fileURL!)")
@@ -234,7 +235,52 @@ extension NewPostController: FusumaDelegate {
         
         self.newVideoUrl = fileURL
         
+        let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
+        
+        compressVideo(inputURL: fileURL as URL, outputURL: compressedURL) { (exportSession) in
+            guard let session = exportSession else {
+                return
+            }
+            
+            switch session.status {
+            case .unknown:
+                break
+            case .waiting:
+                break
+            case .exporting:
+                break
+            case .completed:
+                guard let compressedData = NSData(contentsOf: compressedURL) else {
+                    return
+                }
+                
+                print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
+            case .failed:
+                break
+            case .cancelled:
+                break
+            }
+        }
+        
+        self.newVideoUrl = compressedURL //update newVideoUrl to already compressed video
+        
         print("video completed and output to file: \(fileURL)")
+    }
+    
+    func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
+        let urlAsset = AVURLAsset(url: inputURL, options: nil)
+        guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPreset640x480) else {
+            handler(nil)
+            
+            return
+        }
+        
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = AVFileTypeQuickTimeMovie
+        exportSession.shouldOptimizeForNetworkUse = true
+        exportSession.exportAsynchronously { () -> Void in
+            handler(exportSession)
+        }
     }
     
     func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {

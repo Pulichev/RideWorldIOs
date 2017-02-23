@@ -25,13 +25,13 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.async {
-            self.backendless = Backendless.sharedInstance()
-            
+        self.backendless = Backendless.sharedInstance()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        DispatchQueue.global(qos: .userInitiated).async {
             self.loadSpotPosts()
-            
-            self.tableView.delegate = self
-            self.tableView.dataSource = self
         }
     }
     
@@ -56,25 +56,28 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     func loadSpotPostCellsTextInfo() {
         var i = 0
         
-        for spot in spotPosts {
-            let newSpotPostCellCache = SpotPostsCellCache()
-            
-            newSpotPostCellCache.userInfo = getUserInfo(userId: spot.userId) //getting userinfo
-            newSpotPostCellCache.postId = spot.objectId!
-            newSpotPostCellCache.userNickName.text = newSpotPostCellCache.userInfo.name
-            
-            let sourceDate = String(describing: spot.created!)
-            //formatting date to yyyy-mm-dd
-            let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
-            newSpotPostCellCache.postDate.text = finalDate
-            newSpotPostCellCache.postDescription.text = spot.postDescription
-            newSpotPostCellCache.isPhoto = spot.isPhoto
-            newSpotPostCellCache.userLikedThisPost()
-            newSpotPostCellCache.countPostLikes()
-            
-            spotPostsCellsCache.append(newSpotPostCellCache)
-            self.tableView.reloadData()
-            i += 1
+        DispatchQueue.main.async {
+            for spot in self.spotPosts {
+                let newSpotPostCellCache = SpotPostsCellCache()
+                
+                newSpotPostCellCache.userInfo = self.getUserInfo(userId: spot.userId) //getting userinfo
+                newSpotPostCellCache.postId = spot.objectId!
+                newSpotPostCellCache.userNickName.text = newSpotPostCellCache.userInfo.name
+                
+                let sourceDate = String(describing: spot.created!)
+                //formatting date to yyyy-mm-dd
+                let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
+                newSpotPostCellCache.postDate.text = finalDate
+                newSpotPostCellCache.postDescription.text = spot.postDescription
+                newSpotPostCellCache.isPhoto = spot.isPhoto
+                newSpotPostCellCache.userLikedThisPost()
+                newSpotPostCellCache.countPostLikes()
+                
+                self.spotPostsCellsCache.append(newSpotPostCellCache)
+                self.tableView.reloadData()
+
+                i += 1
+            }
         }
     }
     
@@ -169,7 +172,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             if let url = URL(string: postVideoURL) {
                 
                 DispatchQueue.global(qos: .userInteractive).async(execute: {
-                    //self.makeThumbnailFirst(url: url, cell: cell)
                     self.makeThumbnailFirst(postId: self.spotPosts[cacheKey].objectId!, cell: cell)
                     
                     let assetForCache = AVAsset(url: url)
@@ -233,7 +235,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     func getUserInfo(userId: String?) -> Users {
         let user = self.backendless.userService.find(byId: userId!)
-        print("\(user)")
+        //        print("\(user)")
         let rider = Users()
         rider.objectId = userId!
         rider.name = String(describing: (user?.getProperty("name"))!)

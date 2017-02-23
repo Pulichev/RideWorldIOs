@@ -65,6 +65,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
         
         let savedSpotID = backendless.persistenceService.of(spotDetails.ofClass()).save(spotDetails) as! SpotDetails
         uploadPhoto(spotID: savedSpotID.objectId!)
+        UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil) //saving image to camera roll
         
         self.performSegue(withIdentifier: "completeAdding", sender: self) //back to map
     }
@@ -106,8 +107,6 @@ extension NewSpotController: FusumaDelegate {
         imageView.layer.cornerRadius = imageView.frame.size.height / 8
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 0
-        
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil , nil) //saving image to camera roll
     }
     
     func fusumaImageSelected(_ image: UIImage) {

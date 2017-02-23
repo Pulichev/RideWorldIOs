@@ -85,8 +85,13 @@ class NewPostController: UIViewController, UITextViewDelegate {
         let savedSpotPostID = backendless.persistenceService.of(spotPost.ofClass()).save(spotPost) as! SpotPost
         if self.isNewMediaIsPhoto {
             uploadPhoto(postId: savedSpotPostID.objectId!)
+            UIImageWriteToSavedPhotosAlbum(self.photoView.image!, nil, nil , nil) //saving image to camera roll
         } else {
             uploadVideo(postId: savedSpotPostID.objectId!)
+            guard let path = (self.newVideoUrl as! NSURL).path else { return }
+            if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
+                UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
+            }
             player.pause()
             player = nil
         }
@@ -205,8 +210,6 @@ extension NewPostController: FusumaDelegate {
         self.photoView.contentMode = .scaleAspectFill
         
         self.photoOrVideoView.layer.addSublayer(photoView.layer)
-        
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil , nil) //saving image to camera roll
     }
     
     func fusumaImageSelected(_ image: UIImage) {
@@ -214,7 +217,6 @@ extension NewPostController: FusumaDelegate {
     }
     
     func fusumaVideoCompleted(withFileURL fileURL: URL) {
-        
         self.isNewMediaIsPhoto = false
         self.photoView.image = nil
         
@@ -231,11 +233,6 @@ extension NewPostController: FusumaDelegate {
         player.play()
         
         self.newVideoUrl = fileURL
-        
-        guard let path = (fileURL as NSURL).path else { return }
-        if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
-            UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
-        }
         
         print("video completed and output to file: \(fileURL)")
     }

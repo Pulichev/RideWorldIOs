@@ -87,7 +87,7 @@ extension NewSpotController: FusumaDelegate {
     @IBAction func takePhoto(_ sender: Any) {
         let fusuma = FusumaViewController()
         fusuma.delegate = self
-        fusuma.hasVideo = true // If you want to let the users allow to use video.
+        fusuma.hasVideo = false // If you want to let the users allow to use video.
         self.present(fusuma, animated: true, completion: nil)
     }
     

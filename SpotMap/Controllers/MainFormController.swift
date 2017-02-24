@@ -59,7 +59,7 @@ class MainFormController: UIViewController {
         setStartRegion()
 
         //Some map customisation
-        //displayAdditionalOptions()
+        displayAdditionalOptions()
         //displayInFlyoverMode()
         //openMapInTransitMode()
     }
@@ -102,7 +102,7 @@ class MainFormController: UIViewController {
     }
 
     func displayAdditionalOptions() {
-        mapView.showsCompass = true
+        //mapView.showsCompass = true
         mapView.showsTraffic = true
         mapView.showsScale = true
     }

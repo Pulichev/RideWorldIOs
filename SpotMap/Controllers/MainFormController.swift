@@ -104,7 +104,7 @@ class MainFormController: UIViewController {
     func displayAdditionalOptions() {
         //mapView.showsCompass = true
         mapView.showsTraffic = true
-        mapView.showsScale = true
+        //mapView.showsScale = true
     }
 
     func displayInFlyoverMode() {

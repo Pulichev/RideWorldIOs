@@ -1,8 +1,8 @@
 //
-//  RidersProfileController.swift
+//  UserProfileController.swift
 //  SpotMap
 //
-//  Created by Владислав Пуличев on 15.02.17.
+//  Created by Владислав Пуличев on 25.02.17.
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
@@ -77,20 +77,20 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             let dataQuery1 = BackendlessDataQuery()
             dataQuery1.whereClause = whereClause1
             
-            let ridersPosts = self.backendless.data.of(SpotPost.ofClass()).find(dataQuery1)
+            let usersPosts = self.backendless.data.of(SpotPost.ofClass()).find(dataQuery1)
             
-            var ridersLikesCount = 0
-            for riderPost in (ridersPosts?.data as! [SpotPost]) {
+            var usersLikesCount = 0
+            for riderPost in (usersPosts?.data as! [SpotPost]) {
                 let whereClause2 = "postId = '\(riderPost.objectId!)'"
                 let dataQuery2 = BackendlessDataQuery()
                 dataQuery2.whereClause = whereClause2
                 
-                let ridersLikes = self.backendless.data.of(PostLike.ofClass()).find(dataQuery2)
-                ridersLikesCount += (ridersLikes?.data.count)!
+                let usersLikes = self.backendless.data.of(PostLike.ofClass()).find(dataQuery2)
+                usersLikesCount += (usersLikes?.data.count)!
             }
             
             DispatchQueue.main.async {
-                self.recpectedTimes.text = String(ridersLikesCount)
+                self.recpectedTimes.text = String(usersLikesCount)
             }
         }
     }
@@ -163,7 +163,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     
     
     @IBAction func editProfileButtonTapped(_ sender: Any) {
-        
+        self.performSegue(withIdentifier: "editUserProfile", sender: self)
     }
     
     var selectedCellId: Int!
@@ -171,11 +171,11 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         self.selectedCellId = indexPath.item
-        self.performSegue(withIdentifier: "goToPostInfo", sender: self)
+        self.performSegue(withIdentifier: "goToPostInfoFromUserProfile", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToPostInfo" {
+        if segue.identifier == "goToPostInfoFromUserProfile" {
             let newPostInfoController = (segue.destination as! PostInfoViewController)
             newPostInfoController.postInfo = spotPosts[selectedCellId]
             newPostInfoController.user = userInfo

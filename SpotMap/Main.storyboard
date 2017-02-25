@@ -279,7 +279,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-VA-zc6">
-                                <rect key="frame" x="0.0" y="228" width="320" height="340"/>
+                                <rect key="frame" x="0.0" y="179" width="320" height="340"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="340" id="T8V-cx-gzn"/>
@@ -322,7 +322,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJu-t2-VWD">
-                                <rect key="frame" x="16" y="72" width="288" height="148"/>
+                                <rect key="frame" x="16" y="28" width="288" height="143"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vzh-Kq-S3x">
                                         <rect key="frame" x="0.0" y="0.0" width="89" height="88"/>
@@ -515,7 +515,7 @@
                         <viewControllerLayoutGuide type="top" id="7bo-0z-85p"/>
                         <viewControllerLayoutGuide type="bottom" id="2Fa-YJ-abt"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" misplaced="YES" id="MSF-p0-ANE">
+                    <view key="view" contentMode="scaleToFill" id="MSF-p0-ANE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -543,13 +543,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRn-js-1yR">
-                                <rect key="frame" x="16" y="513" width="288" height="35"/>
-                                <state key="normal" title="Save new spot"/>
-                                <connections>
-                                    <action selector="saveSpotDetails:" destination="28g-9l-NVL" eventType="touchUpInside" id="BwP-pW-cG6"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -557,27 +550,30 @@
                             <constraint firstItem="JKR-dD-JOV" firstAttribute="leading" secondItem="b0b-S2-wIf" secondAttribute="leading" id="IOI-ig-Vsn"/>
                             <constraint firstItem="JKR-dD-JOV" firstAttribute="top" secondItem="7bo-0z-85p" secondAttribute="bottom" constant="8" symbolic="YES" id="OhI-gA-5pK"/>
                             <constraint firstItem="e6A-Q2-7gE" firstAttribute="top" secondItem="b0b-S2-wIf" secondAttribute="bottom" constant="8" symbolic="YES" id="TFF-He-YSa"/>
-                            <constraint firstItem="e6A-Q2-7gE" firstAttribute="leading" secondItem="JRn-js-1yR" secondAttribute="leading" id="cfu-I5-1g0"/>
                             <constraint firstItem="b0b-S2-wIf" firstAttribute="leading" secondItem="e6A-Q2-7gE" secondAttribute="leading" id="dmT-e9-lIK"/>
                             <constraint firstItem="JKR-dD-JOV" firstAttribute="trailing" secondItem="MSF-p0-ANE" secondAttribute="trailingMargin" id="jgx-YJ-nOo"/>
-                            <constraint firstItem="2Fa-YJ-abt" firstAttribute="top" secondItem="JRn-js-1yR" secondAttribute="bottom" constant="20" id="pBq-kA-CgT"/>
                             <constraint firstItem="JKR-dD-JOV" firstAttribute="leading" secondItem="MSF-p0-ANE" secondAttribute="leadingMargin" id="riP-g6-8Xo"/>
                             <constraint firstItem="JKR-dD-JOV" firstAttribute="trailing" secondItem="b0b-S2-wIf" secondAttribute="trailing" id="s5W-CL-Ppu"/>
                             <constraint firstItem="b0b-S2-wIf" firstAttribute="top" secondItem="JKR-dD-JOV" secondAttribute="bottom" constant="8" id="tl3-62-1VW"/>
-                            <constraint firstItem="e6A-Q2-7gE" firstAttribute="trailing" secondItem="JRn-js-1yR" secondAttribute="trailing" id="xM3-2A-4fB"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="d3g-ZD-deq">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="zBc-Kf-kSL">
+                            <connections>
+                                <action selector="saveSpotDetails:" destination="28g-9l-NVL" id="z1Y-BW-kY3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="imageView" destination="JKR-dD-JOV" id="6ik-dV-K7T"/>
                         <outlet property="spotDescription" destination="e6A-Q2-7gE" id="gLl-46-z2f"/>
                         <outlet property="spotTitle" destination="b0b-S2-wIf" id="fgi-8X-h0L"/>
-                        <segue destination="Q0T-xY-QEM" kind="presentation" identifier="completeAdding" id="Vya-rg-RYo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N2a-xc-cSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2243" y="1955"/>
+            <point key="canvasLocation" x="2243" y="1986"/>
         </scene>
         <!--Spot Details Controller-->
         <scene sceneID="6sC-96-HMd">
@@ -592,7 +588,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="416" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1JN-k2-5ma">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SpotPostsCell" rowHeight="416" id="kZK-Ti-fyZ" userLabel="SpotPostsCell" customClass="SpotPostsCell" customModule="SpotMap" customModuleProvider="target">
@@ -700,13 +696,13 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="1JN-k2-5ma" id="cl3-1G-8gn"/>
-                        <segue destination="ULr-hs-bKD" kind="show" identifier="addNewPost" id="Pkb-eI-ySc"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromSpotDetails" id="6R6-CY-IE2"/>
+                        <segue destination="ULr-hs-bKD" kind="show" identifier="addNewPost" id="JdC-Rg-e8F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h24-NX-eSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3277.5" y="39.08450704225352"/>
+            <point key="canvasLocation" x="3279" y="64"/>
         </scene>
         <!--New Post Controller-->
         <scene sceneID="YyL-Pa-zzf">
@@ -720,52 +716,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ev-CV-3nA">
-                                <rect key="frame" x="16" y="505" width="288" height="30"/>
-                                <state key="normal" title="Save new post"/>
-                                <connections>
-                                    <action selector="saveSpotDetails:" destination="28g-9l-NVL" eventType="touchUpInside" id="otz-n4-SLr"/>
-                                    <action selector="saveSpotDetails:" destination="ULr-hs-bKD" eventType="touchUpInside" id="rJy-AE-KPf"/>
-                                </connections>
-                            </button>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2M-t3-luU">
+                                <rect key="frame" x="0.0" y="64" width="320" height="275"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Des" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b6x-qq-LDc">
-                                <rect key="frame" x="16" y="396" width="288" height="94"/>
+                                <rect key="frame" x="16" y="369" width="288" height="94"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="94" id="GrD-N8-68g"/>
+                                    <constraint firstAttribute="height" constant="94" id="16v-iy-WBD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2M-t3-luU">
-                                <rect key="frame" x="0.0" y="64" width="320" height="324"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="s2M-t3-luU" secondAttribute="trailing" id="EP8-GD-mKF"/>
-                            <constraint firstItem="b6x-qq-LDc" firstAttribute="leading" secondItem="WyZ-EX-gB1" secondAttribute="leadingMargin" id="V4c-kA-Mff"/>
-                            <constraint firstItem="b6x-qq-LDc" firstAttribute="trailing" secondItem="9Ev-CV-3nA" secondAttribute="trailing" id="bHS-TC-hSF"/>
-                            <constraint firstItem="s2M-t3-luU" firstAttribute="leading" secondItem="WyZ-EX-gB1" secondAttribute="leading" id="clb-IW-MTq"/>
-                            <constraint firstItem="mmF-Im-Wgc" firstAttribute="top" secondItem="9Ev-CV-3nA" secondAttribute="bottom" constant="33" id="dpj-ri-3Pl"/>
-                            <constraint firstItem="s2M-t3-luU" firstAttribute="centerX" secondItem="b6x-qq-LDc" secondAttribute="centerX" id="gin-mt-rSr"/>
-                            <constraint firstItem="b6x-qq-LDc" firstAttribute="top" secondItem="s2M-t3-luU" secondAttribute="bottom" constant="8" symbolic="YES" id="pZj-Qt-6L0"/>
-                            <constraint firstItem="9Ev-CV-3nA" firstAttribute="top" secondItem="b6x-qq-LDc" secondAttribute="bottom" constant="15" id="rfE-wH-uTT"/>
-                            <constraint firstItem="b6x-qq-LDc" firstAttribute="leading" secondItem="9Ev-CV-3nA" secondAttribute="leading" id="tnZ-lC-9Qg"/>
-                            <constraint firstItem="s2M-t3-luU" firstAttribute="top" secondItem="NRn-J8-hMY" secondAttribute="bottom" id="zYT-Ho-g9y"/>
+                            <constraint firstItem="s2M-t3-luU" firstAttribute="top" secondItem="NRn-J8-hMY" secondAttribute="bottom" id="9AT-wj-tpV"/>
+                            <constraint firstItem="b6x-qq-LDc" firstAttribute="leading" secondItem="WyZ-EX-gB1" secondAttribute="leadingMargin" id="Cwo-XP-k6R"/>
+                            <constraint firstAttribute="trailing" secondItem="s2M-t3-luU" secondAttribute="trailing" id="H2m-sI-tjR"/>
+                            <constraint firstItem="s2M-t3-luU" firstAttribute="centerX" secondItem="b6x-qq-LDc" secondAttribute="centerX" id="JB7-RS-Xef"/>
+                            <constraint firstItem="s2M-t3-luU" firstAttribute="leading" secondItem="WyZ-EX-gB1" secondAttribute="leading" id="fAk-Ui-WPI"/>
+                            <constraint firstItem="mmF-Im-Wgc" firstAttribute="top" secondItem="b6x-qq-LDc" secondAttribute="bottom" constant="56" id="oed-P6-gAo"/>
+                            <constraint firstItem="b6x-qq-LDc" firstAttribute="top" secondItem="s2M-t3-luU" secondAttribute="bottom" constant="30" id="rH8-hs-jJI"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="DLc-4R-jfw">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="D3j-uG-cGi">
+                            <connections>
+                                <action selector="savePost:" destination="ULr-hs-bKD" id="Lho-pz-i6o"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="photoOrVideoView" destination="s2M-t3-luU" id="A0e-CU-vHa"/>
                         <outlet property="postDescription" destination="b6x-qq-LDc" id="Off-0L-KpR"/>
-                        <segue destination="LlJ-V1-BNZ" kind="show" identifier="backToPosts" id="Y3E-su-1Ct"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dOM-KR-kwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4611" y="39"/>
+            <point key="canvasLocation" x="4327.5" y="62.323943661971832"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wKl-22-nCU">
@@ -916,8 +907,8 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LaT-Kn-AMU"/>
+        <segue reference="ThR-hV-JD8"/>
+        <segue reference="PDm-Oj-MlC"/>
         <segue reference="6R6-CY-IE2"/>
-        <segue reference="CzX-Mc-6Hc"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -67,7 +67,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
         uploadPhoto(spotID: savedSpotID.objectId!)
         UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil) //saving image to camera roll
         
-        self.performSegue(withIdentifier: "completeAdding", sender: self) //back to map
+        _ = navigationController?.popViewController(animated: true)
     }
     
     //Uploading files with the SYNC API

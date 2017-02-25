@@ -68,7 +68,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
         return numberOfChars < 100
     }
     
-    @IBAction func saveSpotDetails(_ sender: Any) {
+    @IBAction func savePost(_ sender: Any) {
         let defaults = UserDefaults.standard
         let userId = defaults.string(forKey: "userLoggedInObjectId")
         
@@ -96,7 +96,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
             player = nil
         }
         
-        self.performSegue(withIdentifier: "backToPosts", sender: self) //back to spot posts
+        _ = navigationController?.popViewController(animated: true)
     }
     
     //Uploading files with the SYNC API
@@ -174,13 +174,6 @@ class NewPostController: UIViewController, UITextViewDelegate {
             }
         } catch {
             print(error)
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "backToPosts") {
-            let spotDetailsController = (segue.destination as! SpotDetailsController)
-            spotDetailsController.spotDetails = self.spotDetails
         }
     }
 }

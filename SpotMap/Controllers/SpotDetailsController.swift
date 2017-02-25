@@ -260,7 +260,8 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addNewPost" {
-            let newPostController = (segue.destination as! NewPostController)
+            //let nav = segue.destination as! UINavigationController
+            let newPostController = segue.destination	 as! NewPostController
             newPostController.spotDetails = self.spotDetails
         }
         if segue.identifier == "openRidersProfileFromSpotDetails" {

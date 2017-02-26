@@ -973,13 +973,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-aj-jM0">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-aj-jM0">
                                 <rect key="frame" x="111" y="90" width="99" height="98"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="98" id="bNb-5H-T5Y"/>
+                                </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9P-AH-deA">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9P-AH-deA">
                                 <rect key="frame" x="16" y="206" width="288" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Change profile photo">
                                     <color key="titleColor" red="0.39587505690000002" green="0.56884293640000005" blue="0.65071779819999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
@@ -987,9 +988,8 @@
                                     <action selector="changeProfilePhotoButtonTapped:" destination="rut-Zp-VLC" eventType="touchUpInside" id="o1a-bE-u0U"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hyO-8D-pzd">
-                                <rect key="frame" x="0.0" y="244" width="320" height="275"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hyO-8D-pzd">
+                                <rect key="frame" x="0.0" y="244" width="320" height="205"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditProfileCell" id="NUz-cv-B5A" userLabel="EditProfileCell" customClass="EditProfileCell" customModule="SpotMap" customModuleProvider="target">
@@ -999,23 +999,43 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PTe-KH-xew">
-                                                    <rect key="frame" x="0.0" y="-4" width="320" height="47"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PTe-KH-xew">
+                                                    <rect key="frame" x="8" y="-4" width="304" height="47"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="PTe-KH-xew" firstAttribute="trailing" secondItem="8aE-KM-EkY" secondAttribute="trailingMargin" id="4k5-64-hM8"/>
+                                                <constraint firstItem="PTe-KH-xew" firstAttribute="leading" secondItem="8aE-KM-EkY" secondAttribute="leadingMargin" id="D7i-aH-jtg"/>
+                                                <constraint firstItem="PTe-KH-xew" firstAttribute="top" secondItem="8aE-KM-EkY" secondAttribute="topMargin" constant="-12" id="Eag-7n-BOj"/>
+                                                <constraint firstAttribute="bottom" secondItem="PTe-KH-xew" secondAttribute="bottom" id="iVc-E1-LYA"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="field" destination="PTe-KH-xew" id="Z0O-tn-9Pc"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="rut-Zp-VLC" id="IIM-WD-EGg"/>
+                                    <outlet property="delegate" destination="rut-Zp-VLC" id="Sqp-Dx-6XI"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="O9P-AH-deA" firstAttribute="centerX" secondItem="hyO-8D-pzd" secondAttribute="centerX" id="4RN-6L-wnw"/>
+                            <constraint firstItem="5tp-ar-BeW" firstAttribute="top" secondItem="hyO-8D-pzd" secondAttribute="bottom" constant="70" id="6Rv-Bq-MwE"/>
+                            <constraint firstItem="dpz-aj-jM0" firstAttribute="top" secondItem="v7S-Ny-2hT" secondAttribute="bottom" constant="26" id="Dax-f9-6oH"/>
+                            <constraint firstItem="dpz-aj-jM0" firstAttribute="centerX" secondItem="O9P-AH-deA" secondAttribute="centerX" id="Vg0-mg-oCy"/>
+                            <constraint firstItem="hyO-8D-pzd" firstAttribute="top" secondItem="O9P-AH-deA" secondAttribute="bottom" constant="8" symbolic="YES" id="d3i-1T-gTa"/>
+                            <constraint firstItem="hyO-8D-pzd" firstAttribute="leading" secondItem="8UZ-V5-vtf" secondAttribute="leading" id="hV1-6B-nkD"/>
+                            <constraint firstItem="O9P-AH-deA" firstAttribute="leading" secondItem="8UZ-V5-vtf" secondAttribute="leadingMargin" id="u3u-AI-ec4"/>
+                            <constraint firstItem="dpz-aj-jM0" firstAttribute="leading" secondItem="8UZ-V5-vtf" secondAttribute="leadingMargin" constant="95" id="vwq-at-3v9"/>
+                            <constraint firstAttribute="trailing" secondItem="hyO-8D-pzd" secondAttribute="trailing" id="wyg-fx-3vt"/>
+                            <constraint firstItem="O9P-AH-deA" firstAttribute="top" secondItem="dpz-aj-jM0" secondAttribute="bottom" constant="18" id="zVM-gd-09X"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Edit profile info" id="j6m-0V-vf0">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="8Uf-yF-hHX">

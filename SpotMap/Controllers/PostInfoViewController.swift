@@ -85,8 +85,8 @@ class PostInfoViewController: UIViewController {
     
     func addNewLike(userId: String) {
         let postLike = PostLike()
-        postLike.postId = self.postInfo.objectId!
-        postLike.userId = userId
+//        postLike.postId = self.postInfo.objectId!
+//        postLike.userId = userId
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.backendless.persistenceService.of(PostLike.ofClass()).save(postLike)

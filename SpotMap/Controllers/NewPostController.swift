@@ -73,8 +73,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
         let userId = defaults.string(forKey: "userLoggedInObjectId")
         
         let spotPost = SpotPost()
-        spotPost.userId = userId
-        spotPost.spotId = spotDetails.objectId
+//        spotPost.userId = userId
+//        spotPost.spotId = spotDetails.objectId
         spotPost.postDescription = self.postDescription.text
         if self.isNewMediaIsPhoto {
             spotPost.isPhoto = true

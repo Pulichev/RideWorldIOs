@@ -36,7 +36,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func loadSpotPosts() {
-        let whereClause = "spotId = '\(spotDetails.objectId!)'"
+        let whereClause = "spotId.objectId = '\(spotDetails.objectId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
         
@@ -60,7 +60,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             for spot in self.spotPosts {
                 let newSpotPostCellCache = SpotPostsCellCache()
                 
-                newSpotPostCellCache.userInfo = self.getUserInfo(userId: spot.userId) //getting userinfo
+                newSpotPostCellCache.userInfo = spot.userId!//self.getUserInfo(userId: spot.userId!) //getting userinfo
                 newSpotPostCellCache.postId = spot.objectId!
                 newSpotPostCellCache.userNickName.text = newSpotPostCellCache.userInfo.name
                 

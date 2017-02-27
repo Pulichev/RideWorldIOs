@@ -83,7 +83,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
             break
-
+            
         case 3:
             cell.field.text = userInfo.email
             cell.field.placeholder = "Enter new email"
@@ -91,7 +91,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
             break
-
+            
         default:
             break
         }

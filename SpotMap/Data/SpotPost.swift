@@ -15,8 +15,8 @@ class SpotPost: NSObject {
     var objectId: String? //this is BEL const
     var created: Date?    //this is BEL const too
 
-    var spotId: String?
-    var userId: String?
+    var spotId: SpotDetails?
+    var userId: Users?
 
     var postDescription: String?
     var isPhoto: Bool = true //default photo

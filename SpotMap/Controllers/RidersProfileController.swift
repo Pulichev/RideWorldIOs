@@ -48,20 +48,10 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
             let dataQuery1 = BackendlessDataQuery()
             dataQuery1.whereClause = whereClause1
             
-            let ridersPosts = self.backendless.data.of(SpotPost.ofClass()).find(dataQuery1)
-            
-            var ridersLikesCount = 0
-            for riderPost in (ridersPosts?.data as! [SpotPost]) {
-                let whereClause2 = "postId = '\(riderPost.objectId!)'"
-                let dataQuery2 = BackendlessDataQuery()
-                dataQuery2.whereClause = whereClause2
-                
-                let ridersLikes = self.backendless.data.of(PostLike.ofClass()).find(dataQuery2)
-                ridersLikesCount += (ridersLikes?.data.count)!
-            }
+            let ridersPosts = self.backendless.data.of(PostLike.ofClass()).find(dataQuery1)
             
             DispatchQueue.main.async {
-                self.recpectedTimes.text = String(ridersLikesCount)
+                self.recpectedTimes.text = String(describing: ridersPosts?.data.count)
             }
         }
     }

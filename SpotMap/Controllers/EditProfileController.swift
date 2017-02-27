@@ -10,16 +10,23 @@ import Foundation
 import UIKit
 
 class EditProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    var userInfo = Users()
+    
     var backendless: Backendless!
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var userPhoto: UIImageView!
+    
+    var userPhotoTemp = UIImage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        self.userPhoto.image = userPhotoTemp
+        self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
         
         self.backendless = Backendless.sharedInstance()
     }
@@ -54,18 +61,23 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
         
         switch row {
         case 0:
+            cell.field.text = userInfo.userNameAndSename
             cell.field.placeholder = "Enter new name and sename"
             leftImageView.image = UIImage(named: "nameAndSename.png")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
             break
+            
         case 1:
+            cell.field.text = userInfo.userBioDescription
             cell.field.placeholder = "Enter new bio description"
             leftImageView.image = UIImage(named: "biography.png")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
             break
+            
         case 2:
+            cell.field.text = userInfo.name
             cell.field.placeholder = "Enter new login"
             leftImageView.image = UIImage(named: "login.png")
             leftView.addSubview(leftImageView)
@@ -73,6 +85,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
             break
 
         case 3:
+            cell.field.text = userInfo.email
             cell.field.placeholder = "Enter new email"
             leftImageView.image = UIImage(named: "email.ico")
             leftView.addSubview(leftImageView)

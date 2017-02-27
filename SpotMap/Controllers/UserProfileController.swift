@@ -176,9 +176,16 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPostInfoFromUserProfile" {
-            let newPostInfoController = (segue.destination as! PostInfoViewController)
+            let newPostInfoController = segue.destination as! PostInfoViewController
             newPostInfoController.postInfo = spotPosts[selectedCellId]
             newPostInfoController.user = userInfo
+        }
+        //send current profile data to editing
+        if segue.identifier == "editUserProfile" {
+            let newEditProfileController = segue.destination as! EditProfileController
+            newEditProfileController.userInfo = self.userInfo
+            newEditProfileController.userPhoto = UIImageView()
+            newEditProfileController.userPhotoTemp = self.userProfilePhoto.image!
         }
     }
 }

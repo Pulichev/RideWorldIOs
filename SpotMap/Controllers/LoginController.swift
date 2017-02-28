@@ -51,21 +51,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
             userLogin.text, password:userPassword.text, response: {
                 (user : BackendlessUser?) -> Void in
                 
-                self.setDefaultsForUser(user: user!)
+                backendless?.userService.setStayLoggedIn(true) //new we can use backendless.userService.currentUser throught all app
 
                 self.performSegue(withIdentifier: "loggedIn", sender: self)
         },
             error: { ( _) -> Void in
                 self.errorLabel.text = "Wrong login or password!"
         })
-    }
-
-    func setDefaultsForUser(user: BackendlessUser) {
-        let defaults = UserDefaults.standard
-        defaults.set(self.userLogin.text, forKey: "userLoggedIn")
-        defaults.set(user.objectId, forKey: "userLoggedInObjectId")
-        defaults.set(user.name, forKey: "userLoggedInNickName")
-        defaults.synchronize()
     }
 
     @IBAction func registrationButtonTapped(_ sender: Any) {

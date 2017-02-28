@@ -44,6 +44,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         
         //Need to optimize this alghoritm
         DispatchQueue.global().async {
+            //WRONG. its counting how much time user liked some posts. REWRITE
             let whereClause1 = "userId = '\(self.ridersInfo.objectId!)'"
             let dataQuery1 = BackendlessDataQuery()
             dataQuery1.whereClause = whereClause1

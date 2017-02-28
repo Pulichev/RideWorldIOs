@@ -191,7 +191,7 @@
                         <outlet property="userEmail" destination="gbV-ec-zR7" id="xd7-B6-Lvg"/>
                         <outlet property="userLogin" destination="885-uW-Tnk" id="UgX-vH-fRG"/>
                         <outlet property="userPassword" destination="6z7-RQ-RwM" id="6Pq-bK-tpt"/>
-                        <segue destination="Q0T-xY-QEM" kind="presentation" identifier="registrationCompleted" id="LaT-Kn-AMU"/>
+                        <segue destination="MgV-Y7-eTa" kind="presentation" identifier="registrationCompleted" id="ZpR-8C-QJR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zo7-yC-Gog" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -608,7 +608,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9M3-vR-ACh">
-                                                    <rect key="frame" x="131" y="331" width="27" height="21"/>
+                                                    <rect key="frame" x="131" y="330" width="27" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="ifE-DZ-rlI"/>
                                                     </constraints>
@@ -617,13 +617,13 @@
                                                     <color key="highlightedColor" red="0.19479279945464595" green="0.22335035936484837" blue="0.5149975712435233" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="respectActive" translatesAutoresizingMaskIntoConstraints="NO" id="6VV-Ga-msm">
-                                                    <rect key="frame" x="8" y="328" width="58" height="35"/>
+                                                    <rect key="frame" x="8" y="327" width="58" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="58" id="eeO-7x-b2a"/>
                                                     </constraints>
                                                 </imageView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="somePostDescription YO!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7La-QS-Wp3">
-                                                    <rect key="frame" x="8" y="408" width="150" height="61"/>
+                                                    <rect key="frame" x="8" y="407" width="150" height="61"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="61" id="Xe3-fh-g2C"/>
@@ -633,7 +633,7 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KwI-Tf-Uok">
-                                                    <rect key="frame" x="8" y="375" width="150" height="22"/>
+                                                    <rect key="frame" x="8" y="374" width="150" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="Inp-08-dgU"/>
                                                     </constraints>
@@ -643,7 +643,7 @@
                                                     </state>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VVe-KW-Miz">
-                                                    <rect key="frame" x="74" y="331" width="39" height="29"/>
+                                                    <rect key="frame" x="74" y="330" width="39" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="39" id="bO4-zV-IEr"/>
                                                     </constraints>
@@ -652,7 +652,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pti-Mk-zcp">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="323"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="322"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
@@ -1002,6 +1002,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PTe-KH-xew">
                                                     <rect key="frame" x="8" y="-4" width="304" height="47"/>
                                                     <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -1057,7 +1058,7 @@
         <!--MyStripController-->
         <scene sceneID="ECg-6J-4U1">
             <objects>
-                <viewController id="yof-Vw-uZw" userLabel="MyStripController" sceneMemberID="viewController">
+                <viewController id="yof-Vw-uZw" userLabel="MyStripController" customClass="MyStripController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J7F-D6-sjt"/>
                         <viewControllerLayoutGuide type="bottom" id="1GA-HX-Htt"/>
@@ -1201,9 +1202,9 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ThR-hV-JD8"/>
-        <segue reference="eyf-4a-ZNN"/>
+        <segue reference="ZpR-8C-QJR"/>
         <segue reference="PDm-Oj-MlC"/>
         <segue reference="6R6-CY-IE2"/>
+        <segue reference="eyf-4a-ZNN"/>
     </inferredMetricsTieBreakers>
 </document>

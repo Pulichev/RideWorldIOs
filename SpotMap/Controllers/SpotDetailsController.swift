@@ -60,7 +60,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             for spot in self.spotPosts {
                 let newSpotPostCellCache = SpotPostsCellCache()
                 
-                newSpotPostCellCache.userInfo = spot.userId!//self.getUserInfo(userId: spot.userId!) //getting userinfo
+                newSpotPostCellCache.userInfo = spot.userId! //getting userinfo
                 newSpotPostCellCache.postId = spot.objectId!
                 newSpotPostCellCache.userNickName.text = newSpotPostCellCache.userInfo.name
                 

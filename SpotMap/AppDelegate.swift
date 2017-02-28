@@ -27,11 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         backendless?.initApp(appId, secret:secretKey, version:versionNum)
 
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let defaults = UserDefaults.standard
-        let isUserLoggedIn = defaults.string(forKey: "userLoggedIn")
 
-        if(isUserLoggedIn != nil) {
-            //self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainFormNavigationController")
+        if(backendless?.userService.currentUser != nil) {
             self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController")
         } else {
             self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginPage")

@@ -28,7 +28,6 @@ class MainFormController: UIViewController {
 
         DispatchQueue.main.async {
             self.backendless = Backendless.sharedInstance()
-            
             self.mapViewInitialize()
             self.loadSpotsOnMap()
         }
@@ -94,10 +93,8 @@ class MainFormController: UIViewController {
     }
 
     @IBAction func logoutButtonTapped(_ sender: Any) {
-        let defaults = UserDefaults.standard
-        defaults.set(nil, forKey: "userLoggedIn")
-        defaults.synchronize()
-
+        backendless.userService.logout()
+        
         self.performSegue(withIdentifier: "userLogouted", sender: self)
     }
 

@@ -72,8 +72,10 @@ class SpotPostsCell: UITableViewCell {
 
     func addNewLike(userId: String) {
         let postLike = PostLike()
+        let defaults = UserDefaults.standard
+        let userLoggedIn = defaults.object(forKey: "userLoggedIn") as! Users
         //postLike.postId = self.postId
-        //postLike.userId = userId
+        postLike.userId = userLoggedIn
 
         DispatchQueue.global(qos: .userInitiated).async {
             self.backendless.persistenceService.of(PostLike.ofClass()).save(postLike)

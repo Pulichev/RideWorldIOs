@@ -14,6 +14,7 @@ class SpotPost: NSObject {
 
     var objectId: String? //this is BEL const
     var created: Date?    //this is BEL const too
+    var ownerId: String?
 
     var spot: SpotDetails?
     var user: Users?

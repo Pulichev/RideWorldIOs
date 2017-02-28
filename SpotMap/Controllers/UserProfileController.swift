@@ -62,27 +62,15 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         
         placeBorderOnTextView()
     
-        //Need to optimize this alghoritm
         DispatchQueue.global().async {
-            //WRONG. its counting how much time user liked some posts. REWRITE
-            let whereClause1 = "user.objectId = '\(self.userInfo.objectId!)'"
+            let whereClause1 = "post.ownerId = '\(self.userInfo.objectId!)'"
             let dataQuery1 = BackendlessDataQuery()
             dataQuery1.whereClause = whereClause1
             
-            let usersPosts = self.backendless.data.of(SpotPost.ofClass()).find(dataQuery1)
-            
-            var usersLikesCount = 0
-//            for riderPost in (usersPosts?.data as! [SpotPost]) {
-//                let whereClause2 = "postId = '\(riderPost.objectId!)'"
-//                let dataQuery2 = BackendlessDataQuery()
-//                dataQuery2.whereClause = whereClause2
-//                
-//                let usersLikes = self.backendless.data.of(PostLike.ofClass()).find(dataQuery2)
-//                usersLikesCount += (usersLikes?.data.count)!
-//            }
+            let usersLikes = self.backendless.data.of(PostLike.ofClass()).find(dataQuery1)
             
             DispatchQueue.main.async {
-                self.recpectedTimes.text = String(usersLikesCount)
+                self.recpectedTimes.text = String(describing: (usersLikes?.data.count)!)
             }
         }
     }

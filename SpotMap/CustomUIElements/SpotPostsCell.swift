@@ -13,7 +13,7 @@ import AVFoundation
 class SpotPostsCell: UITableViewCell {
     var backendless: Backendless!
 
-    var postId: String?
+    var post: SpotPost!
 
     @IBOutlet var spotPostMedia: UIView!
     var player: AVPlayer!
@@ -72,10 +72,11 @@ class SpotPostsCell: UITableViewCell {
 
     func addNewLike(userId: String) {
         let postLike = PostLike()
-        let defaults = UserDefaults.standard
-        let userLoggedIn = defaults.object(forKey: "userLoggedIn") as! Users
-        //postLike.postId = self.postId
-        postLike.userId = userLoggedIn
+        
+        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
+
+        postLike.post = self.post
+        postLike.user = user
 
         DispatchQueue.global(qos: .userInitiated).async {
             self.backendless.persistenceService.of(PostLike.ofClass()).save(postLike)
@@ -83,7 +84,9 @@ class SpotPostsCell: UITableViewCell {
     }
 
     func removeExistedLike(userId: String) {
-        let whereClause = "postId = '\(self.postId!)' AND userId = '\(userId)'"
+        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
+        
+        let whereClause = "post.objectId = '\(self.post.objectId!)' AND user.objectId = '\(user.objectId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
 

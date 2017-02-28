@@ -12,6 +12,6 @@ class PostLike: NSObject {
 
     var objectId: String?
 
-    var postId: SpotPost?
-    var userId: Users?
+    var post: SpotPost?
+    var user: Users?
 }

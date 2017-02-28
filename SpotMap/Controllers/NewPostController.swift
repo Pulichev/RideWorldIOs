@@ -69,13 +69,13 @@ class NewPostController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func savePost(_ sender: Any) {
-        let defaults = UserDefaults.standard
-        let userId = defaults.string(forKey: "userLoggedInObjectId")
+        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: backendless.userService.currentUser)
         
         let spotPost = SpotPost()
-//        spotPost.userId = userId
-//        spotPost.spotId = spotDetails.objectId
+        spotPost.user = user
+        spotPost.spot = spotDetails
         spotPost.postDescription = self.postDescription.text
+        
         if self.isNewMediaIsPhoto {
             spotPost.isPhoto = true
         } else {

@@ -12,7 +12,7 @@ import Foundation
 class SpotPostsCellCache {
     var backendless = Backendless.sharedInstance()
 
-    var postId = String()
+    var post = SpotPost()
     var userNickName = UILabel()
     var postDate = UILabel()
     var postDescription = UITextView()
@@ -21,12 +21,25 @@ class SpotPostsCellCache {
     var postIsLiked = Bool()
     var likesCount = Int()
     var userInfo = Users()
+    
+    init(spotPost: SpotPost) {
+        self.post = spotPost
+        self.userInfo = post.user! //getting userinfo
+        self.userNickName.text = self.userInfo.name
+        let sourceDate = String(describing: post.created!)
+        //formatting date to yyyy-mm-dd
+        let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
+        self.postDate.text = finalDate
+        self.postDescription.text = post.postDescription
+        self.isPhoto = post.isPhoto
+        self.userLikedThisPost()
+        self.countPostLikes()
+    }
 
     func userLikedThisPost() {
-        let defaults = UserDefaults.standard
-        let userId = defaults.string(forKey: "userLoggedInObjectId")
-
-        let whereClause = "postId = '\(self.postId)' AND userId = '\(userId!)'"
+        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
+        
+        let whereClause = "post.objectId = '\(self.post.objectId!)' AND user.objectId = '\(user.objectId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
 
@@ -44,7 +57,7 @@ class SpotPostsCellCache {
     }
 
     func countPostLikes() {
-        let whereClause = "postId = '\(self.postId)'"
+        let whereClause = "post.objectId = '\(self.post.objectId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
         var error: Fault?

@@ -36,7 +36,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func loadSpotPosts() {
-        let whereClause = "spotId.objectId = '\(spotDetails.objectId!)'"
+        let whereClause = "spot.objectId = '\(spotDetails.objectId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
         
@@ -57,21 +57,8 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         var i = 0
         
         DispatchQueue.main.async {
-            for spot in self.spotPosts {
-                let newSpotPostCellCache = SpotPostsCellCache()
-                
-                newSpotPostCellCache.userInfo = spot.userId! //getting userinfo
-                newSpotPostCellCache.postId = spot.objectId!
-                newSpotPostCellCache.userNickName.text = newSpotPostCellCache.userInfo.name
-                
-                let sourceDate = String(describing: spot.created!)
-                //formatting date to yyyy-mm-dd
-                let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
-                newSpotPostCellCache.postDate.text = finalDate
-                newSpotPostCellCache.postDescription.text = spot.postDescription
-                newSpotPostCellCache.isPhoto = spot.isPhoto
-                newSpotPostCellCache.userLikedThisPost()
-                newSpotPostCellCache.countPostLikes()
+            for post in self.spotPosts {
+                let newSpotPostCellCache = SpotPostsCellCache(spotPost: post)
                 
                 self.spotPostsCellsCache.append(newSpotPostCellCache)
                 self.tableView.reloadData()
@@ -96,11 +83,11 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         
         if cell.userLikedOrDeletedLike { //when cell appears checking if like was tapped
             cell.userLikedOrDeletedLike = false
-            updateCellLikesCache(objectId: cell.postId!) //if yes updating cache
+            updateCellLikesCache(objectId: cell.post.objectId!) //if yes updating cache
         }
         
         let cellFromCache = spotPostsCellsCache[row]
-        cell.postId = cellFromCache.postId
+        cell.post = cellFromCache.post
         cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
         cell.userNickName.tag = row //for segue to send userId to ridersProfile
         cell.userNickName.addTarget(self, action: #selector(SpotDetailsController.nickNameTapped), for: .touchUpInside)
@@ -221,7 +208,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     func updateCellLikesCache(objectId: String) {
         for postCellCache in spotPostsCellsCache {
-            if postCellCache.postId == objectId {
+            if postCellCache.post.objectId == objectId {
                 DispatchQueue.main.async {
                     postCellCache.changeLikeToDislikeAndViceVersa()
                 }

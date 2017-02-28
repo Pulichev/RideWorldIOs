@@ -103,7 +103,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
-    //TODO: Make code review
     func setMediaOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
         cell.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
         

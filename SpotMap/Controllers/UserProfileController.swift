@@ -38,16 +38,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func getCurrentUser() {
-        let defaults = UserDefaults.standard
-        let userId = defaults.string(forKey: "userLoggedInObjectId")
-        
-        let user = self.backendless.userService.find(byId: userId!)
-        
-        self.userInfo.objectId = userId!
-        self.userInfo.name = String(describing: (user?.getProperty("name"))!)
-        self.userInfo.email = String(describing: (user?.getProperty("email"))!)
-        self.userInfo.userNameAndSename = String(describing: (user?.getProperty("userNameAndSename"))!)
-        self.userInfo.userBioDescription = String(describing: (user?.getProperty("userBioDescription"))!)
+        self.userInfo = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
     }
     
     //part for hide and view navbar from this navigation controller
@@ -73,21 +64,22 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     
         //Need to optimize this alghoritm
         DispatchQueue.global().async {
-            let whereClause1 = "userId = '\(self.userInfo.objectId!)'"
+            //WRONG. its counting how much time user liked some posts. REWRITE
+            let whereClause1 = "user.objectId = '\(self.userInfo.objectId!)'"
             let dataQuery1 = BackendlessDataQuery()
             dataQuery1.whereClause = whereClause1
             
             let usersPosts = self.backendless.data.of(SpotPost.ofClass()).find(dataQuery1)
             
             var usersLikesCount = 0
-            for riderPost in (usersPosts?.data as! [SpotPost]) {
-                let whereClause2 = "postId = '\(riderPost.objectId!)'"
-                let dataQuery2 = BackendlessDataQuery()
-                dataQuery2.whereClause = whereClause2
-                
-                let usersLikes = self.backendless.data.of(PostLike.ofClass()).find(dataQuery2)
-                usersLikesCount += (usersLikes?.data.count)!
-            }
+//            for riderPost in (usersPosts?.data as! [SpotPost]) {
+//                let whereClause2 = "postId = '\(riderPost.objectId!)'"
+//                let dataQuery2 = BackendlessDataQuery()
+//                dataQuery2.whereClause = whereClause2
+//                
+//                let usersLikes = self.backendless.data.of(PostLike.ofClass()).find(dataQuery2)
+//                usersLikesCount += (usersLikes?.data.count)!
+//            }
             
             DispatchQueue.main.async {
                 self.recpectedTimes.text = String(usersLikesCount)
@@ -116,7 +108,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     
     func initializeUserPostsPhotos() {
         DispatchQueue.global(qos: .userInteractive).async {
-            let whereClause = "userId = '\(self.userInfo.objectId!)'"
+            let whereClause = "user.objectId = '\(self.userInfo.objectId!)'"
             let dataQuery = BackendlessDataQuery()
             dataQuery.whereClause = whereClause
             

@@ -60,7 +60,9 @@ class SpotPostsCellCache {
         let whereClause = "post.objectId = '\(self.post.objectId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
+        
         var error: Fault?
+        
         let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
         likesCount = likesList!.data.count
     }

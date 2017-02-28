@@ -63,18 +63,15 @@ class PostInfoViewController: UIViewController {
     func postLiked(_ sender: Any) {
         userLikedOrDeletedLike = true
         
-        let defaults = UserDefaults.standard
-        let userId = defaults.string(forKey: "userLoggedInObjectId")
-        
         if(!self.postIsLiked) {
-            addNewLike(userId: userId!)
+            addNewLike()
             
             self.postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
             let countOfLikesInt = Int(self.likesCount.text!)
             self.likesCount.text = String(countOfLikesInt! + 1)
         } else {
-            removeExistedLike(userId: userId!)
+            removeExistedLike()
             
             self.postIsLiked = false
             self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
@@ -83,18 +80,22 @@ class PostInfoViewController: UIViewController {
         }
     }
     
-    func addNewLike(userId: String) {
+    func addNewLike() {
         let postLike = PostLike()
-//        postLike.postId = self.postInfo.objectId!
-//        postLike.userId = userId
+        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
+        
+        postLike.post = self.postInfo
+        postLike.user = user
         
         DispatchQueue.global(qos: .userInitiated).async {
             self.backendless.persistenceService.of(PostLike.ofClass()).save(postLike)
         }
     }
     
-    func removeExistedLike(userId: String) {
-        let whereClause = "postId = '\(self.postInfo.objectId!)' AND userId = '\(userId)'"
+    func removeExistedLike() {
+        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
+        
+        let whereClause = "post.objectId = '\(self.postInfo.objectId!)' AND user.objectId = '\(user.objectId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
         
@@ -108,10 +109,9 @@ class PostInfoViewController: UIViewController {
     }
     
     func userLikedThisPost() {
-        let defaults = UserDefaults.standard
-        let userId = defaults.string(forKey: "userLoggedInObjectId")
+        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
         
-        let whereClause = "postId = '\(self.postInfo.objectId!)' AND userId = '\(userId!)'"
+        let whereClause = "post.objectId = '\(self.postInfo.objectId!)' AND user.objectId = '\(user.objectId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
         
@@ -129,7 +129,7 @@ class PostInfoViewController: UIViewController {
     }
     
     func countPostLikes() {
-        let whereClause = "postId = '\(self.postInfo.objectId!)'"
+        let whereClause = "post.objectId = '\(self.postInfo.objectId!)'"
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = whereClause
         var error: Fault?

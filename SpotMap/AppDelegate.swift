@@ -9,6 +9,7 @@
 //!!!DO NOT COMMIT THIS FILE!!!
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,11 +24,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var storyboard: UIStoryboard?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // FireBase init part
+        // Use Firebase library to configure APIs
+        FIRApp.configure()
+        
+        // Backendless init part
         backendless?.initApp(appId, secret:secretKey, version:versionNum)
 
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-
+        
+        // Setting initial viewController for user loggedIn?
         if(backendless?.userService.currentUser != nil) {
             self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController")
         } else {

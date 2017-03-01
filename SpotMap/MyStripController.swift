@@ -6,135 +6,57 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-import Foundation
-import GoogleAPIClientForREST
-import GTMOAuth2
 import UIKit
+import Firebase
+import FirebaseStorage
+import FirebaseAuth
 
 class MyStripController: UIViewController {
-    private let kKeychainItemName = "Drive API"
-    private let kClientID = "AIzaSyAEWGOwN4hvvRp8WVUCOLppJl8zXRRuvOY"
-    
-    // If modifying these scopes, delete your previously saved credentials by
-    // resetting the iOS simulator or uninstall the app.
-    private let scopes = [kGTLRAuthScopeDriveReadonly]
-    
-    private let service = GTLRDriveService()
-    let output = UITextView()
-    
-    // When the view loads, create necessary subviews
-    // and initialize the Drive API service
     override func viewDidLoad() {
-        super.viewDidLoad()
+        // Get a reference to the storage service using the default Firebase App
+        let storage = FIRStorage.storage()
         
-        output.frame = view.bounds
-        output.isEditable = false
-        output.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
-        output.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        // Create a storage reference from our storage service
+        let storageRef = storage.reference()
         
-        view.addSubview(output);
+        // Create a reference to the file to delete
+        let desertRef = storageRef.child("iPhone 6.png")
         
-        if let auth = GTMOAuth2ViewControllerTouch.authForGoogleFromKeychain(
-            forName: kKeychainItemName,
-            clientID: kClientID,
-            clientSecret: nil) {
-            service.authorizer = auth
+        if FIRAuth.auth()?.currentUser == nil {
+            FIRAuth.auth()?.signInAnonymously(completion: { (user: FIRUser?, error: Error?) in
+                if let error = error {
+                    print("********************************************ERROR")
+                } else {
+                    print("********************************************Deleted")
+                }
+            })
         }
         
-    }
-    
-    // When the view appears, ensure that the Drive API service is authorized
-    // and perform API calls
-    override func viewDidAppear(_ animated: Bool) {
-        if let authorizer = service.authorizer,
-            let canAuth = authorizer.canAuthorize, canAuth {
-            listFiles()
-        } else {
-            present(
-                createAuthController(),
-                animated: true,
-                completion: nil
-            )
-        }
-    }
-    
-    // List up to 10 files in Drive
-    func listFiles() {
-        let query = GTLRDriveQuery_FilesList.query()
-        service.executeQuery(query,
-                             delegate: self,
-                             didFinish: Selector(("displayResultWithTicket:finishedWithObject:error:"))
-        )
-    }
-    
-    // Process the response and display output
-    func displayResultWithTicket(ticket: GTLRServiceTicket,
-                                 finishedWithObject result : GTLRDrive_FileList,
-                                 error : NSError?) {
-        
-        if let error = error {
-            showAlert(title: "Error", message: error.localizedDescription)
-            return
-        }
-        
-        var text = "";
-        if (result.files!.count != 0) {
-            text += "Files:\n"
-            for file in result.files! {
-                text += "\(file.name) (\(file.identifier))\n"
+        // Delete the file
+        desertRef.delete { error in
+            if let error = error {
+                print("********************************************ERROR")
+                // Uh-oh, an error occurred!
+            } else {
+                print("********************************************Deleted")
+                // File deleted successfully
             }
-        } else {
-            text += "No files found."
-        }
-        output.text = text
-    }
-    
-    // Creates the auth controller for authorizing access to Drive API
-    private func createAuthController() -> GTMOAuth2ViewControllerTouch {
-        let scopeString = scopes.joined(separator: " ")
-        return GTMOAuth2ViewControllerTouch(
-            scope: scopeString,
-            clientID: kClientID,
-            clientSecret: nil,
-            keychainItemName: kKeychainItemName,
-            delegate: self,
-            finishedSelector: Selector(("viewController:finishedWithAuth:error:"))
-        )
-    }
-    
-    // Handle completion of the authorization process, and update the Drive API
-    // with the new credentials.
-    func viewController(vc : UIViewController,
-                        finishedWithAuth authResult : GTMOAuth2Authentication, error : NSError?) {
-        
-        if let error = error {
-            service.authorizer = nil
-            showAlert(title: "Authentication Error", message: error.localizedDescription)
-            return
         }
         
-        service.authorizer = authResult
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // Helper for showing an alert
-    func showAlert(title : String, message: String) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: UIAlertControllerStyle.alert
-        )
-        let ok = UIAlertAction(
-            title: "OK",
-            style: UIAlertActionStyle.default,
-            handler: nil
-        )
-        alert.addAction(ok)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // Data in memory
+        let data: Data = UIImageJPEGRepresentation(UIImage(named: "plus-512.gif")!, 1.0)!
+        
+        // Create a reference to the file you want to upload
+        let riversRef = storageRef.child("images/rivers.jpg")
+        
+        // Upload the file to the path "images/rivers.jpg"
+        let uploadTask = riversRef.put(data, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            // Metadata contains file metadata such as size, content-type, and download URL.
+            let downloadURL = metadata.downloadURL
+        }
     }
 }

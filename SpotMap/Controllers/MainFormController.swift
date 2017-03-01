@@ -72,7 +72,7 @@ class MainFormController: UIViewController {
         let spotList = backendless.data.of(SpotDetails.ofClass()).find(dataQuery, fault: &error)
 
         if error != nil {
-            print("Server reported an error: \(spotList)")
+            print("Server reported an error: \(error?.detail)")
         }
 
         spotsFromDB = spotList?.data as! [SpotDetails]
@@ -99,7 +99,7 @@ class MainFormController: UIViewController {
     }
 
     func displayAdditionalOptions() {
-        //mapView.showsCompass = true
+        mapView.showsCompass = false
         mapView.showsTraffic = true
         //mapView.showsScale = true
     }

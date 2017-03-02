@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		731AD27307E50B3192B4422B /* Pods_SpotMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */; };
 		7E70B15F5DAC197C3216DA6E /* Pods_SpotMapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFE0AF727D03D36C374021 /* Pods_SpotMapUITests.framework */; };
-		9F1192AF1E65DE3300934640 /* MyStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1192AE1E65DE3300934640 /* MyStripController.swift */; };
-		9F1192B11E65F0D600934640 /* TypeUsersFromBackendlessUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1192B01E65F0D600934640 /* TypeUsersFromBackendlessUser.swift */; };
 		9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */; };
 		9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */; };
 		9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */; };
@@ -26,6 +24,7 @@
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
 		9FB681CB1E2E70CE00D9A436 /* SpotMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681CA1E2E70CE00D9A436 /* SpotMapTests.swift */; };
 		9FB681D61E2E70CE00D9A436 /* SpotMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */; };
+		9FBD53261E687C9D00FF2765 /* TypeUsersFromBackendlessUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD53251E687C9D00FF2765 /* TypeUsersFromBackendlessUser.swift */; };
 		9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FC91E48E5E30097579B /* LoginController.swift */; };
 		9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCA1E48E5E30097579B /* MainFormController.swift */; };
 		9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCB1E48E5E30097579B /* NewPostController.swift */; };
@@ -74,8 +73,6 @@
 		5A752A6ABE4F4F31D015688F /* Pods-SpotMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.debug.xcconfig"; sourceTree = "<group>"; };
 		8580589E3175367EF665865F /* Pods-SpotMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.release.xcconfig"; sourceTree = "<group>"; };
 		8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F1192AE1E65DE3300934640 /* MyStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStripController.swift; sourceTree = "<group>"; };
-		9F1192B01E65F0D600934640 /* TypeUsersFromBackendlessUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeUsersFromBackendlessUser.swift; sourceTree = "<group>"; };
 		9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlus.png; path = Pictures/ButtonPlus.png; sourceTree = "<group>"; };
 		9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonLogout.png; path = Pictures/ButtonLogout.png; sourceTree = "<group>"; };
 		9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileController.swift; path = Controllers/EditProfileController.swift; sourceTree = "<group>"; };
@@ -97,6 +94,7 @@
 		9FB681D11E2E70CE00D9A436 /* SpotMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMapUITests.swift; sourceTree = "<group>"; };
 		9FB681D71E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FBD53251E687C9D00FF2765 /* TypeUsersFromBackendlessUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TypeUsersFromBackendlessUser.swift; path = Core/TypeUsersFromBackendlessUser.swift; sourceTree = "<group>"; };
 		9FC14FC91E48E5E30097579B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controllers/LoginController.swift; sourceTree = "<group>"; };
 		9FC14FCA1E48E5E30097579B /* MainFormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainFormController.swift; path = Controllers/MainFormController.swift; sourceTree = "<group>"; };
 		9FC14FCB1E48E5E30097579B /* NewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewPostController.swift; path = Controllers/NewPostController.swift; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 				9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */,
 				9F4A84401E62F4C100C1E5F2 /* UserProfileController.swift */,
 				9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */,
-				9F1192AE1E65DE3300934640 /* MyStripController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -262,8 +259,8 @@
 		9FC14FD71E48E7380097579B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				9FBD53251E687C9D00FF2765 /* TypeUsersFromBackendlessUser.swift */,
 				9FC14FD81E48E7510097579B /* SpotPostsCellCache.swift */,
-				9F1192B01E65F0D600934640 /* TypeUsersFromBackendlessUser.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -600,6 +597,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FC14FE71E48E7790097579B /* SpotDetails.swift in Sources */,
+				9FBD53261E687C9D00FF2765 /* TypeUsersFromBackendlessUser.swift in Sources */,
 				9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */,
 				9FC14FE81E48E7790097579B /* SpotPost.swift in Sources */,
 				9FC14FE61E48E7790097579B /* PostLike.swift in Sources */,
@@ -615,9 +613,7 @@
 				9FC14FE51E48E7790097579B /* LoggedInUser.swift in Sources */,
 				9F4A84431E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift in Sources */,
 				9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */,
-				9F1192AF1E65DE3300934640 /* MyStripController.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
-				9F1192B11E65F0D600934640 /* TypeUsersFromBackendlessUser.swift in Sources */,
 				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
 				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,
 				9FC14FD91E48E7510097579B /* SpotPostsCellCache.swift in Sources */,

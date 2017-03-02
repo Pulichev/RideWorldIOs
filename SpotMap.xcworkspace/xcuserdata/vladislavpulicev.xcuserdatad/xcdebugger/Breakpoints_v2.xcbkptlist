@@ -100,7 +100,7 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/Controllers/RidersProfileController.swift"
-                  timestampString = "510163573.745061"
+                  timestampString = "510164867.36178"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "52"
@@ -115,7 +115,7 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/Controllers/RidersProfileController.swift"
-                  timestampString = "510163573.746709"
+                  timestampString = "510164867.363277"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "53"
@@ -155,38 +155,6 @@
             endingLineNumber = "42"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SpotMap.MyStripController.viewDidLoad () -&gt; ()"
-                  moduleName = "SpotMap"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/MyStripController.swift"
-                  timestampString = "510163573.752599"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "554">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SpotMap.MyStripController.(viewDidLoad () -&gt; ()).(closure #1)"
-                  moduleName = "SpotMap"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/MyStripController.swift"
-                  timestampString = "510163573.754188"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "388">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -203,38 +171,6 @@
             endingLineNumber = "44"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SpotMap.MyStripController.viewDidLoad () -&gt; ()"
-                  moduleName = "SpotMap"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/MyStripController.swift"
-                  timestampString = "510163573.757524"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "554">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SpotMap.MyStripController.(viewDidLoad () -&gt; ()).(closure #1)"
-                  moduleName = "SpotMap"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/MyStripController.swift"
-                  timestampString = "510163573.759271"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "388">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -299,38 +235,6 @@
             endingLineNumber = "43"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SpotMap.MyStripController.viewDidLoad () -&gt; ()"
-                  moduleName = "SpotMap"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/MyStripController.swift"
-                  timestampString = "510163573.770619"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "554">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SpotMap.MyStripController.(viewDidLoad () -&gt; ()).(closure #1)"
-                  moduleName = "SpotMap"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/MyStripController.swift"
-                  timestampString = "510163573.772064"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "44"
-                  endingLineNumber = "44"
-                  offsetFromSymbolStart = "388">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

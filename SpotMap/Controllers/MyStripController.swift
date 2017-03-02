@@ -22,6 +22,8 @@ class MyStripController: UIViewController {
         // Create a reference to the file to delete
         let desertRef = storageRef.child("iPhone 6.png")
         
+        print("lol")
+        
         // Delete the file
         desertRef.delete { error in
             if let error = error {

@@ -9,6 +9,8 @@ target 'SpotMap' do
   pod ‘Fusuma’
   pod 'Firebase/Storage'
   pod 'FirebaseAuth'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
 
   # Pods for SpotMap
 

@@ -10,6 +10,7 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // FireBase init part
         // Use Firebase library to configure APIs
         FIRApp.configure()
+        FIRDatabase.database().persistenceEnabled = true
         
         // Backendless init part
         backendless?.initApp(appId, secret:secretKey, version:versionNum)

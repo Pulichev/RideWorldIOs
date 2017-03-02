@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		731AD27307E50B3192B4422B /* Pods_SpotMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */; };
 		7E70B15F5DAC197C3216DA6E /* Pods_SpotMapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFE0AF727D03D36C374021 /* Pods_SpotMapUITests.framework */; };
+		9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */; };
 		9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */; };
 		9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */; };
 		9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */; };
@@ -74,6 +75,7 @@
 		5A752A6ABE4F4F31D015688F /* Pods-SpotMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.debug.xcconfig"; sourceTree = "<group>"; };
 		8580589E3175367EF665865F /* Pods-SpotMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.release.xcconfig"; sourceTree = "<group>"; };
 		8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotDetailsItem.swift; path = Data/SpotDetailsItem.swift; sourceTree = "<group>"; };
 		9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlus.png; path = Pictures/ButtonPlus.png; sourceTree = "<group>"; };
 		9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonLogout.png; path = Pictures/ButtonLogout.png; sourceTree = "<group>"; };
 		9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileController.swift; path = Controllers/EditProfileController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				9FC14FE31E48E7790097579B /* SpotDetails.swift */,
 				9FC14FE41E48E7790097579B /* SpotPost.swift */,
 				9FD648D51E54745100C673CA /* Users.swift */,
+				9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				9FC14FE71E48E7790097579B /* SpotDetails.swift in Sources */,
 				9FBD53261E687C9D00FF2765 /* TypeUsersFromBackendlessUser.swift in Sources */,
 				9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */,
+				9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */,
 				9FC14FE81E48E7790097579B /* SpotPost.swift in Sources */,
 				9FC14FE61E48E7790097579B /* PostLike.swift in Sources */,
 				9FC14FD41E48E5E30097579B /* SpotDetailsController.swift in Sources */,

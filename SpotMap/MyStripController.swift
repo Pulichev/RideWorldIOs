@@ -22,16 +22,6 @@ class MyStripController: UIViewController {
         // Create a reference to the file to delete
         let desertRef = storageRef.child("iPhone 6.png")
         
-        if FIRAuth.auth()?.currentUser == nil {
-            FIRAuth.auth()?.signInAnonymously(completion: { (user: FIRUser?, error: Error?) in
-                if let error = error {
-                    print("********************************************ERROR")
-                } else {
-                    print("********************************************Deleted")
-                }
-            })
-        }
-        
         // Delete the file
         desertRef.delete { error in
             if let error = error {

@@ -8,24 +8,22 @@
 
 import UIKit
 import AVFoundation
+import Firebase
+import FirebaseDatabase
+import FirebaseStorage
 
 class SpotDetailsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    var backendless: Backendless!
-    
     @IBOutlet weak var tableView: UITableView!
     
-    var spotDetails: SpotDetails!
+    var spotDetailsItem: SpotDetailsItem!
     
-    var spotPosts = [SpotPost]()
-    var spotPostsCellsCache = [SpotPostsCellCache]()
+    var spotPosts = [SpotPostItem]()
+    var spotPostItemCellsCache = [SpotPostItemCellCache]()
     
     var mediaCache = NSMutableDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.backendless = Backendless.sharedInstance()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -50,6 +48,21 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             print("Server reported an error: \(error?.message)")
         }
+        
+        //getting a list of keys of spot posts from spotdetails
+        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails/" + self.spotDetailsItem.key + "/posts/")
+        
+        ref.queryOrderedByValue().observe(.value, with: { snapshot in
+            var newItems: [SpotDetailsItem] = []
+            
+            for item in snapshot.children {
+                let spotDetailsItem = SpotDetailsItem(snapshot: item as! FIRDataSnapshot)
+                newItems.append(spotDetailsItem)
+            }
+            
+            self.spotsFromDB = newItems
+            self.addPinsOnMap()
+        })
     }
     
     //First add must have info. Text info.
@@ -58,7 +71,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         
         DispatchQueue.main.async {
             for post in self.spotPosts {
-                let newSpotPostCellCache = SpotPostsCellCache(spotPost: post)
+                let newSpotPostCellCache = SpotPostItemCellCache(spotPost: post)
                 
                 self.spotPostsCellsCache.append(newSpotPostCellCache)
                 self.tableView.reloadData()
@@ -86,7 +99,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             updateCellLikesCache(objectId: cell.post.objectId!) //if yes updating cache
         }
         
-        let cellFromCache = spotPostsCellsCache[row]
+        let cellFromCache = spotPostItemCellsCache[row]
         cell.post = cellFromCache.post
         cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
         cell.userNickName.tag = row //for segue to send userId to ridersProfile

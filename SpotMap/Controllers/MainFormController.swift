@@ -29,6 +29,7 @@ class MainFormController: UIViewController {
         
         DispatchQueue.main.async {
             self.mapViewInitialize()
+            //MigratingDataFromBELToFireBase.migrate()
             self.loadSpotsOnMap()
         }
     }
@@ -175,21 +176,15 @@ extension MainFormController: MKMapViewDelegate {
         let storage = FIRStorage.storage()
         // Create a reference from a Google Cloud Storage URI
         let spotDetailsPhotoURL = storage.reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotMainPhotoURLs/" + spotPin.key + ".jpeg")
-        //let spotDetailsPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotMainPhotoURLs/" + (spotPin.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
         
         DispatchQueue.global(qos: .userInitiated).async(execute: {
-            //            if let imageURL = URL(string: spotDetailsPhotoURL) {
-            //                if let imageData = NSData(contentsOf: imageURL) {
-            //                    let logo = UIImage(data: imageData as Data)
-            //                    DispatchQueue.main.async(execute: {
-            //                        imageView.image = logo
-            //                    })
-            //                }
-            //            }
             spotDetailsPhotoURL.data(withMaxSize: 3 * 1024 * 1024) { data, error in
                 if let error = error {
                     // Uh-oh, an error occurred!
                     let image = UIImage(contentsOfFile: "plus-512.gif")
+                    DispatchQueue.main.async(execute: {
+                        imageView.image = image
+                    })
                 } else {
                     let image = UIImage(data: data!)
                     DispatchQueue.main.async(execute: {
@@ -259,7 +254,7 @@ extension MainFormController: CLLocationManagerDelegate {
         
         if(segue.identifier == "spotDetailsTapped") {
             let spotDetailsController = (segue.destination as! SpotDetailsController)
-            //spotDetailsController.spotDetails = spotDetailsForSendToSpotDetailsController
+            spotDetailsController.spotDetailsItem = spotDetailsForSendToSpotDetailsController
         }
     }
 }

@@ -9,7 +9,7 @@
 
 import Foundation
 
-class SpotPostsCellCache {
+class SpotPostItemCellCache {
     var backendless = Backendless.sharedInstance()
 
     var post = SpotPost()

@@ -10,5 +10,5 @@ import UIKit
 import MapKit
 
 class CustomPin: MKPointAnnotation {
-    var spotDetails: SpotDetails!
+    var spotDetailsItem: SpotDetailsItem!
 }

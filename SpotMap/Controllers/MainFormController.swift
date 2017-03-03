@@ -10,11 +10,10 @@ import FirebaseDatabase
 import FirebaseStorage
 
 class MainFormController: UIViewController {
-    var backendless: Backendless!
     
-    var spotsFromDB = [SpotDetails]()
+    var spotsFromDB = [SpotDetailsItem]()
     
-    var spotDetailsForSendToSpotDetailsController: SpotDetails!
+    var spotDetailsForSendToSpotDetailsController: SpotDetailsItem!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -29,7 +28,6 @@ class MainFormController: UIViewController {
         super.viewDidLoad()
         
         DispatchQueue.main.async {
-            self.backendless = Backendless.sharedInstance()
             self.mapViewInitialize()
             self.loadSpotsOnMap()
         }
@@ -66,36 +64,35 @@ class MainFormController: UIViewController {
     }
     
     func loadSpotsOnMap() {
-        let whereClause = ""
-        let dataQuery = BackendlessDataQuery()
-        dataQuery.whereClause = whereClause
+        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails")
         
-        var error: Fault?
-        let spotList = backendless.data.of(SpotDetails.ofClass()).find(dataQuery, fault: &error)
-        
-        if error != nil {
-            print("Server reported an error: \(error?.detail)")
-        }
-        
-        spotsFromDB = spotList?.data as! [SpotDetails]
-
-        addPinsOnMap(spotList: spotsFromDB)
+        ref.queryOrdered(byChild: "key").observe(.value, with: { snapshot in
+            var newItems: [SpotDetailsItem] = []
+            
+            for item in snapshot.children {
+                let spotDetailsItem = SpotDetailsItem(snapshot: item as! FIRDataSnapshot)
+                newItems.append(spotDetailsItem)
+            }
+            
+            self.spotsFromDB = newItems
+            self.addPinsOnMap()
+        })
     }
     
-    func addPinsOnMap(spotList: [SpotDetails]) {
-        for spot in spotList {
+    func addPinsOnMap() {
+        for spot in self.spotsFromDB {
             let pin = CustomPin()
             pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
-            pin.title = spot.spotName
-            pin.subtitle = spot.spotDescription
-            pin.spotDetails = spot
+            pin.title = spot.name
+            pin.subtitle = spot.description
+            pin.spotDetailsItem = spot
             
             mapView.addAnnotation(pin)
         }
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
-        backendless.userService.logout()
+        //ADD HERE LOGOUT
         
         self.performSegue(withIdentifier: "userLogouted", sender: self)
     }
@@ -140,7 +137,7 @@ extension MainFormController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let customPin = view.annotation as! CustomPin
         
-        configureDetailView(annotationView: view, spotPin: customPin.spotDetails)
+        configureDetailView(annotationView: view, spotPin: customPin.spotDetailsItem)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -165,7 +162,7 @@ extension MainFormController: MKMapViewDelegate {
         return annotationView
     }
     
-    func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotDetails) {
+    func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotDetailsItem) {
         let width = 200
         let height = 200
         
@@ -175,14 +172,28 @@ extension MainFormController: MKMapViewDelegate {
         snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[snapshotView(200)]", options: [], metrics: nil, views: views))
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         
-        let spotDetailsPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotMainPhotoURLs/" + (spotPin.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
+        let storage = FIRStorage.storage()
+        // Create a reference from a Google Cloud Storage URI
+        let spotDetailsPhotoURL = storage.reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotMainPhotoURLs/" + spotPin.key + ".jpeg")
+        //let spotDetailsPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotMainPhotoURLs/" + (spotPin.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
         
         DispatchQueue.global(qos: .userInitiated).async(execute: {
-            if let imageURL = URL(string: spotDetailsPhotoURL) {
-                if let imageData = NSData(contentsOf: imageURL) {
-                    let logo = UIImage(data: imageData as Data)
+            //            if let imageURL = URL(string: spotDetailsPhotoURL) {
+            //                if let imageData = NSData(contentsOf: imageURL) {
+            //                    let logo = UIImage(data: imageData as Data)
+            //                    DispatchQueue.main.async(execute: {
+            //                        imageView.image = logo
+            //                    })
+            //                }
+            //            }
+            spotDetailsPhotoURL.data(withMaxSize: 3 * 1024 * 1024) { data, error in
+                if let error = error {
+                    // Uh-oh, an error occurred!
+                    let image = UIImage(contentsOfFile: "plus-512.gif")
+                } else {
+                    let image = UIImage(data: data!)
                     DispatchQueue.main.async(execute: {
-                        imageView.image = logo
+                        imageView.image = image
                     })
                 }
             }
@@ -203,7 +214,7 @@ extension MainFormController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("details tapped")
         let customAnnotation = view.annotation as! CustomPin
-        self.spotDetailsForSendToSpotDetailsController = customAnnotation.spotDetails
+        self.spotDetailsForSendToSpotDetailsController = customAnnotation.spotDetailsItem
         
         self.performSegue(withIdentifier: "spotDetailsTapped", sender: self)
     }
@@ -248,7 +259,7 @@ extension MainFormController: CLLocationManagerDelegate {
         
         if(segue.identifier == "spotDetailsTapped") {
             let spotDetailsController = (segue.destination as! SpotDetailsController)
-            spotDetailsController.spotDetails = spotDetailsForSendToSpotDetailsController
+            //spotDetailsController.spotDetails = spotDetailsForSendToSpotDetailsController
         }
     }
 }

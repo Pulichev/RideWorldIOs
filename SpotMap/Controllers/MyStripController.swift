@@ -13,42 +13,6 @@ import FirebaseAuth
 
 class MyStripController: UIViewController {
     override func viewDidLoad() {
-        // Get a reference to the storage service using the default Firebase App
-        let storage = FIRStorage.storage()
         
-        // Create a storage reference from our storage service
-        let storageRef = storage.reference()
-        
-        // Create a reference to the file to delete
-        let desertRef = storageRef.child("iPhone 6.png")
-        
-        print("lol")
-        
-        // Delete the file
-        desertRef.delete { error in
-            if let error = error {
-                print("********************************************ERROR")
-                // Uh-oh, an error occurred!
-            } else {
-                print("********************************************Deleted")
-                // File deleted successfully
-            }
-        }
-        
-        // Data in memory
-        let data: Data = UIImageJPEGRepresentation(UIImage(named: "plus-512.gif")!, 1.0)!
-        
-        // Create a reference to the file you want to upload
-        let riversRef = storageRef.child("images/rivers.jpg")
-        
-        // Upload the file to the path "images/rivers.jpg"
-        let uploadTask = riversRef.put(data, metadata: nil) { (metadata, error) in
-            guard let metadata = metadata else {
-                // Uh-oh, an error occurred!
-                return
-            }
-            // Metadata contains file metadata such as size, content-type, and download URL.
-            let downloadURL = metadata.downloadURL
-        }
     }
 }

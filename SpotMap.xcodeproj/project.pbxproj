@@ -21,6 +21,8 @@
 		9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A844A1E632A3400C1E5F2 /* email.ico */; };
 		9F4A844D1E632AE800C1E5F2 /* nameAndSename.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A844C1E632AE800C1E5F2 /* nameAndSename.png */; };
 		9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F65321B1E3CD12700F58C18 /* Assets.xcassets */; };
+		9F73B0991E69D3490049563A /* SpotPostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73B0981E69D3480049563A /* SpotPostItem.swift */; };
+		9F73B09C1E69EDBB0049563A /* MigratingDataFromBELToFireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73B09B1E69EDBB0049563A /* MigratingDataFromBELToFireBase.swift */; };
 		9FAE00A91E6880240010C6C1 /* MyStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE00A81E6880240010C6C1 /* MyStripController.swift */; };
 		9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */; };
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
@@ -87,6 +89,8 @@
 		9F4A844A1E632A3400C1E5F2 /* email.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; name = email.ico; path = Pictures/email.ico; sourceTree = "<group>"; };
 		9F4A844C1E632AE800C1E5F2 /* nameAndSename.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nameAndSename.png; path = Pictures/nameAndSename.png; sourceTree = "<group>"; };
 		9F65321B1E3CD12700F58C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9F73B0981E69D3480049563A /* SpotPostItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotPostItem.swift; path = Data/SpotPostItem.swift; sourceTree = "<group>"; };
+		9F73B09B1E69EDBB0049563A /* MigratingDataFromBELToFireBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MigratingDataFromBELToFireBase.swift; path = TempFiles/MigratingDataFromBELToFireBase.swift; sourceTree = "<group>"; };
 		9FAE00A81E6880240010C6C1 /* MyStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyStripController.swift; path = Controllers/MyStripController.swift; sourceTree = "<group>"; };
 		9FB681B21E2E70CE00D9A436 /* SpotMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +172,7 @@
 				9FC14FE41E48E7790097579B /* SpotPost.swift */,
 				9FD648D51E54745100C673CA /* Users.swift */,
 				9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */,
+				9F73B0981E69D3480049563A /* SpotPostItem.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -184,6 +189,14 @@
 				9FC14FD51E48E7300097579B /* plus-512.gif */,
 			);
 			name = Pictures;
+			sourceTree = "<group>";
+		};
+		9F73B09A1E69ED7F0049563A /* TempFiles */ = {
+			isa = PBXGroup;
+			children = (
+				9F73B09B1E69EDBB0049563A /* MigratingDataFromBELToFireBase.swift */,
+			);
+			name = TempFiles;
 			sourceTree = "<group>";
 		};
 		9FB681A91E2E70CD00D9A436 = {
@@ -211,6 +224,7 @@
 		9FB681B41E2E70CE00D9A436 /* SpotMap */ = {
 			isa = PBXGroup;
 			children = (
+				9F73B09A1E69ED7F0049563A /* TempFiles */,
 				9FC14FDA1E48E7590097579B /* CustomUIElements */,
 				9FC14FD71E48E7380097579B /* Core */,
 				9FC14FC61E48E5CB0097579B /* Controllers */,
@@ -610,6 +624,8 @@
 				9FC14FE61E48E7790097579B /* PostLike.swift in Sources */,
 				9FC14FD41E48E5E30097579B /* SpotDetailsController.swift in Sources */,
 				9FC14FE01E48E7690097579B /* SpotPostsCell.swift in Sources */,
+				9F73B09C1E69EDBB0049563A /* MigratingDataFromBELToFireBase.swift in Sources */,
+				9F73B0991E69D3490049563A /* SpotPostItem.swift in Sources */,
 				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */,

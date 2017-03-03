@@ -78,47 +78,7 @@ class MainFormController: UIViewController {
         }
         
         spotsFromDB = spotList?.data as! [SpotDetails]
-        
-        // here i will create data on firebase from this mass
-        for spot in spotsFromDB {
-            // creating database objects
-            let newSpotDetailsItemRef = FIRDatabase.database().reference(withPath: "spotdetails").childByAutoId()
-            let newSpotDetailsItemRefKey = newSpotDetailsItemRef.key
-            
-            let spotDetailsItem = SpotDetailsItem(name: spot.spotName,
-                                   description: spot.spotDescription,
-                                   latitude: spot.latitude,
-                                   longitude: spot.longitude,
-                                   addedByUser: "vlad.pulichev777@gmail.com",
-                                   key: newSpotDetailsItemRefKey)
-            
-            newSpotDetailsItemRef.setValue(spotDetailsItem.toAnyObject())
-            
-            // migrating pictures from backendless to firebase
-            // Get a reference to the storage service using the default Firebase App
-            let storage = FIRStorage.storage()
-            
-            // Create a storage reference from our storage service
-            let storageRef = storage.reference()
-            
-            // Data in memory
-            let url = URL(string: "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotMainPhotoURLs/" + (spot.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg")
-            let data = try? Data(contentsOf: url!)
-            
-            // Create a reference to the file you want to upload
-            let spotMainPhotoURLsRef = storageRef.child("media/spotMainPhotoURLs/" + newSpotDetailsItemRefKey + ".jpeg")
-            
-            // Upload the file to the path "media/spotMainPhotoURLs/" + newSpotDetailsItemRefKey + ".jpeg"
-            let uploadTask = spotMainPhotoURLsRef.put(data!, metadata: nil) { (metadata, error) in
-                guard let metadata = metadata else {
-                    // Uh-oh, an error occurred!
-                    return
-                }
-                // Metadata contains file metadata such as size, content-type, and download URL.
-                let downloadURL = metadata.downloadURL
-            }
-        }
-        
+
         addPinsOnMap(spotList: spotsFromDB)
     }
     

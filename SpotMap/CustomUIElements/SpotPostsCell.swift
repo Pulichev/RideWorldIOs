@@ -13,7 +13,7 @@ import AVFoundation
 class SpotPostsCell: UITableViewCell {
     var backendless: Backendless!
 
-    var post: SpotPost!
+    var post: SpotPostItem!
 
     @IBOutlet var spotPostMedia: UIView!
     var player: AVPlayer!
@@ -48,54 +48,23 @@ class SpotPostsCell: UITableViewCell {
 
     func postLiked(_ sender: Any) {
         userLikedOrDeletedLike = true
-        backendless = Backendless.sharedInstance()
-
-        let defaults = UserDefaults.standard
-        let userId = defaults.string(forKey: "userLoggedInObjectId")
-
+        
         if(!self.postIsLiked) {
-            addNewLike(userId: userId!)
+            addNewLike()
 
             self.postIsLiked = true
-            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-            let countOfLikesInt = Int(self.likesCount.text!)
-            self.likesCount.text = String(countOfLikesInt! + 1)
-        } else {
-            removeExistedLike(userId: userId!)
+            } else {
+            removeExistedLike()
 
             self.postIsLiked = false
-            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-            let countOfLikesInt = Int(self.likesCount.text!)
-            self.likesCount.text = String(countOfLikesInt! - 1)
         }
     }
 
-    func addNewLike(userId: String) {
-        let postLike = PostLike()
-        
-        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
-
-        postLike.post = self.post
-        postLike.user = user
-
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.backendless.persistenceService.of(PostLike.ofClass()).save(postLike)
-        }
+    func addNewLike() {
+    
     }
 
-    func removeExistedLike(userId: String) {
-        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
-        
-        let whereClause = "post.objectId = '\(self.post.objectId!)' AND user.objectId = '\(user.objectId!)'"
-        let dataQuery = BackendlessDataQuery()
-        dataQuery.whereClause = whereClause
+    func removeExistedLike() {
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            var error: Fault?
-            //1) Finding postlike object of this cell
-            let likesList = self.backendless.data.of(PostLike.ofClass()).find(dataQuery, fault: &error) //Finding
-            //2) Delete this object from database
-            self.backendless.persistenceService.of(PostLike.ofClass()).remove(likesList?.data[0]) //Deleting
-        }
     }
 }

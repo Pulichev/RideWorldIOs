@@ -175,7 +175,8 @@ extension MainFormController: MKMapViewDelegate {
         
         let storage = FIRStorage.storage()
         // Create a reference from a Google Cloud Storage URI
-        let spotDetailsPhotoURL = storage.reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotMainPhotoURLs/" + spotPin.key + ".jpeg")
+        let url = "gs://spotmap-e3116.appspot.com/media/spotMainPhotoURLs/" + spotPin.key + ".jpeg"
+        let spotDetailsPhotoURL = storage.reference(forURL: url)
         
         DispatchQueue.global(qos: .userInitiated).async(execute: {
             spotDetailsPhotoURL.data(withMaxSize: 3 * 1024 * 1024) { data, error in

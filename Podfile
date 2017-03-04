@@ -11,6 +11,7 @@ target 'SpotMap' do
   pod 'FirebaseAuth'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Kingfisher', '~> 3.0'
 
   # Pods for SpotMap
 

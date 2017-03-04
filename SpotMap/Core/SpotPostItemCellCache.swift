@@ -12,7 +12,7 @@ import Foundation
 class SpotPostItemCellCache {
     var backendless = Backendless.sharedInstance()
 
-    var post = SpotPost()
+    var post: SpotPostItem
     var userNickName = UILabel()
     var postDate = UILabel()
     var postDescription = UITextView()
@@ -22,32 +22,22 @@ class SpotPostItemCellCache {
     var likesCount = Int()
     var userInfo = Users()
     
-    init(spotPost: SpotPost) {
+    init(spotPost: SpotPostItem) {
         self.post = spotPost
-        self.userInfo = post.user! //getting userinfo
+        //self.userInfo = post.user //getting userinfo
         self.userNickName.text = self.userInfo.name
-        let sourceDate = String(describing: post.created!)
+        let sourceDate = post.createdDate
         //formatting date to yyyy-mm-dd
         let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
         self.postDate.text = finalDate
-        self.postDescription.text = post.postDescription
+        self.postDescription.text = post.description
         self.isPhoto = post.isPhoto
         self.userLikedThisPost()
         self.countPostLikes()
     }
 
     func userLikedThisPost() {
-        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
-        
-        let whereClause = "post.objectId = '\(self.post.objectId!)' AND user.objectId = '\(user.objectId!)'"
-        let dataQuery = BackendlessDataQuery()
-        dataQuery.whereClause = whereClause
-
-        var error: Fault?
-
-        let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
-
-        if (likesList!.data.count != 0) { //If user has liked this post already
+        if (true) { //If user has liked this post already //TODOODODOASDOAODAOSDOASDOASODO
             postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
         } else {
@@ -57,14 +47,7 @@ class SpotPostItemCellCache {
     }
 
     func countPostLikes() {
-        let whereClause = "post.objectId = '\(self.post.objectId!)'"
-        let dataQuery = BackendlessDataQuery()
-        dataQuery.whereClause = whereClause
-        
-        var error: Fault?
-        
-        let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
-        likesCount = likesList!.data.count
+        self.likesCount = 13
     }
 
     func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked

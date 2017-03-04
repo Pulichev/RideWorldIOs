@@ -103,11 +103,15 @@ class MigratingDataFromBELToFireBase {
                 let storageRef2 = storage2.reference()
                 
                 // Data in memory
+                
+                var urlS = String()
                 if post.isPhoto {
-                    let url = URL(string: "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (post.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg")
+                    urlS = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (post.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
                 } else {
-                    let url = URL(string: "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostVideos/" + (post.objectId!).replacingOccurrences(of: "-", with: "") + ".m4v")
+                    urlS = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostVideos/" + (post.objectId!).replacingOccurrences(of: "-", with: "") + ".m4v"
                 }
+                
+                let url = URL(string: urlS)
                 let data = try? Data(contentsOf: url!)
                 
                 // Create a reference to the file you want to upload
@@ -115,7 +119,7 @@ class MigratingDataFromBELToFireBase {
                 if post.isPhoto {
                     newRef += ".jpeg"
                 } else {
-                    newRef += ".m4a"
+                    newRef += ".m4v"
                 }
                 var postMediaRef = storageRef2.child(newRef)
                 

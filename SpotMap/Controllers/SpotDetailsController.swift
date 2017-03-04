@@ -128,21 +128,24 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + ".jpeg"
         let spotDetailsPhotoURL = storage.reference(forURL: url)
         
-        DispatchQueue.global(qos: .userInitiated).async(execute: {
+        //DispatchQueue.global(qos: .userInitiated).async(execute: {
             spotDetailsPhotoURL.data(withMaxSize: 3 * 1024 * 1024) { data, error in
                 if let error = error {
                     // Uh-oh, an error occurred!
                 } else {
-                    DispatchQueue.main.async(execute: {
+                    //DispatchQueue.main.async(execute: {
                         let imageFromCache = UIImage(data: data!)
                         let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                         imageViewForView.image = imageFromCache
                         imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                    DispatchQueue.main.async {
                         cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                    })
+                    }
+                        //                        self.tableView.reloadData()
+                    //})
                 }
             }
-        })
+        //})
         
 //        if (self.mediaCache.object(forKey: cacheKey) != nil) {
 //            let imageFromCache = self.mediaCache.object(forKey: cacheKey as NSCopying) as? UIImage

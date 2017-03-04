@@ -100,7 +100,7 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/Controllers/RidersProfileController.swift"
-                  timestampString = "510343645.649828"
+                  timestampString = "510363475.67639"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "52"
@@ -115,7 +115,7 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/Controllers/RidersProfileController.swift"
-                  timestampString = "510343645.651462"
+                  timestampString = "510363475.678422"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "53"
@@ -292,11 +292,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpotMap/Controllers/SpotDetailsController.swift"
-            timestampString = "510343509.323054"
+            timestampString = "510344693.337881"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "setImageOnCellFromCacheOrDownload(cell:cacheKey:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpotMap/Controllers/SpotDetailsController.swift"
+            timestampString = "510362490.537927"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "setImageOnCellFromCacheOrDownload(cell:cacheKey:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -308,45 +324,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpotMap/Controllers/SpotDetailsController.swift"
-            timestampString = "510343531.904313"
+            timestampString = "510344695.574615"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "loadSpotPosts()"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "setImageOnCellFromCacheOrDownload(cell:cacheKey:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SpotMap.SpotDetailsController.(loadSpotPosts () -&gt; ()).(closure #1)"
-                  moduleName = "SpotMap"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/Controllers/SpotDetailsController.swift"
-                  timestampString = "510343645.665814"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "1615">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SpotMap.SpotDetailsController.(loadSpotPosts () -&gt; ()).(closure #1).(closure #2)"
-                  moduleName = "SpotMap"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/Controllers/SpotDetailsController.swift"
-                  timestampString = "510343645.667286"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "241">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -356,12 +340,92 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpotMap/Controllers/SpotDetailsController.swift"
-            timestampString = "510343607.01777"
+            timestampString = "510344696.098496"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "loadSpotPosts()"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "setImageOnCellFromCacheOrDownload(cell:cacheKey:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpotMap/Controllers/SpotDetailsController.swift"
+            timestampString = "510344796.930027"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpotMap/Controllers/SpotDetailsController.swift"
+            timestampString = "510359064.696691"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "setImageOnCellFromCacheOrDownload(cell:cacheKey:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpotMap/Controllers/SpotDetailsController.swift"
+            timestampString = "510359067.214975"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "setImageOnCellFromCacheOrDownload(cell:cacheKey:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpotMap/Controllers/SpotDetailsController.swift"
+            timestampString = "510362485.136493"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "setImageOnCellFromCacheOrDownload(cell:cacheKey:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpotMap/TempFiles/MigratingDataFromBELToFireBase.swift"
+            timestampString = "510363475.34511"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "migrate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

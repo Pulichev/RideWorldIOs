@@ -141,62 +141,62 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func setVideoOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
-        let storage = FIRStorage.storage()
-        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + ".m4v"
-        let spotDetailsPhotoURL = storage.reference(forURL: url)
-        
-        spotDetailsPhotoURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                if (self.mediaCache.object(forKey: cacheKey) != nil) {
-                    let cachedAsset = self.mediaCache.object(forKey: cacheKey) as? AVAsset
-                    cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
-                    let playerLayer = AVPlayerLayer(player: (cell.player))
-                    playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                    playerLayer.frame = cell.spotPostMedia.bounds
-                    cell.spotPostMedia.layer.addSublayer(playerLayer)
-                    
-                    cell.player.play()
+        if (self.mediaCache.object(forKey: cacheKey) != nil) {
+            let cachedAsset = self.mediaCache.object(forKey: cacheKey) as? AVAsset
+            cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
+            let playerLayer = AVPlayerLayer(player: (cell.player))
+            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.frame = cell.spotPostMedia.bounds
+            cell.spotPostMedia.layer.addSublayer(playerLayer)
+            
+            cell.player.play()
+        } else {
+            let storage = FIRStorage.storage()
+            let postKey = self.spotPosts[cacheKey].key
+            let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + postKey + "_thumbnail.jpeg"
+            let spotVideoThumbnailURL = storage.reference(forURL: url)
+            
+            spotVideoThumbnailURL.downloadURL { (URL, error) in
+                if let error = error {
+                    print("\(error)")
                 } else {
+                    let data = NSData(contentsOf: URL!)
+                    let thumbnail: UIImage = UIImage(data: data as! Data)!
                     
-                    DispatchQueue.global(qos: .userInteractive).async(execute: {
-                        //self.makeThumbnailFirst(postId: self.spotPosts[cacheKey].key, cell: cell)
-                        
-                        let assetForCache = AVAsset(url: URL!)
-                        self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
-                        
-                        DispatchQueue.main.async(execute: {
-                            cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-                            let playerLayer = AVPlayerLayer(player: cell.player)
-                            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                            playerLayer.frame = cell.spotPostMedia.bounds
-                            
-                            cell.spotPostMedia.layer.addSublayer(playerLayer)
-                            
-                            cell.player.play()
-                        })
-                    })
+                    // thumbnail!
+                    let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                    imageViewForView.image = thumbnail
+                    imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                    cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                    
+                    self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
                 }
             }
         }
     }
     
-//    func makeThumbnailFirst(postId: String, cell: SpotPostsCell) {
-//        let thumbnailUrl = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotPostMediaThumbnails/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
-//        
-//        let url = URL(string: thumbnailUrl)
-//        let data = NSData(contentsOf: url!)
-//        let thumbnail: UIImage = UIImage(data: data as! Data)!
-//        
-//        DispatchQueue.main.async {
-//            // thumbnail
-//            let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-//            imageViewForView.image = thumbnail
-//            imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-//            cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-//        }
-//    }
+    func downloadVideo(postKey: String, cacheKey: Int, cell: SpotPostsCell) {
+        let storage = FIRStorage.storage()
+        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + postKey + ".m4v"
+        let spotVideoURL = storage.reference(forURL: url)
+        
+        spotVideoURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                let assetForCache = AVAsset(url: URL!)
+                self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
+                cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+                let playerLayer = AVPlayerLayer(player: cell.player)
+                playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                playerLayer.frame = cell.spotPostMedia.bounds
+                
+                cell.spotPostMedia.layer.addSublayer(playerLayer)
+                
+                cell.player.play()
+            }
+        }
+    }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let customCell = cell as! SpotPostsCell
@@ -222,19 +222,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    //    func getUserInfo(userId: String?) -> Users {
-    //        let user = self.backendless.userService.find(byId: userId!)
-    //        //        print("\(user)")
-    //        let rider = Users()
-    //        rider.objectId = userId!
-    //        rider.name = String(describing: (user?.getProperty("name"))!)
-    //        rider.email = String(describing: (user?.getProperty("email"))!)
-    //        rider.userNameAndSename = String(describing: (user?.getProperty("userNameAndSename"))!)
-    //        rider.userBioDescription = String(describing: (user?.getProperty("userBioDescription"))!)
-    //        return rider
-    //    }
-    //ENDTABLE filling region
     
     @IBAction func addNewPost(_ sender: Any) {
         self.performSegue(withIdentifier: "addNewPost", sender: self)

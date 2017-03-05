@@ -133,6 +133,30 @@ class MigratingDataFromBELToFireBase {
                     let downloadURL = metadata.downloadURL
                 }
                 
+                //THUMBNAILS
+                // Data in memory
+                if !post.isPhoto {
+                    var urlS2 = String()
+                    
+                    urlS2 = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotPostMediaThumbnails/" + (post.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
+                    
+                    let url2 = URL(string: urlS2)
+                    let data2 = try? Data(contentsOf: url2!)
+                    
+                    // Create a reference to the file you want to upload
+                    let newRef2 = "media/spotPostMedia/" + newSpotDetailsItemRefKey + "/" + newPostItemRefKey + "_thumbnail.jpeg"
+                    let postMediaRef2 = storageRef2.child(newRef2)
+                    
+                    let uploadTask2 = postMediaRef2.put(data2!, metadata: nil) { (metadata, error) in
+                        guard let metadata = metadata else {
+                            // Uh-oh, an error occurred!
+                            return
+                        }
+                        // Metadata contains file metadata such as size, content-type, and download URL.
+                        let downloadURL = metadata.downloadURL
+                    }
+                }
+                
                 posts[newPostItemRefKey] = true
             }
             var postInSpotLink = "MainDataBase/spotdetails/" + newSpotDetailsItemRefKey

@@ -11,6 +11,7 @@ import AVFoundation
 import Firebase
 import FirebaseDatabase
 import FirebaseStorage
+import Kingfisher
 
 class SpotDetailsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
@@ -122,55 +123,21 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
-//        let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (spotPosts[cacheKey].key).replacingOccurrences(of: "-", with: "") + ".jpeg"
-        
         let storage = FIRStorage.storage()
         let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + ".jpeg"
         let spotDetailsPhotoURL = storage.reference(forURL: url)
         
-        //DispatchQueue.global(qos: .userInitiated).async(execute: {
-            spotDetailsPhotoURL.data(withMaxSize: 3 * 1024 * 1024) { data, error in
-                if let error = error {
-                    // Uh-oh, an error occurred!
-                } else {
-                    //DispatchQueue.main.async(execute: {
-                        let imageFromCache = UIImage(data: data!)
-                        let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                        imageViewForView.image = imageFromCache
-                        imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                    DispatchQueue.main.async {
-                        cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                    }
-                        //                        self.tableView.reloadData()
-                    //})
+        spotDetailsPhotoURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
+                DispatchQueue.main.async {
+                    cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
                 }
             }
-        //})
-        
-//        if (self.mediaCache.object(forKey: cacheKey) != nil) {
-//            let imageFromCache = self.mediaCache.object(forKey: cacheKey as NSCopying) as? UIImage
-//            let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-//            imageViewForView.image = imageFromCache
-//            imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-//            cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-//        } else {
-//            DispatchQueue.global(qos: .userInteractive).async(execute: {
-//                if let url = URL(string: postPhotoURL) {
-//                    if let data = NSData(contentsOf: url) {
-//                        let imageFromCache: UIImage = UIImage(data: data as Data)!
-//                        self.mediaCache.setObject(imageFromCache, forKey: cacheKey as NSCopying)
-//                        
-//                        DispatchQueue.main.async(execute: {
-//                            let imageFromCache = self.mediaCache.object(forKey: cacheKey as NSCopying) as? UIImage
-//                            let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-//                            imageViewForView.image = imageFromCache
-//                            imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-//                            cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-//                        })
-//                    }
-//                }
-//            })
-//        } //end downloading and caching images
+        }
     }
     
 //    func setVideoOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {

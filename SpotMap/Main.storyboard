@@ -604,7 +604,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="476"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kZK-Ti-fyZ" id="f8k-cG-rM6">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="475.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="476"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9M3-vR-ACh">
@@ -697,10 +697,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="1JN-k2-5ma" secondAttribute="trailing" id="OZ9-Dk-suk"/>
-                            <constraint firstItem="1JN-k2-5ma" firstAttribute="bottom" secondItem="xLa-BH-f7x" secondAttribute="top" id="Xij-0n-ada"/>
-                            <constraint firstItem="1JN-k2-5ma" firstAttribute="top" secondItem="Eay-uF-Zo2" secondAttribute="bottom" id="ac0-SC-R1R"/>
-                            <constraint firstItem="1JN-k2-5ma" firstAttribute="leading" secondItem="Frl-6S-pCe" secondAttribute="leading" id="fUm-sg-6aG"/>
+                            <constraint firstItem="1JN-k2-5ma" firstAttribute="bottom" secondItem="xLa-BH-f7x" secondAttribute="top" id="E2q-ri-GOp"/>
+                            <constraint firstItem="1JN-k2-5ma" firstAttribute="top" secondItem="Eay-uF-Zo2" secondAttribute="bottom" id="T5r-bA-dFB"/>
+                            <constraint firstItem="1JN-k2-5ma" firstAttribute="leading" secondItem="Frl-6S-pCe" secondAttribute="leading" id="dRE-AC-bZ1"/>
+                            <constraint firstAttribute="trailing" secondItem="1JN-k2-5ma" secondAttribute="trailing" id="xvl-qW-Wpi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zpC-Ow-CQ1">

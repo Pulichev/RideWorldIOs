@@ -30,7 +30,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.dataSource = self
         
         //DispatchQueue.global(qos: .userInitiated).async {
-            self.loadSpotPosts()
+        self.loadSpotPosts()
         //}
     }
     
@@ -118,7 +118,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         if spotPosts[cacheKey].isPhoto {
             setImageOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
         } else {
-            //setVideoOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
+            setVideoOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
         }
     }
     
@@ -140,61 +140,47 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-//    func setVideoOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
-//        let storage = FIRStorage.storage()
-//        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + ".m4v"
-//        let spotDetailsVideoURL = storage.reference(forURL: url)
-//        
-//        DispatchQueue.global(qos: .userInitiated).async(execute: {
-//            spotDetailsPhotoURL.data(withMaxSize: 10 * 1024 * 1024) { data, error in
-//                if let error = error {
-//                    // Uh-oh, an error occurred!
-//                } else {
-//                    DispatchQueue.main.async(execute: {
-//                        let imageFromCache = UIImage(data: data!)
-//                        let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-//                        imageViewForView.image = imageFromCache
-//                        imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-//                        cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-//                    })
-//                }
-//            }
-//        })
-//        
-//        
-//        if (self.mediaCache.object(forKey: cacheKey) != nil) {
-//            let cachedAsset = self.mediaCache.object(forKey: cacheKey) as? AVAsset
-//            cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
-//            let playerLayer = AVPlayerLayer(player: (cell.player))
-//            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-//            playerLayer.frame = cell.spotPostMedia.bounds
-//            cell.spotPostMedia.layer.addSublayer(playerLayer)
-//            
-//            cell.player.play()
-//        } else {
-//            let postVideoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostVideos/" + (spotPosts[cacheKey].objectId!).replacingOccurrences(of: "-", with: "") + ".m4v"
-//            if let url = URL(string: postVideoURL) {
-//                
-//                DispatchQueue.global(qos: .userInteractive).async(execute: {
-//                    //self.makeThumbnailFirst(postId: self.spotPosts[cacheKey].objectId!, cell: cell)
-//                    
-//                    let assetForCache = AVAsset(url: url)
-//                    self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
-//                    
-//                    DispatchQueue.main.async(execute: {
-//                        cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-//                        let playerLayer = AVPlayerLayer(player: cell.player)
-//                        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-//                        playerLayer.frame = cell.spotPostMedia.bounds
-//                        
-//                        cell.spotPostMedia.layer.addSublayer(playerLayer)
-//                        
-//                        cell.player.play()
-//                    })
-//                })
-//            }
-//        }
-//    }
+    func setVideoOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
+        let storage = FIRStorage.storage()
+        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + ".m4v"
+        let spotDetailsPhotoURL = storage.reference(forURL: url)
+        
+        spotDetailsPhotoURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                if (self.mediaCache.object(forKey: cacheKey) != nil) {
+                    let cachedAsset = self.mediaCache.object(forKey: cacheKey) as? AVAsset
+                    cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
+                    let playerLayer = AVPlayerLayer(player: (cell.player))
+                    playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                    playerLayer.frame = cell.spotPostMedia.bounds
+                    cell.spotPostMedia.layer.addSublayer(playerLayer)
+                    
+                    cell.player.play()
+                } else {
+                    
+                    DispatchQueue.global(qos: .userInteractive).async(execute: {
+                        //self.makeThumbnailFirst(postId: self.spotPosts[cacheKey].key, cell: cell)
+                        
+                        let assetForCache = AVAsset(url: URL!)
+                        self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
+                        
+                        DispatchQueue.main.async(execute: {
+                            cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+                            let playerLayer = AVPlayerLayer(player: cell.player)
+                            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                            playerLayer.frame = cell.spotPostMedia.bounds
+                            
+                            cell.spotPostMedia.layer.addSublayer(playerLayer)
+                            
+                            cell.player.play()
+                        })
+                    })
+                }
+            }
+        }
+    }
     
 //    func makeThumbnailFirst(postId: String, cell: SpotPostsCell) {
 //        let thumbnailUrl = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotPostMediaThumbnails/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
@@ -237,17 +223,17 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-//    func getUserInfo(userId: String?) -> Users {
-//        let user = self.backendless.userService.find(byId: userId!)
-//        //        print("\(user)")
-//        let rider = Users()
-//        rider.objectId = userId!
-//        rider.name = String(describing: (user?.getProperty("name"))!)
-//        rider.email = String(describing: (user?.getProperty("email"))!)
-//        rider.userNameAndSename = String(describing: (user?.getProperty("userNameAndSename"))!)
-//        rider.userBioDescription = String(describing: (user?.getProperty("userBioDescription"))!)
-//        return rider
-//    }
+    //    func getUserInfo(userId: String?) -> Users {
+    //        let user = self.backendless.userService.find(byId: userId!)
+    //        //        print("\(user)")
+    //        let rider = Users()
+    //        rider.objectId = userId!
+    //        rider.name = String(describing: (user?.getProperty("name"))!)
+    //        rider.email = String(describing: (user?.getProperty("email"))!)
+    //        rider.userNameAndSename = String(describing: (user?.getProperty("userNameAndSename"))!)
+    //        rider.userBioDescription = String(describing: (user?.getProperty("userBioDescription"))!)
+    //        return rider
+    //    }
     //ENDTABLE filling region
     
     @IBAction func addNewPost(_ sender: Any) {
@@ -256,22 +242,22 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     //go to riders profile
     func nickNameTapped(sender: UIButton!) {
-//        self.ridersInfoForSending = self.spotPostsCellsCache[sender.tag].userInfo
-//        self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
+        //        self.ridersInfoForSending = self.spotPostsCellsCache[sender.tag].userInfo
+        //        self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
     }
     
     var ridersInfoForSending: Users!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "addNewPost" {
-//            //let nav = segue.destination as! UINavigationController
-//            let newPostController = segue.destination	 as! NewPostController
-//            newPostController.spotDetails = self.spotDetails
-//        }
-//        if segue.identifier == "openRidersProfileFromSpotDetails" {
-//            let newRidersProfileController = (segue.destination as! RidersProfileController)
-//            newRidersProfileController.ridersInfo = ridersInfoForSending
-//            newRidersProfileController.title = ridersInfoForSending.name
-//        }
+        //        if segue.identifier == "addNewPost" {
+        //            //let nav = segue.destination as! UINavigationController
+        //            let newPostController = segue.destination	 as! NewPostController
+        //            newPostController.spotDetails = self.spotDetails
+        //        }
+        //        if segue.identifier == "openRidersProfileFromSpotDetails" {
+        //            let newRidersProfileController = (segue.destination as! RidersProfileController)
+        //            newRidersProfileController.ridersInfo = ridersInfoForSending
+        //            newRidersProfileController.title = ridersInfoForSending.name
+        //        }
     }
 }

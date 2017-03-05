@@ -17,7 +17,7 @@ class SpotPostsCell: UITableViewCell {
 
     @IBOutlet var spotPostMedia: UIView!
     var player: AVPlayer!
-
+    
     @IBOutlet weak var postDate: UILabel!
     @IBOutlet weak var userNickName: UIButton!
     @IBOutlet weak var postDescription: UITextView!

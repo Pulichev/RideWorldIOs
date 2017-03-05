@@ -8,10 +8,9 @@
 //  Using this class to cache text info from SpotPostCells
 
 import Foundation
+import FirebaseDatabase
 
 class SpotPostItemCellCache {
-    var backendless = Backendless.sharedInstance()
-
     var post: SpotPostItem
     var userNickName = UILabel()
     var postDate = UILabel()
@@ -48,6 +47,30 @@ class SpotPostItemCellCache {
 
     func countPostLikes() {
         self.likesCount = 13
+        
+        //Ниже бред, надо изменить на лайки
+//        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails/" + self.spotDetailsItem.key + "/posts")
+//        
+//        ref.queryOrderedByValue().observe(.value, with: { snapshot in
+//            let value = snapshot.value as? NSDictionary
+//            let keys = value?.allKeys as! [String]
+//            
+//            for key in keys {
+//                let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
+//                
+//                ref.observeSingleEvent(of: .value, with: { (snapshot) in
+//                    let spotPostItem = SpotPostItem(snapshot: snapshot)
+//                    self.spotPosts.append(spotPostItem)
+//                    let newSpotPostCellCache = SpotPostItemCellCache(spotPost: spotPostItem)
+//                    self.spotPostItemCellsCache.append(newSpotPostCellCache)
+//                    self.tableView.reloadData()
+//                }) { (error) in
+//                    print(error.localizedDescription)
+//                }
+//            }
+        
+            //self.loadSpotPostCellsTextInfo() //when posts loaded we can add text info on cells
+        //})
     }
 
     func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked

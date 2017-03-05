@@ -11,13 +11,10 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    let appId = "4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00" //App Id uses to generate links to files. Dont forget it
-    let secretKey = "A406030E-2CC8-5845-FF66-ADB6A424DB00"
-    let versionNum = "v1"
-
     var backendless = Backendless.sharedInstance()
 
     var window: UIWindow?
@@ -31,13 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true
         
-        // Backendless init part
-        backendless?.initApp(appId, secret:secretKey, version:versionNum)
-
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
         // Setting initial viewController for user loggedIn?
-        if(backendless?.userService.currentUser != nil) {
+        if(FIRAuth.auth()?.currentUser != nil) {
             self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController")
         } else {
             self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginPage")

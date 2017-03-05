@@ -111,6 +111,17 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let customCell = cell as! SpotPostsCell
+        if (!customCell.isPhoto && customCell.player != nil) {
+            if (customCell.player.rate != 0 && (customCell.player.error == nil)) {
+                // player is playing
+                customCell.player.pause()
+                customCell.player = nil
+            }
+        }
+    }
+    
     func setMediaOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
         cell.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
         
@@ -194,17 +205,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                 cell.spotPostMedia.layer.addSublayer(playerLayer)
                 
                 cell.player.play()
-            }
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let customCell = cell as! SpotPostsCell
-        if (!customCell.isPhoto && customCell.player != nil) {
-            if (customCell.player.rate != 0 && (customCell.player.error == nil)) {
-                // player is playing
-                customCell.player.pause()
-                customCell.player = nil
             }
         }
     }

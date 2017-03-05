@@ -8,6 +8,7 @@ import MapKit
 import CoreLocation
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseAuth
 
 class MainFormController: UIViewController {
     
@@ -94,8 +95,12 @@ class MainFormController: UIViewController {
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
         //ADD HERE LOGOUT
-        
-        self.performSegue(withIdentifier: "userLogouted", sender: self)
+        do {
+            try FIRAuth.auth()!.signOut()
+            self.performSegue(withIdentifier: "userLogouted", sender: self)
+        } catch {
+            print("Error while signing out!")
+        }
     }
     
     func displayAdditionalOptions() {

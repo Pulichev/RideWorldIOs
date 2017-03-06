@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseDatabase
 
 class RegistrationController: UIViewController {
     @IBOutlet weak var userEmail: UITextField!
@@ -33,6 +34,22 @@ class RegistrationController: UIViewController {
                                     if error == nil {
                                         FIRAuth.auth()!.signIn(withEmail: self.userEmail.text!,
                                                                password: self.userPassword.text!)
+                                        
+                                        let loggedInUser = FIRAuth.auth()?.currentUser
+                                        let currentDate = Date()
+                                        let newUser = [
+                                            "uid" : (loggedInUser)?.uid,
+                                            "email" : (loggedInUser)?.email!,
+                                            "login" : self.userLogin.text,
+                                            "creationDate" : String(describing: currentDate),
+                                            "respectedTimes" : "0"
+                                        ] as [String : Any]
+                                        
+                                        // Create a child path with a key set to the uid underneath the "users" node
+                                        let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
+                                        ref.child("users").child(((loggedInUser)?.uid)!).setValue(newUser)
+                                        
+                                        
                                         self.performSegue(withIdentifier: "registrationCompleted", sender: self)
                                     } else {
                                         print("\(error?.localizedDescription)")

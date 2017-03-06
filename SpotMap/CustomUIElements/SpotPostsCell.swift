@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 import AVFoundation
+import FirebaseDatabase
+import FirebaseAuth
 
 class SpotPostsCell: UITableViewCell {
-    var backendless: Backendless!
-
     var post: SpotPostItem!
 
     @IBOutlet var spotPostMedia: UIView!
@@ -51,7 +51,7 @@ class SpotPostsCell: UITableViewCell {
         
         if(!self.postIsLiked) {
             addNewLike()
-
+            
             self.postIsLiked = true
             } else {
             removeExistedLike()
@@ -60,8 +60,56 @@ class SpotPostsCell: UITableViewCell {
         }
     }
 
-    func addNewLike() {
+    private var likeId: String!
     
+    func addNewLike() {
+        addLikeToLikeNode()
+        addLikeToUserNode()
+        addLikeToPostNode()
+    }
+    
+    func addLikeToLikeNode() {
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase").child("likes").childByAutoId()
+        let likeRefKey = likeRef.key
+        self.likeId = likeRefKey
+        //save likeRef to global value. Will add it to other likes in other nodes
+        let userId = FIRAuth.auth()?.currentUser?.uid
+        let postId = post.key
+        let likePlacedTime = String(describing: Date())
+        let newLike = [
+            "likeId" : self.likeId,
+            "userId" : userId,
+            "postId" : postId,
+            "likePlacedTime" : likePlacedTime
+            ] as [String : Any]
+        likeRef.setValue(newLike)
+    }
+    
+    func addLikeToUserNode() {
+        let userId = FIRAuth.auth()?.currentUser?.uid
+        let postId = post.key
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId!).child("likePlaced").child("posts").child(postId)
+        let likePlacedTime = String(describing: Date())
+        let newLike = [
+            "likeId" : self.likeId,
+            "postId" : postId,
+            "likePlacedTime" : likePlacedTime
+            ] as [String : Any]
+        likeRef.setValue(newLike)
+    }
+    
+    func addLikeToPostNode() {
+        let postId = post.key
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase").child("spotpost").child(postId).child("likes")
+        let userId = FIRAuth.auth()?.currentUser?.uid
+        let likePlacedTime = String(describing: Date())
+        let newLike = [
+            "likeId" : self.likeId,
+            "userId" : userId,
+            "postId" : postId,
+            "likePlacedTime" : likePlacedTime
+            ] as [String : Any]
+        likeRef.setValue(newLike)
     }
 
     func removeExistedLike() {

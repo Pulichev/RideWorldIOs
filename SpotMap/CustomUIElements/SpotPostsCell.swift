@@ -125,9 +125,9 @@ class SpotPostsCell: UITableViewCell {
         let userId = FIRAuth.auth()?.currentUser?.uid
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId).child("likes").child(userId!)
         //catch like id for delete nex from likes Node
-        likeRef.observe(.value, with: { snapshot in
-            let value = snapshot.value as? [String: Any]
-            self.likeId = value!["likeId"] as! String //тут хрень какая-то
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            self.likeId = value?["likeId"] as? String ?? ""
         })
 
         likeRef.removeValue()

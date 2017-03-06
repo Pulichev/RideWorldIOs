@@ -94,7 +94,6 @@ class MainFormController: UIViewController {
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
-        //ADD HERE LOGOUT
         do {
             try FIRAuth.auth()!.signOut()
             self.performSegue(withIdentifier: "userLogouted", sender: self)

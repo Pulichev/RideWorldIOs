@@ -9,6 +9,7 @@
 
 import Foundation
 import FirebaseDatabase
+import FirebaseAuth
 
 class SpotPostItemCellCache {
     var post: SpotPostItem
@@ -36,13 +37,20 @@ class SpotPostItemCellCache {
     }
 
     func userLikedThisPost() {
-        if (true) { //If user has liked this post already //TODOODODOASDOAODAOSDOASDOASODO
-            postIsLiked = true
-            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-        } else {
-            postIsLiked = false
-            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-        }
+        let userId = FIRAuth.auth()?.currentUser?.uid
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.post.key).child("likes").child(userId!)
+        //catch if user liked this post
+        likeRef.observe(.value, with: { snapshot in
+            if let value = snapshot.value as? [String : Any] {
+//            if (value["likeId"] != nil) {
+            //if (snapshot.value != nil) {
+                self.postIsLiked = true
+                self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+            } else {
+                self.postIsLiked = false
+                self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+            }
+        })
     }
 
     func countPostLikes() {

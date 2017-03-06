@@ -49,6 +49,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                     let spotPostItem = SpotPostItem(snapshot: snapshot)
                     self.spotPosts.append(spotPostItem)
                     let newSpotPostCellCache = SpotPostItemCellCache(spotPost: spotPostItem)
+                    newSpotPostCellCache.userLikedThisPost()
                     self.spotPostItemCellsCache.append(newSpotPostCellCache)
                     self.tableView.reloadData()
                 }) { (error) in

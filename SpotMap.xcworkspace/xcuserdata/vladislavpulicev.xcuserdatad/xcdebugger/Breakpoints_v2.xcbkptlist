@@ -52,12 +52,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpotMap/CustomUIElements/SpotPostsCell.swift"
-            timestampString = "510522969.58638"
+            timestampString = "510525726.019212"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "addNewLike()"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "removeLikeFromPostNode()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -68,12 +68,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpotMap/CustomUIElements/SpotPostsCell.swift"
-            timestampString = "510522969.982588"
+            timestampString = "510526935.792041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "addNewLike()"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "removeLikeFromPostNode()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -84,12 +84,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpotMap/CustomUIElements/SpotPostsCell.swift"
-            timestampString = "510522970.418655"
+            timestampString = "510526962.750656"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "addNewLike()"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "removeLikeFromPostNode()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -100,93 +100,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpotMap/CustomUIElements/SpotPostsCell.swift"
-            timestampString = "510522978.014437"
+            timestampString = "510527073.545388"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "addLikeToLikeNode()"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "removeLikeFromPostNode()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpotMap/CustomUIElements/SpotPostsCell.swift"
-            timestampString = "510522978.910675"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "addLikeToLikeNode()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpotMap/CustomUIElements/SpotPostsCell.swift"
-            timestampString = "510522981.260019"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "addLikeToUserNode()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpotMap/CustomUIElements/SpotPostsCell.swift"
-            timestampString = "510522982.083167"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "addLikeToUserNode()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpotMap/CustomUIElements/SpotPostsCell.swift"
-            timestampString = "510522984.505715"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "addLikeToPostNode()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpotMap/CustomUIElements/SpotPostsCell.swift"
-            timestampString = "510522984.884387"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "addLikeToPostNode()"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SpotMap.SpotPostsCell.removeLikeFromPostNode () -&gt; ()"
+                  moduleName = "SpotMap"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/CustomUIElements/SpotPostsCell.swift"
+                  timestampString = "510527218.082696"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "1578">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SpotMap.SpotPostsCell.(removeLikeFromPostNode () -&gt; ()).(closure #1)"
+                  moduleName = "SpotMap"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/CustomUIElements/SpotPostsCell.swift"
+                  timestampString = "510527218.08445"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

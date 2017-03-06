@@ -69,7 +69,7 @@ class SpotPostsCell: UITableViewCell {
     }
     
     func addLikeToLikeNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase").child("likes").childByAutoId()
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").childByAutoId()
         let likeRefKey = likeRef.key
         self.likeId = likeRefKey
         //save likeRef to global value. Will add it to other likes in other nodes
@@ -88,10 +88,11 @@ class SpotPostsCell: UITableViewCell {
     func addLikeToUserNode() {
         let userId = FIRAuth.auth()?.currentUser?.uid
         let postId = post.key
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId!).child("likePlaced").child("posts").child(postId)
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId!).child("likePlaced/onposts").child(postId)
         let likePlacedTime = String(describing: Date())
         let newLike = [
             "likeId" : self.likeId,
+            "userId" : userId,
             "postId" : postId,
             "likePlacedTime" : likePlacedTime
             ] as [String : Any]
@@ -100,8 +101,8 @@ class SpotPostsCell: UITableViewCell {
     
     func addLikeToPostNode() {
         let postId = post.key
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase").child("spotpost").child(postId).child("likes")
         let userId = FIRAuth.auth()?.currentUser?.uid
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId).child("likes").child(userId!)
         let likePlacedTime = String(describing: Date())
         let newLike = [
             "likeId" : self.likeId,
@@ -113,6 +114,35 @@ class SpotPostsCell: UITableViewCell {
     }
 
     func removeExistedLike() {
+        // we will remove it in reverse order
+        removeLikeFromPostNode()
+        removeLikeFromUserNode()
+        removeLikeFromLikeNode()
+    }
+    
+    func removeLikeFromPostNode() {
+        let postId = post.key
+        let userId = FIRAuth.auth()?.currentUser?.uid
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId).child("likes").child(userId!)
+        //catch like id for delete nex from likes Node
+        likeRef.observe(.value, with: { snapshot in
+            let value = snapshot.value as? [String: Any]
+            self.likeId = value!["likeId"] as! String //тут хрень какая-то
+        })
 
+        likeRef.removeValue()
+    }
+    
+    func removeLikeFromUserNode() {
+        let userId = FIRAuth.auth()?.currentUser?.uid
+        let postId = post.key
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId!).child("likePlaced/onposts").child(postId)
+        likeRef.removeValue()
+    }
+    
+    func removeLikeFromLikeNode() {
+        let postId = post.key
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").child(postId)
+        likeRef.removeValue()
     }
 }

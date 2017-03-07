@@ -49,6 +49,7 @@
 		9FD648D61E54745100C673CA /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D51E54745100C673CA /* Users.swift */; };
 		9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD648DB1E573F0600C673CA /* Main.storyboard */; };
 		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
+		9FFB59F61E6F1E0F004302C3 /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FFB59F51E6F1E0F004302C3 /* test.plist */; };
 		9FFBCF5C1E6768CD00A42E46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FFBCF5B1E6768CD00A42E46 /* GoogleService-Info.plist */; };
 		AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */; };
 /* End PBXBuildFile section */
@@ -125,6 +126,7 @@
 		9FD648D51E54745100C673CA /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Users.swift; path = Data/Users.swift; sourceTree = "<group>"; };
 		9FD648DB1E573F0600C673CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
+		9FFB59F51E6F1E0F004302C3 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
 		9FFBCF5B1E6768CD00A42E46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -242,6 +244,7 @@
 				9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */,
 				9FFBCF5B1E6768CD00A42E46 /* GoogleService-Info.plist */,
 				9FB681C11E2E70CE00D9A436 /* Info.plist */,
+				9FFB59F51E6F1E0F004302C3 /* test.plist */,
 			);
 			path = SpotMap;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FFB59F61E6F1E0F004302C3 /* test.plist in Resources */,
 				9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */,
 				9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */,
 				9FC14FD61E48E7300097579B /* plus-512.gif in Resources */,

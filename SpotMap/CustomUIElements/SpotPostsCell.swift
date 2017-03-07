@@ -71,6 +71,7 @@ class SpotPostsCell: UITableViewCell {
     func addLikeToLikeNode() {
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").childByAutoId()
         let likeRefKey = likeRef.key
+        
         self.likeId = likeRefKey
         //save likeRef to global value. Will add it to other likes in other nodes
         let userId = FIRAuth.auth()?.currentUser?.uid

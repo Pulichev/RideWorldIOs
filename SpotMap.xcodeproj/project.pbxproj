@@ -24,6 +24,7 @@
 		9F73B0991E69D3490049563A /* SpotPostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73B0981E69D3480049563A /* SpotPostItem.swift */; };
 		9F73B09C1E69EDBB0049563A /* MigratingDataFromBELToFireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73B09B1E69EDBB0049563A /* MigratingDataFromBELToFireBase.swift */; };
 		9F73B09E1E6A0E490049563A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73B09D1E6A0E490049563A /* User.swift */; };
+		9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F943EE81E6F041300709B79 /* LikeItem.swift */; };
 		9FAE00A91E6880240010C6C1 /* MyStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE00A81E6880240010C6C1 /* MyStripController.swift */; };
 		9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */; };
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
@@ -93,6 +94,7 @@
 		9F73B0981E69D3480049563A /* SpotPostItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotPostItem.swift; path = Data/SpotPostItem.swift; sourceTree = "<group>"; };
 		9F73B09B1E69EDBB0049563A /* MigratingDataFromBELToFireBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MigratingDataFromBELToFireBase.swift; path = TempFiles/MigratingDataFromBELToFireBase.swift; sourceTree = "<group>"; };
 		9F73B09D1E6A0E490049563A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Data/User.swift; sourceTree = "<group>"; };
+		9F943EE81E6F041300709B79 /* LikeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeItem.swift; path = Data/LikeItem.swift; sourceTree = "<group>"; };
 		9FAE00A81E6880240010C6C1 /* MyStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyStripController.swift; path = Controllers/MyStripController.swift; sourceTree = "<group>"; };
 		9FB681B21E2E70CE00D9A436 /* SpotMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */,
 				9F73B0981E69D3480049563A /* SpotPostItem.swift */,
 				9F73B09D1E6A0E490049563A /* User.swift */,
+				9F943EE81E6F041300709B79 /* LikeItem.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */,
 				9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */,
 				9FC14FE81E48E7790097579B /* SpotPost.swift in Sources */,
+				9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */,
 				9F73B09E1E6A0E490049563A /* User.swift in Sources */,
 				9FC14FE61E48E7790097579B /* PostLike.swift in Sources */,
 				9FC14FD41E48E5E30097579B /* SpotDetailsController.swift in Sources */,

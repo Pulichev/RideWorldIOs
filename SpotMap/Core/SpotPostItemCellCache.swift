@@ -24,7 +24,6 @@ class SpotPostItemCellCache {
     
     init(spotPost: SpotPostItem) {
         self.post = spotPost
-        //self.userInfo = post.user //getting userinfo
         self.userNickName.text = self.userInfo.name
         let sourceDate = post.createdDate
         //formatting date to yyyy-mm-dd
@@ -35,15 +34,13 @@ class SpotPostItemCellCache {
         self.userLikedThisPost()
         self.countPostLikes()
     }
-
+    
     func userLikedThisPost() {
         let userId = FIRAuth.auth()?.currentUser?.uid
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.post.key).child("likes").child(userId!)
         //catch if user liked this post
         likeRef.observe(.value, with: { snapshot in
             if let value = snapshot.value as? [String : Any] {
-//            if (value["likeId"] != nil) {
-            //if (snapshot.value != nil) {
                 self.postIsLiked = true
                 self.isLikedPhoto.image = UIImage(named: "respectActive.png")
             } else {
@@ -52,37 +49,17 @@ class SpotPostItemCellCache {
             }
         })
     }
-
+    
     func countPostLikes() {
-        self.likesCount = 13
-        
-        //Ниже бред, надо изменить на лайки
-//        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails/" + self.spotDetailsItem.key + "/posts")
-//        
-//        ref.queryOrderedByValue().observe(.value, with: { snapshot in
-//            let value = snapshot.value as? NSDictionary
-//            let keys = value?.allKeys as! [String]
-//            
-//            for key in keys {
-//                let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
-//                
-//                ref.observeSingleEvent(of: .value, with: { (snapshot) in
-//                    let spotPostItem = SpotPostItem(snapshot: snapshot)
-//                    self.spotPosts.append(spotPostItem)
-//                    let newSpotPostCellCache = SpotPostItemCellCache(spotPost: spotPostItem)
-//                    self.spotPostItemCellsCache.append(newSpotPostCellCache)
-//                    self.tableView.reloadData()
-//                }) { (error) in
-//                    print(error.localizedDescription)
-//                }
-//            }
-        
-            //self.loadSpotPostCellsTextInfo() //when posts loaded we can add text info on cells
-        //})
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.post.key).child("likes")
+        //catch if user liked this post
+        likeRef.observe(.value, with: { snapshot in
+            self.likesCount = snapshot.children.allObjects.count
+        })
     }
-
+    
     func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked
-        if (!postIsLiked) { //If user has liked this post already
+        if (!postIsLiked) {
             postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
             likesCount += 1

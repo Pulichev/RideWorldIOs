@@ -48,16 +48,16 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                 ref.observeSingleEvent(of: .value, with: { (snapshot) in
                     let spotPostItem = SpotPostItem(snapshot: snapshot)
                     self.spotPosts.append(spotPostItem)
+                    
                     let newSpotPostCellCache = SpotPostItemCellCache(spotPost: spotPostItem)
                     newSpotPostCellCache.userLikedThisPost()
                     self.spotPostItemCellsCache.append(newSpotPostCellCache)
+                    
                     self.tableView.reloadData()
                 }) { (error) in
                     print(error.localizedDescription)
                 }
             }
-            
-            //self.loadSpotPostCellsTextInfo() //when posts loaded we can add text info on cells
         })
     }
     
@@ -110,6 +110,16 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         cell.addDoubleTapGestureOnPostPhotos()
         
         return cell
+    }
+    
+    func updateCellLikesCache(objectId: String) {
+        for postCellCache in spotPostItemCellsCache {
+            if postCellCache.post.key == objectId {
+                DispatchQueue.main.async {
+                    postCellCache.changeLikeToDislikeAndViceVersa()
+                }
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -206,16 +216,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                 cell.spotPostMedia.layer.addSublayer(playerLayer)
                 
                 cell.player.play()
-            }
-        }
-    }
-    
-    func updateCellLikesCache(objectId: String) {
-        for postCellCache in spotPostItemCellsCache {
-            if postCellCache.post.key == objectId {
-                DispatchQueue.main.async {
-                    postCellCache.changeLikeToDislikeAndViceVersa()
-                }
             }
         }
     }

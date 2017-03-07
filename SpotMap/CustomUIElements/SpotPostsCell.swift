@@ -15,7 +15,7 @@ import FirebaseAuth
 class SpotPostsCell: UITableViewCell {
     var post: SpotPostItem!
     private var userId: String!
-
+    
     @IBOutlet var spotPostMedia: UIView!
     var player: AVPlayer!
     
@@ -26,19 +26,19 @@ class SpotPostsCell: UITableViewCell {
     @IBOutlet weak var likesCount: UILabel!
     var isPhoto: Bool!
     var postIsLiked: Bool!
-
+    
     var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         //Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         //Configure the view for the selected state
     }
-
+    
     func addDoubleTapGestureOnPostPhotos() {
         //adding method on spot main photo tap
         let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:))) //target was only self
@@ -46,21 +46,27 @@ class SpotPostsCell: UITableViewCell {
         spotPostMedia.addGestureRecognizer(tap)
         spotPostMedia.isUserInteractionEnabled = true
     }
-
+    
     func postLiked(_ sender: Any) {
         userLikedOrDeletedLike = true
         
         if(!self.postIsLiked) {
+            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+            let countOfLikesInt = Int(self.likesCount.text!)
+            self.likesCount.text = String(countOfLikesInt! + 1)
             addNewLike()
-            
             self.postIsLiked = true
-            } else {
+        } else {
+            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+            let countOfLikesInt = Int(self.likesCount.text!)
+            self.likesCount.text = String(countOfLikesInt! - 1)
             removeExistedLike()
-
+            
             self.postIsLiked = false
         }
     }
-
+    
+    // MARK: Add new like part
     private var newLike: LikeItem!
     
     func addNewLike() {
@@ -91,7 +97,8 @@ class SpotPostsCell: UITableViewCell {
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.post.key).child("likes").child(self.userId!)
         likeRef.setValue(self.newLike.toAnyObject())
     }
-
+    
+    // MARK: Remove existing like part
     private var likeId: String! // value to construct refs for deleting
     
     func removeExistedLike() {
@@ -106,7 +113,7 @@ class SpotPostsCell: UITableViewCell {
     func removeLikeFromPostNode() {
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.post.key).child("likes").child(self.userId!)
         // catch like id for delete next from likes Node
-        likeRef.observeSingleEvent(of: .value, with: { snapshot in 
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             self.likeId = value?["likeId"] as? String ?? ""
         })

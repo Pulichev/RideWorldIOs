@@ -16,12 +16,12 @@ import Kingfisher
 class SpotDetailsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     
-    var spotDetailsItem: SpotDetailsItem!
+    private var spotDetailsItem: SpotDetailsItem!
     
-    var spotPosts = [SpotPostItem]()
-    var spotPostItemCellsCache = [SpotPostItemCellCache]()
+    private var spotPosts = [SpotPostItem]()
+    private var spotPostItemCellsCache = [SpotPostItemCellCache]()
     
-    var mediaCache = NSMutableDictionary()
+    private var mediaCache = NSMutableDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +29,12 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        //DispatchQueue.global(qos: .userInitiated).async {
-        self.loadSpotPosts()
-        //}
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.loadSpotPosts()
+        }
     }
     
-    func loadSpotPosts() {
+    private func loadSpotPosts() {
         //getting a list of keys of spot posts from spotdetails
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails/" + self.spotDetailsItem.key + "/posts")
         
@@ -62,7 +62,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     //First add must have info. Text info.
-    func loadSpotPostCellsTextInfo() {
+    private func loadSpotPostCellsTextInfo() {
         var i = 0
         
         DispatchQueue.main.async {
@@ -112,16 +112,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
-    func updateCellLikesCache(objectId: String) {
-        for postCellCache in spotPostItemCellsCache {
-            if postCellCache.post.key == objectId {
-                DispatchQueue.main.async {
-                    postCellCache.changeLikeToDislikeAndViceVersa()
-                }
-            }
-        }
-    }
-    
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let customCell = cell as! SpotPostsCell
         if (!customCell.isPhoto && customCell.player != nil) {
@@ -129,6 +119,16 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                 // player is playing
                 customCell.player.pause()
                 customCell.player = nil
+            }
+        }
+    }
+    
+    private func updateCellLikesCache(objectId: String) {
+        for postCellCache in spotPostItemCellsCache {
+            if postCellCache.post.key == objectId {
+                DispatchQueue.main.async {
+                    postCellCache.changeLikeToDislikeAndViceVersa()
+                }
             }
         }
     }
@@ -163,7 +163,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func setVideoOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
-        if (self.mediaCache.object(forKey: cacheKey) != nil) {
+        if (self.mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
             let cachedAsset = self.mediaCache.object(forKey: cacheKey) as? AVAsset
             cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
             let playerLayer = AVPlayerLayer(player: (cell.player))
@@ -230,11 +230,11 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     //go to riders profile
     func nickNameTapped(sender: UIButton!) {
-        //        self.ridersInfoForSending = self.spotPostsCellsCache[sender.tag].userInfo
-        //        self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
+        self.ridersInfoForSending = self.spotPostsCellsCache[sender.tag].userInfo
+        self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
     }
     
-    var ridersInfoForSending: Users!
+    var ridersInfoForSending: UserItem!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //        if segue.identifier == "addNewPost" {

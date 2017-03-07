@@ -10,7 +10,6 @@ import Foundation
 import FirebaseDatabase
 
 struct LikeItem {
-    
     let likeId: String
     
     let userId: String

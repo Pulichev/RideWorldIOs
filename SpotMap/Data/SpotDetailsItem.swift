@@ -18,6 +18,7 @@ struct SpotDetailsItem {
     let longitude: Double
     
     let addedByUser: String
+    
     let ref: FIRDatabaseReference?
     
     init(name: String, description: String, latitude: Double, longitude: Double, addedByUser: String, key: String = "") {

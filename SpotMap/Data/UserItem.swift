@@ -1,0 +1,51 @@
+//
+//  User.swift
+//  SpotMap
+//
+//  Created by Владислав Пуличев on 03.03.17.
+//  Copyright © 2017 Владислав Пуличев. All rights reserved.
+//
+
+import Foundation
+import FirebaseAuth
+import FirebaseDatabase
+
+struct UserItem {
+    let uid: String
+    
+    let email: String
+    let login: String
+    let createdDate: String
+    
+    let ref: FIRDatabaseReference?
+    
+    init(uid: String, email: String, login: String, createdDate: String) {
+        self.uid = uid
+        
+        self.email = email
+        self.login = login
+        self.createdDate = createdDate
+
+        self.ref = nil
+    }
+    
+    init(snapshot: FIRDataSnapshot) {
+        uid = snapshot.key
+        
+        let snapshotValue = snapshot.value as! [String: AnyObject]
+        email = snapshotValue["email"] as! String
+        login = snapshotValue["login"] as! String
+        createdDate = snapshotValue["createdDate"] as! String
+        
+        ref = snapshot.ref
+    }
+    
+    func toAnyObject() -> Any {
+        return [
+            "uid": uid,
+            "email": email,
+            "login": login,
+            "createdDate": createdDate
+        ]
+    }
+}

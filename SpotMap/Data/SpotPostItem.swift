@@ -17,7 +17,6 @@
 import FirebaseDatabase
 
 struct SpotPostItem {
-    
     let key: String
     
     let isPhoto: Bool
@@ -25,6 +24,7 @@ struct SpotPostItem {
     let createdDate: String
     
     let addedByUser: String
+    
     let ref: FIRDatabaseReference?
     
     init(isPhoto: Bool, description: String, createdDate: String, addedByUser: String, key: String = "") {

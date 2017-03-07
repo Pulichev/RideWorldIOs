@@ -30,6 +30,7 @@
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
 		9FB681CB1E2E70CE00D9A436 /* SpotMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681CA1E2E70CE00D9A436 /* SpotMapTests.swift */; };
 		9FB681D61E2E70CE00D9A436 /* SpotMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */; };
+		9FBCFAE41E6F248C00A5C95D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */; };
 		9FBD53261E687C9D00FF2765 /* TypeUsersFromBackendlessUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBD53251E687C9D00FF2765 /* TypeUsersFromBackendlessUser.swift */; };
 		9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FC91E48E5E30097579B /* LoginController.swift */; };
 		9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCA1E48E5E30097579B /* MainFormController.swift */; };
@@ -105,6 +106,7 @@
 		9FB681D11E2E70CE00D9A436 /* SpotMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMapUITests.swift; sourceTree = "<group>"; };
 		9FB681D71E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FBD53251E687C9D00FF2765 /* TypeUsersFromBackendlessUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TypeUsersFromBackendlessUser.swift; path = Core/TypeUsersFromBackendlessUser.swift; sourceTree = "<group>"; };
 		9FC14FC91E48E5E30097579B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controllers/LoginController.swift; sourceTree = "<group>"; };
 		9FC14FCA1E48E5E30097579B /* MainFormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainFormController.swift; path = Controllers/MainFormController.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				9FD648DB1E573F0600C673CA /* Main.storyboard */,
 				9F65321B1E3CD12700F58C18 /* Assets.xcassets */,
 				9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */,
+				9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */,
 				9FB681C11E2E70CE00D9A436 /* Info.plist */,
 			);
 			path = SpotMap;
@@ -440,6 +443,7 @@
 				9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */,
 				9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */,
 				9F4A84491E6329D100C1E5F2 /* biography.png in Resources */,
+				9FBCFAE41E6F248C00A5C95D /* GoogleService-Info.plist in Resources */,
 				9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */,
 				9F4A84471E63229E00C1E5F2 /* login.png in Resources */,
 			);

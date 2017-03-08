@@ -27,12 +27,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.async {
-            self.getCurrentUser()
-        }
-    }
-    
-    func getCurrentUser() {
         let currentUserId = FIRAuth.auth()?.currentUser?.uid
         let currentUserRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!)
         
@@ -42,6 +36,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             self.initializeUserPhoto()
             self.initializeUserPostsPhotos()
         })
+
     }
     
     //part for hide and view navbar from this navigation controller
@@ -85,23 +80,22 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                 self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
             }
         }
-
     }
     
     func initializeUserPostsPhotos() {
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.userInfo.uid).child("posts")
         
         ref.observe(.value, with: { snapshot in
-            if let value = snapshot.value as? NSDictionary {
-                for post in value {
-                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotposts").child(post.key as! String)
-                    postInfoRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let value = snapshot.value as? [String: Any] {
+                for (postId, _) in value {
+                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
+                    postInfoRef.observe(.value, with: { (snapshot) in
                         let spotPostItem = SpotPostItem(snapshot: snapshot)
                         var photoRef: FIRStorageReference!
                         if spotPostItem.isPhoto {
-                            photoRef = FIRStorage.storage().reference(withPath: "MainDataBase/spotPostMedia/").child(spotPostItem.key + ".jpeg")
+                            photoRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia/").child(spotPostItem.key + ".jpeg")
                         } else {
-                            photoRef = FIRStorage.storage().reference(withPath: "MainDataBase/spotPostMedia/").child(spotPostItem.key + "_thumbnail.jpeg")
+                            photoRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia/").child(spotPostItem.key + "_thumbnail.jpeg")
                         }
                         
                         photoRef.downloadURL { (URL, error) in

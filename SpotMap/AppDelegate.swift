@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // FireBase init part
         // Use Firebase library to configure APIs
         FIRApp.configure()
-        FIRDatabase.database().persistenceEnabled = true
+        FIRDatabase.database().persistenceEnabled = false
         
         self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         

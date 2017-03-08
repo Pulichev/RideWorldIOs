@@ -14,7 +14,7 @@ import FirebaseAuth
 
 class SpotPostsCell: UITableViewCell {
     var post: SpotPostItem!
-    private var userId: String!
+    var userInfo: UserItem! // user, who posted
     
     @IBOutlet var spotPostMedia: UIView!
     var player: AVPlayer!
@@ -68,6 +68,7 @@ class SpotPostsCell: UITableViewCell {
     
     // MARK: Add new like part
     private var newLike: LikeItem!
+    private var userId: String!
     
     func addNewLike() {
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").childByAutoId()

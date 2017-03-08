@@ -13,8 +13,8 @@ import AVFoundation
 class PostInfoViewController: UIViewController {
     var backendless: Backendless!
     
-    var postInfo: SpotPost!
-    var user: Users!
+    var postInfo: SpotPostItem!
+    var user: UserItem!
     
     @IBOutlet var spotPostMedia: UIView!
     var player: AVPlayer!

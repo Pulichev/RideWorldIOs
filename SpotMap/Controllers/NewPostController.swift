@@ -9,12 +9,12 @@
 import UIKit
 import AVFoundation
 import Fusuma
+import FirebaseDatabase
+import FirebaseAuth
+import FirebaseStorage
 
 class NewPostController: UIViewController, UITextViewDelegate {
-    
-    var backendless: Backendless!
-    
-    var spotDetails: SpotDetails!
+    var spotDetailsItem: SpotDetailsItem!
     
     @IBOutlet weak var postDescription: UITextView!
     @IBOutlet weak var photoOrVideoView: UIView!
@@ -26,17 +26,17 @@ class NewPostController: UIViewController, UITextViewDelegate {
     var photoView = UIImageView()
     
     var isNewMediaIsPhoto = true //if true - photo, false - video. Default - true
-     
+    
     override func viewDidLoad() {
-        backendless = Backendless.sharedInstance()
-        
         UICustomizing()
         
         self.postDescription.delegate = self
         
         //For scrolling the view if keyboard on
-        NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.keyboardWillShow),
+                                               name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.keyboardWillHide),
+                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func UICustomizing() {
@@ -69,25 +69,19 @@ class NewPostController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func savePost(_ sender: Any) {
-        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: backendless.userService.currentUser)
+        let user = FIRAuth.auth()?.currentUser
+        let createdDate = String(describing: Date())
+        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").childByAutoId()
         
-        let spotPost = SpotPost()
-        spotPost.user = user
-        spotPost.spot = spotDetails
-        spotPost.postDescription = self.postDescription.text
+        let spotPostItem = SpotPostItem(isPhoto: self.isNewMediaIsPhoto, description: self.postDescription.text,
+                                        createdDate: createdDate, addedByUser: (user?.uid)!, key: ref.key)
+        ref.setValue(spotPostItem.toAnyObject())
         
         if self.isNewMediaIsPhoto {
-            spotPost.isPhoto = true
-        } else {
-            spotPost.isPhoto = false
-        }
-        
-        let savedSpotPostID = backendless.persistenceService.of(spotPost.ofClass()).save(spotPost) as! SpotPost
-        if self.isNewMediaIsPhoto {
-            uploadPhoto(postId: savedSpotPostID.objectId!)
+            uploadPhoto(postId: ref.key)
             UIImageWriteToSavedPhotosAlbum(self.photoView.image!, nil, nil , nil) //saving image to camera roll
         } else {
-            uploadVideo(postId: savedSpotPostID.objectId!)
+            uploadVideo(postId: ref.key)
             guard let path = (self.newVideoUrl as! NSURL).path else { return }
             if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
                 UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
@@ -101,22 +95,16 @@ class NewPostController: UIViewController, UITextViewDelegate {
     
     //Uploading files with the SYNC API
     func uploadPhoto(postId: String) {
+        let newPostRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + ".jpeg")
         //saving original image with low compression
         let dataLowCompression: Data = UIImageJPEGRepresentation(self.photoView.image!, 0.8)!
-        let postPhotoUrlLowCompression = "media/SpotPostPhotos/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
-        
-        //saving thumbnail image with high compression
-        let thumbnail = resizeImage(image: self.photoView.image!, targetSize: CGSize.init(width: 300, height: 300))
-        let dataHighCompression: Data = UIImageJPEGRepresentation(thumbnail, 0.5)!
-        let postPhotoUrlHighCompression = "media/spotPostMediaThumbnails/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
-        DispatchQueue.global(qos: .userInitiated).async {
-            //saving original image with low compression
-            let uploadedFileLowCompression = self.backendless.fileService.saveFile(postPhotoUrlLowCompression, content: dataLowCompression, overwriteIfExist: true)
-            print("File has been uploaded. File URL is - \(uploadedFileLowCompression?.fileURL!)")
-            
-            //saving thumbnail image with high compression
-            let uploadedFileHighCompression = self.backendless.fileService.saveFile(postPhotoUrlHighCompression, content: dataHighCompression, overwriteIfExist: true)
-            print("File has been uploaded. File URL is - \(uploadedFileHighCompression?.fileURL!)")
+        newPostRef.put(dataLowCompression, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            // Metadata contains file metadata such as size, content-type, and download URL.
+            let downloadURL = metadata.downloadURL
         }
     }
     
@@ -151,10 +139,14 @@ class NewPostController: UIViewController, UITextViewDelegate {
             //saving video
             let data = try Data(contentsOf: self.newVideoUrl as! URL, options: .mappedIfSafe)
             
-            let postVideoUrl = "media/SpotPostVideos/" + postId.replacingOccurrences(of: "-", with: "") + ".m4v"
-            DispatchQueue.global(qos: .userInitiated).async {
-                let uploadedFile = self.backendless.fileService.saveFile(postVideoUrl, content: data, overwriteIfExist: true)
-                print("File has been uploaded. File URL is - \(uploadedFile?.fileURL!)")
+            let newPostRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + ".m4v")
+            newPostRef.put(data, metadata: nil) { (metadata, error) in
+                guard let metadata = metadata else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+                // Metadata contains file metadata such as size, content-type, and download URL.
+                let downloadURL = metadata.downloadURL
             }
             
             //saving thumbnail for video
@@ -166,11 +158,15 @@ class NewPostController: UIViewController, UITextViewDelegate {
             let thumbnail = UIImage(cgImage: cgImage)
             
             let dataThumbnailForVideo: Data = UIImageJPEGRepresentation(thumbnail, 0.1)!
-            let postThumbnailForVideo = "media/spotPostMediaThumbnails/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
+            let newPostThumbnailForVideo = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + ".jpeg")
             
-            DispatchQueue.global(qos: .userInitiated).async {
-                let uploadedFile = self.backendless.fileService.saveFile(postThumbnailForVideo, content: dataThumbnailForVideo, overwriteIfExist: true)
-                print("File has been uploaded. File URL is - \(uploadedFile?.fileURL!)")
+            newPostThumbnailForVideo.put(dataThumbnailForVideo, metadata: nil) { (metadata, error) in
+                guard let metadata = metadata else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+                // Metadata contains file metadata such as size, content-type, and download URL.
+                let downloadURL = metadata.downloadURL
             }
         } catch {
             print(error)

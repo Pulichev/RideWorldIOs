@@ -11,7 +11,7 @@ import UIKit
 import AVFoundation
 
 class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    var ridersInfo: Users!
+    var ridersInfo: UserItem!
     
     var backendless: Backendless!
     

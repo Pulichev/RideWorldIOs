@@ -16,7 +16,7 @@ import Kingfisher
 class SpotDetailsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     
-    private var spotDetailsItem: SpotDetailsItem!
+    var spotDetailsItem: SpotDetailsItem!
     
     private var spotPosts = [SpotPostItem]()
     private var spotPostItemCellsCache = [SpotPostItemCellCache]()
@@ -230,22 +230,22 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     //go to riders profile
     func nickNameTapped(sender: UIButton!) {
-        self.ridersInfoForSending = self.spotPostsCellsCache[sender.tag].userInfo
+        self.ridersInfoForSending = self.spotPostItemCellsCache[sender.tag].userInfo
         self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
     }
     
     var ridersInfoForSending: UserItem!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //        if segue.identifier == "addNewPost" {
-        //            //let nav = segue.destination as! UINavigationController
-        //            let newPostController = segue.destination	 as! NewPostController
-        //            newPostController.spotDetails = self.spotDetails
-        //        }
-        //        if segue.identifier == "openRidersProfileFromSpotDetails" {
-        //            let newRidersProfileController = (segue.destination as! RidersProfileController)
-        //            newRidersProfileController.ridersInfo = ridersInfoForSending
-        //            newRidersProfileController.title = ridersInfoForSending.name
-        //        }
+        if segue.identifier == "addNewPost" {
+            //let nav = segue.destination as! UINavigationController
+            let newPostController = segue.destination as! NewPostController
+            newPostController.spotDetailsItem = self.spotDetailsItem
+        }
+        if segue.identifier == "openRidersProfileFromSpotDetails" {
+            let newRidersProfileController = (segue.destination as! RidersProfileController)
+            newRidersProfileController.ridersInfo = ridersInfoForSending
+            newRidersProfileController.title = ridersInfoForSending.login
+        }
     }
 }

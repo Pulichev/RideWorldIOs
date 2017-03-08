@@ -12,7 +12,8 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class SpotPostItemCellCache {
-    var post: SpotPostItem
+    var post: SpotPostItem!
+    var userInfo: UserItem!
     var userNickName = UILabel()
     var postDate = UILabel()
     var postDescription = UITextView()
@@ -20,13 +21,13 @@ class SpotPostItemCellCache {
     var isLikedPhoto = UIImageView()
     var postIsLiked = Bool()
     var likesCount = Int()
-    var userInfo = Users()
     
     init(spotPost: SpotPostItem) {
         self.post = spotPost
-        self.userNickName.text = self.userInfo.name
+        initializeUser()
+        self.userNickName.text = self.userInfo.login
         let sourceDate = post.createdDate
-        //formatting date to yyyy-mm-dd
+        // formatting date to yyyy-mm-dd
         let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
         self.postDate.text = finalDate
         self.postDescription.text = post.description
@@ -35,10 +36,18 @@ class SpotPostItemCellCache {
         self.countPostLikes()
     }
     
+    func initializeUser() {
+        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(post.addedByUser)
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            self.userInfo = UserItem(snapshot: snapshot)
+        })
+    }
+    
     func userLikedThisPost() {
         let userId = FIRAuth.auth()?.currentUser?.uid
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.post.key).child("likes").child(userId!)
-        //catch if user liked this post
+        // catch if user liked this post
         likeRef.observe(.value, with: { snapshot in
             if let value = snapshot.value as? [String : Any] {
                 self.postIsLiked = true

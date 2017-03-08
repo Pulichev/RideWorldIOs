@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class EditProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    var userInfo = Users()
+    var userInfo: UserItem!
     
     var backendless: Backendless!
     

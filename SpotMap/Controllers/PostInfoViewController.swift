@@ -34,16 +34,14 @@ class PostInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        backendless = Backendless.sharedInstance()
-        
         DispatchQueue.main.async {
-            self.postDescription.text = self.postInfo.postDescription
+            self.postDescription.text = self.postInfo.description
             
-            let sourceDate = String(describing: self.postInfo.created!)
+            let sourceDate = String(describing: self.postInfo.createdDate)
             //formatting date to yyyy-mm-dd
             let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
             self.postDate.text = finalDate
-            self.userNickName.text = self.user.name
+            self.userNickName.text = self.user.login
             
             self.countPostLikes()
             self.userLikedThisPost()
@@ -61,152 +59,34 @@ class PostInfoViewController: UIViewController {
     }
     
     func postLiked(_ sender: Any) {
-        userLikedOrDeletedLike = true
         
-        if(!self.postIsLiked) {
-            addNewLike()
-            
-            self.postIsLiked = true
-            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-            let countOfLikesInt = Int(self.likesCount.text!)
-            self.likesCount.text = String(countOfLikesInt! + 1)
-        } else {
-            removeExistedLike()
-            
-            self.postIsLiked = false
-            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-            let countOfLikesInt = Int(self.likesCount.text!)
-            self.likesCount.text = String(countOfLikesInt! - 1)
-        }
     }
     
     func addNewLike() {
-        let postLike = PostLike()
-        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
         
-        postLike.post = self.postInfo
-        postLike.user = user
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.backendless.persistenceService.of(PostLike.ofClass()).save(postLike)
-        }
     }
     
     func removeExistedLike() {
-        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
         
-        let whereClause = "post.objectId = '\(self.postInfo.objectId!)' AND user.objectId = '\(user.objectId!)'"
-        let dataQuery = BackendlessDataQuery()
-        dataQuery.whereClause = whereClause
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            var error: Fault?
-            //1) Finding postlike object of this cell
-            let likesList = self.backendless.data.of(PostLike.ofClass()).find(dataQuery, fault: &error) //Finding
-            //2) Delete this object from database
-            self.backendless.persistenceService.of(PostLike.ofClass()).remove(likesList?.data[0]) //Deleting
-        }
     }
     
     func userLikedThisPost() {
-        let user = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
         
-        let whereClause = "post.objectId = '\(self.postInfo.objectId!)' AND user.objectId = '\(user.objectId!)'"
-        let dataQuery = BackendlessDataQuery()
-        dataQuery.whereClause = whereClause
-        
-        var error: Fault?
-        
-        let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
-        
-        if (likesList!.data.count != 0) { //If user has liked this post already
-            postIsLiked = true
-            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-        } else {
-            postIsLiked = false
-            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-        }
     }
     
     func countPostLikes() {
-        let whereClause = "post.objectId = '\(self.postInfo.objectId!)'"
-        let dataQuery = BackendlessDataQuery()
-        dataQuery.whereClause = whereClause
-        var error: Fault?
-        let likesList = backendless?.data.of(PostLike.ofClass()).find(dataQuery, fault: &error)
-        likesCountInt = likesList!.data.count
-        likesCount.text = String(likesCountInt)
+        
     }
     
     func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked
-        if (!postIsLiked) { //If user has liked this post already
-            postIsLiked = true
-            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-            likesCountInt += 1
-        } else {
-            postIsLiked = false
-            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-            likesCountInt -= 1
-        }
+        
     }
     
     func addMediaToView() {
-        self.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
         
-        if self.postInfo.isPhoto {
-            let postPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostPhotos/" + (postInfo.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
-            DispatchQueue.global(qos: .userInteractive).async(execute: {
-                if let url = URL(string: postPhotoURL) {
-                    if let data = NSData(contentsOf: url) {
-                        let imageFromCache: UIImage = UIImage(data: data as Data)!
-                        
-                        DispatchQueue.main.async(execute: {
-                            let imageViewForView = UIImageView(frame: self.spotPostMedia.bounds)
-                            imageViewForView.image = imageFromCache
-                            imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                            self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                        })
-                    }
-                }
-            })
-        } else {
-            let postVideoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/SpotPostVideos/" + (postInfo.objectId!).replacingOccurrences(of: "-", with: "") + ".m4v"
-            if let url = URL(string: postVideoURL) {
-                
-                DispatchQueue.global(qos: .userInteractive).async(execute: {
-
-                    self.makeThumbnailFirst(postId: self.postInfo.objectId!)
-                    
-                    let assetForCache = AVAsset(url: url)
-                    
-                    DispatchQueue.main.async(execute: {
-                        self.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-                        let playerLayer = AVPlayerLayer(player: self.player)
-                        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                        playerLayer.frame = self.spotPostMedia.bounds
-                        
-                        self.spotPostMedia.layer.addSublayer(playerLayer)
-                        
-                        self.player.play()
-                    })
-                })
-            }
-        }
     }
     
     func makeThumbnailFirst(postId: String) {
-        let thumbnailUrl = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/spotPostMediaThumbnails/" + postId.replacingOccurrences(of: "-", with: "") + ".jpeg"
-        
-        let url = URL(string: thumbnailUrl)
-        let data = NSData(contentsOf: url!)
-        let thumbnail: UIImage = UIImage(data: data as! Data)!
-        
-        DispatchQueue.main.async {
-            // thumbnail
-            let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-            imageViewForView.image = thumbnail
-            imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-            self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-        }
+    
     }
 }

@@ -44,7 +44,6 @@ class RegistrationController: UIViewController {
                                         let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
                                         ref.child("users").child(((loggedInUser)?.uid)!).setValue(newUser.toAnyObject())
                                         
-                                        
                                         self.performSegue(withIdentifier: "registrationCompleted", sender: self)
                                     } else {
                                         print("\(error?.localizedDescription)")

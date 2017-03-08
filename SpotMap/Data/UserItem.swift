@@ -1,4 +1,4 @@
-//
+//  602660
 //  User.swift
 //  SpotMap
 //
@@ -15,15 +15,19 @@ struct UserItem {
     
     let email: String
     let login: String
+    let bioDescription: String
+    let nameAndSename: String
     let createdDate: String
     
     let ref: FIRDatabaseReference?
     
-    init(uid: String, email: String, login: String, createdDate: String) {
+    init(uid: String, email: String, login: String, bioDescription: String = "", nameAndSename: String = "", createdDate: String) {
         self.uid = uid
         
         self.email = email
         self.login = login
+        self.bioDescription = bioDescription
+        self.nameAndSename = nameAndSename
         self.createdDate = createdDate
 
         self.ref = nil
@@ -35,6 +39,8 @@ struct UserItem {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         email = snapshotValue["email"] as! String
         login = snapshotValue["login"] as! String
+        bioDescription = snapshotValue["bioDescription"] as! String
+        nameAndSename = snapshotValue["nameAndSename"] as! String
         createdDate = snapshotValue["createdDate"] as! String
         
         ref = snapshot.ref
@@ -45,6 +51,8 @@ struct UserItem {
             "uid": uid,
             "email": email,
             "login": login,
+            "bioDescription": bioDescription,
+            "nameAndSename": nameAndSename,
             "createdDate": createdDate
         ]
     }

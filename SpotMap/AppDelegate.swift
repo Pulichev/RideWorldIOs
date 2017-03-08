@@ -15,14 +15,11 @@ import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var backendless = Backendless.sharedInstance()
-
     var window: UIWindow?
 
     var storyboard: UIStoryboard?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         // FireBase init part
         // Use Firebase library to configure APIs
         FIRApp.configure()

@@ -9,36 +9,39 @@
 import Foundation
 import UIKit
 import AVFoundation
+import FirebaseDatabase
+import FirebaseStorage
+import FirebaseAuth
 
 class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    var userInfo = Users()
-    
-    var backendless: Backendless!
+    var userInfo: UserItem!
     
     @IBOutlet var userNameAndSename: UILabel!
-    @IBOutlet var recpectedTimes: UILabel!
     @IBOutlet var userBio: UITextView!
     @IBOutlet var userProfilePhoto: UIImageView!
     
     @IBOutlet var userProfileCollection: UICollectionView!
-    var spotPosts = [SpotPost]()
+    var spotPosts = [SpotPostItem]()
     var spotsPostsImages = [UIImageView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         DispatchQueue.main.async {
-            self.backendless = Backendless.sharedInstance()
-            
             self.getCurrentUser()
-            self.initializeUserTextInfo() //async loading user
-            self.initializeUserPhoto()
-            self.initializeUserPostsPhotos()
         }
     }
     
     func getCurrentUser() {
-        self.userInfo = TypeUsersFromBackendlessUser.returnUser(backendlessUser: (backendless?.userService.currentUser)!)
+        let currentUserId = FIRAuth.auth()?.currentUser?.uid
+        let currentUserRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!)
+        
+        currentUserRef.observe(.value, with: { snapshot in
+            self.userInfo = UserItem(snapshot: snapshot)
+            self.initializeUserTextInfo()
+            self.initializeUserPhoto()
+            self.initializeUserPostsPhotos()
+        })
     }
     
     //part for hide and view navbar from this navigation controller
@@ -57,22 +60,10 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func initializeUserTextInfo() {
-        self.userBio.text = userInfo.userBioDescription
-        self.userNameAndSename.text = userInfo.userNameAndSename
+        self.userBio.text = userInfo.bioDescription
+        self.userNameAndSename.text = userInfo.nameAndSename
         
         placeBorderOnTextView()
-    
-        DispatchQueue.global().async {
-            let whereClause1 = "post.ownerId = '\(self.userInfo.objectId!)'"
-            let dataQuery1 = BackendlessDataQuery()
-            dataQuery1.whereClause = whereClause1
-            
-            let usersLikes = self.backendless.data.of(PostLike.ofClass()).find(dataQuery1)
-            
-            DispatchQueue.main.async {
-                self.recpectedTimes.text = String(describing: (usersLikes?.data.count)!)
-            }
-        }
     }
     
     func placeBorderOnTextView() {
@@ -82,44 +73,53 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func initializeUserPhoto() {
-        DispatchQueue.global(qos: .userInteractive).async {
-            let userPhotoURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/userProfilePhotos/" + (self.userInfo.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
-            let userPhotoData = NSData(contentsOf: URL(string: userPhotoURL)!)
-            let userPhoto = UIImage(data: userPhotoData as! Data)!
-            
-            DispatchQueue.main.async {
-                self.userProfilePhoto.image = userPhoto
+        let storage = FIRStorage.storage()
+        let url = "gs://spotmap-e3116.appspot.com/media/userMainPhotoURLs/" + self.userInfo.uid + ".jpeg"
+        let riderPhotoURL = storage.reference(forURL: url)
+        
+        riderPhotoURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                self.userProfilePhoto.kf.setImage(with: URL) //Using kf for caching images.
                 self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
             }
         }
+
     }
     
     func initializeUserPostsPhotos() {
-        DispatchQueue.global(qos: .userInteractive).async {
-            let whereClause = "user.objectId = '\(self.userInfo.objectId!)'"
-            let dataQuery = BackendlessDataQuery()
-            dataQuery.whereClause = whereClause
-            
-            var error: Fault?
-            
-            let spotPostsList = self.backendless.data.of(SpotPost.ofClass()).find(dataQuery, fault: &error)
-            self.spotPosts = spotPostsList?.data as! [SpotPost]
-            
-            for spotPost in self.spotPosts {
-                var photo = UIImage()
-                var mediaURL = "https://api.backendless.com/4B2C12D1-C6DE-7B3E-FFF0-80E7D3628C00/v1/files/media/"
-                
-                mediaURL += "spotPostMediaThumbnails/" + (spotPost.objectId!).replacingOccurrences(of: "-", with: "") + ".jpeg"
-                let photoData = NSData(contentsOf: URL(string: mediaURL)!)
-                photo = UIImage(data: photoData as! Data)!
-                let photoView = UIImageView(image: photo)
-                
-                DispatchQueue.main.async {
-                    self.spotsPostsImages.append(photoView)
-                    self.userProfileCollection.reloadData()
+        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.userInfo.uid).child("posts")
+        
+        ref.observe(.value, with: { snapshot in
+            if let value = snapshot.value as? NSDictionary {
+                for post in value {
+                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotposts").child(post.key as! String)
+                    postInfoRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                        let spotPostItem = SpotPostItem(snapshot: snapshot)
+                        var photoRef: FIRStorageReference!
+                        if spotPostItem.isPhoto {
+                            photoRef = FIRStorage.storage().reference(withPath: "MainDataBase/spotPostMedia/").child(spotPostItem.key + ".jpeg")
+                        } else {
+                            photoRef = FIRStorage.storage().reference(withPath: "MainDataBase/spotPostMedia/").child(spotPostItem.key + "_thumbnail.jpeg")
+                        }
+                        
+                        photoRef.downloadURL { (URL, error) in
+                            if let error = error {
+                                print("\(error)")
+                            } else {
+                                let photoData = NSData(contentsOf: URL!)
+                                let photo = UIImage(data: photoData as! Data)!
+                                let photoView = UIImageView(image: photo)
+                                
+                                self.spotsPostsImages.append(photoView)
+                                self.userProfileCollection.reloadData()
+                            }
+                        }
+                    })
                 }
             }
-        }
+        })
     }
     
     // tell the collection view how many cells to make

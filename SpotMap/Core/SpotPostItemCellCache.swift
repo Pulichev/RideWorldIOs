@@ -25,7 +25,6 @@ class SpotPostItemCellCache {
     init(spotPost: SpotPostItem) {
         self.post = spotPost
         initializeUser()
-        self.userNickName.text = self.userInfo.login
         let sourceDate = post.createdDate
         // formatting date to yyyy-mm-dd
         let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
@@ -39,8 +38,9 @@ class SpotPostItemCellCache {
     func initializeUser() {
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(post.addedByUser)
         
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.observe(.value, with: { (snapshot) in
             self.userInfo = UserItem(snapshot: snapshot)
+            self.userNickName.text = self.userInfo.login
         })
     }
     

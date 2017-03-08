@@ -61,7 +61,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
         
         switch row {
         case 0:
-            cell.field.text = userInfo.userNameAndSename
+            cell.field.text = userInfo.nameAndSename
             cell.field.placeholder = "Enter new name and sename"
             leftImageView.image = UIImage(named: "nameAndSename.png")
             leftView.addSubview(leftImageView)
@@ -69,7 +69,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
             break
             
         case 1:
-            cell.field.text = userInfo.userBioDescription
+            cell.field.text = userInfo.bioDescription
             cell.field.placeholder = "Enter new bio description"
             leftImageView.image = UIImage(named: "biography.png")
             leftView.addSubview(leftImageView)
@@ -77,7 +77,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
             break
             
         case 2:
-            cell.field.text = userInfo.name
+            cell.field.text = userInfo.login
             cell.field.placeholder = "Enter new login"
             leftImageView.image = UIImage(named: "login.png")
             leftView.addSubview(leftImageView)

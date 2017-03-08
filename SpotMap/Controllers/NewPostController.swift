@@ -68,6 +68,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
         return numberOfChars < 100
     }
     
+    // NEED CODE REVIEW HERE
     @IBAction func savePost(_ sender: Any) {
         let user = FIRAuth.auth()?.currentUser
         let createdDate = String(describing: Date())
@@ -76,6 +77,30 @@ class NewPostController: UIViewController, UITextViewDelegate {
         let spotPostItem = SpotPostItem(isPhoto: self.isNewMediaIsPhoto, description: self.postDescription.text,
                                         createdDate: createdDate, addedByUser: (user?.uid)!, key: ref.key)
         ref.setValue(spotPostItem.toAnyObject())
+        
+        // add to user posts node
+        let userPostsRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child((user?.uid)!).child("posts")
+        
+        userPostsRef.observe(.value, with: { snapshot in
+            if var value = snapshot.value as? [String : Any] {
+                value[ref.key] = true
+                userPostsRef.setValue(value)
+            } else {
+                userPostsRef.setValue([ref.key : true])
+            }
+        })
+        
+        // add to spotdetails node
+        let spotDetailsPostsRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotDetails").child(self.spotDetailsItem.key).child("posts")
+        
+        spotDetailsPostsRef.observe(.value, with: { snapshot in
+            if var value = snapshot.value as? [String : Any] {
+                value[ref.key] = true
+                userPostsRef.setValue(value)
+            } else {
+                userPostsRef.setValue([ref.key : true])
+            }
+        })
         
         if self.isNewMediaIsPhoto {
             uploadPhoto(postId: ref.key)

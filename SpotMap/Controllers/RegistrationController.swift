@@ -37,7 +37,8 @@ class RegistrationController: UIViewController {
                                         
                                         let loggedInUser = FIRAuth.auth()?.currentUser
                                         let currentDate = Date()
-                                        let newUser = UserItem(uid: ((loggedInUser)?.uid)!, email: (loggedInUser)?.email!, login: self.userLogin.text, createdDate: String(describing: currentDate))
+                                        let newUser = UserItem(uid: ((loggedInUser)?.uid)!, email: ((loggedInUser)?.email!)!,
+                                                               login: self.userLogin.text!, createdDate: String(describing: currentDate))
                                         
                                         // Create a child path with a key set to the uid underneath the "users" node
                                         let ref = FIRDatabase.database().reference(withPath: "MainDataBase")

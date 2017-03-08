@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 import Fusuma
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
 class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
-    
-    var backendless: Backendless!
-    
     var spotLatitude: Double!
     var spotLongitude: Double!
     
@@ -23,8 +23,6 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
     @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
-        backendless = Backendless.sharedInstance()
-        
         UICustomizing()
         
         self.spotTitle.delegate = self
@@ -57,27 +55,35 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
     }
     
     @IBAction func saveSpotDetails(_ sender: Any) {
-        let spotDetails = SpotDetails()
-        spotDetails.latitude = self.spotLatitude
-        spotDetails.longitude = self.spotLongitude
-        spotDetails.spotName = self.spotTitle.text!
-        spotDetails.spotDescription = self.spotDescription.text!
+        let userId = FIRAuth.auth()?.currentUser?.uid
+        let newSpotRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotDetails").childByAutoId()
+        let newSpotRefKey = newSpotRef.key
         
-        let savedSpotID = backendless.persistenceService.of(spotDetails.ofClass()).save(spotDetails) as! SpotDetails
-        uploadPhoto(spotID: savedSpotID.objectId!)
+        let newSpotDetailsItem = SpotDetailsItem(name: self.spotTitle.text!, description: self.spotDescription.text!,
+                                              latitude: self.spotLatitude, longitude: self.spotLongitude, addedByUser: userId!, key: newSpotRefKey)
+        newSpotRef.setValue(newSpotDetailsItem.toAnyObject())
+        
+        uploadPhoto(spotId: newSpotDetailsItem.key)
         UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil) //saving image to camera roll
         
         _ = navigationController?.popViewController(animated: true)
     }
     
     //Uploading files with the SYNC API
-    func uploadPhoto(spotID: String) {
+    func uploadPhoto(spotId: String) {
         let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.1)!
-        let spotPhotoUrl = "media/spotMainPhotoURLs/" + spotID.replacingOccurrences(of: "-", with: "") + ".jpeg"
-        DispatchQueue.global(qos: .userInitiated).async {
-            let uploadedFile = self.backendless.fileService.saveFile(spotPhotoUrl, content: data, overwriteIfExist: true)
-            print("File has been uploaded. File URL is - \(uploadedFile?.fileURL)")
+        let newPostRef = FIRStorage.storage().reference(withPath: "media/spotMainPhotoURLs").child(spotId)
+        //saving original image with low compression
+        let dataLowCompression: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.8)!
+        newPostRef.put(dataLowCompression, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
+            // Metadata contains file metadata such as size, content-type, and download URL.
+            let downloadURL = metadata.downloadURL
         }
+
     }
     
     var keyBoardAlreadyShowed = false //using this to not let app to scroll view. Look at extension

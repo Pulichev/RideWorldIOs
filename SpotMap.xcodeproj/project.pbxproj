@@ -30,6 +30,7 @@
 		9FB681CB1E2E70CE00D9A436 /* SpotMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681CA1E2E70CE00D9A436 /* SpotMapTests.swift */; };
 		9FB681D61E2E70CE00D9A436 /* SpotMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */; };
 		9FBCFAE41E6F248C00A5C95D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */; };
+		9FBCFAE61E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE51E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift */; };
 		9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FC91E48E5E30097579B /* LoginController.swift */; };
 		9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCA1E48E5E30097579B /* MainFormController.swift */; };
 		9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCB1E48E5E30097579B /* NewPostController.swift */; };
@@ -99,6 +100,7 @@
 		9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMapUITests.swift; sourceTree = "<group>"; };
 		9FB681D71E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9FBCFAE51E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift; path = TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift; sourceTree = "<group>"; };
 		9FC14FC91E48E5E30097579B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controllers/LoginController.swift; sourceTree = "<group>"; };
 		9FC14FCA1E48E5E30097579B /* MainFormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainFormController.swift; path = Controllers/MainFormController.swift; sourceTree = "<group>"; };
 		9FC14FCB1E48E5E30097579B /* NewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewPostController.swift; path = Controllers/NewPostController.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		9F73B09A1E69ED7F0049563A /* TempFiles */ = {
 			isa = PBXGroup;
 			children = (
+				9FBCFAE51E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift */,
 			);
 			name = TempFiles;
 			sourceTree = "<group>";
@@ -617,6 +620,7 @@
 				9F4A84431E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift in Sources */,
 				9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
+				9FBCFAE61E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift in Sources */,
 				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
 				9FAE00A91E6880240010C6C1 /* MyStripController.swift in Sources */,
 				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,

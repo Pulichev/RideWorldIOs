@@ -69,7 +69,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         ref.observe(.value, with: { snapshot in
             if let value = snapshot.value as? NSDictionary {
                 for post in value {
-                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotposts").child(post.key as! String)
+                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(post.key as! String)
                     postInfoRef.observeSingleEvent(of: .value, with: { (snapshot) in
                         let spotPostItem = SpotPostItem(snapshot: snapshot)
                         var photoRef: FIRStorageReference!

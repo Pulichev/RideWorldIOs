@@ -45,7 +45,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             for key in keys {
                 let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                 
-                ref.observe(.value, with: { (snapshot) in
+                ref.observe(.value, with: { snapshot in
                     let spotPostItem = SpotPostItem(snapshot: snapshot)
                     self.spotPosts.append(spotPostItem)
                     

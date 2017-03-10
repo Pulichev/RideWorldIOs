@@ -13,6 +13,6 @@ import FirebaseAuth
 
 class MyStripController: UIViewController {
     override func viewDidLoad() {
-        
+        addThumbnailsAndAddSpotIdToSpotPostsTEMP.execute()
     }
 }

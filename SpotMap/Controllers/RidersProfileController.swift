@@ -13,7 +13,7 @@ import FirebaseStorage
 import FirebaseDatabase
 import FirebaseAuth
 
-class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     var ridersInfo: UserItem!
     
     @IBOutlet var userNameAndSename: UILabel!
@@ -62,23 +62,22 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         }
     }
     
-    // need code review
     func initializeUserPostsPhotos() {
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.ridersInfo.uid).child("posts")
         
-//        DispatchQueue.global(qos: .userInteractive).async {
-            ref.observe(.value, with: { snapshot in
-                if let value = snapshot.value as? NSDictionary {
-                    for post in value {
-                        let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(post.key as! String)
-                        postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
-                            let spotPostItem = SpotPostItem(snapshot: snapshot)
-                            let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_resolution270x270.jpeg")
-                            
-                            photoRef.downloadURL { (URL, error) in
-                                if let error = error {
-                                    print("\(error)")
-                                } else {
+        ref.observeSingleEvent(of: .value, with: { snapshot in
+            if let value = snapshot.value as? NSDictionary {
+                for post in value {
+                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(post.key as! String)
+                    postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
+                        let spotPostItem = SpotPostItem(snapshot: snapshot)
+                        let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_resolution270x270.jpeg")
+                        
+                        photoRef.downloadURL { (URL, error) in
+                            if let error = error {
+                                print("\(error)")
+                            } else {
+                                DispatchQueue.global(qos: .userInteractive).async {
                                     let photoData = NSData(contentsOf: URL!)
                                     let photo = UIImage(data: photoData as! Data)!
                                     let photoView = UIImageView(image: photo)
@@ -89,13 +88,14 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                                     }
                                 }
                             }
-                        })
-                    }
+                        }
+                    })
                 }
-            })
-//        }
+            }
+        })
     }
     
+    // MARK: COLLECTIONVIEW PART
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.spotsPostsImages.count
@@ -113,15 +113,39 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         return cell
     }
     
-    // MARK: - UICollectionViewDelegate protocol
+    fileprivate let itemsPerRow: CGFloat = 3
+    fileprivate let sectionInsets = UIEdgeInsets(top: 1.0, left: 1.0, bottom: 1.0, right: 1.0)
     
-    var selectedCellId: Int!
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // handle tap events
         self.selectedCellId = indexPath.item
         self.performSegue(withIdentifier: "goToPostInfo", sender: self)
     }
+    
+    var selectedCellId: Int!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPostInfo" {

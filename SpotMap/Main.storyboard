@@ -308,9 +308,17 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="f6c-1h-dLp" secondAttribute="trailing" id="03i-Jr-Fcg"/>
+                                            <constraint firstItem="f6c-1h-dLp" firstAttribute="top" secondItem="068-Gc-wdG" secondAttribute="top" id="10f-NI-DA3"/>
+                                            <constraint firstItem="f6c-1h-dLp" firstAttribute="leading" secondItem="068-Gc-wdG" secondAttribute="leading" id="FuF-eO-44g"/>
                                             <constraint firstItem="f6c-1h-dLp" firstAttribute="top" secondItem="068-Gc-wdG" secondAttribute="top" id="Ntg-Yi-or8"/>
                                             <constraint firstAttribute="bottom" secondItem="f6c-1h-dLp" secondAttribute="bottom" id="V3P-du-nUn"/>
+                                            <constraint firstAttribute="bottom" secondItem="f6c-1h-dLp" secondAttribute="bottom" id="V5i-qF-PpL"/>
+                                            <constraint firstAttribute="bottom" secondItem="f6c-1h-dLp" secondAttribute="bottom" id="bP4-SE-PF7"/>
                                             <constraint firstAttribute="trailing" secondItem="f6c-1h-dLp" secondAttribute="trailing" id="cXK-MD-Fun"/>
+                                            <constraint firstItem="f6c-1h-dLp" firstAttribute="top" secondItem="068-Gc-wdG" secondAttribute="top" id="dz9-0n-agC"/>
+                                            <constraint firstAttribute="trailing" secondItem="f6c-1h-dLp" secondAttribute="trailing" id="hrc-D7-CqJ"/>
+                                            <constraint firstItem="f6c-1h-dLp" firstAttribute="leading" secondItem="068-Gc-wdG" secondAttribute="leading" id="lWT-k2-KgC"/>
                                             <constraint firstItem="f6c-1h-dLp" firstAttribute="leading" secondItem="068-Gc-wdG" secondAttribute="leading" id="qm9-ju-dEq"/>
                                         </constraints>
                                         <connections>

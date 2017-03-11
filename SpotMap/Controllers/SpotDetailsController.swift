@@ -213,30 +213,57 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             
             cell.player.play()
         } else {
-            let storage = FIRStorage.storage()
-            let postKey = self.spotPosts[cacheKey].key
-            let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + "_resolution10x10.jpeg"
-            let spotVideoThumbnailURL = storage.reference(forURL: url)
-            
-            spotVideoThumbnailURL.downloadURL { (URL, error) in
-                if let error = error {
-                    print("\(error)")
-                } else {
-                    // thumbnail!
-                    let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                    let processor = BlurImageProcessor(blurRadius: 0.1)
-                    imageViewForView.kf.setImage(with: URL!, placeholder: nil, options: [.processor(processor)])
-                    imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                    
-                    cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                    
-                    self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
-                }
+            downloadThumbnail(cacheKey: cacheKey, cell: cell)
+        }
+    }
+    
+    private func downloadThumbnail(cacheKey: Int, cell: SpotPostsCell) {
+        let storage = FIRStorage.storage()
+        let postKey = self.spotPosts[cacheKey].key
+        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + "_resolution10x10.jpeg"
+        let spotVideoThumbnailURL = storage.reference(forURL: url)
+        
+        spotVideoThumbnailURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                // thumbnail!
+                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                let processor = BlurImageProcessor(blurRadius: 0.1)
+                imageViewForView.kf.setImage(with: URL!, placeholder: nil, options: [.processor(processor)])
+                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                
+                cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                
+                self.downloadBigThumbnail(postKey: postKey, cacheKey: cacheKey, cell: cell)
             }
         }
     }
     
-    func downloadVideo(postKey: String, cacheKey: Int, cell: SpotPostsCell) {
+    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: SpotPostsCell) {
+        let storage = FIRStorage.storage()
+        let postKey = self.spotPosts[cacheKey].key
+        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + "_resolution270x270.jpeg"
+        let spotVideoThumbnailURL = storage.reference(forURL: url)
+        
+        spotVideoThumbnailURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                // thumbnail!
+                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                let processor = BlurImageProcessor(blurRadius: 0.1)
+                imageViewForView.kf.setImage(with: URL!, placeholder: nil, options: [.processor(processor)])
+                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                
+                cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                
+                self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
+            }
+        }
+    }
+    
+    private func downloadVideo(postKey: String, cacheKey: Int, cell: SpotPostsCell) {
         let storage = FIRStorage.storage()
         let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + ".m4v"
         let spotVideoURL = storage.reference(forURL: url)

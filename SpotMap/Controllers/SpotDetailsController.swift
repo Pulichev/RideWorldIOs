@@ -40,22 +40,23 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         
         ref.queryOrderedByValue().observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
-            let keys = value?.allKeys as! [String]
-            
-            for key in keys {
-                let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
+            if let keys = value?.allKeys as? [String] {
                 
-                ref.observe(.value, with: { snapshot in
-                    let spotPostItem = SpotPostItem(snapshot: snapshot)
-                    self.spotPosts.append(spotPostItem)
+                for key in keys {
+                    let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                     
-                    let newSpotPostCellCache = SpotPostItemCellCache(spotPost: spotPostItem)
-                    newSpotPostCellCache.userLikedThisPost()
-                    self.spotPostItemCellsCache.append(newSpotPostCellCache)
-                    
-                    self.tableView.reloadData()
-                }) { (error) in
-                    print(error.localizedDescription)
+                    ref.observe(.value, with: { snapshot in
+                        let spotPostItem = SpotPostItem(snapshot: snapshot)
+                        self.spotPosts.append(spotPostItem)
+                        
+                        let newSpotPostCellCache = SpotPostItemCellCache(spotPost: spotPostItem)
+                        newSpotPostCellCache.userLikedThisPost()
+                        self.spotPostItemCellsCache.append(newSpotPostCellCache)
+                        
+                        self.tableView.reloadData()
+                    }) { (error) in
+                        print(error.localizedDescription)
+                    }
                 }
             }
         })
@@ -147,18 +148,42 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
         let storage = FIRStorage.storage()
-        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotPosts[cacheKey].key + ".jpeg"
-        let spotDetailsPhotoURL = storage.reference(forURL: url)
+        // download thumbnail first
+        let thumbnailUrl = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + "_thumbnail.jpeg"
+        let spotPostPhotoThumbnailURL = storage.reference(forURL: thumbnailUrl)
         
-        spotDetailsPhotoURL.downloadURL { (URL, error) in
+        spotPostPhotoThumbnailURL.downloadURL { (URL, error) in
             if let error = error {
                 print("\(error)")
             } else {
                 let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                 imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
+                //adding blur effect on thumbnail
+                let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+                let blurEffectView = UIVisualEffectView(effect: blurEffect)
+                blurEffectView.frame = imageViewForView.bounds
+                blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                imageViewForView.addSubview(blurEffectView)
+                
                 DispatchQueue.main.async {
                     cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
                 }
+                
+                let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + ".jpeg"
+                let spotDetailsPhotoURL = storage.reference(forURL: url)
+                
+                spotDetailsPhotoURL.downloadURL { (URL, error) in
+                    if let error = error {
+                        print("\(error)")
+                    } else {
+                        let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                        imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
+                        DispatchQueue.main.async {
+                            cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                        }
+                    }
+                }
+                
             }
         }
     }
@@ -176,7 +201,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             let storage = FIRStorage.storage()
             let postKey = self.spotPosts[cacheKey].key
-            let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + postKey + "_thumbnail.jpeg"
+            let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + "_thumbnail.jpeg"
             let spotVideoThumbnailURL = storage.reference(forURL: url)
             
             spotVideoThumbnailURL.downloadURL { (URL, error) in
@@ -190,6 +215,12 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                     let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                     imageViewForView.image = thumbnail
                     imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                    //adding blur effect on thumbnail
+                    let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+                    let blurEffectView = UIVisualEffectView(effect: blurEffect)
+                    blurEffectView.frame = imageViewForView.bounds
+                    blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                    imageViewForView.addSubview(blurEffectView)
                     cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
                     
                     self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
@@ -200,7 +231,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     func downloadVideo(postKey: String, cacheKey: Int, cell: SpotPostsCell) {
         let storage = FIRStorage.storage()
-        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + postKey + ".m4v"
+        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + ".m4v"
         let spotVideoURL = storage.reference(forURL: url)
         
         spotVideoURL.downloadURL { (URL, error) in

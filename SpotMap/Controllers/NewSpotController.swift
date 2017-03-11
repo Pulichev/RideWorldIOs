@@ -56,7 +56,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     @IBAction func saveSpotDetails(_ sender: Any) {
         let userId = FIRAuth.auth()?.currentUser?.uid
-        let newSpotRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotDetails").childByAutoId()
+        let newSpotRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails").childByAutoId()
         let newSpotRefKey = newSpotRef.key
         
         let newSpotDetailsItem = SpotDetailsItem(name: self.spotTitle.text!, description: self.spotDescription.text!,
@@ -71,8 +71,8 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     //Uploading files with the SYNC API
     func uploadPhoto(spotId: String) {
-        let data: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.1)!
-        let newPostRef = FIRStorage.storage().reference(withPath: "media/spotMainPhotoURLs").child(spotId)
+        self.imageView.image! = ResizeImage.resize(image: self.imageView.image!, targetSize: CGSize(width: 250.0, height: 250.0))
+        let newPostRef = FIRStorage.storage().reference(withPath: "media/spotMainPhotoURLs").child(spotId + ".jpeg")
         //saving original image with low compression
         let dataLowCompression: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.8)!
         newPostRef.put(dataLowCompression, metadata: nil) { (metadata, error) in
@@ -80,8 +80,6 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
                 // Uh-oh, an error occurred!
                 return
             }
-            // Metadata contains file metadata such as size, content-type, and download URL.
-            let downloadURL = metadata.downloadURL
         }
 
     }

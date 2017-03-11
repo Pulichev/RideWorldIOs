@@ -23,16 +23,20 @@ struct SpotPostItem {
     let description: String
     let createdDate: String
     
+    let spotId: String
+    
     let addedByUser: String
     
     let ref: FIRDatabaseReference?
     
-    init(isPhoto: Bool, description: String, createdDate: String, addedByUser: String, key: String = "") {
+    init(isPhoto: Bool, description: String, createdDate: String, spotId: String, addedByUser: String, key: String = "") {
         self.key = key
         
         self.isPhoto = isPhoto
         self.description = description
         self.createdDate = createdDate
+        
+        self.spotId = spotId
         
         self.addedByUser = addedByUser
         self.ref = nil
@@ -46,6 +50,8 @@ struct SpotPostItem {
         description = snapshotValue["description"] as! String
         createdDate = snapshotValue["createdDate"] as! String
         
+        spotId = snapshotValue["spotId"] as! String
+        
         addedByUser = snapshotValue["addedByUser"] as! String
         ref = snapshot.ref
     }
@@ -55,6 +61,8 @@ struct SpotPostItem {
             "isPhoto": isPhoto,
             "description": description,
             "createdDate": createdDate,
+            
+            "spotId": spotId,
             
             "addedByUser": addedByUser,
             "key": key

@@ -74,15 +74,14 @@ class NewPostController: UIViewController, UITextViewDelegate {
         let createdDate = String(describing: Date())
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").childByAutoId()
         
-        let spotPostItem = SpotPostItem(isPhoto: self.isNewMediaIsPhoto, description: self.postDescription.text,
-                                        createdDate: createdDate, addedByUser: (user?.uid)!, key: ref.key)
+        let spotPostItem = SpotPostItem(isPhoto: self.isNewMediaIsPhoto, description: self.postDescription.text, createdDate: createdDate, spotId: self.spotDetailsItem.key, addedByUser: (user?.uid)!, key: ref.key)
         ref.setValue(spotPostItem.toAnyObject())
         
         // add to user posts node
         let userPostsRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child((user?.uid)!).child("posts")
         
-        userPostsRef.observe(.value, with: { snapshot in
-            if var value = snapshot.value as? [String : Any] {
+        userPostsRef.observeSingleEvent(of: .value, with: { snapshot in
+            if var value = snapshot.value as? [String : Bool] {
                 value[ref.key] = true
                 userPostsRef.setValue(value)
             } else {
@@ -91,19 +90,20 @@ class NewPostController: UIViewController, UITextViewDelegate {
         })
         
         // add to spotdetails node
-        let spotDetailsPostsRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotDetails").child(self.spotDetailsItem.key).child("posts")
+        let spotDetailsPostsRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails").child(self.spotDetailsItem.key).child("posts")
         
-        spotDetailsPostsRef.observe(.value, with: { snapshot in
-            if var value = snapshot.value as? [String : Any] {
+        spotDetailsPostsRef.observeSingleEvent(of: .value, with: { snapshot in
+            if var value = snapshot.value as? [String : Bool] {
                 value[ref.key] = true
-                userPostsRef.setValue(value)
+                spotDetailsPostsRef.setValue(value)
             } else {
-                userPostsRef.setValue([ref.key : true])
+                spotDetailsPostsRef.setValue([ref.key : true])
             }
         })
         
         if self.isNewMediaIsPhoto {
             uploadPhoto(postId: ref.key)
+            uploadThumbnailOfPhoto(postId: ref.key)
             UIImageWriteToSavedPhotosAlbum(self.photoView.image!, nil, nil , nil) //saving image to camera roll
         } else {
             uploadVideo(postId: ref.key)
@@ -120,6 +120,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
     
     //Uploading files with the SYNC API
     func uploadPhoto(postId: String) {
+        // upload main photo
         let newPostRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + ".jpeg")
         //saving original image with low compression
         let dataLowCompression: Data = UIImageJPEGRepresentation(self.photoView.image!, 0.8)!
@@ -130,6 +131,19 @@ class NewPostController: UIViewController, UITextViewDelegate {
             }
             // Metadata contains file metadata such as size, content-type, and download URL.
             let downloadURL = metadata.downloadURL
+        }
+    }
+    
+    private func uploadThumbnailOfPhoto(postId: String) {
+        let newPostRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + "_thumbnail.jpeg")
+        //saving original image with low compression
+        self.photoView.image = ResizeImage.resize(image: self.photoView.image!, targetSize: CGSize(width: 10.0, height: 10.0))
+        let dataLowCompression: Data = UIImageJPEGRepresentation(self.photoView.image!, 0.8)!
+        newPostRef.put(dataLowCompression, metadata: nil) { (metadata, error) in
+            guard let metadata = metadata else {
+                // Uh-oh, an error occurred!
+                return
+            }
         }
     }
     

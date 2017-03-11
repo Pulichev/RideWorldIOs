@@ -66,35 +66,34 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     func initializeUserPostsPhotos() {
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.ridersInfo.uid).child("posts")
         
-        ref.observe(.value, with: { snapshot in
-            if let value = snapshot.value as? NSDictionary {
-                for post in value {
-                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(post.key as! String)
-                    postInfoRef.observeSingleEvent(of: .value, with: { (snapshot) in
-                        let spotPostItem = SpotPostItem(snapshot: snapshot)
-                        var photoRef: FIRStorageReference!
-                        if spotPostItem.isPhoto {
-                            photoRef = FIRStorage.storage().reference(withPath: "MainDataBase/spotPostMedia/").child(spotPostItem.key + ".jpeg")
-                        } else {
-                            photoRef = FIRStorage.storage().reference(withPath: "MainDataBase/spotPostMedia/").child(spotPostItem.key + "_thumbnail.jpeg")
-                        }
-                        
-                        photoRef.downloadURL { (URL, error) in
-                            if let error = error {
-                                print("\(error)")
-                            } else {
-                                let photoData = NSData(contentsOf: URL!)
-                                let photo = UIImage(data: photoData as! Data)!
-                                let photoView = UIImageView(image: photo)
-                                
-                                self.spotsPostsImages.append(photoView)
-                                self.riderProfileCollection.reloadData()
+//        DispatchQueue.global(qos: .userInteractive).async {
+            ref.observe(.value, with: { snapshot in
+                if let value = snapshot.value as? NSDictionary {
+                    for post in value {
+                        let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(post.key as! String)
+                        postInfoRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                            let spotPostItem = SpotPostItem(snapshot: snapshot)
+                            let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_thumbnail.jpeg")
+                            
+                            photoRef.downloadURL { (URL, error) in
+                                if let error = error {
+                                    print("\(error)")
+                                } else {
+                                    let photoData = NSData(contentsOf: URL!)
+                                    let photo = UIImage(data: photoData as! Data)!
+                                    let photoView = UIImageView(image: photo)
+                                    
+                                    self.spotsPostsImages.append(photoView)
+                                    DispatchQueue.main.async {
+                                        self.riderProfileCollection.reloadData()
+                                    }
+                                }
                             }
-                        }
-                    })
+                        })
+                    }
                 }
-            }
-        })
+            })
+//        }
     }
     
     // tell the collection view how many cells to make

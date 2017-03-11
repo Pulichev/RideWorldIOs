@@ -45,7 +45,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                 for key in keys {
                     let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                     
-                    ref.observe(.value, with: { snapshot in
+                    ref.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = SpotPostItem(snapshot: snapshot)
                         self.spotPosts.append(spotPostItem)
                         
@@ -147,43 +147,57 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
-        let storage = FIRStorage.storage()
-        // download thumbnail first
-        let thumbnailUrl = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + "_thumbnail.jpeg"
-        let spotPostPhotoThumbnailURL = storage.reference(forURL: thumbnailUrl)
-        
-        spotPostPhotoThumbnailURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
+        if self.spotPostItemCellsCache[cacheKey].isCached {
+            let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + "_resolution700x700.jpeg"
+            let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
+            
+            spotDetailsPhotoURL.downloadURL { (URL, error) in
                 let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                 imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-                //adding blur effect on thumbnail
-                let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-                let blurEffectView = UIVisualEffectView(effect: blurEffect)
-                blurEffectView.frame = imageViewForView.bounds
-                blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                imageViewForView.addSubview(blurEffectView)
                 
                 DispatchQueue.main.async {
                     cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
                 }
-                
-                let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + ".jpeg"
-                let spotDetailsPhotoURL = storage.reference(forURL: url)
-                
-                spotDetailsPhotoURL.downloadURL { (URL, error) in
-                    if let error = error {
-                        print("\(error)")
-                    } else {
-                        let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                        imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-                        DispatchQueue.main.async {
-                            cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                        }
+            }
+        } else {
+            // download thumbnail first
+            let thumbnailUrl = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + "_resolution10x10.jpeg"
+            let spotPostPhotoThumbnailURL = FIRStorage.storage().reference(forURL: thumbnailUrl)
+            
+            spotPostPhotoThumbnailURL.downloadURL { (URL, error) in
+                if let error = error {
+                    print("\(error)")
+                } else {
+                    let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                    let processor = BlurImageProcessor(blurRadius: 0.1)
+                    imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
+                    
+                    DispatchQueue.main.async {
+                        cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
                     }
+                    
+                    self.downloadOriginalImage(cell: cell, cacheKey: cacheKey)
                 }
+            }
+        }
+    }
+    
+    private func downloadOriginalImage(cell: SpotPostsCell, cacheKey: Int) {
+        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + "_resolution700x700.jpeg"
+        let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
+        
+        spotDetailsPhotoURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                imageViewForView.kf.indicatorType = .activity
+                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
                 
+                DispatchQueue.main.async {
+                    self.spotPostItemCellsCache[cacheKey].isCached = true
+                    cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                }
             }
         }
     }
@@ -201,26 +215,19 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             let storage = FIRStorage.storage()
             let postKey = self.spotPosts[cacheKey].key
-            let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + "_thumbnail.jpeg"
+            let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + "_resolution10x10.jpeg"
             let spotVideoThumbnailURL = storage.reference(forURL: url)
             
             spotVideoThumbnailURL.downloadURL { (URL, error) in
                 if let error = error {
                     print("\(error)")
                 } else {
-                    let data = NSData(contentsOf: URL!)
-                    let thumbnail: UIImage = UIImage(data: data as! Data)!
-                    
                     // thumbnail!
                     let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                    imageViewForView.image = thumbnail
+                    let processor = BlurImageProcessor(blurRadius: 0.1)
+                    imageViewForView.kf.setImage(with: URL!, placeholder: nil, options: [.processor(processor)])
                     imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                    //adding blur effect on thumbnail
-                    let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-                    let blurEffectView = UIVisualEffectView(effect: blurEffect)
-                    blurEffectView.frame = imageViewForView.bounds
-                    blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                    imageViewForView.addSubview(blurEffectView)
+                    
                     cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
                     
                     self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)

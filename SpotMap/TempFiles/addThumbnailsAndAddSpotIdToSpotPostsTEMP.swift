@@ -56,7 +56,7 @@ class addThumbnailsAndAddSpotIdToSpotPostsTEMP  {
                                             
                                             // create thumbnail
                                             let image = UIImage(data: data!)
-                                            let resizedImage = ResizeImage.resize(image: image!, targetSize: CGSize(width: 150.0, height: 150.0))
+                                            let resizedImage = ImageManipulations.resize(image: image!, targetSize: CGSize(width: 150.0, height: 150.0))
                                             let compressedImageData: Data = UIImageJPEGRepresentation(resizedImage, 0.8)!
                                             let newStorageRefForThumbnail = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postLink.key + "_thumbnail.jpeg")
                                             newStorageRefForThumbnail.put(compressedImageData, metadata: nil) { (metadata, error) in

@@ -71,17 +71,11 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     //Uploading files with the SYNC API
     func uploadPhoto(spotId: String) {
-        self.imageView.image! = ResizeImage.resize(image: self.imageView.image!, targetSize: CGSize(width: 250.0, height: 250.0))
+        let lowResolutionPhoto = ImageManipulations.resize(image: self.imageView.image!, targetSize: CGSize(width: 270.0, height: 270.0))
         let newPostRef = FIRStorage.storage().reference(withPath: "media/spotMainPhotoURLs").child(spotId + ".jpeg")
         //saving original image with low compression
-        let dataLowCompression: Data = UIImageJPEGRepresentation(self.imageView.image!, 0.8)!
-        newPostRef.put(dataLowCompression, metadata: nil) { (metadata, error) in
-            guard let metadata = metadata else {
-                // Uh-oh, an error occurred!
-                return
-            }
-        }
-
+        let dataLowCompression: Data = UIImageJPEGRepresentation(lowResolutionPhoto, 0.8)!
+        newPostRef.put(dataLowCompression)
     }
     
     var keyBoardAlreadyShowed = false //using this to not let app to scroll view. Look at extension

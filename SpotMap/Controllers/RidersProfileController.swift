@@ -71,9 +71,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                 if let value = snapshot.value as? NSDictionary {
                     for post in value {
                         let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(post.key as! String)
-                        postInfoRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                        postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
                             let spotPostItem = SpotPostItem(snapshot: snapshot)
-                            let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_thumbnail.jpeg")
+                            let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_resolution270x270.jpeg")
                             
                             photoRef.downloadURL { (URL, error) in
                                 if let error = error {

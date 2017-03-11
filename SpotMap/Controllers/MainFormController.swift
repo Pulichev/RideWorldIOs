@@ -140,9 +140,11 @@ class MainFormController: UIViewController {
 extension MainFormController: MKMapViewDelegate {
     //download pictures and etc on tap on pin
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        let customPin = view.annotation as! CustomPin
-        
-        configureDetailView(annotationView: view, spotPin: customPin.spotDetailsItem)
+        if !(view.annotation! is MKUserLocation) {
+            let customPin = view.annotation as! CustomPin
+            
+            configureDetailView(annotationView: view, spotPin: customPin.spotDetailsItem)
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

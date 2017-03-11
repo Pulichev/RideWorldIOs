@@ -21,6 +21,7 @@ class SpotPostItemCellCache {
     var isLikedPhoto = UIImageView()
     var postIsLiked = Bool()
     var likesCount = Int()
+    var isCached = false
     
     init(spotPost: SpotPostItem) {
         self.post = spotPost

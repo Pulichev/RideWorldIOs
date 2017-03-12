@@ -358,12 +358,14 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNU-PM-ycZ">
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNU-PM-ycZ">
                                         <rect key="frame" x="103" y="62" width="185" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="oYt-8s-3Ov"/>
                                         </constraints>
-                                        <state key="normal" title="Follow"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="followButtonTapped:" destination="MKp-Ss-8Kb" eventType="touchUpInside" id="2Fm-G7-lQe"/>
                                         </connections>
@@ -401,6 +403,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="q0R-dd-b5v"/>
                     <connections>
+                        <outlet property="followButton" destination="xNU-PM-ycZ" id="lh3-QZ-yRK"/>
                         <outlet property="riderProfileCollection" destination="Npn-VA-zc6" id="4bS-eO-vkW"/>
                         <outlet property="ridersBio" destination="Xqz-1K-Be3" id="e6X-Tn-jKL"/>
                         <outlet property="ridersProfilePhoto" destination="vzh-Kq-S3x" id="2pj-Ev-rKs"/>
@@ -706,6 +709,7 @@
                         <outlet property="tableView" destination="1JN-k2-5ma" id="cl3-1G-8gn"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromSpotDetails" id="6R6-CY-IE2"/>
                         <segue destination="ULr-hs-bKD" kind="show" identifier="addNewPost" id="JdC-Rg-e8F"/>
+                        <segue destination="MsB-Ex-yak" kind="show" identifier="ifChoosedCurrentUser" id="TEa-lr-7L1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h24-NX-eSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -734,7 +738,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2M-t3-luU">
-                                <rect key="frame" x="16" y="72" width="288" height="275"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="275"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -742,9 +746,9 @@
                         <constraints>
                             <constraint firstItem="s2M-t3-luU" firstAttribute="top" secondItem="NRn-J8-hMY" secondAttribute="bottom" constant="8" id="9AT-wj-tpV"/>
                             <constraint firstItem="b6x-qq-LDc" firstAttribute="leading" secondItem="WyZ-EX-gB1" secondAttribute="leadingMargin" id="Cwo-XP-k6R"/>
-                            <constraint firstAttribute="trailing" secondItem="s2M-t3-luU" secondAttribute="trailing" constant="16" id="H2m-sI-tjR"/>
+                            <constraint firstAttribute="trailing" secondItem="s2M-t3-luU" secondAttribute="trailing" id="H2m-sI-tjR"/>
                             <constraint firstItem="s2M-t3-luU" firstAttribute="centerX" secondItem="b6x-qq-LDc" secondAttribute="centerX" id="JB7-RS-Xef"/>
-                            <constraint firstItem="s2M-t3-luU" firstAttribute="leading" secondItem="WyZ-EX-gB1" secondAttribute="leading" constant="16" id="fAk-Ui-WPI"/>
+                            <constraint firstItem="s2M-t3-luU" firstAttribute="leading" secondItem="WyZ-EX-gB1" secondAttribute="leading" id="fAk-Ui-WPI"/>
                             <constraint firstItem="mmF-Im-Wgc" firstAttribute="top" secondItem="b6x-qq-LDc" secondAttribute="bottom" constant="56" id="oed-P6-gAo"/>
                             <constraint firstItem="b6x-qq-LDc" firstAttribute="top" secondItem="s2M-t3-luU" secondAttribute="bottom" constant="22" id="rH8-hs-jJI"/>
                         </constraints>
@@ -796,7 +800,7 @@
                         <viewControllerLayoutGuide type="bottom" id="46T-6d-aUx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nl8-X3-Dgp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mW1-6j-tMI">
@@ -976,7 +980,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="H6x-9y-8OV"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="userBio" destination="GAM-eQ-2FL" id="82C-Lk-CAT"/>
                         <outlet property="userNameAndSename" destination="4A0-yl-41S" id="b3h-SO-uvc"/>
@@ -999,7 +1002,7 @@
                         <viewControllerLayoutGuide type="bottom" id="5tp-ar-BeW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8UZ-V5-vtf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-aj-jM0">
@@ -1233,7 +1236,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="Gef-69-N8A"/>
         <segue reference="PDm-Oj-MlC"/>
+        <segue reference="TEa-lr-7L1"/>
         <segue reference="6R6-CY-IE2"/>
-        <segue reference="qSk-1a-lLs"/>
+        <segue reference="eyf-4a-ZNN"/>
     </inferredMetricsTieBreakers>
 </document>

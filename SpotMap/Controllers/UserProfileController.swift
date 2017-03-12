@@ -23,6 +23,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet var userProfileCollection: UICollectionView!
     var spotPosts = [SpotPostItem]()
     var spotsPostsImages = [UIImageView]()
+    var cameFromSpotDetails = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,28 +44,24 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Hide the navigation bar on the this view controller
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        if !cameFromSpotDetails {
+            // Hide the navigation bar on the this view controller
+            self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        // Show the navigation bar on other view controllers
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        if !cameFromSpotDetails {
+            // Show the navigation bar on other view controllers
+            self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        }
     }
     
     func initializeUserTextInfo() {
         self.userBio.text = userInfo.bioDescription
         self.userNameAndSename.text = userInfo.nameAndSename
-        
-//        placeBorderOnTextView()
-    }
-    
-    func placeBorderOnTextView() {
-        userBio.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
-        userBio.layer.borderWidth = 1.0
-        userBio.layer.cornerRadius = 5
     }
     
     func initializeUserPhoto() {
@@ -146,7 +143,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {

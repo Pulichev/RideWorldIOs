@@ -300,8 +300,13 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     //go to riders profile
     func nickNameTapped(sender: UIButton!) {
-        self.ridersInfoForSending = self.spotPostItemCellsCache[sender.tag].userInfo
-        self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
+        // check if going to current user
+        if self.spotPostItemCellsCache[sender.tag].userInfo.uid == FIRAuth.auth()?.currentUser?.uid {
+            self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
+        } else {
+            self.ridersInfoForSending = self.spotPostItemCellsCache[sender.tag].userInfo
+            self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
+        }
     }
     
     var ridersInfoForSending: UserItem!
@@ -311,10 +316,16 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             let newPostController = segue.destination as! NewPostController
             newPostController.spotDetailsItem = self.spotDetailsItem
         }
+        
         if segue.identifier == "openRidersProfileFromSpotDetails" {
-            let newRidersProfileController = (segue.destination as! RidersProfileController)
+            let newRidersProfileController = segue.destination as! RidersProfileController
             newRidersProfileController.ridersInfo = ridersInfoForSending
             newRidersProfileController.title = ridersInfoForSending.login
+        }
+        
+        if segue.identifier == "ifChoosedCurrentUser" {
+            let userProfileController = segue.destination as! UserProfileController
+            userProfileController.cameFromSpotDetails = true
         }
     }
 }

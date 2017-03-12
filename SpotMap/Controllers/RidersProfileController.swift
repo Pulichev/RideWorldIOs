@@ -20,6 +20,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet var ridersBio: UITextView!
     @IBOutlet var ridersProfilePhoto: UIImageView!
     
+    @IBOutlet var followButton: UIButton!
+    
     @IBOutlet var riderProfileCollection: UICollectionView!
     var spotPosts = [SpotPostItem]()
     var spotsPostsImages = [UIImageView]()
@@ -34,17 +36,30 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         }
     }
     
-    func initializeUserTextInfo() {
+    private func initializeUserTextInfo() {
         self.ridersBio.text = ridersInfo.bioDescription
         self.userNameAndSename.text = ridersInfo.nameAndSename
         
-//        placeBorderOnTextView()
+        checkIfCurrentUserFollowing() // this function also places title on button
     }
     
-    func placeBorderOnTextView() {
-        ridersBio.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
-        ridersBio.layer.borderWidth = 1.0
-        ridersBio.layer.cornerRadius = 5
+    private func checkIfCurrentUserFollowing() {
+        let currentUserId = FIRAuth.auth()?.currentUser?.uid
+        let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!).child("following")
+        
+        refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
+            if var value = snapshot.value as? [String : Bool] {
+                if value[self.ridersInfo.uid] != nil {
+                    self.followButton.setTitle("Following", for: .normal)
+                } else {
+                    self.followButton.setTitle("Follow", for: .normal)
+                }
+            } else {
+                self.followButton.setTitle("Follow", for: .normal)
+            }
+            
+            self.followButton.isEnabled = true
+        })
     }
     
     func initializeUserPhoto() {
@@ -132,7 +147,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -158,9 +173,54 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     // MARK: Following logic
     @IBAction func followButtonTapped(_ sender: Any) {
         let refToUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
+        let currentUserId = FIRAuth.auth()?.currentUser?.uid
         
-        // adding follow to current user node
-        
-        // adding follow to aim user node
+        addOrRemoveFollow(mainPartOfReference: refToUsers, currentUserId: currentUserId!)
+    }
+    
+    private func addOrRemoveFollow(mainPartOfReference: FIRDatabaseReference, currentUserId: String) {
+        // to current user node
+        let refToCurrentUser = mainPartOfReference.child(currentUserId).child("following")
+        refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
+            if var value = snapshot.value as? [String : Bool] {
+                if self.followButton.currentTitle == "Follow" { // add or remove like
+                    value[self.ridersInfo.uid] = true
+                } else {
+                    value.removeValue(forKey: self.ridersInfo.uid)
+                }
+                refToCurrentUser.setValue(value)
+            } else {
+                refToCurrentUser.setValue([self.ridersInfo.uid : true])
+            }
+            
+            // to aim user node
+            self.addOrRemoveFollowToAimUserNode(mainPartOfReference: mainPartOfReference, currentUserId: currentUserId)
+        })
+    }
+    
+    private func addOrRemoveFollowToAimUserNode(mainPartOfReference: FIRDatabaseReference, currentUserId: String) {
+        let refToAimUser = mainPartOfReference.child(ridersInfo.uid).child("followers")
+        refToAimUser.observeSingleEvent(of: .value, with: { snapshot in
+            if var value = snapshot.value as? [String : Bool] {
+                if self.followButton.currentTitle == "Follow" { // add or remove like
+                    value[currentUserId] = true
+                } else {
+                    value.removeValue(forKey: currentUserId)
+                }
+                refToAimUser.setValue(value)
+            } else {
+                refToAimUser.setValue([currentUserId : true])
+            }
+            
+            self.swapFollowButtonTittle()
+        })
+    }
+    
+    private func swapFollowButtonTittle() {
+        if self.followButton.currentTitle == "Follow" {
+            self.followButton.setTitle("Following", for: .normal)
+        } else {
+            self.followButton.setTitle("Follow", for: .normal)
+        }
     }
 }

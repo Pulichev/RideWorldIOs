@@ -20,6 +20,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet var userBio: UITextView!
     @IBOutlet var userProfilePhoto: UIImageView!
     
+    @IBOutlet var followersButton: UIButton!
+    @IBOutlet var followingButton: UIButton!
+    
     @IBOutlet var userProfileCollection: UICollectionView!
     var spotPosts = [SpotPostItem]()
     var spotsPostsImages = [UIImageView]()
@@ -62,6 +65,30 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     func initializeUserTextInfo() {
         self.userBio.text = userInfo.bioDescription
         self.userNameAndSename.text = userInfo.nameAndSename
+        
+        initialiseFollowing()
+    }
+    
+    private func initialiseFollowing() {
+        let refToUserNode = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.userInfo.uid)
+        
+        let refFollowers = refToUserNode.child("followers")
+        refFollowers.observe(.value, with: { snapshot in
+            if let value = snapshot.value as? [String: Any] {
+                self.followersButton.setTitle(String(describing: value.count), for: .normal)
+            } else {
+                self.followersButton.setTitle("0", for: .normal)
+            }
+        })
+        
+        let refFollowing = refToUserNode.child("following")
+        refFollowing.observe(.value, with: { snapshot in
+            if let value = snapshot.value as? [String: Any] {
+                self.followingButton.setTitle(String(describing: value.count), for: .normal)
+            } else {
+                self.followingButton.setTitle("0", for: .normal)
+            }
+        })
     }
     
     func initializeUserPhoto() {

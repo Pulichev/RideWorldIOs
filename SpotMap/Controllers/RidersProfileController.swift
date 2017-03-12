@@ -22,6 +22,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     
     @IBOutlet var followButton: UIButton!
     
+    @IBOutlet var followersButton: UIButton!
+    @IBOutlet var followingButton: UIButton!
+    
     @IBOutlet var riderProfileCollection: UICollectionView!
     var spotPosts = [SpotPostItem]()
     var spotsPostsImages = [UIImageView]()
@@ -41,6 +44,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         self.userNameAndSename.text = ridersInfo.nameAndSename
         
         checkIfCurrentUserFollowing() // this function also places title on button
+        initialiseFollowing()
     }
     
     private func checkIfCurrentUserFollowing() {
@@ -59,6 +63,28 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
             }
             
             self.followButton.isEnabled = true
+        })
+    }
+    
+    private func initialiseFollowing() {
+        let refToUserNode = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.ridersInfo.uid)
+        
+        let refFollowers = refToUserNode.child("followers")
+        refFollowers.observe(.value, with: { snapshot in
+            if let value = snapshot.value as? [String: Any] {
+                self.followersButton.setTitle(String(describing: value.count), for: .normal)
+            } else {
+                self.followersButton.setTitle("0", for: .normal)
+            }
+        })
+        
+        let refFollowing = refToUserNode.child("following")
+        refFollowing.observe(.value, with: { snapshot in
+            if let value = snapshot.value as? [String: Any] {
+                self.followingButton.setTitle(String(describing: value.count), for: .normal)
+            } else {
+                self.followingButton.setTitle("0", for: .normal)
+            }
         })
     }
     

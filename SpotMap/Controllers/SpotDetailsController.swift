@@ -29,6 +29,8 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" // will use it in media download
+        
         DispatchQueue.global(qos: .userInitiated).async {
             self.loadSpotPosts()
         }
@@ -146,9 +148,11 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    private var _mainPartOfMediaref: String!
+    
     func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
         if self.spotPostItemCellsCache[cacheKey].isCached {
-            let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + "_resolution700x700.jpeg"
+            let url = _mainPartOfMediaref + self.spotPosts[cacheKey].key + "_resolution700x700.jpeg"
             let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
             
             spotDetailsPhotoURL.downloadURL { (URL, error) in
@@ -161,7 +165,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             }
         } else {
             // download thumbnail first
-            let thumbnailUrl = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + "_resolution10x10.jpeg"
+            let thumbnailUrl = _mainPartOfMediaref + self.spotPosts[cacheKey].key + "_resolution10x10.jpeg"
             let spotPostPhotoThumbnailURL = FIRStorage.storage().reference(forURL: thumbnailUrl)
             
             spotPostPhotoThumbnailURL.downloadURL { (URL, error) in
@@ -183,7 +187,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     private func downloadOriginalImage(cell: SpotPostsCell, cacheKey: Int) {
-        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" + self.spotPosts[cacheKey].key + "_resolution700x700.jpeg"
+        let url = _mainPartOfMediaref + self.spotPosts[cacheKey].key + "_resolution700x700.jpeg"
         let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
         
         spotDetailsPhotoURL.downloadURL { (URL, error) in
@@ -220,7 +224,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     private func downloadThumbnail(cacheKey: Int, cell: SpotPostsCell) {
         let storage = FIRStorage.storage()
         let postKey = self.spotPosts[cacheKey].key
-        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + "_resolution10x10.jpeg"
+        let url = _mainPartOfMediaref + postKey + "_resolution10x10.jpeg"
         let spotVideoThumbnailURL = storage.reference(forURL: url)
         
         spotVideoThumbnailURL.downloadURL { (URL, error) in
@@ -243,7 +247,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: SpotPostsCell) {
         let storage = FIRStorage.storage()
         let postKey = self.spotPosts[cacheKey].key
-        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + "_resolution270x270.jpeg"
+        let url = _mainPartOfMediaref + postKey + "_resolution270x270.jpeg"
         let spotVideoThumbnailURL = storage.reference(forURL: url)
         
         spotVideoThumbnailURL.downloadURL { (URL, error) in
@@ -265,7 +269,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     private func downloadVideo(postKey: String, cacheKey: Int, cell: SpotPostsCell) {
         let storage = FIRStorage.storage()
-        let url = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + spotDetailsItem.key + "/" + postKey + ".m4v"
+        let url = _mainPartOfMediaref + postKey + ".m4v"
         let spotVideoURL = storage.reference(forURL: url)
         
         spotVideoURL.downloadURL { (URL, error) in
@@ -304,7 +308,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addNewPost" {
-            //let nav = segue.destination as! UINavigationController
             let newPostController = segue.destination as! NewPostController
             newPostController.spotDetailsItem = self.spotDetailsItem
         }

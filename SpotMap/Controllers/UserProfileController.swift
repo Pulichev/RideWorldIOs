@@ -58,7 +58,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         self.userBio.text = userInfo.bioDescription
         self.userNameAndSename.text = userInfo.nameAndSename
         
-        placeBorderOnTextView()
+//        placeBorderOnTextView()
     }
     
     func placeBorderOnTextView() {

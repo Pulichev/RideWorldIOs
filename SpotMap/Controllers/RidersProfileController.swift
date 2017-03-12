@@ -38,7 +38,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         self.ridersBio.text = ridersInfo.bioDescription
         self.userNameAndSename.text = ridersInfo.nameAndSename
         
-        placeBorderOnTextView()
+//        placeBorderOnTextView()
     }
     
     func placeBorderOnTextView() {
@@ -153,5 +153,14 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
             newPostInfoController.postInfo = spotPosts[selectedCellId]
             newPostInfoController.user = ridersInfo
         }
+    }
+    
+    // MARK: Following logic
+    @IBAction func followButtonTapped(_ sender: Any) {
+        let refToUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
+        
+        // adding follow to current user node
+        
+        // adding follow to aim user node
     }
 }

@@ -336,13 +336,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJu-t2-VWD">
                                 <rect key="frame" x="16" y="72" width="288" height="158"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vzh-Kq-S3x">
-                                        <rect key="frame" x="0.0" y="0.0" width="89" height="88"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="89" id="5Ad-2Y-utJ"/>
-                                            <constraint firstAttribute="height" constant="88" id="FCc-El-9Pr"/>
-                                        </constraints>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Sename" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mep-uq-G9T">
                                         <rect key="frame" x="102" y="0.0" width="187" height="17"/>
                                         <constraints>
@@ -406,6 +399,13 @@
                                         <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vzh-Kq-S3x">
+                                        <rect key="frame" x="0.0" y="0.0" width="89" height="88"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="89" id="5Ad-2Y-utJ"/>
+                                            <constraint firstAttribute="height" constant="88" id="FCc-El-9Pr"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>

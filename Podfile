@@ -12,6 +12,7 @@ target 'SpotMap' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Kingfisher', '~> 3.0'
+  pod 'SDWebImage', '~>3.7'
 
   # Pods for SpotMap
 

@@ -44,6 +44,9 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.8)
   - Kingfisher (3.2.4)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
   - SwiftLint (0.16.0)
 
 DEPENDENCIES:
@@ -54,6 +57,7 @@ DEPENDENCIES:
   - FirebaseAuth
   - Fusuma
   - Kingfisher (~> 3.0)
+  - SDWebImage (~> 3.7)
   - SwiftLint
 
 SPEC CHECKSUMS:
@@ -71,8 +75,9 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 6f8d8b28b7e345549ac471071608170b31cb4977
   Kingfisher: 8d80f39da403cd9c9ee11984e1655f4d6a566cdb
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SwiftLint: 90665265ae50b58167c674a11c680bbabe9d6513
 
-PODFILE CHECKSUM: f9bf6c930197859fa9a654068a6454c8ee77b18b
+PODFILE CHECKSUM: c12b62048690feb6b6bf7033b40262d97098becf
 
 COCOAPODS: 1.1.1

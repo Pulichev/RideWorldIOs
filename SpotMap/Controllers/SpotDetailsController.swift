@@ -158,8 +158,8 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             
             spotDetailsPhotoURL.downloadURL { (URL, error) in
                 let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-//                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-                imageViewForView.sd_setImage(with: URL)
+                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
+//                imageViewForView.sd_setImage(with: URL)
                 
                 DispatchQueue.main.async {
                     cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
@@ -176,7 +176,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                 } else {
                     let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                     let processor = BlurImageProcessor(blurRadius: 0.1)
-//                    imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
+                    imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
                     
                     DispatchQueue.main.async {
                         cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
@@ -197,9 +197,9 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                 print("\(error)")
             } else {
                 let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-//                imageViewForView.kf.indicatorType = .activity
-//                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-                imageViewForView.sd_setImage(with: URL)
+                imageViewForView.kf.indicatorType = .activity
+                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
+//                imageViewForView.sd_setImage(with: URL)
                 
                 DispatchQueue.main.async {
                     self.spotPostItemCellsCache[cacheKey].isCached = true

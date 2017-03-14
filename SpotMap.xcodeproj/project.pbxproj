@@ -45,6 +45,8 @@
 		9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D31E54587800C673CA /* RidersProfileController.swift */; };
 		9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD648DB1E573F0600C673CA /* Main.storyboard */; };
 		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
+		9FFB14F61E7848F600D10620 /* FollowerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F51E7848F600D10620 /* FollowerController.swift */; };
+		9FFB14F81E784E4B00D10620 /* FollowersTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F71E784E4B00D10620 /* FollowersTableCell.swift */; };
 		AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +118,8 @@
 		9FD648D31E54587800C673CA /* RidersProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileController.swift; path = Controllers/RidersProfileController.swift; sourceTree = "<group>"; };
 		9FD648DB1E573F0600C673CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
+		9FFB14F51E7848F600D10620 /* FollowerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowerController.swift; path = Controllers/FollowerController.swift; sourceTree = "<group>"; };
+		9FFB14F71E784E4B00D10620 /* FollowersTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersTableCell.swift; path = CustomUIElements/FollowersTableCell.swift; sourceTree = "<group>"; };
 		C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -252,6 +256,7 @@
 		9FC14FC61E48E5CB0097579B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9FFB14F51E7848F600D10620 /* FollowerController.swift */,
 				9FAE00A81E6880240010C6C1 /* MyStripController.swift */,
 				9FC14FC91E48E5E30097579B /* LoginController.swift */,
 				9FC14FCA1E48E5E30097579B /* MainFormController.swift */,
@@ -283,6 +288,7 @@
 				9FC14FDD1E48E7690097579B /* SpotPostsCell.swift */,
 				9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */,
 				9FBCFAE71E73445900A5C95D /* ImageManipulations.swift */,
+				9FFB14F71E784E4B00D10620 /* FollowersTableCell.swift */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -608,8 +614,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */,
+				9FFB14F61E7848F600D10620 /* FollowerController.swift in Sources */,
 				9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */,
 				9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */,
+				9FFB14F81E784E4B00D10620 /* FollowersTableCell.swift in Sources */,
 				9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */,
 				9FC14FD41E48E5E30097579B /* SpotDetailsController.swift in Sources */,
 				9FC14FE01E48E7690097579B /* SpotPostsCell.swift in Sources */,

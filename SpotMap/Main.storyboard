@@ -460,6 +460,7 @@
                         <outlet property="ridersProfilePhoto" destination="vzh-Kq-S3x" id="2pj-Ev-rKs"/>
                         <outlet property="userNameAndSename" destination="mep-uq-G9T" id="KAY-2x-76l"/>
                         <segue destination="WfP-RX-tLc" kind="show" identifier="goToPostInfo" id="qSk-1a-lLs"/>
+                        <segue destination="7kR-w8-gJL" kind="show" identifier="goToFollowersFromRidersNode" id="RlL-e4-xY6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4yy-2e-zws" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -649,7 +650,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="522"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kZK-Ti-fyZ" id="f8k-cG-rM6">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="521"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="521.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9M3-vR-ACh">
@@ -821,6 +822,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dOM-KR-kwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5325" y="62.323943661971832"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Rv1-dO-VKW">
+            <objects>
+                <viewController id="7kR-w8-gJL" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uvA-Hn-mOI"/>
+                        <viewControllerLayoutGuide type="bottom" id="Exw-I9-bcL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="350-Bi-pTK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nug-XO-aGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="624.375" y="-1601.4084507042253"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wKl-22-nCU">
@@ -1041,6 +1067,7 @@
                         <outlet property="userProfilePhoto" destination="ZcD-bw-aLL" id="yx0-Dp-W52"/>
                         <segue destination="rut-Zp-VLC" kind="show" identifier="editUserProfile" id="VHE-cE-WMz"/>
                         <segue destination="WfP-RX-tLc" kind="show" identifier="goToPostInfoFromUserProfile" id="eyf-4a-ZNN"/>
+                        <segue destination="7kR-w8-gJL" kind="show" identifier="goToFollowersFromUserNode" id="TeE-da-wxz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TrM-ku-OEb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1082,7 +1109,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NUz-cv-B5A" id="8aE-KM-EkY">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PTe-KH-xew">
@@ -1288,10 +1315,11 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Gef-69-N8A"/>
-        <segue reference="PDm-Oj-MlC"/>
-        <segue reference="TEa-lr-7L1"/>
         <segue reference="6R6-CY-IE2"/>
+        <segue reference="PDm-Oj-MlC"/>
+        <segue reference="Gef-69-N8A"/>
+        <segue reference="TEa-lr-7L1"/>
+        <segue reference="RlL-e4-xY6"/>
         <segue reference="qSk-1a-lLs"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -32,13 +32,13 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
             userFollowRef = userFollowRef.child("following")
         }
         
-        userFollowRef.observe(.value, with: { snapshot in
+        userFollowRef.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             if let followingsId = value?.allKeys as? [String] {
                 for followId in followingsId {
                     let followRef = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(followId)
                     
-                    followRef.observe(.value, with: { snapshot in
+                    followRef.observeSingleEvent(of: .value, with: { snapshot in
                         let followItem = UserItem(snapshot: snapshot)
                         
                         self.followList.append(followItem)

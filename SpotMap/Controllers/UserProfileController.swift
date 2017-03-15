@@ -195,6 +195,18 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         self.performSegue(withIdentifier: "editUserProfile", sender: self)
     }
     
+    private var fromFollowersOrFollowing: Bool! // true - followers else following
+    
+    @IBAction func followersButtonTapped(_ sender: Any) {
+        self.fromFollowersOrFollowing = true
+        self.performSegue(withIdentifier: "goToFollowersFromUserNode", sender: self)
+    }
+    
+    @IBAction func followingButtonTapped(_ sender: Any) {
+        self.fromFollowersOrFollowing = false
+        self.performSegue(withIdentifier: "goToFollowersFromUserNode", sender: self)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPostInfoFromUserProfile" {
             let newPostInfoController = segue.destination as! PostInfoViewController
@@ -207,6 +219,12 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             newEditProfileController.userInfo = self.userInfo
             newEditProfileController.userPhoto = UIImageView()
             newEditProfileController.userPhotoTemp = self.userProfilePhoto.image!
+        }
+        
+        if segue.identifier == "goToFollowersFromUserNode" {
+            let newFollowersController = segue.destination as! FollowersController
+            newFollowersController.userId = userInfo.uid
+            newFollowersController.followersOrFollowingList = self.fromFollowersOrFollowing
         }
     }
 }

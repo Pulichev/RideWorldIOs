@@ -44,7 +44,6 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         ref.queryOrderedByValue().observe(.value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             if let keys = value?.allKeys as? [String] {
-                
                 for key in keys {
                     let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                     

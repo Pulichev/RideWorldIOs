@@ -823,10 +823,10 @@
             </objects>
             <point key="canvasLocation" x="5325" y="62.323943661971832"/>
         </scene>
-        <!--View Controller-->
+        <!--Followers Controller-->
         <scene sceneID="Rv1-dO-VKW">
             <objects>
-                <viewController id="7kR-w8-gJL" sceneMemberID="viewController">
+                <viewController id="7kR-w8-gJL" customClass="FollowersController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uvA-Hn-mOI"/>
                         <viewControllerLayoutGuide type="bottom" id="Exw-I9-bcL"/>
@@ -835,7 +835,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR" userLabel="TableView">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -847,23 +847,36 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-eE-b3b">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-eE-b3b">
                                                     <rect key="frame" x="8" y="0.0" width="47" height="47"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="47" id="nyl-Js-Eo8"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkp-Wv-5RT">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkp-Wv-5RT">
                                                     <rect key="frame" x="197" y="8" width="115" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="115" id="UBK-Bo-w6H"/>
+                                                    </constraints>
                                                     <state key="normal" title="Follow/Unfollow"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="userNickName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3c-Z5-gxY">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userNickName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3c-Z5-gxY">
                                                     <rect key="frame" x="63" y="13" width="126" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="c3c-Z5-gxY" firstAttribute="centerY" secondItem="nkp-Wv-5RT" secondAttribute="centerY" id="2IG-97-oH4"/>
+                                                <constraint firstItem="0eh-eE-b3b" firstAttribute="leading" secondItem="4LW-F1-zBL" secondAttribute="leadingMargin" id="3sw-zr-BhB"/>
+                                                <constraint firstItem="nkp-Wv-5RT" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="topMargin" id="LXa-zn-o4o"/>
+                                                <constraint firstItem="c3c-Z5-gxY" firstAttribute="leading" secondItem="0eh-eE-b3b" secondAttribute="trailing" constant="8" symbolic="YES" id="Tjt-gN-h4g"/>
+                                                <constraint firstItem="0eh-eE-b3b" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="top" id="cdJ-jy-uUq"/>
+                                                <constraint firstItem="0eh-eE-b3b" firstAttribute="centerY" secondItem="c3c-Z5-gxY" secondAttribute="centerY" id="eLE-jU-TXy"/>
+                                                <constraint firstItem="nkp-Wv-5RT" firstAttribute="leading" secondItem="c3c-Z5-gxY" secondAttribute="trailing" constant="8" symbolic="YES" id="jHf-C1-e1v"/>
+                                                <constraint firstItem="nkp-Wv-5RT" firstAttribute="trailing" secondItem="4LW-F1-zBL" secondAttribute="trailingMargin" id="n2T-aD-I5R"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="button" destination="nkp-Wv-5RT" id="4Ee-ic-h4K"/>
@@ -872,10 +885,17 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="7kR-w8-gJL" id="k0s-GX-gMh"/>
+                                    <outlet property="delegate" destination="7kR-w8-gJL" id="rJy-fG-uxL"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="Zb5-Mj-NBR" id="OLO-nr-WC0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nug-XO-aGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1006,6 +1026,9 @@
                                                 <state key="normal" title="...">
                                                     <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="followersButtonTapped:" destination="MsB-Ex-yak" eventType="touchUpInside" id="Cpv-fn-VNo"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hY3-G1-obR">
                                                 <rect key="frame" x="179" y="30" width="46" height="16"/>
@@ -1016,6 +1039,9 @@
                                                 <state key="normal" title="...">
                                                     <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="followingButtonTapped:" destination="MsB-Ex-yak" eventType="touchUpInside" id="MMj-TV-929"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Following" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBU-jO-feh">
                                                 <rect key="frame" x="175" y="48" width="55" height="13"/>
@@ -1348,11 +1374,11 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6R6-CY-IE2"/>
-        <segue reference="PDm-Oj-MlC"/>
         <segue reference="Gef-69-N8A"/>
+        <segue reference="PDm-Oj-MlC"/>
         <segue reference="TEa-lr-7L1"/>
-        <segue reference="RlL-e4-xY6"/>
-        <segue reference="qSk-1a-lLs"/>
+        <segue reference="6R6-CY-IE2"/>
+        <segue reference="TeE-da-wxz"/>
+        <segue reference="eyf-4a-ZNN"/>
     </inferredMetricsTieBreakers>
 </document>

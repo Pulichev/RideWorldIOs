@@ -47,7 +47,7 @@ class FollowersTableCell: UITableViewCell {
         
         refToCurrentUserFollowings.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
-            if value?[self.follower.uid] != nil {
+            if value?[self.follower.uid] != nil { // TODO: check if its current user - > dismiss button
                 self.button.setTitle("Following", for: .normal)
             } else {
                 self.button.setTitle("Follow", for: .normal)

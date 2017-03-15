@@ -194,6 +194,12 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
             newPostInfoController.postInfo = spotPosts[selectedCellId]
             newPostInfoController.user = ridersInfo
         }
+        
+        if segue.identifier == "goToFollowersFromRidersNode" {
+            let newFollowersController = segue.destination as! FollowersController
+            newFollowersController.userId = self.ridersInfo.uid
+            newFollowersController.followersOrFollowingList = self.fromFollowersOrFollowing
+        }
     }
     
     // MARK: Following logic
@@ -202,6 +208,18 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         let currentUserId = FIRAuth.auth()?.currentUser?.uid
         
         addOrRemoveFollow(mainPartOfReference: refToUsers, currentUserId: currentUserId!)
+    }
+    
+    private var fromFollowersOrFollowing: Bool! // true - followers else following
+    
+    @IBAction func followersButtonTapped(_ sender: Any) {
+        self.fromFollowersOrFollowing = true
+        self.performSegue(withIdentifier: "goToFollowersFromRidersNode", sender: self)
+    }
+    
+    @IBAction func followingButtonTapped(_ sender: Any) {
+        self.fromFollowersOrFollowing = false
+        self.performSegue(withIdentifier: "goToFollowersFromRidersNode", sender: self)
     }
     
     private func addOrRemoveFollow(mainPartOfReference: FIRDatabaseReference, currentUserId: String) {

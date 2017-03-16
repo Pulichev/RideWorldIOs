@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseAuth
 
 class FollowersController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var tableView: UITableView!
@@ -65,10 +66,40 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cell.follower = self.followList[row]
         
+        // adding tap event -> perform segue to profile
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile(_:)))
+        cell.userImage.tag = row
+        cell.userImage.isUserInteractionEnabled = true
+        cell.userImage.addGestureRecognizer(tapGestureRecognizer)
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // idk if i will use it
+    }
+    
+    func goToProfile(_ sender: UIGestureRecognizer) {
+        if self.followList[(sender.view?.tag)!].uid == (FIRAuth.auth()?.currentUser?.uid)! {
+            self.performSegue(withIdentifier: "openUserProfileFromFollowList", sender: self)
+        } else {
+            self.ridersInfoForSending = self.followList[(sender.view?.tag)!]
+            self.performSegue(withIdentifier: "openRidersProfileFromFollowList", sender: self)
+        }
+    }
+    
+    var ridersInfoForSending: UserItem!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "openRidersProfileFromFollowList" {
+            let newRidersProfileController = segue.destination as! RidersProfileController
+            newRidersProfileController.ridersInfo = ridersInfoForSending
+            newRidersProfileController.title = ridersInfoForSending.login
+        }
+        
+        if segue.identifier == "openUserProfileFromFollowList" {
+            let userProfileController = segue.destination as! UserProfileController
+            userProfileController.cameFromSpotDetails = true
+        }
     }
 }

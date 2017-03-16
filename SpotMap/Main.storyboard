@@ -279,11 +279,11 @@
                         <viewControllerLayoutGuide type="bottom" id="G3a-J6-6BS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Li1-zP-62y">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-VA-zc6">
-                                <rect key="frame" x="0.0" y="174" width="320" height="330"/>
+                                <rect key="frame" x="0.0" y="194" width="320" height="374"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="281" id="Cc1-cj-fzC"/>
@@ -334,7 +334,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJu-t2-VWD">
-                                <rect key="frame" x="16" y="8" width="288" height="158"/>
+                                <rect key="frame" x="16" y="28" width="288" height="158"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Sename" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mep-uq-G9T">
                                         <rect key="frame" x="102" y="0.0" width="187" height="17"/>
@@ -841,9 +841,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR" userLabel="TableView">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR" userLabel="TableView">
+                                <rect key="frame" x="0.0" y="20" width="320" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowersTableCell" rowHeight="48" id="kVo-9F-P8O" customClass="FollowersTableCell" customModule="SpotMap" customModuleProvider="target">
@@ -859,6 +858,9 @@
                                                         <constraint firstAttribute="width" constant="115" id="UBK-Bo-w6H"/>
                                                     </constraints>
                                                     <state key="normal" title="Follow/Unfollow"/>
+                                                    <connections>
+                                                        <action selector="followButtonTapped:" destination="kVo-9F-P8O" eventType="touchUpInside" id="itb-e4-Qss"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userNickName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3c-Z5-gxY">
                                                     <rect key="frame" x="63" y="13" width="126" height="21"/>
@@ -899,9 +901,17 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Zb5-Mj-NBR" secondAttribute="trailing" id="ELI-0y-bdl"/>
+                            <constraint firstItem="Zb5-Mj-NBR" firstAttribute="top" secondItem="uvA-Hn-mOI" secondAttribute="bottom" id="QWW-7g-emb"/>
+                            <constraint firstItem="Exw-I9-bcL" firstAttribute="top" secondItem="Zb5-Mj-NBR" secondAttribute="bottom" constant="49" id="Wr9-x3-cSI"/>
+                            <constraint firstItem="Zb5-Mj-NBR" firstAttribute="leading" secondItem="350-Bi-pTK" secondAttribute="leading" id="s6x-rY-TY5"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="Zb5-Mj-NBR" id="OLO-nr-WC0"/>
+                        <segue destination="MsB-Ex-yak" kind="show" identifier="openUserProfileFromFollowList" id="Oe2-wo-WXX"/>
+                        <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromFollowList" id="WTf-CW-Cn6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nug-XO-aGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -941,7 +951,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mW1-6j-tMI">
-                                <rect key="frame" x="0.0" y="8" width="320" height="503"/>
+                                <rect key="frame" x="0.0" y="57" width="320" height="503"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="C4x-Bn-Hds">
                                         <rect key="frame" x="0.0" y="189" width="320" height="319"/>
@@ -1383,9 +1393,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="Gef-69-N8A"/>
         <segue reference="PDm-Oj-MlC"/>
-        <segue reference="TEa-lr-7L1"/>
+        <segue reference="WTf-CW-Cn6"/>
         <segue reference="TeE-da-wxz"/>
+        <segue reference="Oe2-wo-WXX"/>
         <segue reference="eyf-4a-ZNN"/>
-        <segue reference="jpU-0R-xWX"/>
     </inferredMetricsTieBreakers>
 </document>

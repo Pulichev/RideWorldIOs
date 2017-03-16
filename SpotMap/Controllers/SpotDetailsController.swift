@@ -99,17 +99,17 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         let cellFromCache = spotPostItemCellsCache[row]
-        cell.post = cellFromCache.post
-        cell.userInfo = cellFromCache.userInfo
+        cell.post                 = cellFromCache.post
+        cell.userInfo             = cellFromCache.userInfo
         cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
-        cell.userNickName.tag = row //for segue to send userId to ridersProfile
+        cell.userNickName.tag     = row//for segue to send userId to ridersProfile
         cell.userNickName.addTarget(self, action: #selector(SpotDetailsController.nickNameTapped), for: .touchUpInside)
-        cell.postDate.text = cellFromCache.postDate.text
+        cell.postDate.text        = cellFromCache.postDate.text
         cell.postDescription.text = cellFromCache.postDescription.text
-        cell.likesCount.text = String(cellFromCache.likesCount)
-        cell.postIsLiked = cellFromCache.postIsLiked
-        cell.isPhoto = cellFromCache.isPhoto
-        cell.isLikedPhoto.image = cellFromCache.isLikedPhoto.image
+        cell.likesCount.text      = String(cellFromCache.likesCount)
+        cell.postIsLiked          = cellFromCache.postIsLiked
+        cell.isPhoto              = cellFromCache.isPhoto
+        cell.isLikedPhoto.image   = cellFromCache.isLikedPhoto.image
         setMediaOnCellFromCacheOrDownload(cell: cell, cacheKey: row) //cell.spotPostPhoto setting async
         cell.addDoubleTapGestureOnPostPhotos()
         

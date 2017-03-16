@@ -52,7 +52,7 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift"
-                  timestampString = "511303537.72754"
+                  timestampString = "511374800.588193"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "27"
@@ -67,7 +67,7 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift"
-                  timestampString = "511303537.730586"
+                  timestampString = "511374800.589774"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "23"
@@ -100,7 +100,7 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift"
-                  timestampString = "511303537.744283"
+                  timestampString = "511374800.593287"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "27"
@@ -115,7 +115,7 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift"
-                  timestampString = "511303537.746797"
+                  timestampString = "511374800.594789"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "23"
@@ -123,70 +123,6 @@
                   offsetFromSymbolStart = "92">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpotMap/Controllers/SpotDetailsController.swift"
-            timestampString = "511289172.853468"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "downloadOriginalImage(cell:cacheKey:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SpotMap.SpotDetailsController.((downloadOriginalImage in _78B0699A330764694F38DF0B10246808) (cell : SpotMap.SpotPostsCell, cacheKey : Swift.Int) -&gt; ()).(closure #1)"
-                  moduleName = "SpotMap"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/Controllers/SpotDetailsController.swift"
-                  timestampString = "511303537.761439"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "203"
-                  endingLineNumber = "203"
-                  offsetFromSymbolStart = "1350">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SpotMap.SpotDetailsController.((downloadOriginalImage in _78B0699A330764694F38DF0B10246808) (cell : SpotMap.SpotPostsCell, cacheKey : Swift.Int) -&gt; ()).(closure #1).(closure #1)"
-                  moduleName = "SpotMap"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/Controllers/SpotDetailsController.swift"
-                  timestampString = "511303537.763114"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "204"
-                  endingLineNumber = "204"
-                  offsetFromSymbolStart = "27">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SpotMap/CustomUIElements/FollowersTableCell.swift"
-            timestampString = "511299100.18811"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "FollowersTableCell"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

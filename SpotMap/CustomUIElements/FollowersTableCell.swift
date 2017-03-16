@@ -46,11 +46,17 @@ class FollowersTableCell: UITableViewCell {
         let refToCurrentUserFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(currentUserId!).child("following")
         
         refToCurrentUserFollowings.observeSingleEvent(of: .value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            if value?[self.follower.uid] != nil { // TODO: check if its current user - > dismiss button
-                self.button.setTitle("Following", for: .normal)
+            let listOfFollowers = snapshot.value as? [String: Bool]
+            
+            if self.follower.uid != currentUserId! { // if this follower - current user then hide button
+                if (listOfFollowers?.keys.contains(self.follower.uid))! { // TODO: check if its current user - > dismiss button
+                    self.button.setTitle("Following", for: .normal)
+                } else {
+                    self.button.setTitle("Follow", for: .normal)
+                }
             } else {
-                self.button.setTitle("Follow", for: .normal)
+                //self.button.isEnabled = false
+                self.button.isHidden = true
             }
         })
     }

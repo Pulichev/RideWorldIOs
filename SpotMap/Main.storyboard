@@ -636,10 +636,10 @@
             </objects>
             <point key="canvasLocation" x="4275" y="1891"/>
         </scene>
-        <!--Spot Details Controller-->
+        <!--Posts Strip Controller-->
         <scene sceneID="6sC-96-HMd">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="LlJ-V1-BNZ" customClass="SpotDetailsController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="LlJ-V1-BNZ" customClass="PostsStripController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Eay-uF-Zo2"/>
                         <viewControllerLayoutGuide type="bottom" id="xLa-BH-f7x"/>

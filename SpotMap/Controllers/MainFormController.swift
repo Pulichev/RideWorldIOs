@@ -14,7 +14,7 @@ class MainFormController: UIViewController {
     
     var spotsFromDB = [SpotDetailsItem]()
     
-    var spotDetailsForSendToSpotDetailsController: SpotDetailsItem!
+    var spotDetailsForSendToPostsStripController: SpotDetailsItem!
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -216,7 +216,7 @@ extension MainFormController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("details tapped")
         let customAnnotation = view.annotation as! CustomPin
-        self.spotDetailsForSendToSpotDetailsController = customAnnotation.spotDetailsItem
+        self.spotDetailsForSendToPostsStripController = customAnnotation.spotDetailsItem
         
         self.performSegue(withIdentifier: "spotDetailsTapped", sender: self)
     }
@@ -260,8 +260,8 @@ extension MainFormController: CLLocationManagerDelegate {
         }
         
         if(segue.identifier == "spotDetailsTapped") {
-            let spotDetailsController = (segue.destination as! SpotDetailsController)
-            spotDetailsController.spotDetailsItem = spotDetailsForSendToSpotDetailsController
+            let postsStripController = (segue.destination as! PostsStripController)
+            postsStripController.spotDetailsItem = spotDetailsForSendToPostsStripController
         }
     }
 }

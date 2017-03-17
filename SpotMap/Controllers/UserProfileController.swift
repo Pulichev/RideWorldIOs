@@ -24,7 +24,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet var followingButton: UIButton!
     
     @IBOutlet var userProfileCollection: UICollectionView!
-    var spotPosts = [SpotPostItem]()
+    var spotPosts = [PostItem]()
     var spotsPostsImages = [UIImageView]()
     var cameFromSpotDetails = false
     
@@ -114,7 +114,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                 for (postId, _) in value {
                     let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
                     postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
-                        let spotPostItem = SpotPostItem(snapshot: snapshot)
+                        let spotPostItem = PostItem(snapshot: snapshot)
                         let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_resolution270x270.jpeg")
                         
                         photoRef.downloadURL { (URL, error) in

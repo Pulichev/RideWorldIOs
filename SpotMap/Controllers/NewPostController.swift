@@ -74,7 +74,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
         let createdDate = String(describing: Date())
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").childByAutoId()
         
-        let spotPostItem = SpotPostItem(isPhoto: self.isNewMediaIsPhoto, description: self.postDescription.text, createdDate: createdDate, spotId: self.spotDetailsItem.key, addedByUser: (user?.uid)!, key: ref.key)
+        let spotPostItem = PostItem(isPhoto: self.isNewMediaIsPhoto, description: self.postDescription.text, createdDate: createdDate, spotId: self.spotDetailsItem.key, addedByUser: (user?.uid)!, key: ref.key)
         ref.setValue(spotPostItem.toAnyObject())
         
         // add to user posts node

@@ -26,7 +26,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet var followingButton: UIButton!
     
     @IBOutlet var riderProfileCollection: UICollectionView!
-    var spotPosts = [SpotPostItem]()
+    var spotPosts = [PostItem]()
     var spotsPostsImages = [UIImageView]()
     
     override func viewDidLoad() {
@@ -111,7 +111,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                 for post in value {
                     let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(post.key as! String)
                     postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
-                        let spotPostItem = SpotPostItem(snapshot: snapshot)
+                        let spotPostItem = PostItem(snapshot: snapshot)
                         let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_resolution270x270.jpeg")
                         
                         photoRef.downloadURL { (URL, error) in

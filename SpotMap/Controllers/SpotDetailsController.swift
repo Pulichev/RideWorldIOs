@@ -16,11 +16,12 @@ import SDWebImage
 
 class SpotDetailsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
+    var cameFromSpotOrMyStrip: Bool!
     
-    var spotDetailsItem: SpotDetailsItem!
+    var spotDetailsItem: SpotDetailsItem! // using it if come from spot
     
-    private var spotPosts = [SpotPostItem]()
-    private var spotPostItemCellsCache = [SpotPostItemCellCache]()
+    private var _posts = [PostItem]()
+    private var spotPostItemCellsCache = [PostItemCellCache]()
     
     private var mediaCache = NSMutableDictionary()
     
@@ -48,10 +49,10 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
                     let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                     
                     ref.observeSingleEvent(of: .value, with: { snapshot in
-                        let spotPostItem = SpotPostItem(snapshot: snapshot)
-                        self.spotPosts.append(spotPostItem)
+                        let spotPostItem = PostItem(snapshot: snapshot)
+                        self._posts.append(spotPostItem)
                         
-                        let newSpotPostCellCache = SpotPostItemCellCache(spotPost: spotPostItem)
+                        let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem)
                         newSpotPostCellCache.userLikedThisPost()
                         self.spotPostItemCellsCache.append(newSpotPostCellCache)
                         
@@ -69,8 +70,8 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         var i = 0
         
         DispatchQueue.main.async {
-            for post in self.spotPosts {
-                let newSpotPostCellCache = SpotPostItemCellCache(spotPost: post)
+            for post in self._posts {
+                let newSpotPostCellCache = PostItemCellCache(spotPost: post)
                 
                 self.spotPostItemCellsCache.append(newSpotPostCellCache)
                 self.tableView.reloadData()
@@ -86,11 +87,11 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.spotPosts.count
+        return self._posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SpotPostsCell", for: indexPath) as! SpotPostsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCell", for: indexPath) as! PostsCell
         let row = indexPath.row
         
         if cell.userLikedOrDeletedLike { //when cell appears checking if like was tapped
@@ -117,7 +118,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let customCell = cell as! SpotPostsCell
+        let customCell = cell as! PostsCell
         if (!customCell.isPhoto && customCell.player != nil) {
             if (customCell.player.rate != 0 && (customCell.player.error == nil)) {
                 // player is playing
@@ -137,11 +138,11 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    func setMediaOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
+    func setMediaOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
         cell.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
         
         //Downloading and caching media
-        if spotPosts[cacheKey].isPhoto {
+        if _posts[cacheKey].isPhoto {
             setImageOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
         } else {
             setVideoOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
@@ -150,9 +151,9 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
     
     private var _mainPartOfMediaref: String!
     
-    func setImageOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
+    func setImageOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
         if self.spotPostItemCellsCache[cacheKey].isCached {
-            let url = _mainPartOfMediaref + self.spotPosts[cacheKey].key + "_resolution700x700.jpeg"
+            let url = _mainPartOfMediaref + self._posts[cacheKey].key + "_resolution700x700.jpeg"
             let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
             
             spotDetailsPhotoURL.downloadURL { (URL, error) in
@@ -166,7 +167,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
             }
         } else {
             // download thumbnail first
-            let thumbnailUrl = _mainPartOfMediaref + self.spotPosts[cacheKey].key + "_resolution10x10.jpeg"
+            let thumbnailUrl = _mainPartOfMediaref + self._posts[cacheKey].key + "_resolution10x10.jpeg"
             let spotPostPhotoThumbnailURL = FIRStorage.storage().reference(forURL: thumbnailUrl)
             
             spotPostPhotoThumbnailURL.downloadURL { (URL, error) in
@@ -187,8 +188,8 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    private func downloadOriginalImage(cell: SpotPostsCell, cacheKey: Int) {
-        let url = _mainPartOfMediaref + self.spotPosts[cacheKey].key + "_resolution700x700.jpeg"
+    private func downloadOriginalImage(cell: PostsCell, cacheKey: Int) {
+        let url = _mainPartOfMediaref + self._posts[cacheKey].key + "_resolution700x700.jpeg"
         let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
         
         spotDetailsPhotoURL.downloadURL { (URL, error) in
@@ -208,7 +209,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    func setVideoOnCellFromCacheOrDownload(cell: SpotPostsCell, cacheKey: Int) {
+    func setVideoOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
         if (self.mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
             let cachedAsset = self.mediaCache.object(forKey: cacheKey) as? AVAsset
             cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
@@ -223,9 +224,9 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    private func downloadThumbnail(cacheKey: Int, cell: SpotPostsCell) {
+    private func downloadThumbnail(cacheKey: Int, cell: PostsCell) {
         let storage = FIRStorage.storage()
-        let postKey = self.spotPosts[cacheKey].key
+        let postKey = self._posts[cacheKey].key
         let url = _mainPartOfMediaref + postKey + "_resolution10x10.jpeg"
         let spotVideoThumbnailURL = storage.reference(forURL: url)
         
@@ -246,9 +247,9 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: SpotPostsCell) {
+    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCell) {
         let storage = FIRStorage.storage()
-        let postKey = self.spotPosts[cacheKey].key
+        let postKey = self._posts[cacheKey].key
         let url = _mainPartOfMediaref + postKey + "_resolution270x270.jpeg"
         let spotVideoThumbnailURL = storage.reference(forURL: url)
         
@@ -269,7 +270,7 @@ class SpotDetailsController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    private func downloadVideo(postKey: String, cacheKey: Int, cell: SpotPostsCell) {
+    private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCell) {
         let storage = FIRStorage.storage()
         let url = _mainPartOfMediaref + postKey + ".m4v"
         let spotVideoURL = storage.reference(forURL: url)

@@ -25,7 +25,7 @@ class addThumbnailsAndAddSpotIdToSpotPostsTEMP  {
                             let spotPostDBRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postLink.key)
                             
                             spotPostDBRef.observe(.value, with: { snapshot2 in
-                                let spotPostItem = SpotPostItem(snapshot: snapshot2)
+                                let spotPostItem = PostItem(snapshot: snapshot2)
                                 // adding to post spotId
 //                                spotPostDBRef.setValue([
 //                                    "addedByUser" : spotPostItem.addedByUser,

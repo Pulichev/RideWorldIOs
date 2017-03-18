@@ -28,6 +28,8 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
         
         self.userPhoto.image = userPhotoTemp
         self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
+        
+        tableView.tableFooterView = UIView(frame: .zero) // deleting empty rows
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {

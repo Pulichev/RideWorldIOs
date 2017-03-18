@@ -115,6 +115,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                     let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
                     postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = PostItem(snapshot: snapshot)
+                        self.spotPosts.append(spotPostItem)
+                        
                         let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_resolution270x270.jpeg")
                         
                         photoRef.downloadURL { (URL, error) in

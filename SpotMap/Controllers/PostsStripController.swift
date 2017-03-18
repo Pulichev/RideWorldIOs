@@ -32,7 +32,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/"// + self.spotDetailsItem.key + "/" // will use it in media download
+        self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
         DispatchQueue.global(qos: .userInitiated).async {
             if self.cameFromSpotOrMyStrip {
                 self.loadSpotPosts()

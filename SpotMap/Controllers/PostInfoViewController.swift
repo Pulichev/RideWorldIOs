@@ -9,10 +9,12 @@
 import Foundation
 import UIKit
 import AVFoundation
+import FirebaseStorage
+import FirebaseDatabase
+import FirebaseAuth
+import Kingfisher
 
 class PostInfoViewController: UIViewController {
-    var backendless: Backendless!
-    
     var postInfo: PostItem!
     var user: UserItem!
     
@@ -24,7 +26,7 @@ class PostInfoViewController: UIViewController {
     @IBOutlet var postDescription: UITextView!
     @IBOutlet var isLikedPhoto: UIImageView!
     @IBOutlet var likesCount: UILabel!
-    var likesCountInt = Int()
+    var likesCountInt = 0
     
     var isPhoto: Bool!
     var postIsLiked: Bool!
@@ -47,6 +49,7 @@ class PostInfoViewController: UIViewController {
             self.userLikedThisPost()
             self.addDoubleTapGestureOnPostMedia()
         }
+        self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
         self.addMediaToView()
     }
     
@@ -58,35 +61,249 @@ class PostInfoViewController: UIViewController {
         spotPostMedia.isUserInteractionEnabled = true
     }
     
-    func postLiked(_ sender: Any) {
-        
-    }
-    
-    func addNewLike() {
-        
-    }
-    
-    func removeExistedLike() {
-        
+    func countPostLikes() {
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes")
+        //catch if user liked this post
+        likeRef.observe(.value, with: { snapshot in
+            self.likesCountInt = snapshot.children.allObjects.count
+        })
     }
     
     func userLikedThisPost() {
-        
+        let userId = FIRAuth.auth()?.currentUser?.uid
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(userId!)
+        // catch if user liked this post
+        likeRef.observe(.value, with: { snapshot in
+            if let value = snapshot.value as? [String : Any] {
+                self.postIsLiked = true
+                self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+            } else {
+                self.postIsLiked = false
+                self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+            }
+        })
     }
     
-    func countPostLikes() {
+    func postLiked(_ sender: Any) {
+        userLikedOrDeletedLike = true
         
+        if(!self.postIsLiked) {
+            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+            let countOfLikesInt = Int(self.likesCount.text!)
+            self.likesCount.text = String(countOfLikesInt! + 1)
+            addNewLike()
+            self.postIsLiked = true
+        } else {
+            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+            let countOfLikesInt = Int(self.likesCount.text!)
+            self.likesCount.text = String(countOfLikesInt! - 1)
+            removeExistedLike()
+            
+            self.postIsLiked = false
+        }
+    }
+    
+    // MARK: Add new like part
+    private var newLike: LikeItem!
+    private var userId: String!
+    
+    func addNewLike() {
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").childByAutoId()
+        
+        // init new like
+        let likeId = likeRef.key
+        self.userId = FIRAuth.auth()?.currentUser?.uid
+        let likePlacedTime = String(describing: Date())
+        self.newLike = LikeItem(likeId: likeId, userId: self.user.uid, postId: self.postInfo.key, likePlacedTime: likePlacedTime)
+        
+        addLikeToLikeNode()
+        addLikeToUserNode()
+        addLikeToPostNode()
+    }
+    
+    func addLikeToLikeNode() {
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").childByAutoId()
+        likeRef.setValue(self.newLike.toAnyObject())
+    }
+    
+    func addLikeToUserNode() {
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.user.uid).child("likePlaced/onposts").child(self.postInfo.key)
+        likeRef.setValue(self.newLike.toAnyObject())
+    }
+    
+    func addLikeToPostNode() {
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(self.user.uid)
+        likeRef.setValue(self.newLike.toAnyObject())
+    }
+    
+    // MARK: Remove existing like part
+    private var likeId: String! // value to construct refs for deleting
+    
+    func removeExistedLike() {
+        self.userId = FIRAuth.auth()?.currentUser?.uid
+        
+        // we will remove it in reverse order
+        removeLikeFromPostNode()
+        removeLikeFromUserNode()
+        removeLikeFromLikeNode()
+    }
+    
+    func removeLikeFromPostNode() {
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(self.user.uid)
+        // catch like id for delete next from likes Node
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            self.likeId = value?["likeId"] as? String ?? ""
+        })
+        likeRef.removeValue()
+    }
+    
+    func removeLikeFromUserNode() {
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.user.uid).child("likePlaced/onposts").child(self.postInfo.key)
+        likeRef.removeValue()
+    }
+    
+    func removeLikeFromLikeNode() {
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").child(self.postInfo.key)
+        likeRef.removeValue()
     }
     
     func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked
-        
+        if (!postIsLiked) {
+            postIsLiked = true
+            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+            likesCountInt += 1
+        } else {
+            postIsLiked = false
+            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+            likesCountInt -= 1
+        }
     }
     
+    // MARK: ADD MEDIA
     func addMediaToView() {
+        self.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
         
+        //Downloading and caching media
+        if self.postInfo.isPhoto {
+            setImageOnCellFromCacheOrDownload()
+        } else {
+            setVideoOnCellFromCacheOrDownload()
+        }
     }
     
-    func makeThumbnailFirst(postId: String) {
+    private var _mainPartOfMediaref: String!
     
+    func setImageOnCellFromCacheOrDownload() {
+        // download thumbnail first
+        let thumbnailUrl = _mainPartOfMediaref + self.postInfo.spotId + "/" + self.postInfo.key + "_resolution10x10.jpeg"
+        let spotPostPhotoThumbnailURL = FIRStorage.storage().reference(forURL: thumbnailUrl)
+        
+        spotPostPhotoThumbnailURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+                let processor = BlurImageProcessor(blurRadius: 0.1)
+                imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
+                
+                DispatchQueue.main.async {
+                    self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                }
+                
+                self.downloadOriginalImage()
+            }
+        }
+    }
+    
+    private func downloadOriginalImage() {
+        let url = _mainPartOfMediaref + self.postInfo.spotId + "/" + self.postInfo.key + "_resolution700x700.jpeg"
+        let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
+        
+        spotDetailsPhotoURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+                imageViewForView.kf.indicatorType = .activity
+                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
+                
+                DispatchQueue.main.async {
+                    self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                }
+            }
+        }
+    }
+    
+    func setVideoOnCellFromCacheOrDownload() {
+        downloadThumbnail()
+    }
+    
+    private func downloadThumbnail() {
+        let storage = FIRStorage.storage()
+        let postKey = self.postInfo.key
+        let url = _mainPartOfMediaref + self.postInfo.spotId + "/" + postKey + "_resolution10x10.jpeg"
+        let spotVideoThumbnailURL = storage.reference(forURL: url)
+        
+        spotVideoThumbnailURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                // thumbnail!
+                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+                let processor = BlurImageProcessor(blurRadius: 0.1)
+                imageViewForView.kf.setImage(with: URL!, placeholder: nil, options: [.processor(processor)])
+                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                
+                self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                
+                self.downloadBigThumbnail()
+            }
+        }
+    }
+    
+    private func downloadBigThumbnail() {
+        let storage = FIRStorage.storage()
+        let postKey = self.postInfo.key
+        let url = _mainPartOfMediaref  + self.postInfo.spotId + "/" + postKey + "_resolution270x270.jpeg"
+        let spotVideoThumbnailURL = storage.reference(forURL: url)
+        
+        spotVideoThumbnailURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                // thumbnail!
+                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+                let processor = BlurImageProcessor(blurRadius: 0.1)
+                imageViewForView.kf.setImage(with: URL!, placeholder: nil, options: [.processor(processor)])
+                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                
+                self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                
+                self.downloadVideo()
+            }
+        }
+    }
+    
+    private func downloadVideo() {
+        let storage = FIRStorage.storage()
+        let url = _mainPartOfMediaref + self.postInfo.spotId + "/" + self.postInfo.key + ".m4v"
+        let spotVideoURL = storage.reference(forURL: url)
+        
+        spotVideoURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                let assetForCache = AVAsset(url: URL!)
+                self.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+                let playerLayer = AVPlayerLayer(player: self.player)
+                playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                playerLayer.frame = self.spotPostMedia.bounds
+                
+                self.spotPostMedia.layer.addSublayer(playerLayer)
+                
+                self.player.play()
+            }
+        }
     }
 }

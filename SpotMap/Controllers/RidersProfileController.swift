@@ -90,7 +90,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     
     func initializeUserPhoto() {
         let storage = FIRStorage.storage()
-        let url = "gs://spotmap-e3116.appspot.com/media/userMainPhotoURLs/" + self.ridersInfo.uid + ".jpeg"
+        let url = "gs://spotmap-e3116.appspot.com/media/userMainPhotoURLs/" + self.ridersInfo.uid + "_resolution150x150.jpeg"
         let riderPhotoURL = storage.reference(forURL: url)
         
         riderPhotoURL.downloadURL { (URL, error) in

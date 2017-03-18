@@ -1249,7 +1249,7 @@
         <scene sceneID="0tg-aH-qHF">
             <objects>
                 <tabBarController storyboardIdentifier="MainTabBarController" id="MgV-Y7-eTa" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="8OO-ZE-hBL">
+                    <tabBar key="tabBar" clipsSubviews="YES" contentMode="scaleAspectFill" translucent="NO" id="8OO-ZE-hBL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="0.39587505694279401" green="0.56884293636172667" blue="0.6507177982233503" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1357,7 +1357,10 @@
         <scene sceneID="5o6-bx-24x">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="B8Z-Pl-NXo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="ObW-9v-5R9"/>
+                    <tabBarItem key="tabBarItem" title="" systemItem="favorites" id="ObW-9v-5R9">
+                        <inset key="imageInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="an1-kP-YTX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

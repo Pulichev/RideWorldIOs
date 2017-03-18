@@ -93,7 +93,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     
     func initializeUserPhoto() {
         let storage = FIRStorage.storage()
-        let url = "gs://spotmap-e3116.appspot.com/media/userMainPhotoURLs/" + self.userInfo.uid + ".jpeg"
+        let url = "gs://spotmap-e3116.appspot.com/media/userMainPhotoURLs/" + self.userInfo.uid + "_resolution150x150.jpeg"
         let riderPhotoURL = storage.reference(forURL: url)
         
         riderPhotoURL.downloadURL { (URL, error) in
@@ -218,7 +218,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             let newEditProfileController = segue.destination as! EditProfileController
             newEditProfileController.userInfo = self.userInfo
             newEditProfileController.userPhoto = UIImageView()
-            newEditProfileController.userPhotoTemp = self.userProfilePhoto.image!
+            if let image = self.userProfilePhoto.image {
+                newEditProfileController.userPhotoTemp = image
+            }
         }
         
         if segue.identifier == "goToFollowersFromUserNode" {

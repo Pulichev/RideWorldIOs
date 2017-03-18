@@ -85,7 +85,7 @@ class PostsCell: UITableViewCell {
     }
     
     func addLikeToLikeNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").childByAutoId()
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").child(newLike.likeId)
         likeRef.setValue(self.newLike.toAnyObject())
     }
     
@@ -108,7 +108,6 @@ class PostsCell: UITableViewCell {
         // we will remove it in reverse order
         removeLikeFromPostNode()
         removeLikeFromUserNode()
-        removeLikeFromLikeNode()
     }
     
     func removeLikeFromPostNode() {
@@ -117,6 +116,7 @@ class PostsCell: UITableViewCell {
         likeRef.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             self.likeId = value?["likeId"] as? String ?? ""
+            self.removeLikeFromLikeNode() // can do it only here cz of threading
         })
         likeRef.removeValue()
     }
@@ -127,7 +127,7 @@ class PostsCell: UITableViewCell {
     }
     
     func removeLikeFromLikeNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").child(self.post.key)
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").child(self.likeId)
         likeRef.removeValue()
     }
 }

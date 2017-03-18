@@ -26,8 +26,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet var followingButton: UIButton!
     
     @IBOutlet var riderProfileCollection: UICollectionView!
-    var spotPosts = [PostItem]()
-    var spotsPostsImages = [UIImageView]()
+    var spotPosts = [String: PostItem]()
+    var spotsPostsImages = [String: UIImageView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,11 +107,13 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.ridersInfo.uid).child("posts")
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
-            if let value = snapshot.value as? NSDictionary {
-                for post in value {
-                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(post.key as! String)
+            if let value = snapshot.value as? [String: Any] {
+                for (postId, _) in value {
+                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
                     postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = PostItem(snapshot: snapshot)
+                        self.spotPosts[postId] = spotPostItem
+                        
                         let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_resolution270x270.jpeg")
                         
                         photoRef.downloadURL { (URL, error) in
@@ -123,7 +125,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                                     let photo = UIImage(data: photoData as! Data)!
                                     let photoView = UIImageView(image: photo)
                                     
-                                    self.spotsPostsImages.append(photoView)
+                                    self.spotsPostsImages[postId] = photoView
                                     DispatchQueue.main.async {
                                         self.riderProfileCollection.reloadData()
                                     }
@@ -149,7 +151,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
         
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
-        cell.postPicture.image = self.spotsPostsImages[indexPath.row].image
+        let key = Array(self.spotsPostsImages.keys)[indexPath.row]
+        cell.postPicture.image = self.spotsPostsImages[key]?.image!
         
         return cell
     }
@@ -191,7 +194,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPostInfo" {
             let newPostInfoController = (segue.destination as! PostInfoViewController)
-            newPostInfoController.postInfo = spotPosts[selectedCellId]
+            let key = Array(self.spotPosts.keys)[selectedCellId]
+            newPostInfoController.postInfo = spotPosts[key]
             newPostInfoController.user = ridersInfo
         }
         

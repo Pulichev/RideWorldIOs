@@ -122,7 +122,7 @@ class PostInfoViewController: UIViewController {
     }
     
     func addLikeToLikeNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").childByAutoId()
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").child(self.newLike.likeId)
         likeRef.setValue(self.newLike.toAnyObject())
     }
     
@@ -145,7 +145,6 @@ class PostInfoViewController: UIViewController {
         // we will remove it in reverse order
         removeLikeFromPostNode()
         removeLikeFromUserNode()
-        removeLikeFromLikeNode()
     }
     
     func removeLikeFromPostNode() {
@@ -154,7 +153,9 @@ class PostInfoViewController: UIViewController {
         likeRef.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             self.likeId = value?["likeId"] as? String ?? ""
+            self.removeLikeFromLikeNode() // we can use it only from here bcz of threading
         })
+        
         likeRef.removeValue()
     }
     
@@ -164,7 +165,7 @@ class PostInfoViewController: UIViewController {
     }
     
     func removeLikeFromLikeNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").child(self.postInfo.key)
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").child(self.likeId)
         likeRef.removeValue()
     }
     
@@ -186,15 +187,15 @@ class PostInfoViewController: UIViewController {
         
         //Downloading and caching media
         if self.postInfo.isPhoto {
-            setImageOnCellFromCacheOrDownload()
+            setImage()
         } else {
-            setVideoOnCellFromCacheOrDownload()
+            setVideo()
         }
     }
     
     private var _mainPartOfMediaref: String!
     
-    func setImageOnCellFromCacheOrDownload() {
+    func setImage() {
         // download thumbnail first
         let thumbnailUrl = _mainPartOfMediaref + self.postInfo.spotId + "/" + self.postInfo.key + "_resolution10x10.jpeg"
         let spotPostPhotoThumbnailURL = FIRStorage.storage().reference(forURL: thumbnailUrl)
@@ -235,7 +236,7 @@ class PostInfoViewController: UIViewController {
         }
     }
     
-    func setVideoOnCellFromCacheOrDownload() {
+    func setVideo() {
         downloadThumbnail()
     }
     

@@ -262,6 +262,7 @@ extension MainFormController: CLLocationManagerDelegate {
         if(segue.identifier == "spotDetailsTapped") {
             let postsStripController = (segue.destination as! PostsStripController)
             postsStripController.spotDetailsItem = spotDetailsForSendToPostsStripController
+            postsStripController.cameFromSpotOrMyStrip = true // came from spot
         }
     }
 }

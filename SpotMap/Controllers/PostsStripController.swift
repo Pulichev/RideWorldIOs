@@ -16,14 +16,15 @@ import SDWebImage
 
 class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var tableView: UITableView!
-    var cameFromSpotOrMyStrip: Bool!
+    
+    var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
     
     var spotDetailsItem: SpotDetailsItem! // using it if come from spot
     
     private var _posts = [PostItem]()
-    private var spotPostItemCellsCache = [PostItemCellCache]()
+    private var _spotPostItemCellsCache = [PostItemCellCache]()
     
-    private var mediaCache = NSMutableDictionary()
+    private var _mediaCache = NSMutableDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +32,32 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" + self.spotDetailsItem.key + "/" // will use it in media download
-        
+        self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/"// + self.spotDetailsItem.key + "/" // will use it in media download
         DispatchQueue.global(qos: .userInitiated).async {
-            self.loadSpotPosts()
+            if self.cameFromSpotOrMyStrip {
+                self.loadSpotPosts()
+            } else {
+                self.loadMyStripPosts()
+            }
+        }
+    }
+    
+    //part for hide and view navbar from this navigation controller
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !cameFromSpotOrMyStrip {
+            // Hide the navigation bar on the this view controller
+            self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if !cameFromSpotOrMyStrip {
+            // Show the navigation bar on other view controllers
+            self.navigationController?.setNavigationBarHidden(false, animated: animated)
         }
     }
     
@@ -54,7 +77,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                         
                         let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem)
                         newSpotPostCellCache.userLikedThisPost()
-                        self.spotPostItemCellsCache.append(newSpotPostCellCache)
+                        self._spotPostItemCellsCache.append(newSpotPostCellCache)
                         
                         self.tableView.reloadData()
                     }) { (error) in
@@ -65,20 +88,43 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     
-    //First add must have info. Text info.
-    private func loadSpotPostCellsTextInfo() {
-        var i = 0
+    private func loadMyStripPosts() {
+        // get list of my followings
+        let currentUserId = FIRAuth.auth()?.currentUser?.uid
+        let refToFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!).child("following")
         
-        DispatchQueue.main.async {
-            for post in self._posts {
-                let newSpotPostCellCache = PostItemCellCache(spotPost: post)
-                
-                self.spotPostItemCellsCache.append(newSpotPostCellCache)
-                self.tableView.reloadData()
-                
-                i += 1
+        refToFollowings.observe(.value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            if let userIds = value?.allKeys as? [String] {
+                for userId in userIds {
+                    // get list of user posts
+                    let refToUserPosts = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId).child("posts")
+                    
+                    refToUserPosts.observe(.value, with: { snapshotOfPosts in
+                        let valueOfPosts = snapshotOfPosts.value as? NSDictionary
+                        if let postsIds = valueOfPosts?.allKeys as? [String] {
+                            for postId in postsIds {
+                                let refToPost = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId)
+                                
+                                // adding posts to our array
+                                refToPost.observeSingleEvent(of: .value, with: { snapshot in
+                                    let spotPostItem = PostItem(snapshot: snapshot)
+                                    self._posts.append(spotPostItem)
+                                    
+                                    let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem)
+                                    newSpotPostCellCache.userLikedThisPost()
+                                    self._spotPostItemCellsCache.append(newSpotPostCellCache)
+                                    
+                                    self.tableView.reloadData()
+                                }) { (error) in
+                                    print(error.localizedDescription)
+                                }
+                            }
+                        }
+                    })
+                }
             }
-        }
+        })
     }
     
     //Main table filling region
@@ -99,7 +145,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             updateCellLikesCache(objectId: cell.post.key) //if yes updating cache
         }
         
-        let cellFromCache = spotPostItemCellsCache[row]
+        let cellFromCache = _spotPostItemCellsCache[row]
         cell.post                 = cellFromCache.post
         cell.userInfo             = cellFromCache.userInfo
         cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
@@ -129,7 +175,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     }
     
     private func updateCellLikesCache(objectId: String) {
-        for postCellCache in spotPostItemCellsCache {
+        for postCellCache in _spotPostItemCellsCache {
             if postCellCache.post.key == objectId {
                 DispatchQueue.main.async {
                     postCellCache.changeLikeToDislikeAndViceVersa()
@@ -152,14 +198,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     private var _mainPartOfMediaref: String!
     
     func setImageOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
-        if self.spotPostItemCellsCache[cacheKey].isCached {
-            let url = _mainPartOfMediaref + self._posts[cacheKey].key + "_resolution700x700.jpeg"
+        if self._spotPostItemCellsCache[cacheKey].isCached {
+            let url = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + self._posts[cacheKey].key + "_resolution700x700.jpeg"
             let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
             
             spotDetailsPhotoURL.downloadURL { (URL, error) in
                 let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                 imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-//                imageViewForView.sd_setImage(with: URL)
                 
                 DispatchQueue.main.async {
                     cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
@@ -167,7 +212,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             }
         } else {
             // download thumbnail first
-            let thumbnailUrl = _mainPartOfMediaref + self._posts[cacheKey].key + "_resolution10x10.jpeg"
+            let thumbnailUrl = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + self._posts[cacheKey].key + "_resolution10x10.jpeg"
             let spotPostPhotoThumbnailURL = FIRStorage.storage().reference(forURL: thumbnailUrl)
             
             spotPostPhotoThumbnailURL.downloadURL { (URL, error) in
@@ -189,7 +234,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     }
     
     private func downloadOriginalImage(cell: PostsCell, cacheKey: Int) {
-        let url = _mainPartOfMediaref + self._posts[cacheKey].key + "_resolution700x700.jpeg"
+        let url = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + self._posts[cacheKey].key + "_resolution700x700.jpeg"
         let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
         
         spotDetailsPhotoURL.downloadURL { (URL, error) in
@@ -199,10 +244,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                 let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                 imageViewForView.kf.indicatorType = .activity
                 imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-//                imageViewForView.sd_setImage(with: URL)
-                
+
                 DispatchQueue.main.async {
-                    self.spotPostItemCellsCache[cacheKey].isCached = true
+                    self._spotPostItemCellsCache[cacheKey].isCached = true
                     cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
                 }
             }
@@ -210,8 +254,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func setVideoOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
-        if (self.mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
-            let cachedAsset = self.mediaCache.object(forKey: cacheKey) as? AVAsset
+        if (self._mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
+            let cachedAsset = self._mediaCache.object(forKey: cacheKey) as? AVAsset
             cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
             let playerLayer = AVPlayerLayer(player: (cell.player))
             playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -227,7 +271,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     private func downloadThumbnail(cacheKey: Int, cell: PostsCell) {
         let storage = FIRStorage.storage()
         let postKey = self._posts[cacheKey].key
-        let url = _mainPartOfMediaref + postKey + "_resolution10x10.jpeg"
+        let url = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + postKey + "_resolution10x10.jpeg"
         let spotVideoThumbnailURL = storage.reference(forURL: url)
         
         spotVideoThumbnailURL.downloadURL { (URL, error) in
@@ -250,7 +294,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCell) {
         let storage = FIRStorage.storage()
         let postKey = self._posts[cacheKey].key
-        let url = _mainPartOfMediaref + postKey + "_resolution270x270.jpeg"
+        let url = _mainPartOfMediaref  + self._posts[cacheKey].spotId + "/" + postKey + "_resolution270x270.jpeg"
         let spotVideoThumbnailURL = storage.reference(forURL: url)
         
         spotVideoThumbnailURL.downloadURL { (URL, error) in
@@ -272,7 +316,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCell) {
         let storage = FIRStorage.storage()
-        let url = _mainPartOfMediaref + postKey + ".m4v"
+        let url = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + postKey + ".m4v"
         let spotVideoURL = storage.reference(forURL: url)
         
         spotVideoURL.downloadURL { (URL, error) in
@@ -280,7 +324,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                 print("\(error)")
             } else {
                 let assetForCache = AVAsset(url: URL!)
-                self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
+                self._mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
                 cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
                 let playerLayer = AVPlayerLayer(player: cell.player)
                 playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -304,10 +348,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     //go to riders profile
     func nickNameTapped(sender: UIButton!) {
         // check if going to current user
-        if self.spotPostItemCellsCache[sender.tag].userInfo.uid == FIRAuth.auth()?.currentUser?.uid {
+        if self._spotPostItemCellsCache[sender.tag].userInfo.uid == FIRAuth.auth()?.currentUser?.uid {
             self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
         } else {
-            self.ridersInfoForSending = self.spotPostItemCellsCache[sender.tag].userInfo
+            self.ridersInfoForSending = self._spotPostItemCellsCache[sender.tag].userInfo
             self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
         }
     }

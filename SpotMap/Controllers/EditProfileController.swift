@@ -57,7 +57,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
         
         // saving 90x90
         let photo90x90 = ImageManipulations.resize(image: self.userPhoto.image!, targetSize: CGSize(width: 90.0, height: 90.0))
-        let userPhoto90x90ref = FIRStorage.storage().reference(withPath: "media/userMainPhotoURLs").child(self.userInfo.uid + "_resolution150x150.jpeg")
+        let userPhoto90x90ref = FIRStorage.storage().reference(withPath: "media/userMainPhotoURLs").child(self.userInfo.uid + "_resolution90x90.jpeg")
         //with low compression
         let dataLowCompressionFor90x90: Data = UIImageJPEGRepresentation(photo90x90, 0.8)!
         userPhoto90x90ref.put(dataLowCompressionFor90x90)

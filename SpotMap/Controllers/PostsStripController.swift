@@ -77,6 +77,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                         
                         let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem)
                         newSpotPostCellCache.userLikedThisPost()
+                        newSpotPostCellCache.countPostLikes()
                         self._spotPostItemCellsCache.append(newSpotPostCellCache)
                         
                         self.tableView.reloadData()
@@ -113,6 +114,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                     
                                     let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem)
                                     newSpotPostCellCache.userLikedThisPost()
+                                    newSpotPostCellCache.countPostLikes()
                                     self._spotPostItemCellsCache.append(newSpotPostCellCache)
                                     
                                     self.tableView.reloadData()

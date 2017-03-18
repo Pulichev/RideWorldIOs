@@ -31,8 +31,6 @@ class PostInfoViewController: UIViewController {
     var isPhoto: Bool!
     var postIsLiked: Bool!
     
-    var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,16 +62,17 @@ class PostInfoViewController: UIViewController {
     func countPostLikes() {
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes")
         //catch if user liked this post
-        likeRef.observe(.value, with: { snapshot in
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in
             self.likesCountInt = snapshot.children.allObjects.count
+            self.likesCount.text = String(describing: self.likesCountInt)
         })
     }
     
     func userLikedThisPost() {
-        let userId = FIRAuth.auth()?.currentUser?.uid
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(userId!)
+        let currentUserId = FIRAuth.auth()?.currentUser?.uid
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(currentUserId!)
         // catch if user liked this post
-        likeRef.observe(.value, with: { snapshot in
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? [String : Any] {
                 self.postIsLiked = true
                 self.isLikedPhoto.image = UIImage(named: "respectActive.png")
@@ -85,8 +84,6 @@ class PostInfoViewController: UIViewController {
     }
     
     func postLiked(_ sender: Any) {
-        userLikedOrDeletedLike = true
-        
         if(!self.postIsLiked) {
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
             let countOfLikesInt = Int(self.likesCount.text!)
@@ -132,7 +129,7 @@ class PostInfoViewController: UIViewController {
     }
     
     func addLikeToPostNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(self.user.uid)
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(self.userId)
         likeRef.setValue(self.newLike.toAnyObject())
     }
     
@@ -148,7 +145,7 @@ class PostInfoViewController: UIViewController {
     }
     
     func removeLikeFromPostNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(self.user.uid)
+        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(self.userId)
         // catch like id for delete next from likes Node
         likeRef.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary

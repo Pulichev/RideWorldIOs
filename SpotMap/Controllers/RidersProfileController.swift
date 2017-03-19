@@ -107,11 +107,11 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     func initializeUserPostsPhotos() {
-        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.ridersInfo.uid).child("posts")
+        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.ridersInfo.uid).child("posts") // ref for riders posts ids list
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? [String: Any] {
-                for (postId, _) in value {
+                for (postId, _) in value { // for each user post geting full post item
                     let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
                     postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = PostItem(snapshot: snapshot)
@@ -122,6 +122,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                             if let error = error {
                                 print("\(error)")
                             } else {
+                                // async images downloading
                                 URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
                                     if error != nil {
                                         print(error)

@@ -123,15 +123,14 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                             if let error = error {
                                 print("\(error)")
                             } else {
-                                DispatchQueue.global(qos: .userInteractive).async {
-                                    let photoData = NSData(contentsOf: URL!)
-                                    let photo = UIImage(data: photoData as! Data)!
-                                    let photoView = UIImageView(image: photo)
-                                    
-                                    self.spotsPostsImages[postId] = photoView
-                                    DispatchQueue.main.async {
-                                        self.userProfileCollection.reloadData()
-                                    }
+                                let photoData = NSData(contentsOf: URL!)
+                                let photo = UIImage(data: photoData as! Data)!
+                                let photoView = UIImageView(image: photo)
+                                
+                                self.spotsPostsImages[postId] = photoView
+                                
+                                DispatchQueue.main.async {
+                                    self.userProfileCollection.reloadData()
                                 }
                             }
                         }

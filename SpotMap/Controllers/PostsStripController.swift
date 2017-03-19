@@ -76,14 +76,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                         self._posts.append(spotPostItem)
                         
                         let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
-
-                        //newSpotPostCellCache.userLikedThisPost()
-                        //newSpotPostCellCache.countPostLikes()
                         self._spotPostItemCellsCache.append(newSpotPostCellCache)
-                        
-//                        DispatchQueue.main.async {
-//                            self.tableView.reloadData()
-//                        }
                     }) { (error) in
                         print(error.localizedDescription)
                     }
@@ -117,10 +110,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                     
                                     let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
                                     self._spotPostItemCellsCache.append(newSpotPostCellCache)
-                                    
-//                                    DispatchQueue.main.async {
-//                                        self.tableView.reloadData()
-//                                    }
                                 }) { (error) in
                                     print(error.localizedDescription)
                                 }
@@ -131,7 +120,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             }
         })
     }
-    //                                                                    ЛАЙКИ В ЛЕНТЕ И ПОРЯДОК ПУБЛИКАЦИЙ В ПРОФИЛЕ - СДЕЛАТЬ
+    
     // Main table filling region
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

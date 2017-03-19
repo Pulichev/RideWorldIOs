@@ -26,8 +26,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet var followingButton: UIButton!
     
     @IBOutlet var riderProfileCollection: UICollectionView!
-    var spotPosts = [String: PostItem]()
-    var spotsPostsImages = [String: UIImageView]()
+    var spotPosts = [PostItem]()
+    var spotsPostsImages = [UIImageView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,7 +112,6 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                     let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
                     postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = PostItem(snapshot: snapshot)
-                        self.spotPosts[postId] = spotPostItem
                         
                         let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_resolution270x270.jpeg")
                         
@@ -125,7 +124,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                                     let photo = UIImage(data: photoData as! Data)!
                                     let photoView = UIImageView(image: photo)
                                     
-                                    self.spotsPostsImages[postId] = photoView
+                                    self.spotsPostsImages.append(photoView)
+                                    self.spotPosts.append(spotPostItem)
+                                    
                                     DispatchQueue.main.async {
                                         self.riderProfileCollection.reloadData()
                                     }
@@ -151,8 +152,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
         
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
-        let key = Array(self.spotsPostsImages.keys)[indexPath.row]
-        cell.postPicture.image = self.spotsPostsImages[key]?.image!
+        cell.postPicture.image = self.spotsPostsImages[indexPath.row].image!
         
         return cell
     }
@@ -194,8 +194,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPostInfo" {
             let newPostInfoController = (segue.destination as! PostInfoViewController)
-            let key = Array(self.spotPosts.keys)[selectedCellId]
-            newPostInfoController.postInfo = spotPosts[key]
+            newPostInfoController.postInfo = spotPosts[selectedCellId]
             newPostInfoController.user = ridersInfo
         }
         

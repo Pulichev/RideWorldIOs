@@ -24,8 +24,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet var followingButton: UIButton!
     
     @IBOutlet var userProfileCollection: UICollectionView!
-    var spotPosts = [String: PostItem]()
-    var spotsPostsImages = [String: UIImageView]()
+    var spotPosts = [PostItem]()
+    var spotsPostsImages = [UIImageView]()
     var cameFromSpotDetails = false
     
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         
     }
     
-    //part for hide and view navbar from this navigation controller
+    // part for hide and view navbar from this navigation controller
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -115,7 +115,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                     let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
                     postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = PostItem(snapshot: snapshot)
-                        self.spotPosts[postId] = spotPostItem
                         
                         let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_resolution270x270.jpeg")
                         
@@ -127,7 +126,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                                 let photo = UIImage(data: photoData as! Data)!
                                 let photoView = UIImageView(image: photo)
                                 
-                                self.spotsPostsImages[postId] = photoView
+                                self.spotsPostsImages.append(photoView)
+                                self.spotPosts.append(spotPostItem)
                                 
                                 DispatchQueue.main.async {
                                     self.userProfileCollection.reloadData()
@@ -153,8 +153,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
         
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
-        let key = Array(self.spotsPostsImages.keys)[indexPath.row]
-        cell.postPicture.image = self.spotsPostsImages[key]?.image!
+        cell.postPicture.image = self.spotsPostsImages[indexPath.row].image!
         
         return cell
     }
@@ -212,8 +211,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPostInfoFromUserProfile" {
             let newPostInfoController = segue.destination as! PostInfoViewController
-            let key = Array(self.spotPosts.keys)[selectedCellId]
-            newPostInfoController.postInfo = spotPosts[key]
+            //let key = Array(self.spotPosts.keys)[selectedCellId]
+            newPostInfoController.postInfo = spotPosts[selectedCellId]
             newPostInfoController.user = userInfo
         }
         //send current profile data to editing

@@ -151,9 +151,8 @@ class PostInfoViewController: UIViewController {
             let value = snapshot.value as? NSDictionary
             self.likeId = value?["likeId"] as? String ?? ""
             self.removeLikeFromLikeNode() // we can use it only from here bcz of threading
+            likeRef.removeValue()
         })
-        
-        likeRef.removeValue()
     }
     
     func removeLikeFromUserNode() {

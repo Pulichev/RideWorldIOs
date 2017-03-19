@@ -13,7 +13,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import FirebaseAuth
 
-class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     var userInfo: UserItem!
     
     @IBOutlet var userNameAndSename: UILabel!
@@ -33,6 +33,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         
         let currentUserId = FIRAuth.auth()?.currentUser?.uid
         let currentUserRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!)
+        
+        self.userProfileCollection.emptyDataSetSource = self
+        self.userProfileCollection.emptyDataSetDelegate = self
         
         currentUserRef.observe(.value, with: { snapshot in
             self.userInfo = UserItem(snapshot: snapshot)
@@ -231,4 +234,24 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             newFollowersController.followersOrFollowingList = self.fromFollowersOrFollowing
         }
     }
+    
+    // MARK: DZNEmptyDataSet for empty data tables
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Welcome"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "You have no publications"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+    }
+    
+    // ENDMARK: DZNEmptyDataSet
 }

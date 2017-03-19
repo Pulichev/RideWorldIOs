@@ -4,7 +4,6 @@
 target 'SpotMap' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  pod ‘Backendless’
   pod 'SwiftLint'
   pod ‘Fusuma’
   pod 'Firebase/Storage'
@@ -12,7 +11,6 @@ target 'SpotMap' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Kingfisher', '~> 3.0'
-  pod 'SDWebImage', '~>3.7'
 
   # Pods for SpotMap
 

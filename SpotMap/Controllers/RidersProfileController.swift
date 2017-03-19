@@ -13,7 +13,7 @@ import FirebaseStorage
 import FirebaseDatabase
 import FirebaseAuth
 
-class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     var ridersInfo: UserItem!
     
     @IBOutlet var userNameAndSename: UILabel!
@@ -31,6 +31,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.riderProfileCollection.emptyDataSetSource = self
+        self.riderProfileCollection.emptyDataSetDelegate = self
         
         DispatchQueue.main.async {
             self.initializeUserTextInfo() //async loading user
@@ -270,4 +273,24 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
             self.followButton.setTitle("Follow", for: .normal)
         }
     }
+    
+    // MARK: DZNEmptyDataSet for empty data tables
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Welcome"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Riders have no publications"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+    }
+    
+    // ENDMARK: DZNEmptyDataSet
 }

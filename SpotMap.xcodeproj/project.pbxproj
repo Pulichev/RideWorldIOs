@@ -25,9 +25,11 @@
 		9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609841E7C6BB50000DB21 /* PostsCell.swift */; };
 		9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609861E7C8C990000DB21 /* PostsStripController.swift */; };
 		9F56098A1E7D43990000DB21 /* 1489850825_Home.ico in Resources */ = {isa = PBXBuildFile; fileRef = 9F5609891E7D43990000DB21 /* 1489850825_Home.ico */; };
+		9F6163471E7E89C1001664B7 /* no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6163461E7E89C1001664B7 /* no_photo.png */; };
 		9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F65321B1E3CD12700F58C18 /* Assets.xcassets */; };
 		9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73B09D1E6A0E490049563A /* UserItem.swift */; };
 		9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F943EE81E6F041300709B79 /* LikeItem.swift */; };
+		9FAE8C201E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */; };
 		9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */; };
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
 		9FB681CB1E2E70CE00D9A436 /* SpotMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681CA1E2E70CE00D9A436 /* SpotMapTests.swift */; };
@@ -92,9 +94,13 @@
 		9F5609841E7C6BB50000DB21 /* PostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCell.swift; path = CustomUIElements/PostsCell.swift; sourceTree = "<group>"; };
 		9F5609861E7C8C990000DB21 /* PostsStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsStripController.swift; path = Controllers/PostsStripController.swift; sourceTree = "<group>"; };
 		9F5609891E7D43990000DB21 /* 1489850825_Home.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = 1489850825_Home.ico; sourceTree = "<group>"; };
+		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
 		9F65321B1E3CD12700F58C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F73B09D1E6A0E490049563A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserItem.swift; path = Data/UserItem.swift; sourceTree = "<group>"; };
 		9F943EE81E6F041300709B79 /* LikeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeItem.swift; path = Data/LikeItem.swift; sourceTree = "<group>"; };
+		9FAE8C1D1E7E849100BB10B9 /* SpotMap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpotMap-Bridging-Header.h"; sourceTree = "<group>"; };
+		9FAE8C1E1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+EmptyDataSet.h"; path = "Some Obj-C frameworks/UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
+		9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+EmptyDataSet.m"; path = "Some Obj-C frameworks/UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		9FB681B21E2E70CE00D9A436 /* SpotMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FB681BF1E2E70CE00D9A436 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -175,6 +181,7 @@
 		9F2380721E34DA20009D41E8 /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				9F6163461E7E89C1001664B7 /* no_photo.png */,
 				9F5609881E7D437A0000DB21 /* Icons */,
 				9F4A844C1E632AE800C1E5F2 /* nameAndSename.png */,
 				9F4A844A1E632A3400C1E5F2 /* email.ico */,
@@ -203,6 +210,16 @@
 			name = TempFiles;
 			sourceTree = "<group>";
 		};
+		9FAE8C1C1E7E83F400BB10B9 /* Some Obj-C frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9FAE8C1E1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.h */,
+				9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */,
+				9FAE8C1D1E7E849100BB10B9 /* SpotMap-Bridging-Header.h */,
+			);
+			name = "Some Obj-C frameworks";
+			sourceTree = "<group>";
+		};
 		9FB681A91E2E70CD00D9A436 = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +245,7 @@
 		9FB681B41E2E70CE00D9A436 /* SpotMap */ = {
 			isa = PBXGroup;
 			children = (
+				9FAE8C1C1E7E83F400BB10B9 /* Some Obj-C frameworks */,
 				9F73B09A1E69ED7F0049563A /* TempFiles */,
 				9FC14FDA1E48E7590097579B /* CustomUIElements */,
 				9FC14FD71E48E7380097579B /* Core */,
@@ -393,6 +411,7 @@
 					9FB681B11E2E70CD00D9A436 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = D8RV5S3P38;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					9FB681C51E2E70CE00D9A436 = {
@@ -441,6 +460,7 @@
 				9F4A844D1E632AE800C1E5F2 /* nameAndSename.png in Resources */,
 				9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */,
 				9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */,
+				9F6163471E7E89C1001664B7 /* no_photo.png in Resources */,
 				9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */,
 				9F4A84491E6329D100C1E5F2 /* biography.png in Resources */,
 				9FBCFAE41E6F248C00A5C95D /* GoogleService-Info.plist in Resources */,
@@ -626,6 +646,7 @@
 				9FFB14F61E7848F600D10620 /* FollowersController.swift in Sources */,
 				9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */,
 				9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */,
+				9FAE8C201E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m in Sources */,
 				9FFB14F81E784E4B00D10620 /* FollowersTableCell.swift in Sources */,
 				9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */,
 				9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */,
@@ -796,12 +817,14 @@
 			baseConfigurationReference = 5A752A6ABE4F4F31D015688F /* Pods-SpotMap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = D8RV5S3P38;
 				INFOPLIST_FILE = SpotMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = VP.SpotMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "Pods/Backendless/SDK/ios/backendless/include/Backendless-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "SpotMap/SpotMap-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -811,12 +834,13 @@
 			baseConfigurationReference = 8580589E3175367EF665865F /* Pods-SpotMap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = D8RV5S3P38;
 				INFOPLIST_FILE = SpotMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = VP.SpotMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "Pods/Backendless/SDK/ios/backendless/include/Backendless-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "SpotMap/SpotMap-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

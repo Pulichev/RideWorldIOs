@@ -11,7 +11,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import FirebaseAuth
 
-class FollowersController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FollowersController: UIViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     @IBOutlet var tableView: UITableView!
     
     var userId: String!
@@ -21,8 +21,11 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         self.loadFollowList()
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.tableFooterView = UIView()
     }
     
     private func loadFollowList() {
@@ -102,4 +105,20 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
             userProfileController.cameFromSpotDetails = true
         }
     }
+    
+    // MARK: DZNEmptyDataSet for empty data tables
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = ":("
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Nothing to show"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    // ENDMARK: DZNEmptyDataSet
 }

@@ -12,9 +12,8 @@ import Firebase
 import FirebaseDatabase
 import FirebaseStorage
 import Kingfisher
-import SDWebImage
 
-class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
@@ -31,13 +30,16 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
+        self.tableView.tableFooterView = UIView()
         
         self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
         DispatchQueue.global(qos: .userInitiated).async {
             if self.cameFromSpotOrMyStrip {
                 self.loadSpotPosts()
             } else {
-                self.loadMyStripPosts()
+                self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
             }
         }
     }
@@ -334,6 +336,26 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    // MARK: DZNEmptyDataSet for empty data tables
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Welcome"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Riders you are subscribed to do not have any publications. Go find some riders you want to follow to. Or post something yourself"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+    }
+
+    // ENDMARK: DZNEmptyDataSet
     
     @IBAction func addNewPost(_ sender: Any) {
         self.performSegue(withIdentifier: "addNewPost", sender: self)

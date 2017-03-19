@@ -5,7 +5,6 @@
 //  Created by Владислав Пуличев on 25.02.17.
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
-
 import Foundation
 import UIKit
 import AVFoundation
@@ -140,16 +139,22 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                             if let error = error {
                                 print("\(error)")
                             } else {
-                                let photoData = NSData(contentsOf: URL!)
-                                let photo = UIImage(data: photoData as! Data)!
-                                let photoView = UIImageView(image: photo)
-                                
-                                self.spotsPostsImages.append(photoView)
-                                self.spotPosts.append(spotPostItem)
-                                
-                                DispatchQueue.main.async {
-                                    self.userProfileCollection.reloadData()
-                                }
+                                URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
+                                    if error != nil {
+                                        print(error)
+                                        return
+                                    } else {
+                                        guard let imageData = UIImage(data: data!) else { return }
+                                        let photoView = UIImageView(image: imageData)
+                                        
+                                        self.spotsPostsImages.append(photoView)
+                                        self.spotPosts.append(spotPostItem)
+                                        
+                                        DispatchQueue.main.async {
+                                            self.userProfileCollection.reloadData()
+                                        }
+                                    }
+                                }).resume()
                             }
                         }
                     })

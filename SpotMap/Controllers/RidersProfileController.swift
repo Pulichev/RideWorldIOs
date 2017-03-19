@@ -122,18 +122,22 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                             if let error = error {
                                 print("\(error)")
                             } else {
-                                DispatchQueue.global(qos: .userInteractive).async {
-                                    let photoData = NSData(contentsOf: URL!)
-                                    let photo = UIImage(data: photoData as! Data)!
-                                    let photoView = UIImageView(image: photo)
-                                    
-                                    self.spotsPostsImages.append(photoView)
-                                    self.spotPosts.append(spotPostItem)
-                                    
-                                    DispatchQueue.main.async {
-                                        self.riderProfileCollection.reloadData()
+                                URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
+                                    if error != nil {
+                                        print(error)
+                                        return
+                                    } else {
+                                        guard let imageData = UIImage(data: data!) else { return }
+                                        let photoView = UIImageView(image: imageData)
+                                        
+                                        self.spotsPostsImages.append(photoView)
+                                        self.spotPosts.append(spotPostItem)
+                                        
+                                        DispatchQueue.main.async {
+                                            self.riderProfileCollection.reloadData()
+                                        }
                                     }
-                                }
+                                }).resume()
                             }
                         }
                     })

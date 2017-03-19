@@ -76,11 +76,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                         self._posts.append(spotPostItem)
                         
                         let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem)
-                        newSpotPostCellCache.userLikedThisPost()
-                        newSpotPostCellCache.countPostLikes()
+                        //newSpotPostCellCache.userLikedThisPost()
+                        //newSpotPostCellCache.countPostLikes()
                         self._spotPostItemCellsCache.append(newSpotPostCellCache)
                         
-                        self.tableView.reloadData()
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                        }
                     }) { (error) in
                         print(error.localizedDescription)
                     }
@@ -113,11 +115,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                     self._posts.append(spotPostItem)
                                     
                                     let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem)
-                                    newSpotPostCellCache.userLikedThisPost()
-                                    newSpotPostCellCache.countPostLikes()
+                                    //newSpotPostCellCache.userLikedThisPost()
+                                    //newSpotPostCellCache.countPostLikes()
                                     self._spotPostItemCellsCache.append(newSpotPostCellCache)
                                     
-                                    self.tableView.reloadData()
+                                    DispatchQueue.main.async {
+                                        self.tableView.reloadData()
+                                    }
                                 }) { (error) in
                                     print(error.localizedDescription)
                                 }
@@ -128,8 +132,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             }
         })
     }
-    
-    //Main table filling region
+    //                                                                    ЛАЙКИ В ЛЕНТЕ И ПОРЯДОК ПУБЛИКАЦИЙ В ПРОФИЛЕ - СДЕЛАТЬ
+    // Main table filling region
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -142,16 +146,16 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCell", for: indexPath) as! PostsCell
         let row = indexPath.row
         
-        if cell.userLikedOrDeletedLike { //when cell appears checking if like was tapped
+        if cell.userLikedOrDeletedLike { // when cell appears checking if like was tapped
             cell.userLikedOrDeletedLike = false
-            updateCellLikesCache(objectId: cell.post.key) //if yes updating cache
+            updateCellLikesCache(objectId: cell.post.key) // if yes updating cache
         }
         
         let cellFromCache = _spotPostItemCellsCache[row]
         cell.post                 = cellFromCache.post
         cell.userInfo             = cellFromCache.userInfo
         cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
-        cell.userNickName.tag     = row//for segue to send userId to ridersProfile
+        cell.userNickName.tag     = row // for segue to send userId to ridersProfile
         cell.userNickName.addTarget(self, action: #selector(PostsStripController.nickNameTapped), for: .touchUpInside)
         cell.postDate.text        = cellFromCache.postDate.text
         cell.postDescription.text = cellFromCache.postDescription.text
@@ -159,7 +163,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         cell.postIsLiked          = cellFromCache.postIsLiked
         cell.isPhoto              = cellFromCache.isPhoto
         cell.isLikedPhoto.image   = cellFromCache.isLikedPhoto.image
-        setMediaOnCellFromCacheOrDownload(cell: cell, cacheKey: row) //cell.spotPostPhoto setting async
+        setMediaOnCellFromCacheOrDownload(cell: cell, cacheKey: row) // cell.spotPostPhoto setting async
         cell.addDoubleTapGestureOnPostPhotos()
         
         return cell
@@ -246,7 +250,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                 let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                 imageViewForView.kf.indicatorType = .activity
                 imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-
+                
                 DispatchQueue.main.async {
                     self._spotPostItemCellsCache[cacheKey].isCached = true
                     cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)

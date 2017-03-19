@@ -49,7 +49,7 @@ class PostItemCellCache {
         let userId = FIRAuth.auth()?.currentUser?.uid
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.post.key).child("likes").child(userId!)
         // catch if user liked this post
-        likeRef.observe(.value, with: { snapshot in
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? [String : Any] {
                 self.postIsLiked = true
                 self.isLikedPhoto.image = UIImage(named: "respectActive.png")
@@ -63,20 +63,20 @@ class PostItemCellCache {
     func countPostLikes() {
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.post.key).child("likes")
         //catch if user liked this post
-        likeRef.observe(.value, with: { snapshot in
+        likeRef.observeSingleEvent(of: .value, with: { snapshot in
             self.likesCount = snapshot.children.allObjects.count
         })
     }
     
     func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked
-        if (!postIsLiked) {
-            postIsLiked = true
+        if (!self.postIsLiked) {
+            self.postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-            likesCount += 1
+            self.likesCount += 1
         } else {
-            postIsLiked = false
+            self.postIsLiked = false
             self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-            likesCount -= 1
+            self.likesCount -= 1
         }
     }
 }

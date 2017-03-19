@@ -51,18 +51,17 @@ class PostsCell: UITableViewCell {
         userLikedOrDeletedLike = true
         
         if(!self.postIsLiked) {
+            self.postIsLiked = true
             self.isLikedPhoto.image = UIImage(named: "respectActive.png")
             let countOfLikesInt = Int(self.likesCount.text!)
             self.likesCount.text = String(countOfLikesInt! + 1)
             addNewLike()
-            self.postIsLiked = true
         } else {
+            self.postIsLiked = false
             self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
             let countOfLikesInt = Int(self.likesCount.text!)
             self.likesCount.text = String(countOfLikesInt! - 1)
             removeExistedLike()
-            
-            self.postIsLiked = false
         }
     }
     
@@ -117,8 +116,8 @@ class PostsCell: UITableViewCell {
             let value = snapshot.value as? NSDictionary
             self.likeId = value?["likeId"] as? String ?? ""
             self.removeLikeFromLikeNode() // can do it only here cz of threading
+            likeRef.removeValue()
         })
-        likeRef.removeValue()
     }
     
     func removeLikeFromUserNode() {

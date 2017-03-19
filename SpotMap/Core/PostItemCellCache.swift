@@ -23,7 +23,7 @@ class PostItemCellCache {
     var likesCount = Int()
     var isCached = false
     
-    init(spotPost: PostItem) {
+    init(spotPost: PostItem, stripController: PostsStripController) {
         self.post = spotPost
         initializeUser()
         let sourceDate = post.createdDate
@@ -32,8 +32,8 @@ class PostItemCellCache {
         self.postDate.text = finalDate
         self.postDescription.text = post.description
         self.isPhoto = post.isPhoto
-        self.userLikedThisPost()
-        self.countPostLikes()
+        self.userLikedThisPost(stripController: stripController)
+        self.countPostLikes(stripController: stripController)
     }
     
     func initializeUser() {
@@ -45,7 +45,7 @@ class PostItemCellCache {
         })
     }
     
-    func userLikedThisPost() {
+    func userLikedThisPost(stripController: PostsStripController) {
         let userId = FIRAuth.auth()?.currentUser?.uid
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.post.key).child("likes").child(userId!)
         // catch if user liked this post
@@ -57,14 +57,16 @@ class PostItemCellCache {
                 self.postIsLiked = false
                 self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
             }
+            stripController.tableView.reloadData()
         })
     }
     
-    func countPostLikes() {
+    func countPostLikes(stripController: PostsStripController) {
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.post.key).child("likes")
         //catch if user liked this post
         likeRef.observeSingleEvent(of: .value, with: { snapshot in
             self.likesCount = snapshot.children.allObjects.count
+            stripController.tableView.reloadData()
         })
     }
     

@@ -48,7 +48,11 @@ class PostsCell: UITableViewCell {
     }
     
     func postLiked(_ sender: Any) {
-        userLikedOrDeletedLike = true
+        if (userLikedOrDeletedLike) { // it might be a situation when user liked and disliked posts with out scroll.
+            userLikedOrDeletedLike = false
+        } else {
+            userLikedOrDeletedLike = true
+        }
         
         if(!self.postIsLiked) {
             self.postIsLiked = true

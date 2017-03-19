@@ -75,14 +75,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                         let spotPostItem = PostItem(snapshot: snapshot)
                         self._posts.append(spotPostItem)
                         
-                        let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem)
+                        let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
+
                         //newSpotPostCellCache.userLikedThisPost()
                         //newSpotPostCellCache.countPostLikes()
                         self._spotPostItemCellsCache.append(newSpotPostCellCache)
                         
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
+//                        DispatchQueue.main.async {
+//                            self.tableView.reloadData()
+//                        }
                     }) { (error) in
                         print(error.localizedDescription)
                     }
@@ -114,14 +115,12 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                     let spotPostItem = PostItem(snapshot: snapshot)
                                     self._posts.append(spotPostItem)
                                     
-                                    let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem)
-                                    //newSpotPostCellCache.userLikedThisPost()
-                                    //newSpotPostCellCache.countPostLikes()
+                                    let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
                                     self._spotPostItemCellsCache.append(newSpotPostCellCache)
                                     
-                                    DispatchQueue.main.async {
-                                        self.tableView.reloadData()
-                                    }
+//                                    DispatchQueue.main.async {
+//                                        self.tableView.reloadData()
+//                                    }
                                 }) { (error) in
                                     print(error.localizedDescription)
                                 }

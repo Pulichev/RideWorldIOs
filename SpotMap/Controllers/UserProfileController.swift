@@ -14,7 +14,18 @@ import FirebaseStorage
 import FirebaseAuth
 
 class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-    var userInfo: UserItem!
+    var userInfo: UserItem! {
+        didSet {
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.initializeUserTextInfo()
+                self.initializeUserPhoto()
+            }
+            
+            DispatchQueue.global(qos: .background).async {
+                self.initializeUserPostsPhotos()
+            }
+        }
+    }
     
     @IBOutlet var userNameAndSename: UILabel!
     @IBOutlet var userBio: UITextView!
@@ -37,13 +48,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         self.userProfileCollection.emptyDataSetSource = self
         self.userProfileCollection.emptyDataSetDelegate = self
         
-        currentUserRef.observe(.value, with: { snapshot in
+        currentUserRef.observeSingleEvent(of: .value, with: { snapshot in
             self.userInfo = UserItem(snapshot: snapshot)
-            self.initializeUserTextInfo()
-            self.initializeUserPhoto()
-            self.initializeUserPostsPhotos()
         })
-        
     }
     
     // part for hide and view navbar from this navigation controller
@@ -66,8 +73,10 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func initializeUserTextInfo() {
-        self.userBio.text = userInfo.bioDescription
-        self.userNameAndSename.text = userInfo.nameAndSename
+        DispatchQueue.main.async {
+            self.userBio.text = self.userInfo.bioDescription
+            self.userNameAndSename.text = self.userInfo.nameAndSename
+        }
         
         initialiseFollowing()
     }
@@ -77,19 +86,23 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         
         let refFollowers = refToUserNode.child("followers")
         refFollowers.observe(.value, with: { snapshot in
-            if let value = snapshot.value as? [String: Any] {
-                self.followersButton.setTitle(String(describing: value.count), for: .normal)
-            } else {
-                self.followersButton.setTitle("0", for: .normal)
+            DispatchQueue.main.async {
+                if let value = snapshot.value as? [String: Any] {
+                    self.followersButton.setTitle(String(describing: value.count), for: .normal)
+                } else {
+                    self.followersButton.setTitle("0", for: .normal)
+                }
             }
         })
         
         let refFollowing = refToUserNode.child("following")
         refFollowing.observe(.value, with: { snapshot in
-            if let value = snapshot.value as? [String: Any] {
-                self.followingButton.setTitle(String(describing: value.count), for: .normal)
-            } else {
-                self.followingButton.setTitle("0", for: .normal)
+            DispatchQueue.main.async {
+                if let value = snapshot.value as? [String: Any] {
+                    self.followingButton.setTitle(String(describing: value.count), for: .normal)
+                } else {
+                    self.followingButton.setTitle("0", for: .normal)
+                }
             }
         })
     }
@@ -103,8 +116,10 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             if let error = error {
                 print("\(error)")
             } else {
-                self.userProfilePhoto.kf.setImage(with: URL) //Using kf for caching images.
-                self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
+                DispatchQueue.main.async {
+                    self.userProfilePhoto.kf.setImage(with: URL) //Using kf for caching images.
+                    self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
+                }
             }
         }
     }
@@ -112,7 +127,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     func initializeUserPostsPhotos() {
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.userInfo.uid).child("posts")
         
-        ref.observe(.value, with: { snapshot in
+        ref.observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? [String: Any] {
                 for (postId, _) in value {
                     let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)

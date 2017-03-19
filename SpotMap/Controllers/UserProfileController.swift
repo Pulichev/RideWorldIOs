@@ -34,8 +34,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet var followingButton: UIButton!
     
     @IBOutlet var userProfileCollection: UICollectionView!
-    var spotPosts = [PostItem]()
-    var spotsPostsImages = [UIImageView]()
+    var posts = [PostItem]()
+    var postsImages = [UIImageView]()
     var cameFromSpotDetails = false
     
     override func viewDidLoad() {
@@ -142,14 +142,14 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                                 // async images downloading
                                 URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
                                     if error != nil {
-                                        print(error)
+                                        print("Error in URLSession: " + (error.debugDescription))
                                         return
                                     } else {
                                         guard let imageData = UIImage(data: data!) else { return }
                                         let photoView = UIImageView(image: imageData)
                                         
-                                        self.spotsPostsImages.append(photoView)
-                                        self.spotPosts.append(spotPostItem)
+                                        self.postsImages.append(photoView)
+                                        self.posts.append(spotPostItem) // adding it here cz with threading our posts and images can be bad ordering
                                         
                                         DispatchQueue.main.async {
                                             self.userProfileCollection.reloadData()
@@ -167,7 +167,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     // MARK: COLLECTIONVIEW PART
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.spotsPostsImages.count
+        return self.postsImages.count
     }
     
     // make a cell for each cell index path
@@ -177,7 +177,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
         
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
-        cell.postPicture.image = self.spotsPostsImages[indexPath.row].image!
+        cell.postPicture.image = self.postsImages[indexPath.row].image!
         
         return cell
     }
@@ -235,8 +235,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPostInfoFromUserProfile" {
             let newPostInfoController = segue.destination as! PostInfoViewController
-            //let key = Array(self.spotPosts.keys)[selectedCellId]
-            newPostInfoController.postInfo = spotPosts[selectedCellId]
+            //let key = Array(self.posts.keys)[selectedCellId]
+            newPostInfoController.postInfo = posts[selectedCellId]
             newPostInfoController.user = userInfo
         }
         //send current profile data to editing

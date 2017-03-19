@@ -21,7 +21,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     var spotDetailsItem: SpotDetailsItem! // using it if come from spot
     
     private var _posts = [PostItem]()
-    private var _spotPostItemCellsCache = [PostItemCellCache]()
+    private var _postItemCellsCache = [PostItemCellCache]()
     
     private var _mediaCache = NSMutableDictionary()
     
@@ -37,7 +37,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
         DispatchQueue.global(qos: .userInitiated).async {
             if self.cameFromSpotOrMyStrip {
-                self.loadSpotPosts()
+                self.loadPosts()
             } else {
                 self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
             }
@@ -63,7 +63,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    private func loadSpotPosts() {
+    private func loadPosts() {
         //getting a list of keys of spot posts from spotdetails
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails/" + self.spotDetailsItem.key + "/posts")
         
@@ -78,7 +78,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                         self._posts.append(spotPostItem)
                         
                         let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
-                        self._spotPostItemCellsCache.append(newSpotPostCellCache)
+                        self._postItemCellsCache.append(newSpotPostCellCache)
                     }) { (error) in
                         print(error.localizedDescription)
                     }
@@ -111,7 +111,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                     self._posts.append(spotPostItem)
                                     
                                     let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
-                                    self._spotPostItemCellsCache.append(newSpotPostCellCache)
+                                    self._postItemCellsCache.append(newSpotPostCellCache)
                                 }) { (error) in
                                     print(error.localizedDescription)
                                 }
@@ -141,7 +141,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             updateCellLikesCache(objectId: cell.post.key) // if yes updating cache
         }
         
-        let cellFromCache = _spotPostItemCellsCache[row]
+        let cellFromCache = _postItemCellsCache[row]
         cell.post                 = cellFromCache.post
         cell.userInfo             = cellFromCache.userInfo
         cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
@@ -171,7 +171,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     }
     
     private func updateCellLikesCache(objectId: String) {
-        for postCellCache in _spotPostItemCellsCache {
+        for postCellCache in _postItemCellsCache {
             if postCellCache.post.key == objectId {
                 DispatchQueue.main.async {
                     postCellCache.changeLikeToDislikeAndViceVersa()
@@ -194,7 +194,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     private var _mainPartOfMediaref: String!
     
     func setImageOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
-        if self._spotPostItemCellsCache[cacheKey].isCached {
+        if self._postItemCellsCache[cacheKey].isCached {
             let url = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + self._posts[cacheKey].key + "_resolution700x700.jpeg"
             let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
             
@@ -242,7 +242,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                 imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
                 
                 DispatchQueue.main.async {
-                    self._spotPostItemCellsCache[cacheKey].isCached = true
+                    self._postItemCellsCache[cacheKey].isCached = true
                     cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
                 }
             }
@@ -364,10 +364,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     //go to riders profile
     func nickNameTapped(sender: UIButton!) {
         // check if going to current user
-        if self._spotPostItemCellsCache[sender.tag].userInfo.uid == FIRAuth.auth()?.currentUser?.uid {
+        if self._postItemCellsCache[sender.tag].userInfo.uid == FIRAuth.auth()?.currentUser?.uid {
             self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
         } else {
-            self.ridersInfoForSending = self._spotPostItemCellsCache[sender.tag].userInfo
+            self.ridersInfoForSending = self._postItemCellsCache[sender.tag].userInfo
             self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
         }
     }

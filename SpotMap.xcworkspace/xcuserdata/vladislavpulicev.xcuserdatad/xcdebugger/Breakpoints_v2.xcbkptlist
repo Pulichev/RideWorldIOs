@@ -27,6 +27,38 @@
             endingLineNumber = "26"
             landmarkName = "execute()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static SpotMap.addThumbnailsAndAddSpotIdToSpotPostsTEMP.(execute () -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "SpotMap"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift"
+                  timestampString = "511717341.357389"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "1316">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static SpotMap.addThumbnailsAndAddSpotIdToSpotPostsTEMP.(execute () -&gt; ()).(closure #1).(closure #1).(closure #1)"
+                  moduleName = "SpotMap"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift"
+                  timestampString = "511717341.359211"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -52,12 +84,12 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift"
-                  timestampString = "511716559.361744"
+                  timestampString = "511717341.362383"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "27"
                   endingLineNumber = "27"
-                  offsetFromSymbolStart = "1798">
+                  offsetFromSymbolStart = "1316">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -67,12 +99,12 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift"
-                  timestampString = "511716559.363675"
+                  timestampString = "511717341.363879"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "23"
                   endingLineNumber = "23"
-                  offsetFromSymbolStart = "92">
+                  offsetFromSymbolStart = "80">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -100,12 +132,12 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift"
-                  timestampString = "511716559.36706"
+                  timestampString = "511717341.366561"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "27"
                   endingLineNumber = "27"
-                  offsetFromSymbolStart = "1798">
+                  offsetFromSymbolStart = "1316">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -115,12 +147,12 @@
                   moduleName = "SpotMap"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/SpotMap/SpotMap/TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift"
-                  timestampString = "511716559.368735"
+                  timestampString = "511717341.367805"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "23"
                   endingLineNumber = "23"
-                  offsetFromSymbolStart = "92">
+                  offsetFromSymbolStart = "80">
                </Location>
             </Locations>
          </BreakpointContent>

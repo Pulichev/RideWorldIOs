@@ -1388,9 +1388,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="Gef-69-N8A"/>
         <segue reference="1Fi-pQ-wyF"/>
-        <segue reference="TEa-lr-7L1"/>
         <segue reference="6R6-CY-IE2"/>
-        <segue reference="TeE-da-wxz"/>
+        <segue reference="TEa-lr-7L1"/>
         <segue reference="eyf-4a-ZNN"/>
+        <segue reference="TeE-da-wxz"/>
     </inferredMetricsTieBreakers>
 </document>

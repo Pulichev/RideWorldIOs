@@ -116,8 +116,10 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                 print("\(error)")
             } else {
                 DispatchQueue.main.async {
-                    self.userProfilePhoto.kf.setImage(with: URL) //Using kf for caching images.
-                    self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
+                    if self.userProfilePhoto != nil { // if we came not from user edit controller
+                        self.userProfilePhoto.kf.setImage(with: URL) //Using kf for caching images.
+                        self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
+                    }
                 }
             }
         }
@@ -247,6 +249,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             if let image = self.userProfilePhoto.image {
                 newEditProfileController.userPhotoTemp = image
             }
+            newEditProfileController.delegate = self
         }
         
         if segue.identifier == "goToFollowersFromUserNode" {
@@ -275,4 +278,13 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     // ENDMARK: DZNEmptyDataSet
+}
+
+extension UserProfileController: EditedUserInfoDelegate {
+    func dataChanged(userInfo: UserItem, profilePhoto: UIImage) {
+        self.userNameAndSename.text = userInfo.nameAndSename
+        self.userBio.text = userInfo.bioDescription
+        
+        self.userProfilePhoto.image = profilePhoto
+    }
 }

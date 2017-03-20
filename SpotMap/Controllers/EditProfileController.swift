@@ -13,6 +13,8 @@ import FirebaseStorage
 import Fusuma
 
 class EditProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    var delegate: EditedUserInfoDelegate?
+    
     var userInfo: UserItem!
     
     @IBOutlet var tableView: UITableView!
@@ -35,18 +37,21 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func saveButtonTapped(_ sender: Any) {
         let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(self.userInfo.uid)
         
+        let bioDescription = (tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! EditProfileCell).field.text!
+        let login = (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! EditProfileCell).field.text!
+        let nameAndSename = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! EditProfileCell).field.text!
+        
         // updating values
         refToCurrentUser.updateChildValues([
-            "bioDescription" : (tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! EditProfileCell).field.text!,
-            "login": (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! EditProfileCell).field.text!,
-            "nameAndSename": (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! EditProfileCell).field.text!
+            "bioDescription" : bioDescription,
+            "login": login,
+            "nameAndSename": nameAndSename
             ])
         
         // saving photo
         self.uploadPhoto()
         
-        // return to profile
-        _ = navigationController?.popViewController(animated: true)
+        self.returnToParentControllerOnSaveButtonTapped(bioDescription: bioDescription, login: login, nameAndSename: nameAndSename)
     }
     
     func uploadPhoto() {
@@ -63,6 +68,20 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
         //with low compression
         let dataLowCompressionFor90x90: Data = UIImageJPEGRepresentation(photo90x90, 0.8)!
         userPhoto90x90ref.put(dataLowCompressionFor90x90)
+    }
+    
+    func returnToParentControllerOnSaveButtonTapped(bioDescription: String, login: String, nameAndSename: String) {
+        // change current user info and pass it and photo to user profile controller
+        self.userInfo.bioDescription = bioDescription
+        self.userInfo.login = login
+        self.userInfo.nameAndSename = nameAndSename
+        
+        if let del = delegate {
+            del.dataChanged(userInfo: self.userInfo, profilePhoto: self.userPhoto.image!)
+        }
+        
+        // return to profile
+        _ = navigationController?.popViewController(animated: true)
     }
 
     //Main table filling region

@@ -14,9 +14,9 @@ struct UserItem {
     let uid: String
     
     let email: String
-    let login: String
-    let bioDescription: String
-    let nameAndSename: String
+    var login: String
+    var bioDescription: String
+    var nameAndSename: String
     let createdDate: String
     
     let ref: FIRDatabaseReference?

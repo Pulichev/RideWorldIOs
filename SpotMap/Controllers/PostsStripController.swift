@@ -15,6 +15,7 @@ import Kingfisher
 
 class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     @IBOutlet weak var tableView: UITableView!
+    var refreshControl: UIRefreshControl!
     
     var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
     
@@ -33,11 +34,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.emptyDataSetSource = self
         self.tableView.emptyDataSetDelegate = self
         self.tableView.tableFooterView = UIView()
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Идет обновление...")
+        self.refreshControl.addTarget(self, action: #selector(PostsStripController.refresh), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl)
         
         self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
         DispatchQueue.global(qos: .userInitiated).async {
             if self.cameFromSpotOrMyStrip {
-                self.loadPosts()
+                self.loadSpotPosts()
             } else {
                 self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
             }
@@ -63,14 +68,14 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    private func loadPosts() {
+    private func loadSpotPosts() {
         //getting a list of keys of spot posts from spotdetails
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails/" + self.spotDetailsItem.key + "/posts")
         
-        ref.queryOrderedByValue().observe(.value, with: { snapshot in
+        ref.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             if let keys = value?.allKeys as? [String] {
-                for key in keys {
+                for key in Array(keys).sorted() {
                     let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                     
                     ref.observeSingleEvent(of: .value, with: { snapshot in
@@ -92,14 +97,14 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         let currentUserId = FIRAuth.auth()?.currentUser?.uid
         let refToFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!).child("following")
         
-        refToFollowings.observe(.value, with: { snapshot in
+        refToFollowings.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             if let userIds = value?.allKeys as? [String] {
                 for userId in userIds {
                     // get list of user posts
                     let refToUserPosts = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId).child("posts")
                     
-                    refToUserPosts.observe(.value, with: { snapshotOfPosts in
+                    refToUserPosts.queryLimited(toLast: 20).observeSingleEvent(of: .value, with: { snapshotOfPosts in
                         let valueOfPosts = snapshotOfPosts.value as? NSDictionary
                         if let postsIds = valueOfPosts?.allKeys as? [String] {
                             for postId in postsIds {
@@ -109,9 +114,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                 refToPost.observeSingleEvent(of: .value, with: { snapshot in
                                     let spotPostItem = PostItem(snapshot: snapshot)
                                     self._posts.append(spotPostItem)
+                                    self._posts = self._posts.sorted(by: { $0.key > $1.key })
                                     
                                     let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
                                     self._postItemCellsCache.append(newSpotPostCellCache)
+                                    self._postItemCellsCache = self._postItemCellsCache.sorted(by: { $0.key > $1.key })
                                 }) { (error) in
                                     print(error.localizedDescription)
                                 }
@@ -121,6 +128,26 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                 }
             }
         })
+    }
+    
+    // function for pull to refresh
+    func refresh(sender: Any) {
+        // updating posts
+        _posts.removeAll()
+        _postItemCellsCache.removeAll()
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            if self.cameFromSpotOrMyStrip {
+                self.loadSpotPosts()
+            } else {
+                self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
+            }
+        }
+        
+        // ending refreshing
+        self.tableView.reloadData()
+        self.refreshControl.endRefreshing()
+        //print(FIRServerValue.timestamp())
     }
     
     // Main table filling region
@@ -148,6 +175,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         cell.userNickName.tag     = row // for segue to send userId to ridersProfile
         cell.userNickName.addTarget(self, action: #selector(PostsStripController.nickNameTapped), for: .touchUpInside)
         cell.postDate.text        = cellFromCache.postDate.text
+        cell.postTime.text        = cellFromCache.postTime.text
         cell.postDescription.text = cellFromCache.postDescription.text
         cell.likesCount.text      = String(cellFromCache.likesCount)
         cell.postIsLiked          = cellFromCache.postIsLiked

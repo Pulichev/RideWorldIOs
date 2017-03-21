@@ -12,10 +12,12 @@ import FirebaseDatabase
 import FirebaseAuth
 
 class PostItemCellCache {
+    var key: String!
     var post: PostItem!
     var userInfo: UserItem!
     var userNickName = UILabel()
     var postDate = UILabel()
+    var postTime = UILabel()
     var postDescription = UITextView()
     var isPhoto = Bool()
     var isLikedPhoto = UIImageView()
@@ -24,12 +26,15 @@ class PostItemCellCache {
     var isCached = false
     
     init(spotPost: PostItem, stripController: PostsStripController) {
+        self.key = spotPost.key
         self.post = spotPost
         initializeUser()
         let sourceDate = post.createdDate
         // formatting date to yyyy-mm-dd
         let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
         self.postDate.text = finalDate
+        let finalTime = sourceDate[sourceDate.index(sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
+        self.postTime.text = finalTime
         self.postDescription.text = post.description
         self.isPhoto = post.isPhoto
         self.userLikedThisPost(stripController: stripController)

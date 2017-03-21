@@ -20,6 +20,7 @@ class PostsCell: UITableViewCell {
     var player: AVPlayer!
     
     @IBOutlet weak var postDate: UILabel!
+    @IBOutlet weak var postTime: UILabel!
     @IBOutlet weak var userNickName: UIButton!
     @IBOutlet weak var postDescription: UITextView!
     @IBOutlet weak var isLikedPhoto: UIImageView!

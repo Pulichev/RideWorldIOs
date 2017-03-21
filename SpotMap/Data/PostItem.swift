@@ -6,15 +6,9 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-//
-//  SpotdetailsItem.swift
-//  SpotMap
-//
-//  Created by Владислав Пуличев on 02.03.17.
-//  Copyright © 2017 Владислав Пуличев. All rights reserved.
-//
-
 import FirebaseDatabase
+import FirebaseInstanceID
+import FirebaseCore
 
 struct PostItem {
     let key: String

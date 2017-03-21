@@ -22,6 +22,7 @@ class PostInfoViewController: UIViewController {
     var player: AVPlayer!
     
     @IBOutlet var postDate: UILabel!
+    @IBOutlet var postTime: UILabel!
     @IBOutlet var userNickName: UILabel!
     @IBOutlet var postDescription: UITextView!
     @IBOutlet var isLikedPhoto: UIImageView!
@@ -41,6 +42,8 @@ class PostInfoViewController: UIViewController {
             //formatting date to yyyy-mm-dd
             let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
             self.postDate.text = finalDate
+            let finalTime = sourceDate[sourceDate.index(sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
+            self.postTime.text = finalTime
             self.userNickName.text = self.user.login
             
             self.countPostLikes()

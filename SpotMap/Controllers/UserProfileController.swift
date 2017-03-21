@@ -260,7 +260,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     // MARK: DZNEmptyDataSet for empty data tables
-    
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
         let str = "Welcome"
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
@@ -276,7 +275,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
         return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
     }
-    
     // ENDMARK: DZNEmptyDataSet
 }
 

@@ -74,7 +74,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     private var countOfPostsForGetting = 3 // start count is initialized here
     private var countOfAlreadyLoadedPosts = 0
     private var loadMoreStatus = false
-    
+
     private func loadSpotPosts() {
         //getting a list of keys of spot posts from spotdetails
         var posts = [PostItem]()
@@ -84,8 +84,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         ref.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             if let keys = value?.allKeys as? [String] {
-                var countOfPosts = 0
-                for key in Array(keys).sorted(by: { $0 > $1 }) { // for ordering by date desc
+                for key in self.getSortedCurrentPartOfArray(keys: keys) { // for ordering by date desc
                     let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                     
                     ref.observeSingleEvent(of: .value, with: { snapshot in
@@ -97,23 +96,77 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                         self.countOfAlreadyLoadedPosts += 1
                         
                         if self.countOfAlreadyLoadedPosts == self.countOfPostsForGetting {
-                            // resort again. bcz can be problems cz threading
-                            self._posts = posts.sorted(by: { $0.key > $1.key })
-                            self._postItemCellsCache = postsCache.sorted(by: { $0.key > $1.key })
-                            self.countOfAlreadyLoadedPosts = 0 // temp?
+                            self.appendNewItems(posts: posts, postsCache: postsCache)
                         }
                     }) { (error) in
                         print(error.localizedDescription)
                     }
-                    
-                    countOfPosts += 1
-                    
-                    if countOfPosts == self.countOfPostsForGetting {
-                        break
-                    }
                 }
             }
         })
+    }
+    
+    private func getSortedCurrentPartOfArray(keys: [String]) -> ArraySlice<String> {
+        let startIndex = self.countOfAlreadyLoadedPosts
+        let endIndex = self.countOfPostsForGetting
+        
+        let cuttedSortered = (Array(keys).sorted(by: { $0 > $1 }))[startIndex..<endIndex]
+        // 4 example if we have already loaded 10 posts,
+        // we dont need to download them again
+        
+        return cuttedSortered
+    }
+    
+    private func appendNewItems(posts: [PostItem], postsCache: [PostItemCellCache]) {
+        self._posts.append(contentsOf: posts)
+        self._postItemCellsCache.append(contentsOf: postsCache)
+        // resort again. bcz can be problems cz threading
+        self._posts = self._posts.sorted(by: { $0.key > $1.key })
+        self._postItemCellsCache = self._postItemCellsCache.sorted(by: { $0.key > $1.key })
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
+        
+        if deltaOffset <= 0 {
+            if currentOffset > 0 { // if we are in the end
+                loadMore()
+            }
+        }
+    }
+    
+    func loadMore() {
+        if !loadMoreStatus {
+            self.loadMoreStatus = true
+            self.activityIndicator.startAnimating()
+            self.tableView.tableFooterView?.isHidden = false
+            
+            loadMoreBegin(loadMoreEnd: {(x:Int) -> () in
+                self.loadMoreStatus = false
+                self.activityIndicator.stopAnimating()
+                self.tableView.tableFooterView?.isHidden = true
+            })
+        }
+    }
+    
+    func loadMoreBegin(loadMoreEnd:@escaping (Int) -> ()) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.countOfPostsForGetting += 3
+            
+            if self.cameFromSpotOrMyStrip {
+                self.loadSpotPosts()
+            } else {
+                self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
+            }
+            
+            sleep(2)
+            
+            DispatchQueue.main.async {
+                loadMoreEnd(0)
+            }
+        }
     }
     
     private func loadMyStripPosts() {
@@ -152,49 +205,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                 }
             }
         })
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let currentOffset = scrollView.contentOffset.y
-        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        let deltaOffset = maximumOffset - currentOffset
-        
-        if deltaOffset <= 0 {
-            if currentOffset > 0 { // if we are in the end
-                loadMore()
-            }
-        }
-    }
-    
-    func loadMore() {
-        if !loadMoreStatus {
-            self.loadMoreStatus = true
-            self.activityIndicator.startAnimating()
-            self.tableView.tableFooterView?.isHidden = false
-            
-            loadMoreBegin(loadMoreEnd: {(x:Int) -> () in
-                self.loadMoreStatus = false
-                self.activityIndicator.stopAnimating()
-                self.tableView.tableFooterView?.isHidden = true
-            })
-        }
-    }
-    
-    func loadMoreBegin(loadMoreEnd:@escaping (Int) -> ()) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.countOfPostsForGetting += 3
-            
-            if self.cameFromSpotOrMyStrip {
-                self.loadSpotPosts()
-            } else {
-                self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
-            }
-            sleep(2)
-            
-            DispatchQueue.main.async {
-                loadMoreEnd(0)
-            }
-        }
     }
     
     // function for pull to refresh

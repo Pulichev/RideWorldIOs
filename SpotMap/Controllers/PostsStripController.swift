@@ -13,9 +13,10 @@ import FirebaseDatabase
 import FirebaseStorage
 import Kingfisher
 
-class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIScrollViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     var refreshControl: UIRefreshControl!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
     
@@ -33,11 +34,12 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.dataSource = self
         self.tableView.emptyDataSetSource = self
         self.tableView.emptyDataSetDelegate = self
-        self.tableView.tableFooterView = UIView()
+        
         self.refreshControl = UIRefreshControl()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Идет обновление...")
         self.refreshControl.addTarget(self, action: #selector(PostsStripController.refresh), for: UIControlEvents.valueChanged)
         tableView.addSubview(refreshControl)
+        self.tableView.tableFooterView?.isHidden = true // hide on start
         
         self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
         DispatchQueue.global(qos: .userInitiated).async {
@@ -68,24 +70,46 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
+    // MARK: load posts region
+    private var countOfPostsForGetting = 3 // start count is initialized here
+    private var countOfAlreadyLoadedPosts = 0
+    private var loadMoreStatus = false
+    
     private func loadSpotPosts() {
         //getting a list of keys of spot posts from spotdetails
+        var posts = [PostItem]()
+        var postsCache = [PostItemCellCache]()
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails/" + self.spotDetailsItem.key + "/posts")
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             if let keys = value?.allKeys as? [String] {
-                for key in Array(keys).sorted() {
+                var countOfPosts = 0
+                for key in Array(keys).sorted(by: { $0 > $1 }) { // for ordering by date desc
                     let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                     
                     ref.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = PostItem(snapshot: snapshot)
-                        self._posts.append(spotPostItem)
-                        
                         let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
-                        self._postItemCellsCache.append(newSpotPostCellCache)
+                        
+                        posts.append(spotPostItem)
+                        postsCache.append(newSpotPostCellCache)
+                        self.countOfAlreadyLoadedPosts += 1
+                        
+                        if self.countOfAlreadyLoadedPosts == self.countOfPostsForGetting {
+                            // resort again. bcz can be problems cz threading
+                            self._posts = posts.sorted(by: { $0.key > $1.key })
+                            self._postItemCellsCache = postsCache.sorted(by: { $0.key > $1.key })
+                            self.countOfAlreadyLoadedPosts = 0 // temp?
+                        }
                     }) { (error) in
                         print(error.localizedDescription)
+                    }
+                    
+                    countOfPosts += 1
+                    
+                    if countOfPosts == self.countOfPostsForGetting {
+                        break
                     }
                 }
             }
@@ -130,25 +154,65 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     
-    // function for pull to refresh
-    func refresh(sender: Any) {
-        // updating posts
-        _posts.removeAll()
-        _postItemCellsCache.removeAll()
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
         
+        if deltaOffset <= 0 {
+            if currentOffset > 0 { // if we are in the end
+                loadMore()
+            }
+        }
+    }
+    
+    func loadMore() {
+        if !loadMoreStatus {
+            self.loadMoreStatus = true
+            self.activityIndicator.startAnimating()
+            self.tableView.tableFooterView?.isHidden = false
+            
+            loadMoreBegin(loadMoreEnd: {(x:Int) -> () in
+                self.loadMoreStatus = false
+                self.activityIndicator.stopAnimating()
+                self.tableView.tableFooterView?.isHidden = true
+            })
+        }
+    }
+    
+    func loadMoreBegin(loadMoreEnd:@escaping (Int) -> ()) {
         DispatchQueue.global(qos: .userInitiated).async {
+            self.countOfPostsForGetting += 3
+            
             if self.cameFromSpotOrMyStrip {
                 self.loadSpotPosts()
             } else {
                 self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
             }
+            sleep(2)
+            
+            DispatchQueue.main.async {
+                loadMoreEnd(0)
+            }
+        }
+    }
+    
+    // function for pull to refresh
+    func refresh(sender: Any) {
+        // updating posts
+        
+        if self.cameFromSpotOrMyStrip {
+            self.loadSpotPosts()
+        } else {
+            self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
         }
         
         // ending refreshing
         self.tableView.reloadData()
         self.refreshControl.endRefreshing()
-        //print(FIRServerValue.timestamp())
     }
+    
+    // ENDMARK: load posts region
     
     // Main table filling region
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -382,7 +446,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
         return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
     }
-
+    
     // ENDMARK: DZNEmptyDataSet
     
     @IBAction func addNewPost(_ sender: Any) {

@@ -129,7 +129,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                     
                     refToUserPosts.observeSingleEvent(of: .value, with: { snapshotOfPosts in // taking all posts cz every user has a list of posts, not objects
                         countOfUsers += 1
-                        
                         let valueOfPosts = snapshotOfPosts.value as? NSDictionary
                         if let postsIds = valueOfPosts?.allKeys as? [String] {
                             let slicedAndSortedPostsIds = self.getSortedCurrentPartOfArrayFromFirstItem(keys: postsIds) // ТУТ НЕ ТАК
@@ -137,7 +136,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                             
                             for postId in slicedAndSortedPostsIds {
                                 let refToPost = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId)
-                                
                                 // adding posts to our array
                                 refToPost.observeSingleEvent(of: .value, with: { snapshot in
                                     countofPosts += 1
@@ -150,15 +148,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                     if countOfUsers == countOfAllUsers {
                                         if countofPosts == countOfAllPosts {
                                             posts = (posts.sorted(by: { $0.key > $1.key }))
-                                            posts = (Array(posts[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting]))//prefix(self.dCountOfPostsForGetting)) // надо резать с countOfPostsForGetting - d до countOfPostsForGetting
                                             postsCache = postsCache.sorted(by: { $0.key > $1.key })
+                                            posts = (Array(posts[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting]))
                                             postsCache = Array(postsCache[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting])
-                                            //.prefix(self.dCountOfPostsForGetting))
-                                            self._posts.append(contentsOf: posts)
-                                            self._postItemCellsCache.append(contentsOf: postsCache)
-                                            // resort again. bcz can be problems cz threading
-                                            self._posts = self._posts.sorted(by: { $0.key > $1.key })
-                                            self._postItemCellsCache = self._postItemCellsCache.sorted(by: { $0.key > $1.key })
+                                            
+                                            self.appendNewItems(posts: posts, postsCache: postsCache)
                                             self.countOfAlreadyLoadedPosts += self.dCountOfPostsForGetting
                                         }
                                     }

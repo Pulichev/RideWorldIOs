@@ -72,9 +72,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     // MARK: load posts region
     private var countOfPostsForGetting = 3 // start count is initialized here
+    private var dCountOfPostsForGetting = 3
     private var countOfAlreadyLoadedPosts = 0
     private var loadMoreStatus = false
-
+    
     private func loadSpotPosts() {
         //getting a list of keys of spot posts from spotdetails
         var posts = [PostItem]()
@@ -89,13 +90,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                     
                     ref.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = PostItem(snapshot: snapshot)
-                        let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
+                        let spotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
                         
                         posts.append(spotPostItem)
-                        postsCache.append(newSpotPostCellCache)
+                        postsCache.append(spotPostCellCache)
                         self.countOfAlreadyLoadedPosts += 1
                         
-                        if self.countOfAlreadyLoadedPosts == self.countOfPostsForGetting {
+                        if self.countOfAlreadyLoadedPosts == self.countOfPostsForGetting { // проверить если постов меньше, чем 3, например
                             self.appendNewItems(posts: posts, postsCache: postsCache)
                         }
                     }) { (error) in
@@ -106,9 +107,100 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     
+    private func loadMyStripPosts() {
+        // get list of my followings
+        var posts = [PostItem]()
+        var postsCache = [PostItemCellCache]()
+        
+        let currentUserId = FIRAuth.auth()?.currentUser?.uid
+        let refToFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!).child("following")
+        
+        refToFollowings.observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            if let userIds = value?.allKeys as? [String] {
+                var countOfUsers = 0 // count of users posts already counted
+                let countOfAllUsers = userIds.count
+                var countofPosts = 0
+                var countOfAllPosts = 0
+                
+                for userId in userIds {
+                    // get list of user posts
+                    let refToUserPosts = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId).child("posts")
+                    
+                    refToUserPosts.observeSingleEvent(of: .value, with: { snapshotOfPosts in // taking all posts cz every user has a list of posts, not objects
+                        countOfUsers += 1
+                        
+                        let valueOfPosts = snapshotOfPosts.value as? NSDictionary
+                        if let postsIds = valueOfPosts?.allKeys as? [String] {
+                            let slicedAndSortedPostsIds = self.getSortedCurrentPartOfArrayFromFirstItem(keys: postsIds) // ТУТ НЕ ТАК
+                            countOfAllPosts += slicedAndSortedPostsIds.count
+                            
+                            for postId in slicedAndSortedPostsIds {
+                                let refToPost = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId)
+                                
+                                // adding posts to our array
+                                refToPost.observeSingleEvent(of: .value, with: { snapshot in
+                                    countofPosts += 1
+                                    let spotPostItem = PostItem(snapshot: snapshot)
+                                    let spotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
+                                    
+                                    posts.append(spotPostItem)
+                                    postsCache.append(spotPostCellCache)
+                                    
+                                    if countOfUsers == countOfAllUsers {
+                                        if countofPosts == countOfAllPosts {
+                                            posts = (posts.sorted(by: { $0.key > $1.key }))
+                                            posts = (Array(posts[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting]))//prefix(self.dCountOfPostsForGetting)) // надо резать с countOfPostsForGetting - d до countOfPostsForGetting
+                                            postsCache = postsCache.sorted(by: { $0.key > $1.key })
+                                            postsCache = Array(postsCache[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting])
+                                            //.prefix(self.dCountOfPostsForGetting))
+                                            self._posts.append(contentsOf: posts)
+                                            self._postItemCellsCache.append(contentsOf: postsCache)
+                                            // resort again. bcz can be problems cz threading
+                                            self._posts = self._posts.sorted(by: { $0.key > $1.key })
+                                            self._postItemCellsCache = self._postItemCellsCache.sorted(by: { $0.key > $1.key })
+                                            self.countOfAlreadyLoadedPosts += self.dCountOfPostsForGetting
+                                        }
+                                    }
+                                }) { (error) in
+                                    print(error.localizedDescription)
+                                }
+                            }
+                        }
+                    })
+                }
+            }
+        })
+    }
+    
     private func getSortedCurrentPartOfArray(keys: [String]) -> ArraySlice<String> {
-        let startIndex = self.countOfAlreadyLoadedPosts
-        let endIndex = self.countOfPostsForGetting
+        let keysCount = keys.count
+        var startIndex = self.countOfAlreadyLoadedPosts
+        var endIndex = self.countOfPostsForGetting
+        
+        if endIndex > keysCount {
+            endIndex = keysCount
+        }
+        
+        if startIndex > keysCount {
+            startIndex = keysCount
+        }
+        
+        let cuttedSortered = (Array(keys).sorted(by: { $0 > $1 }))[startIndex..<endIndex]
+        // 4 example if we have already loaded 10 posts,
+        // we dont need to download them again
+        
+        return cuttedSortered
+    }
+    
+    private func getSortedCurrentPartOfArrayFromFirstItem(keys: [String]) -> ArraySlice<String> {
+        let keysCount = keys.count
+        let startIndex = 0
+        var endIndex = self.countOfPostsForGetting
+        
+        if endIndex > keysCount {
+            endIndex = keysCount
+        }
         
         let cuttedSortered = (Array(keys).sorted(by: { $0 > $1 }))[startIndex..<endIndex]
         // 4 example if we have already loaded 10 posts,
@@ -153,7 +245,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     func loadMoreBegin(loadMoreEnd:@escaping (Int) -> ()) {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.countOfPostsForGetting += 3
+            self.countOfPostsForGetting += self.dCountOfPostsForGetting
             
             if self.cameFromSpotOrMyStrip {
                 self.loadSpotPosts()
@@ -167,44 +259,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                 loadMoreEnd(0)
             }
         }
-    }
-    
-    private func loadMyStripPosts() {
-        // get list of my followings
-        let currentUserId = FIRAuth.auth()?.currentUser?.uid
-        let refToFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!).child("following")
-        
-        refToFollowings.observeSingleEvent(of: .value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            if let userIds = value?.allKeys as? [String] {
-                for userId in userIds {
-                    // get list of user posts
-                    let refToUserPosts = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId).child("posts")
-                    
-                    refToUserPosts.queryLimited(toLast: 20).observeSingleEvent(of: .value, with: { snapshotOfPosts in
-                        let valueOfPosts = snapshotOfPosts.value as? NSDictionary
-                        if let postsIds = valueOfPosts?.allKeys as? [String] {
-                            for postId in postsIds {
-                                let refToPost = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId)
-                                
-                                // adding posts to our array
-                                refToPost.observeSingleEvent(of: .value, with: { snapshot in
-                                    let spotPostItem = PostItem(snapshot: snapshot)
-                                    self._posts.append(spotPostItem)
-                                    self._posts = self._posts.sorted(by: { $0.key > $1.key })
-                                    
-                                    let newSpotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
-                                    self._postItemCellsCache.append(newSpotPostCellCache)
-                                    self._postItemCellsCache = self._postItemCellsCache.sorted(by: { $0.key > $1.key })
-                                }) { (error) in
-                                    print(error.localizedDescription)
-                                }
-                            }
-                        }
-                    })
-                }
-            }
-        })
     }
     
     // function for pull to refresh

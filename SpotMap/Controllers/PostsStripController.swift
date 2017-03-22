@@ -109,34 +109,35 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     private func loadMyStripPosts() {
         // get list of my followings
-        var posts = [PostItem]()
-        var postsCache = [PostItemCellCache]()
+        var posts = [PostItem]()                // new items that we will append to _posts
+        var postsCache = [PostItemCellCache]()  // and _postItemCellsCache
         
         let currentUserId = FIRAuth.auth()?.currentUser?.uid
         let refToFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!).child("following")
         
+        // MARK: - Get all subscriptions
         refToFollowings.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             if let userIds = value?.allKeys as? [String] {
                 var countOfUsers = 0 // count of users posts already counted
                 let countOfAllUsers = userIds.count
-                var countofPosts = 0
+                var countofPosts = 0 // count of all posts for subscriptions already counted
                 var countOfAllPosts = 0
                 
+                // MARK: - For each following user get list of posts
                 for userId in userIds {
-                    // get list of user posts
                     let refToUserPosts = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId).child("posts")
                     
                     refToUserPosts.observeSingleEvent(of: .value, with: { snapshotOfPosts in // taking all posts cz every user has a list of posts, not objects
                         countOfUsers += 1
                         let valueOfPosts = snapshotOfPosts.value as? NSDictionary
                         if let postsIds = valueOfPosts?.allKeys as? [String] {
-                            let slicedAndSortedPostsIds = self.getSortedCurrentPartOfArrayFromFirstItem(keys: postsIds) // ТУТ НЕ ТАК
+                            let slicedAndSortedPostsIds = self.getSortedCurrentPartOfArrayFromFirstItem(keys: postsIds)
                             countOfAllPosts += slicedAndSortedPostsIds.count
                             
+                            // MARK: - For each postId get full PostItem
                             for postId in slicedAndSortedPostsIds {
                                 let refToPost = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId)
-                                // adding posts to our array
                                 refToPost.observeSingleEvent(of: .value, with: { snapshot in
                                     countofPosts += 1
                                     let spotPostItem = PostItem(snapshot: snapshot)
@@ -145,8 +146,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                     posts.append(spotPostItem)
                                     postsCache.append(spotPostCellCache)
                                     
-                                    if countOfUsers == countOfAllUsers {
-                                        if countofPosts == countOfAllPosts {
+                                    if countOfUsers == countOfAllUsers {     // if we have looked
+                                        if countofPosts == countOfAllPosts { // for everything we wanted
                                             posts = (posts.sorted(by: { $0.key > $1.key }))
                                             postsCache = postsCache.sorted(by: { $0.key > $1.key })
                                             posts = (Array(posts[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting]))

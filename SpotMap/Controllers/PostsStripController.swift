@@ -29,7 +29,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.emptyDataSetSource = self

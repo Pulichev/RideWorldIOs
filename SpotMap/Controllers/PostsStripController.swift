@@ -146,17 +146,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                     posts.append(spotPostItem)
                                     postsCache.append(spotPostCellCache)
                                     
-                                    if countOfUsers == countOfAllUsers {     // if we have looked
-                                        if countofPosts == countOfAllPosts { // for everything we wanted
-                                            posts = (posts.sorted(by: { $0.key > $1.key }))
-                                            postsCache = postsCache.sorted(by: { $0.key > $1.key })
-                                            posts = (Array(posts[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting]))
-                                            postsCache = Array(postsCache[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting])
-                                            
-                                            self.appendNewItems(posts: posts, postsCache: postsCache)
-                                            self.countOfAlreadyLoadedPosts += self.dCountOfPostsForGetting
-                                        }
-                                    }
+                                    self.haveWeEnded(countOfUsers: countOfUsers, countOfAllUsers: countOfAllUsers,
+                                                countOfPosts: countofPosts, countOfAllPosts: countOfAllPosts,
+                                                posts: posts, postsCache: postsCache)
                                 }) { (error) in
                                     print(error.localizedDescription)
                                 }
@@ -210,6 +202,22 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         // resort again. bcz can be problems cz threading
         self._posts = self._posts.sorted(by: { $0.key > $1.key })
         self._postItemCellsCache = self._postItemCellsCache.sorted(by: { $0.key > $1.key })
+    }
+    
+    private func haveWeEnded(countOfUsers: Int, countOfAllUsers: Int,
+                             countOfPosts: Int, countOfAllPosts: Int,
+                             posts: [PostItem], postsCache: [PostItemCellCache]) {
+        if countOfUsers == countOfAllUsers {     // if we have looked
+            if countOfPosts == countOfAllPosts { // for everything we wanted
+                let postsSorted = posts.sorted(by: { $0.key > $1.key })
+                let postsCacheSorted = postsCache.sorted(by: { $0.key > $1.key })
+                let postsSortedAndSliced = (Array(postsSorted[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting]))
+                let postsCacheSortedAndSliced = Array(postsCacheSorted[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting])
+                
+                self.appendNewItems(posts: postsSortedAndSliced, postsCache: postsCacheSortedAndSliced)
+                self.countOfAlreadyLoadedPosts += self.dCountOfPostsForGetting
+            }
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

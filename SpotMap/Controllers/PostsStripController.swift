@@ -43,11 +43,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         
         self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
         DispatchQueue.global(qos: .userInitiated).async {
-            if self.cameFromSpotOrMyStrip {
-                self.loadSpotPosts()
-            } else {
-                self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
-            }
+            self.loadPosts()
+        }
+    }
+    
+    private func loadPosts() {
+        if self.cameFromSpotOrMyStrip {
+            self.loadSpotPosts()
+        } else {
+            self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
         }
     }
     
@@ -74,7 +78,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     private var countOfPostsForGetting = 3 // start count is initialized here
     private var dCountOfPostsForGetting = 3
     private var countOfAlreadyLoadedPosts = 0
-    private var loadMoreStatus = false
     
     private func loadSpotPosts() {
         //getting a list of keys of spot posts from spotdetails
@@ -85,7 +88,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         ref.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             if let keys = value?.allKeys as? [String] {
-                for key in self.getSortedCurrentPartOfArray(keys: keys) { // for ordering by date desc
+                for key in self.getSortedCurrentPartOfArray(keys: keys, startFromFirst: false) { // for ordering by date desc
                     let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                     
                     ref.observeSingleEvent(of: .value, with: { snapshot in
@@ -132,7 +135,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                         countOfUsers += 1
                         let valueOfPosts = snapshotOfPosts.value as? NSDictionary
                         if let postsIds = valueOfPosts?.allKeys as? [String] {
-                            let slicedAndSortedPostsIds = self.getSortedCurrentPartOfArrayFromFirstItem(keys: postsIds)
+                            let slicedAndSortedPostsIds = self.getSortedCurrentPartOfArray(keys: postsIds, startFromFirst: true)
                             countOfAllPosts += slicedAndSortedPostsIds.count
                             
                             // MARK: - For each postId get full PostItem
@@ -146,9 +149,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                     posts.append(spotPostItem)
                                     postsCache.append(spotPostCellCache)
                                     
+                                    // check if we have ended all items -> sort, slice and append
                                     self.haveWeEnded(countOfUsers: countOfUsers, countOfAllUsers: countOfAllUsers,
-                                                countOfPosts: countofPosts, countOfAllPosts: countOfAllPosts,
-                                                posts: posts, postsCache: postsCache)
+                                                     countOfPosts: countofPosts, countOfAllPosts: countOfAllPosts,
+                                                     posts: posts, postsCache: postsCache)
                                 }) { (error) in
                                     print(error.localizedDescription)
                                 }
@@ -160,9 +164,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     
-    private func getSortedCurrentPartOfArray(keys: [String]) -> ArraySlice<String> {
+    private func getSortedCurrentPartOfArray(keys: [String], startFromFirst: Bool) -> ArraySlice<String> {
         let keysCount = keys.count
-        var startIndex = self.countOfAlreadyLoadedPosts
+        var startIndex = startFromFirst ? 0 : self.countOfAlreadyLoadedPosts
         var endIndex = self.countOfPostsForGetting
         
         if endIndex > keysCount {
@@ -171,22 +175,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         
         if startIndex > keysCount {
             startIndex = keysCount
-        }
-        
-        let cuttedSortered = (Array(keys).sorted(by: { $0 > $1 }))[startIndex..<endIndex]
-        // 4 example if we have already loaded 10 posts,
-        // we dont need to download them again
-        
-        return cuttedSortered
-    }
-    
-    private func getSortedCurrentPartOfArrayFromFirstItem(keys: [String]) -> ArraySlice<String> {
-        let keysCount = keys.count
-        let startIndex = 0
-        var endIndex = self.countOfPostsForGetting
-        
-        if endIndex > keysCount {
-            endIndex = keysCount
         }
         
         let cuttedSortered = (Array(keys).sorted(by: { $0 > $1 }))[startIndex..<endIndex]
@@ -209,9 +197,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                              posts: [PostItem], postsCache: [PostItemCellCache]) {
         if countOfUsers == countOfAllUsers {     // if we have looked
             if countOfPosts == countOfAllPosts { // for everything we wanted
-                let postsSorted = posts.sorted(by: { $0.key > $1.key })
-                let postsCacheSorted = postsCache.sorted(by: { $0.key > $1.key })
-                let postsSortedAndSliced = (Array(postsSorted[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting]))
+                let postsSorted               = posts.sorted(by: { $0.key > $1.key })
+                let postsCacheSorted          = postsCache.sorted(by: { $0.key > $1.key })
+                let postsSortedAndSliced      = (Array(postsSorted[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting]))
                 let postsCacheSortedAndSliced = Array(postsCacheSorted[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting])
                 
                 self.appendNewItems(posts: postsSortedAndSliced, postsCache: postsCacheSortedAndSliced)
@@ -223,7 +211,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        let deltaOffset = maximumOffset - currentOffset
+        let deltaOffset   = maximumOffset - currentOffset
         
         if deltaOffset <= 0 {
             if currentOffset > 0 { // if we are in the end
@@ -231,6 +219,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             }
         }
     }
+    
+    private var loadMoreStatus = false
     
     func loadMore() {
         if !loadMoreStatus {
@@ -249,13 +239,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     func loadMoreBegin(loadMoreEnd:@escaping (Int) -> ()) {
         DispatchQueue.global(qos: .userInitiated).async {
             self.countOfPostsForGetting += self.dCountOfPostsForGetting
-            
-            if self.cameFromSpotOrMyStrip {
-                self.loadSpotPosts()
-            } else {
-                self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
-            }
-            
+            self.loadPosts()
             sleep(2)
             
             DispatchQueue.main.async {
@@ -267,12 +251,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     // function for pull to refresh
     func refresh(sender: Any) {
         // updating posts
-        
-        if self.cameFromSpotOrMyStrip {
-            self.loadSpotPosts()
-        } else {
-            self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
-        }
+        self.loadPosts()
         
         // ending refreshing
         self.tableView.reloadData()

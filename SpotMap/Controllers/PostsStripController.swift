@@ -110,6 +110,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         })
     }
     
+    // TIP: - I will not review this func more. It will be badder for reading
     private func loadMyStripPosts() {
         // get list of my followings
         var posts = [PostItem]()                // new items that we will append to _posts

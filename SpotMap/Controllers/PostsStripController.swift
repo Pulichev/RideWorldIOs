@@ -123,9 +123,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         refToFollowings.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             if let userIds = value?.allKeys as? [String] {
-                var countOfUsers = 0 // count of users posts already counted
+                var countOfUsers = 0             // count of users posts already counted
                 let countOfAllUsers = userIds.count
-                var countofPosts = 0 // count of all posts for subscriptions already counted
+                var countofPosts = 0             // count of all posts for subscriptions already counted
                 var countOfAllPosts = 0
                 
                 // MARK: - For each following user get list of posts

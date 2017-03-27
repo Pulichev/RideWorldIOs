@@ -26,8 +26,10 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     @IBOutlet var followingButton: UIButton!
     
     @IBOutlet var riderProfileCollection: UICollectionView!
-    var posts = [PostItem]()
-    var postsImages = [UIImageView]()
+    
+    var posts = [String: PostItem]()
+    var postsImages = [String: UIImageView]()
+    var postsIds = [String]() // need it to order by date
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,44 +110,59 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     
     func initializeUserPostsPhotos() {
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.ridersInfo.uid).child("posts") // ref for riders posts ids list
+        var tempPosts = [String: PostItem]()
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? [String: Any] {
                 let postIds = Array(value.keys).sorted(by: { $0 > $1 })
+                var count = 0
                 for postId in postIds { // for each user post geting full post item
                     let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
                     postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = PostItem(snapshot: snapshot)
                         
-                        let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(spotPostItem.spotId).child(spotPostItem.key + "_resolution270x270.jpeg")
+                        tempPosts[postId] = spotPostItem
+                        self.postsImages[postId] = UIImageView(image: UIImage(named: "grayRec.jpg"))
                         
-                        photoRef.downloadURL { (URL, error) in
-                            if let error = error {
-                                print("\(error)")
-                            } else {
-                                // async images downloading
-                                URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
-                                    if error != nil {
-                                        print(error.debugDescription)
-                                        return
-                                    } else {
-                                        guard let imageData = UIImage(data: data!) else { return }
-                                        let photoView = UIImageView(image: imageData)
-                                        
-                                        self.postsImages.append(photoView)
-                                        self.posts.append(spotPostItem) // adding it here cz with threading our posts and images can be bad ordering
-                                        
-                                        DispatchQueue.main.async {
-                                            self.riderProfileCollection.reloadData()
-                                        }
-                                    }
-                                }).resume()
-                            }
+                         self.downloadPhotosAsync(post: spotPostItem)
+                        
+                        count += 1
+                        if count == postIds.count {
+                            // let sortedPosts = tempPosts.sorted(by: { $0.0 > $1.0 })
+                            self.postsIds = postIds
+                            self.posts = tempPosts
                         }
                     })
                 }
             }
         })
+    }
+    
+    private func downloadPhotosAsync(post: PostItem) {
+        let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(post.spotId).child(post.key + "_resolution270x270.jpeg")
+        
+        photoRef.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                // async images downloading
+                URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
+                    if error != nil {
+                        print("Error in URLSession: " + (error.debugDescription))
+                        return
+                    } else {
+                        guard let imageData = UIImage(data: data!) else { return }
+                        let photoView = UIImageView(image: imageData)
+                        
+                        self.postsImages[post.key] = photoView
+                        
+                        DispatchQueue.main.async {
+                            self.riderProfileCollection.reloadData()
+                        }
+                    }
+                }).resume()
+            }
+        }
     }
     
     // MARK: COLLECTIONVIEW PART
@@ -161,7 +178,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
         
         // Use the outlet in our custom class to get a reference to the UILabel in the cell
-        cell.postPicture.image = self.postsImages[indexPath.row].image!
+        cell.postPicture.image = self.postsImages[self.postsIds[indexPath.row]]?.image!
         
         return cell
     }
@@ -203,7 +220,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPostInfo" {
             let newPostInfoController = (segue.destination as! PostInfoViewController)
-            newPostInfoController.postInfo = posts[selectedCellId]
+            newPostInfoController.postInfo = self.posts[self.postsIds[selectedCellId]]
             newPostInfoController.user = ridersInfo
         }
         

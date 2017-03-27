@@ -130,7 +130,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? [String: Any] {
-                for (postId, _) in value { // for each user post geting full post item
+                let postIds = Array(value.keys).sorted(by: { $0 > $1 })
+                for postId in postIds { // for each user post geting full post item
+                    // из за ассинхронности все равно не тот порядок.
                     let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
                     postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = PostItem(snapshot: snapshot)
@@ -150,8 +152,14 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                                         guard let imageData = UIImage(data: data!) else { return }
                                         let photoView = UIImageView(image: imageData)
                                         
+                                        let index = postIds.index(of: postId)
+                                        
                                         self.postsImages.append(photoView)
                                         self.posts.append(spotPostItem) // adding it here cz with threading our posts and images can be bad ordering
+                                        //let index = postIds.index(of: postId)
+
+                                        //self.postsImages.insert(photoView, at: index!)
+                                        //self.posts.insert(spotPostItem, at: index!)
                                         
                                         DispatchQueue.main.async {
                                             self.userProfileCollection.reloadData()

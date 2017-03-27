@@ -111,7 +111,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? [String: Any] {
-                for (postId, _) in value { // for each user post geting full post item
+                let postIds = Array(value.keys).sorted(by: { $0 > $1 })
+                for postId in postIds { // for each user post geting full post item
                     let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
                     postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
                         let spotPostItem = PostItem(snapshot: snapshot)

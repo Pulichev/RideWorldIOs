@@ -75,8 +75,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     }
     
     // MARK: load posts region
-    private var countOfPostsForGetting = 3 // start count is initialized here
-    private var dCountOfPostsForGetting = 3
+    private var countOfPostsForGetting = 5 // start count is initialized here
+    private var dCountOfPostsForGetting = 5
     private var countOfAlreadyLoadedPosts = 0
     
     private func loadSpotPosts() {
@@ -122,7 +122,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         // MARK: - Get all subscriptions
         refToFollowings.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
-            if let userIds = value?.allKeys as? [String] {
+            if var userIds = value?.allKeys as? [String] {
+                userIds.append(currentUserId!)   // adding current user for stip
                 var countOfUsers = 0             // count of users posts already counted
                 let countOfAllUsers = userIds.count
                 var countofPosts = 0             // count of all posts for subscriptions already counted
@@ -251,6 +252,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     // function for pull to refresh
     func refresh(sender: Any) {
+        self._posts.removeAll()
+        self._postItemCellsCache.removeAll()
+        self.countOfAlreadyLoadedPosts = 0
+        self.countOfPostsForGetting = self.dCountOfPostsForGetting // first pack
         // updating posts
         self.loadPosts()
         

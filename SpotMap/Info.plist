@@ -30,7 +30,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Do you want to use camera in this application?</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Do you want to give a  access to contacts?</string>
+	<string>Do you want to give a access to contacts?</string>
 	<key>NSLocationUsageDescription</key>
 	<string>Do you want to use geoposition?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

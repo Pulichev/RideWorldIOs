@@ -205,8 +205,16 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             if countOfPosts == countOfAllPosts { // for everything we wanted
                 let postsSorted               = posts.sorted(by: { $0.key > $1.key })
                 let postsCacheSorted          = postsCache.sorted(by: { $0.key > $1.key })
-                let postsSortedAndSliced      = (Array(postsSorted[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting]))
-                let postsCacheSortedAndSliced = Array(postsCacheSorted[self.countOfAlreadyLoadedPosts..<self.countOfPostsForGetting])
+                
+                let endIndex: Int!
+                if self.countOfPostsForGetting > countOfAllPosts { // for situatuons, when d > all count of posts.
+                                                                   // Like when u r following only one user. And this user has only 1 post
+                    endIndex = countOfAllPosts
+                } else {
+                    endIndex = self.countOfPostsForGetting
+                }
+                let postsSortedAndSliced      = Array(postsSorted[self.countOfAlreadyLoadedPosts..<endIndex])
+                let postsCacheSortedAndSliced = Array(postsCacheSorted[self.countOfAlreadyLoadedPosts..<endIndex])
                 
                 self.appendNewItems(posts: postsSortedAndSliced, postsCache: postsCacheSortedAndSliced)
                 self.countOfAlreadyLoadedPosts += self.dCountOfPostsForGetting

@@ -88,10 +88,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         ref.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             if let keys = value?.allKeys as? [String] {
-                for key in self.getSortedCurrentPartOfArray(keys: keys, startFromFirst: false) { // for ordering by date desc
+                let slicedAndOrderedByDateKeys = self.getSortedCurrentPartOfArray(keys: keys, startFromFirst: false)
+                var count = 0 // count of loaded posts in this download operation
+                for key in slicedAndOrderedByDateKeys { // for ordering by date desc
                     let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                     
                     ref.observeSingleEvent(of: .value, with: { snapshot in
+                        count += 1
                         let spotPostItem = PostItem(snapshot: snapshot)
                         let spotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
                         
@@ -99,8 +102,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                         postsCache.append(spotPostCellCache)
                         self.countOfAlreadyLoadedPosts += 1
                         
-                        if self.countOfAlreadyLoadedPosts == self.countOfPostsForGetting { // проверить если постов меньше, чем 3, например
+                        if (self.countOfAlreadyLoadedPosts == self.countOfPostsForGetting) || (count == slicedAndOrderedByDateKeys.count) { // проверить если постов меньше, чем 3, например
                             self.appendNewItems(posts: posts, postsCache: postsCache)
+                            count = 0
                         }
                     }) { (error) in
                         print(error.localizedDescription)

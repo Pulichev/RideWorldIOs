@@ -217,7 +217,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                 let postsCacheSortedAndSliced = Array(postsCacheSorted[self.countOfAlreadyLoadedPosts..<endIndex])
                 
                 self.appendNewItems(posts: postsSortedAndSliced, postsCache: postsCacheSortedAndSliced)
-                self.countOfAlreadyLoadedPosts += self.dCountOfPostsForGetting
+                self.countOfAlreadyLoadedPosts += postsSortedAndSliced.count
             }
         }
     }

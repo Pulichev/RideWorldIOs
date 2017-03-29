@@ -54,6 +54,9 @@ class MainFormController: UIViewController {
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 10
+        locationManager.desiredAccuracy = 5
+        locationManager.activityType = .automotiveNavigation
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         

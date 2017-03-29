@@ -565,8 +565,16 @@
                             <constraint firstAttribute="trailing" secondItem="Qxc-pj-QnL" secondAttribute="trailing" id="wp9-dL-5I9"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="3Gf-ZA-PH5">
+                        <barButtonItem key="rightBarButtonItem" title="Delete" id="Bdk-bS-6Gg">
+                            <connections>
+                                <action selector="deletePost:" destination="WfP-RX-tLc" id="QRV-KK-xCP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="deleteButton" destination="Bdk-bS-6Gg" id="ODt-RP-zIH"/>
                         <outlet property="isLikedPhoto" destination="aFB-lR-qv2" id="VZH-3K-f0m"/>
                         <outlet property="likesCount" destination="5ma-Lc-Yhj" id="dVO-NR-zKX"/>
                         <outlet property="postDate" destination="qPv-s4-Xgo" id="vPM-f5-Zb8"/>
@@ -904,7 +912,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kVo-9F-P8O" id="4LW-F1-zBL">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkp-Wv-5RT">
@@ -1218,7 +1226,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NUz-cv-B5A" id="8aE-KM-EkY">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PTe-KH-xew">

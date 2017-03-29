@@ -15,6 +15,8 @@ import FirebaseAuth
 import Kingfisher
 
 class PostInfoViewController: UIViewController {
+    var isCurrentUserProfile: Bool!
+    
     var postInfo: PostItem!
     var user: UserItem!
     
@@ -32,12 +34,17 @@ class PostInfoViewController: UIViewController {
     var isPhoto: Bool!
     var postIsLiked: Bool!
     
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         DispatchQueue.main.async {
-            self.postDescription.text = self.postInfo.description
+            if !self.isCurrentUserProfile {
+                self.navigationItem.rightBarButtonItem = nil // hide delete button
+            }
             
+            self.postDescription.text = self.postInfo.description
             let sourceDate = String(describing: self.postInfo.createdDate)
             //formatting date to yyyy-mm-dd
             let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
@@ -305,5 +312,9 @@ class PostInfoViewController: UIViewController {
                 self.player.play()
             }
         }
+    }
+    
+    @IBAction func deletePost(_ sender: Any) {
+        // TODO:
     }
 }

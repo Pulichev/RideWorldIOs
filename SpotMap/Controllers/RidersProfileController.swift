@@ -222,6 +222,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
             let newPostInfoController = (segue.destination as! PostInfoViewController)
             newPostInfoController.postInfo = self.posts[self.postsIds[selectedCellId]]
             newPostInfoController.user = ridersInfo
+            newPostInfoController.isCurrentUserProfile = false
         }
         
         if segue.identifier == "goToFollowersFromRidersNode" {

@@ -259,6 +259,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             //let key = Array(self.posts.keys)[selectedCellId]
             newPostInfoController.postInfo = self.posts[self.postsIds[selectedCellId]]
             newPostInfoController.user = userInfo
+            newPostInfoController.isCurrentUserProfile = true
         }
         //send current profile data to editing
         if segue.identifier == "editUserProfile" {

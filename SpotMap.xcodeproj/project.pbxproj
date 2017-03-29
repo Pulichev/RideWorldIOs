@@ -10,6 +10,7 @@
 		731AD27307E50B3192B4422B /* Pods_SpotMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */; };
 		7E70B15F5DAC197C3216DA6E /* Pods_SpotMapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFE0AF727D03D36C374021 /* Pods_SpotMapUITests.framework */; };
 		9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5831E898412007ABD55 /* grayRec.jpg */; };
+		9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */; };
 		9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */; };
 		9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */; };
 		9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */; };
@@ -81,6 +82,7 @@
 		8580589E3175367EF665865F /* Pods-SpotMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.release.xcconfig"; sourceTree = "<group>"; };
 		8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F0AC5831E898412007ABD55 /* grayRec.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grayRec.jpg; path = Pictures/grayRec.jpg; sourceTree = "<group>"; };
+		9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForUpdatingUserProfilePosts.swift; path = Protocols/ForUpdatingUserProfilePosts.swift; sourceTree = "<group>"; };
 		9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditedUserInfoDelegate.swift; path = Protocols/EditedUserInfoDelegate.swift; sourceTree = "<group>"; };
 		9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotDetailsItem.swift; path = Data/SpotDetailsItem.swift; sourceTree = "<group>"; };
 		9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlus.png; path = Pictures/ButtonPlus.png; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */,
+				9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -673,6 +676,7 @@
 				9F4A84451E62F58700C1E5F2 /* EditProfileCell.swift in Sources */,
 				9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */,
 				9F4A84411E62F4C100C1E5F2 /* UserProfileController.swift in Sources */,
+				9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */,
 				9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */,
 				9F4A84431E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift in Sources */,
 				9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */,

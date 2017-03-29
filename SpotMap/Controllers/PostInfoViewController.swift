@@ -16,6 +16,7 @@ import Kingfisher
 
 class PostInfoViewController: UIViewController {
     var isCurrentUserProfile: Bool!
+    var delegateDeleting: ForUpdatingUserProfilePosts?
     
     var postInfo: PostItem!
     var user: UserItem!
@@ -320,7 +321,7 @@ class PostInfoViewController: UIViewController {
                                       message: "Are you sure that you want to delete this post?",
                                       preferredStyle: .alert)
         
-        let saveAction = UIAlertAction(title: "Save",
+        let deleteAction = UIAlertAction(title: "Delete",
                                        style: .default) { action in
                                         
                                         self.startDeleteTransaction()
@@ -329,7 +330,7 @@ class PostInfoViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "Cancel",
                                          style: .default)
         
-        alert.addAction(saveAction)
+        alert.addAction(deleteAction)
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
@@ -353,5 +354,12 @@ class PostInfoViewController: UIViewController {
         // delete media
         
         // likes???
+        
+        // deleting data from collection
+        if let del = delegateDeleting {
+            del.postsDeleted(postId: self.postInfo.key)
+        }
+        // go back
+        _ = navigationController?.popViewController(animated: true)
     }
 }

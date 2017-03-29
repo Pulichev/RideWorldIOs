@@ -260,6 +260,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             newPostInfoController.postInfo = self.posts[self.postsIds[selectedCellId]]
             newPostInfoController.user = userInfo
             newPostInfoController.isCurrentUserProfile = true
+            newPostInfoController.delegateDeleting = self
         }
         //send current profile data to editing
         if segue.identifier == "editUserProfile" {
@@ -304,5 +305,16 @@ extension UserProfileController: EditedUserInfoDelegate {
         self.userBio.text = userInfo.bioDescription
         
         self.userProfilePhoto.image = profilePhoto
+    }
+}
+
+extension UserProfileController: ForUpdatingUserProfilePosts {
+    func postsDeleted(postId: String) {
+        self.posts.removeValue(forKey: postId)
+        self.postsImages.removeValue(forKey: postId)
+        if let index = postsIds.index(of: postId) {
+            postsIds.remove(at: index)
+        }
+        self.userProfileCollection.reloadData()
     }
 }

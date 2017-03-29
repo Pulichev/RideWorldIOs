@@ -316,5 +316,42 @@ class PostInfoViewController: UIViewController {
     
     @IBAction func deletePost(_ sender: Any) {
         // TODO:
+        let alert = UIAlertController(title: "Attention!",
+                                      message: "Are you sure that you want to delete this post?",
+                                      preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save",
+                                       style: .default) { action in
+                                        
+                                        self.startDeleteTransaction()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .default)
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func startDeleteTransaction() {
+        // delete from user posts node
+        let refToUserPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.user.uid).child("posts")
+        refToUserPostNode.observeSingleEvent(of: .value, with: { snapshot in
+            if var posts = snapshot.value as? [String : Bool] {
+                posts.removeValue(forKey: self.postInfo.key)
+                
+                refToUserPostNode.setValue(posts)
+            }
+        })
+        
+        // delete from spotpost node
+        
+        // delete from spotdetails node
+        
+        // delete media
+        
+        // likes???
     }
 }

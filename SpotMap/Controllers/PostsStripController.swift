@@ -529,7 +529,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         if haveWeFinishedLoading {
             return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
         } else {
-            return UIImage(named: "PleaseWaitTxt.gif")
+            return ImageManipulations.resize(image: UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
         }
     }
     

@@ -322,7 +322,7 @@ class PostInfoViewController: UIViewController {
                                       preferredStyle: .alert)
         
         let deleteAction = UIAlertAction(title: "Delete",
-                                       style: .default) { action in
+                                       style: .destructive) { action in
                                         
                                         self.startDeleteTransaction()
         }

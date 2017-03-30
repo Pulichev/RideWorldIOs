@@ -29,7 +29,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-          
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.emptyDataSetSource = self
@@ -41,6 +41,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         tableView.addSubview(refreshControl)
         self.tableView.tableFooterView?.isHidden = true // hide on start
         
+        self.setLoadingScreen()
+        
         self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
         DispatchQueue.global(qos: .userInitiated).async {
             self.loadPosts()
@@ -51,7 +53,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         if self.cameFromSpotOrMyStrip {
             self.loadSpotPosts()
         } else {
-            self.loadMyStripPosts() // TODO: add my own posts. Forgot about this
+            self.loadMyStripPosts()
         }
     }
     
@@ -196,6 +198,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         // resort again. bcz can be problems cz threading
         self._posts = self._posts.sorted(by: { $0.key > $1.key })
         self._postItemCellsCache = self._postItemCellsCache.sorted(by: { $0.key > $1.key })
+        
+        self.removeLoadingScreen()
     }
     
     private func haveWeEnded(countOfUsers: Int, countOfAllUsers: Int,
@@ -208,7 +212,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                 
                 let endIndex: Int!
                 if self.countOfPostsForGetting > countOfAllPosts { // for situatuons, when d > all count of posts.
-                                                                   // Like when u r following only one user. And this user has only 1 post
+                    // Like when u r following only one user. And this user has only 1 post
                     endIndex = countOfAllPosts
                 } else {
                     endIndex = self.countOfPostsForGetting
@@ -218,6 +222,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                 
                 self.appendNewItems(posts: postsSortedAndSliced, postsCache: postsCacheSortedAndSliced)
                 self.countOfAlreadyLoadedPosts += postsSortedAndSliced.count
+                
+                self.removeLoadingScreen()
             }
         }
     }
@@ -496,19 +502,35 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     // MARK: DZNEmptyDataSet for empty data tables
     
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Welcome"
-        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
-        return NSAttributedString(string: str, attributes: attrs)
+        if haveWeFinishedLoading {
+            let str = "Welcome"
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+            return NSAttributedString(string: str, attributes: attrs)
+        } else {
+            let str = ""
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Riders you are subscribed to do not have any publications. Go find some riders you want to follow to. Or post something yourself"
-        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
-        return NSAttributedString(string: str, attributes: attrs)
+        if haveWeFinishedLoading {
+            let str = "Nothing to show or its downloading at the moment. Wait.."
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+            return NSAttributedString(string: str, attributes: attrs)
+        } else {
+            let str = ""
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
     }
     
     func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
-        return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+        if haveWeFinishedLoading {
+            return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+        } else {
+            return UIImage(named: "PleaseWaitTxt.gif")
+        }
     }
     
     // ENDMARK: DZNEmptyDataSet
@@ -546,5 +568,55 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             let userProfileController = segue.destination as! UserProfileController
             userProfileController.cameFromSpotDetails = true
         }
+    }
+    
+    // MARK: - when data loading
+    
+    // View which contains the loading text and the spinner
+    let loadingView = UIView()
+    
+    // Spinner shown during load the TableView
+    let spinner = UIActivityIndicatorView()
+    
+    // Text shown during load the TableView
+    let loadingLabel = UILabel()
+    
+    // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
+    var haveWeFinishedLoading = false
+    
+    // Set the activity indicator into the main view
+    private func setLoadingScreen() {
+        // Sets the view which contains the loading text and the spinner
+        let width: CGFloat = 120
+        let height: CGFloat = 30
+        let x = (self.tableView.frame.width / 2) - (width / 2)
+        let y = (self.tableView.frame.height / 2) - (height / 2) - (self.navigationController?.navigationBar.frame.height)!
+        loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        // Sets loading text
+        self.loadingLabel.textColor = UIColor.gray
+        self.loadingLabel.textAlignment = NSTextAlignment.center
+        self.loadingLabel.text = "Loading..."
+        self.loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
+        
+        // Sets spinner
+        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        self.spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        self.spinner.startAnimating()
+        
+        // Adds text and spinner to the view
+        loadingView.addSubview(self.spinner)
+        loadingView.addSubview(self.loadingLabel)
+        
+        self.tableView.addSubview(loadingView)
+        
+    }
+    
+    // Remove the activity indicator from the main view
+    private func removeLoadingScreen() {
+        // Hides and stops the text and the spinner
+        self.spinner.stopAnimating()
+        self.loadingLabel.isHidden = true
+        self.haveWeFinishedLoading = true
     }
 }

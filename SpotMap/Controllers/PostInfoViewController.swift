@@ -391,7 +391,7 @@ class PostInfoViewController: UIViewController {
     private func deletePhoto() {
         let refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution700x700.jpeg")
         refToMedia.delete { (Error) in
-            print("Error in 700x700 deleting")
+            // do smth
         }
         
         delete270and10thumbnails()
@@ -400,7 +400,7 @@ class PostInfoViewController: UIViewController {
     private func deleteVideo() {
         let refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + ".m4v")
         refToMedia.delete { (Error) in
-            print("Error in m4v deleting")
+            // do smth
         }
         
         delete270and10thumbnails()
@@ -409,12 +409,12 @@ class PostInfoViewController: UIViewController {
     private func delete270and10thumbnails() {
         var refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution270x270.jpeg")
         refToMedia.delete { (Error) in
-            print("Error in 270x270 deleting")
+            // do smth
         }
         
         refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution10x10.jpeg")
         refToMedia.delete { (Error) in
-            print("Error in 10x10 deleting")
+            // do smth
         }
     }
 }

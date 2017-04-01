@@ -133,6 +133,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                             // let sortedPosts = tempPosts.sorted(by: { $0.0 > $1.0 })
                             self.postsIds = postIds
                             self.posts = tempPosts
+                            self.removeLoadingScreen()
                         }
                     })
                 }

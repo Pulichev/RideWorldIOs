@@ -322,9 +322,9 @@ class PostInfoViewController: UIViewController {
                                       preferredStyle: .alert)
         
         let deleteAction = UIAlertAction(title: "Delete",
-                                       style: .destructive) { action in
-                                        
-                                        self.startDeleteTransaction()
+                                         style: .destructive) { action in
+                                            
+                                            self.startDeleteTransaction()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
@@ -348,10 +348,25 @@ class PostInfoViewController: UIViewController {
         })
         
         // delete from spotpost node
+        let refToSpotPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key)
+        refToSpotPostNode.removeValue()
         
         // delete from spotdetails node
+        let refToSpotDetailsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotDetails").child(self.postInfo.spotId).child("posts")
+        refToSpotDetailsNode.observeSingleEvent(of: .value, with: { snapshot in
+            if var posts = snapshot.value as? [String : Bool] {
+                posts.removeValue(forKey: self.postInfo.key)
+                
+                refToSpotDetailsNode.setValue(posts)
+            }
+        })
         
         // delete media
+        if self.postInfo.isPhoto {
+            self.deletePhoto()
+        } else {
+            self.deleteVideo()
+        }
         
         // likes???
         
@@ -361,5 +376,40 @@ class PostInfoViewController: UIViewController {
         }
         // go back
         _ = navigationController?.popViewController(animated: true)
+    }
+    
+    private func deletePhoto() {
+        var refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution700x700.jpeg")
+        refToMedia.delete { (Error) in
+            print("Error in 700x700 deleting")
+        }
+        
+        refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution270x270.jpeg")
+        refToMedia.delete { (Error) in
+            print("Error in 270x270 deleting")
+        }
+
+        refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution10x10.jpeg")
+        refToMedia.delete { (Error) in
+            print("Error in 10x10 deleting")
+        }
+    }
+    
+    private func deleteVideo() {
+        var refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + ".m4v")
+        refToMedia.delete { (Error) in
+            print("Error in m4v deleting")
+        }
+        
+        refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution270x270.jpeg")
+        refToMedia.delete { (Error) in
+            print("Error in 270x270 deleting")
+        }
+        
+        refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution10x10.jpeg")
+        refToMedia.delete { (Error) in
+            print("Error in 10x10 deleting")
+        }
+
     }
 }

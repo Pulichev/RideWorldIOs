@@ -34,6 +34,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setLoadingScreen()
+        
         self.riderProfileCollection.emptyDataSetSource = self
         self.riderProfileCollection.emptyDataSetDelegate = self
         
@@ -300,19 +302,83 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
 
     // MARK: DZNEmptyDataSet for empty data tables
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Welcome"
-        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
-        return NSAttributedString(string: str, attributes: attrs)
+        if haveWeFinishedLoading {
+            let str = "Welcome"
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+            return NSAttributedString(string: str, attributes: attrs)
+        } else {
+            let str = ""
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Riders have no publications"
-        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
-        return NSAttributedString(string: str, attributes: attrs)
+        if haveWeFinishedLoading {
+            let str = "Rider has no publications"
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+            return NSAttributedString(string: str, attributes: attrs)
+        } else {
+            let str = ""
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
     }
     
     func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
-        return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+        if haveWeFinishedLoading {
+            return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+        } else {
+            return ImageManipulations.resize(image: UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
+        }
     }
     // ENDMARK: DZNEmptyDataSet
+    
+    // MARK: - when data loading
+    // View which contains the loading text and the spinner
+    let loadingView = UIView()
+    
+    // Spinner shown during load the TableView
+    let spinner = UIActivityIndicatorView()
+    
+    // Text shown during load the TableView
+    let loadingLabel = UILabel()
+    
+    // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
+    var haveWeFinishedLoading = false
+    
+    // Set the activity indicator into the main view
+    private func setLoadingScreen() {
+        // Sets the view which contains the loading text and the spinner
+        let width: CGFloat = 120
+        let height: CGFloat = 30
+        let x = (self.riderProfileCollection.frame.width / 2) - (width / 2)
+        let y = (self.riderProfileCollection.frame.height / 2) - (height / 2) - (self.navigationController?.navigationBar.frame.height)!
+        loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        // Sets loading text
+        self.loadingLabel.textColor = UIColor.gray
+        self.loadingLabel.textAlignment = NSTextAlignment.center
+        self.loadingLabel.text = "Loading..."
+        self.loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
+        
+        // Sets spinner
+        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        self.spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        self.spinner.startAnimating()
+        
+        // Adds text and spinner to the view
+        loadingView.addSubview(self.spinner)
+        loadingView.addSubview(self.loadingLabel)
+        
+        self.riderProfileCollection.addSubview(loadingView)
+    }
+    
+    // Remove the activity indicator from the main view
+    private func removeLoadingScreen() {
+        // Hides and stops the text and the spinner
+        self.spinner.stopAnimating()
+        self.loadingLabel.isHidden = true
+        self.haveWeFinishedLoading = true
+    }
 }

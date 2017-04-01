@@ -411,7 +411,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    func setVideoOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
+    private func setVideoOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
         if (self._mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
             let cachedAsset = self._mediaCache.object(forKey: cacheKey) as? AVAsset
             cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
@@ -571,7 +571,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     }
     
     // MARK: - when data loading
-    
     // View which contains the loading text and the spinner
     let loadingView = UIView()
     
@@ -609,7 +608,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         loadingView.addSubview(self.loadingLabel)
         
         self.tableView.addSubview(loadingView)
-        
     }
     
     // Remove the activity indicator from the main view

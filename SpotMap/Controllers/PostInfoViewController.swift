@@ -338,28 +338,14 @@ class PostInfoViewController: UIViewController {
     
     private func startDeleteTransaction() {
         // delete from user posts node
-        let refToUserPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.user.uid).child("posts")
-        refToUserPostNode.observeSingleEvent(of: .value, with: { snapshot in
-            if var posts = snapshot.value as? [String : Bool] {
-                posts.removeValue(forKey: self.postInfo.key)
-                
-                refToUserPostNode.setValue(posts)
-            }
-        })
+        deleteFromUserPostNode()
         
         // delete from spotpost node
         let refToSpotPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key)
         refToSpotPostNode.removeValue()
         
         // delete from spotdetails node
-        let refToSpotDetailsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotDetails").child(self.postInfo.spotId).child("posts")
-        refToSpotDetailsNode.observeSingleEvent(of: .value, with: { snapshot in
-            if var posts = snapshot.value as? [String : Bool] {
-                posts.removeValue(forKey: self.postInfo.key)
-                
-                refToSpotDetailsNode.setValue(posts)
-            }
-        })
+        deleteFromSpotDetailsNode()
         
         // delete media
         if self.postInfo.isPhoto {
@@ -368,7 +354,9 @@ class PostInfoViewController: UIViewController {
             self.deleteVideo()
         }
         
-        // likes???
+        // likes
+        // i wont delete likes on current stage of app writing.
+        // there will be not too big count of deleted fight.
         
         // deleting data from collection
         if let del = delegateDeleting {
@@ -378,30 +366,48 @@ class PostInfoViewController: UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     
+    private func deleteFromUserPostNode() {
+        let refToUserPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.user.uid).child("posts")
+        refToUserPostNode.observeSingleEvent(of: .value, with: { snapshot in
+            if var posts = snapshot.value as? [String : Bool] {
+                posts.removeValue(forKey: self.postInfo.key)
+                
+                refToUserPostNode.setValue(posts)
+            }
+        })
+    }
+    
+    private func deleteFromSpotDetailsNode() {
+        let refToSpotDetailsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotDetails").child(self.postInfo.spotId).child("posts")
+        refToSpotDetailsNode.observeSingleEvent(of: .value, with: { snapshot in
+            if var posts = snapshot.value as? [String : Bool] {
+                posts.removeValue(forKey: self.postInfo.key)
+                
+                refToSpotDetailsNode.setValue(posts)
+            }
+        })
+    }
+    
     private func deletePhoto() {
-        var refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution700x700.jpeg")
+        let refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution700x700.jpeg")
         refToMedia.delete { (Error) in
             print("Error in 700x700 deleting")
         }
         
-        refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution270x270.jpeg")
-        refToMedia.delete { (Error) in
-            print("Error in 270x270 deleting")
-        }
-
-        refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution10x10.jpeg")
-        refToMedia.delete { (Error) in
-            print("Error in 10x10 deleting")
-        }
+        delete270and10thumbnails()
     }
     
     private func deleteVideo() {
-        var refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + ".m4v")
+        let refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + ".m4v")
         refToMedia.delete { (Error) in
             print("Error in m4v deleting")
         }
         
-        refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution270x270.jpeg")
+        delete270and10thumbnails()
+    }
+    
+    private func delete270and10thumbnails() {
+        var refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution270x270.jpeg")
         refToMedia.delete { (Error) in
             print("Error in 270x270 deleting")
         }
@@ -410,6 +416,5 @@ class PostInfoViewController: UIViewController {
         refToMedia.delete { (Error) in
             print("Error in 10x10 deleting")
         }
-
     }
 }

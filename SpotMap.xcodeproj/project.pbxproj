@@ -13,6 +13,8 @@
 		9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */; };
 		9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */; };
 		9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */; };
+		9F2979001E9037090051EF5F /* CommentariesContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2978FF1E9037090051EF5F /* CommentariesContoller.swift */; };
+		9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2979011E903BDC0051EF5F /* CommentItem.swift */; };
 		9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */; };
 		9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */; };
 		9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */; };
@@ -86,6 +88,8 @@
 		9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForUpdatingUserProfilePosts.swift; path = Protocols/ForUpdatingUserProfilePosts.swift; sourceTree = "<group>"; };
 		9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = PleaseWaitTxt.gif; path = Pictures/PleaseWaitTxt.gif; sourceTree = "<group>"; };
 		9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditedUserInfoDelegate.swift; path = Protocols/EditedUserInfoDelegate.swift; sourceTree = "<group>"; };
+		9F2978FF1E9037090051EF5F /* CommentariesContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesContoller.swift; path = Controllers/CommentariesContoller.swift; sourceTree = "<group>"; };
+		9F2979011E903BDC0051EF5F /* CommentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentItem.swift; path = Data/CommentItem.swift; sourceTree = "<group>"; };
 		9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotDetailsItem.swift; path = Data/SpotDetailsItem.swift; sourceTree = "<group>"; };
 		9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlus.png; path = Pictures/ButtonPlus.png; sourceTree = "<group>"; };
 		9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonLogout.png; path = Pictures/ButtonLogout.png; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 				9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */,
 				9F943EE81E6F041300709B79 /* LikeItem.swift */,
 				9F73B09D1E6A0E490049563A /* UserItem.swift */,
+				9F2979011E903BDC0051EF5F /* CommentItem.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 				9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */,
 				9F4A84401E62F4C100C1E5F2 /* UserProfileController.swift */,
 				9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */,
+				9F2978FF1E9037090051EF5F /* CommentariesContoller.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -687,7 +693,9 @@
 				9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
 				9FBCFAE61E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift in Sources */,
+				9F2979001E9037090051EF5F /* CommentariesContoller.swift in Sources */,
 				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
+				9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */,
 				9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */,
 				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,
 				9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */,

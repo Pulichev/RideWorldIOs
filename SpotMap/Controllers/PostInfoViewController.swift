@@ -116,22 +116,13 @@ class PostInfoViewController: UIViewController {
     private var userId: String!
     
     func addNewLike() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").childByAutoId()
-        
         // init new like
-        let likeId = likeRef.key
         self.userId = FIRAuth.auth()?.currentUser?.uid
         let likePlacedTime = String(describing: Date())
-        self.newLike = LikeItem(likeId: likeId, userId: self.user.uid, postId: self.postInfo.key, likePlacedTime: likePlacedTime)
+        self.newLike = LikeItem(userId: self.user.uid, postId: self.postInfo.key, likePlacedTime: likePlacedTime)
         
-        addLikeToLikeNode()
         addLikeToUserNode()
         addLikeToPostNode()
-    }
-    
-    func addLikeToLikeNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").child(self.newLike.likeId)
-        likeRef.setValue(self.newLike.toAnyObject())
     }
     
     func addLikeToUserNode() {
@@ -161,18 +152,12 @@ class PostInfoViewController: UIViewController {
         likeRef.observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             self.likeId = value?["likeId"] as? String ?? ""
-            self.removeLikeFromLikeNode() // we can use it only from here bcz of threading
             likeRef.removeValue()
         })
     }
     
     func removeLikeFromUserNode() {
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.user.uid).child("likePlaced/onposts").child(self.postInfo.key)
-        likeRef.removeValue()
-    }
-    
-    func removeLikeFromLikeNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/likes/onposts/").child(self.likeId)
         likeRef.removeValue()
     }
     

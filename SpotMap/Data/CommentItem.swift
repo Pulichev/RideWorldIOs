@@ -1,24 +1,27 @@
 //
-//  LikeItem.swift
+//  CommentItem.swift
 //  SpotMap
 //
-//  Created by Владислав Пуличев on 07.03.17.
+//  Created by Владислав Пуличев on 01.04.17.
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
+// УДАЛИТЬ ПРЯМУЮ СУЩНОСТЬ ЛАЙКА. ЗАЧЕМ ОНА ВООБЩЕ
 
 import FirebaseDatabase
 
-struct LikeItem {
+struct CommentItem {
     let userId: String
     let postId: String
-    let likePlacedTime: String
+    let commentary: String // text of comment
+    let datetime: String
     
     let ref: FIRDatabaseReference?
     
-    init(userId: String, postId: String, likePlacedTime: String) {
+    init(userId: String, postId: String, commentary: String, datetime: String) {
         self.userId = userId
         self.postId = postId
-        self.likePlacedTime = likePlacedTime
+        self.commentary = commentary
+        self.datetime = datetime
         
         self.ref = nil
     }
@@ -27,7 +30,8 @@ struct LikeItem {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         userId = snapshotValue["userId"] as! String
         postId = snapshotValue["postId"] as! String
-        likePlacedTime = snapshotValue["likePlacedTime"] as! String
+        commentary = snapshotValue["commentary"] as! String
+        datetime = snapshotValue["datetime"] as! String
         
         ref = snapshot.ref
     }
@@ -36,8 +40,8 @@ struct LikeItem {
         return [
             "userId" : userId,
             "postId" : postId,
-            "likePlacedTime" : likePlacedTime
+            "commentary" : commentary,
+            "datetime" : datetime
         ]
     }
 }
-

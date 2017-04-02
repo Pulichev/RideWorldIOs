@@ -17,7 +17,6 @@ class CommentariesController: UIViewController {
     
     let collectionView: IGListCollectionView = {
         let view = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-        view.backgroundColor = UIColor.black
         return view
     }()
     
@@ -29,6 +28,7 @@ class CommentariesController: UIViewController {
         super.viewDidLoad()
         
         self.loadComments()
+        
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
@@ -58,6 +58,7 @@ extension CommentariesController: IGListAdapterDataSource {
             }
             
             self.comments = newItems
+            self.adapter.reloadData(completion: nil)
         })
     }
     

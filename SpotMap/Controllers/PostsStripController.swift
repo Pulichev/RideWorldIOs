@@ -308,6 +308,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
         cell.userNickName.tag     = row // for segue to send userId to ridersProfile
         cell.userNickName.addTarget(self, action: #selector(PostsStripController.nickNameTapped), for: .touchUpInside)
+        cell.openComments.addTarget(self, action: #selector(PostsStripController.goToComments), for: .touchUpInside)
         cell.postDate.text        = cellFromCache.postDate.text
         cell.postTime.text        = cellFromCache.postTime.text
         cell.postDescription.text = cellFromCache.postDescription.text
@@ -548,6 +549,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             self.ridersInfoForSending = self._postItemCellsCache[sender.tag].userInfo
             self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
         }
+    }
+    
+    //go to comments
+    func goToComments(sender: UIButton!) {
+        let commentariesController = CommentariesController()
+        commentariesController.postId = self._posts[sender.tag].key
+        self.present(commentariesController, animated: true, completion: nil)
     }
     
     var ridersInfoForSending: UserItem!

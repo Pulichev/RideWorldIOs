@@ -25,6 +25,7 @@ class PostsCell: UITableViewCell {
     @IBOutlet weak var postDescription: UITextView!
     @IBOutlet weak var isLikedPhoto: UIImageView!
     @IBOutlet weak var likesCount: UILabel!
+    @IBOutlet weak var openComments: UIButton!
     var isPhoto: Bool!
     var postIsLiked: Bool!
     

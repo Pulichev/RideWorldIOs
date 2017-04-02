@@ -9,7 +9,7 @@
 import UIKit
 
 class CommentCell: UICollectionViewCell {
-    static let font = UIFont(name: "OCRAStd", size: 14)!
+    static let font = UIFont(name: "Helvetica", size: 14)!
     static let inset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
     
     static func cellSize(width: CGFloat, text: String) -> CGSize {
@@ -21,7 +21,7 @@ class CommentCell: UICollectionViewCell {
         label.backgroundColor = UIColor.clear
         label.numberOfLines = 0
         label.font = CommentCell.font
-        label.textColor = UIColor.white
+        label.textColor = UIColor.black
         return label
     }()
     

@@ -13,8 +13,9 @@
 		9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */; };
 		9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */; };
 		9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */; };
-		9F2979001E9037090051EF5F /* CommentariesContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2978FF1E9037090051EF5F /* CommentariesContoller.swift */; };
+		9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2978FF1E9037090051EF5F /* CommentariesController.swift */; };
 		9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2979011E903BDC0051EF5F /* CommentItem.swift */; };
+		9F2BFEEC1E9105D3005FEF0C /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */; };
 		9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */; };
 		9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */; };
 		9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */; };
@@ -31,6 +32,8 @@
 		9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609841E7C6BB50000DB21 /* PostsCell.swift */; };
 		9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609861E7C8C990000DB21 /* PostsStripController.swift */; };
 		9F56098A1E7D43990000DB21 /* 1489850825_Home.ico in Resources */ = {isa = PBXBuildFile; fileRef = 9F5609891E7D43990000DB21 /* 1489850825_Home.ico */; };
+		9F57A2F01E91117E00F9AEF5 /* TextSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F57A2EF1E91117E00F9AEF5 /* TextSize.swift */; };
+		9F57A2F51E9112AA00F9AEF5 /* CommentariesSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F57A2F41E9112AA00F9AEF5 /* CommentariesSectionController.swift */; };
 		9F6163471E7E89C1001664B7 /* no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6163461E7E89C1001664B7 /* no_photo.png */; };
 		9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F65321B1E3CD12700F58C18 /* Assets.xcassets */; };
 		9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73B09D1E6A0E490049563A /* UserItem.swift */; };
@@ -88,8 +91,9 @@
 		9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForUpdatingUserProfilePosts.swift; path = Protocols/ForUpdatingUserProfilePosts.swift; sourceTree = "<group>"; };
 		9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = PleaseWaitTxt.gif; path = Pictures/PleaseWaitTxt.gif; sourceTree = "<group>"; };
 		9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditedUserInfoDelegate.swift; path = Protocols/EditedUserInfoDelegate.swift; sourceTree = "<group>"; };
-		9F2978FF1E9037090051EF5F /* CommentariesContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesContoller.swift; path = Controllers/CommentariesContoller.swift; sourceTree = "<group>"; };
+		9F2978FF1E9037090051EF5F /* CommentariesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesController.swift; path = Controllers/CommentariesController.swift; sourceTree = "<group>"; };
 		9F2979011E903BDC0051EF5F /* CommentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentItem.swift; path = Data/CommentItem.swift; sourceTree = "<group>"; };
+		9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = CustomUIElements/CommentCell.swift; sourceTree = "<group>"; };
 		9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotDetailsItem.swift; path = Data/SpotDetailsItem.swift; sourceTree = "<group>"; };
 		9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlus.png; path = Pictures/ButtonPlus.png; sourceTree = "<group>"; };
 		9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonLogout.png; path = Pictures/ButtonLogout.png; sourceTree = "<group>"; };
@@ -106,6 +110,8 @@
 		9F5609841E7C6BB50000DB21 /* PostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCell.swift; path = CustomUIElements/PostsCell.swift; sourceTree = "<group>"; };
 		9F5609861E7C8C990000DB21 /* PostsStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsStripController.swift; path = Controllers/PostsStripController.swift; sourceTree = "<group>"; };
 		9F5609891E7D43990000DB21 /* 1489850825_Home.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = 1489850825_Home.ico; sourceTree = "<group>"; };
+		9F57A2EF1E91117E00F9AEF5 /* TextSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextSize.swift; path = System/TextSize.swift; sourceTree = "<group>"; };
+		9F57A2F41E9112AA00F9AEF5 /* CommentariesSectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesSectionController.swift; path = CustomUIElements/SectionControllers/CommentariesSectionController.swift; sourceTree = "<group>"; };
 		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
 		9F65321B1E3CD12700F58C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F73B09D1E6A0E490049563A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserItem.swift; path = Data/UserItem.swift; sourceTree = "<group>"; };
@@ -226,6 +232,22 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
+		9F57A2EE1E91115D00F9AEF5 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				9F57A2EF1E91117E00F9AEF5 /* TextSize.swift */,
+			);
+			name = System;
+			sourceTree = "<group>";
+		};
+		9F57A2F11E91124900F9AEF5 /* SectionControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9F57A2F41E9112AA00F9AEF5 /* CommentariesSectionController.swift */,
+			);
+			name = SectionControllers;
+			sourceTree = "<group>";
+		};
 		9F73B09A1E69ED7F0049563A /* TempFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +291,7 @@
 		9FB681B41E2E70CE00D9A436 /* SpotMap */ = {
 			isa = PBXGroup;
 			children = (
+				9F57A2EE1E91115D00F9AEF5 /* System */,
 				9F212A291E802810003D5A8F /* Protocols */,
 				9FAE8C1C1E7E83F400BB10B9 /* Some Obj-C frameworks */,
 				9F73B09A1E69ED7F0049563A /* TempFiles */,
@@ -319,7 +342,7 @@
 				9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */,
 				9F4A84401E62F4C100C1E5F2 /* UserProfileController.swift */,
 				9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */,
-				9F2978FF1E9037090051EF5F /* CommentariesContoller.swift */,
+				9F2978FF1E9037090051EF5F /* CommentariesController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -335,12 +358,14 @@
 		9FC14FDA1E48E7590097579B /* CustomUIElements */ = {
 			isa = PBXGroup;
 			children = (
+				9F57A2F11E91124900F9AEF5 /* SectionControllers */,
 				9F5609841E7C6BB50000DB21 /* PostsCell.swift */,
 				9F4A84421E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift */,
 				9FC14FDB1E48E7690097579B /* CustomPin.swift */,
 				9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */,
 				9FBCFAE71E73445900A5C95D /* ImageManipulations.swift */,
 				9FFB14F71E784E4B00D10620 /* FollowersTableCell.swift */,
+				9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -675,6 +700,7 @@
 				9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */,
 				9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */,
 				9FAE8C201E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m in Sources */,
+				9F2BFEEC1E9105D3005FEF0C /* CommentCell.swift in Sources */,
 				9FFB14F81E784E4B00D10620 /* FollowersTableCell.swift in Sources */,
 				9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */,
 				9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */,
@@ -683,8 +709,10 @@
 				9FBCFAE81E73445900A5C95D /* ImageManipulations.swift in Sources */,
 				9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */,
 				9F5609811E7C6A630000DB21 /* PostItem.swift in Sources */,
+				9F57A2F51E9112AA00F9AEF5 /* CommentariesSectionController.swift in Sources */,
 				9F4A84451E62F58700C1E5F2 /* EditProfileCell.swift in Sources */,
 				9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */,
+				9F57A2F01E91117E00F9AEF5 /* TextSize.swift in Sources */,
 				9F4A84411E62F4C100C1E5F2 /* UserProfileController.swift in Sources */,
 				9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */,
 				9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */,
@@ -693,7 +721,7 @@
 				9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
 				9FBCFAE61E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift in Sources */,
-				9F2979001E9037090051EF5F /* CommentariesContoller.swift in Sources */,
+				9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */,
 				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
 				9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */,
 				9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */,

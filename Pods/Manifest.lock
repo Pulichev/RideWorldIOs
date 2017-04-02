@@ -42,6 +42,7 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.8)
+  - IGListKit (2.0.0)
   - Kingfisher (3.2.4)
   - SwiftLint (0.16.0)
 
@@ -51,6 +52,8 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseAuth
   - Fusuma
+  - IGListKit
+  - IGListKit (~> 2.0.0)
   - Kingfisher (~> 3.0)
   - SwiftLint
 
@@ -67,9 +70,10 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 6f8d8b28b7e345549ac471071608170b31cb4977
+  IGListKit: ee255e4e61865bc3e01ca96b690c5435c2887849
   Kingfisher: 8d80f39da403cd9c9ee11984e1655f4d6a566cdb
   SwiftLint: 90665265ae50b58167c674a11c680bbabe9d6513
 
-PODFILE CHECKSUM: ee3a374966f79b9ee1bb94ff6dd5012dece4ec6b
+PODFILE CHECKSUM: 4bf1dfed6ae1b2c9c34a715a8562a41c2fac491a
 
 COCOAPODS: 1.1.1

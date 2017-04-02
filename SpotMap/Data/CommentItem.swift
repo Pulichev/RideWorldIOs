@@ -8,8 +8,10 @@
 // УДАЛИТЬ ПРЯМУЮ СУЩНОСТЬ ЛАЙКА. ЗАЧЕМ ОНА ВООБЩЕ
 
 import FirebaseDatabase
+import IGListKit
+import Foundation
 
-struct CommentItem {
+class CommentItem: NSObject {
     let userId: String
     let postId: String
     let commentary: String // text of comment

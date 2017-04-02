@@ -553,12 +553,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     //go to comments
     func goToComments(sender: UIButton!) {
-        let commentariesController = CommentariesController()
-        commentariesController.postId = self._posts[sender.tag].key
-        self.present(commentariesController, animated: true, completion: nil)
+//        let commentariesController = CommentariesController()
+//        commentariesController.postId = self._posts[sender.tag].key
+//        self.present(commentariesController, animated: true, completion: nil)
+        self.postIdForSending = self._posts[sender.tag].key
+        self.performSegue(withIdentifier: "goToCommentsFromPostStrip", sender: self)
     }
     
     var ridersInfoForSending: UserItem!
+    var postIdForSending: String!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addNewPost" {
@@ -575,6 +578,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         if segue.identifier == "ifChoosedCurrentUser" {
             let userProfileController = segue.destination as! UserProfileController
             userProfileController.cameFromSpotDetails = true
+        }
+        
+        if segue.identifier == "goToCommentsFromPostStrip" {
+            let commentariesController = segue.destination as! CommentariesController
+            commentariesController.postId = postIdForSending
         }
     }
     

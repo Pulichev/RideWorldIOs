@@ -28,19 +28,52 @@ class CommentariesController: UIViewController {
         super.viewDidLoad()
         
         self.loadComments()
+        self.view.backgroundColor = UIColor.white
         
         view.addSubview(collectionView)
+        view.addSubview(sendCommentButton)
+        view.addSubview(newCommentTextField)
         adapter.collectionView = collectionView
         adapter.dataSource = self
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
+        let screenSize: CGRect = self.view.bounds
+        collectionView.frame = CGRect(x: 0, y: 5, width: self.view.bounds.width, height: self.view.bounds.height - 55)
+        sendCommentButton.frame = CGRect(x: screenSize.width * 0.7 + 5, y: screenSize.height - 50,
+                                        width: screenSize.width * 0.3 - 10, height: 45)
+        newCommentTextField.frame = CGRect(x: 5, y: screenSize.height - 50,
+                                           width: screenSize.width * 0.7 - 10, height: 45)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+
+    lazy var sendCommentButton: UIButton! = {
+        let screenSize: CGRect = self.view.bounds
+        let view = UIButton()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(CommentariesController.sendComment), for: .touchDown)
+        view.setTitle("Send", for: .normal)
+        view.backgroundColor = UIColor.gray
+        view.titleLabel?.textAlignment = .center
+        return view
+    }()
+    
+    lazy var newCommentTextField: UITextField! = {
+        let screenSize: CGRect = self.view.bounds
+        let view = UITextField()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.borderStyle = .roundedRect
+        view.textAlignment = .center
+        
+        return view
+    }()
+    
+    func sendComment() {
+        
     }
 }
 

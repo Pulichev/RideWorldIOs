@@ -20,7 +20,7 @@ class CommentariesSectionController: IGListSectionController {
 // MARK: - IGListSectionType
 extension CommentariesSectionController: IGListSectionType {
     func numberOfItems() -> Int {
-        return 2
+        return 1
     }
     
     func sizeForItem(at index: Int) -> CGSize {
@@ -28,7 +28,7 @@ extension CommentariesSectionController: IGListSectionType {
         let width = context.containerSize.width
         
         if index == 0 {
-            return CGSize(width: width, height: 30)
+            return CommentCell.cellSize(width: width, text: entry.commentary)
         } else {
             return CommentCell.cellSize(width: width, text: entry.commentary)
         }

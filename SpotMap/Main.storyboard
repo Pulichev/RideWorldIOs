@@ -839,11 +839,20 @@
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromSpotDetails" id="6R6-CY-IE2"/>
                         <segue destination="ULr-hs-bKD" kind="show" identifier="addNewPost" id="JdC-Rg-e8F"/>
                         <segue destination="MsB-Ex-yak" kind="show" identifier="ifChoosedCurrentUser" id="TEa-lr-7L1"/>
+                        <segue destination="qpR-Ii-MBa" kind="show" identifier="goToCommentsFromPostStrip" id="LXg-LT-zKC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h24-NX-eSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4312.5" y="931.69014084507046"/>
+        </scene>
+        <!--Commentaries Controller-->
+        <scene sceneID="gmz-5t-C9K">
+            <objects>
+                <viewController id="qpR-Ii-MBa" customClass="CommentariesController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hNt-9n-Rms" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5363" y="61"/>
         </scene>
         <!--New Post Controller-->
         <scene sceneID="YyL-Pa-zzf">

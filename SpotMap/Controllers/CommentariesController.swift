@@ -31,6 +31,12 @@ class CommentariesController: UIViewController {
         self.loadComments()
         self.view.backgroundColor = UIColor.white
         
+        //For scrolling the view if keyboard on
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentariesController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentariesController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        self.newCommentTextField.delegate = self
+        
         view.addSubview(collectionView)
         view.addSubview(sendCommentButton)
         view.addSubview(newCommentTextField)
@@ -82,6 +88,9 @@ class CommentariesController: UIViewController {
         
         refForNewComment.setValue(newComment.toAnyObject())
     }
+    
+    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
+    //if we tapped UITextField and then another UITextField
 }
 
 // MARK: - IGListAdapterDataSource
@@ -115,4 +124,28 @@ extension CommentariesController: IGListAdapterDataSource {
     }
     
     func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+}
+
+extension CommentariesController: UITextFieldDelegate {
+    func keyboardWillShow(notification: NSNotification) {
+        if !keyBoardAlreadyShowed {
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+                let keyboardHeight = keyboardSize.height
+                self.view.frame.origin.y -= (keyboardHeight - 49)
+                keyBoardAlreadyShowed = true
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            self.view.frame.origin.y += (keyboardHeight - 49)
+            keyBoardAlreadyShowed = false
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

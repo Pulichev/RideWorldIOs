@@ -84,7 +84,7 @@ class CommentariesController: UIViewController {
         
         let currentUserId = FIRAuth.auth()?.currentUser?.uid
         let currentDateTime = String(describing: Date())
-        let newComment = CommentItem(userId: currentUserId!, postId: self.postId, commentary: newCommentTextField.text!, datetime: currentDateTime)
+        let newComment = CommentItem(commentId: refForNewComment.key, userId: currentUserId!, postId: self.postId, commentary: newCommentTextField.text!, datetime: currentDateTime)
         
         refForNewComment.setValue(newComment.toAnyObject())
     }
@@ -106,7 +106,7 @@ extension CommentariesController: IGListAdapterDataSource {
                 newItems.append(commentItem)
             }
             
-            self.comments = newItems
+            self.comments = newItems.sorted(by: { $0.commentId < $1.commentId })
             self.adapter.reloadData(completion: nil)
         })
     }

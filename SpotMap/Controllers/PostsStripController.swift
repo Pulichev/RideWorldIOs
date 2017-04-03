@@ -308,6 +308,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
         cell.userNickName.tag     = row // for segue to send userId to ridersProfile
         cell.userNickName.addTarget(self, action: #selector(PostsStripController.nickNameTapped), for: .touchUpInside)
+        cell.openComments.tag     = row // for segue to send postId to comments
         cell.openComments.addTarget(self, action: #selector(PostsStripController.goToComments), for: .touchUpInside)
         cell.postDate.text        = cellFromCache.postDate.text
         cell.postTime.text        = cellFromCache.postTime.text
@@ -540,7 +541,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         self.performSegue(withIdentifier: "addNewPost", sender: self)
     }
     
-    //go to riders profile
+    // go to riders profile
     func nickNameTapped(sender: UIButton!) {
         // check if going to current user
         if self._postItemCellsCache[sender.tag].userInfo.uid == FIRAuth.auth()?.currentUser?.uid {
@@ -551,11 +552,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    //go to comments
+    // go to comments
     func goToComments(sender: UIButton!) {
-//        let commentariesController = CommentariesController()
-//        commentariesController.postId = self._posts[sender.tag].key
-//        self.present(commentariesController, animated: true, completion: nil)
         self.postIdForSending = self._posts[sender.tag].key
         self.performSegue(withIdentifier: "goToCommentsFromPostStrip", sender: self)
     }

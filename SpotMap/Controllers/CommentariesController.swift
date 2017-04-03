@@ -9,6 +9,7 @@
 import UIKit
 import IGListKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class CommentariesController: UIViewController {
     var postId: String!
@@ -73,7 +74,13 @@ class CommentariesController: UIViewController {
     }()
     
     func sendComment() {
+        let refForNewComment = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postId).child("comments").childByAutoId()
         
+        let currentUserId = FIRAuth.auth()?.currentUser?.uid
+        let currentDateTime = String(describing: Date())
+        let newComment = CommentItem(userId: currentUserId!, postId: self.postId, commentary: newCommentTextField.text!, datetime: currentDateTime)
+        
+        refForNewComment.setValue(newComment.toAnyObject())
     }
 }
 

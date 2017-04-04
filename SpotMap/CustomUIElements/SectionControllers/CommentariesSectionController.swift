@@ -7,6 +7,7 @@
 //
 
 import IGListKit
+import FirebaseStorage
 
 class CommentariesSectionController: IGListSectionController {
     var entry: CommentItem!
@@ -40,6 +41,7 @@ extension CommentariesSectionController: IGListSectionType {
         
         let commentCell = cell as? CommentCell
         commentCell?.label.text = entry.commentary
+        self.initializeUserPhoto(cell: commentCell!)
         
         return cell
     }
@@ -49,5 +51,20 @@ extension CommentariesSectionController: IGListSectionType {
     }
     
     func didSelectItem(at index: Int) {}
+    
+    func initializeUserPhoto(cell: CommentCell) {
+        let storage = FIRStorage.storage()
+        let url = "gs://spotmap-e3116.appspot.com/media/userMainPhotoURLs/" + self.entry.userId + "_resolution90x90.jpeg"
+        let riderPhotoURL = storage.reference(forURL: url)
+        
+        riderPhotoURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                cell.userPhoto.kf.setImage(with: URL) //Using kf for caching images.
+                cell.userPhoto.layer.cornerRadius = cell.userPhoto.frame.size.height / 2
+            }
+        }
+    }
 }
 

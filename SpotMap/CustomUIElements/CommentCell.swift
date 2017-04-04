@@ -25,6 +25,13 @@ class CommentCell: UICollectionViewCell {
         return label
     }()
     
+    let userPhoto: UIImage = {
+        let photo = UIImage()
+        // TODO: add image!
+        
+        return photo
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(label)

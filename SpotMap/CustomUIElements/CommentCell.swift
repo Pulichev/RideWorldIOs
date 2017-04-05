@@ -24,13 +24,15 @@ class CommentCell: UITableViewCell {
     
     var comment: CommentItem! {
         didSet {
-            self.userNickName.setTitle("ololo", for: .normal)
             self.commentText.text = self.comment.commentary
             self.initialiseUserPhoto()
+            self.initialiseUserButton()
         }
     }
     
     func initialiseUserPhoto() {
+        self.userPhoto.image = UIImage(named: "grayRec.jpg")
+        
         let storage = FIRStorage.storage()
         let url = "gs://spotmap-e3116.appspot.com/media/userMainPhotoURLs/" + self.comment.userId + "_resolution90x90.jpeg"
         let riderPhotoURL = storage.reference(forURL: url)
@@ -39,9 +41,18 @@ class CommentCell: UITableViewCell {
             if let error = error {
                 print("\(error)")
             } else {
-                self.userPhoto.kf.setImage(with: URL) //Using kf for caching images.
                 self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
+                self.userPhoto.kf.setImage(with: URL) //Using kf for caching images.
             }
         }
+    }
+    
+    func initialiseUserButton() {
+        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(self.comment.userId)
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            let user = UserItem(snapshot: snapshot)
+            self.userNickName.setTitle(user.login, for: .normal)
+        })
     }
 }

@@ -51,8 +51,8 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
             }
             
             self.comments = newItems.sorted(by: { $0.commentId < $1.commentId })
-            self.tableView.reloadData()
             // TODO: need to insert description here
+            self.tableView.reloadData()
         })
     }
     
@@ -86,10 +86,6 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
 //        cell.userImage.addGestureRecognizer(tapGestureRecognizer)
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // idk if i will use it
     }
     
 //    func goToProfile(_ sender: UIGestureRecognizer) {

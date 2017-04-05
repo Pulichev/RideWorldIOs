@@ -7,29 +7,21 @@
 //
 
 import UIKit
-import IGListKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class CommentariesController: UIViewController {
+class CommentariesController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     var postId: String!
     
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var newCommentTextField: UITextField!
+    
     var comments = [CommentItem]()
-    
-    let collectionView: IGListCollectionView = {
-        let view = IGListCollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-        return view
-    }()
-    
-    lazy var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
-    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.loadComments()
-        self.view.backgroundColor = UIColor.white
         
         //For scrolling the view if keyboard on
         NotificationCenter.default.addObserver(self, selector: #selector(CommentariesController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -37,64 +29,16 @@ class CommentariesController: UIViewController {
         
         self.newCommentTextField.delegate = self
         
-        view.addSubview(collectionView)
-        view.addSubview(sendCommentButton)
-        view.addSubview(newCommentTextField)
-        adapter.collectionView = collectionView
-        adapter.dataSource = self
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let screenSize: CGRect = self.view.bounds
-        collectionView.frame = CGRect(x: 0, y: 5, width: self.view.bounds.width, height: self.view.bounds.height - 55)
-        sendCommentButton.frame = CGRect(x: screenSize.width * 0.7 + 5, y: screenSize.height - 50,
-                                        width: screenSize.width * 0.3 - 10, height: 45)
-        newCommentTextField.frame = CGRect(x: 5, y: screenSize.height - 50,
-                                           width: screenSize.width * 0.7 - 10, height: 45)
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-    lazy var sendCommentButton: UIButton! = {
-        let screenSize: CGRect = self.view.bounds
-        let view = UIButton()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.addTarget(self, action: #selector(CommentariesController.sendComment), for: .touchDown)
-        view.setTitle("Send", for: .normal)
-        view.backgroundColor = UIColor.gray
-        view.titleLabel?.textAlignment = .center
-        return view
-    }()
     
-    lazy var newCommentTextField: UITextField! = {
-        let screenSize: CGRect = self.view.bounds
-        let view = UITextField()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.borderStyle = .roundedRect
-        view.textAlignment = .center
-        
-        return view
-    }()
-    
-    func sendComment() {
-        let refForNewComment = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postId).child("comments").childByAutoId()
-        
-        let currentUserId = FIRAuth.auth()?.currentUser?.uid
-        let currentDateTime = String(describing: Date())
-        let newComment = CommentItem(commentId: refForNewComment.key, userId: currentUserId!, postId: self.postId, commentary: newCommentTextField.text!, datetime: currentDateTime)
-        
-        refForNewComment.setValue(newComment.toAnyObject())
-    }
-    
-    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
-    //if we tapped UITextField and then another UITextField
-}
-
-// MARK: - IGListAdapterDataSource
-extension CommentariesController: IGListAdapterDataSource {
     func loadComments() {
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postId).child("comments")
         
@@ -107,23 +51,89 @@ extension CommentariesController: IGListAdapterDataSource {
             }
             
             self.comments = newItems.sorted(by: { $0.commentId < $1.commentId })
-            self.adapter.reloadData(completion: nil)
+            self.tableView.reloadData()
+            // TODO: need to insert description here
         })
     }
     
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        var items = [IGListDiffable]()
+    @IBAction func sendComment(_ sender: Any) {
+        let refForNewComment = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postId).child("comments").childByAutoId()
         
-        items = self.comments as [IGListDiffable]
+        let currentUserId = FIRAuth.auth()?.currentUser?.uid
+        let currentDateTime = String(describing: Date())
+        let newComment = CommentItem(commentId: refForNewComment.key, userId: currentUserId!, postId: self.postId, commentary: newCommentTextField.text!, datetime: currentDateTime)
         
-        return items
+        refForNewComment.setValue(newComment.toAnyObject())
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        return CommentariesSectionController()
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? { return nil }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.comments.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentsTableCell", for: indexPath) as! CommentCell
+        let row = indexPath.row
+        
+        cell.comment = self.comments[row]
+        // adding tap event -> perform segue to profile
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile(_:)))
+//        cell.userImage.tag = row
+//        cell.userImage.isUserInteractionEnabled = true
+//        cell.userImage.addGestureRecognizer(tapGestureRecognizer)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // idk if i will use it
+    }
+    
+//    func goToProfile(_ sender: UIGestureRecognizer) {
+//        if self.followList[(sender.view?.tag)!].uid == (FIRAuth.auth()?.currentUser?.uid)! {
+//            self.performSegue(withIdentifier: "openUserProfileFromFollowList", sender: self)
+//        } else {
+//            self.ridersInfoForSending = self.followList[(sender.view?.tag)!]
+//            self.performSegue(withIdentifier: "openRidersProfileFromFollowList", sender: self)
+//        }
+//    }
+//    
+//    var ridersInfoForSending: UserItem!
+//    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "openRidersProfileFromFollowList" {
+//            let newRidersProfileController = segue.destination as! RidersProfileController
+//            newRidersProfileController.ridersInfo = ridersInfoForSending
+//            newRidersProfileController.title = ridersInfoForSending.login
+//        }
+//        
+//        if segue.identifier == "openUserProfileFromFollowList" {
+//            let userProfileController = segue.destination as! UserProfileController
+//            userProfileController.cameFromSpotDetails = true
+//        }
+//    }
+
+    // MARK: DZNEmptyDataSet for empty data tables
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = ":("
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Nothing to show"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    // ENDMARK: DZNEmptyDataSet
+    
+    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
+    //if we tapped UITextField and then another UITextField
 }
 
 extension CommentariesController: UITextFieldDelegate {

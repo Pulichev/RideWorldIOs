@@ -16,7 +16,7 @@ class CommentCell: UITableViewCell {
     
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var userNickName: UIButton!
-    @IBOutlet weak var commentText: UITextView!
+    @IBOutlet weak var commentText: UILabel!
     
     static func cellSize(width: CGFloat, text: String) -> CGSize {
         return TextSize.size(text, font: CommentCell.font, width: width, insets: CommentCell.inset).size

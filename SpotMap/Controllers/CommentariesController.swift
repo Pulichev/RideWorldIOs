@@ -82,37 +82,44 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
         
         cell.comment = self.comments[row]
         // adding tap event -> perform segue to profile
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile(_:)))
-//        cell.userImage.tag = row
-//        cell.userImage.isUserInteractionEnabled = true
-//        cell.userImage.addGestureRecognizer(tapGestureRecognizer)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile(_:)))
+        cell.userPhoto.tag = row
+        cell.userPhoto.isUserInteractionEnabled = true
+        cell.userPhoto.addGestureRecognizer(tapGestureRecognizer)
         
         return cell
     }
     
-//    func goToProfile(_ sender: UIGestureRecognizer) {
-//        if self.followList[(sender.view?.tag)!].uid == (FIRAuth.auth()?.currentUser?.uid)! {
-//            self.performSegue(withIdentifier: "openUserProfileFromFollowList", sender: self)
-//        } else {
-//            self.ridersInfoForSending = self.followList[(sender.view?.tag)!]
-//            self.performSegue(withIdentifier: "openRidersProfileFromFollowList", sender: self)
-//        }
-//    }
-//    
-//    var ridersInfoForSending: UserItem!
-//    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "openRidersProfileFromFollowList" {
-//            let newRidersProfileController = segue.destination as! RidersProfileController
-//            newRidersProfileController.ridersInfo = ridersInfoForSending
-//            newRidersProfileController.title = ridersInfoForSending.login
-//        }
-//        
-//        if segue.identifier == "openUserProfileFromFollowList" {
-//            let userProfileController = segue.destination as! UserProfileController
-//            userProfileController.cameFromSpotDetails = true
-//        }
-//    }
+    func goToProfile(_ sender: UIGestureRecognizer) {
+        let userId = self.comments[(sender.view?.tag)!].userId
+        
+        if userId == (FIRAuth.auth()?.currentUser?.uid)! {
+            self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
+        } else {
+            let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId)
+            
+            ref.observeSingleEvent(of: .value, with: { snapshot in
+                let user = UserItem(snapshot: snapshot)
+                self.ridersInfoForSending = user
+                self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
+            })
+        }
+    }
+    
+    var ridersInfoForSending: UserItem!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "openRidersProfileFromCommentsList" {
+            let newRidersProfileController = segue.destination as! RidersProfileController
+            newRidersProfileController.ridersInfo = ridersInfoForSending
+            newRidersProfileController.title = ridersInfoForSending.login
+        }
+        
+        if segue.identifier == "openUserProfileFromCommentsList" {
+            let userProfileController = segue.destination as! UserProfileController
+            userProfileController.cameFromSpotDetails = true
+        }
+    }
 
     // MARK: DZNEmptyDataSet for empty data tables
     

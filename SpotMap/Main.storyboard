@@ -958,6 +958,8 @@
                     <connections>
                         <outlet property="newCommentTextField" destination="uQ1-GV-iFo" id="OHc-RI-gfE"/>
                         <outlet property="tableView" destination="j6T-oW-eAy" id="Kpk-UF-dNx"/>
+                        <segue destination="MsB-Ex-yak" kind="show" identifier="openUserProfileFromCommentsList" id="T3A-kh-NPf"/>
+                        <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromCommentsList" id="eb8-9P-3Sr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gjd-iu-5SJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1556,9 +1558,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="Gef-69-N8A"/>
         <segue reference="PDm-Oj-MlC"/>
-        <segue reference="qSk-1a-lLs"/>
-        <segue reference="WTf-CW-Cn6"/>
-        <segue reference="RlL-e4-xY6"/>
-        <segue reference="Oe2-wo-WXX"/>
+        <segue reference="T3A-kh-NPf"/>
+        <segue reference="eb8-9P-3Sr"/>
+        <segue reference="TeE-da-wxz"/>
+        <segue reference="eyf-4a-ZNN"/>
     </inferredMetricsTieBreakers>
 </document>

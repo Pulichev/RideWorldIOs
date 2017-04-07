@@ -17,6 +17,7 @@ class CommentCell: UITableViewCell {
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var userNickName: UIButton!
     @IBOutlet weak var commentText: UILabel!
+    @IBOutlet weak var date: UILabel!
     
     static func cellSize(width: CGFloat, text: String) -> CGSize {
         return TextSize.size(text, font: CommentCell.font, width: width, insets: CommentCell.inset).size
@@ -25,12 +26,14 @@ class CommentCell: UITableViewCell {
     var comment: CommentItem! {
         didSet {
             self.commentText.text = self.comment.commentary
+            self.date.text = self.comment.datetime
             self.initialiseUserPhoto()
             self.initialiseUserButton()
         }
     }
     
     func initialiseUserPhoto() {
+        self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
         self.userPhoto.image = UIImage(named: "grayRec.jpg")
         
         let storage = FIRStorage.storage()
@@ -41,7 +44,6 @@ class CommentCell: UITableViewCell {
             if let error = error {
                 print("\(error)")
             } else {
-                self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
                 self.userPhoto.kf.setImage(with: URL) //Using kf for caching images.
             }
         }

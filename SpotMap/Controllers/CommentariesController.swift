@@ -17,6 +17,9 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var newCommentTextField: UITextField!
     
     var comments = [CommentItem]()
+    var postDescription: String? // For adding desc as comment
+    var userId: String? // For adding desc as comment
+    var postDate: String! // For adding desc as comment
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,13 +50,15 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
         ref.queryOrdered(byChild: "key").observe(.value, with: { snapshot in
             var newItems: [CommentItem] = []
             
+            let descAsComment = CommentItem(commentId: "", userId: self.userId!, postId: self.postId, commentary: self.postDescription!, datetime: self.postDate)
+            newItems.append(descAsComment)
+            
             for item in snapshot.children {
                 let commentItem = CommentItem(snapshot: item as! FIRDataSnapshot)
                 newItems.append(commentItem)
             }
             
             self.comments = newItems.sorted(by: { $0.commentId < $1.commentId })
-            // TODO: need to insert description here
             self.tableView.reloadData()
         })
     }
@@ -66,6 +71,10 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
         let newComment = CommentItem(commentId: refForNewComment.key, userId: currentUserId!, postId: self.postId, commentary: newCommentTextField.text!, datetime: currentDateTime)
         
         refForNewComment.setValue(newComment.toAnyObject())
+        
+        // adding new comment to our tableView and reloading data
+        self.comments.append(newComment)
+        self.tableView.reloadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

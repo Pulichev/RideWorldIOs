@@ -18,7 +18,7 @@ class PostItemCellCache {
     var userNickName = UILabel()
     var postDate = UILabel()
     var postTime = UILabel()
-    var postDescription = UITextView()
+    var postDescription = UILabel()
     var isPhoto = Bool()
     var isLikedPhoto = UIImageView()
     var postIsLiked = Bool()

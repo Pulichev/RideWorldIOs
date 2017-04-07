@@ -22,7 +22,7 @@ class PostsCell: UITableViewCell {
     @IBOutlet weak var postDate: UILabel!
     @IBOutlet weak var postTime: UILabel!
     @IBOutlet weak var userNickName: UIButton!
-    @IBOutlet weak var postDescription: UITextView!
+    @IBOutlet weak var postDescription: UILabel!
     @IBOutlet weak var isLikedPhoto: UIImageView!
     @IBOutlet weak var likesCount: UILabel!
     @IBOutlet weak var openComments: UIButton!

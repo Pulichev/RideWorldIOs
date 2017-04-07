@@ -11,22 +11,18 @@ import FirebaseStorage
 import FirebaseDatabase
 
 class CommentCell: UITableViewCell {
-    static let font = UIFont(name: "Helvetica", size: 14)!
-    static let inset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-    
     @IBOutlet weak var userPhoto: UIImageView!
     @IBOutlet weak var userNickName: UIButton!
     @IBOutlet weak var commentText: UILabel!
     @IBOutlet weak var date: UILabel!
     
-    static func cellSize(width: CGFloat, text: String) -> CGSize {
-        return TextSize.size(text, font: CommentCell.font, width: width, insets: CommentCell.inset).size
-    }
-    
     var comment: CommentItem! {
         didSet {
             self.commentText.text = self.comment.commentary
-            self.date.text = self.comment.datetime
+            let sourceDate = self.comment.datetime
+            // formatting date to yyyy-mm-dd
+            let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
+            self.date.text = finalDate
             self.initialiseUserPhoto()
             self.initialiseUserButton()
         }

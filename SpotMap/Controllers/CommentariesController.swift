@@ -37,7 +37,7 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
         self.tableView.emptyDataSetSource = self
         self.tableView.emptyDataSetDelegate = self
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 350
+        self.tableView.estimatedRowHeight = 150
     }
     
     override func didReceiveMemoryWarning() {

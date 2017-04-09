@@ -11,6 +11,7 @@ import UIKit
 import AVFoundation
 import FirebaseDatabase
 import FirebaseAuth
+import ActiveLabel
 
 class PostsCell: UITableViewCell {
     var post: PostItem!
@@ -22,7 +23,7 @@ class PostsCell: UITableViewCell {
     @IBOutlet weak var postDate: UILabel!
     @IBOutlet weak var postTime: UILabel!
     @IBOutlet weak var userNickName: UIButton!
-    @IBOutlet weak var postDescription: UILabel!
+    @IBOutlet weak var postDescription: ActiveLabel!
     @IBOutlet weak var isLikedPhoto: UIImageView!
     @IBOutlet weak var likesCount: UILabel!
     @IBOutlet weak var openComments: UIButton!
@@ -34,6 +35,14 @@ class PostsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         //Initialization code
+        self.postDescription.numberOfLines = 0
+        self.postDescription.enabledTypes = [.mention, .hashtag, .url]
+        self.postDescription.text = "This is a post with #hashtags and a @userhandle."
+        self.postDescription.textColor = .black
+        self.postDescription.handleHashtagTap { hashtag in
+            print("Success. You just tapped the \(hashtag) hashtag")
+        }
+
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

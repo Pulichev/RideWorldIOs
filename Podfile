@@ -13,6 +13,7 @@ target 'SpotMap' do
   pod 'Kingfisher', '~> 3.0'
   pod 'IGListKit', '~> 2.0.0'
   pod ‘IGListKit’
+  pod ‘ActiveLabel’
 
   # Pods for SpotMap
 

@@ -10,6 +10,7 @@
 import Foundation
 import FirebaseDatabase
 import FirebaseAuth
+import ActiveLabel
 
 class PostItemCellCache {
     var key: String!

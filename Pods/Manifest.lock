@@ -1,4 +1,5 @@
 PODS:
+  - ActiveLabel (0.7.0)
   - Firebase/Core (3.11.0):
     - FirebaseAnalytics (= 3.6.0)
     - FirebaseCore (= 3.4.6)
@@ -47,6 +48,7 @@ PODS:
   - SwiftLint (0.16.0)
 
 DEPENDENCIES:
+  - ActiveLabel
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
@@ -58,6 +60,7 @@ DEPENDENCIES:
   - SwiftLint
 
 SPEC CHECKSUMS:
+  ActiveLabel: eb405c5b99275be52fac161f7a55cab1dd672c54
   Firebase: b8134e285eb33201115bc688bc5d7f112923bc1f
   FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
   FirebaseAuth: b436e4ecebe068bf8e8c6e4e29de5756ffe7ee24
@@ -74,6 +77,6 @@ SPEC CHECKSUMS:
   Kingfisher: 8d80f39da403cd9c9ee11984e1655f4d6a566cdb
   SwiftLint: 90665265ae50b58167c674a11c680bbabe9d6513
 
-PODFILE CHECKSUM: 4bf1dfed6ae1b2c9c34a715a8562a41c2fac491a
+PODFILE CHECKSUM: f1fe82487877571fdc12b74c4c6f99113136a535
 
 COCOAPODS: 1.1.1

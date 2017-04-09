@@ -301,7 +301,6 @@ class PostInfoViewController: UIViewController {
     }
     
     @IBAction func deletePost(_ sender: Any) {
-        // TODO:
         let alert = UIAlertController(title: "Attention!",
                                       message: "Are you sure that you want to delete this post?",
                                       preferredStyle: .alert)

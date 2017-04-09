@@ -549,12 +549,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         let refToAllUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
         
         refToAllUsers.observe(.value, with: { snapshot in
+            var isUserFounded = false
+            
             for user in snapshot.children {
                 let snapshotValue = (user as! FIRDataSnapshot).value as! [String: AnyObject]
-                let login = snapshotValue["login"] as! String
+                let login = snapshotValue["login"] as! String // getting login of user
                 
                 if login == tappedUserLogin {
-                    let tappedUser = UserItem(snapshot: user as! FIRDataSnapshot)
+                    isUserFounded = true
+                    let tappedUser = UserItem(snapshot: user as! FIRDataSnapshot) // getting full user item
                     // check if going to current user
                     if tappedUser.uid == FIRAuth.auth()?.currentUser?.uid {
                         self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
@@ -563,6 +566,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                         self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
                     }
                 }
+            }
+            
+            if !isUserFounded { // if no user founded for tapped nickname
+                let alert = UIAlertController(title: "Error!",
+                                              message: "No user founded with nickname \(tappedUserLogin)",
+                    preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+                
+                self.present(alert, animated: true, completion: nil)
             }
         })
     }

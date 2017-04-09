@@ -725,7 +725,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Wrh-Th-jcG"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <state key="normal" title="nick">
                                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.77360255281690138" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </state>
@@ -763,8 +763,8 @@
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JK3-1Q-fG8" customClass="ActiveLabel" customModule="ActiveLabel">
                                                     <rect key="frame" x="8" y="435" width="304" height="53"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>

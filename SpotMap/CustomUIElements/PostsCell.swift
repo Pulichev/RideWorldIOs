@@ -37,12 +37,15 @@ class PostsCell: UITableViewCell {
         //Initialization code
         self.postDescription.numberOfLines = 0
         self.postDescription.enabledTypes = [.mention, .hashtag, .url]
-        self.postDescription.text = "This is a post with #hashtags and a @userhandle."
         self.postDescription.textColor = .black
+        self.postDescription.mentionColor = .brown
+        self.postDescription.hashtagColor = .purple
         self.postDescription.handleHashtagTap { hashtag in
-            print("Success. You just tapped the \(hashtag) hashtag")
+            // TODO: 
         }
-
+        self.postDescription.handleMentionTap { mention in
+            print("Success. You just tapped the \(mention).")
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

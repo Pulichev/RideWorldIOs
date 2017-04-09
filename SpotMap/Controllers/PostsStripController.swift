@@ -12,6 +12,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseStorage
 import Kingfisher
+import ActiveLabel
 
 class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIScrollViewDelegate {
     @IBOutlet weak var tableView: UITableView!
@@ -313,6 +314,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         cell.postDate.text        = cellFromCache.postDate.text
         cell.postTime.text        = cellFromCache.postTime.text
         cell.postDescription.text = cellFromCache.postDescription.text
+        cell.postDescription.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(tappedUserLogin: mention)
+        }
         cell.likesCount.text      = String(cellFromCache.likesCount)
         cell.postIsLiked          = cellFromCache.postIsLiked
         cell.isPhoto              = cellFromCache.isPhoto
@@ -539,6 +543,28 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     @IBAction func addNewPost(_ sender: Any) {
         self.performSegue(withIdentifier: "addNewPost", sender: self)
+    }
+    
+    private func goToUserProfile(tappedUserLogin: String) {
+        let refToAllUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
+        
+        refToAllUsers.observe(.value, with: { snapshot in
+            for user in snapshot.children {
+                let snapshotValue = (user as! FIRDataSnapshot).value as! [String: AnyObject]
+                let login = snapshotValue["login"] as! String
+                
+                if login == tappedUserLogin {
+                    let tappedUser = UserItem(snapshot: user as! FIRDataSnapshot)
+                    // check if going to current user
+                    if tappedUser.uid == FIRAuth.auth()?.currentUser?.uid {
+                        self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
+                    } else {
+                        self.ridersInfoForSending = tappedUser
+                        self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
+                    }
+                }
+            }
+        })
     }
     
     // go to riders profile

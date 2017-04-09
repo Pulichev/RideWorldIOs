@@ -41,10 +41,7 @@ class PostsCell: UITableViewCell {
         self.postDescription.mentionColor = .brown
         self.postDescription.hashtagColor = .purple
         self.postDescription.handleHashtagTap { hashtag in
-            // TODO: 
-        }
-        self.postDescription.handleMentionTap { mention in
-            print("Success. You just tapped the \(mention).")
+            // TODO:
         }
     }
     

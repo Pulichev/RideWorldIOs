@@ -103,6 +103,7 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
+    // from comment author
     func goToProfile(_ sender: UIGestureRecognizer) {
         let userId = self.comments[(sender.view?.tag)!].userId
         
@@ -119,6 +120,7 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    // from @username
     private func goToUserProfile(tappedUserLogin: String) {
         let refToAllUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
         

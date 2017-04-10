@@ -418,6 +418,9 @@ class PostInfoViewController: UIViewController {
         }
     }
     
+    @IBAction func goToComments(_ sender: Any) {
+        self.performSegue(withIdentifier: "goToCommentsFromPostInfo", sender: self)
+    }
     
     var ridersInfoForSending: UserItem!
     
@@ -472,12 +475,12 @@ class PostInfoViewController: UIViewController {
             userProfileController.cameFromSpotDetails = true
         }
         
-        //        if segue.identifier == "goToCommentsFromPostStrip" {
-        //            let commentariesController = segue.destination as! CommentariesController
-        //            commentariesController.postId = self.postIdForSending
-        //            commentariesController.postDescription = self.postDescForSending
-        //            commentariesController.postDate = self.postDateTimeForSending
-        //            commentariesController.userId = self.postUserIdForSending
-        //        }
+        if segue.identifier == "goToCommentsFromPostInfo" {
+            let commentariesController = segue.destination as! CommentariesController
+            commentariesController.postId = self.postInfo.key
+            commentariesController.postDescription = self.postInfo.description
+            commentariesController.postDate = self.postInfo.createdDate
+            commentariesController.userId = self.postInfo.addedByUser
+        }
     }
 }

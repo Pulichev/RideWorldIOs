@@ -548,7 +548,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     private func goToUserProfile(tappedUserLogin: String) {
         let refToAllUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
         
-        refToAllUsers.observe(.value, with: { snapshot in
+        refToAllUsers.observeSingleEvent(of: .value, with: { snapshot in
             var isUserFounded = false
             
             for user in snapshot.children {

@@ -16,10 +16,10 @@ class PostItemCellCache {
     var key: String!
     var post: PostItem!
     var userInfo: UserItem!
-    var userNickName = UILabel()
-    var postDate = UILabel()
-    var postTime = UILabel()
-    var postDescription = UILabel()
+    var userNickName = String()
+    var postDate = String()
+    var postTime = String()
+    var postDescription = String()
     var isPhoto = Bool()
     var isLikedPhoto = UIImageView()
     var postIsLiked = Bool()
@@ -33,10 +33,10 @@ class PostItemCellCache {
         let sourceDate = post.createdDate
         // formatting date to yyyy-mm-dd
         let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
-        self.postDate.text = finalDate
+        self.postDate = finalDate
         let finalTime = sourceDate[sourceDate.index(sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
-        self.postTime.text = finalTime
-        self.postDescription.text = post.description
+        self.postTime = finalTime
+        self.postDescription = post.description
         self.isPhoto = post.isPhoto
         self.userLikedThisPost(stripController: stripController)
         self.countPostLikes(stripController: stripController)
@@ -47,7 +47,7 @@ class PostItemCellCache {
         
         ref.observe(.value, with: { (snapshot) in
             self.userInfo = UserItem(snapshot: snapshot)
-            self.userNickName.text = self.userInfo.login
+            self.userNickName = self.userInfo.login
         })
     }
     

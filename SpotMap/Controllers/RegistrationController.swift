@@ -46,7 +46,7 @@ class RegistrationController: UIViewController {
                                         
                                         self.performSegue(withIdentifier: "registrationCompleted", sender: self)
                                     } else {
-                                        print("\(error?.localizedDescription)")
+                                        print("\(String(describing: error?.localizedDescription))")
                                     }
         }
     }

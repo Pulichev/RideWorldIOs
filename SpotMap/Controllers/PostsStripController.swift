@@ -306,14 +306,14 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         let cellFromCache = _postItemCellsCache[row]
         cell.post                 = cellFromCache.post
         cell.userInfo             = cellFromCache.userInfo
-        cell.userNickName.setTitle(cellFromCache.userNickName.text, for: .normal)
+        cell.userNickName.setTitle(cellFromCache.userNickName, for: .normal)
         cell.userNickName.tag     = row // for segue to send userId to ridersProfile
         cell.userNickName.addTarget(self, action: #selector(PostsStripController.nickNameTapped), for: .touchUpInside)
         cell.openComments.tag     = row // for segue to send postId to comments
         cell.openComments.addTarget(self, action: #selector(PostsStripController.goToComments), for: .touchUpInside)
-        cell.postDate.text        = cellFromCache.postDate.text
-        cell.postTime.text        = cellFromCache.postTime.text
-        cell.postDescription.text = cellFromCache.postDescription.text
+        cell.postDate.text        = cellFromCache.postDate
+        cell.postTime.text        = cellFromCache.postTime
+        cell.postDescription.text = cellFromCache.postDescription
         cell.postDescription.handleMentionTap { mention in // mention is @userLogin
             self.goToUserProfile(tappedUserLogin: mention)
         }

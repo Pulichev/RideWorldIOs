@@ -51,7 +51,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
                                 user, error in
                                 if error != nil {
                                     self.errorLabel.text = "Wrong login or password!"
-                                    print("\(error?.localizedDescription)")
+                                    print("\(String(describing: error?.localizedDescription))")
                                 } else {
                                     self.performSegue(withIdentifier: "loggedIn", sender: self)
                                 }

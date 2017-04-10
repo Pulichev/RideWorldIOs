@@ -13,6 +13,7 @@ import FirebaseStorage
 import FirebaseDatabase
 import FirebaseAuth
 import Kingfisher
+import ActiveLabel
 
 class PostInfoViewController: UIViewController {
     var isCurrentUserProfile: Bool!
@@ -27,7 +28,7 @@ class PostInfoViewController: UIViewController {
     @IBOutlet var postDate: UILabel!
     @IBOutlet var postTime: UILabel!
     @IBOutlet var userNickName: UILabel!
-    @IBOutlet var postDescription: UITextView!
+    @IBOutlet var postDescription: ActiveLabel!
     @IBOutlet var isLikedPhoto: UIImageView!
     @IBOutlet var likesCount: UILabel!
     var likesCountInt = 0
@@ -60,6 +61,7 @@ class PostInfoViewController: UIViewController {
         }
         self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
         self.addMediaToView()
+        self.initializeDesc()
     }
     
     func addDoubleTapGestureOnPostMedia() {
@@ -77,6 +79,20 @@ class PostInfoViewController: UIViewController {
             self.likesCountInt = snapshot.children.allObjects.count
             self.likesCount.text = String(describing: self.likesCountInt)
         })
+    }
+    
+    func initializeDesc() {
+        self.postDescription.numberOfLines = 0
+        self.postDescription.enabledTypes = [.mention, .hashtag, .url]
+        self.postDescription.textColor = .black
+        self.postDescription.mentionColor = .brown
+        self.postDescription.hashtagColor = .purple
+        self.postDescription.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(tappedUserLogin: mention)
+        }
+        self.postDescription.handleHashtagTap { hashtag in
+            // TODO:
+        }
     }
     
     func userLikedThisPost() {
@@ -400,5 +416,68 @@ class PostInfoViewController: UIViewController {
         refToMedia.delete { (Error) in
             // do smth
         }
+    }
+    
+    
+    var ridersInfoForSending: UserItem!
+    
+    private func goToUserProfile(tappedUserLogin: String) {
+        let refToAllUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
+        
+        refToAllUsers.observeSingleEvent(of: .value, with: { snapshot in
+            var isUserFounded = false
+            
+            for user in snapshot.children {
+                let snapshotValue = (user as! FIRDataSnapshot).value as! [String: AnyObject]
+                let login = snapshotValue["login"] as! String // getting login of user
+                
+                if login == tappedUserLogin {
+                    isUserFounded = true
+                    let tappedUser = UserItem(snapshot: user as! FIRDataSnapshot) // getting full user item
+                    // check if going to current riders profile
+                    if tappedUser.uid == self.user.uid {
+                        _ = self.navigationController?.popViewController(animated: true) // go back
+                    } else {
+                        // 1 current user?
+                        if tappedUser.uid == FIRAuth.auth()?.currentUser?.uid {
+                            self.performSegue(withIdentifier: "fromPostInfoToUserProfile", sender: self)
+                        } else { // 2 not current user
+                            self.ridersInfoForSending = tappedUser
+                            self.performSegue(withIdentifier: "fromPostInfoToRidersProfile", sender: self)
+                        }
+                    }
+                }
+            }
+            
+            if !isUserFounded { // if no user founded for tapped nickname
+                let alert = UIAlertController(title: "Error!",
+                                              message: "No user founded with nickname \(tappedUserLogin)",
+                    preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+                
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "fromPostInfoToRidersProfile" {
+            let newRidersProfileController = segue.destination as! RidersProfileController
+            newRidersProfileController.ridersInfo = ridersInfoForSending
+            newRidersProfileController.title = ridersInfoForSending.login
+        }
+        
+        if segue.identifier == "fromPostInfoToUserProfile" {
+            let userProfileController = segue.destination as! UserProfileController
+            userProfileController.cameFromSpotDetails = true
+        }
+        
+        //        if segue.identifier == "goToCommentsFromPostStrip" {
+        //            let commentariesController = segue.destination as! CommentariesController
+        //            commentariesController.postId = self.postIdForSending
+        //            commentariesController.postDescription = self.postDescForSending
+        //            commentariesController.postDate = self.postDateTimeForSending
+        //            commentariesController.userId = self.postUserIdForSending
+        //        }
     }
 }

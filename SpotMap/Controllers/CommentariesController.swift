@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import ActiveLabel
 
 class CommentariesController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     var postId: String!
@@ -95,6 +96,9 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
         cell.userPhoto.tag = row
         cell.userPhoto.isUserInteractionEnabled = true
         cell.userPhoto.addGestureRecognizer(tapGestureRecognizer)
+        cell.commentText.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(tappedUserLogin: mention)
+        }
         
         return cell
     }
@@ -115,6 +119,40 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    private func goToUserProfile(tappedUserLogin: String) {
+        let refToAllUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
+        
+        refToAllUsers.observeSingleEvent(of: .value, with: { snapshot in
+            var isUserFounded = false
+            
+            for user in snapshot.children {
+                let snapshotValue = (user as! FIRDataSnapshot).value as! [String: AnyObject]
+                let login = snapshotValue["login"] as! String // getting login of user
+                
+                if login == tappedUserLogin {
+                    isUserFounded = true
+                    let tappedUser = UserItem(snapshot: user as! FIRDataSnapshot) // getting full user item
+                    // check if going to current user
+                    if tappedUser.uid == FIRAuth.auth()?.currentUser?.uid {
+                        self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
+                    } else {
+                        self.ridersInfoForSending = tappedUser
+                        self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
+                    }
+                }
+            }
+            
+            if !isUserFounded { // if no user founded for tapped nickname
+                let alert = UIAlertController(title: "Error!",
+                                              message: "No user founded with nickname \(tappedUserLogin)",
+                    preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+                
+                self.present(alert, animated: true, completion: nil)
+            }
+        })
+    }
+    
     var ridersInfoForSending: UserItem!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -129,7 +167,7 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
             userProfileController.cameFromSpotDetails = true
         }
     }
-
+    
     // MARK: DZNEmptyDataSet for empty data tables
     
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {

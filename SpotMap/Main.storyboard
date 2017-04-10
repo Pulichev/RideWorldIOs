@@ -476,7 +476,7 @@
         <!--Post Info View Controller-->
         <scene sceneID="V4I-Np-NZt">
             <objects>
-                <viewController id="WfP-RX-tLc" userLabel="Post Info View Controller" customClass="PostInfoViewController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="WfP-RX-tLc" userLabel="Post Info View Controller" customClass="PostInfoViewController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Z3c-Em-gx8"/>
                         <viewControllerLayoutGuide type="bottom" id="Oiz-6g-cE1"/>
@@ -867,7 +867,7 @@
         <!--Commentaries Controller-->
         <scene sceneID="BiV-Rk-lJf">
             <objects>
-                <viewController id="ZPc-uE-xhW" customClass="CommentariesController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ZPc-uE-xhW" customClass="CommentariesController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="55j-b9-1Fe"/>
                         <viewControllerLayoutGuide type="bottom" id="JPO-uP-UdR"/>
@@ -901,7 +901,7 @@
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="102" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j6T-oW-eAy">
-                                <rect key="frame" x="0.0" y="28" width="320" height="496"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="452"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentsTableCell" id="WCB-lt-rci" customClass="CommentCell" customModule="SpotMap" customModuleProvider="target">
@@ -1052,7 +1052,7 @@
         <!--Followers Controller-->
         <scene sceneID="Rv1-dO-VKW">
             <objects>
-                <viewController id="7kR-w8-gJL" customClass="FollowersController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="7kR-w8-gJL" customClass="FollowersController" customModule="SpotMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uvA-Hn-mOI"/>
                         <viewControllerLayoutGuide type="bottom" id="Exw-I9-bcL"/>
@@ -1360,12 +1360,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-aj-jM0">
-                                <rect key="frame" x="111" y="90" width="99" height="98"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="98" id="bNb-5H-T5Y"/>
-                                </constraints>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9P-AH-deA">
                                 <rect key="frame" x="16" y="206" width="288" height="30"/>
                                 <state key="normal" title="Change profile photo">
@@ -1410,19 +1404,26 @@
                                     <outlet property="delegate" destination="rut-Zp-VLC" id="Sqp-Dx-6XI"/>
                                 </connections>
                             </tableView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-aj-jM0">
+                                <rect key="frame" x="111.5" y="87" width="98" height="98"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="98" id="bNb-5H-T5Y"/>
+                                    <constraint firstAttribute="width" constant="98" id="cWP-qr-AMy"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="O9P-AH-deA" firstAttribute="centerX" secondItem="hyO-8D-pzd" secondAttribute="centerX" id="4RN-6L-wnw"/>
                             <constraint firstItem="5tp-ar-BeW" firstAttribute="top" secondItem="hyO-8D-pzd" secondAttribute="bottom" constant="70" id="6Rv-Bq-MwE"/>
-                            <constraint firstItem="dpz-aj-jM0" firstAttribute="top" secondItem="v7S-Ny-2hT" secondAttribute="bottom" constant="26" id="Dax-f9-6oH"/>
+                            <constraint firstItem="dpz-aj-jM0" firstAttribute="top" secondItem="v7S-Ny-2hT" secondAttribute="bottom" constant="23" id="Dax-f9-6oH"/>
                             <constraint firstItem="dpz-aj-jM0" firstAttribute="centerX" secondItem="O9P-AH-deA" secondAttribute="centerX" id="Vg0-mg-oCy"/>
                             <constraint firstItem="hyO-8D-pzd" firstAttribute="top" secondItem="O9P-AH-deA" secondAttribute="bottom" constant="8" symbolic="YES" id="d3i-1T-gTa"/>
                             <constraint firstItem="hyO-8D-pzd" firstAttribute="leading" secondItem="8UZ-V5-vtf" secondAttribute="leading" id="hV1-6B-nkD"/>
+                            <constraint firstItem="dpz-aj-jM0" firstAttribute="centerX" secondItem="8UZ-V5-vtf" secondAttribute="centerX" id="sdh-Gt-jAl"/>
                             <constraint firstItem="O9P-AH-deA" firstAttribute="leading" secondItem="8UZ-V5-vtf" secondAttribute="leadingMargin" id="u3u-AI-ec4"/>
-                            <constraint firstItem="dpz-aj-jM0" firstAttribute="leading" secondItem="8UZ-V5-vtf" secondAttribute="leadingMargin" constant="95" id="vwq-at-3v9"/>
                             <constraint firstAttribute="trailing" secondItem="hyO-8D-pzd" secondAttribute="trailing" id="wyg-fx-3vt"/>
-                            <constraint firstItem="O9P-AH-deA" firstAttribute="top" secondItem="dpz-aj-jM0" secondAttribute="bottom" constant="18" id="zVM-gd-09X"/>
+                            <constraint firstItem="O9P-AH-deA" firstAttribute="top" secondItem="dpz-aj-jM0" secondAttribute="bottom" constant="21" id="zVM-gd-09X"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Edit profile info" id="j6m-0V-vf0">

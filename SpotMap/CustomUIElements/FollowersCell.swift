@@ -13,7 +13,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import Kingfisher
 
-class FollowersTableCell: UITableViewCell {
+class FollowersCell: UITableViewCell {
     var currentUserId: String!
     
     @IBOutlet weak var nickName: UILabel!

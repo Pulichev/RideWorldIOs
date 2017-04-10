@@ -31,7 +31,6 @@
 		9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */; };
 		9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609841E7C6BB50000DB21 /* PostsCell.swift */; };
 		9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609861E7C8C990000DB21 /* PostsStripController.swift */; };
-		9F56098A1E7D43990000DB21 /* 1489850825_Home.ico in Resources */ = {isa = PBXBuildFile; fileRef = 9F5609891E7D43990000DB21 /* 1489850825_Home.ico */; };
 		9F57A2F01E91117E00F9AEF5 /* TextSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F57A2EF1E91117E00F9AEF5 /* TextSize.swift */; };
 		9F57A2F91E9126C000F9AEF5 /* NSObject+IGListDiffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F57A2F81E9126C000F9AEF5 /* NSObject+IGListDiffable.swift */; };
 		9F6163471E7E89C1001664B7 /* no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6163461E7E89C1001664B7 /* no_photo.png */; };
@@ -44,7 +43,6 @@
 		9FB681CB1E2E70CE00D9A436 /* SpotMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681CA1E2E70CE00D9A436 /* SpotMapTests.swift */; };
 		9FB681D61E2E70CE00D9A436 /* SpotMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */; };
 		9FBCFAE41E6F248C00A5C95D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */; };
-		9FBCFAE61E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE51E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift */; };
 		9FBCFAE81E73445900A5C95D /* ImageManipulations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE71E73445900A5C95D /* ImageManipulations.swift */; };
 		9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FC91E48E5E30097579B /* LoginController.swift */; };
 		9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCA1E48E5E30097579B /* MainFormController.swift */; };
@@ -57,7 +55,7 @@
 		9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD648DB1E573F0600C673CA /* Main.storyboard */; };
 		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
 		9FFB14F61E7848F600D10620 /* FollowersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F51E7848F600D10620 /* FollowersController.swift */; };
-		9FFB14F81E784E4B00D10620 /* FollowersTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F71E784E4B00D10620 /* FollowersTableCell.swift */; };
+		9FFB14F81E784E4B00D10620 /* FollowersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F71E784E4B00D10620 /* FollowersCell.swift */; };
 		AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */; };
 /* End PBXBuildFile section */
 
@@ -116,7 +114,6 @@
 		9F65321B1E3CD12700F58C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F73B09D1E6A0E490049563A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserItem.swift; path = Data/UserItem.swift; sourceTree = "<group>"; };
 		9F943EE81E6F041300709B79 /* LikeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeItem.swift; path = Data/LikeItem.swift; sourceTree = "<group>"; };
-		9FAE8C1D1E7E849100BB10B9 /* SpotMap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpotMap-Bridging-Header.h"; sourceTree = "<group>"; };
 		9FAE8C1E1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+EmptyDataSet.h"; path = "Some Obj-C frameworks/UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+EmptyDataSet.m"; path = "Some Obj-C frameworks/UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		9FB681B21E2E70CE00D9A436 /* SpotMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,7 +127,6 @@
 		9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMapUITests.swift; sourceTree = "<group>"; };
 		9FB681D71E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9FBCFAE51E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift; path = TempFiles/addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift; sourceTree = "<group>"; };
 		9FBCFAE71E73445900A5C95D /* ImageManipulations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageManipulations.swift; path = CustomUIElements/ImageManipulations.swift; sourceTree = "<group>"; };
 		9FC14FC91E48E5E30097579B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controllers/LoginController.swift; sourceTree = "<group>"; };
 		9FC14FCA1E48E5E30097579B /* MainFormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainFormController.swift; path = Controllers/MainFormController.swift; sourceTree = "<group>"; };
@@ -142,8 +138,9 @@
 		9FD648D31E54587800C673CA /* RidersProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileController.swift; path = Controllers/RidersProfileController.swift; sourceTree = "<group>"; };
 		9FD648DB1E573F0600C673CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
+		9FF1BF641E9C1D5C00A2CEF2 /* SpotMap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SpotMap-Bridging-Header.h"; path = "Some Obj-C frameworks/SpotMap-Bridging-Header.h"; sourceTree = "<group>"; };
 		9FFB14F51E7848F600D10620 /* FollowersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersController.swift; path = Controllers/FollowersController.swift; sourceTree = "<group>"; };
-		9FFB14F71E784E4B00D10620 /* FollowersTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersTableCell.swift; path = CustomUIElements/FollowersTableCell.swift; sourceTree = "<group>"; };
+		9FFB14F71E784E4B00D10620 /* FollowersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersCell.swift; path = CustomUIElements/FollowersCell.swift; sourceTree = "<group>"; };
 		C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -243,7 +240,6 @@
 		9F73B09A1E69ED7F0049563A /* TempFiles */ = {
 			isa = PBXGroup;
 			children = (
-				9FBCFAE51E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift */,
 			);
 			name = TempFiles;
 			sourceTree = "<group>";
@@ -251,9 +247,9 @@
 		9FAE8C1C1E7E83F400BB10B9 /* Some Obj-C frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9FF1BF641E9C1D5C00A2CEF2 /* SpotMap-Bridging-Header.h */,
 				9FAE8C1E1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.h */,
 				9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */,
-				9FAE8C1D1E7E849100BB10B9 /* SpotMap-Bridging-Header.h */,
 			);
 			name = "Some Obj-C frameworks";
 			sourceTree = "<group>";
@@ -355,7 +351,7 @@
 				9FC14FDB1E48E7690097579B /* CustomPin.swift */,
 				9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */,
 				9FBCFAE71E73445900A5C95D /* ImageManipulations.swift */,
-				9FFB14F71E784E4B00D10620 /* FollowersTableCell.swift */,
+				9FFB14F71E784E4B00D10620 /* FollowersCell.swift */,
 				9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */,
 				9F57A2F81E9126C000F9AEF5 /* NSObject+IGListDiffable.swift */,
 			);
@@ -499,7 +495,6 @@
 				9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */,
 				9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */,
 				9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */,
-				9F56098A1E7D43990000DB21 /* 1489850825_Home.ico in Resources */,
 				9FC14FD61E48E7300097579B /* plus-512.gif in Resources */,
 				9F4A844D1E632AE800C1E5F2 /* nameAndSename.png in Resources */,
 				9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */,
@@ -693,7 +688,7 @@
 				9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */,
 				9FAE8C201E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m in Sources */,
 				9F2BFEEC1E9105D3005FEF0C /* CommentCell.swift in Sources */,
-				9FFB14F81E784E4B00D10620 /* FollowersTableCell.swift in Sources */,
+				9FFB14F81E784E4B00D10620 /* FollowersCell.swift in Sources */,
 				9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */,
 				9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */,
 				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
@@ -711,7 +706,6 @@
 				9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */,
 				9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
-				9FBCFAE61E71F3AD00A5C95D /* addThumbnailsAndAddSpotIdToSpotPostsTEMP.swift in Sources */,
 				9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */,
 				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
 				9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */,
@@ -876,7 +870,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = VP.SpotMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SpotMap/SpotMap-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "SpotMap/Some Obj-C frameworks/SpotMap-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -894,7 +888,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = VP.SpotMap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SpotMap/SpotMap-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "SpotMap/Some Obj-C frameworks/SpotMap-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

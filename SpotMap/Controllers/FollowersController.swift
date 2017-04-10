@@ -64,13 +64,13 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FollowersTableCell", for: indexPath) as! FollowersTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FollowersCell", for: indexPath) as! FollowersCell
         let row = indexPath.row
         
         cell.follower = self.followList[row]
         
         // adding tap event -> perform segue to profile
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile(_:)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(sendRowToGoToProfile(_:)))
         cell.userImage.tag = row
         cell.userImage.isUserInteractionEnabled = true
         cell.userImage.addGestureRecognizer(tapGestureRecognizer)
@@ -78,15 +78,23 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // idk if i will use it
+    // here is redirecting to user profile by click on row. So we have 2 redirects. By image and row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = indexPath.row
+        
+        self.goToProfile(row: row)
     }
     
-    func goToProfile(_ sender: UIGestureRecognizer) {
-        if self.followList[(sender.view?.tag)!].uid == (FIRAuth.auth()?.currentUser?.uid)! {
+    // Idk how to make next 2 func to be 1
+    func sendRowToGoToProfile(_ sender: UIGestureRecognizer) {
+        self.goToProfile(row: (sender.view?.tag)!)
+    }
+    
+    func goToProfile(row: Int) {
+        if self.followList[row].uid == (FIRAuth.auth()?.currentUser?.uid)! {
             self.performSegue(withIdentifier: "openUserProfileFromFollowList", sender: self)
         } else {
-            self.ridersInfoForSending = self.followList[(sender.view?.tag)!]
+            self.ridersInfoForSending = self.followList[row]
             self.performSegue(withIdentifier: "openRidersProfileFromFollowList", sender: self)
         }
     }

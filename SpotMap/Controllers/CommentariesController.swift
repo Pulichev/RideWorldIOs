@@ -46,22 +46,18 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func loadComments() {
-        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postId).child("comments")
+        self.addPostDescAsComment()
         
-        ref.queryOrdered(byChild: "key").observe(.value, with: { snapshot in
-            var newItems: [CommentItem] = []
+        CommentsModel.loadCommentsForPost(postId: self.postId, completion: { loadedComments in
+            self.comments.append(contentsOf: loadedComments)
             
-            let descAsComment = CommentItem(commentId: "", userId: self.userId!, postId: self.postId, commentary: self.postDescription!, datetime: self.postDate)
-            newItems.append(descAsComment)
-            
-            for item in snapshot.children {
-                let commentItem = CommentItem(snapshot: item as! FIRDataSnapshot)
-                newItems.append(commentItem)
-            }
-            
-            self.comments = newItems.sorted(by: { $0.commentId < $1.commentId })
             self.tableView.reloadData()
         })
+    }
+    
+    func addPostDescAsComment() {
+        let descAsComment = CommentItem(commentId: "", userId: self.userId!, postId: self.postId, commentary: self.postDescription!, datetime: self.postDate)
+        self.comments.append(descAsComment)
     }
     
     @IBAction func sendComment(_ sender: Any) {

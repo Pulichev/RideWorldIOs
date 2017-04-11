@@ -31,7 +31,6 @@
 		9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */; };
 		9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609841E7C6BB50000DB21 /* PostsCell.swift */; };
 		9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609861E7C8C990000DB21 /* PostsStripController.swift */; };
-		9F57A2F01E91117E00F9AEF5 /* TextSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F57A2EF1E91117E00F9AEF5 /* TextSize.swift */; };
 		9F57A2F91E9126C000F9AEF5 /* NSObject+IGListDiffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F57A2F81E9126C000F9AEF5 /* NSObject+IGListDiffable.swift */; };
 		9F6163471E7E89C1001664B7 /* no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6163461E7E89C1001664B7 /* no_photo.png */; };
 		9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F65321B1E3CD12700F58C18 /* Assets.xcassets */; };
@@ -54,6 +53,7 @@
 		9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D31E54587800C673CA /* RidersProfileController.swift */; };
 		9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD648DB1E573F0600C673CA /* Main.storyboard */; };
 		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
+		9FF1BF681E9D35A200A2CEF2 /* CommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF671E9D35A200A2CEF2 /* CommentsModel.swift */; };
 		9FFB14F61E7848F600D10620 /* FollowersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F51E7848F600D10620 /* FollowersController.swift */; };
 		9FFB14F81E784E4B00D10620 /* FollowersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F71E784E4B00D10620 /* FollowersCell.swift */; };
 		AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */; };
@@ -108,7 +108,6 @@
 		9F5609841E7C6BB50000DB21 /* PostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCell.swift; path = CustomUIElements/PostsCell.swift; sourceTree = "<group>"; };
 		9F5609861E7C8C990000DB21 /* PostsStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsStripController.swift; path = Controllers/PostsStripController.swift; sourceTree = "<group>"; };
 		9F5609891E7D43990000DB21 /* 1489850825_Home.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = 1489850825_Home.ico; sourceTree = "<group>"; };
-		9F57A2EF1E91117E00F9AEF5 /* TextSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextSize.swift; path = System/TextSize.swift; sourceTree = "<group>"; };
 		9F57A2F81E9126C000F9AEF5 /* NSObject+IGListDiffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSObject+IGListDiffable.swift"; path = "CustomUIElements/NSObject+IGListDiffable.swift"; sourceTree = "<group>"; };
 		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
 		9F65321B1E3CD12700F58C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,6 +138,7 @@
 		9FD648DB1E573F0600C673CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
 		9FF1BF641E9C1D5C00A2CEF2 /* SpotMap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SpotMap-Bridging-Header.h"; path = "Some Obj-C frameworks/SpotMap-Bridging-Header.h"; sourceTree = "<group>"; };
+		9FF1BF671E9D35A200A2CEF2 /* CommentsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsModel.swift; path = Model/CommentsModel.swift; sourceTree = "<group>"; };
 		9FFB14F51E7848F600D10620 /* FollowersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersController.swift; path = Controllers/FollowersController.swift; sourceTree = "<group>"; };
 		9FFB14F71E784E4B00D10620 /* FollowersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersCell.swift; path = CustomUIElements/FollowersCell.swift; sourceTree = "<group>"; };
 		C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -229,21 +229,6 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
-		9F57A2EE1E91115D00F9AEF5 /* System */ = {
-			isa = PBXGroup;
-			children = (
-				9F57A2EF1E91117E00F9AEF5 /* TextSize.swift */,
-			);
-			name = System;
-			sourceTree = "<group>";
-		};
-		9F73B09A1E69ED7F0049563A /* TempFiles */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = TempFiles;
-			sourceTree = "<group>";
-		};
 		9FAE8C1C1E7E83F400BB10B9 /* Some Obj-C frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,10 +264,9 @@
 		9FB681B41E2E70CE00D9A436 /* SpotMap */ = {
 			isa = PBXGroup;
 			children = (
-				9F57A2EE1E91115D00F9AEF5 /* System */,
+				9FF1BF651E9D33AF00A2CEF2 /* Model */,
 				9F212A291E802810003D5A8F /* Protocols */,
 				9FAE8C1C1E7E83F400BB10B9 /* Some Obj-C frameworks */,
-				9F73B09A1E69ED7F0049563A /* TempFiles */,
 				9FC14FDA1E48E7590097579B /* CustomUIElements */,
 				9FC14FD71E48E7380097579B /* Core */,
 				9FC14FC61E48E5CB0097579B /* Controllers */,
@@ -356,6 +340,14 @@
 				9F57A2F81E9126C000F9AEF5 /* NSObject+IGListDiffable.swift */,
 			);
 			name = CustomUIElements;
+			sourceTree = "<group>";
+		};
+		9FF1BF651E9D33AF00A2CEF2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9FF1BF671E9D35A200A2CEF2 /* CommentsModel.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		CF90D077CFC09096E77DE243 /* Pods */ = {
@@ -698,7 +690,6 @@
 				9F5609811E7C6A630000DB21 /* PostItem.swift in Sources */,
 				9F4A84451E62F58700C1E5F2 /* EditProfileCell.swift in Sources */,
 				9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */,
-				9F57A2F01E91117E00F9AEF5 /* TextSize.swift in Sources */,
 				9F4A84411E62F4C100C1E5F2 /* UserProfileController.swift in Sources */,
 				9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */,
 				9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */,
@@ -711,6 +702,7 @@
 				9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */,
 				9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */,
 				9F57A2F91E9126C000F9AEF5 /* NSObject+IGListDiffable.swift in Sources */,
+				9FF1BF681E9D35A200A2CEF2 /* CommentsModel.swift in Sources */,
 				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,
 				9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */,
 			);

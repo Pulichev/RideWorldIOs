@@ -42,6 +42,7 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
         self.tableView.emptyDataSetDelegate = self
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 150
+        self.tableView.tableFooterView = UIView() // deleting empty rows
     }
     
     override func didReceiveMemoryWarning() {
@@ -148,7 +149,7 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {
         let alert = UIAlertController(title: "Error!",
                                       message: "No user founded with nickname \(tappedUserLogin)",
-                                      preferredStyle: .alert)
+            preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
         
@@ -173,16 +174,28 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
 
 extension CommentariesController: UITextFieldDelegate {
     func keyboardWillShow(notification: NSNotification) {
-            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-                let keyboardHeight = keyboardSize.height
-                self.view.frame.origin.y -= (keyboardHeight - 49)
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            let swipeSize = keyboardHeight - 49
+            self.view.frame.origin.y -= swipeSize
+            let tableViewBound = self.tableView.frame
+            let tableViewHeight = self.tableView.bounds.height
+            self.tableView.frame = CGRect(x: tableViewBound.minX, y: tableViewBound.minY + swipeSize,
+                                          width: tableViewBound.maxX, height: tableViewHeight - swipeSize)
+            print(self.view.frame.origin.y)
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             let keyboardHeight = keyboardSize.height
-            self.view.frame.origin.y += (keyboardHeight - 49)
+            let swipeSize = keyboardHeight - 49
+            self.view.frame.origin.y += swipeSize
+            let tableViewBound = self.tableView.frame
+            let tableViewHeight = self.tableView.bounds.height
+            self.tableView.frame = CGRect(x: tableViewBound.minX, y: tableViewBound.minY - swipeSize,
+                                          width: tableViewBound.maxX, height: tableViewHeight + swipeSize)
+            print(self.view.frame.origin.y)
         }
     }
     

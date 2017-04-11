@@ -350,6 +350,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     func setMediaOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
         cell.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
+        self.addPlaceHolder(cell: cell)
         
         //Downloading and caching media
         if _posts[cacheKey].isPhoto {
@@ -357,6 +358,14 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         } else {
             setVideoOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
         }
+    }
+    
+    func addPlaceHolder(cell: PostsCell) {
+        let placeholderImage = UIImage(named: "grayRec.jpg")
+        let placeholder = UIImageView(frame: cell.spotPostMedia.bounds)
+        placeholder.image = placeholderImage
+        placeholder.contentMode = .scaleAspectFill
+        cell.spotPostMedia.layer.addSublayer(placeholder.layer)
     }
     
     private var _mainPartOfMediaref: String!

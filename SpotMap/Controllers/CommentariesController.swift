@@ -11,7 +11,8 @@ import FirebaseDatabase
 import FirebaseAuth
 import ActiveLabel
 
-class CommentariesController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class CommentariesController: UIViewController, UITableViewDataSource,
+UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     var postId: String!
     
     @IBOutlet weak var tableView: UITableView!
@@ -66,8 +67,10 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
     @IBAction func sendComment(_ sender: Any) {
         CommentsModel.addNewComment(postId: self.postId, text: self.newCommentTextField.text,
                                     completion: { newComment in
-                                        self.comments.append(newComment)
+                                        self.newCommentTextField.text = ""
+                                        self.view.endEditing(true)
                                         
+                                        self.comments.append(newComment)
                                         self.tableView.reloadData()
         })
     }
@@ -95,6 +98,19 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         return cell
+    }
+    
+    // MARK: - DZNEmptyDataSet for empty data tables
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = ":("
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Nothing to show"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+        return NSAttributedString(string: str, attributes: attrs)
     }
     
     // from comment author
@@ -132,7 +148,7 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
     private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {
         let alert = UIAlertController(title: "Error!",
                                       message: "No user founded with nickname \(tappedUserLogin)",
-            preferredStyle: .alert)
+                                      preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
         
@@ -153,35 +169,13 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
             userProfileController.cameFromSpotDetails = true
         }
     }
-    
-    // MARK: DZNEmptyDataSet for empty data tables
-    
-    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = ":("
-        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
-        return NSAttributedString(string: str, attributes: attrs)
-    }
-    
-    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Nothing to show"
-        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
-        return NSAttributedString(string: str, attributes: attrs)
-    }
-    
-    // ENDMARK: DZNEmptyDataSet
-    
-    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
-    //if we tapped UITextField and then another UITextField
 }
 
 extension CommentariesController: UITextFieldDelegate {
     func keyboardWillShow(notification: NSNotification) {
-        if !keyBoardAlreadyShowed {
             if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
                 let keyboardHeight = keyboardSize.height
                 self.view.frame.origin.y -= (keyboardHeight - 49)
-                keyBoardAlreadyShowed = true
-            }
         }
     }
     
@@ -189,7 +183,6 @@ extension CommentariesController: UITextFieldDelegate {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             let keyboardHeight = keyboardSize.height
             self.view.frame.origin.y += (keyboardHeight - 49)
-            keyBoardAlreadyShowed = false
         }
     }
     

@@ -28,8 +28,10 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
         self.loadComments()
         
         //For scrolling the view if keyboard on
-        NotificationCenter.default.addObserver(self, selector: #selector(CommentariesController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CommentariesController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentariesController.keyboardWillShow),
+                                               name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentariesController.keyboardWillHide),
+                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         self.newCommentTextField.delegate = self
         
@@ -48,10 +50,11 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
     func loadComments() {
         self.addPostDescAsComment()
         
-        CommentsModel.loadCommentsForPost(postId: self.postId, completion: { loadedComments in
-            self.comments.append(contentsOf: loadedComments)
-            
-            self.tableView.reloadData()
+        CommentsModel.loadCommentsForPost(postId: self.postId,
+                                          completion: { loadedComments in
+                                            self.comments.append(contentsOf: loadedComments)
+                                            
+                                            self.tableView.reloadData()
         })
     }
     
@@ -61,17 +64,12 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func sendComment(_ sender: Any) {
-        let refForNewComment = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postId).child("comments").childByAutoId()
-        
-        let currentUserId = FIRAuth.auth()?.currentUser?.uid
-        let currentDateTime = String(describing: Date())
-        let newComment = CommentItem(commentId: refForNewComment.key, userId: currentUserId!, postId: self.postId, commentary: newCommentTextField.text!, datetime: currentDateTime)
-        
-        refForNewComment.setValue(newComment.toAnyObject())
-        
-        // adding new comment to our tableView and reloading data
-        self.comments.append(newComment)
-        self.tableView.reloadData()
+        CommentsModel.addNewComment(postId: self.postId, text: self.newCommentTextField.text,
+                                    completion: { newComment in
+                                        self.comments.append(newComment)
+                                        
+                                        self.tableView.reloadData()
+        })
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -103,52 +101,42 @@ class CommentariesController: UIViewController, UITableViewDataSource, UITableVi
     func goToProfile(_ sender: UIGestureRecognizer) {
         let userId = self.comments[(sender.view?.tag)!].userId
         
-        if userId == (FIRAuth.auth()?.currentUser?.uid)! {
+        if userId == UserModel.getCurrentUserId() {
             self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
         } else {
-            let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId)
-            
-            ref.observeSingleEvent(of: .value, with: { snapshot in
-                let user = UserItem(snapshot: snapshot)
-                self.ridersInfoForSending = user
-                self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
+            UserModel.getUserItemById(userId: userId,
+                                      completion: { fetchedUserItem in
+                                        self.ridersInfoForSending = fetchedUserItem
+                                        self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
             })
         }
     }
     
     // from @username
     private func goToUserProfile(tappedUserLogin: String) {
-        let refToAllUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
-        
-        refToAllUsers.observeSingleEvent(of: .value, with: { snapshot in
-            var isUserFounded = false
-            
-            for user in snapshot.children {
-                let snapshotValue = (user as! FIRDataSnapshot).value as! [String: AnyObject]
-                let login = snapshotValue["login"] as! String // getting login of user
-                
-                if login == tappedUserLogin {
-                    isUserFounded = true
-                    let tappedUser = UserItem(snapshot: user as! FIRDataSnapshot) // getting full user item
-                    // check if going to current user
-                    if tappedUser.uid == FIRAuth.auth()?.currentUser?.uid {
-                        self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
-                    } else {
-                        self.ridersInfoForSending = tappedUser
-                        self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
-                    }
-                }
-            }
-            
-            if !isUserFounded { // if no user founded for tapped nickname
-                let alert = UIAlertController(title: "Error!",
-                                              message: "No user founded with nickname \(tappedUserLogin)",
-                    preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-                
-                self.present(alert, animated: true, completion: nil)
-            }
+        UserModel.getUserItemByLogin(userLogin: tappedUserLogin,
+                                     completion: { fetchedUserItem in
+                                        if let userItem = fetchedUserItem { // have we founded?
+                                            if userItem.uid == UserModel.getCurrentUserId() {
+                                                self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
+                                            } else {
+                                                self.ridersInfoForSending = userItem
+                                                self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
+                                            }
+                                        } else { // if no user founded for tapped nickname
+                                            self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
+                                        }
         })
+    }
+    
+    private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {
+        let alert = UIAlertController(title: "Error!",
+                                      message: "No user founded with nickname \(tappedUserLogin)",
+            preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     var ridersInfoForSending: UserItem!

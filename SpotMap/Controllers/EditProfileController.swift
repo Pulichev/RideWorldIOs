@@ -55,19 +55,9 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func uploadPhoto() {
-        // saving 150x150
-        let photo150x150 = ImageManipulations.resize(image: self.userPhoto.image!, targetSize: CGSize(width: 150.0, height: 150.0))
-        let userPhoto150x150ref = FIRStorage.storage().reference(withPath: "media/userMainPhotoURLs").child(self.userInfo.uid + "_resolution150x150.jpeg")
-        //with low compression
-        let dataLowCompressionFor150x150: Data = UIImageJPEGRepresentation(photo150x150, 0.8)!
-        userPhoto150x150ref.put(dataLowCompressionFor150x150)
-        
-        // saving 90x90
-        let photo90x90 = ImageManipulations.resize(image: self.userPhoto.image!, targetSize: CGSize(width: 90.0, height: 90.0))
-        let userPhoto90x90ref = FIRStorage.storage().reference(withPath: "media/userMainPhotoURLs").child(self.userInfo.uid + "_resolution90x90.jpeg")
-        //with low compression
-        let dataLowCompressionFor90x90: Data = UIImageJPEGRepresentation(photo90x90, 0.8)!
-        userPhoto90x90ref.put(dataLowCompressionFor90x90)
+        UserMainPhotoModel.uploadUserMainPhoto(userId: self.userInfo.uid, image: self.userPhoto.image!, sizePx: 150.0)
+
+        UserMainPhotoModel.uploadUserMainPhoto(userId: self.userInfo.uid, image: self.userPhoto.image!, sizePx: 90.0)
     }
     
     func returnToParentControllerOnSaveButtonTapped(bioDescription: String, login: String, nameAndSename: String) {

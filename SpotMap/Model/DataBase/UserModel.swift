@@ -40,7 +40,7 @@ class UserModel {
                 }
             }
             
-            completion(nil) // havent fouded user
+            completion(nil) // haven't fouded user
         })
     }
 }

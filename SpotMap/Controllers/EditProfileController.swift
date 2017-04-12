@@ -56,7 +56,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
     
     func uploadPhoto() {
         UserMainPhotoModel.uploadUserMainPhoto(userId: self.userInfo.uid, image: self.userPhoto.image!, sizePx: 150.0)
-
+        
         UserMainPhotoModel.uploadUserMainPhoto(userId: self.userInfo.uid, image: self.userPhoto.image!, sizePx: 90.0)
     }
     

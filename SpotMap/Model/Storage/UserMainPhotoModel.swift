@@ -10,7 +10,7 @@ import FirebaseStorage
 
 class UserMainPhotoModel {
     // MARK: - Upload part
-    static func uploadUserMainPhoto(userId: String, image: UIImage, sizePx: Double) {
+    static func uploadUserMainPhoto(for userId: String, with image: UIImage, withSize sizePx: Double) {
         let resizedPhoto = ImageManipulations.resize(image: image, targetSize: CGSize(width: sizePx, height: sizePx))
         let sizePxInt = Int(sizePx) // to generate link properly. It doesn't have ".0" in sizes
         let sizePxString = String(describing: sizePxInt)

@@ -13,7 +13,7 @@ class CommentsModel {
     static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost")
     
     // Function for loading comments for certain post
-    static func loadCommentsForPost(postId: String,
+    static func loadComments(for postId: String,
                                     completion: @escaping (_ loadedComments: [CommentItem]) -> Void) {
         let ref = self.refToSpotPostsNode.child(postId).child("comments")
         
@@ -30,13 +30,13 @@ class CommentsModel {
         })
     }
     
-    static func addNewComment(postId: String, text: String?,
+    static func addNewComment(for postId: String, withText text: String?,
                               completion: @escaping (_ loadedComments: CommentItem) -> Void) {
         let refForNewComment = self.refToSpotPostsNode.child(postId).child("comments").childByAutoId()
         
-        let currentUserId = FIRAuth.auth()?.currentUser?.uid
+        let currentUserId = UserModel.getCurrentUserId()
         let currentDateTime = String(describing: Date())
-        let newComment = CommentItem(commentId: refForNewComment.key, userId: currentUserId!, postId: postId, commentary: text!, datetime: currentDateTime)
+        let newComment = CommentItem(commentId: refForNewComment.key, userId: currentUserId, postId: postId, commentary: text!, datetime: currentDateTime)
         
         refForNewComment.setValue(newComment.toAnyObject())
         

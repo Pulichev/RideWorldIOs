@@ -47,7 +47,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         self.setLoadingScreen()
         
         let currentUserId = UserModel.getCurrentUserId()
-        UserModel.getUserItemById(userId: currentUserId,
+        UserModel.getUserItemById(for: currentUserId,
                                   completion: { fetchedUserItem in
                                     self.userInfo = fetchedUserItem
         })

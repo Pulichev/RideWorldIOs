@@ -52,8 +52,8 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func loadComments() {
         self.addPostDescAsComment()
         
-        CommentsModel.loadCommentsForPost(
-            postId: self.postId,
+        CommentsModel.loadComments(
+            for: self.postId,
             completion: { loadedComments in
                 self.comments.append(contentsOf: loadedComments)
                 
@@ -66,9 +66,9 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
         self.comments.append(descAsComment)
     }
     
-    @IBAction func sendComment(_ sender: Any) {
+    @IBAction func sendComment(_ sender: UIButton) {
         CommentsModel.addNewComment(
-            postId: self.postId, text: self.newCommentTextField.text,
+            for: self.postId, withText: self.newCommentTextField.text,
             completion: { newComment in
                 self.newCommentTextField.text = ""
                 self.view.endEditing(true)
@@ -124,7 +124,7 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
             self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
         } else {
             UserModel.getUserItemById(
-                userId: userId,
+                for: userId,
                 completion: { fetchedUserItem in
                     self.ridersInfoForSending = fetchedUserItem
                     self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
@@ -135,7 +135,7 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     // from @username
     private func goToUserProfile(tappedUserLogin: String) {
         UserModel.getUserItemByLogin(
-            userLogin: tappedUserLogin,
+            for: tappedUserLogin,
             completion: { fetchedUserItem in
                 if let userItem = fetchedUserItem { // have we founded?
                     if userItem.uid == UserModel.getCurrentUserId() {

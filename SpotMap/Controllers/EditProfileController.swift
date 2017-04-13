@@ -40,8 +40,8 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
         let nameAndSename = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! EditProfileCell).field.text!
         
         // updating values
-        UserModel.updateUserInfo(userId: self.userInfo.uid, bioDescription: bioDescription,
-                                 login: login, nameAndSename: nameAndSename)
+        UserModel.updateUserInfo(for: self.userInfo.uid, withBio: bioDescription,
+                                 withLogin: login, withName: nameAndSename)
         
         self.uploadPhoto()
         
@@ -50,10 +50,10 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
     
     func uploadPhoto() {
         UserMainPhotoModel.uploadUserMainPhoto(
-            userId: self.userInfo.uid, image: self.userPhoto.image!, sizePx: 150.0)
+            for: self.userInfo.uid, with: self.userPhoto.image!, withSize: 150.0)
         
         UserMainPhotoModel.uploadUserMainPhoto(
-            userId: self.userInfo.uid, image: self.userPhoto.image!, sizePx: 90.0)
+            for: self.userInfo.uid, with: self.userPhoto.image!, withSize: 90.0)
     }
     
     func returnToParentControllerOnSaveButtonTapped(bioDescription: String, login: String, nameAndSename: String) {

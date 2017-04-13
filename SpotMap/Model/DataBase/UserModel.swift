@@ -16,7 +16,7 @@ class UserModel {
         return (FIRAuth.auth()?.currentUser?.uid)!
     }
     
-    static func getUserItemById(userId: String,
+    static func getUserItemById(for userId: String,
                                 completion: @escaping (_ userItem: UserItem) -> Void) {
         let refToUser = self.refToUsersNode.child(userId)
         refToUser.observeSingleEvent(of: .value, with: { snapshot in
@@ -25,7 +25,7 @@ class UserModel {
         })
     }
     
-    static func getUserItemByLogin(userLogin: String,
+    static func getUserItemByLogin(for userLogin: String,
                                    completion: @escaping (_ userItem: UserItem?) -> Void) {
         self.refToUsersNode.observeSingleEvent(of: .value, with: { snapshot in
             
@@ -44,8 +44,8 @@ class UserModel {
         })
     }
     
-    static func updateUserInfo(userId: String, bioDescription: String,
-                               login: String, nameAndSename: String) {
+    static func updateUserInfo(for userId: String, withBio bioDescription: String,
+                               withLogin login: String, withName nameAndSename : String) {
         let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(userId)
         
         refToCurrentUser.updateChildValues([

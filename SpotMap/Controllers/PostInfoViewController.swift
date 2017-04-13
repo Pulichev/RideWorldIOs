@@ -100,7 +100,7 @@ class PostInfoViewController: UIViewController {
         let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(currentUserId!)
         // catch if user liked this post
         likeRef.observeSingleEvent(of: .value, with: { snapshot in
-            if let value = snapshot.value as? [String : Any] {
+            if (snapshot.value as? [String : Any]) != nil {
                 self.postIsLiked = true
                 self.isLikedPhoto.image = UIImage(named: "respectActive.png")
             } else {

@@ -9,6 +9,7 @@
 import FirebaseStorage
 
 class UserMainPhotoModel {
+    // MARK: - Upload part
     static func uploadUserMainPhoto(userId: String, image: UIImage, sizePx: Double) {
         let resizedPhoto = ImageManipulations.resize(image: image, targetSize: CGSize(width: sizePx, height: sizePx))
         let sizePxInt = Int(sizePx) // to generate link properly. It doesn't have ".0" in sizes
@@ -17,5 +18,22 @@ class UserMainPhotoModel {
         //with low compression
         let dataLowCompressionFor: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
         userPhotoRef.put(dataLowCompressionFor)
+    }
+    
+    // MARK: - Download part
+    static func getUserMainPhotoURL(for userId: String, withSize sizePx: Int,
+                                    completion: @escaping (_ userPhotoURL: URL) -> Void) {
+        let storage = FIRStorage.storage()
+        let sizePxString = String(describing: sizePx)
+        let url = "gs://spotmap-e3116.appspot.com/media/userMainPhotoURLs/" + userId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg"
+        let riderPhotoURL = storage.reference(forURL: url)
+        
+        riderPhotoURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+            } else {
+                completion(URL!)
+            }
+        }
     }
 }

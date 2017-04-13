@@ -35,29 +35,25 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(self.userInfo.uid)
-        
         let bioDescription = (tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! EditProfileCell).field.text!
         let login = (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! EditProfileCell).field.text!
         let nameAndSename = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! EditProfileCell).field.text!
         
         // updating values
-        refToCurrentUser.updateChildValues([
-            "bioDescription" : bioDescription,
-            "login": login,
-            "nameAndSename": nameAndSename
-            ])
+        UserModel.updateUserInfo(userId: self.userInfo.uid, bioDescription: bioDescription,
+                                 login: login, nameAndSename: nameAndSename)
         
-        // saving photo
         self.uploadPhoto()
         
         self.returnToParentControllerOnSaveButtonTapped(bioDescription: bioDescription, login: login, nameAndSename: nameAndSename)
     }
     
     func uploadPhoto() {
-        UserMainPhotoModel.uploadUserMainPhoto(userId: self.userInfo.uid, image: self.userPhoto.image!, sizePx: 150.0)
+        UserMainPhotoModel.uploadUserMainPhoto(
+            userId: self.userInfo.uid, image: self.userPhoto.image!, sizePx: 150.0)
         
-        UserMainPhotoModel.uploadUserMainPhoto(userId: self.userInfo.uid, image: self.userPhoto.image!, sizePx: 90.0)
+        UserMainPhotoModel.uploadUserMainPhoto(
+            userId: self.userInfo.uid, image: self.userPhoto.image!, sizePx: 90.0)
     }
     
     func returnToParentControllerOnSaveButtonTapped(bioDescription: String, login: String, nameAndSename: String) {
@@ -73,7 +69,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
         // return to profile
         _ = navigationController?.popViewController(animated: true)
     }
-
+    
     //Main table filling region
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

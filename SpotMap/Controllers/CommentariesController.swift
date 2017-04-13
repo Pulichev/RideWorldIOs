@@ -52,11 +52,12 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func loadComments() {
         self.addPostDescAsComment()
         
-        CommentsModel.loadCommentsForPost(postId: self.postId,
-                                          completion: { loadedComments in
-                                            self.comments.append(contentsOf: loadedComments)
-                                            
-                                            self.tableView.reloadData()
+        CommentsModel.loadCommentsForPost(
+            postId: self.postId,
+            completion: { loadedComments in
+                self.comments.append(contentsOf: loadedComments)
+                
+                self.tableView.reloadData()
         })
     }
     
@@ -66,13 +67,14 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     }
     
     @IBAction func sendComment(_ sender: Any) {
-        CommentsModel.addNewComment(postId: self.postId, text: self.newCommentTextField.text,
-                                    completion: { newComment in
-                                        self.newCommentTextField.text = ""
-                                        self.view.endEditing(true)
-                                        
-                                        self.comments.append(newComment)
-                                        self.tableView.reloadData()
+        CommentsModel.addNewComment(
+            postId: self.postId, text: self.newCommentTextField.text,
+            completion: { newComment in
+                self.newCommentTextField.text = ""
+                self.view.endEditing(true)
+                
+                self.comments.append(newComment)
+                self.tableView.reloadData()
         })
     }
     
@@ -121,28 +123,30 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
         if userId == UserModel.getCurrentUserId() {
             self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
         } else {
-            UserModel.getUserItemById(userId: userId,
-                                      completion: { fetchedUserItem in
-                                        self.ridersInfoForSending = fetchedUserItem
-                                        self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
+            UserModel.getUserItemById(
+                userId: userId,
+                completion: { fetchedUserItem in
+                    self.ridersInfoForSending = fetchedUserItem
+                    self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
             })
         }
     }
     
     // from @username
     private func goToUserProfile(tappedUserLogin: String) {
-        UserModel.getUserItemByLogin(userLogin: tappedUserLogin,
-                                     completion: { fetchedUserItem in
-                                        if let userItem = fetchedUserItem { // have we founded?
-                                            if userItem.uid == UserModel.getCurrentUserId() {
-                                                self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
-                                            } else {
-                                                self.ridersInfoForSending = userItem
-                                                self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
-                                            }
-                                        } else { // if no user founded for tapped nickname
-                                            self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
-                                        }
+        UserModel.getUserItemByLogin(
+            userLogin: tappedUserLogin,
+            completion: { fetchedUserItem in
+                if let userItem = fetchedUserItem { // have we founded?
+                    if userItem.uid == UserModel.getCurrentUserId() {
+                        self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
+                    } else {
+                        self.ridersInfoForSending = userItem
+                        self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
+                    }
+                } else { // if no user founded for tapped nickname
+                    self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
+                }
         })
     }
     

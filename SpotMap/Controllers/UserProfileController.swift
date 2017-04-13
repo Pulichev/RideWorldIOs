@@ -46,15 +46,14 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         
         self.setLoadingScreen()
         
-        let currentUserId = FIRAuth.auth()?.currentUser?.uid
-        let currentUserRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!)
+        let currentUserId = UserModel.getCurrentUserId()
+        UserModel.getUserItemById(userId: currentUserId,
+                                  completion: { fetchedUserItem in
+                                    self.userInfo = fetchedUserItem
+        })
         
         self.userProfileCollection.emptyDataSetSource = self
         self.userProfileCollection.emptyDataSetDelegate = self
-        
-        currentUserRef.observeSingleEvent(of: .value, with: { snapshot in
-            self.userInfo = UserItem(snapshot: snapshot)
-        })
     }
     
     // part for hide and view navbar from this navigation controller
@@ -86,47 +85,29 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     private func initialiseFollowing() {
-        let refToUserNode = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.userInfo.uid)
-        
-        let refFollowers = refToUserNode.child("followers")
-        refFollowers.observe(.value, with: { snapshot in
-            DispatchQueue.main.async {
-                if let value = snapshot.value as? [String: Any] {
-                    self.followersButton.setTitle(String(describing: value.count), for: .normal)
-                } else {
-                    self.followersButton.setTitle("0", for: .normal)
-                }
-            }
+        UserModel.getUserFollowersCountString(
+            userId: self.userInfo.uid,
+            completion: { countOfFollowersString in
+                self.followersButton.setTitle(countOfFollowersString, for: .normal)
         })
         
-        let refFollowing = refToUserNode.child("following")
-        refFollowing.observe(.value, with: { snapshot in
-            DispatchQueue.main.async {
-                if let value = snapshot.value as? [String: Any] {
-                    self.followingButton.setTitle(String(describing: value.count), for: .normal)
-                } else {
-                    self.followingButton.setTitle("0", for: .normal)
-                }
-            }
+        UserModel.getUserFollowingsCountString(
+            userId: self.userInfo.uid,
+            completion: { countOfFollowingsString in
+                self.followingButton.setTitle(countOfFollowingsString, for: .normal)
         })
     }
     
     func initializeUserPhoto() {
-        let storage = FIRStorage.storage()
-        let url = "gs://spotmap-e3116.appspot.com/media/userMainPhotoURLs/" + self.userInfo.uid + "_resolution150x150.jpeg"
-        let riderPhotoURL = storage.reference(forURL: url)
-        
-        riderPhotoURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                DispatchQueue.main.async {
-                    if self.userProfilePhoto != nil { // if we came not from user edit controller
-                        self.userProfilePhoto.kf.setImage(with: URL) //Using kf for caching images.
+        if self.userProfilePhoto != nil { // if we came not from user edit controller
+            UserMainPhotoModel.getUserMainPhotoURL(
+                for: self.userInfo.uid, withSize: 150,
+                completion: { url in
+                    DispatchQueue.main.async {
+                        self.userProfilePhoto.kf.setImage(with: url) //Using kf for caching images.
                         self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
                     }
-                }
-            }
+            })
         }
     }
     
@@ -187,7 +168,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-    // MARK: COLLECTIONVIEW PART
+    // MARK: - CollectionView part
     // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.postsImages.count
@@ -282,7 +263,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-    // MARK: DZNEmptyDataSet for empty data tables
+    // MARK: - DZNEmptyDataSet for empty data tables
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
         if haveWeFinishedLoading {
             let str = "Welcome"
@@ -314,16 +295,15 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             return ImageManipulations.resize(image: UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
         }
     }
-    // ENDMARK: DZNEmptyDataSet
     
     // MARK: - when data loading
     // View which contains the loading text and the spinner
     let loadingView = UIView()
     
-    // Spinner shown during load the TableView
+    // Spinner shown during load the collectionView
     let spinner = UIActivityIndicatorView()
     
-    // Text shown during load the TableView
+    // Text shown during load the collectionView
     let loadingLabel = UILabel()
     
     // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet

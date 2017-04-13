@@ -43,4 +43,41 @@ class UserModel {
             completion(nil) // haven't fouded user
         })
     }
+    
+    static func updateUserInfo(userId: String, bioDescription: String,
+                               login: String, nameAndSename: String) {
+        let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(userId)
+        
+        refToCurrentUser.updateChildValues([
+            "bioDescription" : bioDescription,
+            "login": login,
+            "nameAndSename": nameAndSename
+            ])
+    }
+    
+    static func getUserFollowersCountString(userId: String,
+                                       completion: @escaping (_ followersCount: String) -> Void) {
+        let refToUser = self.refToUsersNode.child(userId)
+        let refToFollowers = refToUser.child("followers")
+        refToFollowers.observe(.value, with: { snapshot in
+                if let value = snapshot.value as? [String: Any] {
+                    completion(String(describing: value.count))
+                } else {
+                    completion("0")
+                }
+        })
+    }
+    
+    static func getUserFollowingsCountString(userId: String,
+                                            completion: @escaping (_ followingsCount: String) -> Void) {
+        let refToUser = self.refToUsersNode.child(userId)
+        let refToFollowings = refToUser.child("following")
+        refToFollowings.observe(.value, with: { snapshot in
+            if let value = snapshot.value as? [String: Any] {
+                completion(String(describing: value.count))
+            } else {
+                completion("0")
+            }
+        })
+    }
 }

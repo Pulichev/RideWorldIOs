@@ -9,7 +9,7 @@
 import FirebaseDatabase
 import FirebaseAuth
 
-class CommentsModel {
+struct CommentsModel {
     static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost")
     
     // Function for loading comments for certain post

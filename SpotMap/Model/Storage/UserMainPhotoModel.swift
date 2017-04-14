@@ -8,7 +8,7 @@
 
 import FirebaseStorage
 
-class UserMainPhotoModel {
+struct UserMainPhotoModel {
     // MARK: - Upload part
     static func uploadUserMainPhoto(for userId: String, with image: UIImage, withSize sizePx: Double) {
         let resizedPhoto = ImageManipulations.resize(image: image, targetSize: CGSize(width: sizePx, height: sizePx))

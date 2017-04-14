@@ -9,7 +9,7 @@
 import FirebaseDatabase
 import FirebaseAuth
 
-class UserModel {
+struct UserModel {
     static var refToUsersNode = FIRDatabase.database().reference(withPath: "MainDataBase/users")
     
     static func getCurrentUserId() -> String {
@@ -56,20 +56,20 @@ class UserModel {
     }
     
     static func getUserFollowersCountString(userId: String,
-                                       completion: @escaping (_ followersCount: String) -> Void) {
+                                            completion: @escaping (_ followersCount: String) -> Void) {
         let refToUser = self.refToUsersNode.child(userId)
         let refToFollowers = refToUser.child("followers")
         refToFollowers.observe(.value, with: { snapshot in
-                if let value = snapshot.value as? [String: Any] {
-                    completion(String(describing: value.count))
-                } else {
-                    completion("0")
-                }
+            if let value = snapshot.value as? [String: Any] {
+                completion(String(describing: value.count))
+            } else {
+                completion("0")
+            }
         })
     }
     
     static func getUserFollowingsCountString(userId: String,
-                                            completion: @escaping (_ followingsCount: String) -> Void) {
+                                             completion: @escaping (_ followingsCount: String) -> Void) {
         let refToUser = self.refToUsersNode.child(userId)
         let refToFollowings = refToUser.child("following")
         refToFollowings.observe(.value, with: { snapshot in

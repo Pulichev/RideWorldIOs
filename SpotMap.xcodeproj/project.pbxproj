@@ -268,6 +268,8 @@
 		9FB681B41E2E70CE00D9A436 /* SpotMap */ = {
 			isa = PBXGroup;
 			children = (
+				9FD648DB1E573F0600C673CA /* Main.storyboard */,
+				9FF1BF731E9FE3AF00A2CEF2 /* Supporting files */,
 				9FF1BF651E9D33AF00A2CEF2 /* Model */,
 				9F212A291E802810003D5A8F /* Protocols */,
 				9FAE8C1C1E7E83F400BB10B9 /* Some Obj-C frameworks */,
@@ -276,12 +278,6 @@
 				9FC14FC61E48E5CB0097579B /* Controllers */,
 				9F2380721E34DA20009D41E8 /* Pictures */,
 				9F113EB71E32A4D3009AF9FD /* Data */,
-				9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */,
-				9FD648DB1E573F0600C673CA /* Main.storyboard */,
-				9F65321B1E3CD12700F58C18 /* Assets.xcassets */,
-				9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */,
-				9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */,
-				9FB681C11E2E70CE00D9A436 /* Info.plist */,
 			);
 			path = SpotMap;
 			sourceTree = "<group>";
@@ -370,6 +366,18 @@
 				9FF1BF711E9E801F00A2CEF2 /* UserMainPhotoModel.swift */,
 			);
 			name = Storage;
+			sourceTree = "<group>";
+		};
+		9FF1BF731E9FE3AF00A2CEF2 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */,
+				9F65321B1E3CD12700F58C18 /* Assets.xcassets */,
+				9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */,
+				9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */,
+				9FB681C11E2E70CE00D9A436 /* Info.plist */,
+			);
+			name = "Supporting files";
 			sourceTree = "<group>";
 		};
 		CF90D077CFC09096E77DE243 /* Pods */ = {

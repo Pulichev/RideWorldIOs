@@ -40,8 +40,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
         let nameAndSename = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! EditProfileCell).field.text!
         
         // updating values
-        UserModel.updateUserInfo(for: self.userInfo.uid, withBio: bioDescription,
-                                 withLogin: login, withName: nameAndSename)
+        UserModel.updateUserInfo(for: self.userInfo.uid, bioDescription, login, nameAndSename)
         
         self.uploadPhoto()
         

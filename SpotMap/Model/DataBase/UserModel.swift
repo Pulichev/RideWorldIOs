@@ -44,12 +44,12 @@ class UserModel {
         })
     }
     
-    static func updateUserInfo(for userId: String, withBio bioDescription: String,
-                               withLogin login: String, withName nameAndSename : String) {
+    static func updateUserInfo(for userId: String, _ bio: String,
+                               _ login: String, _ nameAndSename : String) {
         let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(userId)
         
         refToCurrentUser.updateChildValues([
-            "bioDescription" : bioDescription,
+            "bioDescription" : bio,
             "login": login,
             "nameAndSename": nameAndSename
             ])

@@ -71,7 +71,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     //Uploading files with the SYNC API
     func uploadPhoto(spotId: String) {
-        let lowResolutionPhoto = ImageManipulations.resize(image: self.imageView.image!, targetSize: CGSize(width: 270.0, height: 270.0))
+        let lowResolutionPhoto = Image.resize(self.imageView.image!, targetSize: CGSize(width: 270.0, height: 270.0))
         let newPostRef = FIRStorage.storage().reference(withPath: "media/spotMainPhotoURLs").child(spotId + ".jpeg")
         //saving original image with low compression
         let dataLowCompression: Data = UIImageJPEGRepresentation(lowResolutionPhoto, 0.8)!

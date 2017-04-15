@@ -12,7 +12,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import FirebaseAuth
 
-class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     var userInfo: UserItem! {
         didSet {
             DispatchQueue.global(qos: .userInitiated).async {
@@ -152,18 +152,13 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     // MARK: - CollectionView part
-    // tell the collection view how many cells to make
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.postsImages.count
     }
     
-    // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
         
-        // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.postPicture.image = self.postsImages[self.postsIds[indexPath.row]]?.image!
         
         return cell
@@ -203,6 +198,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     
     var selectedCellId: Int!
     
+    //MARK: - Buttons taps methods
     @IBAction func editProfileButtonTapped(_ sender: Any) {
         self.performSegue(withIdentifier: "editUserProfile", sender: self)
     }
@@ -222,7 +218,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPostInfoFromUserProfile" {
             let newPostInfoController = segue.destination as! PostInfoViewController
-            //let key = Array(self.posts.keys)[selectedCellId]
             newPostInfoController.postInfo = self.posts[self.postsIds[selectedCellId]]
             newPostInfoController.user = userInfo
             newPostInfoController.isCurrentUserProfile = true
@@ -246,73 +241,30 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
     
-    // MARK: - DZNEmptyDataSet for empty data tables
-    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        if haveWeFinishedLoading {
-            let str = "Welcome"
-            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
-            return NSAttributedString(string: str, attributes: attrs)
-        } else {
-            let str = ""
-            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
-            return NSAttributedString(string: str, attributes: attrs)
-        }
-    }
-    
-    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        if haveWeFinishedLoading {
-            let str = "You have no publications"
-            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
-            return NSAttributedString(string: str, attributes: attrs)
-        } else {
-            let str = ""
-            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
-            return NSAttributedString(string: str, attributes: attrs)
-        }
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
-        if haveWeFinishedLoading {
-            return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
-        } else {
-            return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
-        }
-    }
-    
     // MARK: - when data loading
-    // View which contains the loading text and the spinner
-    let loadingView = UIView()
-    
-    // Spinner shown during load the collectionView
+    let loadingView = UIView() // View which contains the loading text and the spinner
     let spinner = UIActivityIndicatorView()
-    
-    // Text shown during load the collectionView
     let loadingLabel = UILabel()
     
-    // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
-    var haveWeFinishedLoading = false
+    var haveWeFinishedLoading = false // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
     
     // Set the activity indicator into the main view
     private func setLoadingScreen() {
-        // Sets the view which contains the loading text and the spinner
         let width: CGFloat = 120
         let height: CGFloat = 30
         let x = (self.userProfileCollection.frame.width / 2) - (width / 2)
         let y = (self.userProfileCollection.frame.height / 2) - (height / 2) - (self.navigationController?.navigationBar.frame.height)!
         loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
         
-        // Sets loading text
         self.loadingLabel.textColor = UIColor.gray
         self.loadingLabel.textAlignment = NSTextAlignment.center
         self.loadingLabel.text = "Loading..."
         self.loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
         
-        // Sets spinner
         self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         self.spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         self.spinner.startAnimating()
         
-        // Adds text and spinner to the view
         loadingView.addSubview(self.spinner)
         loadingView.addSubview(self.loadingLabel)
         
@@ -345,5 +297,39 @@ extension UserProfileController: ForUpdatingUserProfilePosts {
             postsIds.remove(at: index)
         }
         self.userProfileCollection.reloadData()
+    }
+}
+
+extension UserProfileController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        if haveWeFinishedLoading {
+            let str = "Welcome"
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+            return NSAttributedString(string: str, attributes: attrs)
+        } else {
+            let str = ""
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        if haveWeFinishedLoading {
+            let str = "You have no publications"
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+            return NSAttributedString(string: str, attributes: attrs)
+        } else {
+            let str = ""
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        if haveWeFinishedLoading {
+            return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+        } else {
+            return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
+        }
     }
 }

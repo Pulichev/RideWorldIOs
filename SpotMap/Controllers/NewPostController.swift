@@ -123,14 +123,14 @@ class NewPostController: UIViewController, UITextViewDelegate {
     func uploadPhoto(postId: String) {
         // upload main photo
         let newPostRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + "_resolution700x700.jpeg")
-        let highResPhoto = ImageManipulations.resize(image: self.photoView.image!, targetSize: CGSize(width: 700.0, height: 700.0))
+        let highResPhoto = Image.resize(self.photoView.image!, targetSize: CGSize(width: 700.0, height: 700.0))
         let dataLowCompression: Data = UIImageJPEGRepresentation(highResPhoto, 0.8)!
         newPostRef.put(dataLowCompression)
     }
     
     func uploadLowResolutionPhoto(postId: String) {
         let newPostRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + "_resolution270x270.jpeg")
-        let lowResPhoto = ImageManipulations.resize(image: self.photoView.image!, targetSize: CGSize(width: 270.0, height: 270.0))
+        let lowResPhoto = Image.resize(self.photoView.image!, targetSize: CGSize(width: 270.0, height: 270.0))
         let dataLowCompression: Data = UIImageJPEGRepresentation(lowResPhoto, 0.8)!
         newPostRef.put(dataLowCompression)
     }
@@ -138,7 +138,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
     private func uploadThumbnailOfPhoto(postId: String) {
         let newPostRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + "_resolution10x10.jpeg")
         //saving original image with low compression
-        self.photoView.image = ImageManipulations.resize(image: self.photoView.image!, targetSize: CGSize(width: 10.0, height: 10.0))
+        self.photoView.image = Image.resize(self.photoView.image!, targetSize: CGSize(width: 10.0, height: 10.0))
         let dataLowCompression: Data = UIImageJPEGRepresentation(self.photoView.image!, 0.8)!
         newPostRef.put(dataLowCompression)
     }
@@ -159,7 +159,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
             let imgGenerator = AVAssetImageGenerator(asset: asset)
             imgGenerator.appliesPreferredTrackTransform = true
             let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
-            let thumbnail = ImageManipulations.resize(image: UIImage(cgImage: cgImage), targetSize: CGSize(width: 10.0, height: 10.0))
+            let thumbnail = Image.resize(UIImage(cgImage: cgImage), targetSize: CGSize(width: 10.0, height: 10.0))
             
             let dataThumbnailForVideo: Data = UIImageJPEGRepresentation(thumbnail, 0.8)!
             let newPostThumbnailForVideo = mainRef.child(postId + "_resolution10x10.jpeg")
@@ -167,7 +167,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
             newPostThumbnailForVideo.put(dataThumbnailForVideo)
             
             // 270 px
-            let thumbnail270px = ImageManipulations.resize(image: UIImage(cgImage: cgImage), targetSize: CGSize(width: 270.0, height: 270.0))
+            let thumbnail270px = Image.resize(UIImage(cgImage: cgImage), targetSize: CGSize(width: 270.0, height: 270.0))
             
             let dataThumbnailForVideo270px: Data = UIImageJPEGRepresentation(thumbnail270px, 0.8)!
             let newPostThumbnailForVideo270px = mainRef.child(postId + "_resolution270x270.jpeg")

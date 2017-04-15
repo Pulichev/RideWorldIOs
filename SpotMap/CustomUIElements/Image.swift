@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Image {
+struct Image {
     static func resize(_ image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
         

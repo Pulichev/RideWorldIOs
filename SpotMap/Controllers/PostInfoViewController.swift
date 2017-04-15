@@ -133,22 +133,12 @@ class PostInfoViewController: UIViewController {
     
     func addNewLike() {
         // init new like
-        self.userId = FIRAuth.auth()?.currentUser?.uid
+        self.userId = User.getCurrentUserId()
         let likePlacedTime = String(describing: Date())
         self.newLike = LikeItem(userId: self.user.uid, postId: self.postInfo.key, likePlacedTime: likePlacedTime)
         
-        addLikeToUserNode()
-        addLikeToPostNode()
-    }
-    
-    func addLikeToUserNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.user.uid).child("likePlaced/onposts").child(self.postInfo.key)
-        likeRef.setValue(self.newLike.toAnyObject())
-    }
-    
-    func addLikeToPostNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(self.userId)
-        likeRef.setValue(self.newLike.toAnyObject())
+        Like.addToUserNode(self.newLike)
+        Like.addToPostNode(self.newLike)
     }
     
     // MARK: Remove existing like part

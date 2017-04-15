@@ -21,7 +21,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             }
             
             DispatchQueue.global(qos: .background).async {
-                self.initializeUserPostsPhotos()
+                self.initializePostsPhotos()
             }
         }
     }
@@ -100,35 +100,33 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     
     func initializeUserPhoto() {
         if self.userProfilePhoto != nil { // if we came not from user edit controller
-            UserMainPhoto.getURL(for: self.userInfo.uid, withSize: 150,
-                                 completion: { url in
-                                    DispatchQueue.main.async {
-                                        self.userProfilePhoto.kf.setImage(with: url) //Using kf for caching images.
-                                        self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
-                                    }
+            UserMedia.getURL(for: self.userInfo.uid, withSize: 150,
+                             completion: { url in
+                                DispatchQueue.main.async {
+                                    self.userProfilePhoto.kf.setImage(with: url) //Using kf for caching images.
+                                    self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
+                                }
             })
         }
     }
     
-    func initializeUserPostsPhotos() {
-        var tempPostItems = [String: PostItem]()
-        
+    func initializePostsPhotos() {
         User.getPostsIds(for: self.userInfo,
                          completion: { postsIds in
                             if postsIds != nil {
                                 self.postsIds = postsIds!
-
+                                
                                 for postId in postsIds! {
                                     Post.getItemById(for: postId,
                                                      completion: { postItem in
                                                         if postItem != nil {
-                                                            tempPostItems[postId] = postItem
+                                                            self.posts[postId] = postItem
                                                             self.downloadPhotosAsync(post: postItem!)
                                                             
                                                             //if all posts loaded
-                                                            if tempPostItems.count == postsIds?.count {
+                                                            if self.posts.count == postsIds?.count {
+                                                                self.userProfileCollection.reloadData()
                                                                 self.removeLoadingScreen()
-                                                                self.posts = tempPostItems
                                                             }
                                                         }
                                     })
@@ -140,30 +138,17 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     private func downloadPhotosAsync(post: PostItem) {
         self.postsImages[post.key] = UIImageView(image: UIImage(named: "grayRec.jpg"))
         
-        let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(post.spotId).child(post.key + "_resolution270x270.jpeg")
-        
-        photoRef.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                // async images downloading
-                URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
-                    if error != nil {
-                        print("Error in URLSession: " + (error.debugDescription))
-                        return
-                    } else {
-                        guard let imageData = UIImage(data: data!) else { return }
-                        let photoView = UIImageView(image: imageData)
-                        
-                        self.postsImages[post.key] = photoView
-                        
-                        DispatchQueue.main.async {
-                            self.userProfileCollection.reloadData()
-                        }
-                    }
-                }).resume()
-            }
-        }
+        PostMedia.getImageData270x270(for: post,
+                                      completion: { data in
+                                        guard let imageData = UIImage(data: data!) else { return }
+                                        let photoView = UIImageView(image: imageData)
+                                        
+                                        self.postsImages[post.key] = photoView
+                                        
+                                        DispatchQueue.main.async {
+                                            self.userProfileCollection.reloadData()
+                                        }
+        })
     }
     
     // MARK: - CollectionView part
@@ -288,9 +273,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     
     func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
         if haveWeFinishedLoading {
-            return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+            return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
         } else {
-            return ImageManipulations.resize(image: UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
+            return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
         }
     }
     

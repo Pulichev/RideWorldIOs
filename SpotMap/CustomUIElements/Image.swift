@@ -8,8 +8,8 @@
 
 import Foundation
 
-class ImageManipulations {
-    static func resize(image: UIImage, targetSize: CGSize) -> UIImage {
+class Image {
+    static func resize(_ image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
         
         let widthRatio  = targetSize.width  / image.size.width
@@ -35,7 +35,7 @@ class ImageManipulations {
         return newImage!
     }
 
-    static func addBlurOnImageView(imageView: UIImageView) {
+    static func addBlur(on imageView: UIImageView) {
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = imageView.bounds

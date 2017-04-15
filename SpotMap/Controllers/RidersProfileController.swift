@@ -328,9 +328,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     
     func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
         if haveWeFinishedLoading {
-            return ImageManipulations.resize(image: UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+            return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
         } else {
-            return ImageManipulations.resize(image: UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
+            return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
         }
     }
     // ENDMARK: DZNEmptyDataSet

@@ -262,6 +262,7 @@
                         <segue destination="H2C-mG-pr3" kind="presentation" identifier="userLogouted" id="iw2-JO-qSE"/>
                         <segue destination="28g-9l-NVL" kind="show" identifier="addNewSpot" id="Cu9-hd-la3"/>
                         <segue destination="LlJ-V1-BNZ" kind="show" identifier="spotDetailsTapped" id="PDm-Oj-MlC"/>
+                        <segue destination="6uJ-a1-Lta" kind="show" identifier="goToSpotInfo" id="ZuM-Rf-uph"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -361,7 +362,7 @@
                                             <action selector="followButtonTapped:" destination="MKp-Ss-8Kb" eventType="touchUpInside" id="2Fm-G7-lQe"/>
                                         </connections>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aYJ-c2-Cq4">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aYJ-c2-Cq4">
                                         <rect key="frame" x="165" y="17" width="53.5" height="46.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYU-8z-Yyb">
@@ -389,7 +390,7 @@
                                             <constraint firstAttribute="height" constant="88" id="FCc-El-9Pr"/>
                                         </constraints>
                                     </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iPs-Tk-Dhz">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iPs-Tk-Dhz">
                                         <rect key="frame" x="102" y="17" width="54" height="46.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87a-fo-AEh">
@@ -1520,6 +1521,24 @@
             </objects>
             <point key="canvasLocation" x="3278" y="908"/>
         </scene>
+        <!--SpotInfoController-->
+        <scene sceneID="O6t-7g-atA">
+            <objects>
+                <viewController id="6uJ-a1-Lta" userLabel="SpotInfoController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Wsg-zA-1Te"/>
+                        <viewControllerLayoutGuide type="bottom" id="nZM-aB-FfF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xFQ-8P-gan">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pn1-di-Onz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3278" y="1891"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="oMe-Nw-W80">
             <objects>
@@ -1577,12 +1596,12 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WTf-CW-Cn6"/>
-        <segue reference="TeE-da-wxz"/>
-        <segue reference="Oe2-wo-WXX"/>
-        <segue reference="eyf-4a-ZNN"/>
         <segue reference="COh-cw-Ntn"/>
+        <segue reference="eyf-4a-ZNN"/>
+        <segue reference="Oe2-wo-WXX"/>
+        <segue reference="TeE-da-wxz"/>
+        <segue reference="WTf-CW-Cn6"/>
         <segue reference="Gef-69-N8A"/>
-        <segue reference="1Fi-pQ-wyF"/>
+        <segue reference="PDm-Oj-MlC"/>
     </inferredMetricsTieBreakers>
 </document>

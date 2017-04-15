@@ -56,6 +56,7 @@
 		9FF1BF6C1E9D448500A2CEF2 /* CommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF6B1E9D448500A2CEF2 /* CommentsModel.swift */; };
 		9FF1BF701E9D707400A2CEF2 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF6F1E9D707400A2CEF2 /* UserModel.swift */; };
 		9FF1BF721E9E801F00A2CEF2 /* UserMainPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF711E9E801F00A2CEF2 /* UserMainPhoto.swift */; };
+		9FF1BF751EA27C3600A2CEF2 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF741EA27C3600A2CEF2 /* PostModel.swift */; };
 		9FFB14F61E7848F600D10620 /* FollowersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F51E7848F600D10620 /* FollowersController.swift */; };
 		9FFB14F81E784E4B00D10620 /* FollowersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F71E784E4B00D10620 /* FollowersCell.swift */; };
 		AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */; };
@@ -143,6 +144,7 @@
 		9FF1BF6B1E9D448500A2CEF2 /* CommentsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsModel.swift; path = Model/DataBase/CommentsModel.swift; sourceTree = "<group>"; };
 		9FF1BF6F1E9D707400A2CEF2 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserModel.swift; path = Model/DataBase/UserModel.swift; sourceTree = "<group>"; };
 		9FF1BF711E9E801F00A2CEF2 /* UserMainPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserMainPhoto.swift; path = Model/Storage/UserMainPhoto.swift; sourceTree = "<group>"; };
+		9FF1BF741EA27C3600A2CEF2 /* PostModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostModel.swift; path = Model/DataBase/PostModel.swift; sourceTree = "<group>"; };
 		9FFB14F51E7848F600D10620 /* FollowersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersController.swift; path = Controllers/FollowersController.swift; sourceTree = "<group>"; };
 		9FFB14F71E784E4B00D10620 /* FollowersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersCell.swift; path = CustomUIElements/FollowersCell.swift; sourceTree = "<group>"; };
 		C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 			children = (
 				9FF1BF6F1E9D707400A2CEF2 /* UserModel.swift */,
 				9FF1BF6B1E9D448500A2CEF2 /* CommentsModel.swift */,
+				9FF1BF741EA27C3600A2CEF2 /* PostModel.swift */,
 			);
 			name = DataBase;
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 				9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */,
 				9F4A84431E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift in Sources */,
 				9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */,
+				9FF1BF751EA27C3600A2CEF2 /* PostModel.swift in Sources */,
 				9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
 				9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */,

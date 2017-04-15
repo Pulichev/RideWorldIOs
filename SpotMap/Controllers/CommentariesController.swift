@@ -120,10 +120,10 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     func goToProfile(_ sender: UIGestureRecognizer) {
         let userId = self.comments[(sender.view?.tag)!].userId
         
-        if userId == UserModel.getCurrentUserId() {
+        if userId == User.getCurrentUserId() {
             self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
         } else {
-            UserModel.getUserItemById(
+            User.getItemById(
                 for: userId,
                 completion: { fetchedUserItem in
                     self.ridersInfoForSending = fetchedUserItem
@@ -134,11 +134,11 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     // from @username
     private func goToUserProfile(tappedUserLogin: String) {
-        UserModel.getUserItemByLogin(
+        User.getItemByLogin(
             for: tappedUserLogin,
             completion: { fetchedUserItem in
                 if let userItem = fetchedUserItem { // have we founded?
-                    if userItem.uid == UserModel.getCurrentUserId() {
+                    if userItem.uid == User.getCurrentUserId() {
                         self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
                     } else {
                         self.ridersInfoForSending = userItem

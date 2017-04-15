@@ -9,15 +9,15 @@
 import FirebaseDatabase
 import FirebaseAuth
 
-struct UserModel {
+struct User {
     static var refToUsersNode = FIRDatabase.database().reference(withPath: "MainDataBase/users")
     
     static func getCurrentUserId() -> String {
         return (FIRAuth.auth()?.currentUser?.uid)!
     }
     
-    static func getUserItemById(for userId: String,
-                                completion: @escaping (_ userItem: UserItem) -> Void) {
+    static func getItemById(for userId: String,
+                            completion: @escaping (_ userItem: UserItem) -> Void) {
         let refToUser = self.refToUsersNode.child(userId)
         refToUser.observeSingleEvent(of: .value, with: { snapshot in
             let user = UserItem(snapshot: snapshot)
@@ -25,8 +25,8 @@ struct UserModel {
         })
     }
     
-    static func getUserItemByLogin(for userLogin: String,
-                                   completion: @escaping (_ userItem: UserItem?) -> Void) {
+    static func getItemByLogin(for userLogin: String,
+                               completion: @escaping (_ userItem: UserItem?) -> Void) {
         self.refToUsersNode.observeSingleEvent(of: .value, with: { snapshot in
             
             for user in snapshot.children {
@@ -55,8 +55,8 @@ struct UserModel {
             ])
     }
     
-    static func getUserFollowersCountString(userId: String,
-                                            completion: @escaping (_ followersCount: String) -> Void) {
+    static func getFollowersCountString(userId: String,
+                                        completion: @escaping (_ followersCount: String) -> Void) {
         let refToUser = self.refToUsersNode.child(userId)
         let refToFollowers = refToUser.child("followers")
         refToFollowers.observe(.value, with: { snapshot in
@@ -68,8 +68,8 @@ struct UserModel {
         })
     }
     
-    static func getUserFollowingsCountString(userId: String,
-                                             completion: @escaping (_ followingsCount: String) -> Void) {
+    static func getFollowingsCountString(userId: String,
+                                         completion: @escaping (_ followingsCount: String) -> Void) {
         let refToUser = self.refToUsersNode.child(userId)
         let refToFollowings = refToUser.child("following")
         refToFollowings.observe(.value, with: { snapshot in
@@ -79,5 +79,19 @@ struct UserModel {
                 completion("0")
             }
         })
+    }
+    
+    static func getPostsIds(for userItem: UserItem,
+                            completion: @escaping (_ postIds: [String]?) -> Void) {
+        let refToUserPosts = self.refToUsersNode.child(userItem.uid).child("posts")
+        
+        refToUserPosts.observeSingleEvent(of: .value, with: { snapshot in
+            if let value = snapshot.value as? [String: Any] {
+                let postsIds = Array(value.keys).sorted(by: { $0 > $1 })
+                completion(postsIds)
+            }
+        })
+        
+        completion(nil) // if no posts
     }
 }

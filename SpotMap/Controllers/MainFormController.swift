@@ -205,7 +205,7 @@ extension MainFormController: MKMapViewDelegate {
         let spotDetailsPhotoURL = storage.reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotMainPhotoURLs/" + spotPin.key + ".jpeg")
         
         spotDetailsPhotoURL.downloadURL { (URL, error) in
-            if let error = error {
+            if error != nil {
                 // Uh-oh, an error occurred!
                 let image = UIImage(contentsOfFile: "plus-512.gif")
                 imageView.image = image
@@ -218,6 +218,7 @@ extension MainFormController: MKMapViewDelegate {
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 0
         imageView.contentMode = UIViewContentMode.scaleAspectFill
+        
         snapshotView.addSubview(imageView)
         snapshotView.addSubview(goToPostsButton)
         snapshotView.addSubview(goToInfoButton)
@@ -230,7 +231,7 @@ extension MainFormController: MKMapViewDelegate {
     }
     
     func goToInfo() {
-        print("go to info")
+        self.performSegue(withIdentifier: "goToSpotInfo", sender: self)
     }
 }
 

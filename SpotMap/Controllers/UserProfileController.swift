@@ -46,10 +46,10 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         
         self.setLoadingScreen()
         
-        let currentUserId = UserModel.getCurrentUserId()
-        UserModel.getUserItemById(for: currentUserId,
-                                  completion: { fetchedUserItem in
-                                    self.userInfo = fetchedUserItem
+        let currentUserId = User.getCurrentUserId()
+        User.getItemById(for: currentUserId,
+                         completion: { fetchedUserItem in
+                            self.userInfo = fetchedUserItem
         })
         
         self.userProfileCollection.emptyDataSetSource = self
@@ -85,13 +85,13 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     private func initialiseFollowing() {
-        UserModel.getUserFollowersCountString(
+        User.getFollowersCountString(
             userId: self.userInfo.uid,
             completion: { countOfFollowersString in
                 self.followersButton.setTitle(countOfFollowersString, for: .normal)
         })
         
-        UserModel.getUserFollowingsCountString(
+        User.getFollowingsCountString(
             userId: self.userInfo.uid,
             completion: { countOfFollowingsString in
                 self.followingButton.setTitle(countOfFollowingsString, for: .normal)
@@ -101,46 +101,45 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     func initializeUserPhoto() {
         if self.userProfilePhoto != nil { // if we came not from user edit controller
             UserMainPhoto.getURL(for: self.userInfo.uid, withSize: 150,
-                completion: { url in
-                    DispatchQueue.main.async {
-                        self.userProfilePhoto.kf.setImage(with: url) //Using kf for caching images.
-                        self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
-                    }
+                                 completion: { url in
+                                    DispatchQueue.main.async {
+                                        self.userProfilePhoto.kf.setImage(with: url) //Using kf for caching images.
+                                        self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
+                                    }
             })
         }
     }
     
     func initializeUserPostsPhotos() {
-        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.userInfo.uid).child("posts") // ref for user posts ids list
-        var tempPosts = [String: PostItem]()
+        var tempPostItems = [String: PostItem]()
         
-        ref.observeSingleEvent(of: .value, with: { snapshot in
-            if let value = snapshot.value as? [String: Any] {
-                let postIds = Array(value.keys).sorted(by: { $0 > $1 })
-                var count = 0
-                for postId in postIds { // for each user post geting full post item
-                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
-                    postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
-                        let spotPostItem = PostItem(snapshot: snapshot)
-                        
-                        tempPosts[postId] = spotPostItem
-                        self.postsImages[postId] = UIImageView(image: UIImage(named: "grayRec.jpg"))
-                        
-                        self.downloadPhotosAsync(post: spotPostItem)
-                        
-                        count += 1
-                        if count == postIds.count {
-                            self.removeLoadingScreen()
-                            self.postsIds = postIds
-                            self.posts = tempPosts
-                        }
-                    })
-                }
-            }
+        User.getPostsIds(for: self.userInfo,
+                         completion: { postsIds in
+                            if postsIds != nil {
+                                self.postsIds = postsIds!
+
+                                for postId in postsIds! {
+                                    Post.getItemById(for: postId,
+                                                     completion: { postItem in
+                                                        if postItem != nil {
+                                                            tempPostItems[postId] = postItem
+                                                            self.downloadPhotosAsync(post: postItem!)
+                                                            
+                                                            //if all posts loaded
+                                                            if tempPostItems.count == postsIds?.count {
+                                                                self.removeLoadingScreen()
+                                                                self.posts = tempPostItems
+                                                            }
+                                                        }
+                                    })
+                                }
+                            }
         })
     }
     
     private func downloadPhotosAsync(post: PostItem) {
+        self.postsImages[post.key] = UIImageView(image: UIImage(named: "grayRec.jpg"))
+        
         let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(post.spotId).child(post.key + "_resolution270x270.jpeg")
         
         photoRef.downloadURL { (URL, error) in

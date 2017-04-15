@@ -7,7 +7,6 @@
 //
 
 import FirebaseDatabase
-import FirebaseAuth
 
 struct CommentsModel {
     static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost")
@@ -34,7 +33,7 @@ struct CommentsModel {
                               completion: @escaping (_ loadedComments: CommentItem) -> Void) {
         let refForNewComment = self.refToSpotPostsNode.child(postId).child("comments").childByAutoId()
         
-        let currentUserId = UserModel.getCurrentUserId()
+        let currentUserId = User.getCurrentUserId()
         let currentDateTime = String(describing: Date())
         let newComment = CommentItem(commentId: refForNewComment.key, userId: currentUserId, postId: postId, commentary: text!, datetime: currentDateTime)
         

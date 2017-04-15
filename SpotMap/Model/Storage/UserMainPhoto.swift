@@ -8,9 +8,9 @@
 
 import FirebaseStorage
 
-struct UserMainPhotoModel {
+struct UserMainPhoto {
     // MARK: - Upload part
-    static func uploadUserMainPhoto(for userId: String, with image: UIImage, withSize sizePx: Double) {
+    static func upload(for userId: String, with image: UIImage, withSize sizePx: Double) {
         let resizedPhoto = ImageManipulations.resize(image: image, targetSize: CGSize(width: sizePx, height: sizePx))
         let sizePxInt = Int(sizePx) // to generate link properly. It doesn't have ".0" in sizes
         let sizePxString = String(describing: sizePxInt)
@@ -21,7 +21,7 @@ struct UserMainPhotoModel {
     }
     
     // MARK: - Download part
-    static func getUserMainPhotoURL(for userId: String, withSize sizePx: Int,
+    static func getURL(for userId: String, withSize sizePx: Int,
                                     completion: @escaping (_ userPhotoURL: URL) -> Void) {
         let storage = FIRStorage.storage()
         let sizePxString = String(describing: sizePx)

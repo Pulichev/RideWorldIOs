@@ -145,6 +145,7 @@ extension MainFormController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if !(view.annotation! is MKUserLocation) {
             let customPin = view.annotation as! CustomPin
+            self.spotDetailsForSendToPostsStripController = customPin.spotDetailsItem
             
             configureDetailView(annotationView: view, spotPin: customPin.spotDetailsItem)
         }
@@ -173,55 +174,63 @@ extension MainFormController: MKMapViewDelegate {
     }
     
     func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotDetailsItem) {
-        let width = 200
-        let height = 200
+        let width = 250
+        let height = 250
         
         let snapshotView = UIView()
         let views = ["snapshotView": snapshotView]
-        snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[snapshotView(200)]", options: [], metrics: nil, views: views))
-        snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[snapshotView(200)]", options: [], metrics: nil, views: views))
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[snapshotView(250)]", options: [], metrics: nil, views: views))
+        snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[snapshotView(250)]", options: [], metrics: nil, views: views))
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height - 40))
+        
+        let goToInfoButton = UIButton(frame: CGRect(x: 0, y: height - 35, width: width / 2 - 5, height: 35))
+        goToInfoButton.setTitle("Info", for: .normal)
+        goToInfoButton.backgroundColor = UIColor.darkGray
+        goToInfoButton.layer.cornerRadius = 5
+        goToInfoButton.layer.borderWidth = 1
+        goToInfoButton.layer.borderColor = UIColor.black.cgColor
+        goToInfoButton.addTarget(self, action: #selector(MainFormController.goToInfo), for: .touchDown)
+        
+        let goToPostsButton = UIButton(frame: CGRect(x: width / 2 + 5, y: height - 35, width: width / 2, height: 35))
+        goToPostsButton.setTitle("Posts", for: .normal)
+        goToPostsButton.backgroundColor = UIColor.darkGray
+        goToPostsButton.layer.cornerRadius = 5
+        goToPostsButton.layer.borderWidth = 1
+        goToPostsButton.layer.borderColor = UIColor.black.cgColor
+        goToPostsButton.addTarget(self, action: #selector(MainFormController.goToPosts), for: .touchDown)
         
         let storage = FIRStorage.storage()
         // Create a reference from a Google Cloud Storage URI
-        let url = "gs://spotmap-e3116.appspot.com/media/spotMainPhotoURLs/" + spotPin.key + ".jpeg"
-        let spotDetailsPhotoURL = storage.reference(forURL: url)
+        let spotDetailsPhotoURL = storage.reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotMainPhotoURLs/" + spotPin.key + ".jpeg")
         
-        DispatchQueue.global(qos: .userInitiated).async(execute: {
-            spotDetailsPhotoURL.data(withMaxSize: 3 * 1024 * 1024) { data, error in
-                if let error = error {
-                    // Uh-oh, an error occurred!
-                    let image = UIImage(contentsOfFile: "plus-512.gif")
-                    DispatchQueue.main.async(execute: {
-                        imageView.image = image
-                    })
-                } else {
-                    let image = UIImage(data: data!)
-                    DispatchQueue.main.async(execute: {
-                        imageView.image = image
-                    })
-                }
+        spotDetailsPhotoURL.downloadURL { (URL, error) in
+            if let error = error {
+                // Uh-oh, an error occurred!
+                let image = UIImage(contentsOfFile: "plus-512.gif")
+                imageView.image = image
+            } else {
+                imageView.kf.setImage(with: URL) //Using kf for caching images.
             }
-        })
+        }
         
-        imageView.layer.cornerRadius = imageView.frame.size.height / 8
+        imageView.layer.cornerRadius = imageView.frame.size.height / 10
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 0
         imageView.contentMode = UIViewContentMode.scaleAspectFill
         snapshotView.addSubview(imageView)
+        snapshotView.addSubview(goToPostsButton)
+        snapshotView.addSubview(goToInfoButton)
         
         annotationView.detailCalloutAccessoryView = snapshotView
-        
-        let btn = UIButton(type: .detailDisclosure)
-        annotationView.rightCalloutAccessoryView = btn
     }
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        print("details tapped")
-        let customAnnotation = view.annotation as! CustomPin
-        self.spotDetailsForSendToPostsStripController = customAnnotation.spotDetailsItem
-        
+    func goToPosts() {
         self.performSegue(withIdentifier: "spotDetailsTapped", sender: self)
+    }
+    
+    func goToInfo() {
+        print("go to info")
     }
 }
 

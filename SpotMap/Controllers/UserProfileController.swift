@@ -100,8 +100,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     
     func initializeUserPhoto() {
         if self.userProfilePhoto != nil { // if we came not from user edit controller
-            UserMainPhotoModel.getUserMainPhotoURL(
-                for: self.userInfo.uid, withSize: 150,
+            UserMainPhoto.getURL(for: self.userInfo.uid, withSize: 150,
                 completion: { url in
                     DispatchQueue.main.async {
                         self.userProfilePhoto.kf.setImage(with: url) //Using kf for caching images.

@@ -48,11 +48,9 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func uploadPhoto() {
-        UserMainPhotoModel.uploadUserMainPhoto(
-            for: self.userInfo.uid, with: self.userPhoto.image!, withSize: 150.0)
+        UserMainPhoto.upload(for: self.userInfo.uid, with: self.userPhoto.image!, withSize: 150.0)
         
-        UserMainPhotoModel.uploadUserMainPhoto(
-            for: self.userInfo.uid, with: self.userPhoto.image!, withSize: 90.0)
+        UserMainPhoto.upload(for: self.userInfo.uid, with: self.userPhoto.image!, withSize: 90.0)
     }
     
     func returnToParentControllerOnSaveButtonTapped(bioDescription: String, login: String, nameAndSename: String) {

@@ -89,28 +89,31 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails/" + self.spotDetailsItem.key + "/posts")
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            if let keys = value?.allKeys as? [String] {
-                let slicedAndOrderedByDateKeys = self.getSortedCurrentPartOfArray(keys: keys, startFromFirst: false)
-                var count = 0 // count of loaded posts in this download operation
-                for key in slicedAndOrderedByDateKeys { // for ordering by date desc
-                    let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
-                    
-                    ref.observeSingleEvent(of: .value, with: { snapshot in
-                        count += 1
-                        let spotPostItem = PostItem(snapshot: snapshot)
-                        let spotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
+            if let value = snapshot.value as? NSDictionary {
+                if let keys = value.allKeys as? [String] {
+                    let slicedAndOrderedByDateKeys = self.getSortedCurrentPartOfArray(keys: keys, startFromFirst: false)
+                    var count = 0 // count of loaded posts in this download operation
+                    for key in slicedAndOrderedByDateKeys { // for ordering by date desc
+                        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
                         
-                        posts.append(spotPostItem)
-                        postsCache.append(spotPostCellCache)
-                        self.countOfAlreadyLoadedPosts += 1
-                        
-                        if (self.countOfAlreadyLoadedPosts == self.countOfPostsForGetting) || (count == slicedAndOrderedByDateKeys.count) { // проверить если постов меньше, чем 3, например
-                            self.appendNewItems(posts: posts, postsCache: postsCache)
-                            count = 0
+                        ref.observeSingleEvent(of: .value, with: { snapshot in
+                            count += 1
+                            if let _ = snapshot.value as? [String: AnyObject] { // is snapshot null or not
+                                let spotPostItem = PostItem(snapshot: snapshot)
+                                let spotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
+                                
+                                posts.append(spotPostItem)
+                                postsCache.append(spotPostCellCache)
+                                self.countOfAlreadyLoadedPosts += 1
+                                
+                                if (self.countOfAlreadyLoadedPosts == self.countOfPostsForGetting) || (count == slicedAndOrderedByDateKeys.count) { // проверить если постов меньше, чем 3, например
+                                    self.appendNewItems(posts: posts, postsCache: postsCache)
+                                    count = 0
+                                }
+                            }
+                        }) { (error) in
+                            print(error.localizedDescription)
                         }
-                    }) { (error) in
-                        print(error.localizedDescription)
                     }
                 }
             }
@@ -152,16 +155,18 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                 let refToPost = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId)
                                 refToPost.observeSingleEvent(of: .value, with: { snapshot in
                                     countofPosts += 1
-                                    let spotPostItem = PostItem(snapshot: snapshot)
-                                    let spotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
-                                    
-                                    posts.append(spotPostItem)
-                                    postsCache.append(spotPostCellCache)
-                                    
-                                    // check if we have ended all items -> sort, slice and append
-                                    self.haveWeEnded(countOfUsers: countOfUsers, countOfAllUsers: countOfAllUsers,
-                                                     countOfPosts: countofPosts, countOfAllPosts: countOfAllPosts,
-                                                     posts: posts, postsCache: postsCache)
+                                    if let _ = snapshot.value as? [String: AnyObject] { // is snapshot null or not
+                                        let spotPostItem = PostItem(snapshot: snapshot)
+                                        let spotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
+                                        
+                                        posts.append(spotPostItem)
+                                        postsCache.append(spotPostCellCache)
+                                        
+                                        // check if we have ended all items -> sort, slice and append
+                                        self.haveWeEnded(countOfUsers: countOfUsers, countOfAllUsers: countOfAllUsers,
+                                                         countOfPosts: countofPosts, countOfAllPosts: countOfAllPosts,
+                                                         posts: posts, postsCache: postsCache)
+                                    }
                                 }) { (error) in
                                     print(error.localizedDescription)
                                 }

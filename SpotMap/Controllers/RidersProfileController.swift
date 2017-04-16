@@ -9,11 +9,8 @@
 import Foundation
 import UIKit
 import AVFoundation
-import FirebaseStorage
-import FirebaseDatabase
-import FirebaseAuth
 
-class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     var ridersInfo: UserItem!
     
     @IBOutlet var userNameAndSename: UILabel!
@@ -36,151 +33,109 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         
         self.setLoadingScreen()
         
-        self.riderProfileCollection.emptyDataSetSource = self
-        self.riderProfileCollection.emptyDataSetDelegate = self
-        
         DispatchQueue.main.async {
             self.initializeUserTextInfo() //async loading user
             self.initializeUserPhoto()
             self.initializeUserPostsPhotos()
         }
+        
+        self.riderProfileCollection.emptyDataSetSource = self
+        self.riderProfileCollection.emptyDataSetDelegate = self
     }
     
     private func initializeUserTextInfo() {
         self.ridersBio.text = ridersInfo.bioDescription
         self.userNameAndSename.text = ridersInfo.nameAndSename
         
-        checkIfCurrentUserFollowing() // this function also places title on button
-        initialiseFollowing()
+        self.isCurrentUserFollowing() // this function also places title on button
+        self.initialiseFollowing()
     }
     
-    private func checkIfCurrentUserFollowing() {
-        let currentUserId = FIRAuth.auth()?.currentUser?.uid
-        let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!).child("following")
-        
-        refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
-            if var value = snapshot.value as? [String : Bool] {
-                if value[self.ridersInfo.uid] != nil {
-                    self.followButton.setTitle("Following", for: .normal)
-                } else {
-                    self.followButton.setTitle("Follow", for: .normal)
-                }
+    private func isCurrentUserFollowing() {
+        User.isCurrentUserFollowing(this: self.ridersInfo.uid, completion: { isFollowing in
+            if isFollowing {
+                self.followButton.setTitle("Following", for: .normal)
             } else {
                 self.followButton.setTitle("Follow", for: .normal)
             }
-            
             self.followButton.isEnabled = true
         })
     }
     
     private func initialiseFollowing() {
-        let refToUserNode = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.ridersInfo.uid)
-        
-        let refFollowers = refToUserNode.child("followers")
-        refFollowers.observe(.value, with: { snapshot in
-            if let value = snapshot.value as? [String: Any] {
-                self.followersButton.setTitle(String(describing: value.count), for: .normal)
-            } else {
-                self.followersButton.setTitle("0", for: .normal)
-            }
+        User.getFollowersCountString(
+            userId: self.ridersInfo.uid,
+            completion: { countOfFollowersString in
+                self.followersButton.setTitle(countOfFollowersString, for: .normal)
         })
         
-        let refFollowing = refToUserNode.child("following")
-        refFollowing.observe(.value, with: { snapshot in
-            if let value = snapshot.value as? [String: Any] {
-                self.followingButton.setTitle(String(describing: value.count), for: .normal)
-            } else {
-                self.followingButton.setTitle("0", for: .normal)
-            }
+        User.getFollowingsCountString(
+            userId: self.ridersInfo.uid,
+            completion: { countOfFollowingsString in
+                self.followingButton.setTitle(countOfFollowingsString, for: .normal)
         })
     }
     
     func initializeUserPhoto() {
-        let storage = FIRStorage.storage()
-        let url = "gs://spotmap-e3116.appspot.com/media/userMainPhotoURLs/" + self.ridersInfo.uid + "_resolution150x150.jpeg"
-        let riderPhotoURL = storage.reference(forURL: url)
-        
-        riderPhotoURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                self.ridersProfilePhoto.kf.setImage(with: URL) //Using kf for caching images.
-                self.ridersProfilePhoto.layer.cornerRadius = self.ridersProfilePhoto.frame.size.height / 2
-            }
+        if self.ridersProfilePhoto != nil { // if we came not from user edit controller
+            UserMedia.getURL(for: self.ridersInfo.uid, withSize: 150,
+                             completion: { url in
+                                DispatchQueue.main.async {
+                                    self.ridersProfilePhoto.kf.setImage(with: url) //Using kf for caching images.
+                                    self.ridersProfilePhoto.layer.cornerRadius = self.ridersProfilePhoto.frame.size.height / 2
+                                }
+            })
         }
     }
     
     func initializeUserPostsPhotos() {
-        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.ridersInfo.uid).child("posts") // ref for riders posts ids list
-        var tempPosts = [String: PostItem]()
+        User.getPostsIds(for: self.ridersInfo,
+                         completion: { postsIds in
+                            if postsIds != nil {
+                                self.postsIds = postsIds!
+                                
+                                for postId in postsIds! {
+                                    Post.getItemById(for: postId,
+                                                     completion: { postItem in
+                                                        if postItem != nil {
+                                                            self.posts[postId] = postItem
+                                                            self.downloadPhotosAsync(post: postItem!)
+                                                            
+                                                            //if all posts loaded
+                                                            if self.posts.count == postsIds?.count {
+                                                                self.riderProfileCollection.reloadData()
+                                                                self.removeLoadingScreen()
+                                                            }
+                                                        }
+                                    })
+                                }
+                            }
+        })    }
+    
+    private func downloadPhotosAsync(post: PostItem) {
+        self.postsImages[post.key] = UIImageView(image: UIImage(named: "grayRec.jpg"))
         
-        ref.observeSingleEvent(of: .value, with: { snapshot in
-            if let value = snapshot.value as? [String: Any] {
-                let postIds = Array(value.keys).sorted(by: { $0 > $1 })
-                var count = 0
-                for postId in postIds { // for each user post geting full post item
-                    let postInfoRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(postId)
-                    postInfoRef.observeSingleEvent(of: .value, with: { snapshot in
-                        let spotPostItem = PostItem(snapshot: snapshot)
-                        
-                        tempPosts[postId] = spotPostItem
-                        self.postsImages[postId] = UIImageView(image: UIImage(named: "grayRec.jpg"))
-                        
-                         self.downloadPhotosAsync(post: spotPostItem)
-                        
-                        count += 1
-                        if count == postIds.count {
-                            // let sortedPosts = tempPosts.sorted(by: { $0.0 > $1.0 })
-                            self.postsIds = postIds
-                            self.posts = tempPosts
-                            self.removeLoadingScreen()
-                        }
-                    })
-                }
-            }
+        PostMedia.getImageData270x270(for: post,
+                                      completion: { data in
+                                        guard let imageData = UIImage(data: data!) else { return }
+                                        let photoView = UIImageView(image: imageData)
+                                        
+                                        self.postsImages[post.key] = photoView
+                                        
+                                        DispatchQueue.main.async {
+                                            self.riderProfileCollection.reloadData()
+                                        }
         })
     }
     
-    private func downloadPhotosAsync(post: PostItem) {
-        let photoRef = FIRStorage.storage().reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotPostMedia/").child(post.spotId).child(post.key + "_resolution270x270.jpeg")
-        
-        photoRef.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                // async images downloading
-                URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
-                    if error != nil {
-                        print("Error in URLSession: " + (error.debugDescription))
-                        return
-                    } else {
-                        guard let imageData = UIImage(data: data!) else { return }
-                        let photoView = UIImageView(image: imageData)
-                        
-                        self.postsImages[post.key] = photoView
-                        
-                        DispatchQueue.main.async {
-                            self.riderProfileCollection.reloadData()
-                        }
-                    }
-                }).resume()
-            }
-        }
-    }
-    
-    // MARK: COLLECTIONVIEW PART
-    // tell the collection view how many cells to make
+    // MARK: -  CollectionView part
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.postsImages.count
     }
     
-    // make a cell for each cell index path
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        // get a reference to our storyboard cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
         
-        // Use the outlet in our custom class to get a reference to the UILabel in the cell
         cell.postPicture.image = self.postsImages[self.postsIds[indexPath.row]]?.image!
         
         return cell
@@ -220,27 +175,17 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     
     var selectedCellId: Int!
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToPostInfo" {
-            let newPostInfoController = (segue.destination as! PostInfoViewController)
-            newPostInfoController.postInfo = self.posts[self.postsIds[selectedCellId]]
-            newPostInfoController.user = ridersInfo
-            newPostInfoController.isCurrentUserProfile = false
-        }
-        
-        if segue.identifier == "goToFollowersFromRidersNode" {
-            let newFollowersController = segue.destination as! FollowersController
-            newFollowersController.userId = self.ridersInfo.uid
-            newFollowersController.followersOrFollowingList = self.fromFollowersOrFollowing
-        }
-    }
-    
-    // MARK: Following logic
+    // MARK: - Following logic
     @IBAction func followButtonTapped(_ sender: Any) {
-        let refToUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
-        let currentUserId = FIRAuth.auth()?.currentUser?.uid
+        if self.followButton.currentTitle == "Follow" { // add or remove like
+            User.addFollowing(to: self.ridersInfo.uid)
+            User.addFollower(to: self.ridersInfo.uid)
+        } else {
+            User.removeFollowing(from: self.ridersInfo.uid)
+            User.removeFollower(from: self.ridersInfo.uid)
+        }
         
-        addOrRemoveFollow(mainPartOfReference: refToUsers, currentUserId: currentUserId!)
+        self.swapFollowButtonTittle()
     }
     
     private var fromFollowersOrFollowing: Bool! // true - followers else following
@@ -255,44 +200,21 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         self.performSegue(withIdentifier: "goToFollowersFromRidersNode", sender: self)
     }
     
-    private func addOrRemoveFollow(mainPartOfReference: FIRDatabaseReference, currentUserId: String) {
-        // to current user node
-        let refToCurrentUser = mainPartOfReference.child(currentUserId).child("following")
-        refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
-            if var value = snapshot.value as? [String : Bool] {
-                if self.followButton.currentTitle == "Follow" { // add or remove like
-                    value[self.ridersInfo.uid] = true
-                } else {
-                    value.removeValue(forKey: self.ridersInfo.uid)
-                }
-                refToCurrentUser.setValue(value)
-            } else {
-                refToCurrentUser.setValue([self.ridersInfo.uid : true])
-            }
-            
-            // to aim user node
-            self.addOrRemoveFollowToAimUserNode(mainPartOfReference: mainPartOfReference, currentUserId: currentUserId)
-        })
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToPostInfo" {
+            let newPostInfoController = (segue.destination as! PostInfoViewController)
+            newPostInfoController.postInfo = self.posts[self.postsIds[selectedCellId]]
+            newPostInfoController.user = ridersInfo
+            newPostInfoController.isCurrentUserProfile = false
+        }
+        
+        if segue.identifier == "goToFollowersFromRidersNode" {
+            let newFollowersController = segue.destination as! FollowersController
+            newFollowersController.userId = self.ridersInfo.uid
+            newFollowersController.followersOrFollowingList = self.fromFollowersOrFollowing
+        }
     }
-    
-    private func addOrRemoveFollowToAimUserNode(mainPartOfReference: FIRDatabaseReference, currentUserId: String) {
-        let refToAimUser = mainPartOfReference.child(ridersInfo.uid).child("followers")
-        refToAimUser.observeSingleEvent(of: .value, with: { snapshot in
-            if var value = snapshot.value as? [String : Bool] {
-                if self.followButton.currentTitle == "Follow" { // add or remove like
-                    value[currentUserId] = true
-                } else {
-                    value.removeValue(forKey: currentUserId)
-                }
-                refToAimUser.setValue(value)
-            } else {
-                refToAimUser.setValue([currentUserId : true])
-            }
-            
-            self.swapFollowButtonTittle()
-        })
-    }
-    
+
     private func swapFollowButtonTittle() {
         if self.followButton.currentTitle == "Follow" {
             self.followButton.setTitle("Following", for: .normal)
@@ -300,8 +222,48 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
             self.followButton.setTitle("Follow", for: .normal)
         }
     }
+    
+    // MARK: - when data loading
+    let loadingView = UIView() // View which contains the loading text and the spinner
+    let spinner = UIActivityIndicatorView()
+    let loadingLabel = UILabel()
+    
+    var haveWeFinishedLoading = false // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
+    
+    // Set the activity indicator into the main view
+    private func setLoadingScreen() {
+        let width: CGFloat = 120
+        let height: CGFloat = 30
+        let x = (self.riderProfileCollection.frame.width / 2) - (width / 2)
+        let y = (self.riderProfileCollection.frame.height / 2) - (height / 2) - (self.navigationController?.navigationBar.frame.height)!
+        loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        self.loadingLabel.textColor = UIColor.gray
+        self.loadingLabel.textAlignment = NSTextAlignment.center
+        self.loadingLabel.text = "Loading..."
+        self.loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
+        
+        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        self.spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        self.spinner.startAnimating()
+        
+        loadingView.addSubview(self.spinner)
+        loadingView.addSubview(self.loadingLabel)
+        
+        self.riderProfileCollection.addSubview(loadingView)
+    }
+    
+    // Remove the activity indicator from the main view
+    private func removeLoadingScreen() {
+        // Hides and stops the text and the spinner
+        self.spinner.stopAnimating()
+        self.loadingLabel.isHidden = true
+        self.haveWeFinishedLoading = true
+    }
+}
 
-    // MARK: DZNEmptyDataSet for empty data tables
+extension RidersProfileController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+    // MARK: - DZNEmptyDataSet for empty data tables
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
         if haveWeFinishedLoading {
             let str = "Welcome"
@@ -332,54 +294,5 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         } else {
             return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
         }
-    }
-    // ENDMARK: DZNEmptyDataSet
-    
-    // MARK: - when data loading
-    // View which contains the loading text and the spinner
-    let loadingView = UIView()
-    
-    // Spinner shown during load the TableView
-    let spinner = UIActivityIndicatorView()
-    
-    // Text shown during load the TableView
-    let loadingLabel = UILabel()
-    
-    // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
-    var haveWeFinishedLoading = false
-    
-    // Set the activity indicator into the main view
-    private func setLoadingScreen() {
-        // Sets the view which contains the loading text and the spinner
-        let width: CGFloat = 120
-        let height: CGFloat = 30
-        let x = (self.riderProfileCollection.frame.width / 2) - (width / 2)
-        let y = (self.riderProfileCollection.frame.height / 2) - (height / 2) - (self.navigationController?.navigationBar.frame.height)!
-        loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
-        
-        // Sets loading text
-        self.loadingLabel.textColor = UIColor.gray
-        self.loadingLabel.textAlignment = NSTextAlignment.center
-        self.loadingLabel.text = "Loading..."
-        self.loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
-        
-        // Sets spinner
-        self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        self.spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        self.spinner.startAnimating()
-        
-        // Adds text and spinner to the view
-        loadingView.addSubview(self.spinner)
-        loadingView.addSubview(self.loadingLabel)
-        
-        self.riderProfileCollection.addSubview(loadingView)
-    }
-    
-    // Remove the activity indicator from the main view
-    private func removeLoadingScreen() {
-        // Hides and stops the text and the spinner
-        self.spinner.stopAnimating()
-        self.loadingLabel.isHidden = true
-        self.haveWeFinishedLoading = true
     }
 }

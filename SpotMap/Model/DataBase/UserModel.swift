@@ -105,4 +105,69 @@ struct User {
             }
         })
     }
+    
+    static func isCurrentUserFollowing(this userId: String, completion: @escaping(_ isFollowing: Bool) -> Void) {
+        let currentUserId = self.getCurrentUserId()
+        let refToCurrentUser = self.refToUsersNode.child(currentUserId).child("following")
+        
+        refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
+            if var value = snapshot.value as? [String : Bool] {
+                if value[userId] != nil {
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            } else {
+                completion(false)
+            }
+        })
+    }
+    
+    static func addFollowing(to userId: String) {
+        let refToCurrentUser = self.refToUsersNode.child(self.getCurrentUserId()).child("following")
+        
+        refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
+            if var value = snapshot.value as? [String : Bool] {
+                value[userId] = true
+                refToCurrentUser.setValue(value)
+            } else {
+                refToCurrentUser.setValue([userId])
+            }
+        })
+    }
+    
+    static func removeFollowing(from userId: String) {
+        let refToCurrentUser = self.refToUsersNode.child(self.getCurrentUserId()).child("following")
+        
+        refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
+            if var value = snapshot.value as? [String : Bool] {
+                value.removeValue(forKey: userId)
+                refToCurrentUser.setValue(value)
+            }
+        })
+    }
+    
+    static func addFollower(to userId: String) {
+        let refToRider = self.refToUsersNode.child(userId).child("followers")
+        
+        refToRider.observeSingleEvent(of: .value, with: { snapshot in
+            if var value = snapshot.value as? [String : Bool] {
+                value[self.getCurrentUserId()] = true
+                refToRider.setValue(value)
+            } else {
+                refToRider.setValue([userId])
+            }
+        })
+    }
+    
+    static func removeFollower(from userId: String) {
+        let refToRider = self.refToUsersNode.child(userId).child("followers")
+        
+        refToRider.observeSingleEvent(of: .value, with: { snapshot in
+            if var value = snapshot.value as? [String : Bool] {
+                value.removeValue(forKey: self.getCurrentUserId())
+                refToRider.setValue(value)
+            }
+        })
+    }
 }

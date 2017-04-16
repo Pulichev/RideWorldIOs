@@ -8,9 +8,6 @@
 import Foundation
 import UIKit
 import AVFoundation
-import FirebaseDatabase
-import FirebaseStorage
-import FirebaseAuth
 
 class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     var userInfo: UserItem! {

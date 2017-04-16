@@ -88,7 +88,7 @@ class PostsCell: UITableViewCell {
         // init new like
         self.userId = FIRAuth.auth()?.currentUser?.uid
         let likePlacedTime = String(describing: Date())
-        self.newLike = LikeItem(userId: self.userId, postId: self.post.key, likePlacedTime: likePlacedTime)
+        self.newLike = LikeItem(who: self.userId, what: self.post.key, at: likePlacedTime)
         
         addLikeToUserNode()
         addLikeToPostNode()

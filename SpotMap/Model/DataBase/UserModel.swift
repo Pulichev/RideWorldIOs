@@ -94,4 +94,15 @@ struct User {
         
         completion(nil) // if no posts
     }
+    
+    static func deletePost(fromUserNodeWith userId: String, _ postId: String) {
+        let refToUserPostNode = self.refToUsersNode.child(userId).child("posts")
+        refToUserPostNode.observeSingleEvent(of: .value, with: { snapshot in
+            if var posts = snapshot.value as? [String : Bool] {
+                posts.removeValue(forKey: postId)
+                
+                refToUserPostNode.setValue(posts)
+            }
+        })
+    }
 }

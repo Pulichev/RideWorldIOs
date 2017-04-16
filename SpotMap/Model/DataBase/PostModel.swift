@@ -9,11 +9,11 @@
 import FirebaseDatabase
 
 struct Post {
-    static var refToUsersNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost")
+    static var refToPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost")
     
     static func getItemById(for postId: String,
                             completion: @escaping (_ postItem: PostItem?) -> Void) {
-        let refToPost = self.refToUsersNode.child(postId)
+        let refToPost = self.refToPostsNode.child(postId)
         
         refToPost.observeSingleEvent(of: .value, with: { snapshot in
             let postItem = PostItem(snapshot: snapshot)
@@ -22,5 +22,10 @@ struct Post {
         })
         
         completion(nil) // if no post with this id
+    }
+    
+    static func delete(with postId: String) {
+        let refToPostNode = self.refToPostsNode.child(postId)
+        refToPostNode.removeValue()
     }
 }

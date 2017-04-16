@@ -127,44 +127,22 @@ class PostInfoViewController: UIViewController {
         }
     }
     
-    // MARK: Add new like part
-    private var newLike: LikeItem!
-    private var userId: String!
-    
+    // MARK: - Add and remove like
     func addNewLike() {
         // init new like
-        self.userId = User.getCurrentUserId()
-        let likePlacedTime = String(describing: Date())
-        self.newLike = LikeItem(userId: self.user.uid, postId: self.postInfo.key, likePlacedTime: likePlacedTime)
+        let currentUserId = User.getCurrentUserId()
+        let placedTime = String(describing: Date())
+        let newLike = LikeItem(who: currentUserId, what: self.postInfo.key, at: placedTime)
         
-        Like.addToUserNode(self.newLike)
-        Like.addToPostNode(self.newLike)
+        Like.addToUserNode(newLike)
+        Like.addToPostNode(newLike)
     }
-    
-    // MARK: Remove existing like part
-    private var likeId: String! // value to construct refs for deleting
     
     func removeExistedLike() {
-        self.userId = FIRAuth.auth()?.currentUser?.uid
+        let currentUserId = User.getCurrentUserId()
         
-        // we will remove it in reverse order
-        removeLikeFromPostNode()
-        removeLikeFromUserNode()
-    }
-    
-    func removeLikeFromPostNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(self.userId)
-        // catch like id for delete next from likes Node
-        likeRef.observeSingleEvent(of: .value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            self.likeId = value?["likeId"] as? String ?? ""
-            likeRef.removeValue()
-        })
-    }
-    
-    func removeLikeFromUserNode() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.user.uid).child("likePlaced/onposts").child(self.postInfo.key)
-        likeRef.removeValue()
+        Like.removeFromUserNode(with: currentUserId, self.postInfo)
+        Like.removeFromPostNode(with: currentUserId, self.postInfo)
     }
     
     func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked
@@ -195,43 +173,30 @@ class PostInfoViewController: UIViewController {
     
     func setImage() {
         // download thumbnail first
-        let thumbnailUrl = _mainPartOfMediaref + self.postInfo.spotId + "/" + self.postInfo.key + "_resolution10x10.jpeg"
-        let spotPostPhotoThumbnailURL = FIRStorage.storage().reference(forURL: thumbnailUrl)
-        
-        spotPostPhotoThumbnailURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-                let processor = BlurImageProcessor(blurRadius: 0.1)
-                imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
-                
-                DispatchQueue.main.async {
-                    self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                }
-                
-                self.downloadOriginalImage()
+        PostMedia.getImageURL(for: self.postInfo.spotId, self.postInfo.key, withSize: 10, completion: { imageURL in
+            let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+            let processor = BlurImageProcessor(blurRadius: 0.1)
+            imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
+            
+            DispatchQueue.main.async {
+                self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
             }
-        }
+            
+            self.downloadOriginalImage()
+        })
     }
     
     private func downloadOriginalImage() {
-        let url = _mainPartOfMediaref + self.postInfo.spotId + "/" + self.postInfo.key + "_resolution700x700.jpeg"
-        let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
-        
-        spotDetailsPhotoURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-                imageViewForView.kf.indicatorType = .activity
-                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-                
-                DispatchQueue.main.async {
-                    self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                }
-            }
-        }
+        PostMedia.getImageURL(for: self.postInfo.spotId, self.postInfo.key, withSize: 700,
+                              completion: { imageURL in
+                                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+                                imageViewForView.kf.indicatorType = .activity
+                                imageViewForView.kf.setImage(with: imageURL) //Using kf for caching images.
+                                
+                                DispatchQueue.main.async {
+                                    self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                                }
+        })
     }
     
     func setVideo() {
@@ -239,71 +204,45 @@ class PostInfoViewController: UIViewController {
     }
     
     private func downloadThumbnail() {
-        let storage = FIRStorage.storage()
-        let postKey = self.postInfo.key
-        let url = _mainPartOfMediaref + self.postInfo.spotId + "/" + postKey + "_resolution10x10.jpeg"
-        let spotVideoThumbnailURL = storage.reference(forURL: url)
-        
-        spotVideoThumbnailURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                // thumbnail!
-                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-                let processor = BlurImageProcessor(blurRadius: 0.1)
-                imageViewForView.kf.setImage(with: URL!, placeholder: nil, options: [.processor(processor)])
-                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                
-                self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                
-                self.downloadBigThumbnail()
-            }
-        }
+        PostMedia.getImageURL(for: self.postInfo.spotId, self.postInfo.key, withSize: 10,
+                              completion: { imageURL in
+                                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+                                let processor = BlurImageProcessor(blurRadius: 0.1)
+                                imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
+                                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                                
+                                self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                                
+                                self.downloadBigThumbnail()
+        })
     }
     
     private func downloadBigThumbnail() {
-        let storage = FIRStorage.storage()
-        let postKey = self.postInfo.key
-        let url = _mainPartOfMediaref  + self.postInfo.spotId + "/" + postKey + "_resolution270x270.jpeg"
-        let spotVideoThumbnailURL = storage.reference(forURL: url)
-        
-        spotVideoThumbnailURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                // thumbnail!
-                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-                let processor = BlurImageProcessor(blurRadius: 0.1)
-                imageViewForView.kf.setImage(with: URL!, placeholder: nil, options: [.processor(processor)])
-                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                
-                self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                
-                self.downloadVideo()
-            }
-        }
+        PostMedia.getImageURL(for: self.postInfo.spotId, self.postInfo.key, withSize: 270,
+                              completion: { imageURL in
+                                let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+                                let processor = BlurImageProcessor(blurRadius: 0.1)
+                                imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
+                                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                                self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+
+                                self.downloadVideo()
+        })
     }
     
     private func downloadVideo() {
-        let storage = FIRStorage.storage()
-        let url = _mainPartOfMediaref + self.postInfo.spotId + "/" + self.postInfo.key + ".m4v"
-        let spotVideoURL = storage.reference(forURL: url)
-        
-        spotVideoURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                let assetForCache = AVAsset(url: URL!)
-                self.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-                let playerLayer = AVPlayerLayer(player: self.player)
-                playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                playerLayer.frame = self.spotPostMedia.bounds
-                
-                self.spotPostMedia.layer.addSublayer(playerLayer)
-                
-                self.player.play()
-            }
-        }
+        PostMedia.getVideoURL(for: self.postInfo.spotId, self.postInfo.key,
+                              completion: { vidoeURL in
+                                let assetForCache = AVAsset(url: vidoeURL)
+                                self.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+                                let playerLayer = AVPlayerLayer(player: self.player)
+                                playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                                playerLayer.frame = self.spotPostMedia.bounds
+                                
+                                self.spotPostMedia.layer.addSublayer(playerLayer)
+                                
+                                self.player.play()
+        })
     }
     
     @IBAction func deletePost(_ sender: Any) {
@@ -327,14 +266,8 @@ class PostInfoViewController: UIViewController {
     }
     
     private func startDeleteTransaction() {
-        // delete from user posts node
-        deleteFromUserPostNode()
-        
-        // delete from spotpost node
-        let refToSpotPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key)
-        refToSpotPostNode.removeValue()
-        
-        // delete from spotdetails node
+        User.deletePost(fromUserNodeWith: self.user.uid, self.postInfo.key)
+        Post.delete(with: self.postInfo.key)
         deleteFromSpotDetailsNode()
         
         // delete media
@@ -356,17 +289,6 @@ class PostInfoViewController: UIViewController {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    private func deleteFromUserPostNode() {
-        let refToUserPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(self.user.uid).child("posts")
-        refToUserPostNode.observeSingleEvent(of: .value, with: { snapshot in
-            if var posts = snapshot.value as? [String : Bool] {
-                posts.removeValue(forKey: self.postInfo.key)
-                
-                refToUserPostNode.setValue(posts)
-            }
-        })
-    }
-    
     private func deleteFromSpotDetailsNode() {
         let refToSpotDetailsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotDetails").child(self.postInfo.spotId).child("posts")
         refToSpotDetailsNode.observeSingleEvent(of: .value, with: { snapshot in
@@ -379,33 +301,18 @@ class PostInfoViewController: UIViewController {
     }
     
     private func deletePhoto() {
-        let refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution700x700.jpeg")
-        refToMedia.delete { (Error) in
-            // do smth
-        }
-        
-        delete270and10thumbnails()
+        PostMedia.deletePhoto(for: self.postInfo.spotId, self.postInfo.key, withSize: 700)
+        self.delete270and10thumbnails()
     }
     
     private func deleteVideo() {
-        let refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + ".m4v")
-        refToMedia.delete { (Error) in
-            // do smth
-        }
-        
-        delete270and10thumbnails()
+        PostMedia.deleteVideo(for: self.postInfo.spotId, self.postInfo.key)
+        self.delete270and10thumbnails()
     }
     
     private func delete270and10thumbnails() {
-        var refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution270x270.jpeg")
-        refToMedia.delete { (Error) in
-            // do smth
-        }
-        
-        refToMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.postInfo.spotId).child(self.postInfo.key + "_resolution10x10.jpeg")
-        refToMedia.delete { (Error) in
-            // do smth
-        }
+        PostMedia.deletePhoto(for: self.postInfo.spotId, self.postInfo.key, withSize: 270)
+        PostMedia.deletePhoto(for: self.postInfo.spotId, self.postInfo.key, withSize: 10)
     }
     
     @IBAction func goToComments(_ sender: Any) {

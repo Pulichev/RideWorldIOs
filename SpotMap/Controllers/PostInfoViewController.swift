@@ -157,7 +157,7 @@ class PostInfoViewController: UIViewController {
         }
     }
     
-    // MARK: ADD MEDIA
+    // MARK: - Add media
     func addMediaToView() {
         self.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
         
@@ -225,7 +225,7 @@ class PostInfoViewController: UIViewController {
                                 imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
                                 imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
                                 self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-
+                                
                                 self.downloadVideo()
         })
     }
@@ -245,6 +245,7 @@ class PostInfoViewController: UIViewController {
         })
     }
     
+    // MARK: - Delete post part
     @IBAction func deletePost(_ sender: Any) {
         let alert = UIAlertController(title: "Attention!",
                                       message: "Are you sure that you want to delete this post?",
@@ -268,7 +269,7 @@ class PostInfoViewController: UIViewController {
     private func startDeleteTransaction() {
         User.deletePost(fromUserNodeWith: self.user.uid, self.postInfo.key)
         Post.delete(with: self.postInfo.key)
-        deleteFromSpotDetailsNode()
+        Spot.deletePost(for: self.postInfo.spotId, self.postInfo.key)
         
         // delete media
         if self.postInfo.isPhoto {
@@ -279,7 +280,7 @@ class PostInfoViewController: UIViewController {
         
         // likes
         // i wont delete likes on current stage of app writing.
-        // there will be not too big count of deleted fight.
+        // there will be not too big count of deleted posts i hope.
         
         // deleting data from collection
         if let del = delegateDeleting {
@@ -287,17 +288,6 @@ class PostInfoViewController: UIViewController {
         }
         // go back
         _ = navigationController?.popViewController(animated: true)
-    }
-    
-    private func deleteFromSpotDetailsNode() {
-        let refToSpotDetailsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotDetails").child(self.postInfo.spotId).child("posts")
-        refToSpotDetailsNode.observeSingleEvent(of: .value, with: { snapshot in
-            if var posts = snapshot.value as? [String : Bool] {
-                posts.removeValue(forKey: self.postInfo.key)
-                
-                refToSpotDetailsNode.setValue(posts)
-            }
-        })
     }
     
     private func deletePhoto() {
@@ -322,44 +312,37 @@ class PostInfoViewController: UIViewController {
     var ridersInfoForSending: UserItem!
     
     private func goToUserProfile(tappedUserLogin: String) {
-        let refToAllUsers = FIRDatabase.database().reference(withPath: "MainDataBase/users")
-        
-        refToAllUsers.observeSingleEvent(of: .value, with: { snapshot in
-            var isUserFounded = false
-            
-            for user in snapshot.children {
-                let snapshotValue = (user as! FIRDataSnapshot).value as! [String: AnyObject]
-                let login = snapshotValue["login"] as! String // getting login of user
-                
-                if login == tappedUserLogin {
-                    isUserFounded = true
-                    let tappedUser = UserItem(snapshot: user as! FIRDataSnapshot) // getting full user item
-                    // check if going to current riders profile
-                    if tappedUser.uid == self.user.uid {
+        User.getItemByLogin(
+            for: tappedUserLogin,
+            completion: { fetchedUserItem in
+                if let userItem = fetchedUserItem { // have we founded?
+                    if fetchedUserItem?.uid == self.user.uid {
                         _ = self.navigationController?.popViewController(animated: true) // go back
                     } else {
-                        // 1 current user?
-                        if tappedUser.uid == FIRAuth.auth()?.currentUser?.uid {
+                        if userItem.uid == User.getCurrentUserId() {
                             self.performSegue(withIdentifier: "fromPostInfoToUserProfile", sender: self)
-                        } else { // 2 not current user
-                            self.ridersInfoForSending = tappedUser
+                        } else {
+                            self.ridersInfoForSending = userItem
                             self.performSegue(withIdentifier: "fromPostInfoToRidersProfile", sender: self)
                         }
                     }
+                } else { // if no user founded for tapped nickname
+                    self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
                 }
-            }
-            
-            if !isUserFounded { // if no user founded for tapped nickname
-                let alert = UIAlertController(title: "Error!",
-                                              message: "No user founded with nickname \(tappedUserLogin)",
-                    preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-                
-                self.present(alert, animated: true, completion: nil)
-            }
         })
     }
     
+    private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {
+        let alert = UIAlertController(title: "Error!",
+                                      message: "No user founded with nickname \(tappedUserLogin)",
+            preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "fromPostInfoToRidersProfile" {
             let newRidersProfileController = segue.destination as! RidersProfileController

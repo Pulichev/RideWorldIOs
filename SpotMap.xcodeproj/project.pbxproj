@@ -31,7 +31,6 @@
 		9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */; };
 		9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609841E7C6BB50000DB21 /* PostsCell.swift */; };
 		9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609861E7C8C990000DB21 /* PostsStripController.swift */; };
-		9F57A2F91E9126C000F9AEF5 /* NSObject+IGListDiffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F57A2F81E9126C000F9AEF5 /* NSObject+IGListDiffable.swift */; };
 		9F6163471E7E89C1001664B7 /* no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6163461E7E89C1001664B7 /* no_photo.png */; };
 		9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F65321B1E3CD12700F58C18 /* Assets.xcassets */; };
 		9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73B09D1E6A0E490049563A /* UserItem.swift */; };
@@ -114,7 +113,6 @@
 		9F5609841E7C6BB50000DB21 /* PostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCell.swift; path = CustomUIElements/PostsCell.swift; sourceTree = "<group>"; };
 		9F5609861E7C8C990000DB21 /* PostsStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsStripController.swift; path = Controllers/PostsStripController.swift; sourceTree = "<group>"; };
 		9F5609891E7D43990000DB21 /* 1489850825_Home.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = 1489850825_Home.ico; sourceTree = "<group>"; };
-		9F57A2F81E9126C000F9AEF5 /* NSObject+IGListDiffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSObject+IGListDiffable.swift"; path = "CustomUIElements/NSObject+IGListDiffable.swift"; sourceTree = "<group>"; };
 		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
 		9F65321B1E3CD12700F58C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F73B09D1E6A0E490049563A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserItem.swift; path = Data/UserItem.swift; sourceTree = "<group>"; };
@@ -345,7 +343,6 @@
 				9FBCFAE71E73445900A5C95D /* Image.swift */,
 				9FFB14F71E784E4B00D10620 /* FollowersCell.swift */,
 				9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */,
-				9F57A2F81E9126C000F9AEF5 /* NSObject+IGListDiffable.swift */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -749,7 +746,6 @@
 				9FF1BF701E9D707400A2CEF2 /* UserModel.swift in Sources */,
 				9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */,
 				9FF1BF7B1EA3C0DC00A2CEF2 /* SpotModel.swift in Sources */,
-				9F57A2F91E9126C000F9AEF5 /* NSObject+IGListDiffable.swift in Sources */,
 				9FF1BF6C1E9D448500A2CEF2 /* CommentsModel.swift in Sources */,
 				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,
 				9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */,

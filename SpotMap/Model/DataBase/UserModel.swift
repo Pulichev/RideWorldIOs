@@ -12,6 +12,7 @@ import FirebaseAuth
 struct User {
     static var refToUsersNode = FIRDatabase.database().reference(withPath: "MainDataBase/users")
     
+    // MARK: - Get part
     static func getCurrentUserId() -> String {
         return (FIRAuth.auth()?.currentUser?.uid)!
     }
@@ -44,6 +45,7 @@ struct User {
         })
     }
     
+    // MARK: - Update part
     static func updateUserInfo(for userId: String, _ bio: String,
                                _ login: String, _ nameAndSename : String) {
         let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(userId)
@@ -55,6 +57,33 @@ struct User {
             ])
     }
     
+    // MARK: - Posts part
+    static func getPostsIds(for userItem: UserItem,
+                            completion: @escaping (_ postIds: [String]?) -> Void) {
+        let refToUserPosts = self.refToUsersNode.child(userItem.uid).child("posts")
+        
+        refToUserPosts.observeSingleEvent(of: .value, with: { snapshot in
+            if let value = snapshot.value as? [String: Any] {
+                let postsIds = Array(value.keys).sorted(by: { $0 > $1 })
+                completion(postsIds)
+            }
+        })
+        
+        completion(nil) // if no posts
+    }
+    
+    static func deletePost(fromUserNodeWith userId: String, _ postId: String) {
+        let refToUserPostNode = self.refToUsersNode.child(userId).child("posts")
+        refToUserPostNode.observeSingleEvent(of: .value, with: { snapshot in
+            if var posts = snapshot.value as? [String : Bool] {
+                posts.removeValue(forKey: postId)
+                
+                refToUserPostNode.setValue(posts)
+            }
+        })
+    }
+    
+    // MARK: - Follow part
     static func getFollowersCountString(userId: String,
                                         completion: @escaping (_ followersCount: String) -> Void) {
         let refToUser = self.refToUsersNode.child(userId)
@@ -77,31 +106,6 @@ struct User {
                 completion(String(describing: value.count))
             } else {
                 completion("0")
-            }
-        })
-    }
-    
-    static func getPostsIds(for userItem: UserItem,
-                            completion: @escaping (_ postIds: [String]?) -> Void) {
-        let refToUserPosts = self.refToUsersNode.child(userItem.uid).child("posts")
-        
-        refToUserPosts.observeSingleEvent(of: .value, with: { snapshot in
-            if let value = snapshot.value as? [String: Any] {
-                let postsIds = Array(value.keys).sorted(by: { $0 > $1 })
-                completion(postsIds)
-            }
-        })
-        
-        completion(nil) // if no posts
-    }
-    
-    static func deletePost(fromUserNodeWith userId: String, _ postId: String) {
-        let refToUserPostNode = self.refToUsersNode.child(userId).child("posts")
-        refToUserPostNode.observeSingleEvent(of: .value, with: { snapshot in
-            if var posts = snapshot.value as? [String : Bool] {
-                posts.removeValue(forKey: postId)
-                
-                refToUserPostNode.setValue(posts)
             }
         })
     }

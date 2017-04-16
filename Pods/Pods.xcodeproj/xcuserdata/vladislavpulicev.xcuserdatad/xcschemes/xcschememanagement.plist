@@ -24,11 +24,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>IGListKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Kingfisher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,6 +47,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0A26A89D3938B6FD58363D17596B3151</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>107A9565F9DF88517DFD3E28C05B2B96</key>
 		<dict>
 			<key>primary</key>
@@ -63,16 +63,6 @@
 			<true/>
 		</dict>
 		<key>8FD30F57819F058D45EE9B03AF3FE325</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>942327A8C500D653CB2092CB8A3054DB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9D781EB30AA915DF5F4DD7F2BB2A2CA3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

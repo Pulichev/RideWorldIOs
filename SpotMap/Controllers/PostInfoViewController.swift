@@ -9,31 +9,28 @@
 import Foundation
 import UIKit
 import AVFoundation
-import FirebaseStorage
-import FirebaseDatabase
-import FirebaseAuth
 import Kingfisher
 import ActiveLabel
 
 class PostInfoViewController: UIViewController {
-    var isCurrentUserProfile: Bool!
-    var delegateDeleting: ForUpdatingUserProfilePosts?
-    
     var postInfo: PostItem!
     var user: UserItem!
     
+    var isCurrentUserProfile: Bool!
+    var delegateDeleting: ForUpdatingUserProfilePosts?
+    
     @IBOutlet var spotPostMedia: UIView!
+    var isPhoto: Bool!
     var player: AVPlayer!
     
     @IBOutlet var postDate: UILabel!
     @IBOutlet var postTime: UILabel!
     @IBOutlet var userNickName: UILabel!
     @IBOutlet var postDescription: ActiveLabel!
+    
     @IBOutlet var isLikedPhoto: UIImageView!
     @IBOutlet var likesCount: UILabel!
     var likesCountInt = 0
-    
-    var isPhoto: Bool!
     var postIsLiked: Bool!
     
     @IBOutlet weak var deleteButton: UIBarButtonItem!
@@ -47,38 +44,23 @@ class PostInfoViewController: UIViewController {
             }
             
             self.postDescription.text = self.postInfo.description
-            let sourceDate = String(describing: self.postInfo.createdDate)
-            //formatting date to yyyy-mm-dd
-            let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
-            self.postDate.text = finalDate
-            let finalTime = sourceDate[sourceDate.index(sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
-            self.postTime.text = finalTime
             self.userNickName.text = self.user.login
-            
             self.countPostLikes()
             self.userLikedThisPost()
+            self.initializeDate()
             self.addDoubleTapGestureOnPostMedia()
         }
-        self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
+        
         self.addMediaToView()
         self.initializeDesc()
     }
     
     func addDoubleTapGestureOnPostMedia() {
-        //adding method on spot main photo tap
-        let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:))) //target was only self
+        //adding method on post main photo tap
+        let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
         tap.numberOfTapsRequired = 2
         spotPostMedia.addGestureRecognizer(tap)
         spotPostMedia.isUserInteractionEnabled = true
-    }
-    
-    func countPostLikes() {
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes")
-        //catch if user liked this post
-        likeRef.observeSingleEvent(of: .value, with: { snapshot in
-            self.likesCountInt = snapshot.children.allObjects.count
-            self.likesCount.text = String(describing: self.likesCountInt)
-        })
     }
     
     func initializeDesc() {
@@ -95,18 +77,33 @@ class PostInfoViewController: UIViewController {
         }
     }
     
+    func initializeDate() {
+        let sourceDate = String(describing: self.postInfo.createdDate)
+        //formatting date to yyyy-mm-dd
+        let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
+        self.postDate.text = finalDate
+        let finalTime = sourceDate[sourceDate.index(sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
+        self.postTime.text = finalTime
+    }
+    
+    func countPostLikes() {
+        Post.getLikesCount(for: self.postInfo.key,
+                           completion: { likesCount in
+                            self.likesCountInt = likesCount
+                            self.likesCount.text = String(describing: likesCount)
+        })
+    }
+    
     func userLikedThisPost() {
-        let currentUserId = FIRAuth.auth()?.currentUser?.uid
-        let likeRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").child(self.postInfo.key).child("likes").child(currentUserId!)
-        // catch if user liked this post
-        likeRef.observeSingleEvent(of: .value, with: { snapshot in
-            if (snapshot.value as? [String : Any]) != nil {
-                self.postIsLiked = true
-                self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-            } else {
-                self.postIsLiked = false
-                self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-            }
+        Post.isLikedByUser(self.postInfo.key,
+                           completion: { isLiked in
+                            if isLiked {
+                                self.postIsLiked = true
+                                self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+                            } else {
+                                self.postIsLiked = false
+                                self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+                            }
         })
     }
     

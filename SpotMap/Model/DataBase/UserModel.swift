@@ -12,9 +12,25 @@ import FirebaseAuth
 struct User {
     static var refToUsersNode = FIRDatabase.database().reference(withPath: "MainDataBase/users")
     
+    // MARK: - Create user after registration
+    static func create(with login: String) {
+        let loggedInUser = self.getCurrentUser()
+        let currentDate = Date()
+        let newUser = UserItem(uid: loggedInUser.uid, email: loggedInUser.email!,
+                               login: login, createdDate: String(describing: currentDate))
+        
+        // Create a child path with a key set to the uid underneath the "users" node
+        let refToNewUser = refToUsersNode.child(loggedInUser.uid)
+        refToNewUser.setValue(newUser.toAnyObject())
+    }
+    
     // MARK: - Get part
     static func getCurrentUserId() -> String {
         return (FIRAuth.auth()?.currentUser?.uid)!
+    }
+    
+    static func getCurrentUser() -> FIRUser {
+        return (FIRAuth.auth()?.currentUser)!
     }
     
     static func getItemById(for userId: String,

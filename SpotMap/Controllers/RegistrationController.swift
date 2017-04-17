@@ -17,8 +17,10 @@ class RegistrationController: UIViewController {
     
     override func viewDidLoad() {
         //For scrolling the view if keyboard on
-        NotificationCenter.default.addObserver(self, selector: #selector(RegistrationController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(RegistrationController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RegistrationController.keyboardWillShow),
+                                               name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RegistrationController.keyboardWillHide),
+                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         super.viewDidLoad()
     }
@@ -32,19 +34,15 @@ class RegistrationController: UIViewController {
         FIRAuth.auth()!.createUser(withEmail: userEmail.text!,
                                    password: userPassword.text!) { user, error in
                                     if error == nil {
+                                        // log in
                                         FIRAuth.auth()!.signIn(withEmail: self.userEmail.text!,
-                                                               password: self.userPassword.text!)
-                                        
-                                        let loggedInUser = FIRAuth.auth()?.currentUser
-                                        let currentDate = Date()
-                                        let newUser = UserItem(uid: ((loggedInUser)?.uid)!, email: ((loggedInUser)?.email!)!,
-                                                               login: self.userLogin.text!, createdDate: String(describing: currentDate))
-                                        
-                                        // Create a child path with a key set to the uid underneath the "users" node
-                                        let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
-                                        ref.child("users").child(((loggedInUser)?.uid)!).setValue(newUser.toAnyObject())
-                                        
-                                        self.performSegue(withIdentifier: "registrationCompleted", sender: self)
+                                                               password: self.userPassword.text!,
+                                                               completion: { result in
+                                                                // create new user in database, not in FIRAuth
+                                                                User.create(with: self.userLogin.text!)
+                                                                
+                                                                self.performSegue(withIdentifier: "registrationCompleted", sender: self)
+                                        })
                                     } else {
                                         print("\(String(describing: error?.localizedDescription))")
                                     }

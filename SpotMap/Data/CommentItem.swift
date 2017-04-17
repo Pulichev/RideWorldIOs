@@ -8,7 +8,6 @@
 // УДАЛИТЬ ПРЯМУЮ СУЩНОСТЬ ЛАЙКА. ЗАЧЕМ ОНА ВООБЩЕ
 
 import FirebaseDatabase
-import IGListKit
 import Foundation
 
 class CommentItem: NSObject {

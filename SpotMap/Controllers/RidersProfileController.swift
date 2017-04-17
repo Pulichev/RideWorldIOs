@@ -200,6 +200,14 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         self.performSegue(withIdentifier: "goToFollowersFromRidersNode", sender: self)
     }
     
+    private func swapFollowButtonTittle() {
+        if self.followButton.currentTitle == "Follow" {
+            self.followButton.setTitle("Following", for: .normal)
+        } else {
+            self.followButton.setTitle("Follow", for: .normal)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToPostInfo" {
             let newPostInfoController = (segue.destination as! PostInfoViewController)
@@ -215,14 +223,6 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
         }
     }
 
-    private func swapFollowButtonTittle() {
-        if self.followButton.currentTitle == "Follow" {
-            self.followButton.setTitle("Following", for: .normal)
-        } else {
-            self.followButton.setTitle("Follow", for: .normal)
-        }
-    }
-    
     // MARK: - when data loading
     let loadingView = UIView() // View which contains the loading text and the spinner
     let spinner = UIActivityIndicatorView()

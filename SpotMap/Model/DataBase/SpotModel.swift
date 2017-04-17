@@ -9,7 +9,7 @@
 import FirebaseDatabase
 
 struct Spot {
-    static var refToSpotNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotDetails")
+    static var refToSpotNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails")
     
     static func deletePost(for spotId: String, _ postId: String) {
         let refToSpotDetailsNode = refToSpotNode.child(spotId).child("posts")
@@ -20,5 +20,17 @@ struct Spot {
                 refToSpotDetailsNode.setValue(posts)
             }
         })
+    }
+    
+    static func create(with name: String,
+                       description: String, latitude: Double, longitude: Double) -> String {
+        let newSpotRef = self.refToSpotNode.childByAutoId()
+        let newSpotRefKey = newSpotRef.key
+        
+        let newSpotDetailsItem = SpotDetailsItem(name: name, description: description,
+                                                 latitude: latitude, longitude: longitude, addedByUser: User.getCurrentUserId(), key: newSpotRefKey)
+        newSpotRef.setValue(newSpotDetailsItem.toAnyObject())
+        
+        return newSpotRefKey
     }
 }

@@ -29,16 +29,16 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
         self.spotDescription.delegate = self
         
         //For scrolling the view if keyboard on
-        NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillShow),
+                                               name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillHide),
+                                               name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func UICustomizing() {
         //adding method on spot main photo tap
         addGestureToOpenCameraOnPhotoTap()
-        
         imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
-        
         placeBorderOnTextView()
     }
     
@@ -55,27 +55,13 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
     }
     
     @IBAction func saveSpotDetails(_ sender: Any) {
-        let userId = FIRAuth.auth()?.currentUser?.uid
-        let newSpotRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails").childByAutoId()
-        let newSpotRefKey = newSpotRef.key
+        let createdSpotId = Spot.create(with: self.spotTitle.text!, description: self.spotDescription.text!, latitude: self.spotLatitude, longitude: self.spotLongitude)
         
-        let newSpotDetailsItem = SpotDetailsItem(name: self.spotTitle.text!, description: self.spotDescription.text!,
-                                              latitude: self.spotLatitude, longitude: self.spotLongitude, addedByUser: userId!, key: newSpotRefKey)
-        newSpotRef.setValue(newSpotDetailsItem.toAnyObject())
+        SpotMedia.upload(self.imageView.image!, for: createdSpotId, with: 270.0)
         
-        uploadPhoto(spotId: newSpotDetailsItem.key)
         UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil) //saving image to camera roll
         
         _ = navigationController?.popViewController(animated: true)
-    }
-    
-    //Uploading files with the SYNC API
-    func uploadPhoto(spotId: String) {
-        let lowResolutionPhoto = Image.resize(self.imageView.image!, targetSize: CGSize(width: 270.0, height: 270.0))
-        let newPostRef = FIRStorage.storage().reference(withPath: "media/spotMainPhotoURLs").child(spotId + ".jpeg")
-        //saving original image with low compression
-        let dataLowCompression: Data = UIImageJPEGRepresentation(lowResolutionPhoto, 0.8)!
-        newPostRef.put(dataLowCompression)
     }
     
     var keyBoardAlreadyShowed = false //using this to not let app to scroll view. Look at extension

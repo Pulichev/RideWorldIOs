@@ -25,7 +25,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     
     @IBOutlet var userNameAndSename: UILabel!
     @IBOutlet var userBio: UITextView!
-    @IBOutlet var userProfilePhoto: UIImageView!
+    @IBOutlet var userProfilePhoto: RoundedImageView!
     
     @IBOutlet var followersButton: UIButton!
     @IBOutlet var followingButton: UIButton!
@@ -224,7 +224,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
         if segue.identifier == "editUserProfile" {
             let newEditProfileController = segue.destination as! EditProfileController
             newEditProfileController.userInfo = self.userInfo
-            newEditProfileController.userPhoto = UIImageView()
+            newEditProfileController.userPhoto = RoundedImageView(image: UIImage(named: "plus-512.gif"))
             if let image = self.userProfilePhoto.image {
                 newEditProfileController.userPhotoTemp = image
             }

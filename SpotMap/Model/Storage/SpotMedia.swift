@@ -18,4 +18,18 @@ struct SpotMedia {
         let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
         refToNewSpotPhoto.put(dataLowCompression)
     }
+    
+    static func getImageURL(for spotId: String,                            completion: @escaping (_ imageURL: URL?) -> Void) {
+        
+        let imageURL = self.refToSpotMedia.child(spotId + ".jpeg")
+        
+        imageURL.downloadURL { (URL, error) in
+            if let error = error {
+                print("\(error)")
+                completion(nil)
+            } else {
+                completion(URL!)
+            }
+        }
+    }
 }

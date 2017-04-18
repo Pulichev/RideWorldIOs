@@ -127,6 +127,4 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
         return NSAttributedString(string: str, attributes: attrs)
     }
-    
-    // ENDMARK: DZNEmptyDataSet
 }

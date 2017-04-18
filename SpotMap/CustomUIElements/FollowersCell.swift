@@ -17,7 +17,7 @@ class FollowersCell: UITableViewCell {
     var currentUserId: String!
     
     @IBOutlet weak var nickName: UILabel!
-    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userImage: RoundedImageView!
     @IBOutlet weak var button: UIButton!
     
     var follower: UserItem! {
@@ -38,7 +38,6 @@ class FollowersCell: UITableViewCell {
                 print("\(error)")
             } else {
                 self.userImage.kf.setImage(with: URL) //Using kf for caching images.
-                self.userImage.layer.cornerRadius = self.userImage.frame.size.height / 2
             }
         }
     }

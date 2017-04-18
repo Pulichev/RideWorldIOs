@@ -6,9 +6,6 @@
 import UIKit
 import MapKit
 import CoreLocation
-import FirebaseDatabase
-import FirebaseStorage
-import FirebaseAuth
 
 class MainFormController: UIViewController {
     
@@ -69,17 +66,8 @@ class MainFormController: UIViewController {
     }
     
     func loadSpotsOnMap() {
-        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails")
-        
-        ref.queryOrdered(byChild: "key").observe(.value, with: { snapshot in
-            var newItems: [SpotDetailsItem] = []
-            
-            for item in snapshot.children {
-                let spotDetailsItem = SpotDetailsItem(snapshot: item as! FIRDataSnapshot)
-                newItems.append(spotDetailsItem)
-            }
-            
-            self.spotsFromDB = newItems
+        Spot.getAll(completion: { spotsList in
+            self.spotsFromDB = spotsList
             self.addPinsOnMap()
         })
     }
@@ -97,11 +85,8 @@ class MainFormController: UIViewController {
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
-        do {
-            try FIRAuth.auth()!.signOut()
+        if User.signOut() { // if no errors
             self.performSegue(withIdentifier: "userLogouted", sender: self)
-        } catch {
-            print("Error while signing out!")
         }
     }
     
@@ -200,19 +185,15 @@ extension MainFormController: MKMapViewDelegate {
         goToPostsButton.layer.borderColor = UIColor.black.cgColor
         goToPostsButton.addTarget(self, action: #selector(MainFormController.goToPosts), for: .touchDown)
         
-        let storage = FIRStorage.storage()
-        // Create a reference from a Google Cloud Storage URI
-        let spotDetailsPhotoURL = storage.reference(forURL: "gs://spotmap-e3116.appspot.com/media/spotMainPhotoURLs/" + spotPin.key + ".jpeg")
-        
-        spotDetailsPhotoURL.downloadURL { (URL, error) in
-            if error != nil {
-                // Uh-oh, an error occurred!
-                let image = UIImage(contentsOfFile: "plus-512.gif")
-                imageView.image = image
-            } else {
-                imageView.kf.setImage(with: URL) //Using kf for caching images.
-            }
-        }
+        SpotMedia.getImageURL(for: spotPin.key,
+                              completion: { imageURL in
+                                if imageURL != nil {
+                                    imageView.kf.setImage(with: imageURL!)
+                                } else {
+                                    let image = UIImage(contentsOfFile: "plus-512.gif")
+                                    imageView.image = image
+                                }
+        })
         
         imageView.layer.cornerRadius = imageView.frame.size.height / 10
         imageView.layer.masksToBounds = true

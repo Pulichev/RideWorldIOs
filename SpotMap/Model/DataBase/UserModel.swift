@@ -24,6 +24,17 @@ struct User {
         refToNewUser.setValue(newUser.toAnyObject())
     }
     
+    // MARK: - Sign in / Sign up part
+    static func signOut() -> Bool {
+        do {
+            try FIRAuth.auth()!.signOut()
+            return true
+        } catch {
+            print("Error while signing out!")
+            return false
+        }
+    }
+    
     // MARK: - Get part
     static func getCurrentUserId() -> String {
         return (FIRAuth.auth()?.currentUser?.uid)!

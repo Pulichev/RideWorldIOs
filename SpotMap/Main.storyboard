@@ -383,7 +383,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vzh-Kq-S3x">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vzh-Kq-S3x" customClass="RoundedImageView" customModule="SpotMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="89" height="88"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="89" id="5Ad-2Y-utJ"/>
@@ -902,7 +902,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="101.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grayRec.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="rOG-mA-uOb">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grayRec.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="rOG-mA-uOb" customClass="RoundedImageView" customModule="SpotMap" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="9" width="44" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="BTO-ZL-4K8"/>
@@ -1079,7 +1079,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-eE-b3b">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-eE-b3b" customClass="RoundedImageView" customModule="SpotMap" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="0.0" width="47" height="47"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="47" id="BXV-0V-EJb"/>
@@ -1255,7 +1255,7 @@
                                             <action selector="editProfileButtonTapped:" destination="MsB-Ex-yak" eventType="touchUpInside" id="4if-e4-Pkh"/>
                                         </connections>
                                     </button>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZcD-bw-aLL">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZcD-bw-aLL" customClass="RoundedImageView" customModule="SpotMap" customModuleProvider="target">
                                         <rect key="frame" x="4" y="3" width="91" height="88"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="87.5" id="MkG-9Z-XwW"/>
@@ -1391,7 +1391,7 @@
                                     <outlet property="delegate" destination="rut-Zp-VLC" id="Sqp-Dx-6XI"/>
                                 </connections>
                             </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-aj-jM0">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-aj-jM0" customClass="RoundedImageView" customModule="SpotMap" customModuleProvider="target">
                                 <rect key="frame" x="111.5" y="87" width="98" height="98"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="98" id="bNb-5H-T5Y"/>
@@ -1596,11 +1596,11 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="COh-cw-Ntn"/>
-        <segue reference="eyf-4a-ZNN"/>
         <segue reference="Oe2-wo-WXX"/>
-        <segue reference="TeE-da-wxz"/>
+        <segue reference="RlL-e4-xY6"/>
         <segue reference="WTf-CW-Cn6"/>
+        <segue reference="qSk-1a-lLs"/>
+        <segue reference="COh-cw-Ntn"/>
         <segue reference="Gef-69-N8A"/>
         <segue reference="PDm-Oj-MlC"/>
     </inferredMetricsTieBreakers>

@@ -46,4 +46,17 @@ struct Spot {
             }
         })
     }
+    
+    static func getAll(completion: @escaping (_ spots: [SpotDetailsItem]) -> Void) {
+        self.refToSpotNode.observe(.value, with: { snapshot in
+            var spotsList: [SpotDetailsItem] = []
+            
+            for item in snapshot.children {
+                let spotDetailsItem = SpotDetailsItem(snapshot: item as! FIRDataSnapshot)
+                spotsList.append(spotDetailsItem)
+            }
+            
+            completion(spotsList)
+        })
+    }
 }

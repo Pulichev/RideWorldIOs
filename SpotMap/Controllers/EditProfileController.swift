@@ -18,7 +18,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
     var userInfo: UserItem!
     
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var userPhoto: UIImageView!
+    @IBOutlet var userPhoto: RoundedImageView!
     
     var userPhotoTemp = UIImage()
     
@@ -31,7 +31,6 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
                                                name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         self.userPhoto.image = userPhotoTemp
-        self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
         
         tableView.tableFooterView = UIView(frame: .zero) // deleting empty rows
     }

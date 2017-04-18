@@ -12,7 +12,7 @@ import FirebaseDatabase
 import ActiveLabel
 
 class CommentCell: UITableViewCell {
-    @IBOutlet weak var userPhoto: UIImageView!
+    @IBOutlet weak var userPhoto: RoundedImageView!
     @IBOutlet weak var userNickName: UIButton!
     @IBOutlet weak var commentText: ActiveLabel!
     @IBOutlet weak var date: UILabel!
@@ -31,7 +31,6 @@ class CommentCell: UITableViewCell {
     }
     
     func initialiseUserPhoto() {
-        self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
         self.userPhoto.image = UIImage(named: "grayRec.jpg")
         
         let storage = FIRStorage.storage()

@@ -11,7 +11,9 @@ import FirebaseInstanceID
 import FirebaseCore
 
 struct PostItem {
-    let key: String
+    var key: String // its var for creating new items.
+    // we are sending to model new PostItem without key.
+    // then, after .childByAutoId(), setting it
     
     let isPhoto: Bool
     let description: String
@@ -23,7 +25,7 @@ struct PostItem {
     
     let ref: FIRDatabaseReference?
     
-    init(isPhoto: Bool, description: String, createdDate: String, spotId: String, addedByUser: String, key: String = "") {
+    init(_ isPhoto: Bool, _ description: String, _ createdDate: String, _ spotId: String, _ addedByUser: String, _ key: String = "") {
         self.key = key
         
         self.isPhoto = isPhoto

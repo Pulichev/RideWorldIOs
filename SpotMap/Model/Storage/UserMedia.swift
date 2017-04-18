@@ -18,8 +18,8 @@ struct UserMedia {
         let sizePxString = String(describing: sizePxInt)
         let userPhotoRef = refToUserMainPhotoURLs.child(userId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
         //with low compression
-        let dataLowCompressionFor: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
-        userPhotoRef.put(dataLowCompressionFor)
+        let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
+        userPhotoRef.put(dataLowCompression)
     }
     
     // MARK: - Download part

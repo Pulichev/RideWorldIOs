@@ -76,4 +76,26 @@ struct PostMedia {
             // do smth
         }
     }
+    
+    static func upload(_ image: UIImage, for post: PostItem, withSize sizePx: Double) {
+        let resizedPhoto = Image.resize(image, targetSize: CGSize(width: sizePx, height: sizePx))
+        let sizePxInt = Int(sizePx) // to generate link properly. It doesn't have ".0" in sizes
+        let sizePxString = String(describing: sizePxInt)
+        let postPhotoRef = self.refToPostMedia.child(post.spotId).child(post.key + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
+        //with low compression
+        let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
+        postPhotoRef.put(dataLowCompression)
+    }
+    
+    static func upload(with video: URL, for post: PostItem) {
+        do {
+            let postVideoRef = self.refToPostMedia.child(post.spotId).child(post.key + ".m4v")
+            
+            let data = try Data(contentsOf: video, options: .mappedIfSafe)
+            
+            postVideoRef.put(data)
+        } catch {
+            print(error)
+        }
+    }
 }

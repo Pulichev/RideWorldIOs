@@ -9,9 +9,6 @@
 import UIKit
 import AVFoundation
 import Fusuma
-import FirebaseDatabase
-import FirebaseAuth
-import FirebaseStorage
 
 class NewPostController: UIViewController, UITextViewDelegate {
     var spotDetailsItem: SpotDetailsItem!
@@ -19,7 +16,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var postDescription: UITextView!
     @IBOutlet weak var photoOrVideoView: UIView!
     
-    var newVideoUrl: Any!
+    var newVideoUrl: URL!
     var player: AVQueuePlayer!
     var playerLooper: NSObject? //for looping video. It should be class variable
     
@@ -70,48 +67,30 @@ class NewPostController: UIViewController, UITextViewDelegate {
     
     // NEED CODE REVIEW HERE
     @IBAction func savePost(_ sender: Any) {
-        let user = FIRAuth.auth()?.currentUser
+        let currentUser = User.getCurrentUser()
         let createdDate = String(describing: Date())
-        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost").childByAutoId()
+        let postItem = PostItem(self.isNewMediaIsPhoto, self.postDescription.text, createdDate, self.spotDetailsItem.key, currentUser.uid)
         
-        let spotPostItem = PostItem(isPhoto: self.isNewMediaIsPhoto, description: self.postDescription.text, createdDate: createdDate, spotId: self.spotDetailsItem.key, addedByUser: (user?.uid)!, key: ref.key)
-        ref.setValue(spotPostItem.toAnyObject())
-        
-        // add to user posts node
-        let userPostsRef = FIRDatabase.database().reference(withPath: "MainDataBase/users").child((user?.uid)!).child("posts")
-        
-        userPostsRef.observeSingleEvent(of: .value, with: { snapshot in
-            if var value = snapshot.value as? [String : Bool] {
-                value[ref.key] = true
-                userPostsRef.setValue(value)
-            } else {
-                userPostsRef.setValue([ref.key : true])
-            }
-        })
-        
-        // add to spotdetails node
-        let spotDetailsPostsRef = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails").child(self.spotDetailsItem.key).child("posts")
-        
-        spotDetailsPostsRef.observeSingleEvent(of: .value, with: { snapshot in
-            if var value = snapshot.value as? [String : Bool] {
-                value[ref.key] = true
-                spotDetailsPostsRef.setValue(value)
-            } else {
-                spotDetailsPostsRef.setValue([ref.key : true])
-            }
-        })
+        let newPost = Post.add(postItem)
+        User.addPost(to: currentUser.uid, newPost.key)
+        Spot.addPost(to: self.spotDetailsItem.key, newPost.key)
         
         if self.isNewMediaIsPhoto {
-            uploadPhoto(postId: ref.key)
-            uploadLowResolutionPhoto(postId: ref.key)
-            uploadThumbnailOfPhoto(postId: ref.key)
             UIImageWriteToSavedPhotosAlbum(self.photoView.image!, nil, nil , nil) //saving image to camera roll
+            PostMedia.upload(self.photoView.image!, for: newPost, withSize: 700.0)
+            PostMedia.upload(self.photoView.image!, for: newPost, withSize: 270.0) // for profile collection
+            PostMedia.upload(self.photoView.image!, for: newPost, withSize: 10.0) // thumbnail
         } else {
-            uploadVideo(postId: ref.key)
-            guard let path = (self.newVideoUrl as! NSURL).path else { return }
+            PostMedia.upload(with: self.newVideoUrl, for: newPost)
+            PostMedia.upload(generateVideoScreenShot(), for: newPost, withSize: 270.0)
+            PostMedia.upload(generateVideoScreenShot(), for: newPost, withSize: 10.0)
+            
+            let path = (self.newVideoUrl).path
+            
             if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
                 UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
             }
+            
             player.pause()
             player = nil
         }
@@ -119,62 +98,23 @@ class NewPostController: UIViewController, UITextViewDelegate {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    //Uploading files with the SYNC API
-    func uploadPhoto(postId: String) {
-        // upload main photo
-        let newPostRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + "_resolution700x700.jpeg")
-        let highResPhoto = Image.resize(self.photoView.image!, targetSize: CGSize(width: 700.0, height: 700.0))
-        let dataLowCompression: Data = UIImageJPEGRepresentation(highResPhoto, 0.8)!
-        newPostRef.put(dataLowCompression)
-    }
-    
-    func uploadLowResolutionPhoto(postId: String) {
-        let newPostRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + "_resolution270x270.jpeg")
-        let lowResPhoto = Image.resize(self.photoView.image!, targetSize: CGSize(width: 270.0, height: 270.0))
-        let dataLowCompression: Data = UIImageJPEGRepresentation(lowResPhoto, 0.8)!
-        newPostRef.put(dataLowCompression)
-    }
-    
-    private func uploadThumbnailOfPhoto(postId: String) {
-        let newPostRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key).child(postId + "_resolution10x10.jpeg")
-        //saving original image with low compression
-        self.photoView.image = Image.resize(self.photoView.image!, targetSize: CGSize(width: 10.0, height: 10.0))
-        let dataLowCompression: Data = UIImageJPEGRepresentation(self.photoView.image!, 0.8)!
-        newPostRef.put(dataLowCompression)
-    }
-    
-    func uploadVideo(postId: String) {
+    func generateVideoScreenShot() -> UIImage {
         do {
-            let mainRef = FIRStorage.storage().reference(withPath: "media/spotPostMedia").child(self.spotDetailsItem.key)
-            
-            // saving video
-            let data = try Data(contentsOf: self.newVideoUrl as! URL, options: .mappedIfSafe)
-            
-            let newPostRef = mainRef.child(postId + ".m4v")
-            newPostRef.put(data)
-            
-            // saving thumbnail for video 10px
-            let asset = AVURLAsset(url: self.newVideoUrl as! URL , options: nil)
+            let asset = AVURLAsset(url: self.newVideoUrl, options: nil)
             
             let imgGenerator = AVAssetImageGenerator(asset: asset)
             imgGenerator.appliesPreferredTrackTransform = true
+            
             let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
-            let thumbnail = Image.resize(UIImage(cgImage: cgImage), targetSize: CGSize(width: 10.0, height: 10.0))
+            let videoScreenShot = UIImage(cgImage: cgImage)
             
-            let dataThumbnailForVideo: Data = UIImageJPEGRepresentation(thumbnail, 0.8)!
-            let newPostThumbnailForVideo = mainRef.child(postId + "_resolution10x10.jpeg")
-            
-            newPostThumbnailForVideo.put(dataThumbnailForVideo)
-            
-            // 270 px
-            let thumbnail270px = Image.resize(UIImage(cgImage: cgImage), targetSize: CGSize(width: 270.0, height: 270.0))
-            
-            let dataThumbnailForVideo270px: Data = UIImageJPEGRepresentation(thumbnail270px, 0.8)!
-            let newPostThumbnailForVideo270px = mainRef.child(postId + "_resolution270x270.jpeg")
-            
-            newPostThumbnailForVideo270px.put(dataThumbnailForVideo270px)
+            return videoScreenShot
         } catch {
             print(error)
+            
+            let failImage = UIImage(named: "plus-512.gif")
+            
+            return failImage!
         }
     }
 }

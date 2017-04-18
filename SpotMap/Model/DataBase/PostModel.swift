@@ -24,11 +24,6 @@ struct Post {
         completion(nil) // if no post with this id
     }
     
-    static func delete(with postId: String) {
-        let refToPostNode = self.refToPostsNode.child(postId)
-        refToPostNode.removeValue()
-    }
-    
     static func getLikesCount(for postId: String,
                               completion: @escaping (_ likesCount: Int) -> Void) {
         let refToPostLikes = self.refToPostsNode.child(postId).child("likes")
@@ -53,5 +48,20 @@ struct Post {
                 completion(false)
             }
         })
+    }
+    
+    static func add(_ postItem: PostItem) -> PostItem {
+        var newPost = postItem
+        let refToNewPost = self.refToPostsNode.childByAutoId()
+        
+        newPost.key = refToNewPost.key
+        refToNewPost.setValue(postItem.toAnyObject())
+        
+        return newPost
+    }
+    
+    static func delete(with postId: String) {
+        let refToPostNode = self.refToPostsNode.child(postId)
+        refToPostNode.removeValue()
     }
 }

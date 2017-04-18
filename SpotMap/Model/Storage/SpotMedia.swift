@@ -12,10 +12,10 @@ struct SpotMedia {
     static let refToSpotMedia = FIRStorage.storage().reference(withPath: "media/spotMainPhotoURLs")
     
     static func upload(_ photo: UIImage, for spotId: String, with sizePx: Double) {
-        let lowResolutionPhoto = Image.resize(photo, targetSize: CGSize(width: sizePx, height: sizePx))
+        let resizedPhoto = Image.resize(photo, targetSize: CGSize(width: sizePx, height: sizePx))
         let refToNewSpotPhoto = self.refToSpotMedia.child(spotId + ".jpeg")
         //saving original image with low compression
-        let dataLowCompression: Data = UIImageJPEGRepresentation(lowResolutionPhoto, 0.8)!
+        let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
         refToNewSpotPhoto.put(dataLowCompression)
     }
 }

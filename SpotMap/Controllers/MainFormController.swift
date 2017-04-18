@@ -122,6 +122,21 @@ class MainFormController: UIViewController {
         
         MKMapItem.openMaps(with: [start, destination], launchOptions: options)
     }
+    
+    //Overriding function for passing data through two views
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "addNewSpot") {
+            let newSpotController = (segue.destination as! NewSpotController)
+            newSpotController.spotLatitude = mapView.userLocation.coordinate.latitude //Passing latitude
+            newSpotController.spotLongitude = mapView.userLocation.coordinate.longitude //Passing latitude
+        }
+        
+        if(segue.identifier == "spotDetailsTapped") {
+            let postsStripController = (segue.destination as! PostsStripController)
+            postsStripController.spotDetailsItem = spotDetailsForSendToPostsStripController
+            postsStripController.cameFromSpotOrMyStrip = true // came from spot
+        }
+    }
 }
 
 // MARK: - MKMapViewDelegate
@@ -243,20 +258,5 @@ extension MainFormController: CLLocationManagerDelegate {
     
     @IBAction func AddNewSpot(_ sender: Any) {
         self.performSegue(withIdentifier: "addNewSpot", sender: self)
-    }
-    
-    //Overriding function for passing data through two views
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "addNewSpot") {
-            let newSpotController = (segue.destination as! NewSpotController)
-            newSpotController.spotLatitude = mapView.userLocation.coordinate.latitude //Passing latitude
-            newSpotController.spotLongitude = mapView.userLocation.coordinate.longitude //Passing latitude
-        }
-        
-        if(segue.identifier == "spotDetailsTapped") {
-            let postsStripController = (segue.destination as! PostsStripController)
-            postsStripController.spotDetailsItem = spotDetailsForSendToPostsStripController
-            postsStripController.cameFromSpotOrMyStrip = true // came from spot
-        }
     }
 }

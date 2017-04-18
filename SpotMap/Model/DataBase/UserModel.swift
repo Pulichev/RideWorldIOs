@@ -150,6 +150,55 @@ struct User {
         })
     }
     
+    static func getFollowersList(for userId: String,
+                                 completion: @escaping (_ followersList: [UserItem]) -> Void) {
+        let refToUserFollowers = self.refToUsersNode.child(userId).child("followers")
+        
+        var followersList = [UserItem]()
+        
+        refToUserFollowers.observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            if let followersIds = value?.allKeys as? [String] {
+                var countOfLoaded = 0
+                for followerId in followersIds {
+                    self.getItemById(for: followerId,
+                                     completion: { follower in
+                                        countOfLoaded += 1
+                                followersList.append(follower)
+                                        if countOfLoaded == followersIds.count {
+                                            completion(followersList)
+                                        }
+                    })
+                }
+            }
+        })
+    }
+    
+    static func getFollowingsList(for userId: String,
+                                 completion: @escaping (_ followingsList: [UserItem]) -> Void) {
+        let refToUserFollowings = self.refToUsersNode.child(userId).child("following")
+        
+        var followingsList = [UserItem]()
+        
+        refToUserFollowings.observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            if let followingsIds = value?.allKeys as? [String] {
+                var countOfLoaded = 0
+                for followingId in followingsIds {
+                    self.getItemById(for: followingId,
+                                     completion: { following in
+                                        countOfLoaded += 1
+                                        followingsList.append(following)
+                                        if countOfLoaded == followingsIds.count {
+                                            completion(followingsList)
+                                        }
+                    })
+                }
+            }
+        })
+    }
+
+    
     static func isCurrentUserFollowing(this userId: String, completion: @escaping(_ isFollowing: Bool) -> Void) {
         let currentUserId = self.getCurrentUserId()
         let refToCurrentUser = self.refToUsersNode.child(currentUserId).child("following")

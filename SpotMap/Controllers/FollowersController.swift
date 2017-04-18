@@ -29,30 +29,24 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     private func loadFollowList() {
-        var userFollowRef = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(self.userId)
         if followersOrFollowingList == true { // followers ref
-            userFollowRef = userFollowRef.child("followers")
+            User.getFollowersList(for: self.userId,
+                                  completion: { followersList in
+                                    self.followList = followersList
+                                    DispatchQueue.main.async {
+                                        self.tableView.reloadData()
+                                    }
+            })
         } else { // following ref
-            userFollowRef = userFollowRef.child("following")
+            User.getFollowingsList(for: self.userId,
+                                   completion: { followingsList in
+                                    self.followList = followingsList
+                                    DispatchQueue.main.async {
+                                        self.tableView.reloadData()
+                                    }
+            })
+            
         }
-        
-        userFollowRef.observeSingleEvent(of: .value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            if let followingsId = value?.allKeys as? [String] {
-                for followId in followingsId {
-                    let followRef = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(followId)
-                    
-                    followRef.observeSingleEvent(of: .value, with: { snapshot in
-                        let followItem = UserItem(snapshot: snapshot)
-                        
-                        self.followList.append(followItem)
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        }
-                    })
-                }
-            }
-        })
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

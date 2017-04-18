@@ -72,8 +72,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
         let postItem = PostItem(self.isNewMediaIsPhoto, self.postDescription.text, createdDate, self.spotDetailsItem.key, currentUser.uid)
         
         let newPost = Post.add(postItem)
-        User.addPost(to: currentUser.uid, newPost.key)
-        Spot.addPost(to: self.spotDetailsItem.key, newPost.key)
+        User.addPost(newPost)
+        Spot.addPost(newPost)
         
         if self.isNewMediaIsPhoto {
             UIImageWriteToSavedPhotosAlbum(self.photoView.image!, nil, nil , nil) //saving image to camera roll

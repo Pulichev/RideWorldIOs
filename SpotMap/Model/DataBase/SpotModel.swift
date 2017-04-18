@@ -34,15 +34,15 @@ struct Spot {
         return newSpotRefKey
     }
     
-    static func addPost(to spotId: String, _ postId: String) {
-        let refToSpotNewPost = self.refToSpotNode.child(spotId).child("posts")
+    static func addPost(_ postItem: PostItem) {
+        let refToSpotNewPost = self.refToSpotNode.child(postItem.spotId).child("posts")
         
         refToSpotNewPost.observeSingleEvent(of: .value, with: { snapshot in
             if var value = snapshot.value as? [String : Bool] {
-                value[postId] = true
+                value[postItem.key] = true
                 refToSpotNewPost.setValue(value)
             } else {
-                refToSpotNewPost.setValue([postId : true])
+                refToSpotNewPost.setValue([postItem.key : true])
             }
         })
     }

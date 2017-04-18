@@ -88,15 +88,15 @@ struct User {
         completion(nil) // if no posts
     }
     
-    static func addPost(to userId: String, _ postId: String) {
-        let refToUserNewPost = self.refToUsersNode.child(userId).child("posts")
+    static func addPost(_ postItem: PostItem) {
+        let refToUserNewPost = self.refToUsersNode.child(postItem.addedByUser).child("posts")
         
         refToUserNewPost.observeSingleEvent(of: .value, with: { snapshot in
             if var value = snapshot.value as? [String : Bool] {
-                value[postId] = true
+                value[postItem.key] = true
                 refToUserNewPost.setValue(value)
             } else {
-                refToUserNewPost.setValue([postId : true])
+                refToUserNewPost.setValue([postItem.key : true])
             }
         })
     }

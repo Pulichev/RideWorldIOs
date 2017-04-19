@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import FirebaseStorage
 import FirebaseDatabase
 import FirebaseAuth
 import Kingfisher
@@ -92,21 +91,21 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     private func loadMyStripPosts() {
         User.getStripPosts(countOfNewItemsToAdd: self.postsLoadStep,
-                      completion: { newItems in
-                        if newItems != nil {
-                            var newItemsCache = [PostItemCellCache]()
-                            
-                            for newItem in newItems! {
-                                let newItemCache = PostItemCellCache(spotPost: newItem, stripController: self)
+                           completion: { newItems in
+                            if newItems != nil {
+                                var newItemsCache = [PostItemCellCache]()
                                 
-                                newItemsCache.append(newItemCache)
+                                for newItem in newItems! {
+                                    let newItemCache = PostItemCellCache(spotPost: newItem, stripController: self)
+                                    
+                                    newItemsCache.append(newItemCache)
+                                }
+                                
+                                self._posts.append(contentsOf: newItems!)
+                                self._postItemCellsCache.append(contentsOf: newItemsCache)
+                                
+                                self.removeLoadingScreen()
                             }
-                            
-                            self._posts.append(contentsOf: newItems!)
-                            self._postItemCellsCache.append(contentsOf: newItemsCache)
-                            
-                            self.removeLoadingScreen()
-                        }
         })
     }
     
@@ -155,14 +154,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         self._posts.removeAll()
         self._postItemCellsCache.removeAll()
         Spot.alreadyLoadedCountOfPosts = 0
-
+        User.alreadyLoadedCountOfPosts = 0
+        
         self.loadPosts()
         
         // ending refreshing
-        //self.tableView.reloadData()
+        self.tableView.reloadData()
         self.refreshControl.endRefreshing()
     }
-
+    
     // Main table filling region
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -250,58 +250,47 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     
     func setImageOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
         if self._postItemCellsCache[cacheKey].isCached {
-            let url = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + self._posts[cacheKey].key + "_resolution700x700.jpeg"
-            let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
-            
-            spotDetailsPhotoURL.downloadURL { (URL, error) in
-                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-                
-                DispatchQueue.main.async {
-                    cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                }
-            }
+            PostMedia.getImageURL(for: self._posts[cacheKey].spotId,
+                                  self._posts[cacheKey].key, withSize: 700,
+                                  completion: { URL in
+                                    let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                                    imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
+                                    
+                                    DispatchQueue.main.async {
+                                        cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                                    }
+                                    
+            })
         } else {
             // download thumbnail first
-            let thumbnailUrl = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + self._posts[cacheKey].key + "_resolution10x10.jpeg"
-            let spotPostPhotoThumbnailURL = FIRStorage.storage().reference(forURL: thumbnailUrl)
-            
-            spotPostPhotoThumbnailURL.downloadURL { (URL, error) in
-                if let error = error {
-                    print("\(error)")
-                } else {
-                    let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                    let processor = BlurImageProcessor(blurRadius: 0.1)
-                    imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
-                    
-                    DispatchQueue.main.async {
-                        cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                    }
-                    
-                    self.downloadOriginalImage(cell: cell, cacheKey: cacheKey)
-                }
-            }
+            PostMedia.getImageURL(for: self._posts[cacheKey].spotId,
+                                  self._posts[cacheKey].key, withSize: 10,
+                                  completion: { URL in
+                                    let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                                    let processor = BlurImageProcessor(blurRadius: 0.1)
+                                    imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
+                                    
+                                    DispatchQueue.main.async {
+                                        cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                                    }
+                                    
+                                    self.downloadOriginalImage(cell: cell, cacheKey: cacheKey)
+            })
         }
     }
     
     private func downloadOriginalImage(cell: PostsCell, cacheKey: Int) {
-        let url = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + self._posts[cacheKey].key + "_resolution700x700.jpeg"
-        let spotDetailsPhotoURL = FIRStorage.storage().reference(forURL: url)
-        
-        spotDetailsPhotoURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                imageViewForView.kf.indicatorType = .activity
-                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-                
-                DispatchQueue.main.async {
-                    self._postItemCellsCache[cacheKey].isCached = true
-                    cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                }
-            }
-        }
+        PostMedia.getImageURL(for: self._posts[cacheKey].spotId,
+                              self._posts[cacheKey].key, withSize: 700,
+                              completion: { URL in                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                                imageViewForView.kf.indicatorType = .activity
+                                imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
+                                
+                                DispatchQueue.main.async {
+                                    self._postItemCellsCache[cacheKey].isCached = true
+                                    cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                                }
+        })
     }
     
     private func setVideoOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
@@ -320,113 +309,55 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     }
     
     private func downloadThumbnail(cacheKey: Int, cell: PostsCell) {
-        let storage = FIRStorage.storage()
-        let postKey = self._posts[cacheKey].key
-        let url = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + postKey + "_resolution10x10.jpeg"
-        let spotVideoThumbnailURL = storage.reference(forURL: url)
-        
-        spotVideoThumbnailURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                // thumbnail!
-                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                let processor = BlurImageProcessor(blurRadius: 0.1)
-                imageViewForView.kf.setImage(with: URL!, placeholder: nil, options: [.processor(processor)])
-                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                
-                cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                
-                self.downloadBigThumbnail(postKey: postKey, cacheKey: cacheKey, cell: cell)
-            }
-        }
+        PostMedia.getImageURL(for: self._posts[cacheKey].spotId,
+                              self._posts[cacheKey].key, withSize: 10,
+                              completion: { URL in
+                                // thumbnail!
+                                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                                let processor = BlurImageProcessor(blurRadius: 0.1)
+                                imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
+                                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                                
+                                cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                                
+                                self.downloadBigThumbnail(postKey: self._posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
+        })
     }
     
     private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCell) {
-        let storage = FIRStorage.storage()
-        let postKey = self._posts[cacheKey].key
-        let url = _mainPartOfMediaref  + self._posts[cacheKey].spotId + "/" + postKey + "_resolution270x270.jpeg"
-        let spotVideoThumbnailURL = storage.reference(forURL: url)
-        
-        spotVideoThumbnailURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                // thumbnail!
-                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                let processor = BlurImageProcessor(blurRadius: 0.1)
-                imageViewForView.kf.setImage(with: URL!, placeholder: nil, options: [.processor(processor)])
-                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                
-                cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                
-                self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
-            }
-        }
+        PostMedia.getImageURL(for: self._posts[cacheKey].spotId,
+                              self._posts[cacheKey].key, withSize: 270,
+                              completion: { URL in                // thumbnail!
+                                let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+                                let processor = BlurImageProcessor(blurRadius: 0.1)
+                                imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
+                                imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+                                
+                                cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                                
+                                self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
+        })
     }
     
     private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCell) {
-        let storage = FIRStorage.storage()
-        let url = _mainPartOfMediaref + self._posts[cacheKey].spotId + "/" + postKey + ".m4v"
-        let spotVideoURL = storage.reference(forURL: url)
-        
-        spotVideoURL.downloadURL { (URL, error) in
-            if let error = error {
-                print("\(error)")
-            } else {
-                let assetForCache = AVAsset(url: URL!)
-                self._mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
-                cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-                let playerLayer = AVPlayerLayer(player: cell.player)
-                playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                playerLayer.frame = cell.spotPostMedia.bounds
-                
-                cell.spotPostMedia.layer.addSublayer(playerLayer)
-                
-                cell.player.play()
-            }
-        }
+        PostMedia.getVideoURL(for: self._posts[cacheKey].spotId,
+                             self._posts[cacheKey].key,
+                              completion: { vidoeURL in                 let assetForCache = AVAsset(url: vidoeURL)
+                                self._mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
+                                cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+                                let playerLayer = AVPlayerLayer(player: cell.player)
+                                playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                                playerLayer.frame = cell.spotPostMedia.bounds
+                                
+                                cell.spotPostMedia.layer.addSublayer(playerLayer)
+                                
+                                cell.player.play()
+        })
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    // MARK: DZNEmptyDataSet for empty data tables
-    
-    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        if haveWeFinishedLoading {
-            let str = "Welcome"
-            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
-            return NSAttributedString(string: str, attributes: attrs)
-        } else {
-            let str = ""
-            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
-            return NSAttributedString(string: str, attributes: attrs)
-        }
-    }
-    
-    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        if haveWeFinishedLoading {
-            let str = "Nothing to show or its downloading at the moment. Wait.."
-            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
-            return NSAttributedString(string: str, attributes: attrs)
-        } else {
-            let str = ""
-            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
-            return NSAttributedString(string: str, attributes: attrs)
-        }
-    }
-    
-    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
-        if haveWeFinishedLoading {
-            return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
-        } else {
-            return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
-        }
-    }
-    
-    // ENDMARK: DZNEmptyDataSet
     
     @IBAction func addNewPost(_ sender: Any) {
         self.performSegue(withIdentifier: "addNewPost", sender: self)
@@ -585,6 +516,41 @@ extension PostsStripController {
         if !cameFromSpotOrMyStrip {
             // Show the navigation bar on other view controllers
             self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        }
+    }
+}
+
+// MARK: - DZNEmptyDataSet for empty data tables
+extension PostsStripController {
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        if haveWeFinishedLoading {
+            let str = "Welcome"
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+            return NSAttributedString(string: str, attributes: attrs)
+        } else {
+            let str = ""
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        if haveWeFinishedLoading {
+            let str = "Nothing to show or its downloading at the moment. Wait.."
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+            return NSAttributedString(string: str, attributes: attrs)
+        } else {
+            let str = ""
+            let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+            return NSAttributedString(string: str, attributes: attrs)
+        }
+    }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        if haveWeFinishedLoading {
+            return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+        } else {
+            return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
         }
     }
 }

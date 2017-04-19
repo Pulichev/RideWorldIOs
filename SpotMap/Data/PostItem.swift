@@ -7,8 +7,6 @@
 //
 
 import FirebaseDatabase
-import FirebaseInstanceID
-import FirebaseCore
 
 struct PostItem {
     var key: String // its var for creating new items.

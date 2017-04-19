@@ -64,7 +64,7 @@ struct Spot {
     static var spotPostsIds = [String]() // full array of spot posts ids.
     // We will update it only in refresh function of PostStripController
     
-    static var alreadyLoadedCount: Int = 0
+    static var alreadyLoadedCountOfPosts: Int = 0
     
     static func getPosts(for spotId: String, countOfNewItemsToAdd: Int,
                          completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
@@ -82,7 +82,7 @@ struct Spot {
                             countOfNewPostsLoaded += 1
                             
                             if countOfNewPostsLoaded == nextPostsIds.count {
-                                self.alreadyLoadedCount += nextPostsIds.count
+                                self.alreadyLoadedCountOfPosts += nextPostsIds.count
                                 completion(newPosts.sorted(by: { $0.key > $1.key }))
                             }
                         }
@@ -96,7 +96,7 @@ struct Spot {
     
     static func getSpotPostsIds(for spotId: String,
                                 completion: @escaping (_ postsIds: [String]) -> Void) {
-        if alreadyLoadedCount == 0 { // if we havent already loaded PostsIds
+        if alreadyLoadedCountOfPosts == 0 { // if we havent already loaded PostsIds
             let refToSpotPosts = self.refToSpotNode.child(spotId).child("posts")
             
             refToSpotPosts.observeSingleEvent(of: .value, with: { snapshot in
@@ -112,7 +112,7 @@ struct Spot {
     
     private static func getNextIdsForAdd(_ count: Int) -> [String]? {
         let keysCount = self.spotPostsIds.count
-        let startIndex = self.alreadyLoadedCount
+        let startIndex = self.alreadyLoadedCountOfPosts
         var endIndex = startIndex + count
         
         if startIndex > keysCount { // segmentation fault :)

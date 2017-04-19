@@ -55,6 +55,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        Spot.alreadyLoadedCountOfPosts = 0
+    }
+    
     private func loadPosts() {
         if self.cameFromSpotOrMyStrip {
             self.loadSpotPosts()

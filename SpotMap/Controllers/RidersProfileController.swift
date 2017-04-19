@@ -89,7 +89,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     func initializeUserPostsPhotos() {
-        User.getPostsIds(for: self.ridersInfo,
+        User.getPostsIds(for: self.ridersInfo.uid,
                          completion: { postsIds in
                             if postsIds != nil {
                                 self.postsIds = postsIds!

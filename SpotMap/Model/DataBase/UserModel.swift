@@ -85,18 +85,18 @@ struct User {
     }
     
     // MARK: - Posts part
-    static func getPostsIds(for userItem: UserItem,
+    static func getPostsIds(for userId: String,
                             completion: @escaping (_ postIds: [String]?) -> Void) {
-        let refToUserPosts = self.refToUsersNode.child(userItem.uid).child("posts")
+        let refToUserPosts = self.refToUsersNode.child(userId).child("posts")
         
         refToUserPosts.observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? [String: Any] {
                 let postsIds = Array(value.keys).sorted(by: { $0 > $1 })
                 completion(postsIds)
+            } else {
+                completion(nil) // if no posts
             }
         })
-        
-        completion(nil) // if no posts
     }
     
     static func addPost(_ postItem: PostItem) {
@@ -164,7 +164,7 @@ struct User {
                     self.getItemById(for: followerId,
                                      completion: { follower in
                                         countOfLoaded += 1
-                                followersList.append(follower)
+                                        followersList.append(follower)
                                         if countOfLoaded == followersIds.count {
                                             completion(followersList)
                                         }
@@ -175,7 +175,7 @@ struct User {
     }
     
     static func getFollowingsList(for userId: String,
-                                 completion: @escaping (_ followingsList: [UserItem]) -> Void) {
+                                  completion: @escaping (_ followingsList: [UserItem]) -> Void) {
         let refToUserFollowings = self.refToUsersNode.child(userId).child("following")
         
         var followingsList = [UserItem]()
@@ -197,7 +197,30 @@ struct User {
             }
         })
     }
-
+    
+    static func getFollowingsIdsForCurrentUser(
+        completion: @escaping (_ followingsIds: [String]) -> Void) {
+        
+        if self.alreadyLoadedCountOfPosts == 0 { // if we just started
+            let currentUserId = getCurrentUserId()
+            let refToUserFollowings = self.refToUsersNode.child(currentUserId).child("following")
+            
+            refToUserFollowings.observeSingleEvent(of: .value, with: { snapshot in
+                var followingsIds = [String]()
+                
+                if let value = snapshot.value as? NSDictionary {
+                    followingsIds.append(contentsOf: (value.allKeys as! [String]))
+                }
+                
+                followingsIds.append(currentUserId) // add current user to strip too
+                
+                completion(followingsIds)
+            })
+        } else {
+            completion(self.followingsIds)
+        }
+    }
+    
     
     static func isCurrentUserFollowing(this userId: String, completion: @escaping(_ isFollowing: Bool) -> Void) {
         let currentUserId = self.getCurrentUserId()
@@ -262,5 +285,87 @@ struct User {
                 refToRider.setValue(value)
             }
         })
+    }
+    
+    // MARK: - Get user strip posts part
+    static var followingsIds = [String]() // array of user followings + user ids (!NEXT NAMED FOLLOWINGSIDS!)
+    // We will update it only in refresh function of PostStripController
+    static var postsIds = [String]() // We will update it only in refresh function of PostStripController
+    
+    static var alreadyLoadedCountOfPosts: Int = 0
+    
+    static func getStripPostsIds(
+        completion: @escaping (_ postsIds: [String]) -> Void) {
+        var followingsPostsIds = [String]()
+        
+        self.getFollowingsIdsForCurrentUser(
+            completion: { followingsIds in
+                var countOfProcessedFollowings = 0
+                
+                if self.alreadyLoadedCountOfPosts == 0 { // if we haven't loaded already
+                    for followingId in followingsIds {
+                        self.getPostsIds(for: followingId,
+                                         completion: { postsIds in
+                                            countOfProcessedFollowings += 1
+                                            
+                                            if postsIds != nil {
+                                                followingsPostsIds.append(contentsOf: postsIds!)
+                                            }
+                                            
+                                            if countOfProcessedFollowings == followingsIds.count {
+                                                completion(followingsPostsIds.sorted(by: { $0 > $1 })) // with order by date
+                                            }
+                        })
+                    }
+                } else {
+                    completion(self.postsIds)
+                }
+        })
+    }
+    
+    static func getStripPosts(countOfNewItemsToAdd: Int,
+                              completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
+        self.getStripPostsIds(completion: { postsIds in
+            self.postsIds = postsIds
+            
+            if let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd) {
+                var newPosts = [PostItem]()
+                var countOfNewPostsLoaded = 0
+                
+                for postId in nextPostsIds {
+                    Post.getItemById(for: postId, completion: { post in
+                        if post != nil { // founded without errors
+                            newPosts.append(post!)
+                            countOfNewPostsLoaded += 1
+                            
+                            if countOfNewPostsLoaded == nextPostsIds.count {
+                                self.alreadyLoadedCountOfPosts += nextPostsIds.count
+                                completion(newPosts.sorted(by: { $0.key > $1.key }))
+                            }
+                        }
+                    })
+                }
+            } else {
+                completion(nil) // if no more posts
+            }
+        })
+    }
+    
+    private static func getNextIdsForAdd(_ count: Int) -> [String]? {
+        let keysCount = self.postsIds.count
+        let startIndex = self.alreadyLoadedCountOfPosts
+        var endIndex = startIndex + count
+        
+        if startIndex > keysCount { // segmentation fault :)
+            return nil
+        }
+        
+        if endIndex > keysCount {
+            endIndex = keysCount
+        }
+        
+        let nextIds = Array(postsIds[startIndex..<endIndex])
+        
+        return nextIds
     }
 }

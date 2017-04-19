@@ -108,7 +108,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func initializePostsPhotos() {
-        User.getPostsIds(for: self.userInfo,
+        User.getPostsIds(for: self.userInfo.uid,
                          completion: { postsIds in
                             if postsIds != nil {
                                 self.postsIds = postsIds!

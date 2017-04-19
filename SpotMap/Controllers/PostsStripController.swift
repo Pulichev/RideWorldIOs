@@ -15,8 +15,22 @@ import Kingfisher
 import ActiveLabel
 
 class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIScrollViewDelegate {
-    @IBOutlet weak var tableView: UITableView!
-    var refreshControl: UIRefreshControl!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            self.tableView.delegate = self
+            self.tableView.dataSource = self
+            self.tableView.emptyDataSetSource = self
+            self.tableView.emptyDataSetDelegate = self
+        }
+    }
+    var refreshControl: UIRefreshControl! {
+        didSet {
+            self.refreshControl.attributedTitle = NSAttributedString(string: "Идет обновление...")
+            self.refreshControl.addTarget(self, action: #selector(PostsStripController.refresh), for: UIControlEvents.valueChanged)
+            tableView.addSubview(refreshControl)
+            self.tableView.tableFooterView?.isHidden = true // hide on start
+        }
+    }
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
@@ -31,16 +45,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
-        
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Идет обновление...")
-        self.refreshControl.addTarget(self, action: #selector(PostsStripController.refresh), for: UIControlEvents.valueChanged)
-        tableView.addSubview(refreshControl)
-        self.tableView.tableFooterView?.isHidden = true // hide on start
         
         self.setLoadingScreen()
         
@@ -58,145 +63,106 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    //part for hide and view navbar from this navigation controller
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if !cameFromSpotOrMyStrip {
-            // Hide the navigation bar on the this view controller
-            self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        if !cameFromSpotOrMyStrip {
-            // Show the navigation bar on other view controllers
-            self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        }
-    }
-    
     // MARK: load posts region
-    private var countOfPostsForGetting = 5 // start count is initialized here
-    private var dCountOfPostsForGetting = 5
-    private var countOfAlreadyLoadedPosts = 0
+    private let postsLoadStep = 5
     
     private func loadSpotPosts() {
-        //getting a list of keys of spot posts from spotdetails
-        var posts = [PostItem]()
-        var postsCache = [PostItemCellCache]()
-        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails/" + self.spotDetailsItem.key + "/posts")
-        
-        ref.observeSingleEvent(of: .value, with: { snapshot in
-            if let value = snapshot.value as? NSDictionary {
-                if let keys = value.allKeys as? [String] {
-                    let slicedAndOrderedByDateKeys = self.getSortedCurrentPartOfArray(keys: keys, startFromFirst: false)
-                    var count = 0 // count of loaded posts in this download operation
-                    for key in slicedAndOrderedByDateKeys { // for ordering by date desc
-                        let ref = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + key)
-                        
-                        ref.observeSingleEvent(of: .value, with: { snapshot in
-                            count += 1
-                            if let _ = snapshot.value as? [String: AnyObject] { // is snapshot null or not
-                                let spotPostItem = PostItem(snapshot: snapshot)
-                                let spotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
+        Spot.getPosts(for: self.spotDetailsItem.key, countOfNewItemsToAdd: self.postsLoadStep,
+                      completion: { newItems in
+                        if newItems != nil {
+                            var newItemsCache = [PostItemCellCache]()
+                            
+                            for newItem in newItems! {
+                                let newItemCache = PostItemCellCache(spotPost: newItem, stripController: self)
                                 
-                                posts.append(spotPostItem)
-                                postsCache.append(spotPostCellCache)
-                                self.countOfAlreadyLoadedPosts += 1
-                                
-                                if (self.countOfAlreadyLoadedPosts == self.countOfPostsForGetting) || (count == slicedAndOrderedByDateKeys.count) { // проверить если постов меньше, чем 3, например
-                                    self.appendNewItems(posts: posts, postsCache: postsCache)
-                                    count = 0
-                                }
+                                newItemsCache.append(newItemCache)
                             }
-                        }) { (error) in
-                            print(error.localizedDescription)
+                            
+                            self._posts.append(contentsOf: newItems!)
+                            self._postItemCellsCache.append(contentsOf: newItemsCache)
+                            
+                            self.removeLoadingScreen()
                         }
-                    }
-                }
-            }
         })
     }
     
     // TIP: - I will not review this func more. It will be badder for reading
     private func loadMyStripPosts() {
-        // get list of my followings
-        var posts = [PostItem]()                // new items that we will append to _posts
-        var postsCache = [PostItemCellCache]()  // and _postItemCellsCache
-        
-        let currentUserId = FIRAuth.auth()?.currentUser?.uid
-        let refToFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!).child("following")
-        
-        // MARK: - Get all subscriptions
-        refToFollowings.observeSingleEvent(of: .value, with: { snapshot in
-            let value = snapshot.value as? NSDictionary
-            if var userIds = value?.allKeys as? [String] {
-                userIds.append(currentUserId!)   // adding current user for stip
-                var countOfUsers = 0             // count of users posts already counted
-                let countOfAllUsers = userIds.count
-                var countofPosts = 0             // count of all posts for subscriptions already counted
-                var countOfAllPosts = 0
-                
-                // MARK: - For each following user get list of posts
-                for userId in userIds {
-                    let refToUserPosts = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId).child("posts")
-                    
-                    refToUserPosts.observeSingleEvent(of: .value, with: { snapshotOfPosts in // taking all posts cz every user has a list of posts, not objects
-                        countOfUsers += 1
-                        let valueOfPosts = snapshotOfPosts.value as? NSDictionary
-                        if let postsIds = valueOfPosts?.allKeys as? [String] {
-                            let slicedAndSortedPostsIds = self.getSortedCurrentPartOfArray(keys: postsIds, startFromFirst: true)
-                            countOfAllPosts += slicedAndSortedPostsIds.count
-                            
-                            // MARK: - For each postId get full PostItem
-                            for postId in slicedAndSortedPostsIds {
-                                let refToPost = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId)
-                                refToPost.observeSingleEvent(of: .value, with: { snapshot in
-                                    countofPosts += 1
-                                    if let _ = snapshot.value as? [String: AnyObject] { // is snapshot null or not
-                                        let spotPostItem = PostItem(snapshot: snapshot)
-                                        let spotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
-                                        
-                                        posts.append(spotPostItem)
-                                        postsCache.append(spotPostCellCache)
-                                        
-                                        // check if we have ended all items -> sort, slice and append
-                                        self.haveWeEnded(countOfUsers: countOfUsers, countOfAllUsers: countOfAllUsers,
-                                                         countOfPosts: countofPosts, countOfAllPosts: countOfAllPosts,
-                                                         posts: posts, postsCache: postsCache)
-                                    }
-                                }) { (error) in
-                                    print(error.localizedDescription)
-                                }
-                            }
-                        }
-                    })
-                }
-            }
-        })
+//        // get list of my followings
+//        var posts = [PostItem]()                // new items that we will append to _posts
+//        var postsCache = [PostItemCellCache]()  // and _postItemCellsCache
+//        
+//        let currentUserId = FIRAuth.auth()?.currentUser?.uid
+//        let refToFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(currentUserId!).child("following")
+//        
+//        // MARK: - Get all subscriptions
+//        refToFollowings.observeSingleEvent(of: .value, with: { snapshot in
+//            let value = snapshot.value as? NSDictionary
+//            if var userIds = value?.allKeys as? [String] {
+//                userIds.append(currentUserId!)   // adding current user for stip
+//                var countOfUsers = 0             // count of users posts already counted
+//                let countOfAllUsers = userIds.count
+//                var countofPosts = 0             // count of all posts for subscriptions already counted
+//                var countOfAllPosts = 0
+//                
+//                // MARK: - For each following user get list of posts
+//                for userId in userIds {
+//                    let refToUserPosts = FIRDatabase.database().reference(withPath: "MainDataBase/users").child(userId).child("posts")
+//                    
+//                    refToUserPosts.observeSingleEvent(of: .value, with: { snapshotOfPosts in // taking all posts cz every user has a list of posts, not objects
+//                        countOfUsers += 1
+//                        let valueOfPosts = snapshotOfPosts.value as? NSDictionary
+//                        if let postsIds = valueOfPosts?.allKeys as? [String] {
+//                            let slicedAndSortedPostsIds = self.getSortedCurrentPartOfArray(keys: postsIds, startFromFirst: true)
+//                            countOfAllPosts += slicedAndSortedPostsIds.count
+//                            
+//                            // MARK: - For each postId get full PostItem
+//                            for postId in slicedAndSortedPostsIds {
+//                                let refToPost = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId)
+//                                refToPost.observeSingleEvent(of: .value, with: { snapshot in
+//                                    countofPosts += 1
+//                                    if let _ = snapshot.value as? [String: AnyObject] { // is snapshot null or not
+//                                        let spotPostItem = PostItem(snapshot: snapshot)
+//                                        let spotPostCellCache = PostItemCellCache(spotPost: spotPostItem, stripController: self) // stripController - we will update our tableview from another thread
+//                                        
+//                                        posts.append(spotPostItem)
+//                                        postsCache.append(spotPostCellCache)
+//                                        
+//                                        // check if we have ended all items -> sort, slice and append
+//                                        self.haveWeEnded(countOfUsers: countOfUsers, countOfAllUsers: countOfAllUsers,
+//                                                         countOfPosts: countofPosts, countOfAllPosts: countOfAllPosts,
+//                                                         posts: posts, postsCache: postsCache)
+//                                    }
+//                                }) { (error) in
+//                                    print(error.localizedDescription)
+//                                }
+//                            }
+//                        }
+//                    })
+//                }
+//            }
+//        })
     }
     
-    private func getSortedCurrentPartOfArray(keys: [String], startFromFirst: Bool) -> ArraySlice<String> {
-        let keysCount = keys.count
-        var startIndex = startFromFirst ? 0 : self.countOfAlreadyLoadedPosts
-        var endIndex = self.countOfPostsForGetting
-        
-        if endIndex > keysCount {
-            endIndex = keysCount
-        }
-        
-        if startIndex > keysCount {
-            startIndex = keysCount
-        }
-        
-        let cuttedSortered = (Array(keys).sorted(by: { $0 > $1 }))[startIndex..<endIndex]
-        // 4 example if we have already loaded 10 posts,
-        // we dont need to download them again
-        
-        return cuttedSortered
-    }
+//    private func getSortedCurrentPartOfArray(keys: [String], startFromFirst: Bool) -> ArraySlice<String> {
+//        let keysCount = keys.count
+//        var startIndex = startFromFirst ? 0 : self.countOfAlreadyLoadedPosts
+//        var endIndex = self.countOfPostsForGetting
+//        
+//        if endIndex > keysCount {
+//            endIndex = keysCount
+//        }
+//        
+//        if startIndex > keysCount {
+//            startIndex = keysCount
+//        }
+//        
+//        let cuttedSortered = (Array(keys).sorted(by: { $0 > $1 }))[startIndex..<endIndex]
+//        // 4 example if we have already loaded 10 posts,
+//        // we dont need to download them again
+//        
+//        return cuttedSortered
+//    }
     
     private func appendNewItems(posts: [PostItem], postsCache: [PostItemCellCache]) {
         self._posts.append(contentsOf: posts)
@@ -211,27 +177,27 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     private func haveWeEnded(countOfUsers: Int, countOfAllUsers: Int,
                              countOfPosts: Int, countOfAllPosts: Int,
                              posts: [PostItem], postsCache: [PostItemCellCache]) {
-        if countOfUsers == countOfAllUsers {     // if we have looked
-            if countOfPosts == countOfAllPosts { // for everything we wanted
-                let postsSorted               = posts.sorted(by: { $0.key > $1.key })
-                let postsCacheSorted          = postsCache.sorted(by: { $0.key > $1.key })
-                
-                let endIndex: Int!
-                if self.countOfPostsForGetting > countOfAllPosts { // for situatuons, when d > all count of posts.
-                    // Like when u r following only one user. And this user has only 1 post
-                    endIndex = countOfAllPosts
-                } else {
-                    endIndex = self.countOfPostsForGetting
-                }
-                let postsSortedAndSliced      = Array(postsSorted[self.countOfAlreadyLoadedPosts..<endIndex])
-                let postsCacheSortedAndSliced = Array(postsCacheSorted[self.countOfAlreadyLoadedPosts..<endIndex])
-                
-                self.appendNewItems(posts: postsSortedAndSliced, postsCache: postsCacheSortedAndSliced)
-                self.countOfAlreadyLoadedPosts += postsSortedAndSliced.count
-                
-                self.removeLoadingScreen()
-            }
-        }
+//        if countOfUsers == countOfAllUsers {     // if we have looked
+//            if countOfPosts == countOfAllPosts { // for everything we wanted
+//                let postsSorted               = posts.sorted(by: { $0.key > $1.key })
+//                let postsCacheSorted          = postsCache.sorted(by: { $0.key > $1.key })
+//                
+//                let endIndex: Int!
+//                if self.countOfPostsForGetting > countOfAllPosts { // for situatuons, when d > all count of posts.
+//                    // Like when u r following only one user. And this user has only 1 post
+//                    endIndex = countOfAllPosts
+//                } else {
+//                    endIndex = self.countOfPostsForGetting
+//                }
+//                let postsSortedAndSliced      = Array(postsSorted[self.countOfAlreadyLoadedPosts..<endIndex])
+//                let postsCacheSortedAndSliced = Array(postsCacheSorted[self.countOfAlreadyLoadedPosts..<endIndex])
+//                
+//                self.appendNewItems(posts: postsSortedAndSliced, postsCache: postsCacheSortedAndSliced)
+//                self.countOfAlreadyLoadedPosts += postsSortedAndSliced.count
+//                
+//                self.removeLoadingScreen()
+//            }
+//        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -262,9 +228,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    func loadMoreBegin(loadMoreEnd:@escaping (Int) -> ()) {
+    func loadMoreBegin(loadMoreEnd: @escaping (Int) -> ()) {
         DispatchQueue.global(qos: .userInitiated).async {
-            self.countOfPostsForGetting += self.dCountOfPostsForGetting
+            //self.countOfPostsForGetting += self.dCountOfPostsForGetting
             self.loadPosts()
             sleep(2)
             
@@ -278,8 +244,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
     func refresh(sender: Any) {
         self._posts.removeAll()
         self._postItemCellsCache.removeAll()
-        self.countOfAlreadyLoadedPosts = 0
-        self.countOfPostsForGetting = self.dCountOfPostsForGetting // first pack
+        //self.countOfAlreadyLoadedPosts = 0
+        //self.countOfPostsForGetting = self.dCountOfPostsForGetting // first pack
         // updating posts
         self.loadPosts()
         
@@ -691,5 +657,27 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         self.spinner.stopAnimating()
         self.loadingLabel.isHidden = true
         self.haveWeFinishedLoading = true
+    }
+}
+
+// MARK: - show/hide navigation bar
+extension PostsStripController {
+    //part for hide and view navbar from this navigation controller
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !cameFromSpotOrMyStrip {
+            // Hide the navigation bar on the this view controller
+            self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if !cameFromSpotOrMyStrip {
+            // Show the navigation bar on other view controllers
+            self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        }
     }
 }

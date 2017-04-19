@@ -22,8 +22,8 @@ struct Spot {
         })
     }
     
-    static func create(with name: String,
-                       description: String, latitude: Double, longitude: Double) -> String {
+    static func create(with name: String, description: String,
+                       latitude: Double, longitude: Double) -> String {
         let newSpotRef = self.refToSpotNode.childByAutoId()
         let newSpotRefKey = newSpotRef.key
         
@@ -58,5 +58,73 @@ struct Spot {
             
             completion(spotsList)
         })
+    }
+    
+    // MARK: - Get spot posts part
+    static var spotPostsIds = [String]() // full array of spot posts ids.
+    // We will update it only in refresh function of PostStripController
+    
+    static var alreadyLoadedCount: Int = 0
+    
+    static func getPosts(for spotId: String, countOfNewItemsToAdd: Int,
+                         completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
+        self.getSpotPostsIds(for: spotId, completion: { spotPostsIds in
+            self.spotPostsIds = spotPostsIds
+            
+            if let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd) {
+                var newPosts = [PostItem]()
+                var countOfNewPostsLoaded = 0
+                
+                for postId in nextPostsIds {
+                    Post.getItemById(for: postId, completion: { post in
+                        if post != nil { // founded without errors
+                            newPosts.append(post!)
+                            countOfNewPostsLoaded += 1
+                            
+                            if countOfNewPostsLoaded == nextPostsIds.count {
+                                self.alreadyLoadedCount += nextPostsIds.count
+                                completion(newPosts.sorted(by: { $0.key > $1.key }))
+                            }
+                        }
+                    })
+                }
+            } else {
+                completion(nil) // if no more posts
+            }
+        })
+    }
+    
+    static func getSpotPostsIds(for spotId: String,
+                                completion: @escaping (_ postsIds: [String]) -> Void) {
+        if alreadyLoadedCount == 0 { // if we havent already loaded PostsIds
+            let refToSpotPosts = self.refToSpotNode.child(spotId).child("posts")
+            
+            refToSpotPosts.observeSingleEvent(of: .value, with: { snapshot in
+                if let value = snapshot.value as? NSDictionary {
+                    let spotPostsIds = (value.allKeys as! [String]).sorted(by: { $0 > $1 }) // with order by date
+                    completion(spotPostsIds)
+                }
+            })
+        } else {
+            completion(self.spotPostsIds)
+        }
+    }
+    
+    private static func getNextIdsForAdd(_ count: Int) -> [String]? {
+        let keysCount = self.spotPostsIds.count
+        let startIndex = self.alreadyLoadedCount
+        var endIndex = startIndex + count
+        
+        if startIndex > keysCount { // segmentation fault :)
+            return nil
+        }
+        
+        if endIndex > keysCount {
+            endIndex = keysCount
+        }
+        
+        let nextIds = Array(spotPostsIds[startIndex..<endIndex])
+        
+        return nextIds
     }
 }

@@ -6,11 +6,6 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-import Foundation
-import FirebaseDatabase
-import FirebaseStorage
-import FirebaseAuth
-
 class FollowersController: UIViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     @IBOutlet var tableView: UITableView!
     
@@ -85,7 +80,7 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func goToProfile(row: Int) {
-        if self.followList[row].uid == (FIRAuth.auth()?.currentUser?.uid)! {
+        if self.followList[row].uid == User.getCurrentUserId() {
             self.performSegue(withIdentifier: "openUserProfileFromFollowList", sender: self)
         } else {
             self.ridersInfoForSending = self.followList[row]
@@ -108,8 +103,7 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    // MARK: DZNEmptyDataSet for empty data tables
-    
+    // MARK: - DZNEmptyDataSet for empty data tables
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
         let str = ":("
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]

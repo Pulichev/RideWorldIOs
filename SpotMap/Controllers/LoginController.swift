@@ -64,6 +64,10 @@ class LoginController: UIViewController, UITextFieldDelegate {
     
     var keyBoardAlreadyShowed = false //using this to not let app to scroll view
     //if we tapped UITextField and then another UITextField
+}
+
+// MARK: - Scroll view on keyboard show/hide
+extension LoginController {
     func keyboardWillShow(notification: NSNotification) {
         if !keyBoardAlreadyShowed {
             self.view.frame.origin.y -= 50

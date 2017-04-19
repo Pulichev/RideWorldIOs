@@ -6,9 +6,7 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-import Foundation
 import FirebaseAuth
-import FirebaseDatabase
 
 class RegistrationController: UIViewController {
     @IBOutlet weak var userEmail: UITextField!
@@ -51,6 +49,10 @@ class RegistrationController: UIViewController {
     
     var keyBoardAlreadyShowed = false //using this to not let app to scroll view
     //if we tapped UITextField and then another UITextField
+}
+
+// MARK: - Scroll view on keyboard show/hide
+extension RegistrationController {
     func keyboardWillShow(notification: NSNotification) {
         if !keyBoardAlreadyShowed {
             self.view.frame.origin.y -= 150

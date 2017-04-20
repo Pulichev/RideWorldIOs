@@ -7,5 +7,5 @@
 //
 
 protocol ForUpdatingUserProfilePosts {
-    func postsDeleted(postId: String)
+   func postsDeleted(postId: String)
 }

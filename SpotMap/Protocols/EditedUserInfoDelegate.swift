@@ -8,5 +8,5 @@
 
 // protocol for passing user info and photo
 protocol EditedUserInfoDelegate {
-    func dataChanged(userInfo: UserItem, profilePhoto: UIImage)
+   func dataChanged(userInfo: UserItem, profilePhoto: UIImage)
 }

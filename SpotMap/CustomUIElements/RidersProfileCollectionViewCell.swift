@@ -10,5 +10,5 @@ import Foundation
 import UIKit
 
 class RidersProfileCollectionViewCell: UICollectionViewCell {
-    @IBOutlet var postPicture: UIImageView!
+   @IBOutlet var postPicture: UIImageView!
 }

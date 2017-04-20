@@ -8,8 +8,6 @@
 
 import UIKit
 import AVFoundation
-import FirebaseDatabase
-import FirebaseAuth
 import Kingfisher
 import ActiveLabel
 
@@ -394,7 +392,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    // go to riders profile
    func nickNameTapped(sender: UIButton!) {
       // check if going to current user
-      if self.postItemCellsCache[sender.tag].userInfo.uid == FIRAuth.auth()?.currentUser?.uid {
+      if self.postItemCellsCache[sender.tag].userInfo.uid == User.getCurrentUserId() {
          self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
       } else {
          self.ridersInfoForSending = self.postItemCellsCache[sender.tag].userInfo

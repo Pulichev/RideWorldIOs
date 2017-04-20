@@ -6,7 +6,6 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import AVFoundation
 import Kingfisher
@@ -274,10 +273,6 @@ class PostInfoViewController: UIViewController {
       } else {
          self.deleteVideo()
       }
-      
-      // likes
-      // i wont delete likes on current stage of app writing.
-      // there will be not too big count of deleted posts i hope.
       
       // deleting data from collection
       if let del = delegateDeleting {

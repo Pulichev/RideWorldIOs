@@ -114,7 +114,6 @@
 		9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostItemCellCache.swift; path = Core/PostItemCellCache.swift; sourceTree = "<group>"; };
 		9F5609841E7C6BB50000DB21 /* PostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCell.swift; path = CustomUIElements/PostsCell.swift; sourceTree = "<group>"; };
 		9F5609861E7C8C990000DB21 /* PostsStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsStripController.swift; path = Controllers/PostsStripController.swift; sourceTree = "<group>"; };
-		9F5609891E7D43990000DB21 /* 1489850825_Home.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = 1489850825_Home.ico; sourceTree = "<group>"; };
 		9F6154911EA67D4800160CB3 /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedImageView.swift; path = CustomUIElements/RoundedImageView.swift; sourceTree = "<group>"; };
 		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
 		9F65321B1E3CD12700F58C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -238,7 +237,6 @@
 		9F5609881E7D437A0000DB21 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				9F5609891E7D43990000DB21 /* 1489850825_Home.ico */,
 			);
 			name = Icons;
 			sourceTree = "<group>";

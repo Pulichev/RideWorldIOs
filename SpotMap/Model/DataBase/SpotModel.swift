@@ -28,7 +28,8 @@ struct Spot {
       let newSpotRefKey = newSpotRef.key
       
       let newSpotDetailsItem = SpotDetailsItem(name: name, description: description,
-                                               latitude: latitude, longitude: longitude, addedByUser: User.getCurrentUserId(), key: newSpotRefKey)
+                                               latitude: latitude, longitude: longitude,
+                                               addedByUser: User.getCurrentUserId(), key: newSpotRefKey)
       newSpotRef.setValue(newSpotDetailsItem.toAnyObject())
       
       return newSpotRefKey

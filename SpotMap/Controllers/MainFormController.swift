@@ -71,7 +71,7 @@ class MainFormController: UIViewController {
    
    @IBAction func logoutButtonTapped(_ sender: Any) {
       if User.signOut() { // if no errors
-         self.performSegue(withIdentifier: "userLogouted", sender: self)
+         self.performSegue(withIdentifier: "fromMainFormToLogin", sender: self)
       }
    }
    

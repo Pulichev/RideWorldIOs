@@ -32,23 +32,28 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       tableView.tableFooterView = UIView(frame: .zero) // deleting empty rows
    }
    
+   private func getCellFieldText(_ row: Int) -> String {
+      return (tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! EditProfileCell).field.text!
+   }
+   
    @IBAction func saveButtonTapped(_ sender: Any) {
-      let bioDescription = (tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as! EditProfileCell).field.text!
-      let login = (tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as! EditProfileCell).field.text!
-      let nameAndSename = (tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! EditProfileCell).field.text!
-      
+      let bioDescription = getCellFieldText(1)
+      let login          = getCellFieldText(2)
+      let nameAndSename  = getCellFieldText(0)
       // updating values
       User.updateUserInfo(for: self.userInfo.uid, bioDescription, login, nameAndSename)
       
       self.uploadPhoto()
       
-      self.returnToParentControllerOnSaveButtonTapped(bioDescription: bioDescription, login: login, nameAndSename: nameAndSename)
+      self.returnToParentControllerOnSaveButtonTapped(bioDescription: bioDescription,
+                                                      login: login, nameAndSename: nameAndSename)
    }
    
    func uploadPhoto() {
-      UserMedia.upload(for: self.userInfo.uid, with: self.userPhoto.image!, withSize: 150.0)
-      
-      UserMedia.upload(for: self.userInfo.uid, with: self.userPhoto.image!, withSize: 90.0)
+      UserMedia.upload(for: userInfo.uid,
+                       with: userPhoto.image!, withSize: 150.0)
+      UserMedia.upload(for: userInfo.uid,
+                       with: userPhoto.image!, withSize: 90.0)
    }
    
    func returnToParentControllerOnSaveButtonTapped(bioDescription: String, login: String, nameAndSename: String) {
@@ -65,11 +70,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       _ = navigationController?.popViewController(animated: true)
    }
    
-   //Main table filling region
-   func numberOfSections(in tableView: UITableView) -> Int {
-      return 1
-   }
-   
+   //MARK: - User settings table
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return 4
    }
@@ -205,6 +206,7 @@ extension EditProfileController: FusumaDelegate {
    }
 }
 
+// MARK: - Scroll for keyboard show/hide
 extension EditProfileController {
    func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {

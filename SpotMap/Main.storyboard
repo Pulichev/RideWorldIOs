@@ -112,7 +112,7 @@
                         <outlet property="userLogin" destination="TcQ-Ca-XWa" id="kUb-mi-g4i"/>
                         <outlet property="userPassword" destination="8Mi-bf-7Oa" id="YP1-jg-Yso"/>
                         <segue destination="Drr-A9-WxR" kind="show" identifier="registration" id="9W2-vP-Tfk"/>
-                        <segue destination="MgV-Y7-eTa" kind="presentation" identifier="loggedIn" id="Gef-69-N8A"/>
+                        <segue destination="MgV-Y7-eTa" kind="presentation" identifier="fromLoggedInToTabBar" id="Gef-69-N8A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fMQ-II-hlj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -189,7 +189,7 @@
                         <outlet property="userEmail" destination="gbV-ec-zR7" id="xd7-B6-Lvg"/>
                         <outlet property="userLogin" destination="885-uW-Tnk" id="UgX-vH-fRG"/>
                         <outlet property="userPassword" destination="6z7-RQ-RwM" id="6Pq-bK-tpt"/>
-                        <segue destination="MgV-Y7-eTa" kind="presentation" identifier="registrationCompleted" id="ZpR-8C-QJR"/>
+                        <segue destination="MgV-Y7-eTa" kind="presentation" identifier="fromRegistrationToTabBar" id="ZpR-8C-QJR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zo7-yC-Gog" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1596,12 +1596,12 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Oe2-wo-WXX"/>
-        <segue reference="RlL-e4-xY6"/>
-        <segue reference="WTf-CW-Cn6"/>
-        <segue reference="qSk-1a-lLs"/>
-        <segue reference="COh-cw-Ntn"/>
         <segue reference="Gef-69-N8A"/>
         <segue reference="PDm-Oj-MlC"/>
+        <segue reference="COh-cw-Ntn"/>
+        <segue reference="qSk-1a-lLs"/>
+        <segue reference="WTf-CW-Cn6"/>
+        <segue reference="RlL-e4-xY6"/>
+        <segue reference="Oe2-wo-WXX"/>
     </inferredMetricsTieBreakers>
 </document>

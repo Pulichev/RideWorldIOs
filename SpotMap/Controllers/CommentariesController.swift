@@ -13,13 +13,27 @@ class CommentariesController: UIViewController, UITableViewDataSource,
 UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    var postId: String!
    
-   @IBOutlet weak var tableView: UITableView!
-   @IBOutlet weak var newCommentTextField: UITextField!
+   @IBOutlet weak var tableView: UITableView! {
+      didSet {
+         tableView.delegate = self
+         tableView.dataSource = self
+         tableView.emptyDataSetSource = self
+         tableView.emptyDataSetDelegate = self
+         tableView.rowHeight = UITableViewAutomaticDimension
+         tableView.estimatedRowHeight = 150
+         tableView.tableFooterView = UIView() // deleting empty rows
+      }
+   }
+   @IBOutlet weak var newCommentTextField: UITextField! {
+      didSet {
+         newCommentTextField.delegate = self
+      }
+   }
    
    var comments = [CommentItem]()
-   var postDescription: String? // For adding desc as comment
-   var userId: String? // For adding desc as comment
-   var postDate: String! // For adding desc as comment
+   var postDescription: String? //
+   var userId: String?          // For adding desc as comment
+   var postDate: String!        //
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -31,16 +45,6 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
                                              name: NSNotification.Name.UIKeyboardWillShow, object: nil)
       NotificationCenter.default.addObserver(self, selector: #selector(CommentariesController.keyboardWillHide),
                                              name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-      
-      self.newCommentTextField.delegate = self
-      
-      self.tableView.delegate = self
-      self.tableView.dataSource = self
-      self.tableView.emptyDataSetSource = self
-      self.tableView.emptyDataSetDelegate = self
-      self.tableView.rowHeight = UITableViewAutomaticDimension
-      self.tableView.estimatedRowHeight = 150
-      self.tableView.tableFooterView = UIView() // deleting empty rows
    }
    
    override func didReceiveMemoryWarning() {
@@ -51,7 +55,7 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
       self.addPostDescAsComment()
       
       CommentsModel.loadComments(
-         for: self.postId,
+         for: postId,
          completion: { loadedComments in
             self.comments.append(contentsOf: loadedComments)
             
@@ -60,7 +64,7 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    }
    
    func addPostDescAsComment() {
-      let descAsComment = CommentItem(commentId: "", userId: self.userId!, postId: self.postId, commentary: self.postDescription!, datetime: self.postDate)
+      let descAsComment = CommentItem("", userId!, postId, postDescription!, postDate)
       self.comments.append(descAsComment)
    }
    

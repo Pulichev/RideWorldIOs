@@ -17,7 +17,7 @@ class CommentItem: NSObject {
    
    let ref: FIRDatabaseReference?
    
-   init(commentId: String, userId: String, postId: String, commentary: String, datetime: String) {
+   init(_ commentId: String, _ userId: String, _ postId: String, _ commentary: String, _ datetime: String) {
       self.commentId = commentId
       self.userId = userId
       self.postId = postId

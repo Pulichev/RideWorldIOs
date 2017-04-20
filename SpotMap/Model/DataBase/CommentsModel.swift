@@ -35,7 +35,7 @@ struct CommentsModel {
       
       let currentUserId = User.getCurrentUserId()
       let currentDateTime = String(describing: Date())
-      let newComment = CommentItem(commentId: refForNewComment.key, userId: currentUserId, postId: postId, commentary: text!, datetime: currentDateTime)
+      let newComment = CommentItem(refForNewComment.key, currentUserId, postId, text!, currentDateTime)
       
       refForNewComment.setValue(newComment.toAnyObject())
       

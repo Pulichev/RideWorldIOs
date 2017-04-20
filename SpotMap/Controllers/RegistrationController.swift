@@ -39,7 +39,7 @@ class RegistrationController: UIViewController {
                                                                // create new user in database, not in FIRAuth
                                                                User.create(with: self.userLogin.text!)
                                                                
-                                                               self.performSegue(withIdentifier: "registrationCompleted", sender: self)
+                                                               self.performSegue(withIdentifier: "fromRegistrationToTabBar", sender: self)
                                        })
                                     } else {
                                        print("\(String(describing: error?.localizedDescription))")

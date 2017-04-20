@@ -277,6 +277,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
 }
 
+// MARK: - Go/came to/from EditProfileController
 extension UserProfileController: EditedUserInfoDelegate {
    func dataChanged(userInfo: UserItem, profilePhoto: UIImage) {
       self.userNameAndSename.text = userInfo.nameAndSename
@@ -297,6 +298,7 @@ extension UserProfileController: ForUpdatingUserProfilePosts {
    }
 }
 
+// MARK: - DZNEmptyDataSet delegates
 extension UserProfileController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {

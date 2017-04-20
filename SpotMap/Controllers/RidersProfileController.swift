@@ -262,8 +262,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    }
 }
 
+// MARK: - DZNEmptyDataSet for empty data tables
 extension RidersProfileController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
-   // MARK: - DZNEmptyDataSet for empty data tables
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
          let str = "Welcome"

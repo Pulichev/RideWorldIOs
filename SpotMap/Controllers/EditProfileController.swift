@@ -37,9 +37,9 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    }
    
    @IBAction func saveButtonTapped(_ sender: Any) {
+      let nameAndSename  = getCellFieldText(0)
       let bioDescription = getCellFieldText(1)
       let login          = getCellFieldText(2)
-      let nameAndSename  = getCellFieldText(0)
       // updating values
       User.updateUserInfo(for: self.userInfo.uid, bioDescription, login, nameAndSename)
       
@@ -131,7 +131,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    //if we tapped UITextField and then another UITextField
 }
 
-//Fusuma
+//MARK: - Fusuma
 extension EditProfileController: FusumaDelegate {
    @IBAction func changeProfilePhotoButtonTapped(_ sender: Any) {
       let fusuma = FusumaViewController()

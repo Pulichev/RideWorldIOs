@@ -10,7 +10,7 @@ import UIKit
 import ActiveLabel
 
 class CommentariesController: UIViewController, UITableViewDataSource,
-UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+UITableViewDelegate {
    var postId: String!
    
    @IBOutlet weak var tableView: UITableView! {
@@ -105,19 +105,6 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
       return cell
    }
    
-   // MARK: - DZNEmptyDataSet for empty data tables
-   func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = ":("
-      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
-      return NSAttributedString(string: str, attributes: attrs)
-   }
-   
-   func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = "Nothing to show"
-      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
-      return NSAttributedString(string: str, attributes: attrs)
-   }
-   
    // from comment author
    func goToProfile(_ sender: UIGestureRecognizer) {
       let userId = self.comments[(sender.view?.tag)!].userId
@@ -178,6 +165,23 @@ UITableViewDelegate, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    }
 }
 
+// MARK: - DZNEmptyDataSet for empty data tables
+extension CommentariesController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+   func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+      let str = ":("
+      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+      return NSAttributedString(string: str, attributes: attrs)
+   }
+   
+   func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+      let str = "Nothing to show"
+      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+      return NSAttributedString(string: str, attributes: attrs)
+   }
+
+}
+
+// MARK: - Scroll view on keyboard show/hide
 extension CommentariesController: UITextFieldDelegate {
    func keyboardWillShow(notification: NSNotification) {
       if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {

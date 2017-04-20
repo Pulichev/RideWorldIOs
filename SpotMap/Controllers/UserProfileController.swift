@@ -30,7 +30,12 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
    
-   @IBOutlet var userProfileCollection: UICollectionView!
+   @IBOutlet var userProfileCollection: UICollectionView! {
+      didSet {
+         self.userProfileCollection.emptyDataSetSource = self
+         self.userProfileCollection.emptyDataSetDelegate = self
+      }
+   }
    
    var posts = [String: PostItem]()
    var postsImages = [String: UIImageView]()
@@ -48,28 +53,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                        completion: { fetchedUserItem in
                         self.userInfo = fetchedUserItem
       })
-      
-      self.userProfileCollection.emptyDataSetSource = self
-      self.userProfileCollection.emptyDataSetDelegate = self
-   }
-   
-   // part for hide and view navbar from this navigation controller
-   override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      
-      if !cameFromSpotDetails {
-         // Hide the navigation bar on the this view controller
-         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-      }
-   }
-   
-   override func viewWillDisappear(_ animated: Bool) {
-      super.viewWillDisappear(animated)
-      
-      if !cameFromSpotDetails {
-         // Show the navigation bar on other view controllers
-         self.navigationController?.setNavigationBarHidden(false, animated: animated)
-      }
    }
    
    func initializeUserTextInfo() {
@@ -329,6 +312,27 @@ extension UserProfileController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate 
          return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
       } else {
          return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
+      }
+   }
+}
+
+// MARK: - Part for hide and view navbar
+extension UserProfileController {
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      
+      if !cameFromSpotDetails {
+         // Hide the navigation bar on the this view controller
+         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+      }
+   }
+   
+   override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      
+      if !cameFromSpotDetails {
+         // Show the navigation bar on other view controllers
+         self.navigationController?.setNavigationBarHidden(false, animated: animated)
       }
    }
 }

@@ -52,7 +52,9 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    @IBAction func saveSpotDetails(_ sender: Any) {
-      let createdSpotId = Spot.create(with: self.spotTitle.text!, description: self.spotDescription.text!, latitude: self.spotLatitude, longitude: self.spotLongitude)
+      let createdSpotId = Spot.create(with: self.spotTitle.text!,
+                                      description: self.spotDescription.text!,
+                                      latitude: self.spotLatitude, longitude: self.spotLongitude)
       
       SpotMedia.upload(self.imageView.image!, for: createdSpotId, with: 270.0)
       

@@ -12,7 +12,15 @@ import ActiveLabel
 class CommentCell: UITableViewCell {
    @IBOutlet weak var userPhoto: RoundedImageView!
    @IBOutlet weak var userNickName: UIButton!
-   @IBOutlet weak var commentText: ActiveLabel!
+   @IBOutlet weak var commentText: ActiveLabel! {
+      didSet {
+         self.commentText.numberOfLines = 0
+         self.commentText.enabledTypes = [.mention, .hashtag, .url]
+         self.commentText.textColor = .black
+         self.commentText.mentionColor = .brown
+         self.commentText.hashtagColor = .purple
+      }
+   }
    @IBOutlet weak var date: UILabel!
    
    var comment: CommentItem! {
@@ -24,7 +32,6 @@ class CommentCell: UITableViewCell {
          self.date.text = finalDate
          self.initialiseUserPhoto()
          self.initialiseUserButton()
-         self.initializeCommentText()
       }
    }
    
@@ -42,13 +49,5 @@ class CommentCell: UITableViewCell {
                        completion: { userItem in
                         self.userNickName.setTitle(userItem.login, for: .normal)
       })
-   }
-   
-   func initializeCommentText() {
-      self.commentText.numberOfLines = 0
-      self.commentText.enabledTypes = [.mention, .hashtag, .url]
-      self.commentText.textColor = .black
-      self.commentText.mentionColor = .brown
-      self.commentText.hashtagColor = .purple
    }
 }

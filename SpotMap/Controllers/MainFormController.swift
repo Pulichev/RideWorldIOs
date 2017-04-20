@@ -32,21 +32,6 @@ class MainFormController: UIViewController {
       }
    }
    
-   //part for hide and view navbar from this navigation controller
-   override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      
-      // Hide the navigation bar on the this view controller
-      self.navigationController?.setNavigationBarHidden(true, animated: animated)
-   }
-   
-   override func viewWillDisappear(_ animated: Bool) {
-      super.viewWillDisappear(animated)
-      
-      // Show the navigation bar on other view controllers
-      self.navigationController?.setNavigationBarHidden(false, animated: animated)
-   }
-   
    func mapViewInitialize() {
       mapView.delegate = self
       locationManager.delegate = self
@@ -260,3 +245,21 @@ extension MainFormController: CLLocationManagerDelegate {
       self.performSegue(withIdentifier: "addNewSpot", sender: self)
    }
 }
+
+// MARK: - Part for hide and view navbar
+extension MainFormController {
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      
+      // Hide the navigation bar on the this view controller
+      self.navigationController?.setNavigationBarHidden(true, animated: animated)
+   }
+   
+   override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      
+      // Show the navigation bar on other view controllers
+      self.navigationController?.setNavigationBarHidden(false, animated: animated)
+   }
+}
+

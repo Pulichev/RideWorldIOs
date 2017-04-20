@@ -64,7 +64,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
-   // MARK: load posts region
+   // MARK: - Load posts region
    private let postsLoadStep = 5
    
    private func loadSpotPosts() {
@@ -161,11 +161,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       self.refreshControl.endRefreshing()
    }
    
-   // Main table filling region
-   func numberOfSections(in tableView: UITableView) -> Int {
-      return 1
-   }
-   
+   // MARK: - Main table filling region
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return self.posts.count
    }

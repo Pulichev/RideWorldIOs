@@ -13,7 +13,13 @@ import Fusuma
 class NewPostController: UIViewController, UITextViewDelegate {
    var spotDetailsItem: SpotDetailsItem!
    
-   @IBOutlet weak var postDescription: UITextView!
+   @IBOutlet weak var postDescription: UITextView! {
+      didSet {
+         postDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
+         postDescription.layer.borderWidth = 1.0
+         postDescription.layer.cornerRadius = 5
+      }
+   }
    @IBOutlet weak var photoOrVideoView: UIView!
    
    var newVideoUrl: URL!
@@ -42,14 +48,6 @@ class NewPostController: UIViewController, UITextViewDelegate {
       photoView.image = UIImage(named: "plus-512.gif") //Setting default picture
       photoView.layer.frame = self.photoOrVideoView.bounds
       photoOrVideoView.layer.addSublayer(photoView.layer)
-      
-      placeBorderOnTextField()
-   }
-   
-   func placeBorderOnTextField() {
-      postDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
-      postDescription.layer.borderWidth = 1.0
-      postDescription.layer.cornerRadius = 5
    }
    
    func addGestureToOpenCameraOnPhotoTap() {
@@ -65,7 +63,6 @@ class NewPostController: UIViewController, UITextViewDelegate {
       return numberOfChars < 100
    }
    
-   // NEED CODE REVIEW HERE
    @IBAction func savePost(_ sender: Any) {
       let currentUser = User.getCurrentUser()
       let createdDate = String(describing: Date())
@@ -76,26 +73,34 @@ class NewPostController: UIViewController, UITextViewDelegate {
       Spot.addPost(newPost)
       
       if self.isNewMediaIsPhoto {
-         UIImageWriteToSavedPhotosAlbum(self.photoView.image!, nil, nil , nil) //saving image to camera roll
-         PostMedia.upload(self.photoView.image!, for: newPost, withSize: 700.0)
-         PostMedia.upload(self.photoView.image!, for: newPost, withSize: 270.0) // for profile collection
-         PostMedia.upload(self.photoView.image!, for: newPost, withSize: 10.0) // thumbnail
+         uploadPhoto(newPost)
       } else {
-         PostMedia.upload(with: self.newVideoUrl, for: newPost)
-         PostMedia.upload(generateVideoScreenShot(), for: newPost, withSize: 270.0)
-         PostMedia.upload(generateVideoScreenShot(), for: newPost, withSize: 10.0)
-         
-         let path = (self.newVideoUrl).path
-         
-         if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
-            UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
-         }
+         uploadVideo(newPost)
          
          player.pause()
          player = nil
       }
       
       _ = navigationController?.popViewController(animated: true)
+   }
+   
+   private func uploadPhoto(_ newPost: PostItem) {
+      UIImageWriteToSavedPhotosAlbum(self.photoView.image!, nil, nil , nil) //saving image to camera roll
+      PostMedia.upload(self.photoView.image!, for: newPost, withSize: 700.0)
+      PostMedia.upload(self.photoView.image!, for: newPost, withSize: 270.0) // for profile collection
+      PostMedia.upload(self.photoView.image!, for: newPost, withSize: 10.0) // thumbnail
+   }
+   
+   private func uploadVideo(_ newPost: PostItem) {
+      PostMedia.upload(with: self.newVideoUrl, for: newPost)
+      PostMedia.upload(generateVideoScreenShot(), for: newPost, withSize: 270.0)
+      PostMedia.upload(generateVideoScreenShot(), for: newPost, withSize: 10.0)
+      
+      let path = (self.newVideoUrl).path
+      
+      if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
+         UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
+      }
    }
    
    func generateVideoScreenShot() -> UIImage {

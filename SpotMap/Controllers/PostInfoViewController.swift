@@ -25,7 +25,19 @@ class PostInfoViewController: UIViewController {
    @IBOutlet var postDate: UILabel!
    @IBOutlet var postTime: UILabel!
    @IBOutlet var userNickName: UILabel!
-   @IBOutlet var postDescription: ActiveLabel!
+   @IBOutlet var postDescription: ActiveLabel! {
+      didSet {
+         self.postDescription.numberOfLines = 0
+         self.postDescription.enabledTypes = [.mention, .hashtag, .url]
+         self.postDescription.textColor = .black
+         self.postDescription.mentionColor = .brown
+         self.postDescription.hashtagColor = .purple
+         self.postDescription.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(tappedUserLogin: mention)
+         }
+         self.postDescription.handleHashtagTap { hashtag in }
+      }
+   }
    
    @IBOutlet var isLikedPhoto: UIImageView!
    @IBOutlet var likesCount: UILabel!
@@ -51,7 +63,6 @@ class PostInfoViewController: UIViewController {
       }
       
       self.addMediaToView()
-      self.initializeDesc()
    }
    
    func addDoubleTapGestureOnPostMedia() {
@@ -60,20 +71,6 @@ class PostInfoViewController: UIViewController {
       tap.numberOfTapsRequired = 2
       spotPostMedia.addGestureRecognizer(tap)
       spotPostMedia.isUserInteractionEnabled = true
-   }
-   
-   func initializeDesc() {
-      self.postDescription.numberOfLines = 0
-      self.postDescription.enabledTypes = [.mention, .hashtag, .url]
-      self.postDescription.textColor = .black
-      self.postDescription.mentionColor = .brown
-      self.postDescription.hashtagColor = .purple
-      self.postDescription.handleMentionTap { mention in // mention is @userLogin
-         self.goToUserProfile(tappedUserLogin: mention)
-      }
-      self.postDescription.handleHashtagTap { hashtag in
-         // TODO:
-      }
    }
    
    func initializeDate() {

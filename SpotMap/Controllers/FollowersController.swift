@@ -6,7 +6,7 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-class FollowersController: UIViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class FollowersController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    @IBOutlet var tableView: UITableView!
    
    var userId: String!
@@ -102,8 +102,10 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
          userProfileController.cameFromSpotDetails = true
       }
    }
-   
-   // MARK: - DZNEmptyDataSet for empty data tables
+}
+
+// MARK: - DZNEmptyDataSet for empty data tables
+extension FollowersController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       let str = ":("
       let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]

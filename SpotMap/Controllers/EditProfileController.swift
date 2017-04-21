@@ -27,7 +27,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide),
                                              name: NSNotification.Name.UIKeyboardWillHide, object: nil)
       
-      self.userPhoto.image = userPhotoTemp
+      userPhoto.image = userPhotoTemp
       
       tableView.tableFooterView = UIView(frame: .zero) // deleting empty rows
    }
@@ -41,11 +41,11 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       let bioDescription = getCellFieldText(1)
       let login          = getCellFieldText(2)
       // updating values
-      User.updateUserInfo(for: self.userInfo.uid, bioDescription, login, nameAndSename)
+      User.updateUserInfo(for: userInfo.uid, bioDescription, login, nameAndSename)
       
-      self.uploadPhoto()
+      uploadPhoto()
       
-      self.returnToParentControllerOnSaveButtonTapped(bioDescription: bioDescription,
+      returnToParentControllerOnSaveButtonTapped(bioDescription: bioDescription,
                                                       login: login, nameAndSename: nameAndSename)
    }
    
@@ -58,12 +58,12 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    func returnToParentControllerOnSaveButtonTapped(bioDescription: String, login: String, nameAndSename: String) {
       // change current user info and pass it and photo to user profile controller
-      self.userInfo.bioDescription = bioDescription
-      self.userInfo.login = login
-      self.userInfo.nameAndSename = nameAndSename
+      userInfo.bioDescription = bioDescription
+      userInfo.login = login
+      userInfo.nameAndSename = nameAndSename
       
       if let del = delegate {
-         del.dataChanged(userInfo: self.userInfo, profilePhoto: self.userPhoto.image!)
+         del.dataChanged(userInfo: userInfo, profilePhoto: userPhoto.image!)
       }
       
       // return to profile
@@ -137,7 +137,7 @@ extension EditProfileController: FusumaDelegate {
       let fusuma = FusumaViewController()
       fusuma.delegate = self
       fusuma.hasVideo = false // If you want to let the users allow to use video.
-      self.present(fusuma, animated: true, completion: nil)
+      present(fusuma, animated: true, completion: nil)
    }
    
    // MARK: FusumaDelegate Protocol
@@ -194,7 +194,7 @@ extension EditProfileController: FusumaDelegate {
          
       }))
       
-      self.present(alert, animated: true, completion: nil)
+      present(alert, animated: true, completion: nil)
    }
    
    func fusumaClosed() {
@@ -210,17 +210,17 @@ extension EditProfileController: FusumaDelegate {
 extension EditProfileController {
    func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
-         self.view.frame.origin.y -= 100
+         view.frame.origin.y -= 100
          keyBoardAlreadyShowed = true
       }
    }
    
    func keyboardWillHide(notification: NSNotification) {
-      self.view.frame.origin.y += 100
+      view.frame.origin.y += 100
       keyBoardAlreadyShowed = false
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      self.view.endEditing(true)
+      view.endEditing(true)
    }
 }

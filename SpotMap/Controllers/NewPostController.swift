@@ -33,7 +33,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
    override func viewDidLoad() {
       UICustomizing()
       
-      self.postDescription.delegate = self
+      postDescription.delegate = self
       
       //For scrolling the view if keyboard on
       NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.keyboardWillShow),
@@ -46,7 +46,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
       //adding method on spot main photo tap
       addGestureToOpenCameraOnPhotoTap()
       photoView.image = UIImage(named: "plus-512.gif") //Setting default picture
-      photoView.layer.frame = self.photoOrVideoView.bounds
+      photoView.layer.frame = photoOrVideoView.bounds
       photoOrVideoView.layer.addSublayer(photoView.layer)
    }
    
@@ -66,13 +66,13 @@ class NewPostController: UIViewController, UITextViewDelegate {
    @IBAction func savePost(_ sender: Any) {
       let currentUser = User.getCurrentUser()
       let createdDate = String(describing: Date())
-      let postItem = PostItem(self.isNewMediaIsPhoto, self.postDescription.text, createdDate, self.spotDetailsItem.key, currentUser.uid)
+      let postItem = PostItem(isNewMediaIsPhoto, postDescription.text, createdDate, spotDetailsItem.key, currentUser.uid)
       
       let newPost = Post.add(postItem)
       User.addPost(newPost)
       Spot.addPost(newPost)
       
-      if self.isNewMediaIsPhoto {
+      if isNewMediaIsPhoto {
          uploadPhoto(newPost)
       } else {
          uploadVideo(newPost)
@@ -85,18 +85,18 @@ class NewPostController: UIViewController, UITextViewDelegate {
    }
    
    private func uploadPhoto(_ newPost: PostItem) {
-      UIImageWriteToSavedPhotosAlbum(self.photoView.image!, nil, nil , nil) //saving image to camera roll
-      PostMedia.upload(self.photoView.image!, for: newPost, withSize: 700.0)
-      PostMedia.upload(self.photoView.image!, for: newPost, withSize: 270.0) // for profile collection
-      PostMedia.upload(self.photoView.image!, for: newPost, withSize: 10.0) // thumbnail
+      UIImageWriteToSavedPhotosAlbum(photoView.image!, nil, nil , nil) //saving image to camera roll
+      PostMedia.upload(photoView.image!, for: newPost, withSize: 700.0)
+      PostMedia.upload(photoView.image!, for: newPost, withSize: 270.0) // for profile collection
+      PostMedia.upload(photoView.image!, for: newPost, withSize: 10.0) // thumbnail
    }
    
    private func uploadVideo(_ newPost: PostItem) {
-      PostMedia.upload(with: self.newVideoUrl, for: newPost)
+      PostMedia.upload(with: newVideoUrl, for: newPost)
       PostMedia.upload(generateVideoScreenShot(), for: newPost, withSize: 270.0)
       PostMedia.upload(generateVideoScreenShot(), for: newPost, withSize: 10.0)
       
-      let path = (self.newVideoUrl).path
+      let path = (newVideoUrl).path
       
       if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
          UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
@@ -105,7 +105,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
    
    func generateVideoScreenShot() -> UIImage {
       do {
-         let asset = AVURLAsset(url: self.newVideoUrl, options: nil)
+         let asset = AVURLAsset(url: newVideoUrl, options: nil)
          
          let imgGenerator = AVAssetImageGenerator(asset: asset)
          imgGenerator.appliesPreferredTrackTransform = true
@@ -130,7 +130,7 @@ extension NewPostController: FusumaDelegate {
       let fusuma = FusumaViewController()
       fusuma.delegate = self
       fusuma.hasVideo = true // If you want to let the users allow to use video.
-      self.present(fusuma, animated: true, completion: nil)
+      present(fusuma, animated: true, completion: nil)
    }
    
    // MARK: FusumaDelegate Protocol
@@ -144,12 +144,12 @@ extension NewPostController: FusumaDelegate {
          print("Image selected")
       }
       
-      self.isNewMediaIsPhoto = true
+      isNewMediaIsPhoto = true
       
-      self.photoView.image = image
-      self.photoView.contentMode = .scaleAspectFill
+      photoView.image = image
+      photoView.contentMode = .scaleAspectFill
       
-      self.photoOrVideoView.layer.addSublayer(photoView.layer)
+      photoOrVideoView.layer.addSublayer(photoView.layer)
    }
    
    func fusumaImageSelected(_ image: UIImage) {
@@ -157,8 +157,8 @@ extension NewPostController: FusumaDelegate {
    }
    
    func fusumaVideoCompleted(withFileURL fileURL: URL) {
-      self.isNewMediaIsPhoto = false
-      self.photoView.image = nil
+      isNewMediaIsPhoto = false
+      photoView.image = nil
       
       player = AVQueuePlayer()
       
@@ -166,13 +166,13 @@ extension NewPostController: FusumaDelegate {
       let playerItem = AVPlayerItem(url: fileURL)
       playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
       playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-      playerLayer.frame = self.photoOrVideoView.bounds
+      playerLayer.frame = photoOrVideoView.bounds
       
-      self.photoOrVideoView.layer.addSublayer(playerLayer)
+      photoOrVideoView.layer.addSublayer(playerLayer)
       
       player.play()
       
-      self.newVideoUrl = fileURL
+      newVideoUrl = fileURL
       
       let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
       
@@ -201,7 +201,7 @@ extension NewPostController: FusumaDelegate {
          }
       }
       
-      self.newVideoUrl = compressedURL //update newVideoUrl to already compressed video
+      newVideoUrl = compressedURL //update newVideoUrl to already compressed video
       
       print("video completed and output to file: \(fileURL)")
    }
@@ -251,7 +251,7 @@ extension NewPostController: FusumaDelegate {
          
       }))
       
-      self.present(alert, animated: true, completion: nil)
+      present(alert, animated: true, completion: nil)
    }
    
    func fusumaClosed() {
@@ -267,14 +267,14 @@ extension NewPostController: FusumaDelegate {
 extension NewPostController {
    //if we tapped UITextField and then another UITextField
    func keyboardWillShow(notification: NSNotification) {
-      self.view.frame.origin.y -= 200
+      view.frame.origin.y -= 200
    }
    
    func keyboardWillHide(notification: NSNotification) {
-      self.view.frame.origin.y += 200
+      view.frame.origin.y += 200
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      self.view.endEditing(true)
+      view.endEditing(true)
    }
 }

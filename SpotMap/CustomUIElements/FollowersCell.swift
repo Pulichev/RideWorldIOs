@@ -18,14 +18,14 @@ class FollowersCell: UITableViewCell {
    
    var follower: UserItem! {
       didSet {
-         self.nickName.text = follower.login
-         self.initialiseUserPhoto()
-         self.initialiseFollowButton()
+         nickName.text = follower.login
+         initialiseUserPhoto()
+         initialiseFollowButton()
       }
    }
    
    func initialiseUserPhoto() {
-      self.userImage.image = UIImage(named: "grayRec.jpg")
+      userImage.image = UIImage(named: "grayRec.jpg")
       
       UserMedia.getURL(for: follower.uid, withSize: 90,
                        completion: { URL in
@@ -36,7 +36,7 @@ class FollowersCell: UITableViewCell {
    
    func initialiseFollowButton() {
       if follower.uid != User.getCurrentUserId() {
-         User.isCurrentUserFollowing(this: self.follower.uid,
+         User.isCurrentUserFollowing(this: follower.uid,
                                      completion: { isFollowing in
                                        if isFollowing {
                                           self.button.setTitle("Following", for: .normal)
@@ -45,7 +45,7 @@ class FollowersCell: UITableViewCell {
                                        }
          })
       } else {
-         self.button.isHidden = true
+         button.isHidden = true
       }
    }
    
@@ -58,14 +58,14 @@ class FollowersCell: UITableViewCell {
          User.removeFollower(from: follower.uid)
       }
       
-      self.swapFollowButtonTittle()
+      swapFollowButtonTittle()
    }
    
    private func swapFollowButtonTittle() {
-      if self.button.currentTitle == "Follow" {
-         self.button.setTitle("Following", for: .normal)
+      if button.currentTitle == "Follow" {
+         button.setTitle("Following", for: .normal)
       } else {
-         self.button.setTitle("Follow", for: .normal)
+         button.setTitle("Follow", for: .normal)
       }
    }
 }

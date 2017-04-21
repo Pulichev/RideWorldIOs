@@ -33,7 +33,7 @@ struct PostItem {
       self.spotId = spotId
       
       self.addedByUser = addedByUser
-      self.ref = nil
+      ref = nil
    }
    
    init(snapshot: FIRDataSnapshot) {

@@ -14,18 +14,18 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
    private var followList = [UserItem]()
    
    override func viewDidLoad() {
-      self.loadFollowList()
+      loadFollowList()
       
-      self.tableView.delegate = self
-      self.tableView.dataSource = self
-      self.tableView.emptyDataSetSource = self
-      self.tableView.emptyDataSetDelegate = self
-      self.tableView.tableFooterView = UIView()
+      tableView.delegate = self
+      tableView.dataSource = self
+      tableView.emptyDataSetSource = self
+      tableView.emptyDataSetDelegate = self
+      tableView.tableFooterView = UIView()
    }
    
    private func loadFollowList() {
       if followersOrFollowingList == true { // followers ref
-         User.getFollowersList(for: self.userId,
+         User.getFollowersList(for: userId,
                                completion: { followersList in
                                  self.followList = followersList
                                  DispatchQueue.main.async {
@@ -33,7 +33,7 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
                                  }
          })
       } else { // following ref
-         User.getFollowingsList(for: self.userId,
+         User.getFollowingsList(for: userId,
                                 completion: { followingsList in
                                  self.followList = followingsList
                                  DispatchQueue.main.async {
@@ -49,14 +49,14 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
    }
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return self.followList.count
+      return followList.count
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "FollowersCell", for: indexPath) as! FollowersCell
       let row = indexPath.row
       
-      cell.follower = self.followList[row]
+      cell.follower = followList[row]
       
       // adding tap event -> perform segue to profile
       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(sendRowToGoToProfile(_:)))
@@ -71,20 +71,20 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       let row = indexPath.row
       
-      self.goToProfile(row: row)
+      goToProfile(row: row)
    }
    
    // Idk how to make next 2 func to be 1
    func sendRowToGoToProfile(_ sender: UIGestureRecognizer) {
-      self.goToProfile(row: (sender.view?.tag)!)
+      goToProfile(row: (sender.view?.tag)!)
    }
    
    func goToProfile(row: Int) {
-      if self.followList[row].uid == User.getCurrentUserId() {
-         self.performSegue(withIdentifier: "openUserProfileFromFollowList", sender: self)
+      if followList[row].uid == User.getCurrentUserId() {
+         performSegue(withIdentifier: "openUserProfileFromFollowList", sender: self)
       } else {
-         self.ridersInfoForSending = self.followList[row]
-         self.performSegue(withIdentifier: "openRidersProfileFromFollowList", sender: self)
+         ridersInfoForSending = followList[row]
+         performSegue(withIdentifier: "openRidersProfileFromFollowList", sender: self)
       }
    }
    

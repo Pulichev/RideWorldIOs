@@ -27,15 +27,15 @@ class PostInfoViewController: UIViewController {
    @IBOutlet var userNickName: UILabel!
    @IBOutlet var postDescription: ActiveLabel! {
       didSet {
-         self.postDescription.numberOfLines = 0
-         self.postDescription.enabledTypes = [.mention, .hashtag, .url]
-         self.postDescription.textColor = .black
-         self.postDescription.mentionColor = .brown
-         self.postDescription.hashtagColor = .purple
-         self.postDescription.handleMentionTap { mention in // mention is @userLogin
+         postDescription.numberOfLines = 0
+         postDescription.enabledTypes = [.mention, .hashtag, .url]
+         postDescription.textColor = .black
+         postDescription.mentionColor = .brown
+         postDescription.hashtagColor = .purple
+         postDescription.handleMentionTap { mention in // mention is @userLogin
             self.goToUserProfile(tappedUserLogin: mention)
          }
-         self.postDescription.handleHashtagTap { hashtag in }
+         postDescription.handleHashtagTap { hashtag in }
       }
    }
    
@@ -62,7 +62,7 @@ class PostInfoViewController: UIViewController {
          self.addDoubleTapGestureOnPostMedia()
       }
       
-      self.addMediaToView()
+      addMediaToView()
    }
    
    func addDoubleTapGestureOnPostMedia() {
@@ -74,16 +74,16 @@ class PostInfoViewController: UIViewController {
    }
    
    func initializeDate() {
-      let sourceDate = String(describing: self.postInfo.createdDate)
+      let sourceDate = String(describing: postInfo.createdDate)
       //formatting date to yyyy-mm-dd
       let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
-      self.postDate.text = finalDate
+      postDate.text = finalDate
       let finalTime = sourceDate[sourceDate.index(sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
-      self.postTime.text = finalTime
+      postTime.text = finalTime
    }
    
    func countPostLikes() {
-      Post.getLikesCount(for: self.postInfo.key,
+      Post.getLikesCount(for: postInfo.key,
                          completion: { likesCount in
                            self.likesCountInt = likesCount
                            self.likesCount.text = String(describing: likesCount)
@@ -91,7 +91,7 @@ class PostInfoViewController: UIViewController {
    }
    
    func userLikedThisPost() {
-      Post.isLikedByUser(self.postInfo.key,
+      Post.isLikedByUser(postInfo.key,
                          completion: { isLiked in
                            if isLiked {
                               self.postIsLiked = true
@@ -104,19 +104,19 @@ class PostInfoViewController: UIViewController {
    }
    
    func postLiked(_ sender: Any) {
-      if(!self.postIsLiked) {
-         self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-         let countOfLikesInt = Int(self.likesCount.text!)
-         self.likesCount.text = String(countOfLikesInt! + 1)
+      if(!postIsLiked) {
+         isLikedPhoto.image = UIImage(named: "respectActive.png")
+         let countOfLikesInt = Int(likesCount.text!)
+         likesCount.text = String(countOfLikesInt! + 1)
          addNewLike()
-         self.postIsLiked = true
+         postIsLiked = true
       } else {
-         self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-         let countOfLikesInt = Int(self.likesCount.text!)
-         self.likesCount.text = String(countOfLikesInt! - 1)
+         isLikedPhoto.image = UIImage(named: "respectPassive.png")
+         let countOfLikesInt = Int(likesCount.text!)
+         likesCount.text = String(countOfLikesInt! - 1)
          removeExistedLike()
          
-         self.postIsLiked = false
+         postIsLiked = false
       }
    }
    
@@ -125,7 +125,7 @@ class PostInfoViewController: UIViewController {
       // init new like
       let currentUserId = User.getCurrentUserId()
       let placedTime = String(describing: Date())
-      let newLike = LikeItem(who: currentUserId, what: self.postInfo.key, at: placedTime)
+      let newLike = LikeItem(who: currentUserId, what: postInfo.key, at: placedTime)
       
       Like.addToUserNode(newLike)
       Like.addToPostNode(newLike)
@@ -134,28 +134,28 @@ class PostInfoViewController: UIViewController {
    func removeExistedLike() {
       let currentUserId = User.getCurrentUserId()
       
-      Like.removeFromUserNode(with: currentUserId, self.postInfo)
-      Like.removeFromPostNode(with: currentUserId, self.postInfo)
+      Like.removeFromUserNode(with: currentUserId, postInfo)
+      Like.removeFromPostNode(with: currentUserId, postInfo)
    }
    
    func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked
       if (!postIsLiked) {
          postIsLiked = true
-         self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+         isLikedPhoto.image = UIImage(named: "respectActive.png")
          likesCountInt += 1
       } else {
          postIsLiked = false
-         self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+         isLikedPhoto.image = UIImage(named: "respectPassive.png")
          likesCountInt -= 1
       }
    }
    
    // MARK: - Add media
    func addMediaToView() {
-      self.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
+      spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
       
       //Downloading and caching media
-      if self.postInfo.isPhoto {
+      if postInfo.isPhoto {
          setImage()
       } else {
          setVideo()
@@ -166,21 +166,22 @@ class PostInfoViewController: UIViewController {
    
    func setImage() {
       // download thumbnail first
-      PostMedia.getImageURL(for: self.postInfo.spotId, self.postInfo.key, withSize: 10, completion: { imageURL in
-         let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-         let processor = BlurImageProcessor(blurRadius: 0.1)
-         imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
-         
-         DispatchQueue.main.async {
-            self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-         }
-         
-         self.downloadOriginalImage()
+      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 10,
+                            completion: { imageURL in
+                              let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+                              let processor = BlurImageProcessor(blurRadius: 0.1)
+                              imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
+                              
+                              DispatchQueue.main.async {
+                                 self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+                              }
+                              
+                              self.downloadOriginalImage()
       })
    }
    
    private func downloadOriginalImage() {
-      PostMedia.getImageURL(for: self.postInfo.spotId, self.postInfo.key, withSize: 700,
+      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 700,
                             completion: { imageURL in
                               let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
                               imageViewForView.kf.indicatorType = .activity
@@ -197,7 +198,7 @@ class PostInfoViewController: UIViewController {
    }
    
    private func downloadThumbnail() {
-      PostMedia.getImageURL(for: self.postInfo.spotId, self.postInfo.key, withSize: 10,
+      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 10,
                             completion: { imageURL in
                               let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
                               let processor = BlurImageProcessor(blurRadius: 0.1)
@@ -211,7 +212,7 @@ class PostInfoViewController: UIViewController {
    }
    
    private func downloadBigThumbnail() {
-      PostMedia.getImageURL(for: self.postInfo.spotId, self.postInfo.key, withSize: 270,
+      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 270,
                             completion: { imageURL in
                               let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
                               let processor = BlurImageProcessor(blurRadius: 0.1)
@@ -224,7 +225,7 @@ class PostInfoViewController: UIViewController {
    }
    
    private func downloadVideo() {
-      PostMedia.getVideoURL(for: self.postInfo.spotId, self.postInfo.key,
+      PostMedia.getVideoURL(for: postInfo.spotId, postInfo.key,
                             completion: { vidoeURL in
                               let assetForCache = AVAsset(url: vidoeURL)
                               self.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
@@ -246,7 +247,6 @@ class PostInfoViewController: UIViewController {
       
       let deleteAction = UIAlertAction(title: "Delete",
                                        style: .destructive) { action in
-                                          
                                           self.startDeleteTransaction()
       }
       
@@ -260,42 +260,42 @@ class PostInfoViewController: UIViewController {
    }
    
    private func startDeleteTransaction() {
-      User.deletePost(fromUserNodeWith: self.user.uid, self.postInfo.key)
-      Post.delete(with: self.postInfo.key)
-      Spot.deletePost(for: self.postInfo.spotId, self.postInfo.key)
+      User.deletePost(fromUserNodeWith: user.uid, postInfo.key)
+      Post.delete(with: postInfo.key)
+      Spot.deletePost(for: postInfo.spotId, postInfo.key)
       
       // delete media
-      if self.postInfo.isPhoto {
-         self.deletePhoto()
+      if postInfo.isPhoto {
+         deletePhoto()
       } else {
-         self.deleteVideo()
+         deleteVideo()
       }
       
       // deleting data from collection
       if let del = delegateDeleting {
-         del.postsDeleted(postId: self.postInfo.key)
+         del.postsDeleted(postId: postInfo.key)
       }
       // go back
       _ = navigationController?.popViewController(animated: true)
    }
    
    private func deletePhoto() {
-      PostMedia.deletePhoto(for: self.postInfo.spotId, self.postInfo.key, withSize: 700)
-      self.delete270and10thumbnails()
+      PostMedia.deletePhoto(for: postInfo.spotId, postInfo.key, withSize: 700)
+      delete270and10thumbnails()
    }
    
    private func deleteVideo() {
-      PostMedia.deleteVideo(for: self.postInfo.spotId, self.postInfo.key)
-      self.delete270and10thumbnails()
+      PostMedia.deleteVideo(for: postInfo.spotId, postInfo.key)
+      delete270and10thumbnails()
    }
    
    private func delete270and10thumbnails() {
-      PostMedia.deletePhoto(for: self.postInfo.spotId, self.postInfo.key, withSize: 270)
-      PostMedia.deletePhoto(for: self.postInfo.spotId, self.postInfo.key, withSize: 10)
+      PostMedia.deletePhoto(for: postInfo.spotId, postInfo.key, withSize: 270)
+      PostMedia.deletePhoto(for: postInfo.spotId, postInfo.key, withSize: 10)
    }
    
    @IBAction func goToComments(_ sender: Any) {
-      self.performSegue(withIdentifier: "goToCommentsFromPostInfo", sender: self)
+      performSegue(withIdentifier: "goToCommentsFromPostInfo", sender: self)
    }
    
    var ridersInfoForSending: UserItem!
@@ -328,7 +328,7 @@ class PostInfoViewController: UIViewController {
       
       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
       
-      self.present(alert, animated: true, completion: nil)
+      present(alert, animated: true, completion: nil)
    }
    
    // MARK: - prepare for segue
@@ -345,10 +345,10 @@ class PostInfoViewController: UIViewController {
          
       case "goToCommentsFromPostInfo":
          let commentariesController = segue.destination as! CommentariesController
-         commentariesController.postId = self.postInfo.key
-         commentariesController.postDescription = self.postInfo.description
-         commentariesController.postDate = self.postInfo.createdDate
-         commentariesController.userId = self.postInfo.addedByUser
+         commentariesController.postId = postInfo.key
+         commentariesController.postDescription = postInfo.description
+         commentariesController.postDate = postInfo.createdDate
+         commentariesController.userId = postInfo.addedByUser
          
       default: break
       }

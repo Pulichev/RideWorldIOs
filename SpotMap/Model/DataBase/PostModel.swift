@@ -13,7 +13,7 @@ struct Post {
    
    static func getItemById(for postId: String,
                            completion: @escaping (_ postItem: PostItem?) -> Void) {
-      let refToPost = self.refToPostsNode.child(postId)
+      let refToPost = refToPostsNode.child(postId)
       
       refToPost.observeSingleEvent(of: .value, with: { snapshot in
          let postItem = PostItem(snapshot: snapshot)
@@ -26,7 +26,7 @@ struct Post {
    
    static func getLikesCount(for postId: String,
                              completion: @escaping (_ likesCount: Int) -> Void) {
-      let refToPostLikes = self.refToPostsNode.child(postId).child("likes")
+      let refToPostLikes = refToPostsNode.child(postId).child("likes")
       
       // catch if user liked this post
       refToPostLikes.observeSingleEvent(of: .value, with: { snapshot in
@@ -39,7 +39,7 @@ struct Post {
                              completion: @escaping (_ isLiked: Bool) -> Void) {
       let currentUserId = User.getCurrentUserId()
       
-      let refToCurrentUserLikeOnPost = self.refToPostsNode.child(postId).child("likes").child(currentUserId)
+      let refToCurrentUserLikeOnPost = refToPostsNode.child(postId).child("likes").child(currentUserId)
       
       refToCurrentUserLikeOnPost.observeSingleEvent(of: .value, with: { snapshot in
          if (snapshot.value as? [String : Any]) != nil {
@@ -52,7 +52,7 @@ struct Post {
    
    static func add(_ postItem: PostItem) -> PostItem {
       var newPost = postItem
-      let refToNewPost = self.refToPostsNode.childByAutoId()
+      let refToNewPost = refToPostsNode.childByAutoId()
       
       newPost.key = refToNewPost.key
       refToNewPost.setValue(postItem.toAnyObject())
@@ -61,7 +61,7 @@ struct Post {
    }
    
    static func delete(with postId: String) {
-      let refToPostNode = self.refToPostsNode.child(postId)
+      let refToPostNode = refToPostsNode.child(postId)
       refToPostNode.removeValue()
    }
 }

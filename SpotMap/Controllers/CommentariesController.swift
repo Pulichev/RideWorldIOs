@@ -38,7 +38,7 @@ UITableViewDelegate {
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      self.loadComments()
+      loadComments()
       
       //For scrolling the view if keyboard on
       NotificationCenter.default.addObserver(self, selector: #selector(CommentariesController.keyboardWillShow),
@@ -52,7 +52,7 @@ UITableViewDelegate {
    }
    
    func loadComments() {
-      self.addPostDescAsComment()
+      addPostDescAsComment()
       
       CommentsModel.loadComments(
          for: postId,
@@ -65,12 +65,12 @@ UITableViewDelegate {
    
    func addPostDescAsComment() {
       let descAsComment = CommentItem("", userId!, postId, postDescription!, postDate)
-      self.comments.append(descAsComment)
+      comments.append(descAsComment)
    }
    
    @IBAction func sendComment(_ sender: UIButton) {
       CommentsModel.addNewComment(
-         for: self.postId, withText: self.newCommentTextField.text,
+         for: postId, withText: newCommentTextField.text,
          completion: { newComment in
             self.newCommentTextField.text = ""
             self.view.endEditing(true)
@@ -85,14 +85,14 @@ UITableViewDelegate {
    }
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return self.comments.count
+      return comments.count
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "CommentsTableCell", for: indexPath) as! CommentCell
       let row = indexPath.row
       
-      cell.comment = self.comments[row]
+      cell.comment = comments[row]
       // adding tap event -> perform segue to profile
       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile(_:)))
       cell.userPhoto.tag = row
@@ -107,10 +107,10 @@ UITableViewDelegate {
    
    // from comment author
    func goToProfile(_ sender: UIGestureRecognizer) {
-      let userId = self.comments[(sender.view?.tag)!].userId
+      let userId = comments[(sender.view?.tag)!].userId
       
       if userId == User.getCurrentUserId() {
-         self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
+         performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
       } else {
          User.getItemById(
             for: userId,
@@ -146,7 +146,7 @@ UITableViewDelegate {
       
       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
       
-      self.present(alert, animated: true, completion: nil)
+      present(alert, animated: true, completion: nil)
    }
    
    var ridersInfoForSending: UserItem!
@@ -189,12 +189,12 @@ extension CommentariesController: UITextFieldDelegate {
       if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
          let keyboardHeight = keyboardSize.height
          let swipeSize = keyboardHeight - 49
-         self.view.frame.origin.y -= swipeSize
-         let tableViewBound = self.tableView.frame
-         let tableViewHeight = self.tableView.bounds.height
-         self.tableView.frame = CGRect(x: tableViewBound.minX, y: tableViewBound.minY + swipeSize,
+         view.frame.origin.y -= swipeSize
+         let tableViewBound = tableView.frame
+         let tableViewHeight = tableView.bounds.height
+         tableView.frame = CGRect(x: tableViewBound.minX, y: tableViewBound.minY + swipeSize,
                                        width: tableViewBound.maxX, height: tableViewHeight - swipeSize)
-         print(self.view.frame.origin.y)
+         print(view.frame.origin.y)
       }
    }
    
@@ -202,16 +202,16 @@ extension CommentariesController: UITextFieldDelegate {
       if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
          let keyboardHeight = keyboardSize.height
          let swipeSize = keyboardHeight - 49
-         self.view.frame.origin.y += swipeSize
-         let tableViewBound = self.tableView.frame
-         let tableViewHeight = self.tableView.bounds.height
-         self.tableView.frame = CGRect(x: tableViewBound.minX, y: tableViewBound.minY - swipeSize,
+         view.frame.origin.y += swipeSize
+         let tableViewBound = tableView.frame
+         let tableViewHeight = tableView.bounds.height
+         tableView.frame = CGRect(x: tableViewBound.minX, y: tableViewBound.minY - swipeSize,
                                        width: tableViewBound.maxX, height: tableViewHeight + swipeSize)
-         print(self.view.frame.origin.y)
+         print(view.frame.origin.y)
       }
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      self.view.endEditing(true)
+      view.endEditing(true)
    }
 }

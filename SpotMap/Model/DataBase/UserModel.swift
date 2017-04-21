@@ -46,7 +46,7 @@ struct User {
    
    static func getItemById(for userId: String,
                            completion: @escaping (_ userItem: UserItem) -> Void) {
-      let refToUser = self.refToUsersNode.child(userId)
+      let refToUser = refToUsersNode.child(userId)
       refToUser.observeSingleEvent(of: .value, with: { snapshot in
          let user = UserItem(snapshot: snapshot)
          completion(user)
@@ -55,7 +55,7 @@ struct User {
    
    static func getItemByLogin(for userLogin: String,
                               completion: @escaping (_ userItem: UserItem?) -> Void) {
-      self.refToUsersNode.observeSingleEvent(of: .value, with: { snapshot in
+      refToUsersNode.observeSingleEvent(of: .value, with: { snapshot in
          
          for user in snapshot.children {
             let snapshotValue = (user as! FIRDataSnapshot).value as! [String: AnyObject]
@@ -87,7 +87,7 @@ struct User {
    // MARK: - Posts part
    static func getPostsIds(for userId: String,
                            completion: @escaping (_ postIds: [String]?) -> Void) {
-      let refToUserPosts = self.refToUsersNode.child(userId).child("posts")
+      let refToUserPosts = refToUsersNode.child(userId).child("posts")
       
       refToUserPosts.observeSingleEvent(of: .value, with: { snapshot in
          if let value = snapshot.value as? [String: Any] {
@@ -100,7 +100,7 @@ struct User {
    }
    
    static func addPost(_ postItem: PostItem) {
-      let refToUserNewPost = self.refToUsersNode.child(postItem.addedByUser).child("posts")
+      let refToUserNewPost = refToUsersNode.child(postItem.addedByUser).child("posts")
       
       refToUserNewPost.observeSingleEvent(of: .value, with: { snapshot in
          if var value = snapshot.value as? [String : Bool] {
@@ -113,7 +113,7 @@ struct User {
    }
    
    static func deletePost(fromUserNodeWith userId: String, _ postId: String) {
-      let refToUserPostNode = self.refToUsersNode.child(userId).child("posts")
+      let refToUserPostNode = refToUsersNode.child(userId).child("posts")
       refToUserPostNode.observeSingleEvent(of: .value, with: { snapshot in
          if var posts = snapshot.value as? [String : Bool] {
             posts.removeValue(forKey: postId)
@@ -126,7 +126,7 @@ struct User {
    // MARK: - Follow part
    static func getFollowersCountString(userId: String,
                                        completion: @escaping (_ followersCount: String) -> Void) {
-      let refToUser = self.refToUsersNode.child(userId)
+      let refToUser = refToUsersNode.child(userId)
       let refToFollowers = refToUser.child("followers")
       refToFollowers.observe(.value, with: { snapshot in
          if let value = snapshot.value as? [String: Any] {
@@ -139,7 +139,7 @@ struct User {
    
    static func getFollowingsCountString(userId: String,
                                         completion: @escaping (_ followingsCount: String) -> Void) {
-      let refToUser = self.refToUsersNode.child(userId)
+      let refToUser = refToUsersNode.child(userId)
       let refToFollowings = refToUser.child("following")
       refToFollowings.observe(.value, with: { snapshot in
          if let value = snapshot.value as? [String: Any] {
@@ -152,7 +152,7 @@ struct User {
    
    static func getFollowersList(for userId: String,
                                 completion: @escaping (_ followersList: [UserItem]) -> Void) {
-      let refToUserFollowers = self.refToUsersNode.child(userId).child("followers")
+      let refToUserFollowers = refToUsersNode.child(userId).child("followers")
       
       var followersList = [UserItem]()
       
@@ -176,7 +176,7 @@ struct User {
    
    static func getFollowingsList(for userId: String,
                                  completion: @escaping (_ followingsList: [UserItem]) -> Void) {
-      let refToUserFollowings = self.refToUsersNode.child(userId).child("following")
+      let refToUserFollowings = refToUsersNode.child(userId).child("following")
       
       var followingsList = [UserItem]()
       
@@ -203,7 +203,7 @@ struct User {
       
       if self.alreadyLoadedCountOfPosts == 0 { // if we just started
          let currentUserId = getCurrentUserId()
-         let refToUserFollowings = self.refToUsersNode.child(currentUserId).child("following")
+         let refToUserFollowings = refToUsersNode.child(currentUserId).child("following")
          
          refToUserFollowings.observeSingleEvent(of: .value, with: { snapshot in
             var followingsIds = [String]()
@@ -224,7 +224,7 @@ struct User {
    
    static func isCurrentUserFollowing(this userId: String, completion: @escaping(_ isFollowing: Bool) -> Void) {
       let currentUserId = self.getCurrentUserId()
-      let refToCurrentUser = self.refToUsersNode.child(currentUserId).child("following")
+      let refToCurrentUser = refToUsersNode.child(currentUserId).child("following")
       
       refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
          if var value = snapshot.value as? [String : Bool] {
@@ -240,7 +240,7 @@ struct User {
    }
    
    static func addFollowing(to userId: String) {
-      let refToCurrentUser = self.refToUsersNode.child(self.getCurrentUserId()).child("following")
+      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId()).child("following")
       
       refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
          if var value = snapshot.value as? [String : Bool] {
@@ -253,7 +253,7 @@ struct User {
    }
    
    static func removeFollowing(from userId: String) {
-      let refToCurrentUser = self.refToUsersNode.child(self.getCurrentUserId()).child("following")
+      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId()).child("following")
       
       refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
          if var value = snapshot.value as? [String : Bool] {
@@ -264,7 +264,7 @@ struct User {
    }
    
    static func addFollower(to userId: String) {
-      let refToRider = self.refToUsersNode.child(userId).child("followers")
+      let refToRider = refToUsersNode.child(userId).child("followers")
       
       refToRider.observeSingleEvent(of: .value, with: { snapshot in
          if var value = snapshot.value as? [String : Bool] {
@@ -277,7 +277,7 @@ struct User {
    }
    
    static func removeFollower(from userId: String) {
-      let refToRider = self.refToUsersNode.child(userId).child("followers")
+      let refToRider = refToUsersNode.child(userId).child("followers")
       
       refToRider.observeSingleEvent(of: .value, with: { snapshot in
          if var value = snapshot.value as? [String : Bool] {

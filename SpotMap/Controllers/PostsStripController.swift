@@ -14,18 +14,18 @@ import ActiveLabel
 class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
    @IBOutlet weak var tableView: UITableView! {
       didSet {
-         self.tableView.delegate = self
-         self.tableView.dataSource = self
-         self.tableView.emptyDataSetSource = self
-         self.tableView.emptyDataSetDelegate = self
+         tableView.delegate = self
+         tableView.dataSource = self
+         tableView.emptyDataSetSource = self
+         tableView.emptyDataSetDelegate = self
       }
    }
    var refreshControl: UIRefreshControl! {
       didSet {
-         self.refreshControl.attributedTitle = NSAttributedString(string: "Идет обновление...")
-         self.refreshControl.addTarget(self, action: #selector(PostsStripController.refresh), for: UIControlEvents.valueChanged)
+         refreshControl.attributedTitle = NSAttributedString(string: "Идет обновление...")
+         refreshControl.addTarget(self, action: #selector(PostsStripController.refresh), for: UIControlEvents.valueChanged)
          tableView.addSubview(refreshControl)
-         self.tableView.tableFooterView?.isHidden = true // hide on start
+         tableView.tableFooterView?.isHidden = true // hide on start
       }
    }
    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -42,8 +42,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      self.refreshControl = UIRefreshControl()
-      self.setLoadingScreen()
+      refreshControl = UIRefreshControl()
+      setLoadingScreen()
       
       DispatchQueue.global(qos: .userInitiated).async {
          self.loadPosts(completion: { newItems in
@@ -62,22 +62,22 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          newItemsCache.append(newItemCache)
       }
       
-      self.posts.append(contentsOf: newItems!)
-      self.postItemCellsCache.append(contentsOf: newItemsCache)
+      posts.append(contentsOf: newItems!)
+      postItemCellsCache.append(contentsOf: newItemsCache)
       
-      self.removeLoadingScreen()
+      removeLoadingScreen()
    }
    
    private func loadPosts(completion: @escaping (_ newItems: [PostItem]?) -> Void) {
-      if self.cameFromSpotOrMyStrip {
-         Spot.getPosts(for: self.spotDetailsItem.key, countOfNewItemsToAdd: self.postsLoadStep,
+      if cameFromSpotOrMyStrip {
+         Spot.getPosts(for: spotDetailsItem.key, countOfNewItemsToAdd: postsLoadStep,
                        completion: { newItems in
                         if newItems != nil {
                            completion(newItems)
                         }
          })
       } else {
-         User.getStripPosts(countOfNewItemsToAdd: self.postsLoadStep,
+         User.getStripPosts(countOfNewItemsToAdd: postsLoadStep,
                             completion: { newItems in
                               if newItems != nil {
                                  completion(newItems)
@@ -105,9 +105,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    func loadMore() {
       if !loadMoreStatus {
-         self.loadMoreStatus = true
-         self.activityIndicator.startAnimating()
-         self.tableView.tableFooterView?.isHidden = false
+         loadMoreStatus = true
+         activityIndicator.startAnimating()
+         tableView.tableFooterView?.isHidden = false
          
          loadMoreBegin(loadMoreEnd: {(x:Int) -> () in
             self.loadMoreStatus = false
@@ -131,8 +131,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    // function for pull to refresh
    func refresh(sender: Any) {
-      self.posts.removeAll()
-      self.postItemCellsCache.removeAll()
+      posts.removeAll()
+      postItemCellsCache.removeAll()
       Spot.alreadyLoadedCountOfPosts = 0
       User.alreadyLoadedCountOfPosts = 0
       
@@ -141,8 +141,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       })
       
       // ending refreshing
-      self.tableView.reloadData()
-      self.refreshControl.endRefreshing()
+      tableView.reloadData()
+      refreshControl.endRefreshing()
    }
    
    override func viewDidDisappear(_ animated: Bool) {
@@ -152,7 +152,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    // MARK: - Main table filling region
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return self.posts.count
+      return posts.count
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -211,7 +211,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    func setMediaOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
       cell.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
-      self.addPlaceHolder(cell: cell)
+      addPlaceHolder(cell: cell)
       
       //Downloading and caching media
       if posts[cacheKey].isPhoto {
@@ -230,9 +230,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    func setImageOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
-      if self.postItemCellsCache[cacheKey].isCached {
-         PostMedia.getImageURL(for: self.posts[cacheKey].spotId,
-                               self.posts[cacheKey].key, withSize: 700,
+      if postItemCellsCache[cacheKey].isCached {
+         PostMedia.getImageURL(for: posts[cacheKey].spotId,
+                               posts[cacheKey].key, withSize: 700,
                                completion: { URL in
                                  let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                                  imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
@@ -244,8 +244,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          })
       } else {
          // download thumbnail first
-         PostMedia.getImageURL(for: self.posts[cacheKey].spotId,
-                               self.posts[cacheKey].key, withSize: 10,
+         PostMedia.getImageURL(for: posts[cacheKey].spotId,
+                               posts[cacheKey].key, withSize: 10,
                                completion: { URL in
                                  let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                                  let processor = BlurImageProcessor(blurRadius: 0.1)
@@ -261,8 +261,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    private func downloadOriginalImage(cell: PostsCell, cacheKey: Int) {
-      PostMedia.getImageURL(for: self.posts[cacheKey].spotId,
-                            self.posts[cacheKey].key, withSize: 700,
+      PostMedia.getImageURL(for: posts[cacheKey].spotId,
+                            posts[cacheKey].key, withSize: 700,
                             completion: { URL in
                               let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                               imageViewForView.kf.indicatorType = .activity
@@ -276,8 +276,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    private func setVideoOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
-      if (self.mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
-         let cachedAsset = self.mediaCache.object(forKey: cacheKey) as? AVAsset
+      if (mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
+         let cachedAsset = mediaCache.object(forKey: cacheKey) as? AVAsset
          cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
          let playerLayer = AVPlayerLayer(player: (cell.player))
          playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -291,8 +291,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    private func downloadThumbnail(cacheKey: Int, cell: PostsCell) {
-      PostMedia.getImageURL(for: self.posts[cacheKey].spotId,
-                            self.posts[cacheKey].key, withSize: 10,
+      PostMedia.getImageURL(for: posts[cacheKey].spotId,
+                            posts[cacheKey].key, withSize: 10,
                             completion: { URL in
                               // thumbnail!
                               let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
@@ -307,8 +307,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCell) {
-      PostMedia.getImageURL(for: self.posts[cacheKey].spotId,
-                            self.posts[cacheKey].key, withSize: 270,
+      PostMedia.getImageURL(for: posts[cacheKey].spotId,
+                            posts[cacheKey].key, withSize: 270,
                             completion: { URL in                // thumbnail!
                               let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
                               let processor = BlurImageProcessor(blurRadius: 0.1)
@@ -322,8 +322,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCell) {
-      PostMedia.getVideoURL(for: self.posts[cacheKey].spotId,
-                            self.posts[cacheKey].key,
+      PostMedia.getVideoURL(for: posts[cacheKey].spotId,
+                            posts[cacheKey].key,
                             completion: { vidoeURL in                 let assetForCache = AVAsset(url: vidoeURL)
                               self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
                               cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
@@ -342,7 +342,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    @IBAction func addNewPost(_ sender: Any) {
-      self.performSegue(withIdentifier: "addNewPost", sender: self)
+      performSegue(withIdentifier: "addNewPost", sender: self)
    }
    
    private func goToUserProfile(tappedUserLogin: String) {
@@ -369,27 +369,27 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
       
-      self.present(alert, animated: true, completion: nil)
+      present(alert, animated: true, completion: nil)
    }
    
    // go to riders profile
    func nickNameTapped(sender: UIButton!) {
       // check if going to current user
-      if self.postItemCellsCache[sender.tag].userInfo.uid == User.getCurrentUserId() {
-         self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
+      if postItemCellsCache[sender.tag].userInfo.uid == User.getCurrentUserId() {
+         performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
       } else {
-         self.ridersInfoForSending = self.postItemCellsCache[sender.tag].userInfo
-         self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
+         ridersInfoForSending = postItemCellsCache[sender.tag].userInfo
+         performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
       }
    }
    
    // go to comments
    func goToComments(sender: UIButton!) {
-      self.postIdForSending = self.posts[sender.tag].key
-      self.postDescForSending = self.posts[sender.tag].description
-      self.postDateTimeForSending = self.posts[sender.tag].createdDate
-      self.postUserIdForSending = self.posts[sender.tag].addedByUser
-      self.performSegue(withIdentifier: "goToCommentsFromPostStrip", sender: self)
+      postIdForSending = posts[sender.tag].key
+      postDescForSending = posts[sender.tag].description
+      postDateTimeForSending = posts[sender.tag].createdDate
+      postUserIdForSending = posts[sender.tag].addedByUser
+      performSegue(withIdentifier: "goToCommentsFromPostStrip", sender: self)
    }
    
    var ridersInfoForSending: UserItem!
@@ -402,7 +402,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       switch segue.identifier! {
       case "addNewPost":
          let newPostController = segue.destination as! NewPostController
-         newPostController.spotDetailsItem = self.spotDetailsItem
+         newPostController.spotDetailsItem = spotDetailsItem
          
       case "openRidersProfileFromSpotDetails":
          let newRidersProfileController = segue.destination as! RidersProfileController
@@ -415,10 +415,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
       case "goToCommentsFromPostStrip":
          let commentariesController = segue.destination as! CommentariesController
-         commentariesController.postId = self.postIdForSending
-         commentariesController.postDescription = self.postDescForSending
-         commentariesController.postDate = self.postDateTimeForSending
-         commentariesController.userId = self.postUserIdForSending
+         commentariesController.postId = postIdForSending
+         commentariesController.postDescription = postDescForSending
+         commentariesController.postDate = postDateTimeForSending
+         commentariesController.userId = postUserIdForSending
          
       default: break
       }
@@ -435,31 +435,31 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    private func setLoadingScreen() {
       let width: CGFloat = 120
       let height: CGFloat = 30
-      let x = (self.tableView.frame.width / 2) - (width / 2)
-      let y = (self.tableView.frame.height / 2) - (height / 2) - (self.navigationController?.navigationBar.frame.height)!
+      let x = (tableView.frame.width / 2) - (width / 2)
+      let y = (tableView.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
       loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
       
-      self.loadingLabel.textColor = UIColor.gray
-      self.loadingLabel.textAlignment = NSTextAlignment.center
-      self.loadingLabel.text = "Loading..."
-      self.loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
+      loadingLabel.textColor = UIColor.gray
+      loadingLabel.textAlignment = NSTextAlignment.center
+      loadingLabel.text = "Loading..."
+      loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
       
-      self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-      self.spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-      self.spinner.startAnimating()
+      spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+      spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+      spinner.startAnimating()
       
-      loadingView.addSubview(self.spinner)
-      loadingView.addSubview(self.loadingLabel)
+      loadingView.addSubview(spinner)
+      loadingView.addSubview(loadingLabel)
       
-      self.tableView.addSubview(loadingView)
+      tableView.addSubview(loadingView)
    }
    
    // Remove the activity indicator from the main view
    private func removeLoadingScreen() {
       // Hides and stops the text and the spinner
-      self.spinner.stopAnimating()
-      self.loadingLabel.isHidden = true
-      self.haveWeFinishedLoading = true
+      spinner.stopAnimating()
+      loadingLabel.isHidden = true
+      haveWeFinishedLoading = true
    }
 }
 
@@ -471,7 +471,7 @@ extension PostsStripController {
       
       if !cameFromSpotOrMyStrip {
          // Hide the navigation bar on the this view controller
-         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+         navigationController?.setNavigationBarHidden(true, animated: animated)
       }
    }
    
@@ -480,7 +480,7 @@ extension PostsStripController {
       
       if !cameFromSpotOrMyStrip {
          // Show the navigation bar on other view controllers
-         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+         navigationController?.setNavigationBarHidden(false, animated: animated)
       }
    }
 }

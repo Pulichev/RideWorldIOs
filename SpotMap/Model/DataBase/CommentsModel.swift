@@ -14,7 +14,7 @@ struct CommentsModel {
    // Function for loading comments for certain post
    static func loadComments(for postId: String,
                             completion: @escaping (_ loadedComments: [CommentItem]) -> Void) {
-      let ref = self.refToSpotPostsNode.child(postId).child("comments")
+      let ref = refToSpotPostsNode.child(postId).child("comments")
       
       ref.queryOrdered(byChild: "key").observeSingleEvent(of: .value, with: { snapshot in
          var newItems: [CommentItem] = []
@@ -31,7 +31,7 @@ struct CommentsModel {
    
    static func addNewComment(for postId: String, withText text: String?,
                              completion: @escaping (_ loadedComments: CommentItem) -> Void) {
-      let refForNewComment = self.refToSpotPostsNode.child(postId).child("comments").childByAutoId()
+      let refForNewComment = refToSpotPostsNode.child(postId).child("comments").childByAutoId()
       
       let currentUserId = User.getCurrentUserId()
       let currentDateTime = String(describing: Date())

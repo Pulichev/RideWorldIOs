@@ -6,7 +6,6 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Fusuma
 
@@ -28,8 +27,8 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    override func viewDidLoad() {
       UICustomizing()
       
-      self.spotTitle.delegate = self
-      self.spotDescription.delegate = self
+      spotTitle.delegate = self
+      spotDescription.delegate = self
       
       //For scrolling the view if keyboard on
       NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillShow),
@@ -51,13 +50,13 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    @IBAction func saveSpotDetails(_ sender: Any) {
-      let createdSpotId = Spot.create(with: self.spotTitle.text!,
-                                      description: self.spotDescription.text!,
-                                      latitude: self.spotLatitude, longitude: self.spotLongitude)
+      let createdSpotId = Spot.create(with: spotTitle.text!,
+                                      description: spotDescription.text!,
+                                      latitude: spotLatitude, longitude: spotLongitude)
       
-      SpotMedia.upload(self.imageView.image!, for: createdSpotId, with: 270.0)
+      SpotMedia.upload(imageView.image!, for: createdSpotId, with: 270.0)
       
-      UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil) //saving image to camera roll
+      UIImageWriteToSavedPhotosAlbum(imageView.image!, nil, nil , nil) //saving image to camera roll
       
       _ = navigationController?.popViewController(animated: true)
    }
@@ -71,7 +70,7 @@ extension NewSpotController: FusumaDelegate {
       let fusuma = FusumaViewController()
       fusuma.delegate = self
       fusuma.hasVideo = false // If you want to let the users allow to use video.
-      self.present(fusuma, animated: true, completion: nil)
+      present(fusuma, animated: true, completion: nil)
    }
    
    // MARK: FusumaDelegate Protocol
@@ -128,7 +127,7 @@ extension NewSpotController: FusumaDelegate {
          
       }))
       
-      self.present(alert, animated: true, completion: nil)
+      present(alert, animated: true, completion: nil)
    }
    
    func fusumaClosed() {
@@ -145,18 +144,18 @@ extension NewSpotController {
    //if we tapped UITextField and then another UITextField
    func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
-         self.view.frame.origin.y -= 200
+         view.frame.origin.y -= 200
          keyBoardAlreadyShowed = true
       }
    }
    
    func keyboardWillHide(notification: NSNotification) {
-      self.view.frame.origin.y += 200
+      view.frame.origin.y += 200
       keyBoardAlreadyShowed = false
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      self.view.endEditing(true)
+      view.endEditing(true)
    }
 }
 

@@ -55,17 +55,17 @@ class RegistrationController: UIViewController {
 extension RegistrationController {
    func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
-         self.view.frame.origin.y -= 150
+         view.frame.origin.y -= 150
          keyBoardAlreadyShowed = true
       }
    }
    
    func keyboardWillHide(notification: NSNotification) {
-      self.view.frame.origin.y += 150
+      view.frame.origin.y += 150
       keyBoardAlreadyShowed = false
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      self.view.endEditing(true)
+      view.endEditing(true)
    }
 }

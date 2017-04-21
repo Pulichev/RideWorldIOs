@@ -32,8 +32,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    @IBOutlet var userProfileCollection: UICollectionView! {
       didSet {
-         self.userProfileCollection.emptyDataSetSource = self
-         self.userProfileCollection.emptyDataSetDelegate = self
+         userProfileCollection.emptyDataSetSource = self
+         userProfileCollection.emptyDataSetDelegate = self
       }
    }
    
@@ -46,7 +46,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      self.setLoadingScreen()
+      setLoadingScreen()
       
       let currentUserId = User.getCurrentUserId()
       User.getItemById(for: currentUserId,
@@ -66,21 +66,21 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    private func initialiseFollowing() {
       User.getFollowersCountString(
-         userId: self.userInfo.uid,
+         userId: userInfo.uid,
          completion: { countOfFollowersString in
             self.followersButton.setTitle(countOfFollowersString, for: .normal)
       })
       
       User.getFollowingsCountString(
-         userId: self.userInfo.uid,
+         userId: userInfo.uid,
          completion: { countOfFollowingsString in
             self.followingButton.setTitle(countOfFollowingsString, for: .normal)
       })
    }
    
    func initializeUserPhoto() {
-      if self.userProfilePhoto != nil { // if we came not from user edit controller
-         UserMedia.getURL(for: self.userInfo.uid, withSize: 150,
+      if userProfilePhoto != nil { // if we came not from user edit controller
+         UserMedia.getURL(for: userInfo.uid, withSize: 150,
                           completion: { url in
                            DispatchQueue.main.async {
                               self.userProfilePhoto.kf.setImage(with: url) //Using kf for caching images.
@@ -91,7 +91,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
    
    func initializePostsPhotos() {
-      User.getPostsIds(for: self.userInfo.uid,
+      User.getPostsIds(for: userInfo.uid,
                        completion: { postsIds in
                         if postsIds != nil {
                            self.postsIds = postsIds!
@@ -116,7 +116,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
    
    private func downloadPhotosAsync(post: PostItem) {
-      self.postsImages[post.key] = UIImageView(image: UIImage(named: "grayRec.jpg"))
+      postsImages[post.key] = UIImageView(image: UIImage(named: "grayRec.jpg"))
       
       PostMedia.getImageData270x270(for: post,
                                     completion: { data in
@@ -133,13 +133,13 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    // MARK: - CollectionView part
    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      return self.postsImages.count
+      return postsImages.count
    }
    
    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
       
-      cell.postPicture.image = self.postsImages[self.postsIds[indexPath.row]]?.image!
+      cell.postPicture.image = postsImages[postsIds[indexPath.row]]?.image!
       
       return cell
    }
@@ -172,43 +172,43 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
       // handle tap events
-      self.selectedCellId = indexPath.item
-      self.performSegue(withIdentifier: "goToPostInfoFromUserProfile", sender: self)
+      selectedCellId = indexPath.item
+      performSegue(withIdentifier: "goToPostInfoFromUserProfile", sender: self)
    }
    
    var selectedCellId: Int!
    
    //MARK: - Buttons taps methods
    @IBAction func editProfileButtonTapped(_ sender: Any) {
-      self.performSegue(withIdentifier: "editUserProfile", sender: self)
+      performSegue(withIdentifier: "editUserProfile", sender: self)
    }
    
    private var fromFollowersOrFollowing: Bool! // true - followers else following
    
    @IBAction func followersButtonTapped(_ sender: Any) {
-      self.fromFollowersOrFollowing = true
-      self.performSegue(withIdentifier: "goToFollowersFromUserNode", sender: self)
+      fromFollowersOrFollowing = true
+      performSegue(withIdentifier: "goToFollowersFromUserNode", sender: self)
    }
    
    @IBAction func followingButtonTapped(_ sender: Any) {
-      self.fromFollowersOrFollowing = false
-      self.performSegue(withIdentifier: "goToFollowersFromUserNode", sender: self)
+      fromFollowersOrFollowing = false
+      performSegue(withIdentifier: "goToFollowersFromUserNode", sender: self)
    }
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       switch segue.identifier! {
       case "goToPostInfoFromUserProfile":
          let newPostInfoController = segue.destination as! PostInfoViewController
-         newPostInfoController.postInfo = self.posts[self.postsIds[selectedCellId]]
+         newPostInfoController.postInfo = posts[postsIds[selectedCellId]]
          newPostInfoController.user = userInfo
          newPostInfoController.isCurrentUserProfile = true
          newPostInfoController.delegateDeleting = self
          
       case "editUserProfile":
          let newEditProfileController = segue.destination as! EditProfileController
-         newEditProfileController.userInfo = self.userInfo
+         newEditProfileController.userInfo = userInfo
          newEditProfileController.userPhoto = RoundedImageView(image: UIImage(named: "plus-512.gif"))
-         if let image = self.userProfilePhoto.image {
+         if let image = userProfilePhoto.image {
             newEditProfileController.userPhotoTemp = image
          }
          newEditProfileController.delegate = self
@@ -216,7 +216,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       case "goToFollowersFromUserNode":
          let newFollowersController = segue.destination as! FollowersController
          newFollowersController.userId = userInfo.uid
-         newFollowersController.followersOrFollowingList = self.fromFollowersOrFollowing
+         newFollowersController.followersOrFollowingList = fromFollowersOrFollowing
          
       default: break
       }
@@ -233,52 +233,52 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    private func setLoadingScreen() {
       let width: CGFloat = 120
       let height: CGFloat = 30
-      let x = (self.userProfileCollection.frame.width / 2) - (width / 2)
-      let y = (self.userProfileCollection.frame.height / 2) - (height / 2) - (self.navigationController?.navigationBar.frame.height)!
+      let x = (userProfileCollection.frame.width / 2) - (width / 2)
+      let y = (userProfileCollection.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
       loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
       
-      self.loadingLabel.textColor = UIColor.gray
-      self.loadingLabel.textAlignment = NSTextAlignment.center
-      self.loadingLabel.text = "Loading..."
-      self.loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
+      loadingLabel.textColor = UIColor.gray
+      loadingLabel.textAlignment = NSTextAlignment.center
+      loadingLabel.text = "Loading..."
+      loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
       
-      self.spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-      self.spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-      self.spinner.startAnimating()
+      spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+      spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+      spinner.startAnimating()
       
-      loadingView.addSubview(self.spinner)
-      loadingView.addSubview(self.loadingLabel)
+      loadingView.addSubview(spinner)
+      loadingView.addSubview(loadingLabel)
       
-      self.userProfileCollection.addSubview(loadingView)
+      userProfileCollection.addSubview(loadingView)
    }
    
    // Remove the activity indicator from the main view
    private func removeLoadingScreen() {
       // Hides and stops the text and the spinner
-      self.spinner.stopAnimating()
-      self.loadingLabel.isHidden = true
-      self.haveWeFinishedLoading = true
+      spinner.stopAnimating()
+      loadingLabel.isHidden = true
+      haveWeFinishedLoading = true
    }
 }
 
 // MARK: - Go/came to/from EditProfileController
 extension UserProfileController: EditedUserInfoDelegate {
    func dataChanged(userInfo: UserItem, profilePhoto: UIImage) {
-      self.userNameAndSename.text = userInfo.nameAndSename
-      self.userBio.text = userInfo.bioDescription
+      userNameAndSename.text = userInfo.nameAndSename
+      userBio.text = userInfo.bioDescription
       
-      self.userProfilePhoto.image = profilePhoto
+      userProfilePhoto.image = profilePhoto
    }
 }
 
 extension UserProfileController: ForUpdatingUserProfilePosts {
    func postsDeleted(postId: String) {
-      self.posts.removeValue(forKey: postId)
-      self.postsImages.removeValue(forKey: postId)
+      posts.removeValue(forKey: postId)
+      postsImages.removeValue(forKey: postId)
       if let index = postsIds.index(of: postId) {
          postsIds.remove(at: index)
       }
-      self.userProfileCollection.reloadData()
+      userProfileCollection.reloadData()
    }
 }
 
@@ -324,7 +324,7 @@ extension UserProfileController {
       
       if !cameFromSpotDetails {
          // Hide the navigation bar on the this view controller
-         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+         navigationController?.setNavigationBarHidden(true, animated: animated)
       }
    }
    
@@ -333,7 +333,7 @@ extension UserProfileController {
       
       if !cameFromSpotDetails {
          // Show the navigation bar on other view controllers
-         self.navigationController?.setNavigationBarHidden(false, animated: animated)
+         navigationController?.setNavigationBarHidden(false, animated: animated)
       }
    }
 }

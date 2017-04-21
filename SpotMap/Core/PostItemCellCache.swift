@@ -24,19 +24,19 @@ class PostItemCellCache {
    var isCached = false
    
    init(spotPost: PostItem, stripController: PostsStripController) {
-      self.key = spotPost.key
-      self.post = spotPost
+      key = spotPost.key
+      post = spotPost
       initializeUser()
       let sourceDate = post.createdDate
       // formatting date to yyyy-mm-dd
       let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
-      self.postDate = finalDate
+      postDate = finalDate
       let finalTime = sourceDate[sourceDate.index(sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
-      self.postTime = finalTime
-      self.postDescription = post.description
-      self.isPhoto = post.isPhoto
-      self.userLikedThisPost(stripController: stripController)
-      self.countPostLikes(stripController: stripController)
+      postTime = finalTime
+      postDescription = post.description
+      isPhoto = post.isPhoto
+      userLikedThisPost(stripController: stripController)
+      countPostLikes(stripController: stripController)
    }
    
    func initializeUser() {
@@ -72,14 +72,14 @@ class PostItemCellCache {
    }
    
    func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked
-      if (!self.postIsLiked) {
-         self.postIsLiked = true
-         self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-         self.likesCount += 1
+      if (!postIsLiked) {
+         postIsLiked = true
+         isLikedPhoto.image = UIImage(named: "respectActive.png")
+         likesCount += 1
       } else {
-         self.postIsLiked = false
-         self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-         self.likesCount -= 1
+         postIsLiked = false
+         isLikedPhoto.image = UIImage(named: "respectPassive.png")
+         likesCount -= 1
       }
    }
 }

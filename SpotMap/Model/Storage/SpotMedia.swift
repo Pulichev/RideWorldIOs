@@ -13,7 +13,7 @@ struct SpotMedia {
    
    static func upload(_ photo: UIImage, for spotId: String, with sizePx: Double) {
       let resizedPhoto = Image.resize(photo, targetSize: CGSize(width: sizePx, height: sizePx))
-      let refToNewSpotPhoto = self.refToSpotMedia.child(spotId + ".jpeg")
+      let refToNewSpotPhoto = refToSpotMedia.child(spotId + ".jpeg")
       //saving original image with low compression
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
       refToNewSpotPhoto.put(dataLowCompression)
@@ -22,7 +22,7 @@ struct SpotMedia {
    static func getImageURL(for spotId: String,
                            completion: @escaping (_ imageURL: URL?) -> Void) {
       
-      let imageURL = self.refToSpotMedia.child(spotId + ".jpeg")
+      let imageURL = refToSpotMedia.child(spotId + ".jpeg")
       
       imageURL.downloadURL { (URL, error) in
          if let error = error {

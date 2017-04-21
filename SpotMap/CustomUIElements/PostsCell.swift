@@ -22,12 +22,12 @@ class PostsCell: UITableViewCell {
    @IBOutlet weak var userNickName: UIButton!
    @IBOutlet weak var postDescription: ActiveLabel! {
       didSet {
-         self.postDescription.numberOfLines = 0
-         self.postDescription.enabledTypes = [.mention, .hashtag, .url]
-         self.postDescription.textColor = .black
-         self.postDescription.mentionColor = .brown
-         self.postDescription.hashtagColor = .purple
-         self.postDescription.handleHashtagTap { hashtag in }
+         postDescription.numberOfLines = 0
+         postDescription.enabledTypes = [.mention, .hashtag, .url]
+         postDescription.textColor = .black
+         postDescription.mentionColor = .brown
+         postDescription.hashtagColor = .purple
+         postDescription.handleHashtagTap { hashtag in }
       }
    }
    @IBOutlet weak var isLikedPhoto: UIImageView!
@@ -53,17 +53,17 @@ class PostsCell: UITableViewCell {
          userLikedOrDeletedLike = true
       }
       
-      if(!self.postIsLiked) {
-         self.postIsLiked = true
-         self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-         let countOfLikesInt = Int(self.likesCount.text!)
-         self.likesCount.text = String(countOfLikesInt! + 1)
+      if(!postIsLiked) {
+         postIsLiked = true
+         isLikedPhoto.image = UIImage(named: "respectActive.png")
+         let countOfLikesInt = Int(likesCount.text!)
+         likesCount.text = String(countOfLikesInt! + 1)
          addNewLike()
       } else {
-         self.postIsLiked = false
-         self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-         let countOfLikesInt = Int(self.likesCount.text!)
-         self.likesCount.text = String(countOfLikesInt! - 1)
+         postIsLiked = false
+         isLikedPhoto.image = UIImage(named: "respectPassive.png")
+         let countOfLikesInt = Int(likesCount.text!)
+         likesCount.text = String(countOfLikesInt! - 1)
          removeExistedLike()
       }
    }
@@ -72,7 +72,7 @@ class PostsCell: UITableViewCell {
       // init new like
       let currentUserId = User.getCurrentUserId()
       let likePlacedTime = String(describing: Date())
-      let newLike = LikeItem(who: currentUserId, what: self.post.key, at: likePlacedTime)
+      let newLike = LikeItem(who: currentUserId, what: post.key, at: likePlacedTime)
       
       Like.addToUserNode(newLike)
       Like.addToPostNode(newLike)

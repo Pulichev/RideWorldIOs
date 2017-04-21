@@ -58,7 +58,7 @@ class MainFormController: UIViewController {
    }
    
    func addPinsOnMap() {
-      for spot in self.spotsFromDB {
+      for spot in spotsFromDB {
          let pin = CustomPin()
          pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
          pin.title = spot.name
@@ -71,7 +71,7 @@ class MainFormController: UIViewController {
    
    @IBAction func logoutButtonTapped(_ sender: Any) {
       if User.signOut() { // if no errors
-         self.performSegue(withIdentifier: "fromMainFormToLogin", sender: self)
+         performSegue(withIdentifier: "fromMainFormToLogin", sender: self)
       }
    }
    
@@ -132,7 +132,7 @@ extension MainFormController: MKMapViewDelegate {
    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
       if !(view.annotation! is MKUserLocation) {
          let customPin = view.annotation as! CustomPin
-         self.spotDetailsForSendToPostsStripController = customPin.spotDetailsItem
+         spotDetailsForSendToPostsStripController = customPin.spotDetailsItem
          
          configureDetailView(annotationView: view, spotPin: customPin.spotDetailsItem)
       }
@@ -210,11 +210,11 @@ extension MainFormController: MKMapViewDelegate {
    }
    
    func goToPosts() {
-      self.performSegue(withIdentifier: "spotDetailsTapped", sender: self)
+      performSegue(withIdentifier: "spotDetailsTapped", sender: self)
    }
    
    func goToInfo() {
-      self.performSegue(withIdentifier: "goToSpotInfo", sender: self)
+      performSegue(withIdentifier: "goToSpotInfo", sender: self)
    }
 }
 
@@ -236,7 +236,7 @@ extension MainFormController: CLLocationManagerDelegate {
    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
       //        let location = locations[0]
       
-      self.mapView.showsUserLocation = true
+      mapView.showsUserLocation = true
    }
    
    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -244,7 +244,7 @@ extension MainFormController: CLLocationManagerDelegate {
    }
    
    @IBAction func AddNewSpot(_ sender: Any) {
-      self.performSegue(withIdentifier: "addNewSpot", sender: self)
+      performSegue(withIdentifier: "addNewSpot", sender: self)
    }
 }
 
@@ -254,14 +254,14 @@ extension MainFormController {
       super.viewWillAppear(animated)
       
       // Hide the navigation bar on the this view controller
-      self.navigationController?.setNavigationBarHidden(true, animated: animated)
+      navigationController?.setNavigationBarHidden(true, animated: animated)
    }
    
    override func viewWillDisappear(_ animated: Bool) {
       super.viewWillDisappear(animated)
       
       // Show the navigation bar on other view controllers
-      self.navigationController?.setNavigationBarHidden(false, animated: animated)
+      navigationController?.setNavigationBarHidden(false, animated: animated)
    }
 }
 

@@ -24,7 +24,7 @@ struct Spot {
    
    static func create(with name: String, description: String,
                       latitude: Double, longitude: Double) -> String {
-      let newSpotRef = self.refToSpotNode.childByAutoId()
+      let newSpotRef = refToSpotNode.childByAutoId()
       let newSpotRefKey = newSpotRef.key
       
       let newSpotDetailsItem = SpotDetailsItem(name: name, description: description,
@@ -36,7 +36,7 @@ struct Spot {
    }
    
    static func addPost(_ postItem: PostItem) {
-      let refToSpotNewPost = self.refToSpotNode.child(postItem.spotId).child("posts")
+      let refToSpotNewPost = refToSpotNode.child(postItem.spotId).child("posts")
       
       refToSpotNewPost.observeSingleEvent(of: .value, with: { snapshot in
          if var value = snapshot.value as? [String : Bool] {
@@ -49,7 +49,7 @@ struct Spot {
    }
    
    static func getAll(completion: @escaping (_ spots: [SpotDetailsItem]) -> Void) {
-      self.refToSpotNode.observe(.value, with: { snapshot in
+      refToSpotNode.observe(.value, with: { snapshot in
          var spotsList: [SpotDetailsItem] = []
          
          for item in snapshot.children {
@@ -98,7 +98,7 @@ struct Spot {
    static func getSpotPostsIds(for spotId: String,
                                completion: @escaping (_ postsIds: [String]) -> Void) {
       if alreadyLoadedCountOfPosts == 0 { // if we havent already loaded PostsIds
-         let refToSpotPosts = self.refToSpotNode.child(spotId).child("posts")
+         let refToSpotPosts = refToSpotNode.child(spotId).child("posts")
          
          refToSpotPosts.observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? NSDictionary {

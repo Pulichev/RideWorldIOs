@@ -48,65 +48,48 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
       DispatchQueue.global(qos: .userInitiated).async {
-         self.loadPosts()
+         self.loadPosts(completion: { newItems in
+            self.appendLoadedPosts(newItems)
+         })
       }
    }
    
-   override func viewDidDisappear(_ animated: Bool) {
-      Spot.alreadyLoadedCountOfPosts = 0
-      User.alreadyLoadedCountOfPosts = 0
+   // MARK: - Post load region
+   func appendLoadedPosts(_ newItems: [PostItem]?) {
+      var newItemsCache = [PostItemCellCache]()
+      
+      for newItem in newItems! {
+         let newItemCache = PostItemCellCache(spotPost: newItem, stripController: self)
+         
+         newItemsCache.append(newItemCache)
+      }
+      
+      self.posts.append(contentsOf: newItems!)
+      self.postItemCellsCache.append(contentsOf: newItemsCache)
+      
+      self.removeLoadingScreen()
    }
    
-   private func loadPosts() {
+   private func loadPosts(completion: @escaping (_ newItems: [PostItem]?) -> Void) {
       if self.cameFromSpotOrMyStrip {
-         self.loadSpotPosts()
+         Spot.getPosts(for: self.spotDetailsItem.key, countOfNewItemsToAdd: self.postsLoadStep,
+                       completion: { newItems in
+                        if newItems != nil {
+                           completion(newItems)
+                        }
+         })
       } else {
-         self.loadMyStripPosts()
+         User.getStripPosts(countOfNewItemsToAdd: self.postsLoadStep,
+                            completion: { newItems in
+                              if newItems != nil {
+                                 completion(newItems)
+                              }
+         })
       }
    }
    
-   // MARK: - Load posts region
+   // MARK: - Load more posts region
    private let postsLoadStep = 5
-   
-   private func loadSpotPosts() {
-      Spot.getPosts(for: self.spotDetailsItem.key, countOfNewItemsToAdd: self.postsLoadStep,
-                    completion: { newItems in
-                     if newItems != nil {
-                        var newItemsCache = [PostItemCellCache]()
-                        
-                        for newItem in newItems! {
-                           let newItemCache = PostItemCellCache(spotPost: newItem, stripController: self)
-                           
-                           newItemsCache.append(newItemCache)
-                        }
-                        
-                        self.posts.append(contentsOf: newItems!)
-                        self.postItemCellsCache.append(contentsOf: newItemsCache)
-                        
-                        self.removeLoadingScreen()
-                     }
-      })
-   }
-   
-   private func loadMyStripPosts() {
-      User.getStripPosts(countOfNewItemsToAdd: self.postsLoadStep,
-                         completion: { newItems in
-                           if newItems != nil {
-                              var newItemsCache = [PostItemCellCache]()
-                              
-                              for newItem in newItems! {
-                                 let newItemCache = PostItemCellCache(spotPost: newItem, stripController: self)
-                                 
-                                 newItemsCache.append(newItemCache)
-                              }
-                              
-                              self.posts.append(contentsOf: newItems!)
-                              self.postItemCellsCache.append(contentsOf: newItemsCache)
-                              
-                              self.removeLoadingScreen()
-                           }
-      })
-   }
    
    func scrollViewDidScroll(_ scrollView: UIScrollView) {
       let currentOffset = scrollView.contentOffset.y
@@ -138,13 +121,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    func loadMoreBegin(loadMoreEnd: @escaping (Int) -> ()) {
       DispatchQueue.global(qos: .userInitiated).async {
-         //self.countOfPostsForGetting += self.dCountOfPostsForGetting
-         self.loadPosts()
-         sleep(2)
-         
-         DispatchQueue.main.async {
-            loadMoreEnd(0)
-         }
+         sleep(1)
+         self.loadPosts(completion: { newItems in
+            self.appendLoadedPosts(newItems)
+            DispatchQueue.main.async {
+               loadMoreEnd(0)
+            }
+         })
       }
    }
    
@@ -155,11 +138,18 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       Spot.alreadyLoadedCountOfPosts = 0
       User.alreadyLoadedCountOfPosts = 0
       
-      self.loadPosts()
+      loadPosts(completion: { newItems in
+         self.appendLoadedPosts(newItems)
+      })
       
       // ending refreshing
       self.tableView.reloadData()
       self.refreshControl.endRefreshing()
+   }
+   
+   override func viewDidDisappear(_ animated: Bool) {
+      Spot.alreadyLoadedCountOfPosts = 0
+      User.alreadyLoadedCountOfPosts = 0
    }
    
    // MARK: - Main table filling region

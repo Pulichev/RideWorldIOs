@@ -15,7 +15,13 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    var spotLongitude: Double!
    
    @IBOutlet weak var spotTitle: UITextField!
-   @IBOutlet var spotDescription: UITextView!
+   @IBOutlet var spotDescription: UITextView! {
+      didSet {
+         spotDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
+         spotDescription.layer.borderWidth = 1.0
+         spotDescription.layer.cornerRadius = 5
+      }
+   }
    
    @IBOutlet weak var imageView: UIImageView!
    
@@ -36,13 +42,6 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       //adding method on spot main photo tap
       addGestureToOpenCameraOnPhotoTap()
       imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
-      placeBorderOnTextView()
-   }
-   
-   func placeBorderOnTextView() {
-      spotDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
-      spotDescription.layer.borderWidth = 1.0
-      spotDescription.layer.cornerRadius = 5
    }
    
    func addGestureToOpenCameraOnPhotoTap() {
@@ -66,7 +65,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view. Look at extension
 }
 
-//Fusuma
+//MARK: - Fusuma delegate
 extension NewSpotController: FusumaDelegate {
    @IBAction func takePhoto(_ sender: Any) {
       let fusuma = FusumaViewController()
@@ -141,7 +140,7 @@ extension NewSpotController: FusumaDelegate {
    }
 }
 
-//Keyboard manipulations
+// MARK: - Scroll view on keyboard show/hide
 extension NewSpotController {
    //if we tapped UITextField and then another UITextField
    func keyboardWillShow(notification: NSNotification) {

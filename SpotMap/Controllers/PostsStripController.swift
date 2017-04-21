@@ -43,10 +43,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       super.viewDidLoad()
       
       self.refreshControl = UIRefreshControl()
-      
       self.setLoadingScreen()
       
-      self._mainPartOfMediaref = "gs://spotmap-e3116.appspot.com/media/spotPostMedia/" // will use it in media download
       DispatchQueue.global(qos: .userInitiated).async {
          self.loadPosts(completion: { newItems in
             self.appendLoadedPosts(newItems)
@@ -230,8 +228,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       placeholder.contentMode = .scaleAspectFill
       cell.spotPostMedia.layer.addSublayer(placeholder.layer)
    }
-   
-   private var _mainPartOfMediaref: String!
    
    func setImageOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
       if self.postItemCellsCache[cacheKey].isCached {

@@ -11,7 +11,7 @@ import AVFoundation
 import Kingfisher
 import ActiveLabel
 
-class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIScrollViewDelegate {
+class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
    @IBOutlet weak var tableView: UITableView! {
       didSet {
          self.tableView.delegate = self
@@ -54,6 +54,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    override func viewDidDisappear(_ animated: Bool) {
       Spot.alreadyLoadedCountOfPosts = 0
+      User.alreadyLoadedCountOfPosts = 0
    }
    
    private func loadPosts() {
@@ -499,7 +500,7 @@ extension PostsStripController {
 }
 
 // MARK: - DZNEmptyDataSet for empty data tables
-extension PostsStripController {
+extension PostsStripController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
          let str = "Welcome"

@@ -110,16 +110,18 @@ class MainFormController: UIViewController {
    
    //Overriding function for passing data through two views
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      if(segue.identifier == "addNewSpot") {
+      switch segue.identifier! {
+      case "addNewSpot":
          let newSpotController = (segue.destination as! NewSpotController)
          newSpotController.spotLatitude = mapView.userLocation.coordinate.latitude //Passing latitude
          newSpotController.spotLongitude = mapView.userLocation.coordinate.longitude //Passing latitude
-      }
-      
-      if(segue.identifier == "spotDetailsTapped") {
+         
+      case "spotDetailsTapped":
          let postsStripController = (segue.destination as! PostsStripController)
          postsStripController.spotDetailsItem = spotDetailsForSendToPostsStripController
          postsStripController.cameFromSpotOrMyStrip = true // came from spot
+         
+      default: break
       }
    }
 }

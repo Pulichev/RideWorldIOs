@@ -6,8 +6,6 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-//!!!DO NOT COMMIT THIS FILE!!!
-
 import UIKit
 import Firebase
 import FirebaseDatabase

@@ -152,15 +152,17 @@ UITableViewDelegate {
    var ridersInfoForSending: UserItem!
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      if segue.identifier == "openRidersProfileFromCommentsList" {
+      switch segue.identifier! {
+      case "openRidersProfileFromCommentsList":
          let newRidersProfileController = segue.destination as! RidersProfileController
          newRidersProfileController.ridersInfo = ridersInfoForSending
          newRidersProfileController.title = ridersInfoForSending.login
-      }
-      
-      if segue.identifier == "openUserProfileFromCommentsList" {
+         
+      case "openUserProfileFromCommentsList":
          let userProfileController = segue.destination as! UserProfileController
          userProfileController.cameFromSpotDetails = true
+         
+      default: break
       }
    }
 }
@@ -178,7 +180,7 @@ extension CommentariesController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource
       let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
       return NSAttributedString(string: str, attributes: attrs)
    }
-
+   
 }
 
 // MARK: - Scroll view on keyboard show/hide

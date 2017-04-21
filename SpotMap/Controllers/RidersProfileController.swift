@@ -209,17 +209,19 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    }
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      if segue.identifier == "goToPostInfo" {
+      switch segue.identifier! {
+      case "goToPostInfo":
          let newPostInfoController = (segue.destination as! PostInfoViewController)
          newPostInfoController.postInfo = self.posts[self.postsIds[selectedCellId]]
          newPostInfoController.user = ridersInfo
          newPostInfoController.isCurrentUserProfile = false
-      }
-      
-      if segue.identifier == "goToFollowersFromRidersNode" {
+         
+      case "goToFollowersFromRidersNode":
          let newFollowersController = segue.destination as! FollowersController
          newFollowersController.userId = self.ridersInfo.uid
          newFollowersController.followersOrFollowingList = self.fromFollowersOrFollowing
+         
+      default: break
       }
    }
    

@@ -169,9 +169,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       cell.userInfo             = cellFromCache.userInfo
       cell.userNickName.setTitle(cellFromCache.userNickName, for: .normal)
       cell.userNickName.tag     = row // for segue to send userId to ridersProfile
-      cell.userNickName.addTarget(self, action: #selector(PostsStripController.nickNameTapped), for: .touchUpInside)
+      cell.userNickName.addTarget(self, action: #selector(nickNameTapped), for: .touchUpInside)
       cell.openComments.tag     = row // for segue to send postId to comments
-      cell.openComments.addTarget(self, action: #selector(PostsStripController.goToComments), for: .touchUpInside)
+      cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
       cell.postDate.text        = cellFromCache.postDate
       cell.postTime.text        = cellFromCache.postTime
       cell.postDescription.text = cellFromCache.postDescription
@@ -399,28 +399,28 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    var postUserIdForSending: String!
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      if segue.identifier == "addNewPost" {
+      switch segue.identifier! {
+      case "addNewPost":
          let newPostController = segue.destination as! NewPostController
          newPostController.spotDetailsItem = self.spotDetailsItem
-      }
-      
-      if segue.identifier == "openRidersProfileFromSpotDetails" {
+         
+      case "openRidersProfileFromSpotDetails":
          let newRidersProfileController = segue.destination as! RidersProfileController
          newRidersProfileController.ridersInfo = ridersInfoForSending
          newRidersProfileController.title = ridersInfoForSending.login
-      }
-      
-      if segue.identifier == "ifChoosedCurrentUser" {
+         
+      case "ifChoosedCurrentUser":
          let userProfileController = segue.destination as! UserProfileController
          userProfileController.cameFromSpotDetails = true
-      }
-      
-      if segue.identifier == "goToCommentsFromPostStrip" {
+         
+      case "goToCommentsFromPostStrip":
          let commentariesController = segue.destination as! CommentariesController
          commentariesController.postId = self.postIdForSending
          commentariesController.postDescription = self.postDescForSending
          commentariesController.postDate = self.postDateTimeForSending
          commentariesController.userId = self.postUserIdForSending
+         
+      default: break
       }
    }
    

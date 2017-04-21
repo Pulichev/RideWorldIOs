@@ -333,23 +333,24 @@ class PostInfoViewController: UIViewController {
    
    // MARK: - prepare for segue
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      if segue.identifier == "fromPostInfoToRidersProfile" {
+      switch segue.identifier! {
+      case "fromPostInfoToRidersProfile":
          let newRidersProfileController = segue.destination as! RidersProfileController
          newRidersProfileController.ridersInfo = ridersInfoForSending
          newRidersProfileController.title = ridersInfoForSending.login
-      }
-      
-      if segue.identifier == "fromPostInfoToUserProfile" {
+         
+      case "fromPostInfoToUserProfile":
          let userProfileController = segue.destination as! UserProfileController
          userProfileController.cameFromSpotDetails = true
-      }
-      
-      if segue.identifier == "goToCommentsFromPostInfo" {
+         
+      case "goToCommentsFromPostInfo":
          let commentariesController = segue.destination as! CommentariesController
          commentariesController.postId = self.postInfo.key
          commentariesController.postDescription = self.postInfo.description
          commentariesController.postDate = self.postInfo.createdDate
          commentariesController.userId = self.postInfo.addedByUser
+         
+      default: break
       }
    }
 }

@@ -91,15 +91,17 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
    var ridersInfoForSending: UserItem!
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      if segue.identifier == "openRidersProfileFromFollowList" {
+      switch segue.identifier! {
+      case "openRidersProfileFromFollowList":
          let newRidersProfileController = segue.destination as! RidersProfileController
          newRidersProfileController.ridersInfo = ridersInfoForSending
          newRidersProfileController.title = ridersInfoForSending.login
-      }
-      
-      if segue.identifier == "openUserProfileFromFollowList" {
+         
+      case "openUserProfileFromFollowList":
          let userProfileController = segue.destination as! UserProfileController
          userProfileController.cameFromSpotDetails = true
+         
+      default: break
       }
    }
 }

@@ -6,7 +6,6 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class RidersProfileCollectionViewCell: UICollectionViewCell {

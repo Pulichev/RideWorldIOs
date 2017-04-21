@@ -6,8 +6,6 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-import Foundation
-
 struct Image {
    static func resize(_ image: UIImage, targetSize: CGSize) -> UIImage {
       let size = image.size

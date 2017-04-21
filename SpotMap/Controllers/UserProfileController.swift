@@ -196,15 +196,15 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      if segue.identifier == "goToPostInfoFromUserProfile" {
+      switch segue.identifier! {
+      case "goToPostInfoFromUserProfile":
          let newPostInfoController = segue.destination as! PostInfoViewController
          newPostInfoController.postInfo = self.posts[self.postsIds[selectedCellId]]
          newPostInfoController.user = userInfo
          newPostInfoController.isCurrentUserProfile = true
          newPostInfoController.delegateDeleting = self
-      }
-      //send current profile data to editing
-      if segue.identifier == "editUserProfile" {
+         
+      case "editUserProfile":
          let newEditProfileController = segue.destination as! EditProfileController
          newEditProfileController.userInfo = self.userInfo
          newEditProfileController.userPhoto = RoundedImageView(image: UIImage(named: "plus-512.gif"))
@@ -212,12 +212,13 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             newEditProfileController.userPhotoTemp = image
          }
          newEditProfileController.delegate = self
-      }
-      
-      if segue.identifier == "goToFollowersFromUserNode" {
+         
+      case "goToFollowersFromUserNode":
          let newFollowersController = segue.destination as! FollowersController
          newFollowersController.userId = userInfo.uid
          newFollowersController.followersOrFollowingList = self.fromFollowersOrFollowing
+         
+      default: break
       }
    }
    

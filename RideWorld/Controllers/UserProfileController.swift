@@ -12,6 +12,8 @@ import AVFoundation
 class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
    var userInfo: UserItem! {
       didSet {
+         editButton.isEnabled = true
+         
          DispatchQueue.global(qos: .userInitiated).async {
             self.initializeUserTextInfo()
             self.initializeUserPhoto()
@@ -26,6 +28,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    @IBOutlet var userNameAndSename: UILabel!
    @IBOutlet var userBio: UITextView!
    @IBOutlet var userProfilePhoto: RoundedImageView!
+   @IBOutlet weak var editButton: UIButton!
    
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
@@ -46,6 +49,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    override func viewDidLoad() {
       super.viewDidLoad()
       
+      editButton.isEnabled = false // blocking when no userInfo initialized
       setLoadingScreen()
       
       let currentUserId = User.getCurrentUserId()

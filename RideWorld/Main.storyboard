@@ -1316,6 +1316,7 @@
                     <navigationItem key="navigationItem" id="H6x-9y-8OV"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="editButton" destination="6Gf-2N-ipQ" id="2Ki-nm-lZ2"/>
                         <outlet property="followersButton" destination="RMI-Pf-SCZ" id="ZxH-ET-9Rm"/>
                         <outlet property="followingButton" destination="hY3-G1-obR" id="X4o-BS-dnu"/>
                         <outlet property="userBio" destination="GAM-eQ-2FL" id="82C-Lk-CAT"/>
@@ -1592,12 +1593,12 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Gef-69-N8A"/>
-        <segue reference="QOa-aY-bXL"/>
-        <segue reference="CzX-Mc-6Hc"/>
-        <segue reference="6R6-CY-IE2"/>
         <segue reference="TEa-lr-7L1"/>
-        <segue reference="RlL-e4-xY6"/>
-        <segue reference="qSk-1a-lLs"/>
+        <segue reference="CzX-Mc-6Hc"/>
+        <segue reference="QOa-aY-bXL"/>
+        <segue reference="6R6-CY-IE2"/>
+        <segue reference="eyf-4a-ZNN"/>
+        <segue reference="TeE-da-wxz"/>
+        <segue reference="Gef-69-N8A"/>
     </inferredMetricsTieBreakers>
 </document>

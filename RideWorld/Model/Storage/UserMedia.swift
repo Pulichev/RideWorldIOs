@@ -8,7 +8,7 @@
 
 import FirebaseStorage
 
-struct UserMedia { 
+struct UserMedia {
    static let refToUserMainPhotoURLs = FIRStorage.storage().reference(withPath: "media/userMainPhotoURLs")
    
    // MARK: - Upload part

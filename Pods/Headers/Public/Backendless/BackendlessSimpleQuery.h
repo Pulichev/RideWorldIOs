@@ -1,1 +1,0 @@
-../../../Backendless/SDK/ios/backendless/include/BackendlessSimpleQuery.h

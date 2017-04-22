@@ -29,17 +29,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-SpotMap.xcscheme</key>
+		<key>Pods-RideWorld.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-SpotMapTests.xcscheme</key>
+		<key>Pods-RideWorldTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-SpotMapUITests.xcscheme</key>
+		<key>Pods-RideWorldUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,11 +47,6 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0A26A89D3938B6FD58363D17596B3151</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>107A9565F9DF88517DFD3E28C05B2B96</key>
 		<dict>
 			<key>primary</key>
@@ -62,12 +57,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8FD30F57819F058D45EE9B03AF3FE325</key>
+		<key>A1EBDD3BC77EFE921F5EFB115E0E3B3D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A1EBDD3BC77EFE921F5EFB115E0E3B3D</key>
+		<key>A2EBB9DBC32E6FB582A1ECD510A6C075</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,7 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E76B0581AF242D927C232D0EFE09A364</key>
+		<key>D7ABD3FB2A052F7C88C1DB88EB664012</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EA9E0F61DAD7902882F9745C58AD82A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

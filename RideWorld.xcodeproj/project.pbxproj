@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36F1F7DCB85F8C8845DAED19 /* Pods_RideWorldTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B33B065AEC0714542A1992 /* Pods_RideWorldTests.framework */; };
+		5FA3E431B68534501CC6E020 /* Pods_RideWorld.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E2F97D61287A76F30134E8 /* Pods_RideWorld.framework */; };
+		61E22201BFB86269B4F95B6A /* Pods_RideWorldUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B65B45F2D6E92C4EF0A414F6 /* Pods_RideWorldUITests.framework */; };
 		731AD27307E50B3192B4422B /* Pods_SpotMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */; };
 		7E70B15F5DAC197C3216DA6E /* Pods_SpotMapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFE0AF727D03D36C374021 /* Pods_SpotMapUITests.framework */; };
 		9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5831E898412007ABD55 /* grayRec.jpg */; };
@@ -39,9 +42,8 @@
 		9FAE8C201E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */; };
 		9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */; };
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
-		9FB681CB1E2E70CE00D9A436 /* SpotMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681CA1E2E70CE00D9A436 /* SpotMapTests.swift */; };
-		9FB681D61E2E70CE00D9A436 /* SpotMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */; };
-		9FBCFAE41E6F248C00A5C95D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */; };
+		9FB681CB1E2E70CE00D9A436 /* RideWorldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681CA1E2E70CE00D9A436 /* RideWorldTests.swift */; };
+		9FB681D61E2E70CE00D9A436 /* RideWorldUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681D51E2E70CE00D9A436 /* RideWorldUITests.swift */; };
 		9FBCFAE81E73445900A5C95D /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE71E73445900A5C95D /* Image.swift */; };
 		9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FC91E48E5E30097579B /* LoginController.swift */; };
 		9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCA1E48E5E30097579B /* MainFormController.swift */; };
@@ -53,6 +55,7 @@
 		9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D31E54587800C673CA /* RidersProfileController.swift */; };
 		9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD648DB1E573F0600C673CA /* Main.storyboard */; };
 		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
+		9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */; };
 		9FF1BF6C1E9D448500A2CEF2 /* CommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF6B1E9D448500A2CEF2 /* CommentsModel.swift */; };
 		9FF1BF701E9D707400A2CEF2 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF6F1E9D707400A2CEF2 /* UserModel.swift */; };
 		9FF1BF721E9E801F00A2CEF2 /* UserMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF711E9E801F00A2CEF2 /* UserMedia.swift */; };
@@ -84,14 +87,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05FDDD5ECF4FB5AA806AD807 /* Pods-RideWorld.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideWorld.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RideWorld/Pods-RideWorld.debug.xcconfig"; sourceTree = "<group>"; };
 		0CC49846815FAA415F97412D /* Pods-SpotMapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapUITests/Pods-SpotMapUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1ECD500F27F43D98F144848E /* Pods-RideWorldUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideWorldUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RideWorldUITests/Pods-RideWorldUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		36EFE0AF727D03D36C374021 /* Pods_SpotMapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotMapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		457C1210DCD309EF27E34E6D /* Pods-SpotMapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.debug.xcconfig"; sourceTree = "<group>"; };
 		48E9C9E26DA909E14DE43D03 /* Pods-SpotMapUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapUITests/Pods-SpotMapUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A752A6ABE4F4F31D015688F /* Pods-SpotMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.debug.xcconfig"; sourceTree = "<group>"; };
 		8580589E3175367EF665865F /* Pods-SpotMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMap.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap.release.xcconfig"; sourceTree = "<group>"; };
+		8608F78284EF00BFC0AF17E4 /* Pods-RideWorldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideWorldTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RideWorldTests/Pods-RideWorldTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96C3328159E2F18FCB775EE9 /* Pods-RideWorld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideWorld.release.xcconfig"; path = "Pods/Target Support Files/Pods-RideWorld/Pods-RideWorld.release.xcconfig"; sourceTree = "<group>"; };
 		9F0AC5831E898412007ABD55 /* grayRec.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grayRec.jpg; path = Pictures/grayRec.jpg; sourceTree = "<group>"; };
 		9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForUpdatingUserProfilePosts.swift; path = Protocols/ForUpdatingUserProfilePosts.swift; sourceTree = "<group>"; };
 		9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = PleaseWaitTxt.gif; path = Pictures/PleaseWaitTxt.gif; sourceTree = "<group>"; };
@@ -121,17 +128,16 @@
 		9F943EE81E6F041300709B79 /* LikeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeItem.swift; path = Data/LikeItem.swift; sourceTree = "<group>"; };
 		9FAE8C1E1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+EmptyDataSet.h"; path = "Some Obj-C frameworks/UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+EmptyDataSet.m"; path = "Some Obj-C frameworks/UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
-		9FB681B21E2E70CE00D9A436 /* SpotMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FB681B21E2E70CE00D9A436 /* RideWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FB681BF1E2E70CE00D9A436 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FB681C11E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9FB681C61E2E70CE00D9A436 /* SpotMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9FB681CA1E2E70CE00D9A436 /* SpotMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMapTests.swift; sourceTree = "<group>"; };
+		9FB681C61E2E70CE00D9A436 /* RideWorldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RideWorldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FB681CA1E2E70CE00D9A436 /* RideWorldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideWorldTests.swift; sourceTree = "<group>"; };
 		9FB681CC1E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9FB681D11E2E70CE00D9A436 /* SpotMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotMapUITests.swift; sourceTree = "<group>"; };
+		9FB681D11E2E70CE00D9A436 /* RideWorldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RideWorldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FB681D51E2E70CE00D9A436 /* RideWorldUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideWorldUITests.swift; sourceTree = "<group>"; };
 		9FB681D71E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FBCFAE71E73445900A5C95D /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Image.swift; path = CustomUIElements/Image.swift; sourceTree = "<group>"; };
 		9FC14FC91E48E5E30097579B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controllers/LoginController.swift; sourceTree = "<group>"; };
 		9FC14FCA1E48E5E30097579B /* MainFormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainFormController.swift; path = Controllers/MainFormController.swift; sourceTree = "<group>"; };
@@ -143,7 +149,8 @@
 		9FD648D31E54587800C673CA /* RidersProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileController.swift; path = Controllers/RidersProfileController.swift; sourceTree = "<group>"; };
 		9FD648DB1E573F0600C673CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
-		9FF1BF641E9C1D5C00A2CEF2 /* SpotMap-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SpotMap-Bridging-Header.h"; path = "Some Obj-C frameworks/SpotMap-Bridging-Header.h"; sourceTree = "<group>"; };
+		9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9FF1BF641E9C1D5C00A2CEF2 /* RideWorld-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RideWorld-Bridging-Header.h"; path = "Some Obj-C frameworks/RideWorld-Bridging-Header.h"; sourceTree = "<group>"; };
 		9FF1BF6B1E9D448500A2CEF2 /* CommentsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsModel.swift; path = Model/DataBase/CommentsModel.swift; sourceTree = "<group>"; };
 		9FF1BF6F1E9D707400A2CEF2 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserModel.swift; path = Model/DataBase/UserModel.swift; sourceTree = "<group>"; };
 		9FF1BF711E9E801F00A2CEF2 /* UserMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserMedia.swift; path = Model/Storage/UserMedia.swift; sourceTree = "<group>"; };
@@ -154,7 +161,12 @@
 		9FF1BF7C1EA551BB00A2CEF2 /* SpotMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotMedia.swift; path = Model/Storage/SpotMedia.swift; sourceTree = "<group>"; };
 		9FFB14F51E7848F600D10620 /* FollowersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersController.swift; path = Controllers/FollowersController.swift; sourceTree = "<group>"; };
 		9FFB14F71E784E4B00D10620 /* FollowersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersCell.swift; path = CustomUIElements/FollowersCell.swift; sourceTree = "<group>"; };
+		A94561AC08C94F28AF5F0405 /* Pods-RideWorldTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideWorldTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RideWorldTests/Pods-RideWorldTests.release.xcconfig"; sourceTree = "<group>"; };
+		B65B45F2D6E92C4EF0A414F6 /* Pods_RideWorldUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RideWorldUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8E2F97D61287A76F30134E8 /* Pods_RideWorld.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RideWorld.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotMapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests.release.xcconfig"; sourceTree = "<group>"; };
+		E2B33B065AEC0714542A1992 /* Pods_RideWorldTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RideWorldTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F54462B42B474C5D34DED105 /* Pods-RideWorldUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideWorldUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RideWorldUITests/Pods-RideWorldUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */,
+				5FA3E431B68534501CC6E020 /* Pods_RideWorld.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				731AD27307E50B3192B4422B /* Pods_SpotMapTests.framework in Frameworks */,
+				36F1F7DCB85F8C8845DAED19 /* Pods_RideWorldTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E70B15F5DAC197C3216DA6E /* Pods_SpotMapUITests.framework in Frameworks */,
+				61E22201BFB86269B4F95B6A /* Pods_RideWorldUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +206,9 @@
 				3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */,
 				8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */,
 				36EFE0AF727D03D36C374021 /* Pods_SpotMapUITests.framework */,
+				B8E2F97D61287A76F30134E8 /* Pods_RideWorld.framework */,
+				E2B33B065AEC0714542A1992 /* Pods_RideWorldTests.framework */,
+				B65B45F2D6E92C4EF0A414F6 /* Pods_RideWorldUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -244,7 +262,7 @@
 		9FAE8C1C1E7E83F400BB10B9 /* Some Obj-C frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9FF1BF641E9C1D5C00A2CEF2 /* SpotMap-Bridging-Header.h */,
+				9FF1BF641E9C1D5C00A2CEF2 /* RideWorld-Bridging-Header.h */,
 				9FAE8C1E1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.h */,
 				9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */,
 			);
@@ -254,9 +272,9 @@
 		9FB681A91E2E70CD00D9A436 = {
 			isa = PBXGroup;
 			children = (
-				9FB681B41E2E70CE00D9A436 /* SpotMap */,
-				9FB681C91E2E70CE00D9A436 /* SpotMapTests */,
-				9FB681D41E2E70CE00D9A436 /* SpotMapUITests */,
+				9FB681B41E2E70CE00D9A436 /* RideWorld */,
+				9FB681C91E2E70CE00D9A436 /* RideWorldTests */,
+				9FB681D41E2E70CE00D9A436 /* RideWorldUITests */,
 				9FB681B31E2E70CE00D9A436 /* Products */,
 				CF90D077CFC09096E77DE243 /* Pods */,
 				7ED1CDD97CD568D69F05C5BA /* Frameworks */,
@@ -266,14 +284,14 @@
 		9FB681B31E2E70CE00D9A436 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9FB681B21E2E70CE00D9A436 /* SpotMap.app */,
-				9FB681C61E2E70CE00D9A436 /* SpotMapTests.xctest */,
-				9FB681D11E2E70CE00D9A436 /* SpotMapUITests.xctest */,
+				9FB681B21E2E70CE00D9A436 /* RideWorld.app */,
+				9FB681C61E2E70CE00D9A436 /* RideWorldTests.xctest */,
+				9FB681D11E2E70CE00D9A436 /* RideWorldUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9FB681B41E2E70CE00D9A436 /* SpotMap */ = {
+		9FB681B41E2E70CE00D9A436 /* RideWorld */ = {
 			isa = PBXGroup;
 			children = (
 				9FD648DB1E573F0600C673CA /* Main.storyboard */,
@@ -287,25 +305,25 @@
 				9F2380721E34DA20009D41E8 /* Pictures */,
 				9F113EB71E32A4D3009AF9FD /* Data */,
 			);
-			path = SpotMap;
+			path = RideWorld;
 			sourceTree = "<group>";
 		};
-		9FB681C91E2E70CE00D9A436 /* SpotMapTests */ = {
+		9FB681C91E2E70CE00D9A436 /* RideWorldTests */ = {
 			isa = PBXGroup;
 			children = (
-				9FB681CA1E2E70CE00D9A436 /* SpotMapTests.swift */,
+				9FB681CA1E2E70CE00D9A436 /* RideWorldTests.swift */,
 				9FB681CC1E2E70CE00D9A436 /* Info.plist */,
 			);
-			path = SpotMapTests;
+			path = RideWorldTests;
 			sourceTree = "<group>";
 		};
-		9FB681D41E2E70CE00D9A436 /* SpotMapUITests */ = {
+		9FB681D41E2E70CE00D9A436 /* RideWorldUITests */ = {
 			isa = PBXGroup;
 			children = (
-				9FB681D51E2E70CE00D9A436 /* SpotMapUITests.swift */,
+				9FB681D51E2E70CE00D9A436 /* RideWorldUITests.swift */,
 				9FB681D71E2E70CE00D9A436 /* Info.plist */,
 			);
-			path = SpotMapUITests;
+			path = RideWorldUITests;
 			sourceTree = "<group>";
 		};
 		9FC14FC61E48E5CB0097579B /* Controllers */ = {
@@ -384,10 +402,10 @@
 		9FF1BF731E9FE3AF00A2CEF2 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */,
 				9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */,
 				9F65321B1E3CD12700F58C18 /* Assets.xcassets */,
 				9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */,
-				9FBCFAE31E6F248C00A5C95D /* GoogleService-Info.plist */,
 				9FB681C11E2E70CE00D9A436 /* Info.plist */,
 			);
 			name = "Supporting files";
@@ -402,6 +420,12 @@
 				C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */,
 				48E9C9E26DA909E14DE43D03 /* Pods-SpotMapUITests.debug.xcconfig */,
 				0CC49846815FAA415F97412D /* Pods-SpotMapUITests.release.xcconfig */,
+				05FDDD5ECF4FB5AA806AD807 /* Pods-RideWorld.debug.xcconfig */,
+				96C3328159E2F18FCB775EE9 /* Pods-RideWorld.release.xcconfig */,
+				8608F78284EF00BFC0AF17E4 /* Pods-RideWorldTests.debug.xcconfig */,
+				A94561AC08C94F28AF5F0405 /* Pods-RideWorldTests.release.xcconfig */,
+				1ECD500F27F43D98F144848E /* Pods-RideWorldUITests.debug.xcconfig */,
+				F54462B42B474C5D34DED105 /* Pods-RideWorldUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -409,9 +433,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9FB681B11E2E70CD00D9A436 /* SpotMap */ = {
+		9FB681B11E2E70CD00D9A436 /* RideWorld */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9FB681DA1E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "SpotMap" */;
+			buildConfigurationList = 9FB681DA1E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "RideWorld" */;
 			buildPhases = (
 				DA398A463813291B7027ADD8 /* [CP] Check Pods Manifest.lock */,
 				9FB681AE1E2E70CD00D9A436 /* Sources */,
@@ -425,14 +449,14 @@
 			);
 			dependencies = (
 			);
-			name = SpotMap;
+			name = RideWorld;
 			productName = SpotMap;
-			productReference = 9FB681B21E2E70CE00D9A436 /* SpotMap.app */;
+			productReference = 9FB681B21E2E70CE00D9A436 /* RideWorld.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9FB681C51E2E70CE00D9A436 /* SpotMapTests */ = {
+		9FB681C51E2E70CE00D9A436 /* RideWorldTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9FB681DD1E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "SpotMapTests" */;
+			buildConfigurationList = 9FB681DD1E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "RideWorldTests" */;
 			buildPhases = (
 				1C41BC54C08428FD4FD55A22 /* [CP] Check Pods Manifest.lock */,
 				9FB681C21E2E70CE00D9A436 /* Sources */,
@@ -446,14 +470,14 @@
 			dependencies = (
 				9FB681C81E2E70CE00D9A436 /* PBXTargetDependency */,
 			);
-			name = SpotMapTests;
+			name = RideWorldTests;
 			productName = SpotMapTests;
-			productReference = 9FB681C61E2E70CE00D9A436 /* SpotMapTests.xctest */;
+			productReference = 9FB681C61E2E70CE00D9A436 /* RideWorldTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		9FB681D01E2E70CE00D9A436 /* SpotMapUITests */ = {
+		9FB681D01E2E70CE00D9A436 /* RideWorldUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9FB681E01E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "SpotMapUITests" */;
+			buildConfigurationList = 9FB681E01E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "RideWorldUITests" */;
 			buildPhases = (
 				EAAB91DC5C94139048EDDCE8 /* [CP] Check Pods Manifest.lock */,
 				9FB681CD1E2E70CE00D9A436 /* Sources */,
@@ -467,9 +491,9 @@
 			dependencies = (
 				9FB681D31E2E70CE00D9A436 /* PBXTargetDependency */,
 			);
-			name = SpotMapUITests;
+			name = RideWorldUITests;
 			productName = SpotMapUITests;
-			productReference = 9FB681D11E2E70CE00D9A436 /* SpotMapUITests.xctest */;
+			productReference = 9FB681D11E2E70CE00D9A436 /* RideWorldUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -502,7 +526,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9FB681AD1E2E70CD00D9A436 /* Build configuration list for PBXProject "SpotMap" */;
+			buildConfigurationList = 9FB681AD1E2E70CD00D9A436 /* Build configuration list for PBXProject "RideWorld" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -515,9 +539,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9FB681B11E2E70CD00D9A436 /* SpotMap */,
-				9FB681C51E2E70CE00D9A436 /* SpotMapTests */,
-				9FB681D01E2E70CE00D9A436 /* SpotMapUITests */,
+				9FB681B11E2E70CD00D9A436 /* RideWorld */,
+				9FB681C51E2E70CE00D9A436 /* RideWorldTests */,
+				9FB681D01E2E70CE00D9A436 /* RideWorldUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -538,9 +562,9 @@
 				9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */,
 				9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */,
 				9F4A84491E6329D100C1E5F2 /* biography.png in Resources */,
-				9FBCFAE41E6F248C00A5C95D /* GoogleService-Info.plist in Resources */,
 				9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */,
 				9F4A84471E63229E00C1E5F2 /* login.png in Resources */,
+				9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,7 +597,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RideWorldTests/Pods-RideWorldTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		1C41BC54C08428FD4FD55A22 /* [CP] Check Pods Manifest.lock */ = {
@@ -603,7 +627,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpotMapUITests/Pods-SpotMapUITests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RideWorldUITests/Pods-RideWorldUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		370F51D9C2AB52A49BB8F2F8 /* [CP] Copy Pods Resources */ = {
@@ -618,7 +642,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpotMapUITests/Pods-SpotMapUITests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RideWorldUITests/Pods-RideWorldUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6194BFCE891A03A80D7AFCF7 /* [CP] Copy Pods Resources */ = {
@@ -633,7 +657,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RideWorld/Pods-RideWorld-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9FD648D21E5351F300C673CA /* ShellScript */ = {
@@ -677,7 +701,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpotMapTests/Pods-SpotMapTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RideWorldTests/Pods-RideWorldTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EAAB91DC5C94139048EDDCE8 /* [CP] Check Pods Manifest.lock */ = {
@@ -707,7 +731,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpotMap/Pods-SpotMap-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RideWorld/Pods-RideWorld-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -762,7 +786,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FB681CB1E2E70CE00D9A436 /* SpotMapTests.swift in Sources */,
+				9FB681CB1E2E70CE00D9A436 /* RideWorldTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -770,7 +794,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FB681D61E2E70CE00D9A436 /* SpotMapUITests.swift in Sources */,
+				9FB681D61E2E70CE00D9A436 /* RideWorldUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,12 +803,12 @@
 /* Begin PBXTargetDependency section */
 		9FB681C81E2E70CE00D9A436 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9FB681B11E2E70CD00D9A436 /* SpotMap */;
+			target = 9FB681B11E2E70CD00D9A436 /* RideWorld */;
 			targetProxy = 9FB681C71E2E70CE00D9A436 /* PBXContainerItemProxy */;
 		};
 		9FB681D31E2E70CE00D9A436 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9FB681B11E2E70CD00D9A436 /* SpotMap */;
+			target = 9FB681B11E2E70CD00D9A436 /* RideWorld */;
 			targetProxy = 9FB681D21E2E70CE00D9A436 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -902,17 +926,17 @@
 		};
 		9FB681DB1E2E70CE00D9A436 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A752A6ABE4F4F31D015688F /* Pods-SpotMap.debug.xcconfig */;
+			baseConfigurationReference = 05FDDD5ECF4FB5AA806AD807 /* Pods-RideWorld.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = D8RV5S3P38;
-				INFOPLIST_FILE = SpotMap/Info.plist;
+				INFOPLIST_FILE = RideWorld/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = VP.SpotMap;
+				PRODUCT_BUNDLE_IDENTIFIER = VP.RideWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SpotMap/Some Obj-C frameworks/SpotMap-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RideWorld/Some Obj-C frameworks/RideWorld-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -920,17 +944,17 @@
 		};
 		9FB681DC1E2E70CE00D9A436 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8580589E3175367EF665865F /* Pods-SpotMap.release.xcconfig */;
+			baseConfigurationReference = 96C3328159E2F18FCB775EE9 /* Pods-RideWorld.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = D8RV5S3P38;
-				INFOPLIST_FILE = SpotMap/Info.plist;
+				INFOPLIST_FILE = RideWorld/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = VP.SpotMap;
+				PRODUCT_BUNDLE_IDENTIFIER = VP.RideWorld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SpotMap/Some Obj-C frameworks/SpotMap-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RideWorld/Some Obj-C frameworks/RideWorld-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -938,39 +962,39 @@
 		};
 		9FB681DE1E2E70CE00D9A436 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 457C1210DCD309EF27E34E6D /* Pods-SpotMapTests.debug.xcconfig */;
+			baseConfigurationReference = 8608F78284EF00BFC0AF17E4 /* Pods-RideWorldTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = D8RV5S3P38;
-				INFOPLIST_FILE = SpotMapTests/Info.plist;
+				INFOPLIST_FILE = RideWorldTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = VP.SpotMapTests;
+				PRODUCT_BUNDLE_IDENTIFIER = VP.RideWorldTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpotMap.app/SpotMap";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RideWorld.app/RideWorld";
 			};
 			name = Debug;
 		};
 		9FB681DF1E2E70CE00D9A436 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C951A5B7F97A865607FB2FE0 /* Pods-SpotMapTests.release.xcconfig */;
+			baseConfigurationReference = A94561AC08C94F28AF5F0405 /* Pods-RideWorldTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = D8RV5S3P38;
-				INFOPLIST_FILE = SpotMapTests/Info.plist;
+				INFOPLIST_FILE = RideWorldTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = VP.SpotMapTests;
+				PRODUCT_BUNDLE_IDENTIFIER = VP.RideWorldTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpotMap.app/SpotMap";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RideWorld.app/RideWorld";
 			};
 			name = Release;
 		};
 		9FB681E11E2E70CE00D9A436 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48E9C9E26DA909E14DE43D03 /* Pods-SpotMapUITests.debug.xcconfig */;
+			baseConfigurationReference = 1ECD500F27F43D98F144848E /* Pods-RideWorldUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = D8RV5S3P38;
@@ -985,7 +1009,7 @@
 		};
 		9FB681E21E2E70CE00D9A436 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0CC49846815FAA415F97412D /* Pods-SpotMapUITests.release.xcconfig */;
+			baseConfigurationReference = F54462B42B474C5D34DED105 /* Pods-RideWorldUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = D8RV5S3P38;
@@ -1001,7 +1025,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9FB681AD1E2E70CD00D9A436 /* Build configuration list for PBXProject "SpotMap" */ = {
+		9FB681AD1E2E70CD00D9A436 /* Build configuration list for PBXProject "RideWorld" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FB681D81E2E70CE00D9A436 /* Debug */,
@@ -1010,7 +1034,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FB681DA1E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "SpotMap" */ = {
+		9FB681DA1E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "RideWorld" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FB681DB1E2E70CE00D9A436 /* Debug */,
@@ -1019,7 +1043,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FB681DD1E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "SpotMapTests" */ = {
+		9FB681DD1E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "RideWorldTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FB681DE1E2E70CE00D9A436 /* Debug */,
@@ -1028,7 +1052,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FB681E01E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "SpotMapUITests" */ = {
+		9FB681E01E2E70CE00D9A436 /* Build configuration list for PBXNativeTarget "RideWorldUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FB681E11E2E70CE00D9A436 /* Debug */,

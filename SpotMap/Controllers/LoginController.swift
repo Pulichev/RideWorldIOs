@@ -23,8 +23,10 @@ class LoginController: UIViewController, UITextFieldDelegate {
       userPassword.delegate = self
       
       //For scrolling the view if keyboard on
-      NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-      NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow),
+                                             name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide),
+                                             name: NSNotification.Name.UIKeyboardWillHide, object: nil)
       
       super.viewDidLoad()
    }

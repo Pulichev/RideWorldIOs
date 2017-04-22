@@ -23,10 +23,9 @@ class PostItemCellCache {
    var likesCount = Int()
    var isCached = false
    
-   init(spotPost: PostItem, stripController: PostsStripController) {
+   init(spotPost: PostItem, completion: @escaping (_ cellCache: PostItemCellCache) -> Void) {
       key = spotPost.key
       post = spotPost
-      initializeUser()
       let sourceDate = post.createdDate
       // formatting date to yyyy-mm-dd
       let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
@@ -35,19 +34,25 @@ class PostItemCellCache {
       postTime = finalTime
       postDescription = post.description
       isPhoto = post.isPhoto
-      userLikedThisPost(stripController: stripController)
-      countPostLikes(stripController: stripController)
+      initializeUser(completion: {
+         self.userLikedThisPost(completion: {
+            self.countPostLikes(completion: {
+               completion(self)
+            })
+         })
+      })
    }
    
-   func initializeUser() {
+   func initializeUser(completion: @escaping () -> Void) {
       User.getItemById(for: post.addedByUser,
                        completion: { userItem in
                         self.userInfo = userItem
                         self.userNickName = self.userInfo.login
+                        completion()
       })
    }
    
-   func userLikedThisPost(stripController: PostsStripController) {
+   func userLikedThisPost(completion: @escaping () -> Void) {
       Post.isLikedByUser(post.key,
                          completion: { isLiked in
                            if isLiked {
@@ -57,17 +62,15 @@ class PostItemCellCache {
                               self.postIsLiked = false
                               self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
                            }
-                           
-                           stripController.tableView.reloadData()
+                           completion()
       })
    }
    
-   func countPostLikes(stripController: PostsStripController) {
+   func countPostLikes(completion: @escaping () -> Void) {
       Post.getLikesCount(for: post.key,
                          completion: { countOfPostLikes in
                            self.likesCount = countOfPostLikes
-                           stripController.tableView.reloadData()
-                           
+                           completion()
       })
    }
    

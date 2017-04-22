@@ -20,6 +20,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          tableView.emptyDataSetDelegate = self
       }
    }
+   
    var refreshControl: UIRefreshControl! {
       didSet {
          refreshControl.attributedTitle = NSAttributedString(string: "Идет обновление...")
@@ -28,6 +29,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          tableView.tableFooterView?.isHidden = true // hide on start
       }
    }
+   
    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
    
    var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
@@ -45,27 +47,31 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       refreshControl = UIRefreshControl()
       setLoadingScreen()
       
-      DispatchQueue.global(qos: .userInitiated).async {
-         self.loadPosts(completion: { newItems in
-            self.appendLoadedPosts(newItems)
-         })
-      }
+      self.loadPosts(completion: { newItems in
+         self.appendLoadedPosts(newItems)
+      })
    }
    
    // MARK: - Post load region
    func appendLoadedPosts(_ newItems: [PostItem]?) {
       var newItemsCache = [PostItemCellCache]()
       
+      var countOfCachedCells = 0
       for newItem in newItems! {
-         let newItemCache = PostItemCellCache(spotPost: newItem, stripController: self)
-         
-         newItemsCache.append(newItemCache)
+         // need to cache all cells before adding
+         _ = PostItemCellCache(spotPost: newItem,
+                               completion: { cellCache in
+                                 countOfCachedCells += 1
+                                 newItemsCache.append(cellCache)
+                                 
+                                 if countOfCachedCells == newItems?.count {
+                                    self.posts.append(contentsOf: newItems!)
+                                    self.postItemCellsCache.append(contentsOf: newItemsCache)
+                                    self.tableView.reloadData()
+                                    self.removeLoadingScreen()
+                                 }
+         })
       }
-      
-      posts.append(contentsOf: newItems!)
-      postItemCellsCache.append(contentsOf: newItemsCache)
-      
-      removeLoadingScreen()
    }
    
    private func loadPosts(completion: @escaping (_ newItems: [PostItem]?) -> Void) {

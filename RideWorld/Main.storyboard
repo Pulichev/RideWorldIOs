@@ -450,7 +450,9 @@
                     <connections>
                         <outlet property="followButton" destination="xNU-PM-ycZ" id="lh3-QZ-yRK"/>
                         <outlet property="followersButton" destination="87a-fo-AEh" id="vlX-h2-9VN"/>
+                        <outlet property="followersStackView" destination="iPs-Tk-Dhz" id="tVe-0O-JKO"/>
                         <outlet property="followingButton" destination="AYU-8z-Yyb" id="Dsr-Is-R0e"/>
+                        <outlet property="followingStackView" destination="aYJ-c2-Cq4" id="d10-tq-RKc"/>
                         <outlet property="riderProfileCollection" destination="Npn-VA-zc6" id="4bS-eO-vkW"/>
                         <outlet property="ridersBio" destination="Xqz-1K-Be3" id="e6X-Tn-jKL"/>
                         <outlet property="ridersProfilePhoto" destination="vzh-Kq-S3x" id="2pj-Ev-rKs"/>
@@ -1318,7 +1320,9 @@
                     <connections>
                         <outlet property="editButton" destination="6Gf-2N-ipQ" id="2Ki-nm-lZ2"/>
                         <outlet property="followersButton" destination="RMI-Pf-SCZ" id="ZxH-ET-9Rm"/>
+                        <outlet property="followersStackView" destination="wL4-SO-RPT" id="V57-hb-eas"/>
                         <outlet property="followingButton" destination="hY3-G1-obR" id="X4o-BS-dnu"/>
+                        <outlet property="followingStackView" destination="6hV-te-jtd" id="qol-Yx-2kM"/>
                         <outlet property="userBio" destination="GAM-eQ-2FL" id="82C-Lk-CAT"/>
                         <outlet property="userNameAndSename" destination="4A0-yl-41S" id="b3h-SO-uvc"/>
                         <outlet property="userProfileCollection" destination="C4x-Bn-Hds" id="ifq-Mt-AMv"/>
@@ -1593,12 +1597,12 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TEa-lr-7L1"/>
         <segue reference="CzX-Mc-6Hc"/>
-        <segue reference="QOa-aY-bXL"/>
         <segue reference="6R6-CY-IE2"/>
-        <segue reference="eyf-4a-ZNN"/>
+        <segue reference="QOa-aY-bXL"/>
+        <segue reference="TEa-lr-7L1"/>
         <segue reference="TeE-da-wxz"/>
+        <segue reference="eyf-4a-ZNN"/>
         <segue reference="Gef-69-N8A"/>
     </inferredMetricsTieBreakers>
 </document>

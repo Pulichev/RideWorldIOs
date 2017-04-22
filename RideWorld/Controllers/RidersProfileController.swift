@@ -18,9 +18,23 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    
    @IBOutlet var followButton: UIButton!
    
+   @IBOutlet weak var followersStackView: UIStackView! {
+      didSet {
+         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(followersButtonTapped(_:)))
+         followersStackView.addGestureRecognizer(tapGesture)
+      }
+   }
+   
+   @IBOutlet weak var followingStackView: UIStackView! {
+      didSet {
+         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(followingButtonTapped(_:)))
+         followingStackView.addGestureRecognizer(tapGesture)
+      }
+   }
+   
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
-   
+
    @IBOutlet var riderProfileCollection: UICollectionView!
    
    var posts = [String: PostItem]()

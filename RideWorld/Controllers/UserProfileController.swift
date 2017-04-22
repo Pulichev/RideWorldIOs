@@ -30,6 +30,20 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    @IBOutlet var userProfilePhoto: RoundedImageView!
    @IBOutlet weak var editButton: UIButton!
    
+   @IBOutlet weak var followersStackView: UIStackView! {
+      didSet {
+         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(followersButtonTapped(_:)))
+         followersStackView.addGestureRecognizer(tapGesture)
+      }
+   }
+   
+   @IBOutlet weak var followingStackView: UIStackView! {
+      didSet {
+         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(followingButtonTapped(_:)))
+         followingStackView.addGestureRecognizer(tapGesture)
+      }
+   }
+   
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
    

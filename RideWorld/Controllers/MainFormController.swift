@@ -161,48 +161,12 @@ extension MainFormController: MKMapViewDelegate {
    }
    
    func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotDetailsItem) {
-      let width = 250
-      let height = 250
+      let pinfoView = PinInfoView()
+      pinfoView.addPhoto(spotId: spotPin.key)
+      pinfoView.goToInfoButton.addTarget(self, action: #selector(goToInfo), for: .touchDown)
+      pinfoView.goToPostsButton.addTarget(self, action: #selector(goToPosts), for: .touchDown)
       
-      let infoView = UIView()
-      let views = ["infoView": infoView]
-      infoView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[infoView(250)]",
-                                                             options: [], metrics: nil, views: views))
-      infoView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[infoView(250)]",
-                                                             options: [], metrics: nil, views: views))
-      
-      let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height - 40))
-      
-      let goToInfoButton = UIButton(frame: CGRect(x: 0, y: height - 35, width: width / 2 - 5, height: 35))
-      goToInfoButton.setTitle("Info", for: .normal)
-      goToInfoButton.setTitleColor(UIColor.darkGray, for: .normal)
-      goToInfoButton.addTarget(self, action: #selector(MainFormController.goToInfo), for: .touchDown)
-      
-      let goToPostsButton = UIButton(frame: CGRect(x: width / 2 + 5, y: height - 35, width: width / 2, height: 35))
-      goToPostsButton.setTitle("Posts", for: .normal)
-      goToPostsButton.setTitleColor(UIColor.darkGray, for: .normal)
-      goToPostsButton.addTarget(self, action: #selector(MainFormController.goToPosts), for: .touchDown)
-      
-      SpotMedia.getImageURL(for: spotPin.key,
-                            completion: { imageURL in
-                              if imageURL != nil {
-                                 imageView.kf.setImage(with: imageURL!)
-                              } else {
-                                 let image = UIImage(contentsOfFile: "plus-512.gif")
-                                 imageView.image = image
-                              }
-      })
-      
-      imageView.layer.cornerRadius = imageView.frame.size.height / 10
-      imageView.layer.masksToBounds = true
-      //imageView.layer.borderWidth = 0
-      imageView.contentMode = UIViewContentMode.scaleAspectFill
-      
-      infoView.addSubview(imageView)
-      infoView.addSubview(goToPostsButton)
-      infoView.addSubview(goToInfoButton)
-      
-      annotationView.detailCalloutAccessoryView = infoView
+      annotationView.detailCalloutAccessoryView = pinfoView
    }
    
    func goToPosts() {

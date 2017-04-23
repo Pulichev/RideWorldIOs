@@ -8,8 +8,9 @@
 
 import UIKit
 import ActiveLabel
+import MGSwipeTableCell
 
-class CommentCell: UITableViewCell {
+class CommentCell: MGSwipeTableCell {
    @IBOutlet weak var userPhoto: RoundedImageView!
    @IBOutlet weak var userNickName: UIButton!
    @IBOutlet weak var commentText: ActiveLabel! {

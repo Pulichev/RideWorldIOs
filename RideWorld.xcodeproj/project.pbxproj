@@ -19,6 +19,8 @@
 		9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2978FF1E9037090051EF5F /* CommentariesController.swift */; };
 		9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2979011E903BDC0051EF5F /* CommentItem.swift */; };
 		9F2BFEEC1E9105D3005FEF0C /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */; };
+		9F2D4C971EAD21E100235451 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2D4C951EAD21E100235451 /* delete.png */; };
+		9F2D4C981EAD21E100235451 /* reply.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2D4C961EAD21E100235451 /* reply.png */; };
 		9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */; };
 		9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */; };
 		9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */; };
@@ -107,6 +109,8 @@
 		9F2978FF1E9037090051EF5F /* CommentariesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesController.swift; path = Controllers/CommentariesController.swift; sourceTree = "<group>"; };
 		9F2979011E903BDC0051EF5F /* CommentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentItem.swift; path = Data/CommentItem.swift; sourceTree = "<group>"; };
 		9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = CustomUIElements/CommentCell.swift; sourceTree = "<group>"; };
+		9F2D4C951EAD21E100235451 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = Pictures/delete.png; sourceTree = "<group>"; };
+		9F2D4C961EAD21E100235451 /* reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = reply.png; path = Pictures/reply.png; sourceTree = "<group>"; };
 		9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotDetailsItem.swift; path = Data/SpotDetailsItem.swift; sourceTree = "<group>"; };
 		9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlus.png; path = Pictures/ButtonPlus.png; sourceTree = "<group>"; };
 		9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonLogout.png; path = Pictures/ButtonLogout.png; sourceTree = "<group>"; };
@@ -239,6 +243,8 @@
 		9F2380721E34DA20009D41E8 /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				9F2D4C951EAD21E100235451 /* delete.png */,
+				9F2D4C961EAD21E100235451 /* reply.png */,
 				9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */,
 				9F0AC5831E898412007ABD55 /* grayRec.jpg */,
 				9F6163461E7E89C1001664B7 /* no_photo.png */,
@@ -557,10 +563,12 @@
 				9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */,
 				9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */,
 				9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */,
+				9F2D4C971EAD21E100235451 /* delete.png in Resources */,
 				9FC14FD61E48E7300097579B /* plus-512.gif in Resources */,
 				9F4A844D1E632AE800C1E5F2 /* nameAndSename.png in Resources */,
 				9F65321C1E3CD12700F58C18 /* Assets.xcassets in Resources */,
 				9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */,
+				9F2D4C981EAD21E100235451 /* reply.png in Resources */,
 				9F6163471E7E89C1001664B7 /* no_photo.png in Resources */,
 				9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */,
 				9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */,

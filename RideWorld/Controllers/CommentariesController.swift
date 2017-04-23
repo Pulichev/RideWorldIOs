@@ -8,6 +8,7 @@
 
 import UIKit
 import ActiveLabel
+import MGSwipeTableCell
 
 class CommentariesController: UIViewController, UITableViewDataSource,
 UITableViewDelegate {
@@ -102,7 +103,42 @@ UITableViewDelegate {
          self.goToUserProfile(tappedUserLogin: mention)
       }
       
+      //configure right buttons
+      addFuncButtons(to: cell)
+      
       return cell
+   }
+   
+   private func addFuncButtons(to cell: CommentCell) {
+      let currentUserId = User.getCurrentUserId()
+      
+      // add delete button
+      if (cell.comment.userId == currentUserId // if its current user comment
+         || userId! == currentUserId) // if current user is post author
+         && cell.comment.commentId != "" { // cant delete desc
+         cell.rightButtons.append(MGSwipeButton(title: "", icon: UIImage(named:"delete.png"), backgroundColor: .red) {
+            (sender: MGSwipeTableCell!) -> Bool in
+            self.removeCell(cell)
+            return true
+         })
+      }
+      
+      // add reply button
+      cell.rightButtons.append(MGSwipeButton(title: "", icon: UIImage(named:"reply.png"), backgroundColor: .darkGray) {
+         (sender: MGSwipeTableCell!) -> Bool in
+         self.replyToUser(with: cell.userNickName.currentTitle!)
+         return true
+      })
+      
+      cell.rightSwipeSettings.transition = .rotate3D
+   }
+   
+   private func removeCell(_ cell: CommentCell) {
+      
+   }
+   
+   private func replyToUser(with login: String) {
+      newCommentTextField.text = newCommentTextField.text?.appending(" @" + login)
    }
    
    // from comment author
@@ -193,7 +229,7 @@ extension CommentariesController: UITextFieldDelegate {
          let tableViewBound = tableView.frame
          let tableViewHeight = tableView.bounds.height
          tableView.frame = CGRect(x: tableViewBound.minX, y: tableViewBound.minY + swipeSize,
-                                       width: tableViewBound.maxX, height: tableViewHeight - swipeSize)
+                                  width: tableViewBound.maxX, height: tableViewHeight - swipeSize)
          print(view.frame.origin.y)
       }
    }
@@ -206,7 +242,7 @@ extension CommentariesController: UITextFieldDelegate {
          let tableViewBound = tableView.frame
          let tableViewHeight = tableView.bounds.height
          tableView.frame = CGRect(x: tableViewBound.minX, y: tableViewBound.minY - swipeSize,
-                                       width: tableViewBound.maxX, height: tableViewHeight + swipeSize)
+                                  width: tableViewBound.maxX, height: tableViewHeight + swipeSize)
          print(view.frame.origin.y)
       }
    }

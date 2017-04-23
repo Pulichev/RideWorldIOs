@@ -12,6 +12,7 @@ target 'RideWorld' do
   pod 'Firebase/Database'
   pod 'Kingfisher', '~> 3.0'
   pod ‘ActiveLabel’
+  pod ‘MGSwipeTableCell’
 
   # Pods for RideWorld
 

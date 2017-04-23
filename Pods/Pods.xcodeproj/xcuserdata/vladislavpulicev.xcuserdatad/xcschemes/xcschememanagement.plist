@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MGSwipeTableCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-RideWorld.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,6 +57,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1CD80321715FDB12A3A31B7BCB09EA28</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3E0D8640A124012AB6F0A9F775A38285</key>
 		<dict>
 			<key>primary</key>
@@ -67,6 +77,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>BE6A61004D95157E293262FF300FDD04</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C052BEBFBD0AB5218CC64BA3450F6547</key>
 		<dict>
 			<key>primary</key>
@@ -78,11 +93,6 @@
 			<true/>
 		</dict>
 		<key>D7ABD3FB2A052F7C88C1DB88EB664012</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EA9E0F61DAD7902882F9745C58AD82A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

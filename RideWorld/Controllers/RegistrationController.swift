@@ -59,7 +59,9 @@ class RegistrationController: UIViewController {
    }
    
    private func showAlertThatLoginAlreadyExists() {
-      let alert = UIAlertController(title: "Login change failed!", message: "Login already exists.", preferredStyle: .alert)
+      let alert = UIAlertController(title: "Login change failed!",
+                                    message: "Login already exists.",
+                                    preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       

@@ -52,6 +52,7 @@
 		9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCD1E48E5E30097579B /* RegistrationController.swift */; };
 		9FC14FD61E48E7300097579B /* plus-512.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9FC14FD51E48E7300097579B /* plus-512.gif */; };
 		9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDB1E48E7690097579B /* CustomPin.swift */; };
+		9FD0BF4B1EACC0D1000ACF9F /* pinInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */; };
 		9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D31E54587800C673CA /* RidersProfileController.swift */; };
 		9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD648DB1E573F0600C673CA /* Main.storyboard */; };
 		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
@@ -146,6 +147,7 @@
 		9FC14FCD1E48E5E30097579B /* RegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegistrationController.swift; path = Controllers/RegistrationController.swift; sourceTree = "<group>"; };
 		9FC14FD51E48E7300097579B /* plus-512.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "plus-512.gif"; path = "Pictures/plus-512.gif"; sourceTree = "<group>"; };
 		9FC14FDB1E48E7690097579B /* CustomPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPin.swift; path = CustomUIElements/CustomPin.swift; sourceTree = "<group>"; };
+		9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = pinInfoView.swift; path = CustomUIElements/pinInfoView.swift; sourceTree = "<group>"; };
 		9FD648D31E54587800C673CA /* RidersProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileController.swift; path = Controllers/RidersProfileController.swift; sourceTree = "<group>"; };
 		9FD648DB1E573F0600C673CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				9FFB14F71E784E4B00D10620 /* FollowersCell.swift */,
 				9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */,
 				9F6154911EA67D4800160CB3 /* RoundedImageView.swift */,
+				9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FBCFAE81E73445900A5C95D /* Image.swift in Sources */,
 				9FF1BF791EA2C5B600A2CEF2 /* LikeModel.swift in Sources */,
+				9FD0BF4B1EACC0D1000ACF9F /* pinInfoView.swift in Sources */,
 				9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */,
 				9F6154921EA67D4800160CB3 /* RoundedImageView.swift in Sources */,
 				9F5609811E7C6A630000DB21 /* PostItem.swift in Sources */,

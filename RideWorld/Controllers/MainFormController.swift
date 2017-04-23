@@ -164,27 +164,23 @@ extension MainFormController: MKMapViewDelegate {
       let width = 250
       let height = 250
       
-      let snapshotView = UIView()
-      let views = ["snapshotView": snapshotView]
-      snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[snapshotView(250)]", options: [], metrics: nil, views: views))
-      snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[snapshotView(250)]", options: [], metrics: nil, views: views))
+      let infoView = UIView()
+      let views = ["infoView": infoView]
+      infoView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[infoView(250)]",
+                                                             options: [], metrics: nil, views: views))
+      infoView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[infoView(250)]",
+                                                             options: [], metrics: nil, views: views))
       
       let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height - 40))
       
       let goToInfoButton = UIButton(frame: CGRect(x: 0, y: height - 35, width: width / 2 - 5, height: 35))
       goToInfoButton.setTitle("Info", for: .normal)
-      goToInfoButton.backgroundColor = UIColor.darkGray
-      goToInfoButton.layer.cornerRadius = 5
-      goToInfoButton.layer.borderWidth = 1
-      goToInfoButton.layer.borderColor = UIColor.black.cgColor
+      goToInfoButton.setTitleColor(UIColor.darkGray, for: .normal)
       goToInfoButton.addTarget(self, action: #selector(MainFormController.goToInfo), for: .touchDown)
       
       let goToPostsButton = UIButton(frame: CGRect(x: width / 2 + 5, y: height - 35, width: width / 2, height: 35))
       goToPostsButton.setTitle("Posts", for: .normal)
-      goToPostsButton.backgroundColor = UIColor.darkGray
-      goToPostsButton.layer.cornerRadius = 5
-      goToPostsButton.layer.borderWidth = 1
-      goToPostsButton.layer.borderColor = UIColor.black.cgColor
+      goToPostsButton.setTitleColor(UIColor.darkGray, for: .normal)
       goToPostsButton.addTarget(self, action: #selector(MainFormController.goToPosts), for: .touchDown)
       
       SpotMedia.getImageURL(for: spotPin.key,
@@ -199,14 +195,14 @@ extension MainFormController: MKMapViewDelegate {
       
       imageView.layer.cornerRadius = imageView.frame.size.height / 10
       imageView.layer.masksToBounds = true
-      imageView.layer.borderWidth = 0
+      //imageView.layer.borderWidth = 0
       imageView.contentMode = UIViewContentMode.scaleAspectFill
       
-      snapshotView.addSubview(imageView)
-      snapshotView.addSubview(goToPostsButton)
-      snapshotView.addSubview(goToInfoButton)
+      infoView.addSubview(imageView)
+      infoView.addSubview(goToPostsButton)
+      infoView.addSubview(goToInfoButton)
       
-      annotationView.detailCalloutAccessoryView = snapshotView
+      annotationView.detailCalloutAccessoryView = infoView
    }
    
    func goToPosts() {

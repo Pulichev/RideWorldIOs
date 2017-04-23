@@ -326,7 +326,7 @@ class PostInfoViewController: UIViewController {
                                     message: "No user founded with nickname \(tappedUserLogin)",
          preferredStyle: .alert)
       
-      alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       
       present(alert, animated: true, completion: nil)
    }

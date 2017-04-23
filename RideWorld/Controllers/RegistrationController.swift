@@ -29,6 +29,17 @@ class RegistrationController: UIViewController {
    }
    
    @IBAction func signUpButtonTapped(_ sender: Any) {
+      User.getItemByLogin(for: userLogin.text!,
+                          completion: { userItem in
+                           if userItem == nil {
+                              self.createAndLogin()
+                           } else {
+                              self.showAlertThatLoginAlreadyExists()
+                           }
+      })
+   }
+   
+   private func createAndLogin() {
       FIRAuth.auth()!.createUser(withEmail: userEmail.text!,
                                  password: userPassword.text!) { user, error in
                                     if error == nil {
@@ -45,6 +56,14 @@ class RegistrationController: UIViewController {
                                        print("\(String(describing: error?.localizedDescription))")
                                     }
       }
+   }
+   
+   private func showAlertThatLoginAlreadyExists() {
+      let alert = UIAlertController(title: "Login change failed!", message: "Login already exists.", preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
    }
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view

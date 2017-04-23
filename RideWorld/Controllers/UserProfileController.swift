@@ -12,18 +12,23 @@ import AVFoundation
 class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
    var userInfo: UserItem! {
       didSet {
-         editButton.isEnabled = true
-         
-         DispatchQueue.global(qos: .userInitiated).async {
-            self.initializeUserTextInfo()
-            self.initializeUserPhoto()
-         }
-         
-         DispatchQueue.global(qos: .background).async {
-            self.initializePostsPhotos()
+         if !cameFromEdit { // when we came from edit
+                            // we have already updated info
+            editButton.isEnabled = true
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+               self.initializeUserTextInfo()
+               self.initializeUserPhoto()
+            }
+            
+            DispatchQueue.global(qos: .background).async {
+               self.initializePostsPhotos()
+            }
          }
       }
    }
+   
+   var cameFromEdit = false
    
    @IBOutlet var userNameAndSename: UILabel!
    @IBOutlet var userBio: UITextView!
@@ -282,6 +287,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
 // MARK: - Go/came to/from EditProfileController
 extension UserProfileController: EditedUserInfoDelegate {
    func dataChanged(userInfo: UserItem, profilePhoto: UIImage) {
+      cameFromEdit = true
+      self.userInfo = userInfo
       userNameAndSename.text = userInfo.nameAndSename
       userBio.text = userInfo.bioDescription
       

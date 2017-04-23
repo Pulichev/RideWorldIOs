@@ -75,6 +75,8 @@ struct User {
    // MARK: - Update part
    static func updateUserInfo(for userId: String, _ bio: String,
                               _ login: String, _ nameAndSename : String) {
+      
+      
       let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(userId)
       
       refToCurrentUser.updateChildValues([

@@ -47,7 +47,19 @@ class LoginController: UIViewController, UITextFieldDelegate {
    }
    
    @IBAction func loginButtonTapped(_ sender: Any) {
-      FIRAuth.auth()!.signIn(withEmail: userLogin.text!,
+      // catching user email for login
+      User.getItemByLogin(for: userLogin.text!,
+                          completion: { userItem in
+                           if userItem != nil {
+                              self.signIn(with: userItem!.email)
+                           } else {
+                              self.errorLabel.text = "Wrong login or password!"
+                           }
+      })
+   }
+   
+   private func signIn(with email: String) {
+      FIRAuth.auth()!.signIn(withEmail: email,
                              password: userPassword.text!) {
                               user, error in
                               if error != nil {

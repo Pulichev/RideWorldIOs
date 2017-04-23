@@ -37,26 +37,39 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    }
    
    @IBAction func saveButtonTapped(_ sender: Any) {
+      let login = getCellFieldText(2)
+      // updating values
+      // check if new login free, because they must be unic
+      User.getItemByLogin(for: login,
+                          completion: { userItem in
+                           if userItem == nil || userItem!.uid == User.getCurrentUserId() { // free
+                              self.updateInfo(with: login)
+                           } else {
+                              self.showAlertThatLoginAlreadyExists()
+                           }
+      })
+   }
+   
+   func updateInfo(with login: String) {
       let nameAndSename  = getCellFieldText(0)
       let bioDescription = getCellFieldText(1)
-      let login          = getCellFieldText(2)
-      // updating values
+      
       User.updateUserInfo(for: userInfo.uid, bioDescription, login, nameAndSename)
       
       uploadPhoto()
       
-      returnToParentControllerOnSaveButtonTapped(bioDescription: bioDescription,
-                                                      login: login, nameAndSename: nameAndSename)
+      returnToParentControllerOnSaveButtonTapped(bioDescription,
+                                                      login,  nameAndSename)
    }
    
-   func uploadPhoto() {
+   private func uploadPhoto() {
       UserMedia.upload(for: userInfo.uid,
                        with: userPhoto.image!, withSize: 150.0)
       UserMedia.upload(for: userInfo.uid,
                        with: userPhoto.image!, withSize: 90.0)
    }
    
-   func returnToParentControllerOnSaveButtonTapped(bioDescription: String, login: String, nameAndSename: String) {
+   private func returnToParentControllerOnSaveButtonTapped(_ bioDescription: String, _ login: String, _ nameAndSename: String) {
       // change current user info and pass it and photo to user profile controller
       userInfo.bioDescription = bioDescription
       userInfo.login = login
@@ -68,6 +81,14 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       
       // return to profile
       _ = navigationController?.popViewController(animated: true)
+   }
+   
+   private func showAlertThatLoginAlreadyExists() {
+      let alert = UIAlertController(title: "Login change failed!", message: "Login already exists.", preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
    }
    
    //MARK: - User settings table

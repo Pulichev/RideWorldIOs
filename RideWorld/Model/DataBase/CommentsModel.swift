@@ -8,11 +8,11 @@
 
 import FirebaseDatabase
 
-struct CommentsModel {
+struct Comment {
    static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost")
    
    // Function for loading comments for certain post
-   static func loadComments(for postId: String,
+   static func loadList(for postId: String,
                             completion: @escaping (_ loadedComments: [CommentItem]) -> Void) {
       let ref = refToSpotPostsNode.child(postId).child("comments")
       
@@ -29,7 +29,7 @@ struct CommentsModel {
       })
    }
    
-   static func addNewComment(for postId: String, withText text: String?,
+   static func add(for postId: String, withText text: String?,
                              completion: @escaping (_ loadedComments: CommentItem) -> Void) {
       let refForNewComment = refToSpotPostsNode.child(postId).child("comments").childByAutoId()
       
@@ -40,5 +40,11 @@ struct CommentsModel {
       refForNewComment.setValue(newComment.toAnyObject())
       
       completion(newComment)
+   }
+   
+   static func delete(with id: String, from postId: String) {
+      let refToComment = refToSpotPostsNode.child(postId).child("comments").child(id)
+      
+      refToComment.removeValue()
    }
 }

@@ -55,7 +55,7 @@ UITableViewDelegate {
    func loadComments() {
       addPostDescAsComment()
       
-      CommentsModel.loadComments(
+      Comment.loadList(
          for: postId,
          completion: { loadedComments in
             self.comments.append(contentsOf: loadedComments)
@@ -70,7 +70,7 @@ UITableViewDelegate {
    }
    
    @IBAction func sendComment(_ sender: UIButton) {
-      CommentsModel.addNewComment(
+      Comment.add(
          for: postId, withText: newCommentTextField.text,
          completion: { newComment in
             self.newCommentTextField.text = ""
@@ -104,22 +104,21 @@ UITableViewDelegate {
       }
       
       //configure right buttons
-      addFuncButtons(to: cell)
+      addFuncButtons(to: cell, at: row)
       
       return cell
    }
    
-   private func addFuncButtons(to cell: CommentCell) {
+   private func addFuncButtons(to cell: CommentCell, at row: Int) {
       let currentUserId = User.getCurrentUserId()
-      // DO NOT DO APPEND
-      // add delete button
+      
       if (cell.comment.userId == currentUserId // if its current user comment
          || userId! == currentUserId) // if current user is post author
          && cell.comment.commentId != "" { // cant delete desc
          cell.rightButtons = [
             MGSwipeButton(title: "", icon: UIImage(named:"delete.png"), backgroundColor: .red) {
                (sender: MGSwipeTableCell!) -> Bool in
-               self.removeCell(cell)
+               self.removeCell(cell, at: row)
                return true
             },
             MGSwipeButton(title: "", icon: UIImage(named:"reply.png"), backgroundColor: .darkGray) {
@@ -142,8 +141,18 @@ UITableViewDelegate {
       cell.rightSwipeSettings.transition = .rotate3D
    }
    
-   private func removeCell(_ cell: CommentCell) {
-      
+   private func removeCell(_ cell: CommentCell, at row: Int) {
+      removeCellFromTable(cell, at: row)
+      removeCellFromDataBase(cell)
+   }
+   
+   private func removeCellFromTable(_ cell: CommentCell, at row: Int) {
+      comments.remove(at: row)
+      tableView.reloadData()
+   }
+   
+   private func removeCellFromDataBase(_ cell: CommentCell) {
+      Comment.delete(with: cell.comment.commentId, from: cell.comment.postId)
    }
    
    private func replyToUser(with login: String) {

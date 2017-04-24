@@ -9,6 +9,7 @@
 import UIKit
 import Fusuma
 import FirebaseDatabase // need for creating new spot, for implementing smth like transactions
+import SVProgressHUD
 
 class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
    var spotLatitude: Double!
@@ -51,23 +52,46 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    @IBAction func saveSpotDetails(_ sender: Any) {
+      SVProgressHUD.show()
+      
       let refToNewSpot = Spot.getNewSpotRef()
       let newSpotKey = refToNewSpot.key
       
       // something like transaction. Start saving new
       // spot info only after media has beed uploaded
       SpotMedia.upload(imageView.image!, for: newSpotKey, with: 270.0,
-                       completion: { hasFinishedUploadingSuccessfully in
-                        if hasFinishedUploadingSuccessfully {
-                           Spot.create(with: self.spotTitle.text!, self.spotDescription.text!,
-                                       self.spotLatitude, self.spotLongitude, refToNewSpot)
-                           UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil) //saving image to camera roll
-                           
-                           _ = self.navigationController?.popViewController(animated: true)
+                       completion: { isSuccessfully in
+                        if isSuccessfully {
+                           Spot.create(with: self.spotTitle.text!,
+                                       self.spotDescription.text!,
+                                       self.spotLatitude,
+                                       self.spotLongitude,
+                                       refToNewSpot,
+                                       completion: { hasAddedSpotSuccessfully in
+                                          if hasAddedSpotSuccessfully {
+                                             //saving image to camera roll
+                                             UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
+                                             SVProgressHUD.dismiss()
+                                             //go back
+                                             _ = self.navigationController?.popViewController(animated: true)
+                                          } else {
+                                             SVProgressHUD.dismiss()
+                                             self.showAlertThatErrorInNewSpot()
+                                          }
+                           })
                         } else {
-                           // show alert
+                           SVProgressHUD.dismiss()
+                           self.showAlertThatErrorInNewSpot()
                         }
       })
+   }
+   
+   private func showAlertThatErrorInNewSpot() {
+      let alert = UIAlertController(title: "Creating new spot failed!", message: "Some error happened in new spot creating.", preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
    }
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view. Look at extension

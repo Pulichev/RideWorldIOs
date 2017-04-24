@@ -13,6 +13,7 @@ target 'RideWorld' do
   pod 'Kingfisher', '~> 3.0'
   pod ‘ActiveLabel’
   pod ‘MGSwipeTableCell’
+  pod 'SVProgressHUD'
 
   # Pods for RideWorld
 

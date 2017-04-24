@@ -27,13 +27,20 @@ struct Spot {
    }
    
    static func create(with name: String, _ description: String,
-                      _ latitude: Double, _ longitude: Double, _ newSpotRef: FIRDatabaseReference) {
+                      _ latitude: Double, _ longitude: Double, _ newSpotRef: FIRDatabaseReference,
+                      completion: @escaping (_ hasFinished: Bool) -> Void) {
       let newSpotRefKey = newSpotRef.key
       
       let newSpotDetailsItem = SpotDetailsItem(name: name, description: description,
                                                latitude: latitude, longitude: longitude,
                                                addedByUser: User.getCurrentUserId(), key: newSpotRefKey)
-      newSpotRef.setValue(newSpotDetailsItem.toAnyObject())
+      newSpotRef.setValue(newSpotDetailsItem.toAnyObject(), withCompletionBlock: { (error, _) in
+         if error == nil {
+            completion(true)
+         } else {
+            completion(false)
+         }
+      })
    }
    
    static func addPost(_ postItem: PostItem) {

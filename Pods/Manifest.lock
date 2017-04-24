@@ -45,6 +45,7 @@ PODS:
   - GTMSessionFetcher/Core (1.1.8)
   - Kingfisher (3.2.4)
   - MGSwipeTableCell (1.5.6)
+  - SVProgressHUD (2.1.2)
   - SwiftLint (0.16.0)
 
 DEPENDENCIES:
@@ -56,6 +57,7 @@ DEPENDENCIES:
   - Fusuma
   - Kingfisher (~> 3.0)
   - MGSwipeTableCell
+  - SVProgressHUD
   - SwiftLint
 
 SPEC CHECKSUMS:
@@ -74,8 +76,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 6f8d8b28b7e345549ac471071608170b31cb4977
   Kingfisher: 8d80f39da403cd9c9ee11984e1655f4d6a566cdb
   MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftLint: 90665265ae50b58167c674a11c680bbabe9d6513
 
-PODFILE CHECKSUM: 38d3b6331e4e0ea1b19777d7604cb6d03ddc0cb1
+PODFILE CHECKSUM: f8f5507f6e75a280bf5e94a190ec73b4a3441437
 
 COCOAPODS: 1.1.1

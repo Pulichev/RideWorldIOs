@@ -111,24 +111,33 @@ UITableViewDelegate {
    
    private func addFuncButtons(to cell: CommentCell) {
       let currentUserId = User.getCurrentUserId()
-      
+      // DO NOT DO APPEND
       // add delete button
       if (cell.comment.userId == currentUserId // if its current user comment
          || userId! == currentUserId) // if current user is post author
          && cell.comment.commentId != "" { // cant delete desc
-         cell.rightButtons.append(MGSwipeButton(title: "", icon: UIImage(named:"delete.png"), backgroundColor: .red) {
-            (sender: MGSwipeTableCell!) -> Bool in
-            self.removeCell(cell)
-            return true
-         })
+         cell.rightButtons = [
+            MGSwipeButton(title: "", icon: UIImage(named:"delete.png"), backgroundColor: .red) {
+               (sender: MGSwipeTableCell!) -> Bool in
+               self.removeCell(cell)
+               return true
+            },
+            MGSwipeButton(title: "", icon: UIImage(named:"reply.png"), backgroundColor: .darkGray) {
+               (sender: MGSwipeTableCell!) -> Bool in
+               self.replyToUser(with: cell.userNickName.currentTitle!)
+               return true
+            }
+         ]
+      } else {
+         // add only reply button
+         cell.rightButtons = [
+            MGSwipeButton(title: "", icon: UIImage(named:"reply.png"), backgroundColor: .darkGray) {
+               (sender: MGSwipeTableCell!) -> Bool in
+               self.replyToUser(with: cell.userNickName.currentTitle!)
+               return true
+            }
+         ]
       }
-      
-      // add reply button
-      cell.rightButtons.append(MGSwipeButton(title: "", icon: UIImage(named:"reply.png"), backgroundColor: .darkGray) {
-         (sender: MGSwipeTableCell!) -> Bool in
-         self.replyToUser(with: cell.userNickName.currentTitle!)
-         return true
-      })
       
       cell.rightSwipeSettings.transition = .rotate3D
    }

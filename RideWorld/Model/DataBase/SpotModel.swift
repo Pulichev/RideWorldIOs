@@ -22,14 +22,14 @@ struct Spot {
       })
    }
    
-   static func getNewSpotRef() -> FIRDatabaseReference {
-      return refToSpotNode.childByAutoId()
+   static func getNewSpotRef() -> String {
+      return refToSpotNode.childByAutoId().key
    }
    
    static func create(with name: String, _ description: String,
-                      _ latitude: Double, _ longitude: Double, _ newSpotRef: FIRDatabaseReference,
+                      _ latitude: Double, _ longitude: Double, _ newSpotRefKey: String,
                       completion: @escaping (_ hasFinished: Bool) -> Void) {
-      let newSpotRefKey = newSpotRef.key
+      let newSpotRef = refToSpotNode.child(newSpotRefKey)
       
       let newSpotDetailsItem = SpotDetailsItem(name: name, description: description,
                                                latitude: latitude, longitude: longitude,

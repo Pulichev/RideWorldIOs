@@ -8,7 +8,6 @@
 
 import UIKit
 import Fusuma
-import FirebaseDatabase // need for creating new spot, for implementing smth like transactions
 import SVProgressHUD
 
 class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
@@ -54,8 +53,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    @IBAction func saveSpotDetails(_ sender: Any) {
       SVProgressHUD.show()
       
-      let refToNewSpot = Spot.getNewSpotRef()
-      let newSpotKey = refToNewSpot.key
+      let newSpotKey = Spot.getNewSpotRef()
       
       // something like transaction. Start saving new
       // spot info only after media has beed uploaded
@@ -66,7 +64,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
                                        self.spotDescription.text!,
                                        self.spotLatitude,
                                        self.spotLongitude,
-                                       refToNewSpot,
+                                       newSpotKey,
                                        completion: { hasAddedSpotSuccessfully in
                                           if hasAddedSpotSuccessfully {
                                              //saving image to camera roll

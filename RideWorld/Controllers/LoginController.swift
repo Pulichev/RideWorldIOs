@@ -31,21 +31,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
       super.viewDidLoad()
    }
    
-   //part for hide and view navbar from this navigation controller
-   override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      
-      // Hide the navigation bar on the this view controller
-      navigationController?.setNavigationBarHidden(true, animated: animated)
-   }
-   
-   override func viewWillDisappear(_ animated: Bool) {
-      super.viewWillDisappear(animated)
-      
-      // Show the navigation bar on other view controllers
-      navigationController?.setNavigationBarHidden(false, animated: animated)
-   }
-   
    @IBAction func loginButtonTapped(_ sender: Any) {
       // catching user email for login
       User.getItemByLogin(for: userLogin.text!,
@@ -77,6 +62,23 @@ class LoginController: UIViewController, UITextFieldDelegate {
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
    //if we tapped UITextField and then another UITextField
+}
+
+// MARK: - Navigation bar show/hide
+extension LoginController {
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      
+      // Hide the navigation bar on the this view controller
+      navigationController?.setNavigationBarHidden(true, animated: animated)
+   }
+   
+   override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      
+      // Show the navigation bar on other view controllers
+      navigationController?.setNavigationBarHidden(false, animated: animated)
+   }
 }
 
 // MARK: - Scroll view on keyboard show/hide

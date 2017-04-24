@@ -22,7 +22,7 @@ struct Spot {
       })
    }
    
-   static func getNewSpotRef() -> String {
+   static func getNewSpotRefKey() -> String {
       return refToSpotNode.childByAutoId().key
    }
    

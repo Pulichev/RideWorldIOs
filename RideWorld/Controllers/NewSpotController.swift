@@ -53,7 +53,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    @IBAction func saveSpotDetails(_ sender: Any) {
       SVProgressHUD.show()
       
-      let newSpotKey = Spot.getNewSpotRef()
+      let newSpotKey = Spot.getNewSpotRefKey()
       
       // something like transaction. Start saving new
       // spot info only after media has beed uploaded

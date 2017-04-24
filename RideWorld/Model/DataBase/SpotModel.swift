@@ -22,17 +22,18 @@ struct Spot {
       })
    }
    
-   static func create(with name: String, description: String,
-                      latitude: Double, longitude: Double) -> String {
-      let newSpotRef = refToSpotNode.childByAutoId()
+   static func getNewSpotRef() -> FIRDatabaseReference {
+      return refToSpotNode.childByAutoId()
+   }
+   
+   static func create(with name: String, _ description: String,
+                      _ latitude: Double, _ longitude: Double, _ newSpotRef: FIRDatabaseReference) {
       let newSpotRefKey = newSpotRef.key
       
       let newSpotDetailsItem = SpotDetailsItem(name: name, description: description,
                                                latitude: latitude, longitude: longitude,
                                                addedByUser: User.getCurrentUserId(), key: newSpotRefKey)
       newSpotRef.setValue(newSpotDetailsItem.toAnyObject())
-      
-      return newSpotRefKey
    }
    
    static func addPost(_ postItem: PostItem) {

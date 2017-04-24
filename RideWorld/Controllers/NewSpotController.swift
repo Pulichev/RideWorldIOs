@@ -8,6 +8,7 @@
 
 import UIKit
 import Fusuma
+import FirebaseDatabase // need for creating new spot, for implementing smth like transactions
 
 class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
    var spotLatitude: Double!
@@ -50,15 +51,23 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    @IBAction func saveSpotDetails(_ sender: Any) {
-      let createdSpotId = Spot.create(with: spotTitle.text!,
-                                      description: spotDescription.text!,
-                                      latitude: spotLatitude, longitude: spotLongitude)
+      let refToNewSpot = Spot.getNewSpotRef()
+      let newSpotKey = refToNewSpot.key
       
-      SpotMedia.upload(imageView.image!, for: createdSpotId, with: 270.0)
-      
-      UIImageWriteToSavedPhotosAlbum(imageView.image!, nil, nil , nil) //saving image to camera roll
-      
-      _ = navigationController?.popViewController(animated: true)
+      // something like transaction. Start saving new
+      // spot info only after media has beed uploaded
+      SpotMedia.upload(imageView.image!, for: newSpotKey, with: 270.0,
+                       completion: { hasFinishedUploadingSuccessfully in
+                        if hasFinishedUploadingSuccessfully {
+                           Spot.create(with: self.spotTitle.text!, self.spotDescription.text!,
+                                       self.spotLatitude, self.spotLongitude, refToNewSpot)
+                           UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil) //saving image to camera roll
+                           
+                           _ = self.navigationController?.popViewController(animated: true)
+                        } else {
+                           // show alert
+                        }
+      })
    }
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view. Look at extension

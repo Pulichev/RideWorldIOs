@@ -50,6 +50,10 @@ struct Post {
       })
    }
    
+   static func getNewPostId() -> String {
+      return refToPostsNode.childByAutoId().key
+   }
+   
    static func add(_ postItem: PostItem) -> PostItem {
       var newPost = postItem
       let refToNewPost = refToPostsNode.childByAutoId()

@@ -64,9 +64,10 @@ class NewPostController: UIViewController, UITextViewDelegate {
       return numberOfChars < 100
    }
    
+   // NEED CODE REVIEW
    @IBAction func savePost(_ sender: Any) {
       SVProgressHUD.show()
-      
+      enableUserTouches = false
       let currentUser = User.getCurrentUser()
       let createdDate = String(describing: Date())
       let newPostId = Post.getNewPostId()
@@ -82,12 +83,15 @@ class NewPostController: UIViewController, UITextViewDelegate {
                                                    completion: { hasFinishedSuccessfully in
                                                       if hasFinishedSuccessfully {
                                                          SVProgressHUD.dismiss()
+                                                         self.enableUserTouches = true
                                                          _ = self.navigationController?.popViewController(animated: true)
                                                       } else {
+                                                         self.enableUserTouches = true
                                                          self.showAlertThatErrorInNewPost()
                                                       }
                                           })
                                        } else {
+                                          self.enableUserTouches = true
                                           self.showAlertThatErrorInNewPost()
                                        }
          })
@@ -102,12 +106,15 @@ class NewPostController: UIViewController, UITextViewDelegate {
                                                          self.player.pause()
                                                          self.player = nil
                                                          SVProgressHUD.dismiss()
+                                                         self.enableUserTouches = true
                                                          _ = self.navigationController?.popViewController(animated: true)
                                                       } else {
+                                                         self.enableUserTouches = true
                                                          self.showAlertThatErrorInNewPost()
                                                       }
                                           })
                                        } else {
+                                          self.enableUserTouches = true
                                           self.showAlertThatErrorInNewPost()
                                        }
          })
@@ -141,6 +148,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
       
       present(alert, animated: true, completion: nil)
    }
+   
+   var enableUserTouches = true // for disabling user touches, while uploading
 }
 
 //Fusuma
@@ -294,6 +303,14 @@ extension NewPostController {
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+      for touch: AnyObject in touches {
+         if !enableUserTouches {
+            touch.view.isUserInteractionEnabled = false
+         } else {
+            touch.view.isUserInteractionEnabled = true
+         }
+      }
+      
       view.endEditing(true)
    }
 }

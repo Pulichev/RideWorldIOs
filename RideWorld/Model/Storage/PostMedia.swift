@@ -11,8 +11,10 @@ import FirebaseStorage
 struct PostMedia {
    static let refToPostMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia/")
    
-   static func getImageData270x270(for post: PostItem, completion: @escaping(_ imageData: Data?) -> Void) {
-      let refToMedia = refToPostMedia.child(post.spotId).child(post.key + "_resolution270x270.jpeg")
+   static func getImageData270x270(for post: PostItem,
+                                   completion: @escaping(_ imageData: Data?) -> Void) {
+      let refToMedia = refToPostMedia.child(post.spotId)
+         .child(post.key + "_resolution270x270.jpeg")
       
       refToMedia.downloadURL { (URL, error) in
          if let error = error {
@@ -35,7 +37,8 @@ struct PostMedia {
                            completion: @escaping (_ imageURL: URL) -> Void) {
       let sizePxString = String(describing: sizePx)
       
-      let imageURL = refToPostMedia.child(spotId + "/" + postId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
+      let imageURL = refToPostMedia
+         .child(spotId + "/" + postId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
       
       imageURL.downloadURL { (URL, error) in
          if let error = error {
@@ -62,7 +65,8 @@ struct PostMedia {
    static func deletePhoto(for spotId: String, _ postId: String, withSize sizePx: Int) {
       let sizePxString = String(describing: sizePx)
       
-      let photoURL = refToPostMedia.child(spotId).child(postId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
+      let photoURL = refToPostMedia.child(spotId)
+         .child(postId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
       
       photoURL.delete { (Error) in
          // do smth
@@ -84,6 +88,7 @@ struct PostMedia {
       let sizePxString = String(describing: sizePxInt)
       let postPhotoRef = refToPostMedia.child(post.spotId)
          .child(post.key + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
+      
       //with low compression
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
       postPhotoRef.put(dataLowCompression, metadata: nil,

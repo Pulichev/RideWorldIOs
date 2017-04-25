@@ -52,6 +52,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    
    @IBAction func saveSpotDetails(_ sender: Any) {
       SVProgressHUD.show()
+      enableUserTouches = false
       
       let newSpotKey = Spot.getNewSpotRefKey()
       
@@ -70,15 +71,18 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
                                              //saving image to camera roll
                                              UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
                                              SVProgressHUD.dismiss()
+                                             self.enableUserTouches = true
                                              //go back
                                              _ = self.navigationController?.popViewController(animated: true)
                                           } else {
                                              SVProgressHUD.dismiss()
+                                             self.enableUserTouches = true
                                              self.showAlertThatErrorInNewSpot()
                                           }
                            })
                         } else {
                            SVProgressHUD.dismiss()
+                           self.enableUserTouches = true
                            self.showAlertThatErrorInNewSpot()
                         }
       })
@@ -91,6 +95,18 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       
       present(alert, animated: true, completion: nil)
    }
+   
+   var enableUserTouches = true {
+      didSet {
+         if enableUserTouches {
+            navigationController?.navigationBar.isUserInteractionEnabled = true
+            navigationItem.hidesBackButton = false
+         } else {
+            navigationController?.navigationBar.isUserInteractionEnabled = false
+            navigationItem.hidesBackButton = true
+         }
+      }
+   }// for disabling user touches, while uploading
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view. Look at extension
 }
@@ -186,6 +202,14 @@ extension NewSpotController {
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+      for touch: AnyObject in touches {
+         if !enableUserTouches {
+            touch.view.isUserInteractionEnabled = false
+         } else {
+            touch.view.isUserInteractionEnabled = true
+         }
+      }
+      
       view.endEditing(true)
    }
 }

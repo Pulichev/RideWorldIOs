@@ -68,6 +68,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
    @IBAction func savePost(_ sender: Any) {
       SVProgressHUD.show()
       enableUserTouches = false
+      
       let currentUser = User.getCurrentUser()
       let createdDate = String(describing: Date())
       let newPostId = Post.getNewPostId()

@@ -69,7 +69,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
       let postItem = PostItem(isNewMediaIsPhoto, postDescription.text, createdDate, spotDetailsItem.key, currentUser.uid)
       
       let newPost = Post.add(postItem)
-      User.addPost(newPost)
+      //User.addPost(newPost)
       Spot.addPost(newPost)
       
       if isNewMediaIsPhoto {

@@ -102,16 +102,9 @@ struct User {
    }
    
    static func addPost(_ postItem: PostItem) {
-      let refToUserNewPost = refToUsersNode.child(postItem.addedByUser).child("posts")
+      let refToUserNewPost = refToUsersNode.child(postItem.addedByUser).child("posts").child(postItem.key)
       
-      refToUserNewPost.observeSingleEvent(of: .value, with: { snapshot in
-         if var value = snapshot.value as? [String : Bool] {
-            value[postItem.key] = true
-            refToUserNewPost.setValue(value)
-         } else {
-            refToUserNewPost.setValue([postItem.key : true])
-         }
-      })
+      refToUserNewPost.setValue(true)
    }
    
    static func deletePost(fromUserNodeWith userId: String, _ postId: String) {

@@ -54,14 +54,24 @@ struct Post {
       return refToPostsNode.childByAutoId().key
    }
    
-   static func add(_ postItem: PostItem) -> PostItem {
-      var newPost = postItem
-      let refToNewPost = refToPostsNode.childByAutoId()
+   static func add(_ postItem: PostItem,
+                   completion: @escaping (_ hasFinished: Bool) -> Void) {
+      let mainReference = FIRDatabase.database().reference(withPath: "MainDataBase")
       
-      newPost.key = refToNewPost.key
-      refToNewPost.setValue(postItem.toAnyObject())
+      let updates = [
+         "/spotpost/" + postItem.key: postItem.toAnyObject(),
+         "/spotdetails/" + postItem.spotId + "/posts/" + postItem.key: true,
+         "/users/" + postItem.addedByUser + "/posts/" + postItem.key: true
+      ]
       
-      return newPost
+      mainReference.updateChildValues(updates,
+                                      withCompletionBlock: { (error, _) in
+                                       if error == nil {
+                                          completion(true)
+                                       } else {
+                                          completion(false)
+                                       }
+      })
    }
    
    static func delete(with postId: String) {

@@ -43,12 +43,6 @@ struct Spot {
       })
    }
    
-   static func addPost(_ postItem: PostItem) {
-      let refToSpotNewPost = refToSpotNode.child(postItem.spotId).child("posts").child(postItem.key)
-      
-      refToSpotNewPost.setValue(true)
-   }
-   
    static func getAll(completion: @escaping (_ spots: [SpotDetailsItem]) -> Void) {
       refToSpotNode.observe(.value, with: { snapshot in
          var spotsList: [SpotDetailsItem] = []

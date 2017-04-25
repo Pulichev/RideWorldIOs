@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Fusuma
+import SVProgressHUD
 
 class NewPostController: UIViewController, UITextViewDelegate {
    var spotDetailsItem: SpotDetailsItem!
@@ -64,42 +65,52 @@ class NewPostController: UIViewController, UITextViewDelegate {
    }
    
    @IBAction func savePost(_ sender: Any) {
+      SVProgressHUD.show()
+      
       let currentUser = User.getCurrentUser()
       let createdDate = String(describing: Date())
-      let postItem = PostItem(isNewMediaIsPhoto, postDescription.text, createdDate, spotDetailsItem.key, currentUser.uid)
-      
-      let newPost = Post.add(postItem)
-      //User.addPost(newPost)
-      Spot.addPost(newPost)
-      
+      let newPostId = Post.getNewPostId()
+      let postItem = PostItem(isNewMediaIsPhoto, postDescription.text, createdDate,
+                              spotDetailsItem.key, currentUser.uid,
+                              newPostId)
+      // first - upload media. On completion - save post info data
       if isNewMediaIsPhoto {
-         uploadPhoto(newPost)
+         PostMedia.uploadPhotoForPost(photoView.image!, for: postItem,
+                                      completion: { hasFinishedUploading in
+                                       if hasFinishedUploading {
+                                          Post.add(postItem,
+                                                   completion: { hasFinishedSuccessfully in
+                                                      if hasFinishedSuccessfully {
+                                                         SVProgressHUD.dismiss()
+                                                         _ = self.navigationController?.popViewController(animated: true)
+                                                      } else {
+                                                         self.showAlertThatErrorInNewPost()
+                                                      }
+                                          })
+                                       } else {
+                                          self.showAlertThatErrorInNewPost()
+                                       }
+         })
       } else {
-         uploadVideo(newPost)
-         
-         player.pause()
-         player = nil
-      }
-      
-      _ = navigationController?.popViewController(animated: true)
-   }
-   
-   private func uploadPhoto(_ newPost: PostItem) {
-      UIImageWriteToSavedPhotosAlbum(photoView.image!, nil, nil , nil) //saving image to camera roll
-      PostMedia.upload(photoView.image!, for: newPost, withSize: 700.0)
-      PostMedia.upload(photoView.image!, for: newPost, withSize: 270.0) // for profile collection
-      PostMedia.upload(photoView.image!, for: newPost, withSize: 10.0) // thumbnail
-   }
-   
-   private func uploadVideo(_ newPost: PostItem) {
-      PostMedia.upload(with: newVideoUrl, for: newPost)
-      PostMedia.upload(generateVideoScreenShot(), for: newPost, withSize: 270.0)
-      PostMedia.upload(generateVideoScreenShot(), for: newPost, withSize: 10.0)
-      
-      let path = (newVideoUrl).path
-      
-      if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
-         UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
+         PostMedia.uploadVideoForPost(with: newVideoUrl, for: postItem,
+                                      screenShot: generateVideoScreenShot(),
+                                      completion: { hasFinishedUploading in
+                                       if hasFinishedUploading {
+                                          Post.add(postItem,
+                                                   completion: { hasFinishedSuccessfully in
+                                                      if hasFinishedSuccessfully {
+                                                         self.player.pause()
+                                                         self.player = nil
+                                                         SVProgressHUD.dismiss()
+                                                         _ = self.navigationController?.popViewController(animated: true)
+                                                      } else {
+                                                         self.showAlertThatErrorInNewPost()
+                                                      }
+                                          })
+                                       } else {
+                                          self.showAlertThatErrorInNewPost()
+                                       }
+         })
       }
    }
    
@@ -121,6 +132,14 @@ class NewPostController: UIViewController, UITextViewDelegate {
          
          return failImage!
       }
+   }
+   
+   private func showAlertThatErrorInNewPost() {
+      let alert = UIAlertController(title: "Creating new post failed!", message: "Some error happened in new post creating.", preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
    }
 }
 

@@ -149,7 +149,17 @@ class NewPostController: UIViewController, UITextViewDelegate {
       present(alert, animated: true, completion: nil)
    }
    
-   var enableUserTouches = true // for disabling user touches, while uploading
+   var enableUserTouches = true {
+      didSet {
+         if enableUserTouches {
+            navigationController?.navigationBar.isUserInteractionEnabled = true
+            navigationItem.hidesBackButton = false
+         } else {
+            navigationController?.navigationBar.isUserInteractionEnabled = false
+            navigationItem.hidesBackButton = true
+         }
+      }
+   }// for disabling user touches, while uploading
 }
 
 //Fusuma

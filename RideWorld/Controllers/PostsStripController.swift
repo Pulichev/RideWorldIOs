@@ -57,6 +57,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       var newItemsCache = [PostItemCellCache]()
       
       var countOfCachedCells = 0
+      
+      if newItems == nil { // no more posts
+         self.removeLoadingScreen()
+         self.tableView.reloadData() // for dzempty
+         return
+      }
+      
       for newItem in newItems! {
          // need to cache all cells before adding
          _ = PostItemCellCache(spotPost: newItem,
@@ -67,27 +74,37 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                  if countOfCachedCells == newItems?.count {
                                     self.posts.append(contentsOf: newItems!)
                                     self.postItemCellsCache.append(contentsOf: newItemsCache)
-                                    self.tableView.reloadData()
                                     self.removeLoadingScreen()
+                                    self.reloadNewCells(
+                                       startingFrom: self.posts.count - countOfCachedCells,
+                                       count: countOfCachedCells)
                                  }
          })
       }
+   }
+   
+   private func reloadNewCells(startingFrom index: Int, count: Int) {
+      var indexPaths = [IndexPath]()
+      
+      for i in index...(index + count - 1) {
+         indexPaths.append(IndexPath(row: i, section: 0))
+      }
+      
+      tableView.beginUpdates()
+      tableView.insertRows(at: indexPaths, with: .none)
+      tableView.endUpdates()
    }
    
    private func loadPosts(completion: @escaping (_ newItems: [PostItem]?) -> Void) {
       if cameFromSpotOrMyStrip {
          Spot.getPosts(for: spotDetailsItem.key, countOfNewItemsToAdd: postsLoadStep,
                        completion: { newItems in
-                        if newItems != nil {
-                           completion(newItems)
-                        }
+                        completion(newItems)
          })
       } else {
          User.getStripPosts(countOfNewItemsToAdd: postsLoadStep,
                             completion: { newItems in
-                              if newItems != nil {
-                                 completion(newItems)
-                              }
+                              completion(newItems)
          })
       }
    }
@@ -139,21 +156,20 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    func refresh(sender: Any) {
       posts.removeAll()
       postItemCellsCache.removeAll()
+      
+      // clear our structs
       Spot.alreadyLoadedCountOfPosts = 0
+      Spot.spotPostsIds.removeAll()
+      
       User.alreadyLoadedCountOfPosts = 0
+      User.postsIds.removeAll()
       
       loadPosts(completion: { newItems in
          self.appendLoadedPosts(newItems)
+         // ending refreshing
+         self.tableView.reloadData()
+         self.refreshControl.endRefreshing()
       })
-      
-      // ending refreshing
-      tableView.reloadData()
-      refreshControl.endRefreshing()
-   }
-   
-   override func viewDidDisappear(_ animated: Bool) {
-      Spot.alreadyLoadedCountOfPosts = 0
-      User.alreadyLoadedCountOfPosts = 0
    }
    
    // MARK: - Main table filling region
@@ -484,6 +500,13 @@ extension PostsStripController {
    override func viewWillDisappear(_ animated: Bool) {
       super.viewWillDisappear(animated)
       
+      // clear our structs
+      Spot.alreadyLoadedCountOfPosts = 0
+      Spot.spotPostsIds.removeAll()
+      
+      User.alreadyLoadedCountOfPosts = 0
+      User.postsIds.removeAll()
+      
       if !cameFromSpotOrMyStrip {
          // Show the navigation bar on other view controllers
          navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -507,7 +530,7 @@ extension PostsStripController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
-         let str = "Nothing to show or its downloading at the moment. Wait.."
+         let str = "Nothing to show."
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {

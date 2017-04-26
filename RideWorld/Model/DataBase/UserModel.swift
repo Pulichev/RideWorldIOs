@@ -101,17 +101,6 @@ struct User {
       })
    }
    
-   static func deletePost(fromUserNodeWith userId: String, _ postId: String) {
-      let refToUserPostNode = refToUsersNode.child(userId).child("posts")
-      refToUserPostNode.observeSingleEvent(of: .value, with: { snapshot in
-         if var posts = snapshot.value as? [String : Bool] {
-            posts.removeValue(forKey: postId)
-            
-            refToUserPostNode.setValue(posts)
-         }
-      })
-   }
-   
    // MARK: - Follow part
    static func getFollowersCountString(userId: String,
                                        completion: @escaping (_ followersCount: String) -> Void) {
@@ -229,51 +218,27 @@ struct User {
    }
    
    static func addFollowing(to userId: String) {
-      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId()).child("following")
+      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId()).child("following").child(userId)
       
-      refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
-         if var value = snapshot.value as? [String : Bool] {
-            value[userId] = true
-            refToCurrentUser.setValue(value)
-         } else {
-            refToCurrentUser.setValue([userId])
-         }
-      })
+      refToCurrentUser.setValue(true)
    }
    
    static func removeFollowing(from userId: String) {
-      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId()).child("following")
+      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId()).child("following").child(userId)
       
-      refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
-         if var value = snapshot.value as? [String : Bool] {
-            value.removeValue(forKey: userId)
-            refToCurrentUser.setValue(value)
-         }
-      })
+      refToCurrentUser.removeValue()
    }
    
    static func addFollower(to userId: String) {
-      let refToRider = refToUsersNode.child(userId).child("followers")
+      let refToRider = refToUsersNode.child(userId).child("followers").child(getCurrentUserId())
       
-      refToRider.observeSingleEvent(of: .value, with: { snapshot in
-         if var value = snapshot.value as? [String : Bool] {
-            value[self.getCurrentUserId()] = true
-            refToRider.setValue(value)
-         } else {
-            refToRider.setValue([userId])
-         }
-      })
+      refToRider.setValue(true)
    }
    
    static func removeFollower(from userId: String) {
-      let refToRider = refToUsersNode.child(userId).child("followers")
+      let refToRider = refToUsersNode.child(userId).child("followers").child(getCurrentUserId())
       
-      refToRider.observeSingleEvent(of: .value, with: { snapshot in
-         if var value = snapshot.value as? [String : Bool] {
-            value.removeValue(forKey: self.getCurrentUserId())
-            refToRider.setValue(value)
-         }
-      })
+      refToRider.removeValue()
    }
    
    // MARK: - Get user strip posts part
@@ -315,27 +280,32 @@ struct User {
    static func getStripPosts(countOfNewItemsToAdd: Int,
                              completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
       self.getStripPostsIds(completion: { postsIds in
-         self.postsIds = postsIds
-         
-         if let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd) {
-            var newPosts = [PostItem]()
-            var countOfNewPostsLoaded = 0
-            
-            for postId in nextPostsIds {
-               Post.getItemById(for: postId, completion: { post in
-                  if post != nil { // founded without errors
-                     newPosts.append(post!)
-                     countOfNewPostsLoaded += 1
-                     
-                     if countOfNewPostsLoaded == nextPostsIds.count {
-                        self.alreadyLoadedCountOfPosts += nextPostsIds.count
-                        completion(newPosts.sorted(by: { $0.key > $1.key }))
-                     }
-                  }
-               })
-            }
+         if postsIds.count != 0 {
+            self.postsIds = postsIds
          } else {
-            completion(nil) // if no more posts
+            completion(nil) // if no posts
+         }
+         
+         guard let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd)
+            else { // if no more posts
+               completion(nil)
+               return
+         }
+         
+         var newPosts = [PostItem]()
+         var countOfNewPostsLoaded = 0
+         for postId in nextPostsIds {
+            Post.getItemById(for: postId, completion: { post in
+               if post != nil { // founded without errors
+                  newPosts.append(post!)
+                  countOfNewPostsLoaded += 1
+                  
+                  if countOfNewPostsLoaded == nextPostsIds.count {
+                     self.alreadyLoadedCountOfPosts += nextPostsIds.count
+                     completion(newPosts.sorted(by: { $0.key > $1.key }))
+                  }
+               }
+            })
          }
       })
    }

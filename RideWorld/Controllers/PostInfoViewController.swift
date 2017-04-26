@@ -76,9 +76,12 @@ class PostInfoViewController: UIViewController {
    func initializeDate() {
       let sourceDate = String(describing: postInfo.createdDate)
       //formatting date to yyyy-mm-dd
-      let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
+      let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(
+         sourceDate.startIndex, offsetBy: 10)]
       postDate.text = finalDate
-      let finalTime = sourceDate[sourceDate.index(sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
+      let finalTime = sourceDate[sourceDate.index(
+         sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(
+         sourceDate.startIndex, offsetBy: 16)]
       postTime.text = finalTime
    }
    
@@ -260,9 +263,7 @@ class PostInfoViewController: UIViewController {
    }
    
    private func startDeleteTransaction() {
-      User.deletePost(fromUserNodeWith: user.uid, postInfo.key)
-      Post.delete(with: postInfo.key)
-      Spot.deletePost(for: postInfo.spotId, postInfo.key)
+      Post.remove(postInfo)
       
       // delete media
       if postInfo.isPhoto {

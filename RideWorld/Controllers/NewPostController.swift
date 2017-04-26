@@ -58,7 +58,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
    }
    
    //TextView max count of symbols = 150
-   func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+   func textView(_ textView: UITextView,
+                 shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
       let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
       let numberOfChars = newText.characters.count
       return numberOfChars < 100
@@ -66,60 +67,85 @@ class NewPostController: UIViewController, UITextViewDelegate {
    
    // NEED CODE REVIEW
    @IBAction func savePost(_ sender: Any) {
-      SVProgressHUD.show()
-      enableUserTouches = false
+      showSavingProgress()
       
+      let postItem = createNewPostItem()
+      
+      // first - upload media. On completion - save post info data
+      if isNewMediaIsPhoto {
+         uploadPhoto(for: postItem)
+      } else {
+         uploadVideo(for: postItem)
+      }
+   }
+   
+   private func uploadPhoto(for postItem: PostItem) {
+      PostMedia.uploadPhotoForPost(
+         photoView.image!, for: postItem,
+         completion: { hasFinishedUploading in
+            if hasFinishedUploading {
+               Post.add(postItem,
+                        completion: { hasFinishedSuccessfully in
+                           if hasFinishedSuccessfully {
+                              self.goBackToPosts()
+                           } else {
+                              self.errorHappened()
+                           }
+               })
+            } else {
+               self.errorHappened()
+            }
+      })
+   }
+   
+   private func uploadVideo(for postItem: PostItem) {
+      PostMedia.uploadVideoForPost(
+         with: newVideoUrl, for: postItem,
+         screenShot: generateVideoScreenShot(),
+         completion: { hasFinishedUploading in
+            if hasFinishedUploading {
+               Post.add(postItem,
+                        completion: { hasFinishedSuccessfully in
+                           if hasFinishedSuccessfully {
+                              self.player.pause()
+                              self.player = nil
+                              self.goBackToPosts()
+                           } else {
+                              self.errorHappened()
+                           }
+               })
+            } else {
+               self.errorHappened()
+            }
+      })
+      
+   }
+   
+   private func createNewPostItem() -> PostItem {
       let currentUser = User.getCurrentUser()
       let createdDate = String(describing: Date())
       let newPostId = Post.getNewPostId()
       let postItem = PostItem(isNewMediaIsPhoto, postDescription.text, createdDate,
                               spotDetailsItem.key, currentUser.uid,
                               newPostId)
-      // first - upload media. On completion - save post info data
-      if isNewMediaIsPhoto {
-         PostMedia.uploadPhotoForPost(photoView.image!, for: postItem,
-                                      completion: { hasFinishedUploading in
-                                       if hasFinishedUploading {
-                                          Post.add(postItem,
-                                                   completion: { hasFinishedSuccessfully in
-                                                      if hasFinishedSuccessfully {
-                                                         SVProgressHUD.dismiss()
-                                                         self.enableUserTouches = true
-                                                         _ = self.navigationController?.popViewController(animated: true)
-                                                      } else {
-                                                         self.enableUserTouches = true
-                                                         self.showAlertThatErrorInNewPost()
-                                                      }
-                                          })
-                                       } else {
-                                          self.enableUserTouches = true
-                                          self.showAlertThatErrorInNewPost()
-                                       }
-         })
-      } else {
-         PostMedia.uploadVideoForPost(with: newVideoUrl, for: postItem,
-                                      screenShot: generateVideoScreenShot(),
-                                      completion: { hasFinishedUploading in
-                                       if hasFinishedUploading {
-                                          Post.add(postItem,
-                                                   completion: { hasFinishedSuccessfully in
-                                                      if hasFinishedSuccessfully {
-                                                         self.player.pause()
-                                                         self.player = nil
-                                                         SVProgressHUD.dismiss()
-                                                         self.enableUserTouches = true
-                                                         _ = self.navigationController?.popViewController(animated: true)
-                                                      } else {
-                                                         self.enableUserTouches = true
-                                                         self.showAlertThatErrorInNewPost()
-                                                      }
-                                          })
-                                       } else {
-                                          self.enableUserTouches = true
-                                          self.showAlertThatErrorInNewPost()
-                                       }
-         })
-      }
+      return postItem
+   }
+   
+   private func showSavingProgress() {
+      SVProgressHUD.show()
+      enableUserTouches = false
+   }
+   
+   private func goBackToPosts() {
+      SVProgressHUD.dismiss()
+      self.enableUserTouches = true
+      _ = self.navigationController?.popViewController(animated: true)
+   }
+   
+   private func errorHappened() {
+      SVProgressHUD.dismiss()
+      self.enableUserTouches = true
+      self.showAlertThatErrorInNewPost()
    }
    
    func generateVideoScreenShot() -> UIImage {
@@ -155,9 +181,13 @@ class NewPostController: UIViewController, UITextViewDelegate {
          if enableUserTouches {
             navigationController?.navigationBar.isUserInteractionEnabled = true
             navigationItem.hidesBackButton = false
+            tabBarController?.tabBar.isUserInteractionEnabled = true
+            photoOrVideoView.isUserInteractionEnabled = true
          } else {
             navigationController?.navigationBar.isUserInteractionEnabled = false
             navigationItem.hidesBackButton = true
+            tabBarController?.tabBar.isUserInteractionEnabled = false
+            photoOrVideoView.isUserInteractionEnabled = false
          }
       }
    }// for disabling user touches, while uploading
@@ -247,7 +277,7 @@ extension NewPostController: FusumaDelegate {
    
    func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
       let urlAsset = AVURLAsset(url: inputURL, options: nil)
-      guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPreset640x480) else {
+      guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetMediumQuality) else {
          handler(nil)
          
          return

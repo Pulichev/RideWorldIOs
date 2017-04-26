@@ -51,8 +51,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    @IBAction func saveSpotDetails(_ sender: Any) {
-      SVProgressHUD.show()
-      enableUserTouches = false
+      showSavingProgress()
       
       let newSpotKey = Spot.getNewSpotRefKey()
       
@@ -70,22 +69,32 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
                                           if hasAddedSpotSuccessfully {
                                              //saving image to camera roll
                                              UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
-                                             SVProgressHUD.dismiss()
-                                             self.enableUserTouches = true
-                                             //go back
-                                             _ = self.navigationController?.popViewController(animated: true)
+                                             self.goBackToPosts()
                                           } else {
-                                             SVProgressHUD.dismiss()
-                                             self.enableUserTouches = true
-                                             self.showAlertThatErrorInNewSpot()
+                                             self.errorHappened()
                                           }
                            })
                         } else {
-                           SVProgressHUD.dismiss()
-                           self.enableUserTouches = true
-                           self.showAlertThatErrorInNewSpot()
+                           self.errorHappened()
                         }
       })
+   }
+   
+   private func showSavingProgress() {
+      SVProgressHUD.show()
+      enableUserTouches = false
+   }
+   
+   private func goBackToPosts() {
+      SVProgressHUD.dismiss()
+      self.enableUserTouches = true
+      _ = self.navigationController?.popViewController(animated: true)
+   }
+   
+   private func errorHappened() {
+      SVProgressHUD.dismiss()
+      self.enableUserTouches = true
+      self.showAlertThatErrorInNewSpot()
    }
    
    private func showAlertThatErrorInNewSpot() {
@@ -101,9 +110,13 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
          if enableUserTouches {
             navigationController?.navigationBar.isUserInteractionEnabled = true
             navigationItem.hidesBackButton = false
+            tabBarController?.tabBar.isUserInteractionEnabled = true
+            imageView.isUserInteractionEnabled = true
          } else {
             navigationController?.navigationBar.isUserInteractionEnabled = false
             navigationItem.hidesBackButton = true
+            tabBarController?.tabBar.isUserInteractionEnabled = false
+            imageView.isUserInteractionEnabled = false
          }
       }
    }// for disabling user touches, while uploading

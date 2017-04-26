@@ -11,17 +11,6 @@ import FirebaseDatabase
 struct Spot {
    static var refToSpotNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails")
    
-   static func deletePost(for spotId: String, _ postId: String) {
-      let refToSpotDetailsNode = refToSpotNode.child(spotId).child("posts")
-      refToSpotDetailsNode.observeSingleEvent(of: .value, with: { snapshot in
-         if var posts = snapshot.value as? [String : Bool] {
-            posts.removeValue(forKey: postId)
-            
-            refToSpotDetailsNode.setValue(posts)
-         }
-      })
-   }
-   
    static func getNewSpotRefKey() -> String {
       return refToSpotNode.childByAutoId().key
    }
@@ -60,38 +49,11 @@ struct Spot {
    static var spotPostsIds = [String]() // full array of spot posts ids.
    // We will update it only in refresh function of PostStripController
    
-   static var alreadyLoadedCountOfPosts: Int = 0
-   
-   static func getPosts(for spotId: String, countOfNewItemsToAdd: Int,
-                        completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
-      self.getSpotPostsIds(for: spotId, completion: { spotPostsIds in
-         self.spotPostsIds = spotPostsIds
-         
-         if let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd) {
-            var newPosts = [PostItem]()
-            var countOfNewPostsLoaded = 0
-            
-            for postId in nextPostsIds {
-               Post.getItemById(for: postId, completion: { post in
-                  if post != nil { // founded without errors
-                     newPosts.append(post!)
-                     countOfNewPostsLoaded += 1
-                     
-                     if countOfNewPostsLoaded == nextPostsIds.count {
-                        self.alreadyLoadedCountOfPosts += nextPostsIds.count
-                        completion(newPosts.sorted(by: { $0.key > $1.key }))
-                     }
-                  }
-               })
-            }
-         } else {
-            completion(nil) // if no more posts
-         }
-      })
-   }
+   static var alreadyLoadedCountOfPosts: Int = 0 // We will update it only
+   // in refresh function of PostStripController
    
    static func getSpotPostsIds(for spotId: String,
-                               completion: @escaping (_ postsIds: [String]) -> Void) {
+                               completion: @escaping (_ postsIds: [String]?) -> Void) {
       if alreadyLoadedCountOfPosts == 0 { // if we havent already loaded PostsIds
          let refToSpotPosts = refToSpotNode.child(spotId).child("posts")
          
@@ -99,11 +61,46 @@ struct Spot {
             if let value = snapshot.value as? NSDictionary {
                let spotPostsIds = (value.allKeys as! [String]).sorted(by: { $0 > $1 }) // with order by date
                completion(spotPostsIds)
+            } else {
+               completion(nil)
             }
          })
       } else {
          completion(self.spotPostsIds)
       }
+   }
+   
+   static func getPosts(for spotId: String, countOfNewItemsToAdd: Int,
+                        completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
+      self.getSpotPostsIds(for: spotId, completion: { spotPostsIds in
+         if spotPostsIds != nil {
+            self.spotPostsIds = spotPostsIds!
+         } else { // if no posts
+            completion(nil)
+         }
+         
+         guard let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd)
+            else { // if no more posts
+               completion(nil)
+               return
+         }
+         var newPosts = [PostItem]()
+         var countOfNewPostsLoaded = 0
+         
+         for postId in nextPostsIds {
+            Post.getItemById(for: postId, completion: { post in
+               if post != nil { // founded without errors
+                  newPosts.append(post!)
+                  countOfNewPostsLoaded += 1
+                  
+                  if countOfNewPostsLoaded == nextPostsIds.count {
+                     self.alreadyLoadedCountOfPosts += nextPostsIds.count
+                     completion(newPosts.sorted(by: { $0.key > $1.key }))
+                  }
+               }
+            })
+         }
+      })
    }
    
    private static func getNextIdsForAdd(_ count: Int) -> [String]? {

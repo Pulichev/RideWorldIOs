@@ -13,7 +13,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    var userInfo: UserItem! {
       didSet {
          if !cameFromEdit { // when we came from edit
-                            // we have already updated info
+            // we have already updated info
             editButton.isEnabled = true
             
             DispatchQueue.global(qos: .userInitiated).async {
@@ -159,8 +159,10 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       return postsImages.count
    }
    
-   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
+   func collectionView(_ collectionView: UICollectionView,
+                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+      let cell = collectionView.dequeueReusableCell(
+         withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
       
       cell.postPicture.image = postsImages[postsIds[indexPath.row]]?.image!
       

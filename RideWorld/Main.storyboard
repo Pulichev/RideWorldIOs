@@ -870,7 +870,7 @@
                                 <items>
                                     <barButtonItem style="plain" id="BIT-kz-UWg">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="uQ1-GV-iFo" userLabel="newCommentTextField">
-                                            <rect key="frame" x="16" y="7" width="231" height="30"/>
+                                            <rect key="frame" x="16" y="7" width="282" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -879,7 +879,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="hXg-bk-ajS">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MAu-Qs-5pK">
-                                            <rect key="frame" x="257" y="7" width="57" height="30"/>
+                                            <rect key="frame" x="308" y="7" width="57" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Send"/>
                                             <connections>
@@ -897,7 +897,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="102"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCB-lt-rci" id="jIL-dT-ixo">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="101.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grayRec.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="rOG-mA-uOb" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
@@ -918,13 +918,13 @@
                                                         <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSX-h1-EMP" customClass="ActiveLabel" customModule="ActiveLabel">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSX-h1-EMP" customClass="ActiveLabel" customModule="ActiveLabel">
                                                     <rect key="frame" x="60" y="33" width="307" height="61"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Date" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IFE-jK-2F1">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IFE-jK-2F1">
                                                     <rect key="frame" x="219" y="8" width="148" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                                     <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -932,6 +932,7 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="uSX-h1-EMP" firstAttribute="top" secondItem="xgL-Rw-z7e" secondAttribute="bottom" constant="8" symbolic="YES" id="1wG-Zc-8yJ"/>
                                                 <constraint firstItem="uSX-h1-EMP" firstAttribute="bottom" secondItem="jIL-dT-ixo" secondAttribute="bottomMargin" id="4wj-V0-2Xn"/>
                                                 <constraint firstItem="IFE-jK-2F1" firstAttribute="leading" secondItem="xgL-Rw-z7e" secondAttribute="trailing" constant="12" id="6pT-Tb-iM6"/>
                                                 <constraint firstItem="rOG-mA-uOb" firstAttribute="top" secondItem="jIL-dT-ixo" secondAttribute="topMargin" constant="1" id="W6b-Cg-Osc"/>
@@ -961,13 +962,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="j6T-oW-eAy" firstAttribute="leading" secondItem="rlJ-hL-kBK" secondAttribute="leading" id="0IP-yo-yay"/>
-                            <constraint firstItem="j6T-oW-eAy" firstAttribute="trailing" secondItem="rlJ-hL-kBK" secondAttribute="trailing" id="IeO-cW-spx"/>
                             <constraint firstItem="j6T-oW-eAy" firstAttribute="leading" secondItem="lNr-Te-qHe" secondAttribute="leading" id="K17-P7-bQS"/>
                             <constraint firstAttribute="trailing" secondItem="j6T-oW-eAy" secondAttribute="trailing" id="TNN-jj-mzl"/>
-                            <constraint firstItem="rlJ-hL-kBK" firstAttribute="top" secondItem="j6T-oW-eAy" secondAttribute="bottom" id="WrK-1x-f88"/>
-                            <constraint firstItem="rlJ-hL-kBK" firstAttribute="bottom" secondItem="JPO-uP-UdR" secondAttribute="top" id="gwN-ZH-UGW"/>
+                            <constraint firstItem="rlJ-hL-kBK" firstAttribute="leading" secondItem="j6T-oW-eAy" secondAttribute="leading" id="Xmf-Gm-0Lr"/>
+                            <constraint firstItem="rlJ-hL-kBK" firstAttribute="top" secondItem="j6T-oW-eAy" secondAttribute="bottom" id="XoX-CP-DjU"/>
+                            <constraint firstItem="rlJ-hL-kBK" firstAttribute="bottom" secondItem="JPO-uP-UdR" secondAttribute="top" id="djJ-T0-H8m"/>
                             <constraint firstItem="j6T-oW-eAy" firstAttribute="top" secondItem="55j-b9-1Fe" secondAttribute="bottom" constant="8" symbolic="YES" id="zPD-SF-ACC"/>
+                            <constraint firstItem="rlJ-hL-kBK" firstAttribute="trailing" secondItem="j6T-oW-eAy" secondAttribute="trailing" id="zpX-RO-AQH"/>
                         </constraints>
                     </view>
                     <connections>
@@ -979,7 +980,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gjd-iu-5SJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5363" y="-1034"/>
+            <point key="canvasLocation" x="5362.3999999999996" y="-1034.0329835082459"/>
         </scene>
         <!--New Post Controller-->
         <scene sceneID="YyL-Pa-zzf">

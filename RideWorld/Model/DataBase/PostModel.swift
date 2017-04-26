@@ -74,6 +74,21 @@ struct Post {
       })
    }
    
+   // we dont need escaping here. User will not wait,
+   // while post is deleting. Like async. But with media,
+   // some garbage can remain
+   static func remove(_ postItem: PostItem) {
+      let mainReference = FIRDatabase.database().reference(withPath: "MainDataBase")
+      
+      let updates: [String: Any?] = [
+         "/spotpost/" + postItem.key: nil,
+         "/spotdetails/" + postItem.spotId + "/posts/" + postItem.key: nil,
+         "/users/" + postItem.addedByUser + "/posts/" + postItem.key: nil
+      ]
+      
+      mainReference.updateChildValues(updates)
+   }
+   
    static func delete(with postId: String) {
       let refToPostNode = refToPostsNode.child(postId)
       refToPostNode.removeValue()

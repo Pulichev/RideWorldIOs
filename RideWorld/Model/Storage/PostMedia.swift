@@ -7,6 +7,7 @@
 //
 
 import FirebaseStorage
+import FirebaseDatabase // TEMP
 
 struct PostMedia {
    static let refToPostMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia/")
@@ -44,6 +45,10 @@ struct PostMedia {
          if let error = error {
             print("\(error)")
          } else {
+            // TEMP:
+            let refToPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId + "/mediaRef" + String(describing: sizePx))
+            refToPostNode.setValue(URL!.absoluteString)
+            // END TEMP
             completion(URL!)
          }
       }
@@ -57,6 +62,10 @@ struct PostMedia {
          if let error = error {
             print("\(error)")
          } else {
+            // TEMP:
+            let refToPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId + "/videoRef")
+            refToPostNode.setValue(URL!.absoluteString)
+            // END TEMP
             completion(URL!)
          }
       }

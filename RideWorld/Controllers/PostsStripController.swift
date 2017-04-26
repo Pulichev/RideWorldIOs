@@ -253,48 +253,50 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    func setImageOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
       if postItemCellsCache[cacheKey].isCached {
-         PostMedia.getImageURL(for: posts[cacheKey].spotId,
-                               posts[cacheKey].key, withSize: 700,
-                               completion: { URL in
-                                 let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                                 imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-                                 
-                                 DispatchQueue.main.async {
-                                    cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                                 }
-                                 
-         })
+         //         PostMedia.getImageURL(for: posts[cacheKey].spotId,
+         //                               posts[cacheKey].key, withSize: 700,
+         //                               completion: { URL in
+         let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+         //                                 imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
+         imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) //Using kf for caching images.
+         
+         DispatchQueue.main.async {
+            cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+         }
+         
+         //         })
       } else {
          // download thumbnail first
-         PostMedia.getImageURL(for: posts[cacheKey].spotId,
-                               posts[cacheKey].key, withSize: 10,
-                               completion: { URL in
-                                 let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                                 let processor = BlurImageProcessor(blurRadius: 0.1)
-                                 imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
-                                 
-                                 DispatchQueue.main.async {
-                                    cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                                 }
+         //         PostMedia.getImageURL(for: posts[cacheKey].spotId,
+         //                               posts[cacheKey].key, withSize: 10,
+         //                               completion: { URL in
+         let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+         let processor = BlurImageProcessor(blurRadius: 0.1)
+         //                                 imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
+         imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10)) //Using kf for caching images.
          
-                                 self.downloadOriginalImage(cell: cell, cacheKey: cacheKey)
-         })
+         DispatchQueue.main.async {
+            cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+         }
+         
+         self.downloadOriginalImage(cell: cell, cacheKey: cacheKey)
+         //         })
       }
    }
    
    private func downloadOriginalImage(cell: PostsCell, cacheKey: Int) {
-      PostMedia.getImageURL(for: posts[cacheKey].spotId,
-                            posts[cacheKey].key, withSize: 700,
-                            completion: { URL in
-                              let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                              imageViewForView.kf.indicatorType = .activity
-                              imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
-                              
-                              DispatchQueue.main.async {
-                                 self.postItemCellsCache[cacheKey].isCached = true
-                                 cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                              }
-      })
+      //      PostMedia.getImageURL(for: posts[cacheKey].spotId,
+      //                            posts[cacheKey].key, withSize: 700,
+      //                            completion: { URL in
+      let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+      imageViewForView.kf.indicatorType = .activity
+      //                              imageViewForView.kf.setImage(with: URL) //Using kf for caching images.
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) //Using kf for caching images.
+      DispatchQueue.main.async {
+         self.postItemCellsCache[cacheKey].isCached = true
+         cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+      }
+      //      })
    }
    
    private func setVideoOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
@@ -313,50 +315,55 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    private func downloadThumbnail(cacheKey: Int, cell: PostsCell) {
-      PostMedia.getImageURL(for: posts[cacheKey].spotId,
-                            posts[cacheKey].key, withSize: 10,
-                            completion: { URL in
-                              // thumbnail!
-                              let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                              let processor = BlurImageProcessor(blurRadius: 0.1)
-                              imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
-                              imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                              
-                              cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                              
-                              self.downloadBigThumbnail(postKey: self.posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
-      })
+      //      PostMedia.getImageURL(for: posts[cacheKey].spotId,
+      //                            posts[cacheKey].key, withSize: 10,
+      //                            completion: { URL in
+      // thumbnail!
+      let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+      let processor = BlurImageProcessor(blurRadius: 0.1)
+      //                              imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10)) //Using kf for caching images.
+      imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+      
+      cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+      
+      self.downloadBigThumbnail(postKey: self.posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
+      //      })
    }
    
    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCell) {
-      PostMedia.getImageURL(for: posts[cacheKey].spotId,
-                            posts[cacheKey].key, withSize: 270,
-                            completion: { URL in                // thumbnail!
-                              let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-                              let processor = BlurImageProcessor(blurRadius: 0.1)
-                              imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
-                              imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                              
-                              cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                              
-                              self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
-      })
+      //      PostMedia.getImageURL(for: posts[cacheKey].spotId,
+      //                            posts[cacheKey].key, withSize: 270,
+      //                            completion: { URL in                // thumbnail!
+      let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+      let processor = BlurImageProcessor(blurRadius: 0.1)
+      //                              imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef270)) //Using kf for caching images.
+      imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+      
+      cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+      
+      self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
+      //      })
    }
    
    private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCell) {
-      PostMedia.getVideoURL(for: posts[cacheKey].spotId,
-                            posts[cacheKey].key,
-                            completion: { vidoeURL in                 let assetForCache = AVAsset(url: vidoeURL)
-                              self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
-                              cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-                              let playerLayer = AVPlayerLayer(player: cell.player)
-                              playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                              playerLayer.frame = cell.spotPostMedia.bounds
-                              
-                              cell.spotPostMedia.layer.addSublayer(playerLayer)
-                              
-                              cell.player.play()
-      })
+      //      PostMedia.getVideoURL(for: posts[cacheKey].spotId,
+      //                            posts[cacheKey].key,
+      //                            completion: { vidoeURL in
+      //                              let assetForCache = AVAsset(url: vidoeURL)
+      let assetForCache = AVAsset(url: URL(string: cell.post.videoRef)!)
+      
+      self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
+      cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+      let playerLayer = AVPlayerLayer(player: cell.player)
+      playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+      playerLayer.frame = cell.spotPostMedia.bounds
+      
+      cell.spotPostMedia.layer.addSublayer(playerLayer)
+      
+      cell.player.play()
+      //   })
    }
    
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

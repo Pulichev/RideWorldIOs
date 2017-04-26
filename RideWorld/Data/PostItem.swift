@@ -17,6 +17,12 @@ struct PostItem {
    let description: String
    let createdDate: String
    
+   // media
+   var mediaRef10 = String()
+   var mediaRef270 = String()
+   var mediaRef700 = String()
+   var videoRef = String()
+   
    let spotId: String
    
    let addedByUser: String
@@ -43,6 +49,15 @@ struct PostItem {
       isPhoto = snapshotValue["isPhoto"] as! Bool
       description = snapshotValue["description"] as! String
       createdDate = snapshotValue["createdDate"] as! String
+      
+      if isPhoto {
+         mediaRef10 = snapshotValue["mediaRef10"] as! String
+         mediaRef700 = snapshotValue["mediaRef700"] as! String
+      } else {
+         mediaRef10 = snapshotValue["mediaRef10"] as! String
+         mediaRef270 = snapshotValue["mediaRef270"] as! String
+         videoRef = snapshotValue["videoRef"] as! String
+      }
       
       spotId = snapshotValue["spotId"] as! String
       

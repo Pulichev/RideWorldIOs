@@ -81,7 +81,7 @@ class PostInfoViewController: UIViewController {
       postDate.text = finalDate
       let finalTime = sourceDate[sourceDate.index(
          sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(
-         sourceDate.startIndex, offsetBy: 16)]
+            sourceDate.startIndex, offsetBy: 16)]
       postTime.text = finalTime
    }
    
@@ -169,31 +169,32 @@ class PostInfoViewController: UIViewController {
    
    func setImage() {
       // download thumbnail first
-      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 10,
-                            completion: { imageURL in
-                              let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-                              let processor = BlurImageProcessor(blurRadius: 0.1)
-                              imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
-                              
-                              DispatchQueue.main.async {
-                                 self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                              }
-                              
-                              self.downloadOriginalImage()
-      })
+      //      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 10,
+      //                            completion: { imageURL in
+      let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+      let processor = BlurImageProcessor(blurRadius: 0.1)
+      //                              imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
+      
+      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef10)) //Using kf for caching images.
+      DispatchQueue.main.async {
+         self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+      }
+      
+      self.downloadOriginalImage()
+      //      })
    }
    
    private func downloadOriginalImage() {
-      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 700,
-                            completion: { imageURL in
-                              let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-                              imageViewForView.kf.indicatorType = .activity
-                              imageViewForView.kf.setImage(with: imageURL) //Using kf for caching images.
-                              
-                              DispatchQueue.main.async {
-                                 self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                              }
-      })
+      //      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 700,
+      //                            completion: { imageURL in
+      let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+      imageViewForView.kf.indicatorType = .activity
+      //                              imageViewForView.kf.setImage(with: imageURL) //Using kf for caching images.
+      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef700)) //Using kf for caching images.
+      DispatchQueue.main.async {
+         self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+      }
+      //      })
    }
    
    func setVideo() {
@@ -201,45 +202,48 @@ class PostInfoViewController: UIViewController {
    }
    
    private func downloadThumbnail() {
-      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 10,
-                            completion: { imageURL in
-                              let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-                              let processor = BlurImageProcessor(blurRadius: 0.1)
-                              imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
-                              imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                              
-                              self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                              
-                              self.downloadBigThumbnail()
-      })
+      //      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 10,
+      //                            completion: { imageURL in
+      let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+      let processor = BlurImageProcessor(blurRadius: 0.1)
+      //                              imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
+      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef10)) //Using kf for caching images.
+      imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+      
+      self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+      
+      self.downloadBigThumbnail()
+      //      })
    }
    
    private func downloadBigThumbnail() {
-      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 270,
-                            completion: { imageURL in
-                              let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-                              let processor = BlurImageProcessor(blurRadius: 0.1)
-                              imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
-                              imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-                              self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-                              
-                              self.downloadVideo()
-      })
+      //      PostMedia.getImageURL(for: postInfo.spotId, postInfo.key, withSize: 270,
+      //                            completion: { imageURL in
+      let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
+      let processor = BlurImageProcessor(blurRadius: 0.1)
+      //                              imageViewForView.kf.setImage(with: imageURL, placeholder: nil, options: [.processor(processor)])
+      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef270)) //Using kf for caching images.
+      imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+      self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+      
+      self.downloadVideo()
+      //      })
    }
    
    private func downloadVideo() {
-      PostMedia.getVideoURL(for: postInfo.spotId, postInfo.key,
-                            completion: { vidoeURL in
-                              let assetForCache = AVAsset(url: vidoeURL)
-                              self.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-                              let playerLayer = AVPlayerLayer(player: self.player)
-                              playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                              playerLayer.frame = self.spotPostMedia.bounds
-                              
-                              self.spotPostMedia.layer.addSublayer(playerLayer)
-                              
-                              self.player.play()
-      })
+      //      PostMedia.getVideoURL(for: postInfo.spotId, postInfo.key,
+      //                            completion: { vidoeURL in
+      //let assetForCache = AVAsset(url: vidoeURL)
+      let assetForCache = AVAsset(url: URL(string: postInfo.videoRef)!)
+      self.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+      let playerLayer = AVPlayerLayer(player: self.player)
+      playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+      playerLayer.frame = self.spotPostMedia.bounds
+      
+      self.spotPostMedia.layer.addSublayer(playerLayer)
+      
+      self.player.play()
+      //      })
    }
    
    // MARK: - Delete post part

@@ -34,42 +34,38 @@ struct PostMedia {
       }
    }
    
-   static func getImageURL(for spotId: String, _ postId: String, withSize sizePx: Int,
-                           completion: @escaping (_ imageURL: URL) -> Void) {
-      let sizePxString = String(describing: sizePx)
-      
-      let imageURL = refToPostMedia
-         .child(spotId + "/" + postId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
-      
-      imageURL.downloadURL { (URL, error) in
-         if let error = error {
-            print("\(error)")
-         } else {
-            // TEMP:
-            let refToPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId + "/mediaRef" + String(describing: sizePx))
-            refToPostNode.setValue(URL!.absoluteString)
-            // END TEMP
-            completion(URL!)
-         }
-      }
-   }
+//   static func getImageURL(for spotId: String, _ postId: String, withSize sizePx: Int,
+//                           completion: @escaping (_ imageURL: URL) -> Void) {
+//      let sizePxString = String(describing: sizePx)
+//      
+//      let imageURL = refToPostMedia
+//         .child(spotId + "/" + postId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
+//      
+//      imageURL.downloadURL { (URL, error) in
+//         if let error = error {
+//            print("\(error)")
+//         } else {
+//            completion(URL!)
+//         }
+//      }
+//   }
    
-   static func getVideoURL(for spotId: String, _ postId: String,
-                           completion: @escaping (_ videoURL: URL) -> Void) {
-      let videoURL = self.refToPostMedia.child(spotId + "/" + postId + ".m4v")
-      
-      videoURL.downloadURL { (URL, error) in
-         if let error = error {
-            print("\(error)")
-         } else {
-            // TEMP:
-            let refToPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId + "/videoRef")
-            refToPostNode.setValue(URL!.absoluteString)
-            // END TEMP
-            completion(URL!)
-         }
-      }
-   }
+//   static func getVideoURL(for spotId: String, _ postId: String,
+//                           completion: @escaping (_ videoURL: URL) -> Void) {
+//      let videoURL = self.refToPostMedia.child(spotId + "/" + postId + ".m4v")
+//      
+//      videoURL.downloadURL { (URL, error) in
+//         if let error = error {
+//            print("\(error)")
+//         } else {
+//            // TEMP:
+//            let refToPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId + "/videoRef")
+//            refToPostNode.setValue(URL!.absoluteString)
+//            // END TEMP
+//            completion(URL!)
+//         }
+//      }
+//   }
    
    static func deletePhoto(for spotId: String, _ postId: String, withSize sizePx: Int) {
       let sizePxString = String(describing: sizePx)

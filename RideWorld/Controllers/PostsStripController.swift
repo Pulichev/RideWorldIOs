@@ -276,7 +276,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                  DispatchQueue.main.async {
                                     cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
                                  }
-                                 
+         
                                  self.downloadOriginalImage(cell: cell, cacheKey: cacheKey)
          })
       }

@@ -14,7 +14,11 @@ class PostsCell: UITableViewCell {
    var post: PostItem!
    var userInfo: UserItem! // user, who posted
    
-   @IBOutlet var spotPostMedia: UIView!
+   @IBOutlet var spotPostMedia: UIView! {
+      didSet {
+         print("init")
+      }
+   }
    var player: AVPlayer!
    
    @IBOutlet weak var postDate: UILabel!

@@ -234,7 +234,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    func setMediaOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
       cell.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
       addPlaceHolder(cell: cell)
-      
+
       //Downloading and caching media
       if posts[cacheKey].isPhoto {
          setImageOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
@@ -273,7 +273,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
          let processor = BlurImageProcessor(blurRadius: 0.1)
          //                                 imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
-         imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10)) //Using kf for caching images.
+         imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10), placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
          
          DispatchQueue.main.async {
             cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
@@ -322,7 +322,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
       let processor = BlurImageProcessor(blurRadius: 0.1)
       //                              imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10)) //Using kf for caching images.
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10), placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
       imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
       
       cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
@@ -338,7 +338,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
       let processor = BlurImageProcessor(blurRadius: 0.1)
       //                              imageViewForView.kf.setImage(with: URL, placeholder: nil, options: [.processor(processor)])
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef270)) //Using kf for caching images.
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef270), placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
       imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
       
       cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)

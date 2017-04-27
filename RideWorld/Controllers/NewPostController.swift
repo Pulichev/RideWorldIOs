@@ -82,9 +82,9 @@ class NewPostController: UIViewController, UITextViewDelegate {
    private func uploadPhoto(for postItem: PostItem) {
       PostMedia.uploadPhotoForPost(
          photoView.image!, for: postItem,
-         completion: { hasFinishedUploading in
+         completion: { (hasFinishedUploading, post) in
             if hasFinishedUploading {
-               Post.add(postItem,
+               Post.add(post!,
                         completion: { hasFinishedSuccessfully in
                            if hasFinishedSuccessfully {
                               self.goBackToPosts()
@@ -102,9 +102,9 @@ class NewPostController: UIViewController, UITextViewDelegate {
       PostMedia.uploadVideoForPost(
          with: newVideoUrl, for: postItem,
          screenShot: generateVideoScreenShot(),
-         completion: { hasFinishedUploading in
+         completion: { (hasFinishedUploading, post) in
             if hasFinishedUploading {
-               Post.add(postItem,
+               Post.add(post!,
                         completion: { hasFinishedSuccessfully in
                            if hasFinishedSuccessfully {
                               self.player.pause()

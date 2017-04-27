@@ -34,39 +34,6 @@ struct PostMedia {
       }
    }
    
-//   static func getImageURL(for spotId: String, _ postId: String, withSize sizePx: Int,
-//                           completion: @escaping (_ imageURL: URL) -> Void) {
-//      let sizePxString = String(describing: sizePx)
-//      
-//      let imageURL = refToPostMedia
-//         .child(spotId + "/" + postId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
-//      
-//      imageURL.downloadURL { (URL, error) in
-//         if let error = error {
-//            print("\(error)")
-//         } else {
-//            completion(URL!)
-//         }
-//      }
-//   }
-   
-//   static func getVideoURL(for spotId: String, _ postId: String,
-//                           completion: @escaping (_ videoURL: URL) -> Void) {
-//      let videoURL = self.refToPostMedia.child(spotId + "/" + postId + ".m4v")
-//      
-//      videoURL.downloadURL { (URL, error) in
-//         if let error = error {
-//            print("\(error)")
-//         } else {
-//            // TEMP:
-//            let refToPostNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost/" + postId + "/videoRef")
-//            refToPostNode.setValue(URL!.absoluteString)
-//            // END TEMP
-//            completion(URL!)
-//         }
-//      }
-//   }
-   
    static func deletePhoto(for spotId: String, _ postId: String, withSize sizePx: Int) {
       let sizePxString = String(describing: sizePx)
       
@@ -87,7 +54,7 @@ struct PostMedia {
    }
    
    static func upload(_ image: UIImage, for post: PostItem, withSize sizePx: Double,
-                      completion: @escaping (_ hasFinished: Bool) -> Void) {
+                      completion: @escaping (_ hasFinished: Bool, _ url: String) -> Void) {
       let resizedPhoto = Image.resize(image, targetSize: CGSize(width: sizePx, height: sizePx))
       let sizePxInt = Int(sizePx) // to generate link properly. It doesn't have ".0" in sizes
       let sizePxString = String(describing: sizePxInt)
@@ -97,95 +64,124 @@ struct PostMedia {
       //with low compression
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
       postPhotoRef.put(dataLowCompression, metadata: nil,
-                       completion: { (_ , error) in
+                       completion: { (meta , error) in
                         if error == nil {
-                           completion(true)
+                           // save url to post node
+//                           Post.addReferenceToPhoto(for: post.key,
+//                                                    url: (meta?.downloadURL()?.absoluteString)!, size: sizePxString,
+//                                                    completion: { hasFinished in
+//                                                      if hasFinished {
+//                                                         completion(true)
+//                                                      } else {
+//                                                         completion(false)
+//                                                      }
+//                           })
+                           completion(true, (meta?.downloadURL()?.absoluteString)!)
                         } else {
-                           completion(false)
+                           completion(false, "")
                         }
       })
    }
    
-   static func uploadPhotoForPost(_ image: UIImage, for post: PostItem,
-                                  completion: @escaping (_ hasFinished: Bool) -> Void) {
+   static func uploadPhotoForPost(_ image: UIImage, for postForUpdate: PostItem,
+                                  completion: @escaping (_ hasFinished: Bool, _ postWithRef: PostItem?) -> Void) {
+      var post = postForUpdate
       UIImageWriteToSavedPhotosAlbum(image, nil, nil , nil) //saving image to camera roll
       
       upload(image, for: post, withSize: 700.0,
-             completion: { hasFinishedSuccessfully in
+             completion: { (hasFinishedSuccessfully, url) in
                if hasFinishedSuccessfully {
+                  post.mediaRef700 = url
                   upload(image, for: post, withSize: 270.0,
-                         completion: { hasFinishedSuccessfully in
+                         completion: { (hasFinishedSuccessfully, url) in
                            if hasFinishedSuccessfully {
+                              post.mediaRef270 = url
                               upload(image, for: post, withSize: 10.0,
-                                     completion: { hasFinishedSuccessfully in
+                                     completion: { (hasFinishedSuccessfully, url) in
                                        if hasFinishedSuccessfully {
-                                          completion(true)
+                                          post.mediaRef10 = url
+                                          completion(true, post)
                                        } else {
-                                          completion(false)
+                                          completion(false, nil)
                                        }
                               })
                               
                            } else {
-                              completion(false)
+                              completion(false, nil)
                            }
                   })
                   
                } else {
-                  completion(false)
+                  completion(false, nil)
                }
       })
    }
    
    static func upload(with video: URL, for post: PostItem,
-                      completion: @escaping (_ hasFinished: Bool) -> Void) {
+                      completion: @escaping (_ hasFinished: Bool, _ url: String) -> Void) {
       do {
          let postVideoRef = refToPostMedia.child(post.spotId).child(post.key + ".m4v")
          
          let data = try Data(contentsOf: video, options: .mappedIfSafe)
          
          postVideoRef.put(data, metadata: nil,
-                          completion: { (_, error) in
+                          completion: { (meta, error) in
                            if error == nil {
-                              completion(true)
+//                              Post.addReferenceToVideo(for: post.key,
+//                                                       url: (meta?.downloadURL()?.absoluteString)!,
+//                                                       completion: { hasFinished in
+//                                                         if hasFinished {
+//                                                            completion(true)
+//                                                         } else {
+//                                                            completion(false)
+//                                                         }
+//                              })
+                              
+                              completion(true, (meta?.downloadURL()?.absoluteString)!)
                            } else {
-                              completion(false)
+                              completion(false, "")
                            }
          })
       } catch {
          print(error)
-         completion(false)
+         completion(false, "")
       }
    }
    
-   static func uploadVideoForPost(with url: URL, for post: PostItem, screenShot: UIImage,
-                                  completion: @escaping (_ hasFinished: Bool) -> Void) {
+   static func uploadVideoForPost(with videoURL: URL, for postForUpdate: PostItem, screenShot: UIImage,
+                                  completion: @escaping (_ hasFinished: Bool, _ postWithRefs: PostItem?) -> Void) {
+      var post = postForUpdate
       // upload screenshots
       upload(screenShot, for: post, withSize: 270.0,
-             completion: { hasFinishedSuccessfully in
+             completion: { (hasFinishedSuccessfully, url) in
                if hasFinishedSuccessfully {
+                  post.mediaRef270 = url
                   upload(screenShot, for: post, withSize: 10.0,
-                         completion: { hasFinishedSuccessfully in
+                         completion: { (hasFinishedSuccessfully, url) in
                            if hasFinishedSuccessfully {
+                              post.mediaRef10 = url
                               // upload video
-                              upload(with: url, for: post,
-                                     completion: { hasFinishedSuccessfully in
+                              upload(with: videoURL, for: post,
+                                     completion: { (hasFinishedSuccessfully, url) in
                                        if hasFinishedSuccessfully {
-                                          let path = url.path
+                                          post.videoRef = url
+                                          
+                                          let path = videoURL.path
                                           
                                           if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
                                              UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
                                           }
-                                          completion(true)
+                                          completion(true, post)
                                        } else {
-                                          completion(false)
+                                          completion(false, nil)
                                        }
                               })
                            } else {
-                              completion(false)
+                              completion(false, nil)
                            }
                   })
                } else {
-                  completion(false)
+                  completion(false, nil)
                }
       })
    }

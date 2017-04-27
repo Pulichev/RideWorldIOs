@@ -18,10 +18,10 @@ struct PostItem {
    let createdDate: String
    
    // media
-   var mediaRef10 = String()
-   var mediaRef270 = String()
-   var mediaRef700 = String()
-   var videoRef = String()
+   var mediaRef10 = ""
+   var mediaRef270 = ""
+   var mediaRef700 = ""
+   var videoRef = ""
    
    let spotId: String
    
@@ -70,6 +70,11 @@ struct PostItem {
          "isPhoto": isPhoto,
          "description": description,
          "createdDate": createdDate,
+         
+         "mediaRef10": mediaRef10,
+         "mediaRef270": mediaRef270,
+         "mediaRef700": mediaRef700,
+         "videoRef": videoRef,
          
          "spotId": spotId,
          

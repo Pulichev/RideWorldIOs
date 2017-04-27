@@ -250,13 +250,12 @@ struct User {
    
    static func getStripPostsIds(
       completion: @escaping (_ postsIds: [String]) -> Void) {
-      var followingsPostsIds = [String]()
-      
-      self.getFollowingsIdsForCurrentUser(
-         completion: { followingsIds in
-            var countOfProcessedFollowings = 0
-            
-            if self.alreadyLoadedCountOfPosts == 0 { // if we haven't loaded already
+      if self.alreadyLoadedCountOfPosts == 0 { // if we haven't loaded already
+         var followingsPostsIds = [String]()
+         self.getFollowingsIdsForCurrentUser(
+            completion: { followingsIds in
+               var countOfProcessedFollowings = 0
+               
                for followingId in followingsIds {
                   self.getPostsIds(for: followingId,
                                    completion: { postsIds in
@@ -271,10 +270,10 @@ struct User {
                                     }
                   })
                }
-            } else {
-               completion(self.postsIds)
-            }
-      })
+         })
+      } else {
+         completion(self.postsIds)
+      }
    }
    
    static func getStripPosts(countOfNewItemsToAdd: Int,

@@ -162,7 +162,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       User.postsIds.removeAll()
       
       loadPosts(completion: { newItems in
-         if newItems?[0].key != self.posts[0].key { // if new posts
+         if newItems == nil { return }
+         let newItemsFirstItemsKeys = (Array(newItems!).map { $0.key })
+         let currentItemsFirstItemsKeys = (Array(self.posts[0..<self.postsLoadStep]).map { $0.key })
+         
+         if newItemsFirstItemsKeys != currentItemsFirstItemsKeys { // if new posts.
             self.posts.removeAll()
             self.postItemCellsCache.removeAll()
             

@@ -67,15 +67,6 @@ struct PostMedia {
                        completion: { (meta , error) in
                         if error == nil {
                            // save url to post node
-//                           Post.addReferenceToPhoto(for: post.key,
-//                                                    url: (meta?.downloadURL()?.absoluteString)!, size: sizePxString,
-//                                                    completion: { hasFinished in
-//                                                      if hasFinished {
-//                                                         completion(true)
-//                                                      } else {
-//                                                         completion(false)
-//                                                      }
-//                           })
                            completion(true, (meta?.downloadURL()?.absoluteString)!)
                         } else {
                            completion(false, "")
@@ -85,32 +76,36 @@ struct PostMedia {
    
    static func uploadPhotoForPost(_ image: UIImage, for postForUpdate: PostItem,
                                   completion: @escaping (_ hasFinished: Bool, _ postWithRef: PostItem?) -> Void) {
-      var post = postForUpdate
+      var post = postForUpdate // we will insert refs to media to this object
       UIImageWriteToSavedPhotosAlbum(image, nil, nil , nil) //saving image to camera roll
       
       upload(image, for: post, withSize: 700.0,
              completion: { (hasFinishedSuccessfully, url) in
+               
                if hasFinishedSuccessfully {
                   post.mediaRef700 = url
+                  
                   upload(image, for: post, withSize: 270.0,
                          completion: { (hasFinishedSuccessfully, url) in
+                           
                            if hasFinishedSuccessfully {
                               post.mediaRef270 = url
+                              
                               upload(image, for: post, withSize: 10.0,
                                      completion: { (hasFinishedSuccessfully, url) in
+                                       
                                        if hasFinishedSuccessfully {
                                           post.mediaRef10 = url
+                                          
                                           completion(true, post)
                                        } else {
                                           completion(false, nil)
                                        }
                               })
-                              
                            } else {
                               completion(false, nil)
                            }
                   })
-                  
                } else {
                   completion(false, nil)
                }
@@ -127,16 +122,6 @@ struct PostMedia {
          postVideoRef.put(data, metadata: nil,
                           completion: { (meta, error) in
                            if error == nil {
-//                              Post.addReferenceToVideo(for: post.key,
-//                                                       url: (meta?.downloadURL()?.absoluteString)!,
-//                                                       completion: { hasFinished in
-//                                                         if hasFinished {
-//                                                            completion(true)
-//                                                         } else {
-//                                                            completion(false)
-//                                                         }
-//                              })
-                              
                               completion(true, (meta?.downloadURL()?.absoluteString)!)
                            } else {
                               completion(false, "")
@@ -150,19 +135,24 @@ struct PostMedia {
    
    static func uploadVideoForPost(with videoURL: URL, for postForUpdate: PostItem, screenShot: UIImage,
                                   completion: @escaping (_ hasFinished: Bool, _ postWithRefs: PostItem?) -> Void) {
-      var post = postForUpdate
+      var post = postForUpdate // we will insert refs to media to this object
       // upload screenshots
       upload(screenShot, for: post, withSize: 270.0,
              completion: { (hasFinishedSuccessfully, url) in
+               
                if hasFinishedSuccessfully {
                   post.mediaRef270 = url
+                  
                   upload(screenShot, for: post, withSize: 10.0,
                          completion: { (hasFinishedSuccessfully, url) in
+                           
                            if hasFinishedSuccessfully {
                               post.mediaRef10 = url
+                              
                               // upload video
                               upload(with: videoURL, for: post,
                                      completion: { (hasFinishedSuccessfully, url) in
+                                       
                                        if hasFinishedSuccessfully {
                                           post.videoRef = url
                                           

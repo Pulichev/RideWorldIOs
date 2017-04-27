@@ -154,9 +154,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    // function for pull to refresh
    func refresh(sender: Any) {
-      posts.removeAll()
-      postItemCellsCache.removeAll()
-      
       // clear our structs
       Spot.alreadyLoadedCountOfPosts = 0
       Spot.spotPostsIds.removeAll()
@@ -165,10 +162,34 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       User.postsIds.removeAll()
       
       loadPosts(completion: { newItems in
-         self.appendLoadedPosts(newItems)
-         // ending refreshing
-         self.tableView.reloadData()
-         self.refreshControl.endRefreshing()
+         if newItems?[0].key != self.posts[0].key { // if new posts
+            self.posts.removeAll()
+            self.postItemCellsCache.removeAll()
+            
+            // add posts and reload
+            self.appendLoadedPosts(newItems)
+            self.tableView.reloadData()
+         } else {
+            // clear all but firsts #postsLoadStep
+            // from tableView
+            if self.posts.count != self.postsLoadStep {
+               var indexPaths = [IndexPath]()
+               
+               for i in self.postsLoadStep...(self.posts.count - 1) {
+                  indexPaths.append(IndexPath(row: i, section: 0))
+               }
+               
+               self.tableView.beginUpdates()
+               self.tableView.deleteRows(at: indexPaths, with: .none)
+               
+               // from arrays
+               self.posts = Array(self.posts[0..<self.postsLoadStep])
+               self.postItemCellsCache = Array(self.postItemCellsCache[0..<self.postsLoadStep])
+               self.tableView.endUpdates()
+            }
+         }
+         
+         self.refreshControl.endRefreshing() // ending refreshing
       })
    }
    

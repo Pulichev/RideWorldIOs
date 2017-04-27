@@ -133,7 +133,8 @@ struct PostMedia {
       }
    }
    
-   static func uploadVideoForPost(with videoURL: URL, for postForUpdate: PostItem, screenShot: UIImage,
+   static func uploadVideoForPost(with videoURL: URL, for postForUpdate: PostItem,
+                                  screenShot: UIImage,
                                   completion: @escaping (_ hasFinished: Bool, _ postWithRefs: PostItem?) -> Void) {
       var post = postForUpdate // we will insert refs to media to this object
       // upload screenshots

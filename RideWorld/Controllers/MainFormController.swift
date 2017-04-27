@@ -76,8 +76,8 @@ class MainFormController: UIViewController {
    }
    
    func displayAdditionalOptions() {
-      mapView.showsCompass = false
-      mapView.showsTraffic = true
+      //mapView.showsCompass = false
+      //mapView.showsTraffic = true
       //mapView.showsScale = true
    }
    

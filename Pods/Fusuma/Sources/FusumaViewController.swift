@@ -62,7 +62,7 @@ public var fusumaShotImage : UIImage? = nil
 public var fusumaVideoStartImage : UIImage? = nil
 public var fusumaVideoStopImage : UIImage? = nil
 
-public var fusumaCropImage: Bool = true
+public var fusumaCropImage: Bool = true // was true
 
 public var fusumaSavesImage: Bool = true
 

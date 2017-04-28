@@ -120,4 +120,9 @@ struct Spot {
       
       return nextIds
    }
+   
+   static func clearCurrentData() {
+      alreadyLoadedCountOfPosts = 0
+      spotPostsIds.removeAll()
+   }
 }

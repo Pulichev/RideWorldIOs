@@ -55,9 +55,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    // MARK: - Post load region
    func appendLoadedPosts(_ newItems: [PostItem]?,
                           completion: @escaping (_ hasFinished: Bool) -> Void) {
-      var newItemsCache = [PostItemCellCache]()
-      
-      var countOfCachedCells = 0
       
       if newItems == nil { // no more posts
          self.removeLoadingScreen()
@@ -65,24 +62,16 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          return
       }
       
-      for newItem in newItems! {
-         // need to cache all cells before adding
-         _ = PostItemCellCache(spotPost: newItem,
-                               completion: { cellCache in
-                                 countOfCachedCells += 1
-                                 newItemsCache.append(cellCache)
-                                 
-                                 if countOfCachedCells == newItems?.count {
-                                    self.posts.append(contentsOf: newItems!)
-                                    self.postItemCellsCache.append(contentsOf: newItemsCache)
-                                    self.removeLoadingScreen()
-                                    self.reloadNewCells(
-                                       startingFrom: self.posts.count - countOfCachedCells,
-                                       count: countOfCachedCells)
-                                    completion(true)
-                                 }
-         })
-      }
+      loadPostsCache(newItems, completion: { postsCache in
+         self.posts.append(contentsOf: newItems!)
+         self.postItemCellsCache.append(contentsOf: postsCache)
+         self.removeLoadingScreen()
+         let countOfCachedCells = postsCache.count
+         self.reloadNewCells(
+            startingFrom: self.posts.count - countOfCachedCells,
+            count: countOfCachedCells)
+         completion(true)
+      })
    }
    
    private func reloadNewCells(startingFrom index: Int, count: Int) {
@@ -154,7 +143,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          activityIndicator.startAnimating()
          tableView.tableFooterView?.isHidden = false
          
-         loadMoreBegin(loadMoreEnd: {(x:Int) -> () in
+         loadMoreBegin(loadMoreEnd: { hasFinished in
             self.loadMoreStatus = false
             self.activityIndicator.stopAnimating()
             self.tableView.tableFooterView?.isHidden = true
@@ -162,13 +151,12 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
-   func loadMoreBegin(loadMoreEnd: @escaping (Int) -> ()) {
+   func loadMoreBegin(loadMoreEnd: @escaping (_ hasFinished: Bool) -> Void) {
       DispatchQueue.global(qos: .userInitiated).async {
-         //      sleep(1)
          self.loadPosts(completion: { newItems in
             self.appendLoadedPosts(newItems, completion: { hasFinished in
                DispatchQueue.main.async {
-                  loadMoreEnd(0)
+                  loadMoreEnd(true)
                }
             })
          })
@@ -178,50 +166,55 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    // function for pull to refresh
    func refresh(sender: Any) {
       // clear our structs
-      Spot.alreadyLoadedCountOfPosts = 0
-      Spot.spotPostsIds.removeAll()
-      
-      User.alreadyLoadedCountOfPosts = 0
-      User.postsIds.removeAll()
+      Spot.clearCurrentData()
+      User.clearCurrentData()
       
       loadPosts(completion: { newItems in
          if newItems == nil { return }
          
+         if self.posts.count != self.postsLoadStep {
+            self.clearAllTableButFirstStepCount()
+         }
+         
          let newItemsFirstItemsKeys = (Array(newItems!).map { $0.key })
          let currentItemsFirstItemsKeys = (Array(self.posts[0..<self.postsLoadStep]).map { $0.key })
          
-         // clear all but firsts #postsLoadStep
-         // from tableView
-         if self.posts.count != self.postsLoadStep {
-            self.tableView.beginUpdates()
-            var indexPaths = [IndexPath]()
-            
-            for i in self.postsLoadStep...(self.posts.count - 1) {
-               indexPaths.append(IndexPath(row: i, section: 0))
-            }
-            
-            self.tableView.deleteRows(at: indexPaths, with: .none)
-            
-            // from arrays
-            self.posts = Array(self.posts[0..<self.postsLoadStep])
-            self.postItemCellsCache = Array(self.postItemCellsCache[0..<self.postsLoadStep])
-            self.tableView.endUpdates()
-         }
-         
          if newItemsFirstItemsKeys != currentItemsFirstItemsKeys { // if new posts.
-            self.tableView.beginUpdates()
-            
-            self.posts = newItems!
-            
-            self.loadPostsCache(newItems!, completion: { postsCache in
-               self.postItemCellsCache = postsCache
-               self.tableView.reloadData()
-               self.tableView.endUpdates()
-               self.refreshControl.endRefreshing() // ending refreshing
-            })
+            self.reloadTableDataWithRefreshedItems(newItems!)
          } else {
             self.refreshControl.endRefreshing() // ending refreshing
          }
+      })
+   }
+   
+   private func clearAllTableButFirstStepCount() {
+      self.tableView.beginUpdates()
+      // clear all but firsts #postsLoadStep
+      // from tableView
+      var indexPaths = [IndexPath]()
+      
+      for i in self.postsLoadStep...(self.posts.count - 1) {
+         indexPaths.append(IndexPath(row: i, section: 0))
+      }
+      
+      self.tableView.deleteRows(at: indexPaths, with: .none)
+      
+      // from arrays
+      self.posts = Array(self.posts[0..<self.postsLoadStep])
+      self.postItemCellsCache = Array(self.postItemCellsCache[0..<self.postsLoadStep])
+      self.tableView.endUpdates()
+   }
+   
+   private func reloadTableDataWithRefreshedItems(_ newItems: [PostItem]) {
+      self.tableView.beginUpdates()
+      
+      self.posts = newItems
+      
+      self.loadPostsCache(newItems, completion: { postsCache in
+         self.postItemCellsCache = postsCache
+         self.tableView.reloadData()
+         self.tableView.endUpdates()
+         self.refreshControl.endRefreshing() // ending refreshing
       })
    }
    

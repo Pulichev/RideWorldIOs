@@ -326,4 +326,9 @@ struct User {
       
       return nextIds
    }
+   
+   static func clearCurrentData() {
+      alreadyLoadedCountOfPosts = 0
+      postsIds.removeAll()
+   }
 }

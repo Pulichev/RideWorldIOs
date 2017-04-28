@@ -48,12 +48,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       setLoadingScreen()
       
       self.loadPosts(completion: { newItems in
-         self.appendLoadedPosts(newItems)
+         self.appendLoadedPosts(newItems, completion: { _ in }) // no need completion here
       })
    }
    
    // MARK: - Post load region
-   func appendLoadedPosts(_ newItems: [PostItem]?) {
+   func appendLoadedPosts(_ newItems: [PostItem]?,
+                          completion: @escaping (_ hasFinished: Bool) -> Void) {
       var newItemsCache = [PostItemCellCache]()
       
       var countOfCachedCells = 0
@@ -78,6 +79,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                                     self.reloadNewCells(
                                        startingFrom: self.posts.count - countOfCachedCells,
                                        count: countOfCachedCells)
+                                    completion(true)
                                  }
          })
       }
@@ -144,10 +146,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       DispatchQueue.global(qos: .userInitiated).async {
          sleep(1)
          self.loadPosts(completion: { newItems in
-            self.appendLoadedPosts(newItems)
-            DispatchQueue.main.async {
-               loadMoreEnd(0)
-            }
+            self.appendLoadedPosts(newItems, completion: { hasFinished in
+               DispatchQueue.main.async {
+                  loadMoreEnd(0)
+               }
+            })
          })
       }
    }
@@ -169,10 +172,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          if newItemsFirstItemsKeys != currentItemsFirstItemsKeys { // if new posts.
             self.posts.removeAll()
             self.postItemCellsCache.removeAll()
-            
-            // add posts and reload
-            self.appendLoadedPosts(newItems)
             self.tableView.reloadData()
+            // add posts and reload
+            self.appendLoadedPosts(newItems, completion: { hasFinished in
+               //self.refreshControl.endRefreshing() // ending refreshing
+            })
          } else {
             // clear all but firsts #postsLoadStep
             // from tableView
@@ -191,9 +195,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                self.postItemCellsCache = Array(self.postItemCellsCache[0..<self.postsLoadStep])
                self.tableView.endUpdates()
             }
+            
+            self.refreshControl.endRefreshing() // ending refreshing
          }
-         
-         self.refreshControl.endRefreshing() // ending refreshing
       })
    }
    

@@ -24,7 +24,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    var refreshControl: UIRefreshControl! {
       didSet {
          refreshControl.attributedTitle = NSAttributedString(string: "Идет обновление...")
-         refreshControl.addTarget(self, action: #selector(PostsStripController.refresh), for: UIControlEvents.valueChanged)
+         refreshControl.addTarget(self,
+                                  action: #selector(PostsStripController.refresh),
+                                  for: UIControlEvents.valueChanged)
          tableView.addSubview(refreshControl)
          tableView.tableFooterView?.isHidden = true // hide on start
       }
@@ -82,7 +84,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       for newItem in newItems! {
          // need to cache all cells before adding
-         _ = PostItemCellCache(spotPost: newItem,
+         _ = PostItemCellCache(newItem,
                                completion: { cellCache in
                                  countOfCachedCells += 1
                                  newItemsCache.append(cellCache)

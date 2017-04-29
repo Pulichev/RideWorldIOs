@@ -23,15 +23,12 @@ class PostItemCellCache {
    var likesCount = Int()
    var isCached = false
    
-   init(spotPost: PostItem, completion: @escaping (_ cellCache: PostItemCellCache) -> Void) {
-      key = spotPost.key
-      post = spotPost
-      let sourceDate = post.createdDate
+   init(_ post: PostItem, completion: @escaping (_ cellCache: PostItemCellCache) -> Void) {
+      key = post.key
+      self.post = post
       // formatting date to yyyy-mm-dd
-      let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 10)]
-      postDate = finalDate
-      let finalTime = sourceDate[sourceDate.index(sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
-      postTime = finalTime
+      postDate = DateTimeParser.getDate(from: post.createdDate)
+      postTime = DateTimeParser.getTime(from: post.createdDate)
       postDescription = post.description
       isPhoto = post.isPhoto
       initializeUser(completion: {

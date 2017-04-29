@@ -59,6 +59,7 @@
 		9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD648DB1E573F0600C673CA /* Main.storyboard */; };
 		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
 		9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */; };
+		9FF114A91EB4C8F600152279 /* DateTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF114A81EB4C8F600152279 /* DateTimeParser.swift */; };
 		9FF1BF6C1E9D448500A2CEF2 /* CommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF6B1E9D448500A2CEF2 /* CommentsModel.swift */; };
 		9FF1BF701E9D707400A2CEF2 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF6F1E9D707400A2CEF2 /* UserModel.swift */; };
 		9FF1BF721E9E801F00A2CEF2 /* UserMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF711E9E801F00A2CEF2 /* UserMedia.swift */; };
@@ -126,7 +127,7 @@
 		9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostItemCellCache.swift; path = Core/PostItemCellCache.swift; sourceTree = "<group>"; };
 		9F5609841E7C6BB50000DB21 /* PostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCell.swift; path = CustomUIElements/PostsCell.swift; sourceTree = "<group>"; };
 		9F5609861E7C8C990000DB21 /* PostsStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsStripController.swift; path = Controllers/PostsStripController.swift; sourceTree = "<group>"; };
-		9F6154911EA67D4800160CB3 /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedImageView.swift; path = CustomUIElements/RoundedImageView.swift; sourceTree = "<group>"; };
+		9F6154911EA67D4800160CB3 /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedImageView.swift; path = Core/RoundedImageView.swift; sourceTree = "<group>"; };
 		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
 		9F65321B1E3CD12700F58C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9F73B09D1E6A0E490049563A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserItem.swift; path = Data/UserItem.swift; sourceTree = "<group>"; };
@@ -143,7 +144,7 @@
 		9FB681D11E2E70CE00D9A436 /* RideWorldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RideWorldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681D51E2E70CE00D9A436 /* RideWorldUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideWorldUITests.swift; sourceTree = "<group>"; };
 		9FB681D71E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9FBCFAE71E73445900A5C95D /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Image.swift; path = CustomUIElements/Image.swift; sourceTree = "<group>"; };
+		9FBCFAE71E73445900A5C95D /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Image.swift; path = Core/Image.swift; sourceTree = "<group>"; };
 		9FC14FC91E48E5E30097579B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controllers/LoginController.swift; sourceTree = "<group>"; };
 		9FC14FCA1E48E5E30097579B /* MainFormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainFormController.swift; path = Controllers/MainFormController.swift; sourceTree = "<group>"; };
 		9FC14FCB1E48E5E30097579B /* NewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewPostController.swift; path = Controllers/NewPostController.swift; sourceTree = "<group>"; };
@@ -156,6 +157,7 @@
 		9FD648DB1E573F0600C673CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
 		9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9FF114A81EB4C8F600152279 /* DateTimeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateTimeParser.swift; path = Core/DateTimeParser.swift; sourceTree = "<group>"; };
 		9FF1BF641E9C1D5C00A2CEF2 /* RideWorld-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RideWorld-Bridging-Header.h"; path = "Some Obj-C frameworks/RideWorld-Bridging-Header.h"; sourceTree = "<group>"; };
 		9FF1BF6B1E9D448500A2CEF2 /* CommentsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentsModel.swift; path = Model/DataBase/CommentsModel.swift; sourceTree = "<group>"; };
 		9FF1BF6F1E9D707400A2CEF2 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserModel.swift; path = Model/DataBase/UserModel.swift; sourceTree = "<group>"; };
@@ -356,7 +358,10 @@
 		9FC14FD71E48E7380097579B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				9F6154911EA67D4800160CB3 /* RoundedImageView.swift */,
+				9FBCFAE71E73445900A5C95D /* Image.swift */,
 				9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */,
+				9FF114A81EB4C8F600152279 /* DateTimeParser.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -368,10 +373,8 @@
 				9F4A84421E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift */,
 				9FC14FDB1E48E7690097579B /* CustomPin.swift */,
 				9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */,
-				9FBCFAE71E73445900A5C95D /* Image.swift */,
 				9FFB14F71E784E4B00D10620 /* FollowersCell.swift */,
 				9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */,
-				9F6154911EA67D4800160CB3 /* RoundedImageView.swift */,
 				9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */,
 			);
 			name = CustomUIElements;
@@ -761,6 +764,7 @@
 				9FFB14F81E784E4B00D10620 /* FollowersCell.swift in Sources */,
 				9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */,
 				9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */,
+				9FF114A91EB4C8F600152279 /* DateTimeParser.swift in Sources */,
 				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FBCFAE81E73445900A5C95D /* Image.swift in Sources */,

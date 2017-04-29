@@ -74,15 +74,8 @@ class PostInfoViewController: UIViewController {
    }
    
    func initializeDate() {
-      let sourceDate = String(describing: postInfo.createdDate)
-      //formatting date to yyyy-mm-dd
-      let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(
-         sourceDate.startIndex, offsetBy: 10)]
-      postDate.text = finalDate
-      let finalTime = sourceDate[sourceDate.index(
-         sourceDate.startIndex, offsetBy: 11)..<sourceDate.index(
-            sourceDate.startIndex, offsetBy: 16)]
-      postTime.text = finalTime
+      postDate.text = DateTimeParser.getDate(from: postInfo.createdDate)
+      postTime.text = DateTimeParser.getTime(from: postInfo.createdDate)
    }
    
    func countPostLikes() {

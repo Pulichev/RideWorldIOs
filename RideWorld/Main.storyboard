@@ -1596,11 +1596,11 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Gef-69-N8A"/>
-        <segue reference="TEa-lr-7L1"/>
-        <segue reference="CzX-Mc-6Hc"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="6R6-CY-IE2"/>
-        <segue reference="eyf-4a-ZNN"/>
+        <segue reference="CzX-Mc-6Hc"/>
+        <segue reference="T3A-kh-NPf"/>
+        <segue reference="eb8-9P-3Sr"/>
         <segue reference="TeE-da-wxz"/>
+        <segue reference="eyf-4a-ZNN"/>
     </inferredMetricsTieBreakers>
 </document>

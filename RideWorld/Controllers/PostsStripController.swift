@@ -74,18 +74,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       })
    }
    
-   private func reloadNewCells(startingFrom index: Int, count: Int) {
-      var indexPaths = [IndexPath]()
-      
-      for i in index...(index + count - 1) {
-         indexPaths.append(IndexPath(row: i, section: 0))
-      }
-      
-      tableView.beginUpdates()
-      tableView.insertRows(at: indexPaths, with: .none)
-      tableView.endUpdates()
-   }
-   
    func loadPostsCache(_ newItems: [PostItem]?,
                        completion: @escaping (_ cachedItems: [PostItemCellCache]) -> Void) {
       var newItemsCache = [PostItemCellCache]()
@@ -106,6 +94,18 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
+   private func reloadNewCells(startingFrom index: Int, count: Int) {
+      var indexPaths = [IndexPath]()
+      
+      for i in index...(index + count - 1) {
+         indexPaths.append(IndexPath(row: i, section: 0))
+      }
+      
+      tableView.beginUpdates()
+      tableView.insertRows(at: indexPaths, with: .none)
+      tableView.endUpdates()
+   }
+
    private func loadPosts(completion: @escaping (_ newItems: [PostItem]?) -> Void) {
       if cameFromSpotOrMyStrip {
          Spot.getPosts(for: spotDetailsItem.key, countOfNewItemsToAdd: postsLoadStep,
@@ -120,7 +120,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
-   // MARK: - Load more posts region
+   // MARK: - Infinite scrolling and refresh
    private let postsLoadStep = 5
    
    func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -277,6 +277,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
+   // MARK: - Set media part
    func setMediaOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
       //cell.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
       addPlaceHolder(cell: cell)

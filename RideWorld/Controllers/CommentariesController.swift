@@ -75,9 +75,13 @@ UITableViewDelegate {
          completion: { newComment in
             self.newCommentTextField.text = ""
             self.view.endEditing(true)
-            
+
             self.comments.append(newComment)
-            self.tableView.reloadData()
+            // add to tableView
+            self.tableView.beginUpdates()
+            let lastIndex = IndexPath(row: self.comments.count - 1, section: 0)
+            self.tableView.insertRows(at: [lastIndex], with: .none)
+            self.tableView.endUpdates()
       })
    }
    

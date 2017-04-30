@@ -27,10 +27,8 @@ class CommentCell: MGSwipeTableCell {
    var comment: CommentItem! {
       didSet {
          commentText.text = comment.commentary
-         let sourceDate = comment.datetime
          // Formatting date to yyyy-mm-dd
-         let finalDate = sourceDate[sourceDate.startIndex..<sourceDate.index(sourceDate.startIndex, offsetBy: 16)]
-         date.text = finalDate
+         date.text = DateTimeParser.getDateTime(from: comment.datetime)
          initialiseUserPhoto()
          initialiseUserButton()
       }

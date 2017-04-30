@@ -22,4 +22,12 @@ struct DateTimeParser {
       
       return finalTime
    }
+   
+   static func getDateTime(from dateTime: String) -> String {
+      let startIndex = dateTime.startIndex
+      let endIndex = dateTime.index(dateTime.startIndex, offsetBy: 16)
+      let finalDateTime = dateTime[startIndex..<endIndex]
+      
+      return finalDateTime
+   }
 }

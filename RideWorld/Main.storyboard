@@ -294,7 +294,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RidersProfileCollectionViewCell" id="068-Gc-wdG" customClass="RidersProfileCollectionViewCell" customModule="RideWorld" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionViewCell" id="068-Gc-wdG" customClass="ImageCollectionViewCell" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="105" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1049,7 +1049,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR" userLabel="TableView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="549"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="505"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowersCell" rowHeight="48" id="kVo-9F-P8O" customClass="FollowersCell" customModule="RideWorld" customModuleProvider="target">
@@ -1170,7 +1170,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RidersProfileCollectionViewCell" id="e45-uR-fFX" customClass="RidersProfileCollectionViewCell" customModule="RideWorld" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionViewCell" id="e45-uR-fFX" customClass="ImageCollectionViewCell" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="105" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1523,7 +1523,7 @@
         <!--SpotInfoController-->
         <scene sceneID="O6t-7g-atA">
             <objects>
-                <viewController id="6uJ-a1-Lta" userLabel="SpotInfoController" sceneMemberID="viewController">
+                <viewController id="6uJ-a1-Lta" userLabel="SpotInfoController" customClass="SpotInfoController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wsg-zA-1Te"/>
                         <viewControllerLayoutGuide type="bottom" id="nZM-aB-FfF"/>
@@ -1545,7 +1545,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" id="iAE-Ty-LXv">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="ImageCollectionViewCell" id="iAE-Ty-LXv" customClass="ImageCollectionViewCell" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="196" height="196"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1585,6 +1585,11 @@
                             <constraint firstItem="vZe-mX-9ju" firstAttribute="leading" secondItem="xFQ-8P-gan" secondAttribute="leading" id="yIZ-yl-qgO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="desc" destination="QU0-qy-BTX" id="2UW-cr-c0H"/>
+                        <outlet property="name" destination="HOd-W1-e0u" id="o0V-1e-Tw7"/>
+                        <outlet property="photosCollection" destination="vZe-mX-9ju" id="9s1-4t-qE2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pn1-di-Onz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1652,7 +1657,7 @@
         <segue reference="QOa-aY-bXL"/>
         <segue reference="eb8-9P-3Sr"/>
         <segue reference="T3A-kh-NPf"/>
-        <segue reference="eyf-4a-ZNN"/>
-        <segue reference="TeE-da-wxz"/>
+        <segue reference="qSk-1a-lLs"/>
+        <segue reference="RlL-e4-xY6"/>
     </inferredMetricsTieBreakers>
 </document>

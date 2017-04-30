@@ -26,7 +26,7 @@
 		9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */; };
 		9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */; };
 		9F4A84411E62F4C100C1E5F2 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A84401E62F4C100C1E5F2 /* UserProfileController.swift */; };
-		9F4A84431E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A84421E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift */; };
+		9F4A84431E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A84421E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift */; };
 		9F4A84451E62F58700C1E5F2 /* EditProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */; };
 		9F4A84471E63229E00C1E5F2 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84461E63229E00C1E5F2 /* login.png */; };
 		9F4A84491E6329D100C1E5F2 /* biography.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84481E6329D100C1E5F2 /* biography.png */; };
@@ -68,6 +68,7 @@
 		9FF1BF791EA2C5B600A2CEF2 /* LikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF781EA2C5B600A2CEF2 /* LikeModel.swift */; };
 		9FF1BF7B1EA3C0DC00A2CEF2 /* SpotModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF7A1EA3C0DC00A2CEF2 /* SpotModel.swift */; };
 		9FF1BF7D1EA551BB00A2CEF2 /* SpotMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF7C1EA551BB00A2CEF2 /* SpotMedia.swift */; };
+		9FF285951EB6088700EE0EC1 /* SpotInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF285941EB6088700EE0EC1 /* SpotInfoController.swift */; };
 		9FFB14F61E7848F600D10620 /* FollowersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F51E7848F600D10620 /* FollowersController.swift */; };
 		9FFB14F81E784E4B00D10620 /* FollowersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FFB14F71E784E4B00D10620 /* FollowersCell.swift */; };
 		AFCFACF65E8F27FB2D21FBFE /* Pods_SpotMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9F13B08B134BD527AC18F2 /* Pods_SpotMap.framework */; };
@@ -117,7 +118,7 @@
 		9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonLogout.png; path = Pictures/ButtonLogout.png; sourceTree = "<group>"; };
 		9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileController.swift; path = Controllers/EditProfileController.swift; sourceTree = "<group>"; };
 		9F4A84401E62F4C100C1E5F2 /* UserProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileController.swift; path = Controllers/UserProfileController.swift; sourceTree = "<group>"; };
-		9F4A84421E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileCollectionViewCell.swift; path = CustomUIElements/RidersProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		9F4A84421E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = CustomUIElements/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileCell.swift; path = CustomUIElements/EditProfileCell.swift; sourceTree = "<group>"; };
 		9F4A84461E63229E00C1E5F2 /* login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = login.png; path = Pictures/login.png; sourceTree = "<group>"; };
 		9F4A84481E6329D100C1E5F2 /* biography.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = biography.png; path = Pictures/biography.png; sourceTree = "<group>"; };
@@ -167,6 +168,7 @@
 		9FF1BF781EA2C5B600A2CEF2 /* LikeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeModel.swift; path = Model/DataBase/LikeModel.swift; sourceTree = "<group>"; };
 		9FF1BF7A1EA3C0DC00A2CEF2 /* SpotModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotModel.swift; path = Model/DataBase/SpotModel.swift; sourceTree = "<group>"; };
 		9FF1BF7C1EA551BB00A2CEF2 /* SpotMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotMedia.swift; path = Model/Storage/SpotMedia.swift; sourceTree = "<group>"; };
+		9FF285941EB6088700EE0EC1 /* SpotInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotInfoController.swift; path = Controllers/SpotInfoController.swift; sourceTree = "<group>"; };
 		9FFB14F51E7848F600D10620 /* FollowersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersController.swift; path = Controllers/FollowersController.swift; sourceTree = "<group>"; };
 		9FFB14F71E784E4B00D10620 /* FollowersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowersCell.swift; path = CustomUIElements/FollowersCell.swift; sourceTree = "<group>"; };
 		A94561AC08C94F28AF5F0405 /* Pods-RideWorldTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideWorldTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RideWorldTests/Pods-RideWorldTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				9F4A84401E62F4C100C1E5F2 /* UserProfileController.swift */,
 				9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */,
 				9F2978FF1E9037090051EF5F /* CommentariesController.swift */,
+				9FF285941EB6088700EE0EC1 /* SpotInfoController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -370,7 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				9F5609841E7C6BB50000DB21 /* PostsCell.swift */,
-				9F4A84421E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift */,
+				9F4A84421E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift */,
 				9FC14FDB1E48E7690097579B /* CustomPin.swift */,
 				9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */,
 				9FFB14F71E784E4B00D10620 /* FollowersCell.swift */,
@@ -778,13 +781,14 @@
 				9F4A84411E62F4C100C1E5F2 /* UserProfileController.swift in Sources */,
 				9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */,
 				9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */,
-				9F4A84431E62F4FB00C1E5F2 /* RidersProfileCollectionViewCell.swift in Sources */,
+				9F4A84431E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift in Sources */,
 				9FF1BF771EA28C5500A2CEF2 /* PostMedia.swift in Sources */,
 				9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */,
 				9FF1BF751EA27C3600A2CEF2 /* PostModel.swift in Sources */,
 				9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
 				9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */,
+				9FF285951EB6088700EE0EC1 /* SpotInfoController.swift in Sources */,
 				9FF1BF721E9E801F00A2CEF2 /* UserMedia.swift in Sources */,
 				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
 				9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */,

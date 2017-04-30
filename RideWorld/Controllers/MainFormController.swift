@@ -121,6 +121,9 @@ class MainFormController: UIViewController {
          postsStripController.spotDetailsItem = spotDetailsForSendToPostsStripController
          postsStripController.cameFromSpotOrMyStrip = true // came from spot
          
+      case "goToSpotInfo":
+         let spotInfoController = (segue.destination as! SpotInfoController)
+         spotInfoController.spotInfo = spotDetailsForSendToPostsStripController
       default: break
       }
    }

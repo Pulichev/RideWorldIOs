@@ -162,7 +162,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    func collectionView(_ collectionView: UICollectionView,
                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
       let cell = collectionView.dequeueReusableCell(
-         withReuseIdentifier: "RidersProfileCollectionViewCell", for: indexPath as IndexPath) as! RidersProfileCollectionViewCell
+         withReuseIdentifier: "ImageCollectionViewCell", for: indexPath as IndexPath) as! ImageCollectionViewCell
       
       cell.postPicture.image = postsImages[postsIds[indexPath.row]]?.image!
       

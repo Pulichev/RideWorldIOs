@@ -8,6 +8,6 @@
 
 import UIKit
 
-class RidersProfileCollectionViewCell: UICollectionViewCell {
+class ImageCollectionViewCell: UICollectionViewCell {
    @IBOutlet var postPicture: UIImageView!
 }

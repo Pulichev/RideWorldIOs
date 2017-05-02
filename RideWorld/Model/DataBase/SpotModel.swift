@@ -125,4 +125,27 @@ struct Spot {
       alreadyLoadedCountOfPosts = 0
       spotPostsIds.removeAll()
    }
+   
+   // MARK: - Photos part
+   static func addNewPhotoURL(for spotId: String, _ url: String,
+                              completion: @escaping (_ hasFinishedWithNoError: Bool) -> Void) {
+      let refToNewPhoto = refToSpotNode.child(spotId).child("photos").childByAutoId()
+      
+      refToNewPhoto.setValue(url, withCompletionBlock: { (error, _) in
+         if error == nil {
+            completion(true)
+         }
+      })
+   }
+   
+   static func getAllPhotosURLs(for spotId: String,
+                                completion: @escaping (_ urls: [String]) -> Void) {
+      let refToPhotos = refToSpotNode.child(spotId).child("photos")
+      
+      refToPhotos.observeSingleEvent(of: .value, with: { snapshot in
+         if let value = snapshot.value as? NSDictionary {
+            completion(value.allValues as! [String])
+         }
+      })
+   }
 }

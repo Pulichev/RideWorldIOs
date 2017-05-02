@@ -9,36 +9,82 @@
 import UIKit
 import Kingfisher
 import Fusuma
+import SVProgressHUD
 
 class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
    var spotInfo: SpotDetailsItem!
+   var user: UserItem!
    
    @IBOutlet weak var photosCollection: UICollectionView!
-   var photos = [UIImageView]()
+   var photosURLs = [String]()
    
    @IBOutlet weak var name: UILabel!
    @IBOutlet weak var desc: UILabel!
    
-   @IBOutlet weak var addedByUser: UILabel!
+   @IBOutlet weak var addedByUser: UIButton!
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
       name.text = spotInfo.name
       desc.text = spotInfo.description
+      
+      initializePhotos()
+      initUserLabel()
    }
    
    // MARK: - Photo collection part
    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      return photos.count
+      return photosURLs.count
    }
    
    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath as IndexPath) as! ImageCollectionViewCell
-      
-      cell.postPicture.image = photos[indexPath.row].image!
+      let photoURL = URL(string: photosURLs[indexPath.row])
+      cell.postPicture.kf.setImage(with: photoURL!)
       
       return cell
+   }
+   
+   private func initializePhotos() {
+      Spot.getAllPhotosURLs(for: spotInfo.key,
+                            completion: { photoURLs in
+                              self.photosURLs.append(contentsOf: photoURLs)
+                              self.photosCollection.reloadData()
+      })
+   }
+   
+   // MARK: - initialize user
+   private func initUserLabel() {
+      User.getItemById(for: spotInfo.addedByUser,
+                       completion: { user in
+                        self.user = user
+                        self.addedByUser.setTitle(user.login, for: .normal)
+      })
+   }
+   
+   @IBAction func userButtonTapped(_ sender: Any) {
+      if user.uid == User.getCurrentUserId() {
+         self.performSegue(withIdentifier: "goToUserProfileFromSpotInfo", sender: self)
+      } else {
+         self.performSegue(withIdentifier: "goToRidersProfileFromSpotInfo", sender: self)
+      }
+   }
+   
+   // MARK: - prepare for segue
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      switch segue.identifier! {
+      case "goToRidersProfileFromSpotInfo":
+         let newRidersProfileController = segue.destination as! RidersProfileController
+         newRidersProfileController.ridersInfo = user
+         newRidersProfileController.title = user.login
+         
+      case "goToUserProfileFromSpotInfo":
+         let userProfileController = segue.destination as! UserProfileController
+         userProfileController.cameFromSpotDetails = true
+         
+      default: break
+      }
    }
 }
 
@@ -63,12 +109,17 @@ extension SpotInfoController: FusumaDelegate {
          print("Image selected")
       }
       
-      let imageView = UIImageView()
-      imageView.image = image
-      
-      photos.append(imageView)
-
-      photosCollection.reloadData()
+      SVProgressHUD.show()
+      SpotMedia.uploadForInfo(image, for: spotInfo.key, with: 270.0,
+                              completion: { url in
+                                 if url != nil {
+                                    self.photosURLs.append(url!)
+                                    
+                                    self.photosCollection.reloadData()
+                                 }
+                                 
+                                 SVProgressHUD.dismiss()
+      })
    }
    
    func fusumaImageSelected(_ image: UIImage) {

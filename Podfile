@@ -14,6 +14,7 @@ target 'RideWorld' do
   pod ‘ActiveLabel’
   pod ‘MGSwipeTableCell’
   pod 'SVProgressHUD'
+  pod 'DateToolsSwift'
 
   # Pods for RideWorld
 

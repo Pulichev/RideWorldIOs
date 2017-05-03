@@ -15,7 +15,6 @@ class PostItemCellCache {
    var userInfo: UserItem!
    var userNickName = String()
    var postDate = String()
-   var postTime = String()
    var postDescription = String()
    var isPhoto = Bool()
    var isLikedPhoto = UIImageView()
@@ -27,8 +26,7 @@ class PostItemCellCache {
       key = post.key
       self.post = post
       // formatting date to yyyy-mm-dd
-      postDate = DateTimeParser.getDate(from: post.createdDate)
-      postTime = DateTimeParser.getTime(from: post.createdDate)
+      postDate = DateTimeParser.getDateTime(from: post.createdDate)
       postDescription = post.description
       isPhoto = post.isPhoto
       initializeUser(completion: {

@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DateToolsSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Fusuma.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,7 +77,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E3C87DCE155F682BFA84495FB1E8FE6</key>
+		<key>5A708CF9CA25F1E44AE25A5C49F4ED44</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -83,6 +88,11 @@
 			<true/>
 		</dict>
 		<key>A2EBB9DBC32E6FB582A1ECD510A6C075</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B741680C6C1C4722F766979B19773CDB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,7 +112,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F40C3CDA14A801411B8B3324325DBA2A</key>
+		<key>E89CFD99B895BCC6E8EDC2F95A03500C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

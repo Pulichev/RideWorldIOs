@@ -243,7 +243,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       cell.openComments.tag     = row // for segue to send postId to comments
       cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
       cell.postDate.text        = cellFromCache.postDate
-      cell.postTime.text        = cellFromCache.postTime
       cell.postDescription.text = cellFromCache.postDescription
       cell.postDescription.handleMentionTap { mention in // mention is @userLogin
          self.goToUserProfile(tappedUserLogin: mention)

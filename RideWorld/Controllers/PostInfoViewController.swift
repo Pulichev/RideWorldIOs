@@ -23,7 +23,6 @@ class PostInfoViewController: UIViewController {
    var player: AVPlayer!
    
    @IBOutlet var postDate: UILabel!
-   @IBOutlet var postTime: UILabel!
    @IBOutlet var userNickName: UILabel!
    @IBOutlet var postDescription: ActiveLabel! {
       didSet {
@@ -74,8 +73,7 @@ class PostInfoViewController: UIViewController {
    }
    
    func initializeDate() {
-      postDate.text = DateTimeParser.getDate(from: postInfo.createdDate)
-      postTime.text = DateTimeParser.getTime(from: postInfo.createdDate)
+      postDate.text = DateTimeParser.getDateTime(from: postInfo.createdDate)
    }
    
    func countPostLikes() {

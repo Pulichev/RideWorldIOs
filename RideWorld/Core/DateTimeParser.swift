@@ -20,10 +20,7 @@ struct DateTimeParser {
       let formatter = DateFormatter()
       formatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
       let date = formatter.date(from: str)!
-      let newDate = date.addingTimeInterval(TimeInterval(secondsFromGMT))
-
-      return newDate
+      
+      return date
    }
-
-   static var secondsFromGMT: Int { return TimeZone.current.secondsFromGMT() }
 }

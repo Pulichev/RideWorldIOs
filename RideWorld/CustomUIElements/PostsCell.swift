@@ -73,14 +73,12 @@ class PostsCell: UITableViewCell {
       let likePlacedTime = String(describing: Date())
       let newLike = LikeItem(who: currentUserId, what: post.key, at: likePlacedTime)
       
-      Like.addToUserNode(newLike)
-      Like.addToPostNode(newLike)
+      Like.add(newLike)
    }
    
    func removeExistedLike() {
       let currentUserId = User.getCurrentUserId()
       
-      Like.removeFromUserNode(with: currentUserId, post)
-      Like.removeFromPostNode(with: currentUserId, post)
+      Like.remove(with: currentUserId, post)
    }
 }

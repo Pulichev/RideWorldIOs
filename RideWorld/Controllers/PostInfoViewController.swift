@@ -121,15 +121,13 @@ class PostInfoViewController: UIViewController {
       let placedTime = String(describing: Date())
       let newLike = LikeItem(who: currentUserId, what: postInfo.key, at: placedTime)
       
-      Like.addToUserNode(newLike)
-      Like.addToPostNode(newLike)
+      Like.add(newLike)
    }
    
    func removeExistedLike() {
       let currentUserId = User.getCurrentUserId()
       
-      Like.removeFromUserNode(with: currentUserId, postInfo)
-      Like.removeFromPostNode(with: currentUserId, postInfo)
+      Like.remove(with: currentUserId, postInfo)
    }
    
    func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked

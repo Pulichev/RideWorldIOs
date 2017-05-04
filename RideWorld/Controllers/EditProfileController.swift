@@ -54,7 +54,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       let nameAndSename  = getCellFieldText(0)
       let bioDescription = getCellFieldText(1)
       
-      User.updateUserInfo(for: userInfo.uid, bioDescription, login, nameAndSename)
+      User.updateInfo(for: userInfo.uid, bioDescription, login, nameAndSename)
       
       uploadPhoto()
       
@@ -64,9 +64,15 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    private func uploadPhoto() {
       UserMedia.upload(for: userInfo.uid,
-                       with: userPhoto.image!, withSize: 150.0)
+                       with: userPhoto.image!, withSize: 150.0,
+                       completion: { (hasFinishedSuccessfully, url) in
+                        User.updatePhotoRef(for: self.userInfo.uid, size: 150, url: url)
+      })
       UserMedia.upload(for: userInfo.uid,
-                       with: userPhoto.image!, withSize: 90.0)
+                       with: userPhoto.image!, withSize: 90.0,
+                       completion: { (hasFinishedSuccessfully, url) in
+                        User.updatePhotoRef(for: self.userInfo.uid, size: 90, url: url)
+      })
    }
    
    private func returnToParentControllerOnSaveButtonTapped(_ bioDescription: String, _ login: String, _ nameAndSename: String) {

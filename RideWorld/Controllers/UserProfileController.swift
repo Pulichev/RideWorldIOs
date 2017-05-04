@@ -103,13 +103,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    func initializeUserPhoto() {
       if userProfilePhoto != nil { // if we came not from user edit controller
-         UserMedia.getURL(for: userInfo.uid, withSize: 150,
-                          completion: { url in
-                           DispatchQueue.main.async {
-                              self.userProfilePhoto.kf.setImage(with: url) //Using kf for caching images.
-                              self.userProfilePhoto.layer.cornerRadius = self.userProfilePhoto.frame.size.height / 2
-                           }
-         })
+         if (self.userInfo.photo150ref != nil) {
+            self.userProfilePhoto.kf.setImage(with: URL(string: self.userInfo.photo150ref!)) //Using kf for caching images.
+         }
       }
    }
    

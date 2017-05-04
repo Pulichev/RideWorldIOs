@@ -34,7 +34,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
-
+   
    @IBOutlet var riderProfileCollection: UICollectionView!
    
    var posts = [String: PostItem]()
@@ -92,13 +92,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    
    func initializeUserPhoto() {
       if ridersProfilePhoto != nil { // if we came not from user edit controller
-         UserMedia.getURL(for: ridersInfo.uid, withSize: 150,
-                          completion: { url in
-                           DispatchQueue.main.async {
-                              self.ridersProfilePhoto.kf.setImage(with: url) //Using kf for caching images.
-                              self.ridersProfilePhoto.layer.cornerRadius = self.ridersProfilePhoto.frame.size.height / 2
-                           }
-         })
+         if ridersInfo.photo150ref != nil {
+            self.ridersProfilePhoto.kf.setImage(with: URL(string: ridersInfo.photo150ref!)) //Using kf for caching images.
+         }
       }
    }
    

@@ -36,10 +36,11 @@ class CommentCell: MGSwipeTableCell {
    
    func initialiseUserPhoto() {
       userPhoto.image = UIImage(named: "grayRec.jpg")
-      
-      UserMedia.getURL(for: comment.userId, withSize: 90,
-                       completion: { URL in
-                        self.userPhoto.kf.setImage(with: URL) // Using kf for caching images.
+
+      User.getItemById(for: comment.userId, completion: { user in
+         if user.photo90ref != nil {
+            self.userPhoto.kf.setImage(with: URL(string: user.photo90ref!)) // Using kf for caching images.
+         }
       })
    }
    

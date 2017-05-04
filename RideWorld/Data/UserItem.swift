@@ -13,14 +13,19 @@ struct UserItem {
    
    let email: String
    var login: String
-   var bioDescription: String
-   var nameAndSename: String
+   var bioDescription: String?
+   var nameAndSename: String?
    let createdDate: String
+   
+   // photos refs
+   var photo150ref: String?
+   var photo90ref: String?
    
    let ref: FIRDatabaseReference?
    
    init(uid: String, email: String, login: String,
-        bioDescription: String = "", nameAndSename: String = "", createdDate: String) {
+        bioDescription: String = "", nameAndSename: String = "", createdDate: String,
+        photo150ref: String = "", photo90ref: String = "") {
       self.uid = uid
       
       self.email = email
@@ -28,6 +33,9 @@ struct UserItem {
       self.bioDescription = bioDescription
       self.nameAndSename = nameAndSename
       self.createdDate = createdDate
+      
+      self.photo150ref = photo150ref
+      self.photo90ref = photo90ref
       
       self.ref = nil
    }
@@ -38,10 +46,13 @@ struct UserItem {
       let snapshotValue = snapshot.value as! [String: AnyObject]
       email = snapshotValue["email"] as! String
       login = snapshotValue["login"] as! String
-      bioDescription = snapshotValue["bioDescription"] as! String
-      nameAndSename = snapshotValue["nameAndSename"] as! String
+      bioDescription = snapshotValue["bioDescription"] as? String
+      nameAndSename = snapshotValue["nameAndSename"] as? String
       createdDate = snapshotValue["createdDate"] as! String
       
+      photo150ref = snapshotValue["photo150ref"] as? String
+      photo90ref = snapshotValue["photo90ref"] as? String
+
       ref = snapshot.ref
    }
    
@@ -52,7 +63,9 @@ struct UserItem {
          "login": login,
          "bioDescription": bioDescription,
          "nameAndSename": nameAndSename,
-         "createdDate": createdDate
+         "createdDate": createdDate,
+         "photo150ref": photo150ref,
+         "photo90ref": photo90ref
       ]
    }
 }

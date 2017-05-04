@@ -73,16 +73,23 @@ struct User {
    }
    
    // MARK: - Update part
-   static func updateUserInfo(for userId: String, _ bio: String,
-                              _ login: String, _ nameAndSename : String) {
-      
-      
-      let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/users/").child(userId)
+   static func updateInfo(for userId: String, _ bio: String,
+                          _ login: String, _ nameAndSename : String) {
+      let refToCurrentUser = refToUsersNode.child(userId)
       
       refToCurrentUser.updateChildValues([
-         "bioDescription" : bio,
+         "bioDescription": bio,
          "login": login,
          "nameAndSename": nameAndSename
+         ])
+   }
+   
+   static func updatePhotoRef(for userId: String, size: Int, url: String) {
+      let sizeString = String(describing: size)
+      let refToCurrentUser = refToUsersNode.child(userId)
+      
+      refToCurrentUser.updateChildValues([
+         "photo" + sizeString + "ref": url
          ])
    }
    

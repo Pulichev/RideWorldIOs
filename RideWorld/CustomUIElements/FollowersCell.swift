@@ -27,11 +27,9 @@ class FollowersCell: UITableViewCell {
    func initialiseUserPhoto() {
       userImage.image = UIImage(named: "grayRec.jpg")
       
-      UserMedia.getURL(for: follower.uid, withSize: 90,
-                       completion: { URL in
-                        self.userImage.kf.setImage(with: URL) // Using kf for caching images.
-      })
-      
+      if follower.photo90ref != nil {
+         self.userImage.kf.setImage(with: URL(string: follower.photo90ref!)) // Using kf for caching images.
+      }
    }
    
    func initialiseFollowButton() {

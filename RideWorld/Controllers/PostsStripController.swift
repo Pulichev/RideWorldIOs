@@ -471,9 +471,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    // MARK: - when data loading
-   let loadingView = UIView() // View which contains the loading text and the spinner
-   let spinner = UIActivityIndicatorView()
-   let loadingLabel = UILabel()
+//   let loadingView = UIView() // View which contains the loading text and the spinner
+//   let spinner = UIActivityIndicatorView()
+//   let loadingLabel = UILabel()
+   
+   var loadingView: LoadingProcessView?
    
    var haveWeFinishedLoading = false // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
    
@@ -483,28 +485,33 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       let height: CGFloat = 30
       let x = (tableView.frame.width / 2) - (width / 2)
       let y = (tableView.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
-      loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
       
-      loadingLabel.textColor = UIColor.gray
-      loadingLabel.textAlignment = NSTextAlignment.center
-      loadingLabel.text = "Loading..."
-      loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
-      
-      spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-      spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-      spinner.startAnimating()
-      
-      loadingView.addSubview(spinner)
-      loadingView.addSubview(loadingLabel)
+      let loadingView = LoadingProcessView(frame: CGRect(x: x, y: y, width: width, height: height))
+//      loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
+//      
+//      loadingLabel.textColor = UIColor.gray
+//      loadingLabel.textAlignment = NSTextAlignment.center
+//      loadingLabel.text = "Loading..."
+//      loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
+//      
+//      spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+//      spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//      spinner.startAnimating()
+//      
+//      loadingView.addSubview(spinner)
+//      loadingView.addSubview(loadingLabel)
       
       tableView.addSubview(loadingView)
+      loadingView.show()
    }
    
    // Remove the activity indicator from the main view
    private func removeLoadingScreen() {
       // Hides and stops the text and the spinner
-      spinner.stopAnimating()
-      loadingLabel.isHidden = true
+      //spinner.stopAnimating()
+//      loadingLabel.isHidden = true
+      
+      loadingView?.dismiss()
       haveWeFinishedLoading = true
    }
 }

@@ -10,13 +10,14 @@ import DateToolsSwift
 
 struct DateTimeParser {
    static func getDateTime(from dateTime: String) -> String {
-      let dateInCurrentTimeZone = stringToDateInCurrentTimeZone(dateTime)
+      let dateInCurrentTimeZone = stringToDate(dateTime)
       let dateInCurrentTimeZoneString = dateInCurrentTimeZone.timeAgoSinceNow
       
       return dateInCurrentTimeZoneString
    }
    
-   static func stringToDateInCurrentTimeZone(_ str: String) -> Date {
+   // converting string date from firebase database to Date
+   static func stringToDate(_ str: String) -> Date {
       let formatter = DateFormatter()
       formatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
       let date = formatter.date(from: str)!

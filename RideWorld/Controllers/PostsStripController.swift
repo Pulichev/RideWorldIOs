@@ -281,7 +281,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    // MARK: - Set media part
    func setMediaOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
-      //cell.spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
       addPlaceHolder(cell: cell)
       
       //Downloading and caching media

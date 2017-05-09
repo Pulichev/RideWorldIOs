@@ -18,7 +18,8 @@ struct LikeItem {
    
    let ref: FIRDatabaseReference?
    
-   init(who userId: String, what postId: String, postWasAddedBy userIdAddedBy: String, at likePlacedTime: String) {
+   init(who userId: String, what postId: String,
+        postWasAddedBy userIdAddedBy: String, at likePlacedTime: String) {
       self.userId = userId
       self.postId = postId
       self.postAddedByUserId = userIdAddedBy

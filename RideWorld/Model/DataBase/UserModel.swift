@@ -237,15 +237,26 @@ struct User {
    }
    
    static func addFollower(to userId: String) {
-      let refToRider = refToUsersNode.child(userId).child("followers").child(getCurrentUserId())
+      let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
       
-      refToRider.setValue(true)
+      let updates: [String: Any?] = [
+         "/users/" + userId + "/followers/" + getCurrentUserId() : true,
+         "/feedback/" + userId + "/" + getCurrentUserId(): String(describing: Date())
+      ]
+      
+      ref.updateChildValues(updates)
    }
    
    static func removeFollower(from userId: String) {
-      let refToRider = refToUsersNode.child(userId).child("followers").child(getCurrentUserId())
+      let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
       
-      refToRider.removeValue()
+      let updates: [String: Any?] = [
+         "/users/" + userId + "/followers/" + getCurrentUserId() : nil,
+         "/feedback/" + userId + "/" + getCurrentUserId(): nil
+      ]
+      
+      ref.updateChildValues(updates)
+
    }
    
    // MARK: - Get user strip posts part

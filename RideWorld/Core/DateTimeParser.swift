@@ -11,7 +11,13 @@ import DateToolsSwift
 struct DateTimeParser {
    static func getDateTime(from dateTime: String) -> String {
       let dateInCurrentTimeZone = stringToDate(dateTime)
-      let dateInCurrentTimeZoneString = dateInCurrentTimeZone.timeAgoSinceNow
+      var dateInCurrentTimeZoneString: String!
+      
+      if (countOfDaysFromToday(for: dateInCurrentTimeZone) <= 3) {
+         dateInCurrentTimeZoneString = dateInCurrentTimeZone.timeAgoSinceNow
+      } else {
+         dateInCurrentTimeZoneString = getUserFriendDateString(to: dateTime)
+      }
       
       return dateInCurrentTimeZoneString
    }
@@ -23,5 +29,28 @@ struct DateTimeParser {
       let date = formatter.date(from: str)!
       
       return date
+   }
+   
+   static func countOfDaysFromToday(for date: Date) -> Int {
+      let calendar = NSCalendar.current
+      
+      // Replace the hour (time) of both dates with 00:00
+      let date1 = calendar.startOfDay(for: date)
+      let date2 = calendar.startOfDay(for: Date()) // today
+      
+      let components = calendar.dateComponents([.day], from: date1, to: date2)
+      
+      return components.value(for: .day)!
+   }
+   
+   static func getUserFriendDateString(to date: String) -> String {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
+      if let date = dateFormatter.date(from: date) {
+         dateFormatter.dateFormat = "MMM d, yyyy"
+         return dateFormatter.string(from: date)
+      } else {
+         return ""
+      }
    }
 }

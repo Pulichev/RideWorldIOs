@@ -59,6 +59,7 @@
 		9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD648DB1E573F0600C673CA /* Main.storyboard */; };
 		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
 		9FE3B70C1EBCDC4C00E7ED40 /* LoadingProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B70B1EBCDC4C00E7ED40 /* LoadingProcessView.swift */; };
+		9FE3B7101EC22A2800E7ED40 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B70F1EC22A2800E7ED40 /* String.swift */; };
 		9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */; };
 		9FF114A91EB4C8F600152279 /* DateTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF114A81EB4C8F600152279 /* DateTimeParser.swift */; };
 		9FF1BF6C1E9D448500A2CEF2 /* CommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF6B1E9D448500A2CEF2 /* CommentsModel.swift */; };
@@ -159,6 +160,7 @@
 		9FD648DB1E573F0600C673CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
 		9FE3B70B1EBCDC4C00E7ED40 /* LoadingProcessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingProcessView.swift; path = CustomUIElements/LoadingProcessView.swift; sourceTree = "<group>"; };
+		9FE3B70F1EC22A2800E7ED40 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = Core/String.swift; sourceTree = "<group>"; };
 		9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FF114A81EB4C8F600152279 /* DateTimeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateTimeParser.swift; path = Core/DateTimeParser.swift; sourceTree = "<group>"; };
 		9FF1BF641E9C1D5C00A2CEF2 /* RideWorld-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RideWorld-Bridging-Header.h"; path = "Some Obj-C frameworks/RideWorld-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 				9FBCFAE71E73445900A5C95D /* Image.swift */,
 				9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */,
 				9FF114A81EB4C8F600152279 /* DateTimeParser.swift */,
+				9FE3B70F1EC22A2800E7ED40 /* String.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -763,6 +766,7 @@
 			files = (
 				9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */,
 				9FFB14F61E7848F600D10620 /* FollowersController.swift in Sources */,
+				9FE3B7101EC22A2800E7ED40 /* String.swift in Sources */,
 				9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */,
 				9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */,
 				9FAE8C201E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m in Sources */,

@@ -125,7 +125,7 @@ class PostInfoViewController: UIViewController {
       // init new like
       let currentUserId = User.getCurrentUserId()
       let placedTime = String(describing: Date())
-      let newLike = LikeItem(who: currentUserId, what: postInfo.key, at: placedTime)
+      let newLike = LikeItem(who: currentUserId, what: postInfo.key, postWasAddedBy: postInfo.addedByUser, at: placedTime)
       
       Like.add(newLike)
    }

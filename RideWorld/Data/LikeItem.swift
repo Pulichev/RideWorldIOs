@@ -9,15 +9,19 @@
 import FirebaseDatabase
 
 struct LikeItem {
-   let userId: String
+   var key: String?
+   
+   let userId: String // who placed
    let postId: String
+   let postAddedByUserId: String? // who posted
    let likePlacedTime: String
    
    let ref: FIRDatabaseReference?
    
-   init(who userId: String, what postId: String, at likePlacedTime: String) {
+   init(who userId: String, what postId: String, postWasAddedBy userIdAddedBy: String, at likePlacedTime: String) {
       self.userId = userId
       self.postId = postId
+      self.postAddedByUserId = userIdAddedBy
       self.likePlacedTime = likePlacedTime
       
       self.ref = nil
@@ -28,6 +32,8 @@ struct LikeItem {
       userId = snapshotValue["userId"] as! String
       postId = snapshotValue["postId"] as! String
       likePlacedTime = snapshotValue["likePlacedTime"] as! String
+      postAddedByUserId = snapshotValue["postAddedByUserId"] as? String // delete optional, when will clear db before prod
+      key = snapshotValue["key"] as? String // same
       
       ref = snapshot.ref
    }
@@ -36,7 +42,9 @@ struct LikeItem {
       return [
          "userId" : userId,
          "postId" : postId,
-         "likePlacedTime" : likePlacedTime
+         "postAddedByUserId" : postAddedByUserId!,
+         "likePlacedTime" : likePlacedTime,
+         "key" : key!
       ]
    }
 }

@@ -11,7 +11,11 @@ import AVFoundation
 import ActiveLabel
 
 class PostsCell: UITableViewCell {
-   var post: PostItem!
+   var post: PostItem! {
+      didSet {
+         openComments.setTitle("Open commentaries (\(post.commentsCount!))", for: .normal)
+      }
+   }
    var userInfo: UserItem! // user, who posted
    
    @IBOutlet var spotPostMedia: UIView!

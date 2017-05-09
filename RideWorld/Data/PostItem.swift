@@ -23,6 +23,8 @@ struct PostItem {
    var mediaRef700 = ""
    var videoRef = ""
    
+   var commentsCount: Int! = 0
+   
    let spotId: String
    
    let addedByUser: String
@@ -63,6 +65,14 @@ struct PostItem {
       
       addedByUser = snapshotValue["addedByUser"] as! String
       ref = snapshot.ref
+      
+      initCommentsCount(with: snapshotValue)
+   }
+   
+   private mutating func initCommentsCount(with snapshotValue: [String: AnyObject]) {
+      guard let comments = snapshotValue["comments"] as? [String: AnyObject] else { return }
+      
+      commentsCount = comments.count
    }
    
    func toAnyObject() -> Any {

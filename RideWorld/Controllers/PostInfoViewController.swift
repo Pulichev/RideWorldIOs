@@ -42,6 +42,7 @@ class PostInfoViewController: UIViewController {
    @IBOutlet var likesCount: UILabel!
    var likesCountInt = 0
    var postIsLiked: Bool!
+   @IBOutlet weak var openComments: UIButton!
    
    @IBOutlet weak var deleteButton: UIBarButtonItem!
    
@@ -59,6 +60,7 @@ class PostInfoViewController: UIViewController {
          self.userLikedThisPost()
          self.initializeDate()
          self.addDoubleTapGestureOnPostMedia()
+         self.setOpenCommentsButtonTittle()
       }
       
       addMediaToView()
@@ -112,6 +114,10 @@ class PostInfoViewController: UIViewController {
          
          postIsLiked = false
       }
+   }
+   
+   private func setOpenCommentsButtonTittle() {
+      openComments.setTitle("Open commentaries (\(postInfo.commentsCount!))", for: .normal)
    }
    
    // MARK: - Add and remove like

@@ -50,8 +50,23 @@ struct Comment {
    static private func getAllMentionedUsersIds(from text: String,
                                                completion: @escaping (_ userIds: [String]) -> Void) {
       let userLogins = getLinkedUsersFromText(text)
+      var userIds = [String]()
       
+      var countOfProcessedUsers = 0
       
+      for userLogin in userLogins {
+         User.getItemByLogin(for: userLogin, completion: { user in
+            countOfProcessedUsers += 1
+            
+            if user != nil {
+               userIds.append(user!.uid)
+            }
+            
+            if countOfProcessedUsers == userLogins.count {
+               completion(userIds)
+            }
+         })
+      }
    }
    
    static private func getLinkedUsersFromText(_ text: String) -> [String] {

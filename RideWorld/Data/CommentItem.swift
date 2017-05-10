@@ -9,7 +9,7 @@
 import FirebaseDatabase
 
 class CommentItem: NSObject {
-   let commentId: String
+   let key: String
    let userId: String
    let postId: String
    let commentary: String // text of comment
@@ -17,8 +17,8 @@ class CommentItem: NSObject {
    
    let ref: FIRDatabaseReference?
    
-   init(_ commentId: String, _ userId: String, _ postId: String, _ commentary: String, _ datetime: String) {
-      self.commentId = commentId
+   init(_ commentId: String, _ userId: String, _ postId: String, _ commentary: String, _ datetime: String, _ key: String = "") {
+      self.key = key
       self.userId = userId
       self.postId = postId
       self.commentary = commentary
@@ -33,14 +33,14 @@ class CommentItem: NSObject {
       postId = snapshotValue["postId"] as! String
       commentary = snapshotValue["commentary"] as! String
       datetime = snapshotValue["datetime"] as! String
-      commentId = snapshot.key
+      key = snapshot.key
       
       ref = snapshot.ref
    }
    
    func toAnyObject() -> Any {
       return [
-         "commentId" : commentId,
+         "key" : key,
          "userId" : userId,
          "postId" : postId,
          "commentary" : commentary,

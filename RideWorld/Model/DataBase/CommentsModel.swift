@@ -24,7 +24,7 @@ struct Comment {
             newItems.append(commentItem)
          }
          
-         newItems = newItems.sorted(by: { $0.commentId < $1.commentId })
+         newItems = newItems.sorted(by: { $0.key < $1.key })
          completion(newItems)
       })
    }
@@ -100,9 +100,21 @@ struct Comment {
       return userLogins
    }
    
-   static func remove(with id: String, from postId: String) {
-      let refToComment = refToSpotPostsNode.child(postId).child("comments").child(id)
+   static func remove(_ comment: CommentItem, from post: PostItem) {
+      let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
       
-      refToComment.removeValue()
+      getAllMentionedUsersIds(from: comment.commentary,
+                              completion: { mentionedUserIds in
+                                 var userIds = mentionedUserIds
+                                 userIds.append(post.addedByUser) // adding post author
+                                 
+                                 var updates: [String: Any?] = ["/spotpost/" + post.key + "/comments/" + comment.key: nil]
+                                 
+                                 for userId in userIds {
+                                    updates.updateValue(nil, forKey: "/feedback/" + userId + "/" + comment.key) //
+                                 }
+                                 
+                                 ref.updateChildValues(updates)
+      })
    }
 }

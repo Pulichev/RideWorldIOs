@@ -118,7 +118,7 @@ UITableViewDelegate {
       
       if (cell.comment.userId == currentUserId // if its current user comment
          || userId! == currentUserId) // if current user is post author
-         && cell.comment.commentId != "" { // cant delete desc
+         && cell.comment.key != "" { // cant delete desc
          cell.rightButtons = [
             MGSwipeButton(title: "", icon: UIImage(named:"delete.png"), backgroundColor: .red) {
                (sender: MGSwipeTableCell!) -> Bool in
@@ -156,7 +156,7 @@ UITableViewDelegate {
    }
    
    private func removeCellFromDataBase(_ cell: CommentCell) {
-      Comment.remove(with: cell.comment.commentId, from: cell.comment.postId)
+      Comment.remove(cell.comment, from: post)
    }
    
    private func replyToUser(with login: String) {

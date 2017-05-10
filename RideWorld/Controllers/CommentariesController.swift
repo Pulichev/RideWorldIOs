@@ -12,7 +12,7 @@ import MGSwipeTableCell
 
 class CommentariesController: UIViewController, UITableViewDataSource,
 UITableViewDelegate {
-   var postId: String!
+   var post: PostItem!
    
    @IBOutlet weak var tableView: UITableView! {
       didSet {
@@ -56,7 +56,7 @@ UITableViewDelegate {
       addPostDescAsComment()
       
       Comment.loadList(
-         for: postId,
+         for: post.key,
          completion: { loadedComments in
             self.comments.append(contentsOf: loadedComments)
             
@@ -65,13 +65,13 @@ UITableViewDelegate {
    }
    
    func addPostDescAsComment() {
-      let descAsComment = CommentItem("", userId!, postId, postDescription!, postDate)
+      let descAsComment = CommentItem("", userId!, post.key, postDescription!, postDate)
       comments.append(descAsComment)
    }
    
    @IBAction func sendComment(_ sender: UIButton) {
       Comment.add(
-         for: postId, withText: newCommentTextField.text,
+         for: post, withText: newCommentTextField.text,
          completion: { newComment in
             self.newCommentTextField.text = ""
             self.view.endEditing(true)
@@ -156,7 +156,7 @@ UITableViewDelegate {
    }
    
    private func removeCellFromDataBase(_ cell: CommentCell) {
-      Comment.delete(with: cell.comment.commentId, from: cell.comment.postId)
+      Comment.remove(with: cell.comment.commentId, from: cell.comment.postId)
    }
    
    private func replyToUser(with login: String) {

@@ -20,4 +20,16 @@ extension String {
       let end = index(startIndex, offsetBy: r.upperBound - r.lowerBound)
       return self[Range(start ..< end)]
    }
+   
+   static func uniqueElementsFrom(array: [String]) -> [String] {
+      var set = Set<String>()
+      let result = array.filter {
+         guard !set.contains($0) else {
+            return false
+         }
+         set.insert($0)
+         return true
+      }
+      return result
+   }
 }

@@ -431,7 +431,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    // go to comments
    func goToComments(sender: UIButton!) {
-      postIdForSending = posts[sender.tag].key
+      postForSending = posts[sender.tag]
       postDescForSending = posts[sender.tag].description
       postDateTimeForSending = posts[sender.tag].createdDate
       postUserIdForSending = posts[sender.tag].addedByUser
@@ -439,7 +439,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    var ridersInfoForSending: UserItem!
-   var postIdForSending: String!
+   var postForSending: PostItem!
    var postDescForSending: String!
    var postDateTimeForSending: String!
    var postUserIdForSending: String!
@@ -461,7 +461,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
       case "goToCommentsFromPostStrip":
          let commentariesController = segue.destination as! CommentariesController
-         commentariesController.postId = postIdForSending
+         commentariesController.post = postForSending
          commentariesController.postDescription = postDescForSending
          commentariesController.postDate = postDateTimeForSending
          commentariesController.userId = postUserIdForSending

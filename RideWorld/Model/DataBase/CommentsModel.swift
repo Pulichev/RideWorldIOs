@@ -29,28 +29,42 @@ struct Comment {
       })
    }
    
-   static func add(for postId: String, withText text: String?,
+   static func add(for post: PostItem, withText text: String?,
                    completion: @escaping (_ loadedComment: CommentItem) -> Void) {
-      let refForNewComment = refToSpotPostsNode.child(postId).child("comments").childByAutoId()
+      let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
+      
+      let refForNewCommentKey = refToSpotPostsNode.child(post.key).child("comments")
+         .childByAutoId().key
       
       let currentUserId = User.getCurrentUserId()
       let currentDateTime = String(describing: Date())
-      let newComment = CommentItem(refForNewComment.key, currentUserId, postId, text!, currentDateTime)
+      let newComment = CommentItem(refForNewCommentKey, currentUserId, post.key, text!, currentDateTime)
       
-      refForNewComment.setValue(newComment.toAnyObject())
-      
-      let userIds = getAllMentionedUsersIds(from: text!,
-                                            completion: { userIds in
-                                             
+      getAllMentionedUsersIds(from: text!,
+                              completion: { mentionedUserIds in
+                                 var userIds = mentionedUserIds
+                                 userIds.append(post.addedByUser) // adding post author
+                                 
+                                 var updates: [String: Any?] = ["/spotpost/" + post.key + "/comments/" + refForNewCommentKey: newComment.toAnyObject()]
+                                 
+                                 for userId in userIds {
+                                    updates.updateValue(newComment.toAnyObject(), forKey: "/feedback/" + userId + "/" + refForNewCommentKey) //
+                                 }
+                                 
+                                 ref.updateChildValues(updates,
+                                                       withCompletionBlock: { (error, _) in
+                                                            completion(newComment)
+                                 })
       })
-      
-      completion(newComment)
    }
    
    static private func getAllMentionedUsersIds(from text: String,
                                                completion: @escaping (_ userIds: [String]) -> Void) {
       let userLogins = getLinkedUsersFromText(text)
+      
       var userIds = [String]()
+      
+      if userLogins.count == 0 { completion(userIds) } // created empty array
       
       var countOfProcessedUsers = 0
       
@@ -77,14 +91,16 @@ struct Comment {
       
       for word in words {
          if word[0] == "@" && word.characters.count >= 2 {
-            userLogins.append(word)
+            userLogins.append(word[1..<word.characters.count + 1]) // removing @
          }
       }
+      
+      userLogins = String.uniqueElementsFrom(array: userLogins)
       
       return userLogins
    }
    
-   static func delete(with id: String, from postId: String) {
+   static func remove(with id: String, from postId: String) {
       let refToComment = refToSpotPostsNode.child(postId).child("comments").child(id)
       
       refToComment.removeValue()

@@ -329,7 +329,7 @@ class PostInfoViewController: UIViewController {
          
       case "goToCommentsFromPostInfo":
          let commentariesController = segue.destination as! CommentariesController
-         commentariesController.postId = postInfo.key
+         commentariesController.post = postInfo
          commentariesController.postDescription = postInfo.description
          commentariesController.postDate = postInfo.createdDate
          commentariesController.userId = postInfo.addedByUser

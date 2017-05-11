@@ -7,18 +7,33 @@
 //
 
 import UIKit
+import ActiveLabel
 
 class CommentAndPostFBCell: UITableViewCell { // FB = feedback
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+   var userId: String! // maybe userItem
+   var postId: String! // maybe postItem
+   
+   // MARK: - @IBOutlets
+   // media
+   @IBOutlet weak var userPhoto: RoundedImageView!
+   @IBOutlet weak var postPhoto: UIImageView!
+   // text info
+   @IBOutlet weak var userLoginButton: UIButton!
+   @IBOutlet weak var desc: ActiveLabel!
+   @IBOutlet weak var dateTime: UILabel!
+   
+   override func awakeFromNib() {
+      super.awakeFromNib()
+      // Initialization code
+   }
+   
+   override func setSelected(_ selected: Bool, animated: Bool) {
+      super.setSelected(selected, animated: animated)
+      
+      // Configure the view for the selected state
+   }
+   
+   @IBAction func loginButtonTapped(_ sender: UIButton) {
+      
+   }
 }

@@ -7,9 +7,84 @@
 //
 
 import UIKit
+import Kingfisher
 
-class FeedbackController: UIViewController {
+class FeedbackController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   private let userId: String = User.getCurrentUserId()
+   
+   @IBOutlet weak var tableView: UITableView!
+   
    override func viewDidLoad() {
       super.viewDidLoad()
+      
+      loadFeedbackItems()
+   }
+   
+   private func loadFeedbackItems() {
+      User.getFeedbackSnapShotData(for: userId,
+                                   completion: { feedItems in
+                                    if feedItems == nil { return }
+                                    
+                                    for feedItem in feedItems! {
+                                       let value = feedItem.value as? [String: Any]
+                                       // what type of feedbacK?
+                                       if value == nil { // this is not [string: any], so it is follower
+                                          
+                                       } else {
+                                          if value { // commentary
+                                             
+                                          }
+                                          
+                                          if value { // like
+                                             
+                                          }
+                                       }
+                                    }
+      })
+   }
+   
+   var haveWeFinishedLoading: Bool = false // bool value have we loaded feed or not. Mainly for DZNEmptyDataSet
+   
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      
+   }
+   
+   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      
+   }
+}
+
+// MARK: - DZNEmptyDataSet for empty data tables
+extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+   func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+      if haveWeFinishedLoading {
+         let str = "Welcome"
+         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+         return NSAttributedString(string: str, attributes: attrs)
+      } else {
+         let str = ""
+         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+         return NSAttributedString(string: str, attributes: attrs)
+      }
+   }
+   
+   func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+      if haveWeFinishedLoading {
+         let str = "Nothing to show."
+         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+         return NSAttributedString(string: str, attributes: attrs)
+      } else {
+         let str = ""
+         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+         return NSAttributedString(string: str, attributes: attrs)
+      }
+   }
+   
+   func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+      if haveWeFinishedLoading {
+         return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+      } else {
+         return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
+      }
    }
 }

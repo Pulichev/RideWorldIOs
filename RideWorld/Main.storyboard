@@ -1617,10 +1617,10 @@
             </objects>
             <point key="canvasLocation" x="2244" y="1962"/>
         </scene>
-        <!--View Controller-->
+        <!--Feedback Controller-->
         <scene sceneID="LJA-4I-umE">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="RGC-lG-87G" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="RGC-lG-87G" customClass="FeedbackController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pVZ-9K-kV8"/>
                         <viewControllerLayoutGuide type="bottom" id="oXV-R9-h7m"/>
@@ -1784,6 +1784,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="RGC-lG-87G" id="2xa-J0-zEF"/>
+                                    <outlet property="delegate" destination="RGC-lG-87G" id="689-tA-gjf"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1795,6 +1799,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Peo-1o-Kj8"/>
+                    <connections>
+                        <outlet property="tableView" destination="VrN-lv-5Jr" id="UmA-uM-txp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSM-Vi-umy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

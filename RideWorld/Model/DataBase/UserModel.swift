@@ -256,7 +256,7 @@ struct User {
       ]
       
       ref.updateChildValues(updates)
-
+      
    }
    
    // MARK: - Get user strip posts part
@@ -348,5 +348,16 @@ struct User {
    static func clearCurrentData() {
       alreadyLoadedCountOfPosts = 0
       postsIds.removeAll()
+   }
+   
+   // MARK: - Feedback part
+   static func getFeedbackSnapShotData(for userId: String,
+                                       completion: @escaping (_ snapshot: [String: AnyObject]?) -> Void) {
+      let refToUserFeedback = FIRDatabase.database().reference(withPath: "MainDataBase/feedback/"
+         + userId)
+      
+      refToUserFeedback.observeSingleEvent(of: .value, with: { snapshot in
+         completion(snapshot.value as? [String: AnyObject])
+      })
    }
 }

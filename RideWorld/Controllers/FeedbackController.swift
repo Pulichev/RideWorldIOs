@@ -24,19 +24,20 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       User.getFeedbackSnapShotData(for: userId,
                                    completion: { feedItems in
                                     if feedItems == nil { return }
+                                    let sortedKeys = feedItems!.keys.sorted(by: {$0 > $1}) // order by date
                                     
-                                    for feedItem in feedItems! {
-                                       let value = feedItem.value as? [String: Any]
+                                    for key in sortedKeys {
+                                       let value = feedItems![key] as? [String: Any]
                                        // what type of feedbacK?
                                        if value == nil { // this is not [string: any], so it is follower
-                                          
+                                          print("follower")
                                        } else {
-                                          if value { // commentary
-                                             
+                                          if let commentId = value!["commentId"] { // commentary
+                                             print("commentary")
                                           }
                                           
-                                          if value { // like
-                                             
+                                          if let like = value!["likePlacedTime"] { // like
+                                             print("like")
                                           }
                                        }
                                     }
@@ -46,11 +47,13 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    var haveWeFinishedLoading: Bool = false // bool value have we loaded feed or not. Mainly for DZNEmptyDataSet
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = UITableViewCell()
       
+      return cell
    }
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      
+      return 0
    }
 }
 

@@ -357,7 +357,9 @@ struct User {
          + userId)
       
       refToUserFeedback.observeSingleEvent(of: .value, with: { snapshot in
-         completion(snapshot.value as? [String: AnyObject])
+         if let value = snapshot.value as? [String: AnyObject] {
+            completion(value)
+         }
       })
    }
 }

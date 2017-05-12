@@ -63,6 +63,10 @@
 		9FE3B7121EC4D6D600E7ED40 /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B7111EC4D6D600E7ED40 /* FeedbackController.swift */; };
 		9FE3B7151EC4D76100E7ED40 /* CommentAndPostFBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B7141EC4D76100E7ED40 /* CommentAndPostFBCell.swift */; };
 		9FE3B7171EC4D78E00E7ED40 /* FollowerFBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B7161EC4D78E00E7ED40 /* FollowerFBCell.swift */; };
+		9FE3B71A1EC6290B00E7ED40 /* FeedbackItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B7191EC6290B00E7ED40 /* FeedbackItem.swift */; };
+		9FE3B71C1EC665E500E7ED40 /* CommentFBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B71B1EC665E500E7ED40 /* CommentFBItem.swift */; };
+		9FE3B71E1EC6660600E7ED40 /* FollowerFBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B71D1EC6660600E7ED40 /* FollowerFBItem.swift */; };
+		9FE3B7201EC6664900E7ED40 /* LikeFBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B71F1EC6664900E7ED40 /* LikeFBItem.swift */; };
 		9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */; };
 		9FF114A91EB4C8F600152279 /* DateTimeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF114A81EB4C8F600152279 /* DateTimeParser.swift */; };
 		9FF1BF6C1E9D448500A2CEF2 /* CommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF1BF6B1E9D448500A2CEF2 /* CommentsModel.swift */; };
@@ -167,6 +171,10 @@
 		9FE3B7111EC4D6D600E7ED40 /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackController.swift; path = Controllers/FeedbackController.swift; sourceTree = "<group>"; };
 		9FE3B7141EC4D76100E7ED40 /* CommentAndPostFBCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentAndPostFBCell.swift; path = "CustomUIElements/Cells for feedback/CommentAndPostFBCell.swift"; sourceTree = "<group>"; };
 		9FE3B7161EC4D78E00E7ED40 /* FollowerFBCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowerFBCell.swift; path = "CustomUIElements/Cells for feedback/FollowerFBCell.swift"; sourceTree = "<group>"; };
+		9FE3B7191EC6290B00E7ED40 /* FeedbackItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackItem.swift; path = "Data/Feedback Items/FeedbackItem.swift"; sourceTree = "<group>"; };
+		9FE3B71B1EC665E500E7ED40 /* CommentFBItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentFBItem.swift; path = "CustomUIElements/Cells for feedback/CommentFBItem.swift"; sourceTree = "<group>"; };
+		9FE3B71D1EC6660600E7ED40 /* FollowerFBItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowerFBItem.swift; path = "CustomUIElements/Cells for feedback/FollowerFBItem.swift"; sourceTree = "<group>"; };
+		9FE3B71F1EC6664900E7ED40 /* LikeFBItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeFBItem.swift; sourceTree = "<group>"; };
 		9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FF114A81EB4C8F600152279 /* DateTimeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateTimeParser.swift; path = Core/DateTimeParser.swift; sourceTree = "<group>"; };
 		9FF1BF641E9C1D5C00A2CEF2 /* RideWorld-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "RideWorld-Bridging-Header.h"; path = "Some Obj-C frameworks/RideWorld-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -236,6 +244,7 @@
 		9F113EB71E32A4D3009AF9FD /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				9FE3B7181EC628A700E7ED40 /* Feedback Items */,
 				9F5609801E7C6A630000DB21 /* PostItem.swift */,
 				9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */,
 				9F943EE81E6F041300709B79 /* LikeItem.swift */,
@@ -404,6 +413,17 @@
 				9FE3B7161EC4D78E00E7ED40 /* FollowerFBCell.swift */,
 			);
 			name = "Cells for feedback";
+			sourceTree = "<group>";
+		};
+		9FE3B7181EC628A700E7ED40 /* Feedback Items */ = {
+			isa = PBXGroup;
+			children = (
+				9FE3B7191EC6290B00E7ED40 /* FeedbackItem.swift */,
+				9FE3B71B1EC665E500E7ED40 /* CommentFBItem.swift */,
+				9FE3B71D1EC6660600E7ED40 /* FollowerFBItem.swift */,
+				9FE3B71F1EC6664900E7ED40 /* LikeFBItem.swift */,
+			);
+			name = "Feedback Items";
 			sourceTree = "<group>";
 		};
 		9FF1BF651E9D33AF00A2CEF2 /* Model */ = {
@@ -784,6 +804,7 @@
 				9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */,
 				9FE3B7171EC4D78E00E7ED40 /* FollowerFBCell.swift in Sources */,
 				9FFB14F61E7848F600D10620 /* FollowersController.swift in Sources */,
+				9FE3B71A1EC6290B00E7ED40 /* FeedbackItem.swift in Sources */,
 				9FE3B7101EC22A2800E7ED40 /* String.swift in Sources */,
 				9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */,
 				9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */,
@@ -820,9 +841,12 @@
 				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
 				9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */,
 				9FF1BF701E9D707400A2CEF2 /* UserModel.swift in Sources */,
+				9FE3B71C1EC665E500E7ED40 /* CommentFBItem.swift in Sources */,
 				9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */,
+				9FE3B71E1EC6660600E7ED40 /* FollowerFBItem.swift in Sources */,
 				9FF1BF7D1EA551BB00A2CEF2 /* SpotMedia.swift in Sources */,
 				9FF1BF7B1EA3C0DC00A2CEF2 /* SpotModel.swift in Sources */,
+				9FE3B7201EC6664900E7ED40 /* LikeFBItem.swift in Sources */,
 				9FF1BF6C1E9D448500A2CEF2 /* CommentsModel.swift in Sources */,
 				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,
 				9FE3B7151EC4D76100E7ED40 /* CommentAndPostFBCell.swift in Sources */,

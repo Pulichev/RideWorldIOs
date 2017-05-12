@@ -20,6 +20,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       loadFeedbackItems()
    }
    
+   // example of bad code. need review here
    private func loadFeedbackItems() {
       User.getFeedbackSnapShotData(for: userId,
                                    completion: { feedItems in

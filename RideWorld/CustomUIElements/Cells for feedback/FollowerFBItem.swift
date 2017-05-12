@@ -7,5 +7,5 @@
 //
 
 class FollowerFBItem: FeedbackItem {
-   
+   var dateTime: String!
 }

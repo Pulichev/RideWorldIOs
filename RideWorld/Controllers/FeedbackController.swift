@@ -13,6 +13,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    private let userId: String = User.getCurrentUserId()
    
    @IBOutlet weak var tableView: UITableView!
+   var feedbackItems: [FeedbackItem]!
    
    override func viewDidLoad() {
       super.viewDidLoad()

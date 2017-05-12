@@ -7,5 +7,8 @@
 //
 
 class CommentFBItem: FeedbackItem {
-   
+   var text: String!
+   var dateTime: String!
+   var postId: String!
+   var userId: String!
 }

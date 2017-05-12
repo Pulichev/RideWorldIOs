@@ -6,10 +6,6 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-import Foundation
-
 class FeedbackItem {
-   // от него наследывать все 3 типа
-   // в юзер модели возвращать массив [FeedbackItem]
    var id: String!
 }

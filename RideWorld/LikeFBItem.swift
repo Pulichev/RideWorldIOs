@@ -7,5 +7,8 @@
 //
 
 class LikeFBItem: FeedbackItem {
-   
+   var postId: String!
+   var userId: String!
+   var postAddedByUserId: String!
+   var dateTime: String!
 }

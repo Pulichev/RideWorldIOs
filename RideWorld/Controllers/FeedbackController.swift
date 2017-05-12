@@ -13,7 +13,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    private let userId: String = User.getCurrentUserId()
    
    @IBOutlet weak var tableView: UITableView!
-   var feedbackItems: [FeedbackItem]!
+   var feedbackItems = [FeedbackItem]()
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -30,18 +30,20 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
                                     
                                     for key in sortedKeys {
                                        let value = feedItems![key] as? [String: Any]
+                                       var feedBackItem: FeedbackItem!
                                        // what type of feedbacK?
                                        if value == nil { // this is not [string: any], so it is follower
-                                          print("follower")
+                                          feedBackItem = FollowerFBItem(dateTime: feedItems![key] as! String)
                                        } else {
-                                          if let commentId = value!["commentId"] { // commentary
-                                             print("commentary")
+                                          if value!["commentId"] != nil { // comment
+                                             feedBackItem = CommentFBItem(snapshot: value!)
                                           }
-                                          
-                                          if let like = value!["likePlacedTime"] { // like
-                                             print("like")
+                                          if value!["likePlacedTime"] != nil { // like
+                                             feedBackItem = LikeFBItem(snapshot: value!)
                                           }
                                        }
+                                       
+                                       self.feedbackItems.append(feedBackItem)
                                     }
       })
    }

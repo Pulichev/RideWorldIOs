@@ -8,4 +8,10 @@
 
 class FollowerFBItem: FeedbackItem {
    var dateTime: String!
+   
+   init(dateTime: String) {
+      super.init()
+      self.type = 1
+      self.dateTime = dateTime
+   }
 }

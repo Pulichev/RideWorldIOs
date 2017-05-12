@@ -7,5 +7,5 @@
 //
 
 class FeedbackItem {
-   var id: String!
+   var type: Int! // 1 - follower, 2 - comment, 3 - like
 }

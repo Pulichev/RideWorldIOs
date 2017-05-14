@@ -9,7 +9,7 @@
 import UIKit
 import ActiveLabel
 
-class CommentAndPostFBCell: UITableViewCell { // FB = feedback
+class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    var userId: String! // maybe userItem
    var postId: String! // maybe postItem
    

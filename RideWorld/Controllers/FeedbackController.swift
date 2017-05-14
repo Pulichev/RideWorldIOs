@@ -33,7 +33,16 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    var haveWeFinishedLoading: Bool = false // bool value have we loaded feed or not. Mainly for DZNEmptyDataSet
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = UITableViewCell()
+      let row = indexPath.row
+      var cell: UITableViewCell!
+      let type = feedbackItems[row].type
+      if type == 1 {
+         cell = tableView.dequeueReusableCell(withIdentifier: "FollowerFBCell", for: indexPath) as! CommentCell
+      }
+      
+      if type == 2 || type == 3 {
+         cell = tableView.dequeueReusableCell(withIdentifier: "CommentAndLikeFBCell", for: indexPath) as! CommentCell
+      }
       
       return cell
    }

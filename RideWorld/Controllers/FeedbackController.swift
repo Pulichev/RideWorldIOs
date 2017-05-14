@@ -23,28 +23,10 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    
    // example of bad code. need review here
    private func loadFeedbackItems() {
-      User.getFeedbackSnapShotData(for: userId,
-                                   completion: { feedItems in
-                                    if feedItems == nil { return }
-                                    let sortedKeys = feedItems!.keys.sorted(by: {$0 > $1}) // order by date
-                                    
-                                    for key in sortedKeys {
-                                       let value = feedItems![key] as? [String: Any]
-                                       var feedBackItem: FeedbackItem!
-                                       // what type of feedbacK?
-                                       if value == nil { // this is not [string: any], so it is follower
-                                          feedBackItem = FollowerFBItem(dateTime: feedItems![key] as! String)
-                                       } else {
-                                          if value!["commentId"] != nil { // comment
-                                             feedBackItem = CommentFBItem(snapshot: value!)
-                                          }
-                                          if value!["likePlacedTime"] != nil { // like
-                                             feedBackItem = LikeFBItem(snapshot: value!)
-                                          }
-                                       }
-                                       
-                                       self.feedbackItems.append(feedBackItem)
-                                    }
+      FeedbackItem.getArray(
+         completion: { fbItems in
+            self.feedbackItems = fbItems
+            self.tableView.reloadData()
       })
    }
    

@@ -17,6 +17,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          tableView.delegate = self
          tableView.dataSource = self
          tableView.rowHeight = UITableViewAutomaticDimension
+         tableView.estimatedRowHeight = 170
          tableView.emptyDataSetSource = self
          tableView.emptyDataSetDelegate = self
          tableView.tableFooterView = UIView() // deleting empty rows

@@ -7,11 +7,13 @@
 //
 
 class FollowerFBItem: FeedbackItem {
+   var userId: String!
    var dateTime: String!
    
-   init(dateTime: String) {
+   init(userId: String, dateTime: String) {
       super.init()
       self.type = 1
+      self.userId = userId
       self.dateTime = dateTime
    }
 }

@@ -10,8 +10,27 @@ import UIKit
 import ActiveLabel
 
 class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
-   var userId: String! // maybe userItem
-   var postId: String! // maybe postItem
+   var userId: String! { // maybe userItem
+      didSet {
+         User.getItemById(for: userId,
+                          completion: { user in
+                           self.userPhoto?.kf.setImage(with: URL(
+                              string: user.photo90ref!))
+                           self.userLoginButton.setTitle(user.login,
+                                                         for: .normal)
+         })
+      }
+   }
+   
+   var postId: String! { // maybe postItem
+      didSet {
+         Post.getItemById(for: postId,
+                          completion: { post in
+                           self.postPhoto?.kf.setImage(with: URL(
+                              string: (post?.mediaRef270)!))
+         })
+      }
+   }
    
    // MARK: - @IBOutlets
    // media

@@ -12,7 +12,15 @@ import Kingfisher
 class FeedbackController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    private let userId: String = User.getCurrentUserId()
    
-   @IBOutlet weak var tableView: UITableView!
+   @IBOutlet weak var tableView: UITableView! {
+      didSet {
+         tableView.delegate = self
+         tableView.dataSource = self
+         tableView.emptyDataSetSource = self
+         tableView.emptyDataSetDelegate = self
+         tableView.tableFooterView = UIView() // deleting empty rows
+      }
+   }
    var feedbackItems = [FeedbackItem]()
    
    override func viewDidLoad() {
@@ -37,18 +45,53 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       var cell: UITableViewCell!
       let type = feedbackItems[row].type
       if type == 1 {
-         cell = tableView.dequeueReusableCell(withIdentifier: "FollowerFBCell", for: indexPath) as! CommentCell
+         cell = configureFollowerFBCell(indexPath)
       }
       
       if type == 2 || type == 3 {
-         cell = tableView.dequeueReusableCell(withIdentifier: "CommentAndLikeFBCell", for: indexPath) as! CommentCell
+         cell = configureCommentAndLikeFBCell(indexPath)
       }
       
       return cell
    }
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 0
+      return feedbackItems.count
+   }
+   
+   private func configureFollowerFBCell(_ indexPath: IndexPath) -> FollowerFBCell {
+      let cell = tableView.dequeueReusableCell(withIdentifier: "FollowerFBCell", for: indexPath) as! FollowerFBCell
+      
+      let row = indexPath.row
+      let followItem = feedbackItems[row] as! FollowerFBItem
+      cell.userId = followItem.userId
+      cell.desc.text = "started following you."
+      cell.dateTime.text = DateTimeParser.getDateTime(from: followItem.dateTime)
+      
+      return cell
+   }
+   
+   private func configureCommentAndLikeFBCell(_ indexPath: IndexPath) -> CommentAndLikeFBCell {
+      let cell = tableView.dequeueReusableCell(withIdentifier: "CommentAndLikeFBCell", for: indexPath) as! CommentAndLikeFBCell
+      
+      let row = indexPath.row
+      let fbItem = feedbackItems[row]
+      
+      if fbItem is CommentFBItem {
+         let commentFBItem = fbItem as! CommentFBItem
+         cell.userId = commentFBItem.userId
+         cell.desc.text = "commented your photo: " + commentFBItem.text
+         cell.dateTime.text = DateTimeParser.getDateTime(from: commentFBItem.dateTime)
+      }
+      
+      if fbItem is LikeFBItem {
+         let likeFBItem = fbItem as! LikeFBItem
+         cell.userId = likeFBItem.userId
+         cell.desc.text = "liked your photo."
+         cell.dateTime.text = DateTimeParser.getDateTime(from: likeFBItem.dateTime)
+      }
+      
+      return cell
    }
 }
 

@@ -9,7 +9,17 @@
 import UIKit
 
 class FollowerFBCell: UITableViewCell { // FB = feedback
-   var userId: String! // maybe userItem
+   var userId: String! { // maybe userItem
+      didSet {
+         User.getItemById(for: userId,
+                          completion: { user in
+                           self.userPhoto?.kf.setImage(with: URL(
+                              string: user.photo90ref!))
+                           self.loginButton.setTitle(user.login,
+                                                         for: .normal)
+         })
+      }
+   }
    
    // MARK: - @IBOutlets
    // media

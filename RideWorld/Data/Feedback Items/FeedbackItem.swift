@@ -23,7 +23,7 @@ class FeedbackItem {
                                        var feedBackItem: FeedbackItem!
                                        // what type of feedbacK?
                                        if value == nil { // this is not [string: any], so it is follower
-                                          feedBackItem = FollowerFBItem(dateTime: feedItemsSnapshot![key] as! String)
+                                          feedBackItem = FollowerFBItem(userId: key, dateTime: feedItemsSnapshot![key] as! String)
                                        } else {
                                           if value!["commentId"] != nil { // comment
                                              feedBackItem = CommentFBItem(snapshot: value!)

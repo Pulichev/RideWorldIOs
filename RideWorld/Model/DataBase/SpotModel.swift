@@ -72,7 +72,7 @@ struct Spot {
    
    static func getPosts(for spotId: String, countOfNewItemsToAdd: Int,
                         completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
-      self.getSpotPostsIds(for: spotId, completion: { spotPostsIds in
+      self.getSpotPostsIds(for: spotId) { spotPostsIds in
          if spotPostsIds != nil {
             self.spotPostsIds = spotPostsIds!
          } else { // if no posts
@@ -88,7 +88,7 @@ struct Spot {
          var countOfNewPostsLoaded = 0
          
          for postId in nextPostsIds {
-            Post.getItemById(for: postId, completion: { post in
+            Post.getItemById(for: postId) { post in
                if post != nil { // founded without errors
                   newPosts.append(post!)
                   countOfNewPostsLoaded += 1
@@ -98,9 +98,9 @@ struct Spot {
                      completion(newPosts.sorted(by: { $0.key > $1.key }))
                   }
                }
-            })
+            }
          }
-      })
+      }
    }
    
    private static func getNextIdsForAdd(_ count: Int) -> [String]? {

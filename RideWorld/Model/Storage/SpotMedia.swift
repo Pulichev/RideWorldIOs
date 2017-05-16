@@ -48,17 +48,17 @@ struct SpotMedia {
       let refToNewPhoto = refToSpotInfoPhotos.child(spotId).child(String(describing: Date()) + ".jpeg")
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
       refToNewPhoto.put(dataLowCompression, metadata: nil,
-                            completion: { (metadata , error) in
-                              if error == nil {
-                                 let url = (metadata?.downloadURL()?.absoluteString)!
-                                 Spot.addNewPhotoURL(for: spotId, url, completion: { hasFinished in
-                                    if hasFinished {
-                                       completion(url)
-                                    }
-                                 })
-                              } else {
-                                 completion(nil)
+                        completion: { (metadata , error) in
+                           if error == nil {
+                              let url = (metadata?.downloadURL()?.absoluteString)!
+                              Spot.addNewPhotoURL(for: spotId, url) { hasFinished in
+                                 if hasFinished {
+                                    completion(url)
+                                 }
                               }
+                           } else {
+                              completion(nil)
+                           }
       })
    }
 }

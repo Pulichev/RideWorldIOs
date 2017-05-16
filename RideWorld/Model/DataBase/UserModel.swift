@@ -312,7 +312,7 @@ struct User {
          var newPosts = [PostItem]()
          var countOfNewPostsLoaded = 0
          for postId in nextPostsIds {
-            Post.getItemById(for: postId, completion: { post in
+            Post.getItemById(for: postId) { post in
                if post != nil { // founded without errors
                   newPosts.append(post!)
                   countOfNewPostsLoaded += 1
@@ -322,7 +322,7 @@ struct User {
                      completion(newPosts.sorted(by: { $0.key > $1.key }))
                   }
                }
-            })
+            }
          }
       })
    }

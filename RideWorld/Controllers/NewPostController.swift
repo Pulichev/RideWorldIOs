@@ -81,44 +81,40 @@ class NewPostController: UIViewController, UITextViewDelegate {
    
    private func uploadPhoto(for postItem: PostItem) {
       PostMedia.uploadPhotoForPost(
-         photoView.image!, for: postItem,
-         completion: { (hasFinishedUploading, post) in
+         photoView.image!,
+         for: postItem) { (hasFinishedUploading, post) in
             if hasFinishedUploading {
-               Post.add(post!,
-                        completion: { hasFinishedSuccessfully in
-                           if hasFinishedSuccessfully {
-                              self.goBackToPosts()
-                           } else {
-                              self.errorHappened()
-                           }
-               })
+               Post.add(post!) { hasFinishedSuccessfully in
+                  if hasFinishedSuccessfully {
+                     self.goBackToPosts()
+                  } else {
+                     self.errorHappened()
+                  }
+               }
             } else {
                self.errorHappened()
             }
-      })
+      }
    }
    
    private func uploadVideo(for postItem: PostItem) {
       PostMedia.uploadVideoForPost(
          with: newVideoUrl, for: postItem,
-         screenShot: generateVideoScreenShot(),
-         completion: { (hasFinishedUploading, post) in
+         screenShot: generateVideoScreenShot()) { (hasFinishedUploading, post) in
             if hasFinishedUploading {
-               Post.add(post!,
-                        completion: { hasFinishedSuccessfully in
-                           if hasFinishedSuccessfully {
-                              self.player.pause()
-                              self.player = nil
-                              self.goBackToPosts()
-                           } else {
-                              self.errorHappened()
-                           }
-               })
+               Post.add(post!) { hasFinishedSuccessfully in
+                  if hasFinishedSuccessfully {
+                     self.player.pause()
+                     self.player = nil
+                     self.goBackToPosts()
+                  } else {
+                     self.errorHappened()
+                  }
+               }
             } else {
                self.errorHappened()
             }
-      })
-      
+      }
    }
    
    private func createNewPostItem() -> PostItem {

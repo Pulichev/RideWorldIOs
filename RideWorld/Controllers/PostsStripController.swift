@@ -51,7 +51,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       setLoadingScreen()
       
       self.loadPosts(completion: { newItems in
-         self.appendLoadedPosts(newItems, completion: { _ in }) // no need completion here
+         self.appendLoadedPosts(newItems) { _ in } // no need completion here
       })
    }
    
@@ -65,7 +65,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          return
       }
       
-      loadPostsCache(newItems, completion: { postsCache in
+      loadPostsCache(newItems) { postsCache in
          self.posts.append(contentsOf: newItems!)
          self.postItemCellsCache.append(contentsOf: postsCache)
          self.removeLoadingScreen()
@@ -74,7 +74,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             startingFrom: self.posts.count - countOfCachedCells,
             count: countOfCachedCells)
          completion(true)
-      })
+      }
    }
    
    func loadPostsCache(_ newItems: [PostItem]?,
@@ -157,11 +157,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    func loadMoreBegin(loadMoreEnd: @escaping (_ hasFinished: Bool) -> Void) {
       DispatchQueue.global(qos: .userInitiated).async {
          self.loadPosts(completion: { newItems in
-            self.appendLoadedPosts(newItems, completion: { hasFinished in
+            self.appendLoadedPosts(newItems) { hasFinished in
                DispatchQueue.main.async {
                   loadMoreEnd(true)
                }
-            })
+            }
          })
       }
    }
@@ -213,12 +213,12 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       self.posts = newItems
       
-      self.loadPostsCache(newItems, completion: { postsCache in
+      self.loadPostsCache(newItems) { postsCache in
          self.postItemCellsCache = postsCache
          self.tableView.reloadData()
          self.tableView.endUpdates()
          self.refreshControl.endRefreshing() // ending refreshing
-      })
+      }
    }
    
    // MARK: - Main table filling region

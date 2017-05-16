@@ -69,7 +69,7 @@ struct Comment {
       var countOfProcessedUsers = 0
       
       for userLogin in userLogins {
-         User.getItemByLogin(for: userLogin, completion: { user in
+         User.getItemByLogin(for: userLogin) { user in
             countOfProcessedUsers += 1
             
             if user != nil {
@@ -79,7 +79,7 @@ struct Comment {
             if countOfProcessedUsers == userLogins.count {
                completion(userIds)
             }
-         })
+         }
       }
    }
    

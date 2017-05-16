@@ -38,7 +38,7 @@ struct Comment {
       
       let currentUserId = User.getCurrentUserId()
       let currentDateTime = String(describing: Date())
-      let newComment = CommentItem(refForNewCommentKey, currentUserId, post.key, text!, currentDateTime)
+      let newComment = CommentItem(currentUserId, post.key, text!, currentDateTime, refForNewCommentKey)
       
       getAllMentionedUsersIds(from: text!,
                               completion: { mentionedUserIds in
@@ -48,7 +48,7 @@ struct Comment {
                                  var updates: [String: Any?] = ["/spotpost/" + post.key + "/comments/" + refForNewCommentKey: newComment.toAnyObject()]
                                  
                                  for userId in userIds {
-                                    updates.updateValue(newComment.toAnyObject(), forKey: "/feedback/" + userId + "/" + refForNewCommentKey) //
+                                    updates.updateValue(newComment.toAnyObject(), forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
                                  }
                                  
                                  ref.updateChildValues(updates,

@@ -26,7 +26,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
          Post.getItemById(for: postId) { post in
             if post != nil {
                self.postPhoto?.kf.setImage(with: URL(
-                  string: post!.mediaRef700))
+                  string: post!.mediaRef700)) // TODO: after release/db drop set .mediaRef270
             }
          }
       }

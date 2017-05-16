@@ -24,8 +24,10 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    var postId: String! { // maybe postItem
       didSet {
          Post.getItemById(for: postId) { post in
-            self.postPhoto?.kf.setImage(with: URL(
-               string: (post?.mediaRef270)!))
+            if post != nil {
+               self.postPhoto?.kf.setImage(with: URL(
+                  string: post!.mediaRef700))
+            }
          }
       }
    }

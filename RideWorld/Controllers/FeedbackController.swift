@@ -82,6 +82,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       if fbItem is CommentFBItem {
          let commentFBItem = fbItem as! CommentFBItem
          cell.userId = commentFBItem.userId
+         cell.postId = commentFBItem.postId
          cell.desc.text = "commented your photo: " + commentFBItem.text
          cell.dateTime.text = DateTimeParser.getDateTime(from: commentFBItem.dateTime)
       }
@@ -89,6 +90,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       if fbItem is LikeFBItem {
          let likeFBItem = fbItem as! LikeFBItem
          cell.userId = likeFBItem.userId
+         cell.postId = likeFBItem.postId
          cell.desc.text = "liked your photo."
          cell.dateTime.text = DateTimeParser.getDateTime(from: likeFBItem.dateTime)
       }

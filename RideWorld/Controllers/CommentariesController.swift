@@ -20,8 +20,8 @@ UITableViewDelegate {
          tableView.dataSource = self
          tableView.emptyDataSetSource = self
          tableView.emptyDataSetDelegate = self
-         tableView.rowHeight = UITableViewAutomaticDimension
          tableView.estimatedRowHeight = 150
+         tableView.rowHeight = UITableViewAutomaticDimension
          tableView.tableFooterView = UIView() // deleting empty rows
       }
    }

@@ -34,14 +34,13 @@ class FollowersCell: UITableViewCell {
    
    func initialiseFollowButton() {
       if follower.uid != User.getCurrentUserId() {
-         User.isCurrentUserFollowing(this: follower.uid,
-                                     completion: { isFollowing in
-                                       if isFollowing {
-                                          self.button.setTitle("Following", for: .normal)
-                                       } else {
-                                          self.button.setTitle("Follow", for: .normal)
-                                       }
-         })
+         User.isCurrentUserFollowing(this: follower.uid) { isFollowing in
+            if isFollowing {
+               self.button.setTitle("Following", for: .normal)
+            } else {
+               self.button.setTitle("Follow", for: .normal)
+            }
+         }
       } else {
          button.isHidden = true
       }

@@ -16,6 +16,7 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
                string: user.photo90ref!))
             self.loginButton.setTitle(user.login,
                                       for: .normal)
+            self.initialiseFollowButton()
          }
       }
    }
@@ -29,22 +30,33 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    @IBOutlet weak var followButton: UIButton!
    @IBOutlet weak var dateTime: UILabel!
    
-   override func awakeFromNib() {
-      super.awakeFromNib()
-      // Initialization code
-   }
-   
-   override func setSelected(_ selected: Bool, animated: Bool) {
-      super.setSelected(selected, animated: animated)
-      
-      // Configure the view for the selected state
-   }
-   
-   @IBAction func loginButtonTapped(_ sender: UIButton) {
-      
+   private func initialiseFollowButton() {
+      User.isCurrentUserFollowing(this: userId) { isFollowing in
+         if isFollowing {
+            self.followButton.setTitle("Following", for: .normal)
+         } else {
+            self.followButton.setTitle("Follow", for: .normal)
+         }
+      }
    }
    
    @IBAction func followButtonTapped(_ sender: UIButton) {
+      if followButton.currentTitle == "Follow" { // add or remove like
+         User.addFollowing(to: userId)
+         User.addFollower(to: userId)
+      } else {
+         User.removeFollowing(from: userId)
+         User.removeFollower(from: userId)
+      }
       
+      swapFollowButtonTittle()
+   }
+   
+   private func swapFollowButtonTittle() {
+      if followButton.currentTitle == "Follow" {
+         followButton.setTitle("Following", for: .normal)
+      } else {
+         followButton.setTitle("Follow", for: .normal)
+      }
    }
 }

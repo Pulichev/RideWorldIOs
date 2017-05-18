@@ -20,7 +20,7 @@ UITableViewDelegate {
          tableView.dataSource = self
          tableView.emptyDataSetSource = self
          tableView.emptyDataSetDelegate = self
-         tableView.estimatedRowHeight = 150
+         tableView.estimatedRowHeight = 80
          tableView.rowHeight = UITableViewAutomaticDimension
          tableView.tableFooterView = UIView() // deleting empty rows
       }
@@ -106,6 +106,8 @@ UITableViewDelegate {
       cell.commentText.handleMentionTap { mention in // mention is @userLogin
          self.goToUserProfile(tappedUserLogin: mention)
       }
+
+      cell.userNickName.addTarget(self, action: #selector(goToUserProfileFromNickNameButton), for: .touchUpInside)
       
       //configure right buttons
       addFuncButtons(to: cell, at: row)
@@ -163,7 +165,8 @@ UITableViewDelegate {
       newCommentTextField.text = newCommentTextField.text?.appending(" @" + login)
    }
    
-   // from comment author
+   //MARK: - segues actions part
+   // from comment author photo
    func goToProfile(_ sender: UIGestureRecognizer) {
       let userId = comments[(sender.view?.tag)!].userId
       
@@ -177,6 +180,11 @@ UITableViewDelegate {
                self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
          })
       }
+   }
+   
+   // nickname button tapped
+   func goToUserProfileFromNickNameButton(sender: UIButton!) {
+      goToUserProfile(tappedUserLogin: sender.currentTitle!)
    }
    
    // from @username

@@ -16,7 +16,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       didSet {
          tableView.delegate = self
          tableView.dataSource = self
-         tableView.estimatedRowHeight = 150
+         tableView.estimatedRowHeight = 117
          tableView.rowHeight = UITableViewAutomaticDimension
          tableView.emptyDataSetSource = self
          tableView.emptyDataSetDelegate = self

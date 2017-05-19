@@ -66,12 +66,15 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       
       let row = indexPath.row
       let followItem = feedbackItems[row] as! FollowerFBItem
+      cell.delegate = self
       cell.userId = followItem.userId
       cell.desc.text = "started following you."
       cell.dateTime.text = DateTimeParser.getDateTime(from: followItem.dateTime)
       
       return cell
    }
+   
+   var ridersInfoForSending: UserItem?
    
    private func configureCommentAndLikeFBCell(_ indexPath: IndexPath) -> CommentAndLikeFBCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "CommentAndLikeFBCell", for: indexPath) as! CommentAndLikeFBCell
@@ -96,6 +99,16 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       }
       
       return cell
+   }
+   
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      switch segue.identifier! {
+      case "openRidersProfileFromFeedbackList":
+         let newRidersProfileController = segue.destination as! RidersProfileController
+         newRidersProfileController.ridersInfo = ridersInfoForSending
+         newRidersProfileController.title = ridersInfoForSending?.login
+      default: break
+      }
    }
 }
 
@@ -131,5 +144,12 @@ extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
       } else {
          return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
       }
+   }
+}
+
+extension FeedbackController: TappedUserDelegate {
+   func userInfoTappedFromCell(_ user: UserItem) {
+      ridersInfoForSending = user
+      performSegue(withIdentifier: "openRidersProfileFromFeedbackList", sender: self)
    }
 }

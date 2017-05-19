@@ -383,10 +383,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       cell.player.play()
    }
    
-   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      tableView.deselectRow(at: indexPath, animated: true)
-   }
-   
    @IBAction func addNewPost(_ sender: Any) {
       performSegue(withIdentifier: "addNewPost", sender: self)
    }

@@ -9,9 +9,12 @@
 import UIKit
 
 class FollowerFBCell: UITableViewCell { // FB = feedback
+   weak var delegate: TappedUserDelegate? // for sending user info
+   
    var userId: String! { // maybe userItem
       didSet {
          User.getItemById(for: userId) { user in
+            self.userItem = user
             self.userPhoto?.kf.setImage(with: URL(
                string: user.photo90ref!))
             self.loginButton.setTitle(user.login,
@@ -20,6 +23,8 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
          }
       }
    }
+   
+   var userItem: UserItem!
    
    // MARK: - @IBOutlets
    // media
@@ -50,6 +55,10 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
       }
       
       swapFollowButtonTittle()
+   }
+   
+   @IBAction func loginButtonTapped(_ sender: Any) {
+      delegate?.userInfoTappedFromCell(userItem)
    }
    
    private func swapFollowButtonTittle() {

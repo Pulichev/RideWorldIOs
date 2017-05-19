@@ -1766,7 +1766,7 @@
                                                         <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="loginButtonTapped:" destination="D4d-Oe-OGH" eventType="touchUpInside" id="Lpg-XX-Qck"/>
+                                                        <action selector="loginButtonTapped:" destination="D4d-Oe-OGH" eventType="touchUpInside" id="k3H-0H-J2q"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qxt-JR-i0b">
@@ -1839,6 +1839,7 @@
                     <navigationItem key="navigationItem" id="Peo-1o-Kj8"/>
                     <connections>
                         <outlet property="tableView" destination="VrN-lv-5Jr" id="UmA-uM-txp"/>
+                        <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromFeedbackList" id="tCn-nV-MKo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSM-Vi-umy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1928,8 +1929,8 @@
         <segue reference="QOa-aY-bXL"/>
         <segue reference="1Fi-pQ-wyF"/>
         <segue reference="ZpR-8C-QJR"/>
-        <segue reference="eb8-9P-3Sr"/>
-        <segue reference="qSk-1a-lLs"/>
+        <segue reference="tCn-nV-MKo"/>
         <segue reference="RlL-e4-xY6"/>
+        <segue reference="qSk-1a-lLs"/>
     </inferredMetricsTieBreakers>
 </document>

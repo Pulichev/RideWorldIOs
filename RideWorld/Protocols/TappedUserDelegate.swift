@@ -7,5 +7,5 @@
 //
 
 protocol TappedUserDelegate: class {
-   func userInfoTappedFromCell(_ tappedUser: UserItem) // for segues
+   func userInfoTapped(_ tappedUser: UserItem) // for segues
 }

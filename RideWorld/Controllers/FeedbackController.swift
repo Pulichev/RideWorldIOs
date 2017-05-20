@@ -11,6 +11,7 @@ import Kingfisher
 
 class FeedbackController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    private let userId: String = User.getCurrentUserId()
+   fileprivate var userItem: UserItem? // current user user item
    
    @IBOutlet weak var tableView: UITableView! {
       didSet {
@@ -28,10 +29,16 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    override func viewDidLoad() {
       super.viewDidLoad()
       
+      initializeCurrentUserItem()
       loadFeedbackItems()
    }
    
-   // example of bad code. need review here
+   private func initializeCurrentUserItem() {
+      User.getItemById(for: userId) { user in
+         self.userItem = user
+      }
+   }
+   
    private func loadFeedbackItems() {
       FeedbackItem.getArray(
          completion: { fbItems in
@@ -66,7 +73,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       
       let row = indexPath.row
       let followItem = feedbackItems[row] as! FollowerFBItem
-      cell.delegate = self
+      cell.delegate = self // for user info taps to perform segue
       cell.userId = followItem.userId
       cell.desc.text = "started following you."
       cell.dateTime.text = DateTimeParser.getDateTime(from: followItem.dateTime)
@@ -75,6 +82,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    }
    
    var ridersInfoForSending: UserItem?
+   var postInfoForSending: PostItem?
    
    private func configureCommentAndLikeFBCell(_ indexPath: IndexPath) -> CommentAndLikeFBCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "CommentAndLikeFBCell", for: indexPath) as! CommentAndLikeFBCell
@@ -84,6 +92,8 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       
       if fbItem is CommentFBItem {
          let commentFBItem = fbItem as! CommentFBItem
+         cell.delegateUserTaps = self
+         cell.delegatePostTaps = self
          cell.userId = commentFBItem.userId
          cell.postId = commentFBItem.postId
          cell.desc.text = "commented your photo: " + commentFBItem.text
@@ -92,6 +102,8 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       
       if fbItem is LikeFBItem {
          let likeFBItem = fbItem as! LikeFBItem
+         cell.delegateUserTaps = self
+         cell.delegatePostTaps = self
          cell.userId = likeFBItem.userId
          cell.postId = likeFBItem.postId
          cell.desc.text = "liked your photo."
@@ -107,6 +119,13 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          let newRidersProfileController = segue.destination as! RidersProfileController
          newRidersProfileController.ridersInfo = ridersInfoForSending
          newRidersProfileController.title = ridersInfoForSending?.login
+         
+      case "goToPostInfoFromFeedback":
+         let newPostInfoController = segue.destination as! PostInfoViewController
+         newPostInfoController.postInfo = postInfoForSending
+         newPostInfoController.user = ridersInfoForSending
+         newPostInfoController.isCurrentUserProfile = true
+         
       default: break
       }
    }
@@ -147,9 +166,21 @@ extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    }
 }
 
+// to send userItem from cell to perform segue
 extension FeedbackController: TappedUserDelegate {
-   func userInfoTappedFromCell(_ user: UserItem) {
+   func userInfoTapped(_ user: UserItem) {
       ridersInfoForSending = user
       performSegue(withIdentifier: "openRidersProfileFromFeedbackList", sender: self)
+   }
+}
+
+// to send postItem from cell to performSegue
+extension FeedbackController: TappedPostDelegate {
+   func postInfoTapped(_ tappedPost: PostItem) {
+      if userItem != nil {
+         self.ridersInfoForSending = userItem
+         self.postInfoForSending = tappedPost
+         self.performSegue(withIdentifier: "goToPostInfoFromFeedback", sender: self)
+      }
    }
 }

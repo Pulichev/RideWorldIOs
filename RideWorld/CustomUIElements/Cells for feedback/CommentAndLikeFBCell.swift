@@ -10,9 +10,13 @@ import UIKit
 import ActiveLabel
 
 class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
+   weak var delegateUserTaps: TappedUserDelegate? // for sending user info
+   weak var delegatePostTaps: TappedPostDelegate? // for sending post info
+   
    var userId: String! { // maybe userItem
       didSet {
          User.getItemById(for: userId) { user in
+            self.userItem = user
             self.userPhoto?.kf.setImage(with: URL(
                string: user.photo90ref!))
             self.userLoginButton.setTitle(user.login,
@@ -21,10 +25,13 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
       }
    }
    
+   var userItem: UserItem!
+   
    var postId: String! { // maybe postItem
       didSet {
          Post.getItemById(for: postId) { post in
             if post != nil {
+               self.postItem = post
                self.postPhoto?.kf.setImage(with: URL(
                   string: post!.mediaRef700)) // TODO: after release/db drop set .mediaRef270
             }
@@ -32,10 +39,26 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
       }
    }
    
+   var postItem: PostItem!
+   
    // MARK: - @IBOutlets
    // media
-   @IBOutlet weak var userPhoto: RoundedImageView!
-   @IBOutlet weak var postPhoto: UIImageView!
+   @IBOutlet weak var userPhoto: RoundedImageView! {
+      didSet {
+         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(userInfoTapped))
+         userPhoto.isUserInteractionEnabled = true
+         userPhoto.addGestureRecognizer(tapGestureRecognizer)
+      }
+   }
+   
+   @IBOutlet weak var postPhoto: UIImageView! {
+      didSet {
+         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(postInfoTapped))
+         postPhoto.isUserInteractionEnabled = true
+         postPhoto.addGestureRecognizer(tapGestureRecognizer)
+      }
+   }
+   
    // text info
    @IBOutlet weak var userLoginButton: UIButton!
    @IBOutlet weak var desc: ActiveLabel!
@@ -53,6 +76,14 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    }
    
    @IBAction func loginButtonTapped(_ sender: UIButton) {
-      
+      userInfoTapped()
+   }
+   
+   func userInfoTapped() {
+      delegateUserTaps?.userInfoTapped(userItem)
+   }
+   
+   func postInfoTapped() {
+      delegatePostTaps?.postInfoTapped(postItem)
    }
 }

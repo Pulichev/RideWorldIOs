@@ -1840,6 +1840,7 @@
                     <connections>
                         <outlet property="tableView" destination="VrN-lv-5Jr" id="UmA-uM-txp"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromFeedbackList" id="tCn-nV-MKo"/>
+                        <segue destination="WfP-RX-tLc" kind="show" identifier="goToPostInfoFromFeedback" id="nax-92-cwD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nSM-Vi-umy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1930,7 +1931,7 @@
         <segue reference="1Fi-pQ-wyF"/>
         <segue reference="ZpR-8C-QJR"/>
         <segue reference="tCn-nV-MKo"/>
+        <segue reference="nax-92-cwD"/>
         <segue reference="RlL-e4-xY6"/>
-        <segue reference="qSk-1a-lLs"/>
     </inferredMetricsTieBreakers>
 </document>

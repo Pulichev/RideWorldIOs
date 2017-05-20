@@ -116,19 +116,18 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                            self.postsIds = postsIds!
                            
                            for postId in postsIds! {
-                              Post.getItemById(for: postId,
-                                               completion: { postItem in
-                                                if postItem != nil {
-                                                   self.posts[postId] = postItem
-                                                   self.downloadPhotosAsync(post: postItem!)
-                                                   
-                                                   //if all posts loaded
-                                                   if self.posts.count == postsIds?.count {
-                                                      self.userProfileCollection.reloadData()
-                                                      self.removeLoadingScreen()
-                                                   }
-                                                }
-                              })
+                              Post.getItemById(for: postId) { postItem in
+                                 if postItem != nil {
+                                    self.posts[postId] = postItem
+                                    self.downloadPhotosAsync(post: postItem!)
+                                    
+                                    //if all posts loaded
+                                    if self.posts.count == postsIds?.count {
+                                       self.userProfileCollection.reloadData()
+                                       self.removeLoadingScreen()
+                                    }
+                                 }
+                              }
                            }
                         }
       })
@@ -137,17 +136,16 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    private func downloadPhotosAsync(post: PostItem) {
       postsImages[post.key] = UIImageView(image: UIImage(named: "grayRec.jpg"))
       
-      PostMedia.getImageData270x270(for: post,
-                                    completion: { data in
-                                       guard let imageData = UIImage(data: data!) else { return }
-                                       let photoView = UIImageView(image: imageData)
-                                       
-                                       self.postsImages[post.key] = photoView
-                                       
-                                       DispatchQueue.main.async {
-                                          self.userProfileCollection.reloadData()
-                                       }
-      })
+      PostMedia.getImageData270x270(for: post) { data in
+         guard let imageData = UIImage(data: data!) else { return }
+         let photoView = UIImageView(image: imageData)
+         
+         self.postsImages[post.key] = photoView
+         
+         DispatchQueue.main.async {
+            self.userProfileCollection.reloadData()
+         }
+      }
    }
    
    // MARK: - CollectionView part

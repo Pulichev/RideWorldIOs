@@ -28,7 +28,13 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    
    // MARK: - @IBOutlets
    // media
-   @IBOutlet weak var userPhoto: RoundedImageView!
+   @IBOutlet weak var userPhoto: RoundedImageView! {
+      didSet {
+      let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(userInfoTapped))
+         userPhoto.isUserInteractionEnabled = true
+         userPhoto.addGestureRecognizer(tapGestureRecognizer)
+      }
+   }
    // text info
    @IBOutlet weak var loginButton: UIButton!
    @IBOutlet weak var desc: UILabel!
@@ -58,7 +64,11 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    }
    
    @IBAction func loginButtonTapped(_ sender: Any) {
-      delegate?.userInfoTappedFromCell(userItem)
+      userInfoTapped()
+   }
+   
+   func userInfoTapped() {
+      delegate?.userInfoTapped(userItem)
    }
    
    private func swapFollowButtonTittle() {

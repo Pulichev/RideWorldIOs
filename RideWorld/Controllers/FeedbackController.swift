@@ -24,6 +24,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          tableView.tableFooterView = UIView() // deleting empty rows
       }
    }
+   
    var feedbackItems = [FeedbackItem]()
    
    override func viewDidLoad() {

@@ -17,8 +17,12 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
       didSet {
          User.getItemById(for: userId) { user in
             self.userItem = user
-            self.userPhoto?.kf.setImage(with: URL(
-               string: user.photo90ref!))
+            
+            self.userPhoto.image = UIImage(named: "grayRec.jpg") // default picture
+            if let url = user.photo90ref {
+               self.userPhoto?.kf.setImage(with: URL(
+                  string: url))
+            }
             self.userLoginButton.setTitle(user.login,
                                           for: .normal)
          }

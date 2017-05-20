@@ -353,10 +353,9 @@ struct User {
    // MARK: - Feedback part
    static func getFeedbackSnapShotData(for userId: String,
                                        completion: @escaping (_ snapshot: [String: AnyObject]?) -> Void) {
-      let refToUserFeedback = FIRDatabase.database().reference(withPath: "MainDataBase/feedback/"
-         + userId)
+      let refToUserFeedback = FIRDatabase.database().reference(withPath: "MainDataBase/feedback/" + userId)
       
-      refToUserFeedback.observeSingleEvent(of: .value, with: { snapshot in
+      refToUserFeedback.observe(.value, with: { snapshot in
          if let value = snapshot.value as? [String: AnyObject] {
             completion(value)
          }

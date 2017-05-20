@@ -15,8 +15,12 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
       didSet {
          User.getItemById(for: userId) { user in
             self.userItem = user
-            self.userPhoto?.kf.setImage(with: URL(
-               string: user.photo90ref!))
+            
+            self.userPhoto.image = UIImage(named: "grayRec.jpg") // default picture
+            if let url = user.photo90ref {
+               self.userPhoto?.kf.setImage(with: URL(string: url))
+            }
+            
             self.loginButton.setTitle(user.login,
                                       for: .normal)
             self.initialiseFollowButton()
@@ -30,11 +34,12 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    // media
    @IBOutlet weak var userPhoto: RoundedImageView! {
       didSet {
-      let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(userInfoTapped))
+         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(userInfoTapped))
          userPhoto.isUserInteractionEnabled = true
          userPhoto.addGestureRecognizer(tapGestureRecognizer)
       }
    }
+   
    // text info
    @IBOutlet weak var loginButton: UIButton!
    @IBOutlet weak var desc: UILabel!

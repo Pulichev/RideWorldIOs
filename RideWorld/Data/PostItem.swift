@@ -18,10 +18,12 @@ struct PostItem {
    let createdDate: String
    
    // media
-   var mediaRef10 = ""
-   var mediaRef270 = ""
-   var mediaRef700 = ""
-   var videoRef = ""
+   var mediaRef10: String!
+   var mediaRef70: String!
+   var mediaRef200: String!
+   var mediaRef270: String!
+   var mediaRef700: String!
+   var videoRef: String!
    
    var commentsCount: Int! = 0
    
@@ -52,12 +54,12 @@ struct PostItem {
       description = snapshotValue["description"] as! String
       createdDate = snapshotValue["createdDate"] as! String
       
-      if isPhoto {
-         mediaRef10 = snapshotValue["mediaRef10"] as! String
-         mediaRef700 = snapshotValue["mediaRef700"] as! String
-      } else {
-         mediaRef10 = snapshotValue["mediaRef10"] as! String
-         mediaRef270 = snapshotValue["mediaRef270"] as! String
+      mediaRef10 = snapshotValue["mediaRef10"] as! String
+      mediaRef70 = snapshotValue["mediaRef70"] as! String
+      mediaRef200 = snapshotValue["mediaRef200"] as! String
+      mediaRef700 = snapshotValue["mediaRef700"] as! String
+      
+      if !isPhoto {
          videoRef = snapshotValue["videoRef"] as! String
       }
       
@@ -76,20 +78,25 @@ struct PostItem {
    }
    
    func toAnyObject() -> Any {
-      return [
-         "isPhoto": isPhoto,
-         "description": description,
-         "createdDate": createdDate,
-         
-         "mediaRef10": mediaRef10,
-         "mediaRef270": mediaRef270,
-         "mediaRef700": mediaRef700,
-         "videoRef": videoRef,
-         
-         "spotId": spotId,
-         
-         "addedByUser": addedByUser,
-         "key": key
-      ]
+      var valuesArray = [String: Any]()
+      
+      valuesArray["isPhoto"] = isPhoto
+      valuesArray["description"] = description
+      valuesArray["createdDate"] = createdDate
+      
+      valuesArray["mediaRef10"] = mediaRef10
+      valuesArray["mediaRef70"] = mediaRef70
+      valuesArray["mediaRef270"] = mediaRef270
+      valuesArray["mediaRef700"] = mediaRef700
+      
+      if !isPhoto {
+         valuesArray["videoRef"] = videoRef
+      }
+      
+      valuesArray["spotId"] = spotId
+      valuesArray["addedByUser"] = addedByUser
+      valuesArray["key"] = key
+      
+      return valuesArray
    }
 }

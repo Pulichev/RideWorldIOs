@@ -32,6 +32,7 @@ struct Like {
          "/spotpost/" + post.key + "/likes/" + userId: nil
       ]
       
+      // deleting from feedback node
       getLikeFromUser(id: userId, postId: post.key,
                       completion: { like in
                         if like.key != nil {

@@ -21,15 +21,12 @@ class FeedbackItem {
             let value = feedItemsSnapshot![key] as? [String: Any]
             var feedBackItem: FeedbackItem!
             // what type of feedbacK?
-            if value == nil { // this is not [string: any], so it is follower
-               feedBackItem = FollowerFBItem(userId: key, dateTime: feedItemsSnapshot![key] as! String)
-            } else {
-               if value!["commentary"] != nil { // comment
-                  feedBackItem = CommentFBItem(snapshot: value!)
-               }
-               if value!["likePlacedTime"] != nil { // like
-                  feedBackItem = LikeFBItem(snapshot: value!)
-               }
+            if value!["commentary"] != nil { // comment
+               feedBackItem = CommentFBItem(snapshot: value!)
+            } else if value!["likePlacedTime"] != nil { // like
+               feedBackItem = LikeFBItem(snapshot: value!)
+            } else { // follow
+               feedBackItem = FollowerFBItem(snapshot: value!)
             }
             
             feedbackItems.append(feedBackItem)

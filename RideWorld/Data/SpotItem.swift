@@ -8,7 +8,7 @@
 
 import FirebaseDatabase
 
-struct SpotDetailsItem {
+struct SpotItem {
    
    let key: String
    
@@ -16,6 +16,8 @@ struct SpotDetailsItem {
    let description: String
    let latitude: Double
    let longitude: Double
+   
+   var mainPhotoRef: String!
    
    let addedByUser: String
    

@@ -53,30 +53,34 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    @IBAction func saveSpotDetails(_ sender: Any) {
       showSavingProgress()
       
+      let currUserId = User.getCurrentUserId()
       let newSpotKey = Spot.getNewSpotRefKey()
+      let newSpot = SpotItem(name: self.spotTitle.text!,
+                             description: self.spotDescription.text!,
+                             latitude: self.spotLatitude, longitude: self.spotLongitude,
+                             addedByUser: currUserId, key: newSpotKey)
       
       // something like transaction. Start saving new
       // spot info only after media has beed uploaded
-      SpotMedia.upload(imageView.image!, for: newSpotKey, with: 270.0,
-                       completion: { isSuccessfully in
-                        if isSuccessfully {
-                           Spot.create(with: self.spotTitle.text!,
-                                       self.spotDescription.text!,
-                                       self.spotLatitude,
-                                       self.spotLongitude,
-                                       newSpotKey,
-                                       completion: { hasAddedSpotSuccessfully in
-                                          if hasAddedSpotSuccessfully {
-                                             //saving image to camera roll
-                                             UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
-                                             self.goBackToPosts()
-                                          } else {
-                                             self.errorHappened()
-                                          }
-                           })
-                        } else {
-                           self.errorHappened()
-                        }
+      SpotMedia.upload(imageView.image!, for: newSpot, with: 150.0)
+      { (isSuccessfully, url) in
+         if isSuccessfully {
+            Spot.create(with: self.spotTitle.text!,
+                        self.spotDescription.text!,
+                        self.spotLatitude,
+                        self.spotLongitude,
+                        newSpotKey) { hasAddedSpotSuccessfully in
+                           if hasAddedSpotSuccessfully {
+                              //saving image to camera roll
+                              UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
+                              self.goBackToPosts()
+                           } else {
+                              self.errorHappened()
+                           }
+            }
+         } else {
+            self.errorHappened()
+         }
       })
    }
    

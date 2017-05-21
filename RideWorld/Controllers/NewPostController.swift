@@ -79,6 +79,16 @@ class NewPostController: UIViewController, UITextViewDelegate {
       }
    }
    
+   private func createNewPostItem() -> PostItem {
+      let currentUser = User.getCurrentUser()
+      let createdDate = String(describing: Date())
+      let newPostId = Post.getNewPostId()
+      let postItem = PostItem(isNewMediaIsPhoto, postDescription.text, createdDate,
+                              spotDetailsItem.key, currentUser.uid,
+                              newPostId)
+      return postItem
+   }
+   
    private func uploadPhoto(for postItem: PostItem) {
       PostMedia.uploadPhotoForPost(
          photoView.image!,
@@ -115,16 +125,6 @@ class NewPostController: UIViewController, UITextViewDelegate {
                self.errorHappened()
             }
       }
-   }
-   
-   private func createNewPostItem() -> PostItem {
-      let currentUser = User.getCurrentUser()
-      let createdDate = String(describing: Date())
-      let newPostId = Post.getNewPostId()
-      let postItem = PostItem(isNewMediaIsPhoto, postDescription.text, createdDate,
-                              spotDetailsItem.key, currentUser.uid,
-                              newPostId)
-      return postItem
    }
    
    private func showSavingProgress() {

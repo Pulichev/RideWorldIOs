@@ -12,32 +12,20 @@ struct SpotMedia {
    static let refToSpotMainPhotoURLs = FIRStorage.storage().reference(withPath: "media/spotMainPhotoURLs")
    static let refToSpotInfoPhotos = FIRStorage.storage().reference(withPath: "media/spotInfoPhotos")
    
-   static func upload(_ photo: UIImage, for spotId: String, with sizePx: Double,
-                      completion: @escaping (_ hasFinished: Bool) -> Void) {
+   static func upload(_ photo: UIImage, for spotItem: SpotItem,
+                      with sizePx: Double,
+                      completion: @escaping (_ hasFinished: Bool, _ spot: SpotItem?) -> Void) {
+      var spot = spotItem
       let resizedPhoto = Image.resize(photo, targetSize: CGSize(width: sizePx, height: sizePx))
-      let refToNewSpotPhoto = refToSpotMainPhotoURLs.child(spotId + ".jpeg")
-      //saving original image with low compression
+      let refToNewSpotPhoto = refToSpotMainPhotoURLs.child(spot.key + ".jpeg")
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
-      refToNewSpotPhoto.put(dataLowCompression, metadata: nil,
-                            completion: {(_ , error) in
-                              if error == nil {
-                                 completion(true)
-                              } else {
-                                 completion(false)
-                              }
-      })
-   }
-   
-   static func getImageURL(for spotId: String,
-                           completion: @escaping (_ imageURL: URL?) -> Void) {
-      let imageURL = refToSpotMainPhotoURLs.child(spotId + ".jpeg")
       
-      imageURL.downloadURL { (URL, error) in
-         if let error = error {
-            print("\(error)")
-            completion(nil)
+      refToNewSpotPhoto.put(dataLowCompression, metadata: nil) { (meta , error) in
+         if error == nil {
+            spot.mainPhotoRef = (meta?.downloadURL()?.absoluteString)!
+            completion(true, spot)
          } else {
-            completion(URL!)
+            completion(false, nil)
          }
       }
    }
@@ -47,18 +35,18 @@ struct SpotMedia {
       let resizedPhoto = Image.resize(photo, targetSize: CGSize(width: sizePx, height: sizePx))
       let refToNewPhoto = refToSpotInfoPhotos.child(spotId).child(String(describing: Date()) + ".jpeg")
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
-      refToNewPhoto.put(dataLowCompression, metadata: nil,
-                        completion: { (metadata , error) in
-                           if error == nil {
-                              let url = (metadata?.downloadURL()?.absoluteString)!
-                              Spot.addNewPhotoURL(for: spotId, url) { hasFinished in
-                                 if hasFinished {
-                                    completion(url)
-                                 }
-                              }
-                           } else {
-                              completion(nil)
-                           }
-      })
+      
+      refToNewPhoto.put(dataLowCompression, metadata: nil) { (metadata , error) in
+         if error == nil {
+            let url = (metadata?.downloadURL()?.absoluteString)!
+            Spot.addNewPhotoURL(for: spotId, url) { hasFinished in
+               if hasFinished {
+                  completion(url)
+               }
+            }
+         } else {
+            completion(nil)
+         }
+      }
    }
 }

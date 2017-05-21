@@ -79,37 +79,43 @@ struct PostMedia {
       var post = postForUpdate // we will insert refs to media to this object
       UIImageWriteToSavedPhotosAlbum(image, nil, nil , nil) //saving image to camera roll
       
-      upload(image, for: post, withSize: 700.0,
-             completion: { (hasFinishedSuccessfully, url) in
+      upload(image, for: post, withSize: 700.0) { (hasFinishedSuccessfully, url) in
+         
+         if hasFinishedSuccessfully {
+            post.mediaRef700 = url
+            
+            upload(image, for: post, withSize: 200.0) { (hasFinishedSuccessfully, url) in
                
                if hasFinishedSuccessfully {
-                  post.mediaRef700 = url
+                  post.mediaRef200 = url
                   
-                  upload(image, for: post, withSize: 270.0,
-                         completion: { (hasFinishedSuccessfully, url) in
+                  upload(image, for: post, withSize: 70.0) { (hasFinishedSuccessfully, url) in
+                     
+                     if hasFinishedSuccessfully {
+                        post.mediaRef70 = url
+                        
+                        upload(image, for: post, withSize: 10.0) { (hasFinishedSuccessfully, url) in
                            
                            if hasFinishedSuccessfully {
-                              post.mediaRef270 = url
+                              post.mediaRef10 = url
                               
-                              upload(image, for: post, withSize: 10.0,
-                                     completion: { (hasFinishedSuccessfully, url) in
-                                       
-                                       if hasFinishedSuccessfully {
-                                          post.mediaRef10 = url
-                                          
-                                          completion(true, post)
-                                       } else {
-                                          completion(false, nil)
-                                       }
-                              })
+                              completion(true, post)
                            } else {
                               completion(false, nil)
                            }
-                  })
+                        }
+                     } else {
+                        completion(false, nil)
+                     }
+                  }
                } else {
                   completion(false, nil)
                }
-      })
+            }
+         } else {
+            completion(false, nil)
+         }
+      }
    }
    
    static func upload(with video: URL, for post: PostItem,
@@ -119,14 +125,13 @@ struct PostMedia {
          
          let data = try Data(contentsOf: video, options: .mappedIfSafe)
          
-         postVideoRef.put(data, metadata: nil,
-                          completion: { (meta, error) in
-                           if error == nil {
-                              completion(true, (meta?.downloadURL()?.absoluteString)!)
-                           } else {
-                              completion(false, "")
-                           }
-         })
+         postVideoRef.put(data, metadata: nil) { (meta, error) in
+            if error == nil {
+               completion(true, (meta?.downloadURL()?.absoluteString)!)
+            } else {
+               completion(false, "")
+            }
+         }
       } catch {
          print(error)
          completion(false, "")

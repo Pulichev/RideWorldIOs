@@ -65,7 +65,7 @@ UITableViewDelegate {
    }
    
    func addPostDescAsComment() {
-      let descAsComment = CommentItem(userId!, post.key, postDescription!, postDate, "")
+      let descAsComment = CommentItem(userId!, post.key, post.addedByUser, postDescription!, postDate, "")
       comments.append(descAsComment)
    }
    

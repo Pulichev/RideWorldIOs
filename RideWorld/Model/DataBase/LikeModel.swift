@@ -14,8 +14,8 @@ struct Like {
    static func add(_ newLike: LikeItem) {
       // add like id for user feedback implementation
       var like = newLike
-      let likeKey = ref.child("/users/" + newLike.userId + "/likePlaced/onposts/" + newLike.postId).childByAutoId()
-      like.key = likeKey.key
+      let likeRef = ref.child("/users/" + newLike.userId + "/likePlaced/onposts/" + newLike.postId).childByAutoId()
+      like.key = likeRef.key
       
       let updates: [String: Any?] = [
          "/users/" + like.userId + "/likePlaced/onposts/" + like.postId: like.toAnyObject(),

@@ -16,13 +16,13 @@ struct LikeItem {
    let postAddedByUserId: String // who posted
    let likePlacedTime: String
    
-   let feedbackKey: String
+   var feedbackKey: String
    
    let ref: FIRDatabaseReference?
    
    init(who userId: String, what postId: String,
         postWasAddedBy userIdAddedBy: String,
-        at likePlacedTime: String, _ feedbackKey: String, key: String) {
+        at likePlacedTime: String, _ feedbackKey: String = "", key: String = "") {
       self.key = key
       
       self.userId = userId

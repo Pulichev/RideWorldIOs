@@ -38,24 +38,22 @@ struct Comment {
       
       let currentUserId = User.getCurrentUserId()
       let currentDateTime = String(describing: Date())
-      let newComment = CommentItem(currentUserId, post.key, text!, currentDateTime, refForNewCommentKey)
+      let newComment = CommentItem(currentUserId, post.key, post.addedByUser,  text!, currentDateTime, refForNewCommentKey)
       
-      getAllMentionedUsersIds(from: text!,
-                              completion: { mentionedUserIds in
-                                 var userIds = mentionedUserIds
-                                 userIds.append(post.addedByUser) // adding post author
-                                 
-                                 var updates: [String: Any?] = ["/spotpost/" + post.key + "/comments/" + refForNewCommentKey: newComment.toAnyObject()]
-                                 
-                                 for userId in userIds {
-                                    updates.updateValue(newComment.toAnyObject(), forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
-                                 }
-                                 
-                                 ref.updateChildValues(updates,
-                                                       withCompletionBlock: { (error, _) in
-                                                            completion(newComment)
-                                 })
-      })
+      getAllMentionedUsersIds(from: text!) { mentionedUserIds in
+         var userIds = mentionedUserIds
+         userIds.append(post.addedByUser) // adding post author
+         
+         var updates: [String: Any?] = ["/spotpost/" + post.key + "/comments/" + refForNewCommentKey: newComment.toAnyObject()]
+         
+         for userId in userIds {
+            updates.updateValue(newComment.toAnyObject(), forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
+         }
+         
+         ref.updateChildValues(updates) { (error, _) in
+            completion(newComment)
+         }
+      }
    }
    
    static private func getAllMentionedUsersIds(from text: String,

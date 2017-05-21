@@ -15,29 +15,24 @@ struct Spot {
       return refToSpotNode.childByAutoId().key
    }
    
-   static func create(with name: String, _ description: String,
-                      _ latitude: Double, _ longitude: Double, _ newSpotRefKey: String,
+   static func create(spot: SpotItem,
                       completion: @escaping (_ hasFinished: Bool) -> Void) {
-      let newSpotRef = refToSpotNode.child(newSpotRefKey)
       
-      let newSpotDetailsItem = SpotDetailsItem(name: name, description: description,
-                                               latitude: latitude, longitude: longitude,
-                                               addedByUser: User.getCurrentUserId(), key: newSpotRefKey)
-      newSpotRef.setValue(newSpotDetailsItem.toAnyObject(), withCompletionBlock: { (error, _) in
+      newSpotRef.setValue(spot.toAnyObject()) { (error, _) in
          if error == nil {
             completion(true)
          } else {
             completion(false)
          }
-      })
+      }
    }
    
-   static func getAll(completion: @escaping (_ spots: [SpotDetailsItem]) -> Void) {
+   static func getAll(completion: @escaping (_ spots: [SpotItem]) -> Void) {
       refToSpotNode.observe(.value, with: { snapshot in
-         var spotsList: [SpotDetailsItem] = []
+         var spotsList: [SpotItem] = []
          
          for item in snapshot.children {
-            let spotDetailsItem = SpotDetailsItem(snapshot: item as! FIRDataSnapshot)
+            let spotDetailsItem = SpotItem(snapshot: item as! FIRDataSnapshot)
             spotsList.append(spotDetailsItem)
          }
          
@@ -131,11 +126,11 @@ struct Spot {
                               completion: @escaping (_ hasFinishedWithNoError: Bool) -> Void) {
       let refToNewPhoto = refToSpotNode.child(spotId).child("photos").childByAutoId()
       
-      refToNewPhoto.setValue(url, withCompletionBlock: { (error, _) in
+      refToNewPhoto.setValue(url) { (error, _) in
          if error == nil {
             completion(true)
          }
-      })
+      }
    }
    
    static func getAllPhotosURLs(for spotId: String,

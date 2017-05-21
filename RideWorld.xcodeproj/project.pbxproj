@@ -21,7 +21,7 @@
 		9F2BFEEC1E9105D3005FEF0C /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */; };
 		9F2D4C971EAD21E100235451 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2D4C951EAD21E100235451 /* delete.png */; };
 		9F2D4C981EAD21E100235451 /* reply.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2D4C961EAD21E100235451 /* reply.png */; };
-		9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */; };
+		9F49EB301E688718007ADAD1 /* SpotItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F49EB2F1E688718007ADAD1 /* SpotItem.swift */; };
 		9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */; };
 		9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */; };
 		9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */; };
@@ -124,7 +124,7 @@
 		9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = CustomUIElements/CommentCell.swift; sourceTree = "<group>"; };
 		9F2D4C951EAD21E100235451 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = Pictures/delete.png; sourceTree = "<group>"; };
 		9F2D4C961EAD21E100235451 /* reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = reply.png; path = Pictures/reply.png; sourceTree = "<group>"; };
-		9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotDetailsItem.swift; path = Data/SpotDetailsItem.swift; sourceTree = "<group>"; };
+		9F49EB2F1E688718007ADAD1 /* SpotItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotItem.swift; path = Data/SpotItem.swift; sourceTree = "<group>"; };
 		9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlus.png; path = Pictures/ButtonPlus.png; sourceTree = "<group>"; };
 		9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonLogout.png; path = Pictures/ButtonLogout.png; sourceTree = "<group>"; };
 		9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileController.swift; path = Controllers/EditProfileController.swift; sourceTree = "<group>"; };
@@ -250,7 +250,7 @@
 			children = (
 				9FE3B7181EC628A700E7ED40 /* Feedback Items */,
 				9F5609801E7C6A630000DB21 /* PostItem.swift */,
-				9F49EB2F1E688718007ADAD1 /* SpotDetailsItem.swift */,
+				9F49EB2F1E688718007ADAD1 /* SpotItem.swift */,
 				9F943EE81E6F041300709B79 /* LikeItem.swift */,
 				9F73B09D1E6A0E490049563A /* UserItem.swift */,
 				9F2979011E903BDC0051EF5F /* CommentItem.swift */,
@@ -814,7 +814,7 @@
 				9FFB14F61E7848F600D10620 /* FollowersController.swift in Sources */,
 				9FE3B71A1EC6290B00E7ED40 /* FeedbackItem.swift in Sources */,
 				9FE3B7101EC22A2800E7ED40 /* String.swift in Sources */,
-				9F49EB301E688718007ADAD1 /* SpotDetailsItem.swift in Sources */,
+				9F49EB301E688718007ADAD1 /* SpotItem.swift in Sources */,
 				9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */,
 				9FAE8C201E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m in Sources */,
 				9F2BFEEC1E9105D3005FEF0C /* CommentCell.swift in Sources */,

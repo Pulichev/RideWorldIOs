@@ -21,7 +21,6 @@ struct PostItem {
    var mediaRef10: String!
    var mediaRef70: String!
    var mediaRef200: String!
-   var mediaRef270: String!
    var mediaRef700: String!
    var videoRef: String!
    
@@ -86,7 +85,7 @@ struct PostItem {
       
       valuesArray["mediaRef10"] = mediaRef10
       valuesArray["mediaRef70"] = mediaRef70
-      valuesArray["mediaRef270"] = mediaRef270
+      valuesArray["mediaRef200"] = mediaRef200
       valuesArray["mediaRef700"] = mediaRef700
       
       if !isPhoto {

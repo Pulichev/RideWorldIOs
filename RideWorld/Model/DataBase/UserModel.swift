@@ -226,7 +226,7 @@ struct User {
    
    static func addFollowing(to userId: String) {
       let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId()).child("following").child(userId)
-      
+
       refToCurrentUser.setValue(true)
    }
    
@@ -238,10 +238,11 @@ struct User {
    
    static func addFollower(to userId: String) {
       let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
+      let keyToFeedbackNode = ref.child("feedback").child(userId).childByAutoId().key
       
       let updates: [String: Any?] = [
-         "/users/" + userId + "/followers/" + getCurrentUserId() : true,
-         "/feedback/" + userId + "/" + getCurrentUserId(): String(describing: Date())
+         "/users/" + userId + "/followers/" + getCurrentUserId() : keyToFeedbackNode,
+         "/feedback/" + userId + "/" + keyToFeedbackNode : [getCurrentUserId() : String(describing: Date())]
       ]
       
       ref.updateChildValues(updates)
@@ -250,13 +251,26 @@ struct User {
    static func removeFollower(from userId: String) {
       let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
       
-      let updates: [String: Any?] = [
-         "/users/" + userId + "/followers/" + getCurrentUserId() : nil,
-         "/feedback/" + userId + "/" + getCurrentUserId(): nil
-      ]
+      getFeedbackKey(for: userId) { fbKey in
+         let updates: [String: Any?] = [
+            "/users/" + userId + "/followers/" + getCurrentUserId() : nil,
+            "/feedback/" + userId + "/" + fbKey: nil
+         ]
+         
+         ref.updateChildValues(updates)
+      }
+   }
+   
+   // get feedback key from user, from which we have unsubscribed
+   static func getFeedbackKey(for followedUserId: String,
+                              completion: @escaping (_ fbId: String) -> Void) {
+      let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
+         .child("/users/" + followedUserId + "/followers/" + getCurrentUserId())
       
-      ref.updateChildValues(updates)
-      
+      ref.observeSingleEvent(of: .value, with: { snapshot in
+         let fbKey = snapshot.value as! String
+         completion(fbKey)
+      })
    }
    
    // MARK: - Get user strip posts part

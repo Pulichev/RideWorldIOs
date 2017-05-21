@@ -30,30 +30,32 @@ struct SpotDetailsItem {
       self.longitude = longitude
       
       self.addedByUser = addedByUser
+      
       self.ref = nil
    }
    
    init(snapshot: FIRDataSnapshot) {
-      key = snapshot.key
-      
       let snapshotValue = snapshot.value as! [String: AnyObject]
+      key = snapshotValue["key"] as! String
+      
       name = snapshotValue["name"] as! String
       description = snapshotValue["description"] as! String
       latitude = snapshotValue["latitude"] as! Double
       longitude = snapshotValue["longitude"] as! Double
-      
       addedByUser = snapshotValue["addedByUser"] as! String
+      
       ref = snapshot.ref
    }
    
    func toAnyObject() -> Any {
       return [
+         "key": key,
+         
          "name": name,
          "description": description,
          "latitude": latitude,
          "longitude": longitude,
          "addedByUser": addedByUser,
-         "key": key
       ]
    }
    

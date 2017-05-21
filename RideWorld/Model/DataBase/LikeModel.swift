@@ -20,7 +20,7 @@ struct Like {
       let updates: [String: Any?] = [
          "/users/" + like.userId + "/likePlaced/onposts/" + like.postId: like.toAnyObject(),
          "/spotpost/" + like.postId + "/likes/" + like.userId: like.toAnyObject(),
-         "/feedback/" + like.postAddedByUserId! + "/" + like.key!: like.toAnyObject()
+         "/feedback/" + like.postAddedByUserId + "/" + like.key: like.toAnyObject()
       ]
       
       ref.updateChildValues(updates)
@@ -33,14 +33,11 @@ struct Like {
       ]
       
       // deleting from feedback node
-      getLikeFromUser(id: userId, postId: post.key,
-                      completion: { like in
-                        if like.key != nil {
-                           updates.updateValue(nil, forKey: "/feedback/" + like.postAddedByUserId! + "/" + like.key!)
-                        }
-                        
-                        ref.updateChildValues(updates)
-      })
+      getLikeFromUser(id: userId, postId: post.key) { like in
+         updates.updateValue(nil, forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
+         
+         ref.updateChildValues(updates)
+      }
    }
    
    static func getLikeFromUser(id: String, postId: String,

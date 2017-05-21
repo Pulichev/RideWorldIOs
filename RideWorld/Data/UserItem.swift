@@ -41,9 +41,9 @@ struct UserItem {
    }
    
    init(snapshot: FIRDataSnapshot) {
-      uid = snapshot.key
-      
       let snapshotValue = snapshot.value as! [String: AnyObject]
+      uid = snapshotValue["uid"] as! String
+      
       email = snapshotValue["email"] as! String
       login = snapshotValue["login"] as! String
       bioDescription = snapshotValue["bioDescription"] as? String
@@ -59,11 +59,13 @@ struct UserItem {
    func toAnyObject() -> Any {
       return [
          "uid": uid,
+         
          "email": email,
          "login": login,
          "bioDescription": bioDescription,
          "nameAndSename": nameAndSename,
          "createdDate": createdDate,
+         
          "photo150ref": photo150ref,
          "photo90ref": photo90ref
       ]

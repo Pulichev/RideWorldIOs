@@ -12,7 +12,7 @@ import Fusuma
 import SVProgressHUD
 
 class NewPostController: UIViewController, UITextViewDelegate {
-   var spotDetailsItem: SpotDetailsItem!
+   var spotDetailsItem: SpotItem!
    
    @IBOutlet weak var postDescription: UITextView! {
       didSet {

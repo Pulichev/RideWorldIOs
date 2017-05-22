@@ -12,7 +12,7 @@ import Fusuma
 import SVProgressHUD
 
 class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-   var spotInfo: SpotDetailsItem!
+   var spotInfo: SpotItem!
    var user: UserItem!
    
    @IBOutlet weak var photosCollection: UICollectionView!

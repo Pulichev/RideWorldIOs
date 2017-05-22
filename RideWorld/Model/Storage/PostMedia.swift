@@ -143,42 +143,56 @@ struct PostMedia {
                                   completion: @escaping (_ hasFinished: Bool, _ postWithRefs: PostItem?) -> Void) {
       var post = postForUpdate // we will insert refs to media to this object
       // upload screenshots
-      upload(screenShot, for: post, withSize: 270.0,
-             completion: { (hasFinishedSuccessfully, url) in
+      upload(screenShot, for: post, withSize: 700.0)
+      { (hasFinishedSuccessfully, url) in
+         
+         if hasFinishedSuccessfully {
+            post.mediaRef700 = url
+            
+            upload(screenShot, for: post, withSize: 200.0)
+            { (hasFinishedSuccessfully, url) in
                
                if hasFinishedSuccessfully {
-                  post.mediaRef270 = url
+                  post.mediaRef200 = url
                   
-                  upload(screenShot, for: post, withSize: 10.0,
-                         completion: { (hasFinishedSuccessfully, url) in
+                  upload(screenShot, for: post, withSize: 70.0)
+                  { (hasFinishedSuccessfully, url) in
+                     
+                     if hasFinishedSuccessfully {
+                        post.mediaRef70 = url
+                        
+                        upload(screenShot, for: post, withSize: 10.0)
+                        { (hasFinishedSuccessfully, url) in
                            
                            if hasFinishedSuccessfully {
                               post.mediaRef10 = url
                               
                               // upload video
-                              upload(with: videoURL, for: post,
-                                     completion: { (hasFinishedSuccessfully, url) in
-                                       
-                                       if hasFinishedSuccessfully {
-                                          post.videoRef = url
-                                          
-                                          let path = videoURL.path
-                                          
-                                          if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
-                                             UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
-                                          }
-                                          completion(true, post)
-                                       } else {
-                                          completion(false, nil)
-                                       }
-                              })
-                           } else {
-                              completion(false, nil)
+                              upload(with: videoURL, for: post)
+                              { (hasFinishedSuccessfully, url) in
+                                 
+                                 if hasFinishedSuccessfully {
+                                    post.videoRef = url
+                                    
+                                    let path = videoURL.path
+                                    
+                                    if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
+                                       UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
+                                    }
+                                    completion(true, post)
+                                 } else {
+                                    completion(false, nil)
+                                 }
+                              }
                            }
-                  })
-               } else {
-                  completion(false, nil)
+                        }
+                     }
+                  }
                }
-      })
+            }
+         }
+      }
+      
+      completion(false, nil)
    }
 }

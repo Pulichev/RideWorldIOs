@@ -46,6 +46,8 @@ struct SpotItem {
       longitude = snapshotValue["longitude"] as! Double
       addedByUser = snapshotValue["addedByUser"] as! String
       
+      mainPhotoRef = snapshotValue["mainPhotoRef"] as! String
+      
       ref = snapshot.ref
    }
    
@@ -58,6 +60,8 @@ struct SpotItem {
          "latitude": latitude,
          "longitude": longitude,
          "addedByUser": addedByUser,
+         
+         "mainPhotoRef": mainPhotoRef
       ]
    }
    

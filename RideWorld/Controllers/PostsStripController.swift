@@ -36,7 +36,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
    
-   var spotDetailsItem: SpotDetailsItem! // using it if come from spot
+   var spotDetailsItem: SpotItem! // using it if come from spot
    
    private var posts = [PostItem]()
    private var postItemCellsCache = [PostItemCellCache]()
@@ -349,7 +349,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       // thumbnail!
       let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
       let processor = BlurImageProcessor(blurRadius: 0.1)
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10), placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10),
+                                   placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
       imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
       
       cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
@@ -361,7 +362,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       // thumbnail!
       let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
       let processor = BlurImageProcessor(blurRadius: 0.1)
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef270), placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef200),
+                                   placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
       imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
       
       cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)

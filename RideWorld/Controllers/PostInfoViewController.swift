@@ -193,7 +193,8 @@ class PostInfoViewController: UIViewController {
       let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
       let processor = BlurImageProcessor(blurRadius: 0.1)
       
-      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef10), placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
+      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef10),
+                                   placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
       imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
       
       self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
@@ -205,7 +206,8 @@ class PostInfoViewController: UIViewController {
       let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
       let processor = BlurImageProcessor(blurRadius: 0.1)
       
-      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef270), placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
+      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef200),
+                                   placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
       imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
       
       self.spotPostMedia.layer.addSublayer(imageViewForView.layer)

@@ -60,7 +60,7 @@ struct Post {
       
       let updates = [
          "/spotpost/" + postItem.key: postItem.toAnyObject(),
-         "/spotdetails/" + postItem.spotId + "/posts/" + postItem.key: true,
+         "/spots/" + postItem.spotId + "/posts/" + postItem.key: true,
          "/users/" + postItem.addedByUser + "/posts/" + postItem.key: true
       ]
       
@@ -82,7 +82,7 @@ struct Post {
       
       let updates: [String: Any?] = [
          "/spotpost/" + postItem.key: nil,
-         "/spotdetails/" + postItem.spotId + "/posts/" + postItem.key: nil,
+         "/spots/" + postItem.spotId + "/posts/" + postItem.key: nil,
          "/users/" + postItem.addedByUser + "/posts/" + postItem.key: nil
       ]
       

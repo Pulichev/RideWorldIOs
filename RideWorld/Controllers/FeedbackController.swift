@@ -160,9 +160,11 @@ extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    
    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
       if haveWeFinishedLoading {
-         return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+         return Image.resize(UIImage(named: "no_photo.png")!,
+                             targetSize: CGSize(width: 300.0, height: 300.0))
       } else {
-         return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
+         return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!,
+                             targetSize: CGSize(width: 300.0, height: 300.0))
       }
    }
 }

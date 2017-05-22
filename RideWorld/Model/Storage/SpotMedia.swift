@@ -12,20 +12,18 @@ struct SpotMedia {
    static let refToSpotMainPhotoURLs = FIRStorage.storage().reference(withPath: "media/spotMainPhotoURLs")
    static let refToSpotInfoPhotos = FIRStorage.storage().reference(withPath: "media/spotInfoPhotos")
    
-   static func upload(_ photo: UIImage, for spotItem: SpotItem,
+   static func upload(_ photo: UIImage, for spotId: String,
                       with sizePx: Double,
-                      completion: @escaping (_ hasFinished: Bool, _ spot: SpotItem?) -> Void) {
-      var spot = spotItem
+                      completion: @escaping (_ hasFinished: Bool, _ spot: String) -> Void) {
       let resizedPhoto = Image.resize(photo, targetSize: CGSize(width: sizePx, height: sizePx))
-      let refToNewSpotPhoto = refToSpotMainPhotoURLs.child(spot.key + ".jpeg")
+      let refToNewSpotPhoto = refToSpotMainPhotoURLs.child(spotId + ".jpeg")
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
       
       refToNewSpotPhoto.put(dataLowCompression, metadata: nil) { (meta , error) in
          if error == nil {
-            spot.mainPhotoRef = (meta?.downloadURL()?.absoluteString)!
-            completion(true, spot)
+            completion(true, (meta?.downloadURL()?.absoluteString)!)
          } else {
-            completion(false, nil)
+            completion(false, "")
          }
       }
    }

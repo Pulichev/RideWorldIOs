@@ -9,9 +9,9 @@ import CoreLocation
 
 class MainFormController: UIViewController {
    
-   var spotsFromDB = [SpotDetailsItem]()
+   var spotsFromDB = [SpotItem]()
    
-   var spotDetailsForSendToPostsStripController: SpotDetailsItem!
+   var spotDetailsForSendToPostsStripController: SpotItem!
    
    @IBOutlet weak var mapView: MKMapView!
    
@@ -51,10 +51,10 @@ class MainFormController: UIViewController {
    }
    
    func loadSpotsOnMap() {
-      Spot.getAll(completion: { spotsList in
+      Spot.getAll() { spotsList in
          self.spotsFromDB = spotsList
          self.addPinsOnMap()
-      })
+      }
    }
    
    func addPinsOnMap() {
@@ -63,7 +63,7 @@ class MainFormController: UIViewController {
          pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
          pin.title = spot.name
          pin.subtitle = spot.description
-         pin.spotDetailsItem = spot
+         pin.spotItem = spot
          
          mapView.addAnnotation(pin)
       }
@@ -89,7 +89,8 @@ class MainFormController: UIViewController {
       let altitude: CLLocationDistance  = 500
       let heading: CLLocationDirection = 90
       let pitch = CGFloat(45)
-      let camera = MKMapCamera(lookingAtCenter: location, fromDistance: altitude, pitch: pitch, heading: heading)
+      let camera = MKMapCamera(lookingAtCenter: location,
+                               fromDistance: altitude, pitch: pitch, heading: heading)
       
       mapView.setCamera(camera, animated: true)
    }
@@ -135,9 +136,9 @@ extension MainFormController: MKMapViewDelegate {
    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
       if !(view.annotation! is MKUserLocation) {
          let customPin = view.annotation as! CustomPin
-         spotDetailsForSendToPostsStripController = customPin.spotDetailsItem
+         spotDetailsForSendToPostsStripController = customPin.spotItem
          
-         configureDetailView(annotationView: view, spotPin: customPin.spotDetailsItem)
+         configureDetailView(annotationView: view, spotPin: customPin.spotItem)
       }
    }
    
@@ -163,9 +164,9 @@ extension MainFormController: MKMapViewDelegate {
       return annotationView
    }
    
-   func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotDetailsItem) {
+   func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotItem) {
       let pinfoView = PinInfoView()
-      pinfoView.addPhoto(spotId: spotPin.key)
+      pinfoView.addPhoto(spot: spotPin)
       pinfoView.goToInfoButton.addTarget(self, action: #selector(goToInfo), for: .touchDown)
       pinfoView.goToPostsButton.addTarget(self, action: #selector(goToPosts), for: .touchDown)
       

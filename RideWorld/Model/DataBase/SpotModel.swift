@@ -9,16 +9,15 @@
 import FirebaseDatabase
 
 struct Spot {
-   static var refToSpotNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotdetails")
+   static var refToSpotNode = FIRDatabase.database().reference(withPath: "MainDataBase/spots")
    
    static func getNewSpotRefKey() -> String {
       return refToSpotNode.childByAutoId().key
    }
    
-   static func create(spot: SpotItem,
+   static func create(_ spot: SpotItem,
                       completion: @escaping (_ hasFinished: Bool) -> Void) {
-      
-      newSpotRef.setValue(spot.toAnyObject()) { (error, _) in
+      refToSpotNode.child(spot.key).setValue(spot.toAnyObject()) { (error, _) in
          if error == nil {
             completion(true)
          } else {

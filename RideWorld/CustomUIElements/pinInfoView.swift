@@ -44,23 +44,15 @@ class PinInfoView: UIView {
       goToPostsButton.setTitleColor(UIColor.darkGray, for: .normal)
    }
    
-   func addPhoto(spotId: String) {
+   func addPhoto(spot: SpotItem) {
       let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height - 40))
       
-      SpotMedia.getImageURL(for: spotId,
-                            completion: { imageURL in
-                              if imageURL != nil {
-                                 imageView.kf.setImage(with: imageURL!)
-                              } else {
-                                 let image = UIImage(contentsOfFile: "plus-512.gif")
-                                 imageView.image = image
-                              }
-                              
-                              imageView.layer.cornerRadius = imageView.frame.size.height / 10
-                              imageView.layer.masksToBounds = true
-                              imageView.contentMode = UIViewContentMode.scaleAspectFill
-                              
-                              self.addSubview(imageView)
-      })
+      imageView.kf.setImage(with: URL(string: spot.mainPhotoRef))
+      
+      imageView.layer.cornerRadius = imageView.frame.size.height / 10
+      imageView.layer.masksToBounds = true
+      imageView.contentMode = UIViewContentMode.scaleAspectFill
+      
+      self.addSubview(imageView)
    }
 }

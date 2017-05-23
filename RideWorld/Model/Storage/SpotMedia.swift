@@ -17,7 +17,7 @@ struct SpotMedia {
                       completion: @escaping (_ hasFinished: Bool, _ spot: String) -> Void) {
       let resizedPhoto = Image.resize(photo, targetSize: CGSize(width: sizePx, height: sizePx))
       let refToNewSpotPhoto = refToSpotMainPhotoURLs.child(spotId + ".jpeg")
-      let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
+      let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 1.0)!
       
       refToNewSpotPhoto.put(dataLowCompression, metadata: nil) { (meta , error) in
          if error == nil {

@@ -65,15 +65,14 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    }
    
    private func isCurrentUserFollowing() {
-      User.isCurrentUserFollowing(this: ridersInfo.uid,
-                                  completion: { isFollowing in
-                                    if isFollowing {
-                                       self.followButton.setTitle("Following", for: .normal)
-                                    } else {
-                                       self.followButton.setTitle("Follow", for: .normal)
-                                    }
-                                    self.followButton.isEnabled = true
-      })
+      User.isCurrentUserFollowing(this: ridersInfo.uid) { isFollowing in
+         if isFollowing {
+            self.followButton.setTitle("Following", for: .normal)
+         } else {
+            self.followButton.setTitle("Follow", for: .normal)
+         }
+         self.followButton.isEnabled = true
+      }
    }
    
    private func initialiseFollowing() {
@@ -93,58 +92,61 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    func initializeUserPhoto() {
       if ridersProfilePhoto != nil { // if we came not from user edit controller
          if ridersInfo.photo150ref != nil {
-            self.ridersProfilePhoto.kf.setImage(with: URL(string: ridersInfo.photo150ref!)) //Using kf for caching images.
+            self.ridersProfilePhoto.kf.setImage(
+               with: URL(string: ridersInfo.photo150ref!)) //Using kf for caching images.
          }
       }
    }
    
    func initializeUserPostsPhotos() {
-      User.getPostsIds(for: ridersInfo.uid,
-                       completion: { postsIds in
-                        if postsIds != nil {
-                           self.postsIds = postsIds!
-                           
-                           for postId in postsIds! {
-                              Post.getItemById(for: postId,
-                                               completion: { postItem in
-                                                if postItem != nil {
-                                                   self.posts[postId] = postItem
-                                                   self.downloadPhotosAsync(post: postItem!)
-                                                   
-                                                   //if all posts loaded
-                                                   if self.posts.count == postsIds?.count {
-                                                      self.riderProfileCollection.reloadData()
-                                                      self.removeLoadingScreen()
-                                                   }
-                                                }
-                              })
-                           }
-                        }
-      })    }
+      User.getPostsIds(for: ridersInfo.uid) { postsIds in
+         if postsIds != nil {
+            self.postsIds = postsIds!
+            
+            for postId in postsIds! {
+               Post.getItemById(for: postId) { postItem in
+                  if postItem != nil {
+                     self.posts[postId] = postItem
+                     self.downloadPhotosAsync(post: postItem!)
+                     
+                     //if all posts loaded
+                     if self.posts.count == postsIds?.count {
+                        self.riderProfileCollection.reloadData()
+                        self.removeLoadingScreen()
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
    
    private func downloadPhotosAsync(post: PostItem) {
       postsImages[post.key] = UIImageView(image: UIImage(named: "grayRec.jpg"))
       
-      PostMedia.getImageData270x270(for: post,
-                                    completion: { data in
-                                       guard let imageData = UIImage(data: data!) else { return }
-                                       let photoView = UIImageView(image: imageData)
-                                       
-                                       self.postsImages[post.key] = photoView
-                                       
-                                       DispatchQueue.main.async {
-                                          self.riderProfileCollection.reloadData()
-                                       }
-      })
+      PostMedia.getImageData200x200(for: post) { data in
+         guard let imageData = UIImage(data: data!) else { return }
+         let photoView = UIImageView(image: imageData)
+         
+         self.postsImages[post.key] = photoView
+         
+         DispatchQueue.main.async {
+            self.riderProfileCollection.reloadData()
+         }
+      }
    }
    
    // MARK: -  CollectionView part
-   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+   func collectionView(_ collectionView: UICollectionView,
+                       numberOfItemsInSection section: Int) -> Int {
       return postsImages.count
    }
    
-   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath as IndexPath) as! ImageCollectionViewCell
+   func collectionView(_ collectionView: UICollectionView,
+                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+      let cell = collectionView.dequeueReusableCell(
+         withReuseIdentifier: "ImageCollectionViewCell",
+         for: indexPath as IndexPath) as! ImageCollectionViewCell
       
       cell.postPicture.image = postsImages[postsIds[indexPath.row]]?.image!
       
@@ -177,7 +179,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       return sectionInsets.left
    }
    
-   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+   func collectionView(_ collectionView: UICollectionView,
+                       didSelectItemAt indexPath: IndexPath) {
       // handle tap events
       selectedCellId = indexPath.item
       performSegue(withIdentifier: "goToPostInfo", sender: self)

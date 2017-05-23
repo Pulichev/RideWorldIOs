@@ -12,24 +12,24 @@ import FirebaseDatabase // TEMP
 struct PostMedia {
    static let refToPostMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia/")
    
-   static func getImageData270x270(for post: PostItem,
+   static func getImageData200x200(for post: PostItem,
                                    completion: @escaping(_ imageData: Data?) -> Void) {
       let refToMedia = refToPostMedia.child(post.spotId)
-         .child(post.key + "_resolution270x270.jpeg")
+         .child(post.key + "_resolution200x200.jpeg")
       
       refToMedia.downloadURL { (URL, error) in
          if let error = error {
             print("\(error)")
          } else {
             // async images downloading
-            URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
+            URLSession.shared.dataTask(with: URL!) { (data, response, error) in
                if error != nil {
                   print("Error in URLSession: " + (error.debugDescription))
                   completion(nil)
                } else {
                   completion(data)
                }
-            }).resume()
+            }.resume()
          }
       }
    }

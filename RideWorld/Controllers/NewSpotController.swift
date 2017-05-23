@@ -62,7 +62,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       
       // something like transaction. Start saving new
       // spot info only after media has beed uploaded
-      SpotMedia.upload(imageView.image!, for: newSpotKey, with: 150.0)
+      SpotMedia.upload(imageView.image!, for: newSpotKey, with: 300.0)
       { (isSuccessfully, url) in
          if isSuccessfully {
             newSpot.mainPhotoRef = url

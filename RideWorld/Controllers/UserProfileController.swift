@@ -22,7 +22,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             }
             
             DispatchQueue.global(qos: .background).async {
-               self.initializePostsPhotos()
+               self.initializePosts()
             }
          }
       }
@@ -59,9 +59,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       }
    }
    
-   var posts = [String: PostItem]()
-   var postsImages = [String: UIImageView]()
-   var postsIds = [String]() // need it to order by date
+   var posts = [PostItem]()
    
    var cameFromSpotDetails = false
    
@@ -89,16 +87,14 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    private func initialiseFollowing() {
       User.getFollowersCountString(
-         userId: userInfo.uid,
-         completion: { countOfFollowersString in
-            self.followersButton.setTitle(countOfFollowersString, for: .normal)
-      })
+      userId: userInfo.uid) { countOfFollowersString in
+         self.followersButton.setTitle(countOfFollowersString, for: .normal)
+      }
       
       User.getFollowingsCountString(
-         userId: userInfo.uid,
-         completion: { countOfFollowingsString in
-            self.followingButton.setTitle(countOfFollowingsString, for: .normal)
-      })
+      userId: userInfo.uid) { countOfFollowingsString in
+         self.followingButton.setTitle(countOfFollowingsString, for: .normal)
+      }
    }
    
    func initializeUserPhoto() {
@@ -109,48 +105,32 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       }
    }
    
-   func initializePostsPhotos() {
-      User.getPostsIds(for: userInfo.uid,
-                       completion: { postsIds in
-                        if postsIds != nil {
-                           self.postsIds = postsIds!
-                           
-                           for postId in postsIds! {
-                              Post.getItemById(for: postId) { postItem in
-                                 if postItem != nil {
-                                    self.posts[postId] = postItem
-                                    self.downloadPhotosAsync(post: postItem!)
-                                    
-                                    //if all posts loaded
-                                    if self.posts.count == postsIds?.count {
-                                       self.userProfileCollection.reloadData()
-                                       self.removeLoadingScreen()
-                                    }
-                                 }
-                              }
-                           }
-                        }
-      })
-   }
-   
-   private func downloadPhotosAsync(post: PostItem) {
-      postsImages[post.key] = UIImageView(image: UIImage(named: "grayRec.jpg"))
-      
-      PostMedia.getImageData270x270(for: post) { data in
-         guard let imageData = UIImage(data: data!) else { return }
-         let photoView = UIImageView(image: imageData)
-         
-         self.postsImages[post.key] = photoView
-         
-         DispatchQueue.main.async {
-            self.userProfileCollection.reloadData()
+   func initializePosts() {
+      User.getPostsIds(for: userInfo.uid) { postsIds in
+         if postsIds != nil {
+            var loadedPosts = [PostItem]()
+            
+            for postId in postsIds! {
+               Post.getItemById(for: postId) { postItem in
+                  if postItem != nil {
+                     loadedPosts.append(postItem!)
+                     
+                     //if all posts loaded
+                     if loadedPosts.count == postsIds?.count {
+                        self.posts = loadedPosts.sorted(by: { $0.key > $1.key })
+                        self.userProfileCollection.reloadData()
+                        self.removeLoadingScreen()
+                     }
+                  }
+               }
+            }
          }
       }
    }
    
    // MARK: - CollectionView part
    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      return postsImages.count
+      return posts.count
    }
    
    func collectionView(_ collectionView: UICollectionView,
@@ -158,7 +138,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       let cell = collectionView.dequeueReusableCell(
          withReuseIdentifier: "ImageCollectionViewCell", for: indexPath as IndexPath) as! ImageCollectionViewCell
       
-      cell.postPicture.image = postsImages[postsIds[indexPath.row]]?.image!
+      cell.postPicture.kf.setImage(with: URL(string: posts[indexPath.row].mediaRef200))
       
       return cell
    }
@@ -218,7 +198,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       switch segue.identifier! {
       case "goToPostInfoFromUserProfile":
          let newPostInfoController = segue.destination as! PostInfoViewController
-         newPostInfoController.postInfo = posts[postsIds[selectedCellId]]
+         newPostInfoController.postInfo = posts[selectedCellId]
          newPostInfoController.user = userInfo
          newPostInfoController.isCurrentUserProfile = true
          newPostInfoController.delegateDeleting = self
@@ -293,12 +273,11 @@ extension UserProfileController: EditedUserInfoDelegate {
 }
 
 extension UserProfileController: ForUpdatingUserProfilePosts {
-   func postsDeleted(postId: String) {
-      posts.removeValue(forKey: postId)
-      postsImages.removeValue(forKey: postId)
-      if let index = postsIds.index(of: postId) {
-         postsIds.remove(at: index)
+   func postsDeleted(post: PostItem) {
+      if let index = posts.index(where: { $0.key == post.key }) {
+         posts.remove(at: index)
       }
+      
       userProfileCollection.reloadData()
    }
 }

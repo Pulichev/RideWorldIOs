@@ -259,7 +259,7 @@ class PostInfoViewController: UIViewController {
       
       // deleting data from collection
       if let del = delegateDeleting {
-         del.postsDeleted(postId: postInfo.key)
+         del.postsDeleted(post: postInfo)
       }
       // go back
       _ = navigationController?.popViewController(animated: true)

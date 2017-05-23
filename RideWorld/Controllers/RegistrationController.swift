@@ -41,20 +41,21 @@ class RegistrationController: UIViewController {
    
    private func createAndLogin() {
       FIRAuth.auth()!.createUser(withEmail: userEmail.text!,
-                                 password: userPassword.text!) { user, error in
-                                    if error == nil {
-                                       // log in
-                                       FIRAuth.auth()!.signIn(withEmail: self.userEmail.text!,
-                                                              password: self.userPassword.text!,
-                                                              completion: { result in
-                                                               // create new user in database, not in FIRAuth
-                                                               User.create(with: self.userLogin.text!)
-                                                               
-                                                               self.performSegue(withIdentifier: "fromRegistrationToTabBar", sender: self)
-                                       })
-                                    } else {
-                                       print("\(String(describing: error?.localizedDescription))")
-                                    }
+                                 password: userPassword.text!)
+      { user, error in
+         if error == nil {
+            // log in
+            FIRAuth.auth()!.signIn(withEmail: self.userEmail.text!,
+                                   password: self.userPassword.text!)
+            { result in
+               // create new user in database, not in FIRAuth
+               User.create(with: self.userLogin.text!)
+               
+               self.performSegue(withIdentifier: "fromRegistrationToTabBar", sender: self)
+            }
+         } else {
+            print("\(String(describing: error?.localizedDescription))")
+         }
       }
    }
    

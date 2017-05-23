@@ -139,6 +139,8 @@ struct PostMedia {
    }
    
    // MARK: - Christmas tree
+   // Like transaction :)
+   // Bad view actually
    static func uploadVideoForPost(with videoURL: URL, for postForUpdate: PostItem,
                                   screenShot: UIImage,
                                   completion: @escaping (_ hasFinished: Bool, _ postWithRefs: PostItem?) -> Void) {

@@ -9,14 +9,14 @@
 import UIKit
 import AVFoundation
 
-class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
    var ridersInfo: UserItem!
+   
+   @IBOutlet var followButton: UIButton!
    
    @IBOutlet var userNameAndSename: UILabel!
    @IBOutlet var ridersBio: UITextView!
-   @IBOutlet var ridersProfilePhoto: UIImageView!
-   
-   @IBOutlet var followButton: UIButton!
+   @IBOutlet var ridersProfilePhoto: RoundedImageView!
    
    @IBOutlet weak var followersStackView: UIStackView! {
       didSet {
@@ -37,19 +37,18 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    
    @IBOutlet var riderProfileCollection: UICollectionView!
    
-   var posts = [String: PostItem]()
-   var postsImages = [String: UIImageView]()
-   var postsIds = [String]() // need it to order by date
+   var posts = [PostItem]()
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
+      initLoadingView()
       setLoadingScreen()
       
       DispatchQueue.main.async {
          self.initializeUserTextInfo() //async loading user
          self.initializeUserPhoto()
-         self.initializeUserPostsPhotos()
+         self.initializePosts()
       }
       
       riderProfileCollection.emptyDataSetSource = self
@@ -77,16 +76,14 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    
    private func initialiseFollowing() {
       User.getFollowersCountString(
-         userId: ridersInfo.uid,
-         completion: { countOfFollowersString in
-            self.followersButton.setTitle(countOfFollowersString, for: .normal)
-      })
+      userId: ridersInfo.uid) { countOfFollowersString in
+         self.followersButton.setTitle(countOfFollowersString, for: .normal)
+      }
       
       User.getFollowingsCountString(
-         userId: ridersInfo.uid,
-         completion: { countOfFollowingsString in
-            self.followingButton.setTitle(countOfFollowingsString, for: .normal)
-      })
+      userId: ridersInfo.uid) { countOfFollowingsString in
+         self.followingButton.setTitle(countOfFollowingsString, for: .normal)
+      }
    }
    
    func initializeUserPhoto() {
@@ -98,19 +95,19 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       }
    }
    
-   func initializeUserPostsPhotos() {
+   func initializePosts() {
       User.getPostsIds(for: ridersInfo.uid) { postsIds in
          if postsIds != nil {
-            self.postsIds = postsIds!
+            var loadedPosts = [PostItem]()
             
             for postId in postsIds! {
                Post.getItemById(for: postId) { postItem in
                   if postItem != nil {
-                     self.posts[postId] = postItem
-                     self.downloadPhotosAsync(post: postItem!)
+                     loadedPosts.append(postItem!)
                      
                      //if all posts loaded
-                     if self.posts.count == postsIds?.count {
+                     if loadedPosts.count == postsIds?.count {
+                        self.posts = loadedPosts.sorted(by: { $0.key > $1.key })
                         self.riderProfileCollection.reloadData()
                         self.removeLoadingScreen()
                      }
@@ -121,25 +118,10 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       }
    }
    
-   private func downloadPhotosAsync(post: PostItem) {
-      postsImages[post.key] = UIImageView(image: UIImage(named: "grayRec.jpg"))
-      
-      PostMedia.getImageData200x200(for: post) { data in
-         guard let imageData = UIImage(data: data!) else { return }
-         let photoView = UIImageView(image: imageData)
-         
-         self.postsImages[post.key] = photoView
-         
-         DispatchQueue.main.async {
-            self.riderProfileCollection.reloadData()
-         }
-      }
-   }
-   
    // MARK: -  CollectionView part
    func collectionView(_ collectionView: UICollectionView,
                        numberOfItemsInSection section: Int) -> Int {
-      return postsImages.count
+      return posts.count
    }
    
    func collectionView(_ collectionView: UICollectionView,
@@ -148,7 +130,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
          withReuseIdentifier: "ImageCollectionViewCell",
          for: indexPath as IndexPath) as! ImageCollectionViewCell
       
-      cell.postPicture.image = postsImages[postsIds[indexPath.row]]?.image!
+      cell.postPicture.kf.setImage(with: URL(string: posts[indexPath.row].mediaRef200))
       
       return cell
    }
@@ -225,7 +207,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       switch segue.identifier! {
       case "goToPostInfo":
          let newPostInfoController = (segue.destination as! PostInfoViewController)
-         newPostInfoController.postInfo = posts[postsIds[selectedCellId]]
+         newPostInfoController.postInfo = posts[selectedCellId]
          newPostInfoController.user = ridersInfo
          newPostInfoController.isCurrentUserProfile = false
          
@@ -239,40 +221,28 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    }
    
    // MARK: - when data loading
-   let loadingView = UIView() // View which contains the loading text and the spinner
-   let spinner = UIActivityIndicatorView()
-   let loadingLabel = UILabel()
+   var loadingView: LoadingProcessView!
+   
+   private func initLoadingView() {
+      let width: CGFloat = 120
+      let height: CGFloat = 30
+      let x = (riderProfileCollection.frame.width / 2) - (width / 2)
+      let y = (riderProfileCollection.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
+      loadingView = LoadingProcessView(frame: CGRect(x: x, y: y, width: width, height: height))
+      
+      riderProfileCollection.addSubview(loadingView)
+   }
    
    var haveWeFinishedLoading = false // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
    
    // Set the activity indicator into the main view
    private func setLoadingScreen() {
-      let width: CGFloat = 120
-      let height: CGFloat = 30
-      let x = (riderProfileCollection.frame.width / 2) - (width / 2)
-      let y = (riderProfileCollection.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
-      loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
-      
-      loadingLabel.textColor = UIColor.gray
-      loadingLabel.textAlignment = NSTextAlignment.center
-      loadingLabel.text = "Loading..."
-      loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
-      
-      spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-      spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-      spinner.startAnimating()
-      
-      loadingView.addSubview(spinner)
-      loadingView.addSubview(loadingLabel)
-      
-      riderProfileCollection.addSubview(loadingView)
+      loadingView.show()
    }
    
    // Remove the activity indicator from the main view
    private func removeLoadingScreen() {
-      // Hides and stops the text and the spinner
-      spinner.stopAnimating()
-      loadingLabel.isHidden = true
+      loadingView.dismiss()
       haveWeFinishedLoading = true
    }
 }

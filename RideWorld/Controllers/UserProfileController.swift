@@ -16,12 +16,12 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             // we have already updated info
             editButton.isEnabled = true
             
-            DispatchQueue.global(qos: .userInitiated).async {
+            DispatchQueue.global(qos: .userInteractive).async {
                self.initializeUserTextInfo()
                self.initializeUserPhoto()
             }
             
-            DispatchQueue.global(qos: .background).async {
+            DispatchQueue.global(qos: .userInteractive).async {
                self.initializePosts()
             }
          }
@@ -67,6 +67,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       super.viewDidLoad()
       
       editButton.isEnabled = false // blocking when no userInfo initialized
+      initLoadingView()
       setLoadingScreen()
       
       let currentUserId = User.getCurrentUserId()
@@ -100,7 +101,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    func initializeUserPhoto() {
       if userProfilePhoto != nil { // if we came not from user edit controller
          if (self.userInfo.photo150ref != nil) {
-            self.userProfilePhoto.kf.setImage(with: URL(string: self.userInfo.photo150ref!)) //Using kf for caching images.
+            self.userProfilePhoto.kf.setImage(
+               with: URL(string: userInfo.photo150ref!)) //Using kf for caching images.
          }
       }
    }
@@ -222,40 +224,28 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
    
    // MARK: - when data loading
-   let loadingView = UIView() // View which contains the loading text and the spinner
-   let spinner = UIActivityIndicatorView()
-   let loadingLabel = UILabel()
+   var loadingView: LoadingProcessView!
+
+   private func initLoadingView() {
+      let width: CGFloat = 120
+      let height: CGFloat = 30
+      let x = (userProfileCollection.frame.width / 2) - (width / 2)
+      let y = (userProfileCollection.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
+      loadingView = LoadingProcessView(frame: CGRect(x: x, y: y, width: width, height: height))
+      
+      userProfileCollection.addSubview(loadingView)
+   }
    
    var haveWeFinishedLoading = false // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
    
    // Set the activity indicator into the main view
    private func setLoadingScreen() {
-      let width: CGFloat = 120
-      let height: CGFloat = 30
-      let x = (userProfileCollection.frame.width / 2) - (width / 2)
-      let y = (userProfileCollection.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
-      loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
-      
-      loadingLabel.textColor = UIColor.gray
-      loadingLabel.textAlignment = NSTextAlignment.center
-      loadingLabel.text = "Loading..."
-      loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
-      
-      spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-      spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-      spinner.startAnimating()
-      
-      loadingView.addSubview(spinner)
-      loadingView.addSubview(loadingLabel)
-      
-      userProfileCollection.addSubview(loadingView)
+      loadingView.show()
    }
    
    // Remove the activity indicator from the main view
    private func removeLoadingScreen() {
-      // Hides and stops the text and the spinner
-      spinner.stopAnimating()
-      loadingLabel.isHidden = true
+      loadingView.dismiss()
       haveWeFinishedLoading = true
    }
 }

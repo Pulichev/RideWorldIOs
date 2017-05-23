@@ -138,6 +138,7 @@ struct PostMedia {
       }
    }
    
+   // MARK: - Christmas tree
    static func uploadVideoForPost(with videoURL: URL, for postForUpdate: PostItem,
                                   screenShot: UIImage,
                                   completion: @escaping (_ hasFinished: Bool, _ postWithRefs: PostItem?) -> Void) {
@@ -184,15 +185,21 @@ struct PostMedia {
                                     completion(false, nil)
                                  }
                               }
+                           }else {
+                              completion(false, nil)
                            }
                         }
+                     } else {
+                        completion(false, nil)
                      }
                   }
+               } else {
+                  completion(false, nil)
                }
             }
+         } else {
+            completion(false, nil)
          }
       }
-      
-      completion(false, nil)
    }
 }

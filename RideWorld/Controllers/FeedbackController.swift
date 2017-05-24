@@ -41,11 +41,21 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    }
    
    private func loadFeedbackItems() {
-      FeedbackItem.getArray(
-         completion: { fbItems in
-            self.feedbackItems = fbItems
-            self.tableView.reloadData()
-      })
+      FeedbackItem.getArray() { fbItems in
+         //self.tableView.beginUpdates()
+         self.feedbackItems = fbItems
+         self.tableView.reloadData()
+         //self.tableView.endUpdates()
+      }
+   }
+   
+   @IBAction func reloadData(_ sender: Any) {
+      FeedbackItem.getArray() { fbItems in
+         //self.tableView.beginUpdates()
+         self.feedbackItems = fbItems
+         self.tableView.reloadData()
+         //self.tableView.endUpdates()
+      }
    }
    
    var haveWeFinishedLoading: Bool = false // bool value have we loaded feed or not. Mainly for DZNEmptyDataSet

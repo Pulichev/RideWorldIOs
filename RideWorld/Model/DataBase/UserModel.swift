@@ -369,7 +369,7 @@ struct User {
                                        completion: @escaping (_ snapshot: [String: AnyObject]?) -> Void) {
       let refToUserFeedback = FIRDatabase.database().reference(withPath: "MainDataBase/feedback/" + userId)
       
-      refToUserFeedback.observe(.value, with: { snapshot in
+      refToUserFeedback.queryLimited(toLast: 15).observe(.value, with: { snapshot in
          if let value = snapshot.value as? [String: AnyObject] {
             completion(value)
          }

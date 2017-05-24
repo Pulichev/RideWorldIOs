@@ -11,10 +11,12 @@ class FeedbackItem {
    
    static func getArray(
       completion: @escaping (_ fbItems: [FeedbackItem]) -> Void) {
-      var feedbackItems = [FeedbackItem]()
       
       User.getFeedbackSnapShotData(for: User.getCurrentUserId()) { feedItemsSnapshot in
          if feedItemsSnapshot == nil { return }
+         
+         var feedbackItems = [FeedbackItem]()
+         
          let sortedKeys = feedItemsSnapshot!.keys.sorted(by: {$0 > $1}) // order by date
          
          for key in sortedKeys {

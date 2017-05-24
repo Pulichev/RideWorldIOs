@@ -97,7 +97,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.delegatePostTaps = self
          cell.userId = commentFBItem.userId
          cell.postId = commentFBItem.postId
-         if commentFBItem.postAddedByUser == commentFBItem.userId {
+         if commentFBItem.postAddedByUser == User.getCurrentUserId() {
             cell.desc.text = "commented your photo: " + commentFBItem.text
          } else { // for @userId not author
             cell.desc.text = "mentioned you in comment."

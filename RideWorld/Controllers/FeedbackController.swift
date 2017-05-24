@@ -97,7 +97,11 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.delegatePostTaps = self
          cell.userId = commentFBItem.userId
          cell.postId = commentFBItem.postId
-         cell.desc.text = "commented your photo: " + commentFBItem.text
+         if commentFBItem.postAddedByUser == commentFBItem.userId {
+            cell.desc.text = "commented your photo: " + commentFBItem.text
+         } else { // for @userId not author
+            cell.desc.text = "mentioned you in comment."
+         }
          cell.dateTime.text = DateTimeParser.getDateTime(from: commentFBItem.dateTime)
       }
       

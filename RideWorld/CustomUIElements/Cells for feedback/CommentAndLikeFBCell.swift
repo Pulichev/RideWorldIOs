@@ -30,6 +30,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    }
    
    var userItem: UserItem!
+   var postAddedByUser: String!
    
    var postId: String! { // maybe postItem
       didSet {

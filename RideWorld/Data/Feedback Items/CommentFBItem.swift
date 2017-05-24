@@ -10,6 +10,7 @@ class CommentFBItem: FeedbackItem {
    var text: String!
    var dateTime: String!
    var postId: String!
+   var postAddedByUser: String!
    var userId: String!
    
    init(snapshot: [String: Any]) {
@@ -18,6 +19,7 @@ class CommentFBItem: FeedbackItem {
       text = snapshot["commentary"] as! String
       dateTime = snapshot["datetime"] as! String
       postId = snapshot["postId"] as! String
+      postAddedByUser = snapshot["postAddedByUser"] as! String
       userId = snapshot["userId"] as! String
    }
 }

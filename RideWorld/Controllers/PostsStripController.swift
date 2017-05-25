@@ -503,8 +503,8 @@ extension PostsStripController {
       super.viewWillAppear(animated)
       
       if !cameFromSpotOrMyStrip {
-         // Hide the navigation bar on the this view controller
-         navigationController?.setNavigationBarHidden(true, animated: animated)
+         self.navigationItem.title = "Ride World" // navbar title
+         self.navigationItem.rightBarButtonItem = nil // hide delete button
       }
    }
    

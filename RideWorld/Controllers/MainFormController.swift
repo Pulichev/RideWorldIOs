@@ -217,8 +217,8 @@ extension MainFormController {
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
-      // Hide the navigation bar on the this view controller
-      navigationController?.setNavigationBarHidden(true, animated: animated)
+      self.navigationItem.title = "Ride World" // navbar title
+      self.navigationItem.rightBarButtonItem = nil // hide delete button
    }
    
    override func viewWillDisappear(_ animated: Bool) {

@@ -737,7 +737,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.559996698943662" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pti-Mk-zcp">
+                                                <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="pti-Mk-zcp">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="364"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -1414,10 +1414,10 @@
             </objects>
             <point key="canvasLocation" x="3278" y="61"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar Controller-->
         <scene sceneID="0tg-aH-qHF">
             <objects>
-                <tabBarController storyboardIdentifier="MainTabBarController" id="MgV-Y7-eTa" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" id="MgV-Y7-eTa" customClass="MainTabBarController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" clipsSubviews="YES" contentMode="scaleAspectFill" translucent="NO" id="8OO-ZE-hBL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1440,7 +1440,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MainFormNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Q0T-xY-QEM" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="MapItem" selectedImage="MapItem" id="emj-b9-HXi">
-                        <inset key="imageInsets" minX="-2" minY="6" maxX="2" maxY="-6"/>
+                        <inset key="imageInsets" minX="-2" minY="4" maxX="2" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ZvH-44-4Fc">
@@ -1863,7 +1863,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xHY-Je-O6o" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" image="Profile" selectedImage="Profile" id="TFo-E0-PCa">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                        <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="f63-wh-W1p">
@@ -1884,7 +1884,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="B8Z-Pl-NXo" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="PostStripItem" selectedImage="PostStripItem" id="ObW-9v-5R9">
-                        <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="-7"/>
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="an1-kP-YTX">
@@ -1905,7 +1905,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vrz-q1-cbZ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="heart" selectedImage="heart" id="7MY-Ov-GVd">
-                        <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="-8"/>
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Xl-Pa-BHx">
@@ -1939,11 +1939,11 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZpR-8C-QJR"/>
-        <segue reference="tCn-nV-MKo"/>
-        <segue reference="nax-92-cwD"/>
-        <segue reference="RlL-e4-xY6"/>
         <segue reference="1Fi-pQ-wyF"/>
+        <segue reference="TEa-lr-7L1"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="T3A-kh-NPf"/>
+        <segue reference="6R6-CY-IE2"/>
+        <segue reference="RlL-e4-xY6"/>
+        <segue reference="qSk-1a-lLs"/>
     </inferredMetricsTieBreakers>
 </document>

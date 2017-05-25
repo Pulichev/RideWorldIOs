@@ -55,6 +55,7 @@
 		9FC14FD61E48E7300097579B /* plus-512.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9FC14FD51E48E7300097579B /* plus-512.gif */; };
 		9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDB1E48E7690097579B /* CustomPin.swift */; };
 		9FD0BF4B1EACC0D1000ACF9F /* pinInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */; };
+		9FD4A1DE1ED7591B00B4C0D2 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */; };
 		9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D31E54587800C673CA /* RidersProfileController.swift */; };
 		9FD648DC1E573F0600C673CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD648DB1E573F0600C673CA /* Main.storyboard */; };
 		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
@@ -165,6 +166,7 @@
 		9FC14FD51E48E7300097579B /* plus-512.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "plus-512.gif"; path = "Pictures/plus-512.gif"; sourceTree = "<group>"; };
 		9FC14FDB1E48E7690097579B /* CustomPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPin.swift; path = CustomUIElements/CustomPin.swift; sourceTree = "<group>"; };
 		9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = pinInfoView.swift; path = CustomUIElements/pinInfoView.swift; sourceTree = "<group>"; };
+		9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = Controllers/TabAndNavBars/MainTabBarController.swift; sourceTree = "<group>"; };
 		9FD648D31E54587800C673CA /* RidersProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileController.swift; path = Controllers/RidersProfileController.swift; sourceTree = "<group>"; };
 		9FD648DB1E573F0600C673CA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 		9FC14FC61E48E5CB0097579B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9FD4A1DF1ED7592100B4C0D2 /* TabAndNavBars */,
 				9F5609861E7C8C990000DB21 /* PostsStripController.swift */,
 				9FFB14F51E7848F600D10620 /* FollowersController.swift */,
 				9FC14FC91E48E5E30097579B /* LoginController.swift */,
@@ -410,6 +413,14 @@
 				9FE3B70B1EBCDC4C00E7ED40 /* LoadingProcessView.swift */,
 			);
 			name = CustomUIElements;
+			sourceTree = "<group>";
+		};
+		9FD4A1DF1ED7592100B4C0D2 /* TabAndNavBars */ = {
+			isa = PBXGroup;
+			children = (
+				9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */,
+			);
+			name = TabAndNavBars;
 			sourceTree = "<group>";
 		};
 		9FE3B7131EC4D70900E7ED40 /* Cells for feedback */ = {
@@ -859,6 +870,7 @@
 				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,
 				9FE3B7151EC4D76100E7ED40 /* CommentAndLikeFBCell.swift in Sources */,
 				9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */,
+				9FD4A1DE1ED7591B00B4C0D2 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

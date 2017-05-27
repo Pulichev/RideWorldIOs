@@ -207,7 +207,7 @@ UITableViewDelegate {
    
    private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {
       let alert = UIAlertController(title: "Error!",
-                                    message: "No user founded with nickname \(tappedUserLogin)",
+                                    message: "No user has been founded founded with nickname \(tappedUserLogin)",
          preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))

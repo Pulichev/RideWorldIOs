@@ -66,7 +66,14 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    
    // text info
    @IBOutlet weak var userLoginButton: UIButton!
-   @IBOutlet weak var desc: ActiveLabel!
+   @IBOutlet weak var desc: ActiveLabel! {
+      didSet {
+         desc.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(tappedUserLogin: mention)
+         }
+
+      }
+   }
    @IBOutlet weak var dateTime: UILabel!
    
    override func awakeFromNib() {
@@ -90,5 +97,13 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    
    func postInfoTapped() {
       delegatePostTaps?.postInfoTapped(postItem)
+   }
+   
+   // from @username
+   private func goToUserProfile(tappedUserLogin: String) {
+      User.getItemByLogin(
+      for: tappedUserLogin) { fetchedUserItem in
+            self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
+      }
    }
 }

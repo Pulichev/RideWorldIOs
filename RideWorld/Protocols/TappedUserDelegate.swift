@@ -7,5 +7,5 @@
 //
 
 protocol TappedUserDelegate: class {
-   func userInfoTapped(_ tappedUser: UserItem) // for segues
+   func userInfoTapped(_ tappedUser: UserItem?) // for segues
 }

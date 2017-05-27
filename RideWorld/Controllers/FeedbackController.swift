@@ -185,9 +185,23 @@ extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
 // to send userItem from cell to perform segue
 extension FeedbackController: TappedUserDelegate {
-   func userInfoTapped(_ user: UserItem) {
-      ridersInfoForSending = user
-      performSegue(withIdentifier: "openRidersProfileFromFeedbackList", sender: self)
+   func userInfoTapped(_ user: UserItem?) {
+      if user != nil {
+         ridersInfoForSending = user
+         performSegue(withIdentifier: "openRidersProfileFromFeedbackList", sender: self)
+      } else {
+         showAlertThatUserLoginNotFounded()
+      }
+   }
+   
+   private func showAlertThatUserLoginNotFounded() {
+      let alert = UIAlertController(title: "Error!",
+                                    message: "No user has been founded!",
+         preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
    }
 }
 

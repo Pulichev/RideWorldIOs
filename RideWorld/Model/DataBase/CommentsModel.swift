@@ -47,7 +47,12 @@ struct Comment {
          var updates: [String: Any?] = ["/spotpost/" + post.key + "/comments/" + refForNewCommentKey: newComment.toAnyObject()]
          
          for userId in userIds {
-            updates.updateValue(newComment.toAnyObject(), forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
+            // dont add to feedback all
+            // actions on user posts
+            
+            if userId != newComment.postAddedByUser {
+               updates.updateValue(newComment.toAnyObject(), forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
+            }
          }
          
          ref.updateChildValues(updates) { (error, _) in

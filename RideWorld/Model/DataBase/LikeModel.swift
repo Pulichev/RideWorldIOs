@@ -17,11 +17,14 @@ struct Like {
       let likeRef = ref.child("/users/" + newLike.userId + "/likePlaced/onposts/" + newLike.postId).childByAutoId()
       like.key = likeRef.key
       
-      let updates: [String: Any?] = [
+      var updates: [String: Any?] = [
          "/users/" + like.userId + "/likePlaced/onposts/" + like.postId: like.toAnyObject(),
-         "/spotpost/" + like.postId + "/likes/" + like.userId: like.toAnyObject(),
-         "/feedback/" + like.postAddedByUserId + "/" + like.key: like.toAnyObject()
+         "/spotpost/" + like.postId + "/likes/" + like.userId: like.toAnyObject()
       ]
+      
+      if like.userId != like.postAddedByUserId { // dont add your own likes
+         updates.updateValue(like.toAnyObject(), forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
+      }
       
       ref.updateChildValues(updates)
    }
@@ -34,7 +37,9 @@ struct Like {
       
       // deleting from feedback node
       getLikeFromUser(id: userId, postId: post.key) { like in
-         updates.updateValue(nil, forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
+         if like.userId != like.postAddedByUserId {
+            updates.updateValue(nil, forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
+         }
          
          ref.updateChildValues(updates)
       }

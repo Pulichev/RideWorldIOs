@@ -8,6 +8,7 @@
 
 class FeedbackItem {
    var type: Int! // 1 - follower, 2 - comment, 3 - like
+   var key: String!
    
    static func getArray(
       completion: @escaping (_ fbItems: [FeedbackItem]) -> Void) {
@@ -23,7 +24,7 @@ class FeedbackItem {
          for key in sortedKeys {
             let value = feedItemsSnapshot![key] as? [String:  Any]
             
-            getProperItem(value) { item in
+            getProperItem(value, key) { item in
                if item != nil {
                   feedbackItems.append(item!)
                }
@@ -31,19 +32,19 @@ class FeedbackItem {
                countOfProccessedItems += 1
                
                if countOfProccessedItems == sortedKeys.count {
-                  completion(feedbackItems)
+                  completion(feedbackItems.sorted(by: { $0.key > $1.key }))
                }
             }
          }
       }
    }
    
-   static private func getProperItem(_ value: [String: Any]?,
+   static private func getProperItem(_ value: [String: Any]?, _ key: String,
                                      completion: @escaping(_ item: FeedbackItem?) -> Void) {
       var feedBackItem: FeedbackItem!
       // what type of feedbacK?
       if value!["commentary"] != nil { // comment
-         let _ = CommentFBItem(snapshot: value!) { item in
+         let _ = CommentFBItem(snapshot: value!, key) { item in
             if item.postItem != nil {
                completion(item)
             } else {
@@ -51,7 +52,7 @@ class FeedbackItem {
             }
          }
       } else if value!["likePlacedTime"] != nil { // like
-         let _ = LikeFBItem(snapshot: value!) { item in
+         let _ = LikeFBItem(snapshot: value!, key) { item in
             if item.postItem != nil {
                completion(item)
             } else {
@@ -59,7 +60,7 @@ class FeedbackItem {
             }
          }
       } else { // follow
-         feedBackItem = FollowerFBItem(snapshot: value!)
+         feedBackItem = FollowerFBItem(snapshot: value!, key)
          completion(feedBackItem)
       }
    }

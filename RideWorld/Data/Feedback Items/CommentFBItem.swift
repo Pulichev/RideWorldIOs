@@ -14,10 +14,11 @@ class CommentFBItem: FeedbackItem {
    var postAddedByUser: String!
    var userId: String!
    
-   init(snapshot: [String: Any],
+   init(snapshot: [String: Any], _ key: String,
         completion: @escaping (_ commentFBItem: CommentFBItem) -> Void) {
       super.init()
       self.type = 2
+      self.key = key
       text = snapshot["commentary"] as! String
       dateTime = snapshot["datetime"] as! String
       postId = snapshot["postId"] as! String

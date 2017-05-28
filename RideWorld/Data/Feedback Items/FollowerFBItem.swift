@@ -10,9 +10,10 @@ class FollowerFBItem: FeedbackItem {
    var userId: String!
    var dateTime: String!
    
-   init(snapshot: [String: Any]) {
+   init(snapshot: [String: Any], _ key: String) {
       super.init()
       self.type = 1
+      self.key = key
       userId = snapshot.keys.first!
       self.dateTime = snapshot.values.first as! String
    }

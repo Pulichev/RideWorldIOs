@@ -13,10 +13,11 @@ class LikeFBItem: FeedbackItem {
    var postAddedByUserId: String!
    var dateTime: String!
    
-   init(snapshot: [String: Any],
+   init(snapshot: [String: Any], _ key: String,
         completion: @escaping (_ likeFBItem: LikeFBItem) -> Void) {
       super.init()
       self.type = 3
+      self.key = key
       postId = snapshot["postId"] as! String
       userId = snapshot["userId"] as! String
       postAddedByUserId = snapshot["postAddedByUserId"] as! String

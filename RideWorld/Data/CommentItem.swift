@@ -24,7 +24,7 @@ class CommentItem: NSObject {
    
    init(_ userId: String, _ postId: String, _ postAddedByUser: String,
         _ commentary: String, _ datetime: String,
-        _ feedbackKey: String, _ key: String = "") {
+        _ key: String) {
       self.key = key
       
       self.userId = userId
@@ -33,7 +33,7 @@ class CommentItem: NSObject {
       self.commentary = commentary
       self.datetime = datetime
       
-      self.feedbackKey = feedbackKey
+      self.feedbackKey = key
       
       self.ref = nil
    }

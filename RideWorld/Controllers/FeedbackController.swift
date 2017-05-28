@@ -107,6 +107,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.delegatePostTaps = self
          cell.userId = commentFBItem.userId
          cell.postId = commentFBItem.postId
+         cell.postItem = commentFBItem.postItem!
          if commentFBItem.postAddedByUser == User.getCurrentUserId() {
             cell.desc.text = "commented your photo: " + commentFBItem.text
          } else { // for @userId not author
@@ -121,6 +122,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.delegatePostTaps = self
          cell.userId = likeFBItem.userId
          cell.postId = likeFBItem.postId
+         cell.postItem = likeFBItem.postItem!
          cell.desc.text = "liked your photo."
          cell.dateTime.text = DateTimeParser.getDateTime(from: likeFBItem.dateTime)
       }

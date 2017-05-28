@@ -35,11 +35,9 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    var postId: String! { // maybe postItem
       didSet {
          Post.getItemById(for: postId) { post in
-            if post != nil {
-               self.postItem = post
-               self.postPhoto?.kf.setImage(with: URL(
-                  string: post!.mediaRef70)) // TODO: after release/db drop set .mediaRef270
-            }
+            self.postItem = post
+            self.postPhoto?.kf.setImage(with: URL(
+               string: post!.mediaRef70))
          }
       }
    }
@@ -71,7 +69,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
          desc.handleMentionTap { mention in // mention is @userLogin
             self.goToUserProfile(tappedUserLogin: mention)
          }
-
+         
       }
    }
    @IBOutlet weak var dateTime: UILabel!
@@ -103,7 +101,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    private func goToUserProfile(tappedUserLogin: String) {
       User.getItemByLogin(
       for: tappedUserLogin) { fetchedUserItem in
-            self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
+         self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
       }
    }
 }

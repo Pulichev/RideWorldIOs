@@ -16,12 +16,14 @@ struct Post {
       let refToPost = refToPostsNode.child(postId)
       
       refToPost.observeSingleEvent(of: .value, with: { snapshot in
-         let postItem = PostItem(snapshot: snapshot)
-         
-         completion(postItem)
+         if snapshot.exists() {
+            let postItem = PostItem(snapshot: snapshot)
+            
+            completion(postItem)
+         } else {
+            completion(nil)
+         }
       })
-      
-      completion(nil) // if no post with this id
    }
    
    static func getLikesCount(for postId: String,

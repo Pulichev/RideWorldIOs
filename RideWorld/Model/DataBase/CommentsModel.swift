@@ -50,7 +50,7 @@ struct Comment {
             // dont add to feedback all
             // actions on user posts
             
-            if userId != newComment.postAddedByUser {
+            if userId != newComment.userId {
                updates.updateValue(newComment.toAnyObject(), forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
             }
          }

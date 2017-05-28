@@ -19,22 +19,48 @@ class FeedbackItem {
          
          let sortedKeys = feedItemsSnapshot!.keys.sorted(by: {$0 > $1}) // order by date
          
+         var countOfProccessedItems = 0
          for key in sortedKeys {
-            let value = feedItemsSnapshot![key] as? [String: Any]
-            var feedBackItem: FeedbackItem!
-            // what type of feedbacK?
-            if value!["commentary"] != nil { // comment
-               feedBackItem = CommentFBItem(snapshot: value!)
-            } else if value!["likePlacedTime"] != nil { // like
-               feedBackItem = LikeFBItem(snapshot: value!)
-            } else { // follow
-               feedBackItem = FollowerFBItem(snapshot: value!)
-            }
+            let value = feedItemsSnapshot![key] as? [String:  Any]
             
-            feedbackItems.append(feedBackItem)
+            getProperItem(value) { item in
+               if item != nil {
+                  feedbackItems.append(item!)
+               }
+               
+               countOfProccessedItems += 1
+               
+               if countOfProccessedItems == sortedKeys.count {
+                  completion(feedbackItems)
+               }
+            }
          }
-         
-         completion(feedbackItems)
+      }
+   }
+   
+   static private func getProperItem(_ value: [String: Any]?,
+                                     completion: @escaping(_ item: FeedbackItem?) -> Void) {
+      var feedBackItem: FeedbackItem!
+      // what type of feedbacK?
+      if value!["commentary"] != nil { // comment
+         let _ = CommentFBItem(snapshot: value!) { item in
+            if item.postItem != nil {
+               completion(item)
+            } else {
+               completion(nil)
+            }
+         }
+      } else if value!["likePlacedTime"] != nil { // like
+         let _ = LikeFBItem(snapshot: value!) { item in
+            if item.postItem != nil {
+               completion(item)
+            } else {
+               completion(nil)
+            }
+         }
+      } else { // follow
+         feedBackItem = FollowerFBItem(snapshot: value!)
+         completion(feedBackItem)
       }
    }
 }

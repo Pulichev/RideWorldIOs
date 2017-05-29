@@ -19,6 +19,8 @@ class CommentFBItem: FeedbackItem {
       super.init()
       self.type = 2
       self.key = key
+      self.isViewed = snapshot["isViewed"] as! Bool
+      
       text = snapshot["commentary"] as! String
       dateTime = snapshot["datetime"] as! String
       postId = snapshot["postId"] as! String

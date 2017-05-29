@@ -9,6 +9,7 @@
 class FeedbackItem {
    var type: Int! // 1 - follower, 2 - comment, 3 - like
    var key: String!
+   var isViewed: Bool!
    
    static func getArray(
       completion: @escaping (_ fbItems: [FeedbackItem]) -> Void) {

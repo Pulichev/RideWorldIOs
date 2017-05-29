@@ -14,6 +14,8 @@ class FollowerFBItem: FeedbackItem {
       super.init()
       self.type = 1
       self.key = key
+      self.isViewed = snapshot["isViewed"] as! Bool
+      
       userId = snapshot.keys.first!
       self.dateTime = snapshot.values.first as! String
    }

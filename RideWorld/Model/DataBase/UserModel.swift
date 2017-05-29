@@ -382,8 +382,9 @@ struct User {
       })
    }
    
-   static func setFeedbackIsViewedToTrue(for userId: String, withKey key: String) {
-      let refToEntityIsViewed = refToFeedback.child(userId).child(key).child("isViewed")
+   static func setFeedbackIsViewedToTrue(withKey key: String) {
+      let currentUserId = getCurrentUserId()
+      let refToEntityIsViewed = refToFeedback.child(currentUserId).child(key).child("isViewed")
    
       refToEntityIsViewed.setValue(true)
    }

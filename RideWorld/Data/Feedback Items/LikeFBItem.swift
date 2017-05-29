@@ -18,6 +18,8 @@ class LikeFBItem: FeedbackItem {
       super.init()
       self.type = 3
       self.key = key
+      self.isViewed = snapshot["isViewed"] as! Bool
+      
       postId = snapshot["postId"] as! String
       userId = snapshot["userId"] as! String
       postAddedByUserId = snapshot["postAddedByUserId"] as! String

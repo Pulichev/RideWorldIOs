@@ -126,6 +126,23 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       return cell
    }
    
+   // on open - set isViewed to true after 3 seconds delay
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      
+      perform(#selector(setIsViewedPropToTrue), with: nil, afterDelay: 3.0)
+   }
+   
+   // this function will perform after 2 seconds
+   func setIsViewedPropToTrue() {
+      print("Delayed")
+      for fbItem in feedbackItems {
+         if !fbItem.isViewed {
+            User.setFeedbackIsViewedToTrue(withKey: fbItem.key)
+         }
+      }
+   }
+   
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       switch segue.identifier! {
       case "openRidersProfileFromFeedbackList":

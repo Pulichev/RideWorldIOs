@@ -23,7 +23,9 @@ struct Like {
       ]
       
       if like.userId != like.postAddedByUserId { // dont add your own likes
-         updates.updateValue(like.toAnyObject(), forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
+         var likeForFeedBack = like.toAnyObject()
+         likeForFeedBack["isViewed"] = false // when user will open feedback -> true
+         updates.updateValue(likeForFeedBack, forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
       }
       
       ref.updateChildValues(updates)

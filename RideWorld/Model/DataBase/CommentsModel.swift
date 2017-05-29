@@ -51,7 +51,9 @@ struct Comment {
             // actions on user posts
             
             if userId != newComment.userId {
-               updates.updateValue(newComment.toAnyObject(), forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
+               var commentForFeedback = newComment.toAnyObject()
+               commentForFeedback["isViewed"] = false // when user will open feedback -> true
+               updates.updateValue(commentForFeedback, forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
             }
          }
          

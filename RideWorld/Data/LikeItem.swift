@@ -49,7 +49,7 @@ struct LikeItem {
       ref = snapshot.ref
    }
    
-   func toAnyObject() -> Any {
+   func toAnyObject() -> [String: Any] {
       return [
          "key" : key,
          

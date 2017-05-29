@@ -226,7 +226,7 @@ struct User {
    
    static func addFollowing(to userId: String) {
       let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId()).child("following").child(userId)
-
+      
       refToCurrentUser.setValue(true)
    }
    
@@ -242,7 +242,11 @@ struct User {
       
       let updates: [String: Any?] = [
          "/users/" + userId + "/followers/" + getCurrentUserId() : keyToFeedbackNode,
-         "/feedback/" + userId + "/" + keyToFeedbackNode : [getCurrentUserId() : String(describing: Date())]
+         "/feedback/" + userId + "/" + keyToFeedbackNode :
+            [
+               getCurrentUserId() : String(describing: Date()),
+               "isViewed" : false
+         ]
       ]
       
       ref.updateChildValues(updates)
@@ -365,14 +369,22 @@ struct User {
    }
    
    // MARK: - Feedback part
+   static let refToFeedback = FIRDatabase.database().reference(withPath: "MainDataBase/feedback/")
+   
    static func getFeedbackSnapShotData(for userId: String,
                                        completion: @escaping (_ snapshot: [String: AnyObject]?) -> Void) {
-      let refToUserFeedback = FIRDatabase.database().reference(withPath: "MainDataBase/feedback/" + userId)
+      let refToUserFeedback = refToFeedback.child(userId)
       
       refToUserFeedback.queryLimited(toLast: 15).observe(.value, with: { snapshot in
          if let value = snapshot.value as? [String: AnyObject] {
             completion(value)
          }
       })
+   }
+   
+   static func setFeedbackIsViewedToTrue(for userId: String, withKey key: String) {
+      let refToEntityIsViewed = refToFeedback.child(userId).child(key).child("isViewed")
+   
+      refToEntityIsViewed.setValue(true)
    }
 }

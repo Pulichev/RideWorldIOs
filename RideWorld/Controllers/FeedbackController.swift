@@ -42,19 +42,15 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    
    private func loadFeedbackItems() {
       FeedbackItem.getArray() { fbItems in
-         //self.tableView.beginUpdates()
          self.feedbackItems = fbItems
          self.tableView.reloadData()
-         //self.tableView.endUpdates()
       }
    }
    
    @IBAction func reloadData(_ sender: Any) {
       FeedbackItem.getArray() { fbItems in
-         //self.tableView.beginUpdates()
          self.feedbackItems = fbItems
          self.tableView.reloadData()
-         //self.tableView.endUpdates()
       }
    }
    

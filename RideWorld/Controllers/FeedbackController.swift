@@ -25,7 +25,12 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       }
    }
    
-   var feedbackItems = [FeedbackItem]()
+   var feedbackItems = [FeedbackItem]() {
+      didSet {
+         addPopoverWithLikes()
+         perform(#selector(setIsViewedPropToTrue), with: nil, afterDelay: 3.0)
+      }
+   }
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -130,17 +135,35 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
-      perform(#selector(setIsViewedPropToTrue), with: nil, afterDelay: 3.0)
+      if feedbackItems.count != 0 {
+         addPopoverWithLikes()
+         perform(#selector(setIsViewedPropToTrue), with: nil, afterDelay: 3.0)
+      }
    }
    
-   // this function will perform after 2 seconds
+   private func addPopoverWithLikes() {
+      var countUnViewedFBItems = 0
+      
+      if feedbackItems.count != 0 {
+         for fbItem in feedbackItems {
+            if !fbItem.isViewed {
+               countUnViewedFBItems += 1
+            }
+         }
+      }
+      
+      self.tabBarController?.tabBar.items![2].badgeValue = String(countUnViewedFBItems)
+   }
+   
+   // this function will perform after 3 seconds
    func setIsViewedPropToTrue() {
-      print("Delayed")
       for fbItem in feedbackItems {
          if !fbItem.isViewed {
             User.setFeedbackIsViewedToTrue(withKey: fbItem.key)
          }
       }
+      
+      self.tabBarController?.tabBar.items![2].badgeValue = nil
    }
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -212,7 +235,7 @@ extension FeedbackController: TappedUserDelegate {
    private func showAlertThatUserLoginNotFounded() {
       let alert = UIAlertController(title: "Error!",
                                     message: "No user has been founded!",
-         preferredStyle: .alert)
+                                    preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
       

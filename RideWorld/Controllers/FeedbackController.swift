@@ -27,8 +27,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    
    var feedbackItems = [FeedbackItem]() {
       didSet {
-         addPopoverWithLikes()
-         perform(#selector(setIsViewedPropToTrue), with: nil, afterDelay: 3.0)
+         self.tableView.reloadData()
       }
    }
    
@@ -36,7 +35,11 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       super.viewDidLoad()
       
       initializeCurrentUserItem()
-      loadFeedbackItems()
+      
+      if let tbc = self.tabBarController as? MainTabBarController {
+         feedbackItems = tbc.feedbackItems
+         tbc.delegateFBItemsChanges = self
+      }
    }
    
    private func initializeCurrentUserItem() {
@@ -45,18 +48,11 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       }
    }
    
-   private func loadFeedbackItems() {
-      FeedbackItem.getArray() { fbItems in
-         self.feedbackItems = fbItems
-         self.tableView.reloadData()
-      }
-   }
-   
    @IBAction func reloadData(_ sender: Any) {
-      FeedbackItem.getArray() { fbItems in
-         self.feedbackItems = fbItems
-         self.tableView.reloadData()
-      }
+//      FeedbackItem.getArray() { fbItems in
+//         self.feedbackItems = fbItems
+//         self.tableView.reloadData()
+//      }
    }
    
    var haveWeFinishedLoading: Bool = false // bool value have we loaded feed or not. Mainly for DZNEmptyDataSet
@@ -131,30 +127,11 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       return cell
    }
    
-   // on open - set isViewed to true after 3 seconds delay
+   // MARK: - Badge delegate and processing
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
-      //      if feedbackItems.count != 0 {
-      //         addPopoverWithLikes()
-      //         perform(#selector(setIsViewedPropToTrue), with: nil, afterDelay: 3.0)
-      //      }
-   }
-   
-   private func addPopoverWithLikes() {
-      var countUnViewedFBItems = 0
-      
-      if feedbackItems.count != 0 {
-         for fbItem in feedbackItems {
-            if !fbItem.isViewed {
-               countUnViewedFBItems += 1
-            }
-         }
-      }
-      
-      if countUnViewedFBItems != 0 {
-         self.tabBarController?.tabBar.items![2].badgeValue = String(countUnViewedFBItems)
-      }
+      perform(#selector(setIsViewedPropToTrue), with: nil, afterDelay: 3.0)
    }
    
    // this function will perform after 3 seconds
@@ -183,6 +160,12 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          
       default: break
       }
+   }
+}
+
+extension FeedbackController: FeedbackItemsDelegate {
+   func lastUpdate(_ items: [FeedbackItem]) {
+      self.feedbackItems = items
    }
 }
 

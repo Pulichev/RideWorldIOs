@@ -1836,18 +1836,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Peo-1o-Kj8">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="RM9-hD-ueU">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AOm-uR-hUB">
-                                <rect key="frame" x="335" y="10" width="24" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="reload"/>
-                                <connections>
-                                    <action selector="reloadData:" destination="RGC-lG-87G" eventType="touchUpInside" id="Gdx-5J-WyO"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Peo-1o-Kj8"/>
                     <connections>
                         <outlet property="tableView" destination="VrN-lv-5Jr" id="UmA-uM-txp"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromFeedbackList" id="tCn-nV-MKo"/>
@@ -1933,17 +1922,16 @@
         <image name="RegistrationButton" width="144" height="76"/>
         <image name="grayRec.jpg" width="128" height="128"/>
         <image name="heart" width="32" height="32"/>
-        <image name="reload" width="48" height="48"/>
         <image name="respectActive" width="47" height="26"/>
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZpR-8C-QJR"/>
         <segue reference="1Fi-pQ-wyF"/>
-        <segue reference="TEa-lr-7L1"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="6R6-CY-IE2"/>
+        <segue reference="TEa-lr-7L1"/>
+        <segue reference="nax-92-cwD"/>
+        <segue reference="tCn-nV-MKo"/>
         <segue reference="RlL-e4-xY6"/>
-        <segue reference="qSk-1a-lLs"/>
     </inferredMetricsTieBreakers>
 </document>

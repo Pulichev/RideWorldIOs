@@ -51,6 +51,8 @@ class MainTabBarController: UITabBarController {
       
       if countUnViewedFBItems != 0 {
          self.tabBar.items![2].badgeValue = String(countUnViewedFBItems)
+      } else {
+         self.tabBar.items![2].badgeValue = nil
       }
    }
    

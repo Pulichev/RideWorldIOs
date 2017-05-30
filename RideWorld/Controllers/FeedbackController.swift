@@ -135,10 +135,10 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
-      if feedbackItems.count != 0 {
-         addPopoverWithLikes()
-         perform(#selector(setIsViewedPropToTrue), with: nil, afterDelay: 3.0)
-      }
+      //      if feedbackItems.count != 0 {
+      //         addPopoverWithLikes()
+      //         perform(#selector(setIsViewedPropToTrue), with: nil, afterDelay: 3.0)
+      //      }
    }
    
    private func addPopoverWithLikes() {
@@ -152,7 +152,9 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          }
       }
       
-      self.tabBarController?.tabBar.items![2].badgeValue = String(countUnViewedFBItems)
+      if countUnViewedFBItems != 0 {
+         self.tabBarController?.tabBar.items![2].badgeValue = String(countUnViewedFBItems)
+      }
    }
    
    // this function will perform after 3 seconds

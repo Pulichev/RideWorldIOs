@@ -15,6 +15,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
          if !cameFromEdit { // when we came from edit
             // we have already updated info
             editButton.isEnabled = true
+            self.navigationItem.title = userInfo.login
             
             DispatchQueue.global(qos: .userInteractive).async {
                self.initializeUserTextInfo()
@@ -304,27 +305,6 @@ extension UserProfileController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate 
          return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
       } else {
          return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
-      }
-   }
-}
-
-// MARK: - Part for hide and view navbar
-extension UserProfileController {
-   override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      
-      if !cameFromSpotDetails {
-         // Hide the navigation bar on the this view controller
-         navigationController?.setNavigationBarHidden(true, animated: animated)
-      }
-   }
-   
-   override func viewWillDisappear(_ animated: Bool) {
-      super.viewWillDisappear(animated)
-      
-      if !cameFromSpotDetails {
-         // Show the navigation bar on other view controllers
-         navigationController?.setNavigationBarHidden(false, animated: animated)
       }
    }
 }

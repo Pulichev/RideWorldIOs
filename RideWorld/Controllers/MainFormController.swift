@@ -6,6 +6,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Cluster
 
 class MainFormController: UIViewController {
    
@@ -218,7 +219,6 @@ extension MainFormController {
       super.viewWillAppear(animated)
       
       self.navigationItem.title = "Ride World" // navbar title
-      self.navigationItem.rightBarButtonItem = nil // hide delete button
    }
    
    override func viewWillDisappear(_ animated: Bool) {

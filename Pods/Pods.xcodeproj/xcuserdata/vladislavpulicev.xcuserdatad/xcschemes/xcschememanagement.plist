@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Cluster.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>DateToolsSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,12 +77,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>265C6EF2F8173F64989E77A182EB153C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3E0D8640A124012AB6F0A9F775A38285</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5A708CF9CA25F1E44AE25A5C49F4ED44</key>
+		<key>5E9353FC76D4FEF364602A85C78B4C18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8CF763AF743225C5812E7F495B76A06A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -88,11 +103,6 @@
 			<true/>
 		</dict>
 		<key>A2EBB9DBC32E6FB582A1ECD510A6C075</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B741680C6C1C4722F766979B19773CDB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

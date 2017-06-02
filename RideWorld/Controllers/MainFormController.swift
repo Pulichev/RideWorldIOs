@@ -209,7 +209,40 @@ extension MainFormController: CLLocationManagerDelegate {
    }
    
    @IBAction func AddNewSpot(_ sender: Any) {
-      performSegue(withIdentifier: "addNewSpot", sender: self)
+      if distanceToNearestPin() > 50.0 {
+         performSegue(withIdentifier: "addNewSpot", sender: self)
+      } else {
+         showAlertThatToCloseToExistingSpot()
+      }
+   }
+   
+   private func distanceToNearestPin() -> Float {
+      let pins = mapView.annotations
+      //let currentLocation = mapView.userLocation.location!
+      var minDistance: CLLocationDistance = 0.0
+      
+      for pin in pins {
+         let coord = pin.coordinate
+         let loc = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
+         
+         let distance : CLLocationDistance = locationManager.location!.distance(from: loc)
+         
+         if distance < minDistance || minDistance == 0.0 {
+            minDistance = distance
+         }
+      }
+      
+      return Float(minDistance)
+   }
+   
+   private func showAlertThatToCloseToExistingSpot() {
+      let alert = UIAlertController(title: "Error!",
+                                    message: "You are trying to add spot to close to already existed",
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
    }
 }
 

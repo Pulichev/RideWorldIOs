@@ -29,44 +29,41 @@ class PostItemCellCache {
       postDate = DateTimeParser.getDateTime(from: post.createdDate)
       postDescription = post.description
       isPhoto = post.isPhoto
-      initializeUser(completion: {
-         self.userLikedThisPost(completion: {
-            self.countPostLikes(completion: {
+      initializeUser() {
+         self.userLikedThisPost() {
+            self.countPostLikes() {
                completion(self)
-            })
-         })
-      })
+            }
+         }
+      }
    }
    
    func initializeUser(completion: @escaping () -> Void) {
-      User.getItemById(for: post.addedByUser,
-                       completion: { userItem in
-                        self.userInfo = userItem
-                        self.userNickName = self.userInfo.login
-                        completion()
-      })
+      User.getItemById(for: post.addedByUser) { userItem in
+         self.userInfo = userItem
+         self.userNickName = self.userInfo.login
+         completion()
+      }
    }
    
    func userLikedThisPost(completion: @escaping () -> Void) {
-      Post.isLikedByUser(post.key,
-                         completion: { isLiked in
-                           if isLiked {
-                              self.postIsLiked = true
-                              self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-                           } else {
-                              self.postIsLiked = false
-                              self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-                           }
-                           completion()
-      })
+      Post.isLikedByUser(post.key) { isLiked in
+         if isLiked {
+            self.postIsLiked = true
+            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+         } else {
+            self.postIsLiked = false
+            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+         }
+         completion()
+      }
    }
    
    func countPostLikes(completion: @escaping () -> Void) {
-      Post.getLikesCount(for: post.key,
-                         completion: { countOfPostLikes in
-                           self.likesCount = countOfPostLikes
-                           completion()
-      })
+      Post.getLikesCount(for: post.key) { countOfPostLikes in
+         self.likesCount = countOfPostLikes
+         completion()
+      }
    }
    
    func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked

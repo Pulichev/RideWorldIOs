@@ -45,6 +45,7 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.8)
+  - HanekeSwift (0.10.1)
   - Kingfisher (3.2.4)
   - MGSwipeTableCell (1.5.6)
   - SVProgressHUD (2.1.2)
@@ -59,6 +60,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseAuth
   - Fusuma
+  - HanekeSwift
   - Kingfisher (~> 3.0)
   - MGSwipeTableCell
   - SVProgressHUD
@@ -80,11 +82,12 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 6f8d8b28b7e345549ac471071608170b31cb4977
+  HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
   Kingfisher: 8d80f39da403cd9c9ee11984e1655f4d6a566cdb
   MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftLint: 90665265ae50b58167c674a11c680bbabe9d6513
 
-PODFILE CHECKSUM: 7232160d0603b615eae561366fceb1f0bba4579c
+PODFILE CHECKSUM: f23ba412b886f39b9f7b90a2b280cf6a2518e8e5
 
 COCOAPODS: 1.1.1

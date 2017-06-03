@@ -146,14 +146,13 @@ struct User {
          if let followersIds = value?.allKeys as? [String] {
             var countOfLoaded = 0
             for followerId in followersIds {
-               self.getItemById(for: followerId,
-                                completion: { follower in
-                                 countOfLoaded += 1
-                                 followersList.append(follower)
-                                 if countOfLoaded == followersIds.count {
-                                    completion(followersList)
-                                 }
-               })
+               self.getItemById(for: followerId) { follower in
+                  countOfLoaded += 1
+                  followersList.append(follower)
+                  if countOfLoaded == followersIds.count {
+                     completion(followersList)
+                  }
+               }
             }
          }
       })
@@ -170,14 +169,13 @@ struct User {
          if let followingsIds = value?.allKeys as? [String] {
             var countOfLoaded = 0
             for followingId in followingsIds {
-               self.getItemById(for: followingId,
-                                completion: { following in
-                                 countOfLoaded += 1
-                                 followingsList.append(following)
-                                 if countOfLoaded == followingsIds.count {
-                                    completion(followingsList)
-                                 }
-               })
+               self.getItemById(for: followingId) { following in
+                  countOfLoaded += 1
+                  followingsList.append(following)
+                  if countOfLoaded == followingsIds.count {
+                     completion(followingsList)
+                  }
+               }
             }
          }
       })
@@ -207,7 +205,8 @@ struct User {
    }
    
    
-   static func isCurrentUserFollowing(this userId: String, completion: @escaping(_ isFollowing: Bool) -> Void) {
+   static func isCurrentUserFollowing(this userId: String,
+                                      completion: @escaping(_ isFollowing: Bool) -> Void) {
       let currentUserId = self.getCurrentUserId()
       let refToCurrentUser = refToUsersNode.child(currentUserId).child("following")
       
@@ -225,13 +224,15 @@ struct User {
    }
    
    static func addFollowing(to userId: String) {
-      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId()).child("following").child(userId)
+      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId())
+         .child("following").child(userId)
       
       refToCurrentUser.setValue(true)
    }
    
    static func removeFollowing(from userId: String) {
-      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId()).child("following").child(userId)
+      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId())
+         .child("following").child(userId)
       
       refToCurrentUser.removeValue()
    }
@@ -288,25 +289,23 @@ struct User {
       completion: @escaping (_ postsIds: [String]) -> Void) {
       if self.alreadyLoadedCountOfPosts == 0 { // if we haven't loaded already
          var followingsPostsIds = [String]()
-         self.getFollowingsIdsForCurrentUser(
-            completion: { followingsIds in
-               var countOfProcessedFollowings = 0
-               
-               for followingId in followingsIds {
-                  self.getPostsIds(for: followingId,
-                                   completion: { postsIds in
-                                    countOfProcessedFollowings += 1
-                                    
-                                    if postsIds != nil {
-                                       followingsPostsIds.append(contentsOf: postsIds!)
-                                    }
-                                    
-                                    if countOfProcessedFollowings == followingsIds.count {
-                                       completion(followingsPostsIds.sorted(by: { $0 > $1 })) // with order by date
-                                    }
-                  })
+         self.getFollowingsIdsForCurrentUser() { followingsIds in
+            var countOfProcessedFollowings = 0
+            
+            for followingId in followingsIds {
+               self.getPostsIds(for: followingId) { postsIds in
+                  countOfProcessedFollowings += 1
+                  
+                  if postsIds != nil {
+                     followingsPostsIds.append(contentsOf: postsIds!)
+                  }
+                  
+                  if countOfProcessedFollowings == followingsIds.count {
+                     completion(followingsPostsIds.sorted(by: { $0 > $1 })) // with order by date
+                  }
                }
-         })
+            }
+         }
       } else {
          completion(self.postsIds)
       }
@@ -314,7 +313,7 @@ struct User {
    
    static func getStripPosts(countOfNewItemsToAdd: Int,
                              completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
-      self.getStripPostsIds(completion: { postsIds in
+      self.getStripPostsIds() { postsIds in
          if postsIds.count != 0 {
             self.postsIds = postsIds
          } else {
@@ -342,7 +341,7 @@ struct User {
                }
             }
          }
-      })
+      }
    }
    
    private static func getNextIdsForAdd(_ count: Int) -> [String]? {
@@ -385,7 +384,7 @@ struct User {
    static func setFeedbackIsViewedToTrue(withKey key: String) {
       let currentUserId = getCurrentUserId()
       let refToEntityIsViewed = refToFeedback.child(currentUserId).child(key).child("isViewed")
-   
+      
       refToEntityIsViewed.setValue(true)
    }
 }

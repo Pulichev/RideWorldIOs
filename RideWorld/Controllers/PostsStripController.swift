@@ -390,20 +390,18 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    private func goToUserProfile(tappedUserLogin: String) {
-      User.getItemByLogin(
-         for: tappedUserLogin,
-         completion: { fetchedUserItem in
-            if let userItem = fetchedUserItem { // have we founded?
-               if userItem.uid == User.getCurrentUserId() {
-                  self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
-               } else {
-                  self.ridersInfoForSending = userItem
-                  self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
-               }
-            } else { // if no user founded for tapped nickname
-               self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
+      User.getItemByLogin(for: tappedUserLogin) { fetchedUserItem in
+         if let userItem = fetchedUserItem { // have we founded?
+            if userItem.uid == User.getCurrentUserId() {
+               self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
+            } else {
+               self.ridersInfoForSending = userItem
+               self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
             }
-      })
+         } else { // if no user founded for tapped nickname
+            self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
+         }
+      }
    }
    
    private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {

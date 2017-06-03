@@ -20,14 +20,13 @@ struct UserMedia {
       let userPhotoRef = refToUserMainPhotoURLs.child(userId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
       //with low compression
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
-      userPhotoRef.put(dataLowCompression, metadata: nil,
-              completion: { (meta , error) in
-               if error == nil {
-                  // save url to post node
-                  completion(true, (meta?.downloadURL()?.absoluteString)!)
-               } else {
-                  completion(false, "")
-               }
-         })
+      userPhotoRef.put(dataLowCompression, metadata: nil) { (meta , error) in
+         if error == nil {
+            // save url to post node
+            completion(true, (meta?.downloadURL()?.absoluteString)!)
+         } else {
+            completion(false, "")
+         }
+      }
    }
 }

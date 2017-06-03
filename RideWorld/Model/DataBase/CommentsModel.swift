@@ -38,13 +38,17 @@ struct Comment {
       
       let currentUserId = User.getCurrentUserId()
       let currentDateTime = String(describing: Date())
-      let newComment = CommentItem(currentUserId, post.key, post.addedByUser,  text!, currentDateTime, refForNewCommentKey)
+      let newComment = CommentItem(currentUserId, post.key, post.addedByUser,
+                                   text!, currentDateTime, refForNewCommentKey)
       
       getAllMentionedUsersIds(from: text!) { mentionedUserIds in
          var userIds = mentionedUserIds
          userIds.append(post.addedByUser) // adding post author
          
-         var updates: [String: Any?] = ["/spotpost/" + post.key + "/comments/" + refForNewCommentKey: newComment.toAnyObject()]
+         var updates: [String: Any?] = [
+            "/spotpost/" + post.key + "/comments/" + refForNewCommentKey:
+               newComment.toAnyObject()
+         ]
          
          for userId in userIds {
             // dont add to feedback all
@@ -53,7 +57,8 @@ struct Comment {
             if userId != newComment.userId {
                var commentForFeedback = newComment.toAnyObject()
                commentForFeedback["isViewed"] = false // when user will open feedback -> true
-               updates.updateValue(commentForFeedback, forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
+               updates.updateValue(commentForFeedback,
+                                   forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
             }
          }
          
@@ -108,18 +113,17 @@ struct Comment {
    static func remove(_ comment: CommentItem, from post: PostItem) {
       let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
       
-      getAllMentionedUsersIds(from: comment.commentary,
-                              completion: { mentionedUserIds in
-                                 var userIds = mentionedUserIds
-                                 userIds.append(post.addedByUser) // adding post author
-                                 
-                                 var updates: [String: Any?] = ["/spotpost/" + post.key + "/comments/" + comment.key: nil]
-                                 
-                                 for userId in userIds {
-                                    updates.updateValue(nil, forKey: "/feedback/" + userId + "/" + comment.key) //
-                                 }
-                                 
-                                 ref.updateChildValues(updates)
-      })
+      getAllMentionedUsersIds(from: comment.commentary) { mentionedUserIds in
+         var userIds = mentionedUserIds
+         userIds.append(post.addedByUser) // adding post author
+         
+         var updates: [String: Any?] = ["/spotpost/" + post.key + "/comments/" + comment.key: nil]
+         
+         for userId in userIds {
+            updates.updateValue(nil, forKey: "/feedback/" + userId + "/" + comment.key) //
+         }
+         
+         ref.updateChildValues(updates)
+      }
    }
 }

@@ -16,6 +16,7 @@ target 'RideWorld' do
   pod 'SVProgressHUD'
   pod 'DateToolsSwift'
   pod ‘Cluster’
+  pod 'HanekeSwift'
 
   # Pods for RideWorld
 

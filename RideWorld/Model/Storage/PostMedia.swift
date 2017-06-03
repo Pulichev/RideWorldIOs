@@ -29,7 +29,7 @@ struct PostMedia {
                } else {
                   completion(data)
                }
-            }.resume()
+               }.resume()
          }
       }
    }
@@ -63,15 +63,14 @@ struct PostMedia {
       
       //with low compression
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
-      postPhotoRef.put(dataLowCompression, metadata: nil,
-                       completion: { (meta , error) in
-                        if error == nil {
-                           // save url to post node
-                           completion(true, (meta?.downloadURL()?.absoluteString)!)
-                        } else {
-                           completion(false, "")
-                        }
-      })
+      postPhotoRef.put(dataLowCompression, metadata: nil) { (meta , error) in
+         if error == nil {
+            // save url to post node
+            completion(true, (meta?.downloadURL()?.absoluteString)!)
+         } else {
+            completion(false, "")
+         }
+      }
    }
    
    static func uploadPhotoForPost(_ image: UIImage, for postForUpdate: PostItem,

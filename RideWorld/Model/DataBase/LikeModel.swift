@@ -18,8 +18,8 @@ struct Like {
       like.key = likeRef.key
       
       var updates: [String: Any?] = [
-         "/users/" + like.userId + "/likePlaced/onposts/" + like.postId: like.toAnyObject(),
-         "/spotpost/" + like.postId + "/likes/" + like.userId: like.toAnyObject()
+         "/users/"    + like.userId + "/likePlaced/onposts/" + like.postId: like.toAnyObject(),
+         "/spotpost/" + like.postId + "/likes/"              + like.userId: like.toAnyObject()
       ]
       
       if like.userId != like.postAddedByUserId { // dont add your own likes
@@ -33,8 +33,8 @@ struct Like {
    
    static func remove(with userId: String, _ post: PostItem) {
       var updates: [String: Any?] = [
-         "/users/" + userId + "/likePlaced/onposts/" + post.key: nil,
-         "/spotpost/" + post.key + "/likes/" + userId: nil
+         "/users/"    + userId   + "/likePlaced/onposts/" + post.key: nil,
+         "/spotpost/" + post.key + "/likes/"              + userId:   nil
       ]
       
       // deleting from feedback node

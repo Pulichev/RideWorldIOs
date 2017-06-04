@@ -38,8 +38,11 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
       return photosURLs.count
    }
    
-   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath as IndexPath) as! ImageCollectionViewCell
+   func collectionView(_ collectionView: UICollectionView,
+                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+      let cell = collectionView.dequeueReusableCell(
+         withReuseIdentifier: "ImageCollectionViewCell", for: indexPath as IndexPath)
+         as! ImageCollectionViewCell
       let photoURL = URL(string: photosURLs[indexPath.row])
       cell.postPicture.kf.setImage(with: photoURL!)
       
@@ -47,20 +50,18 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    }
    
    private func initializePhotos() {
-      Spot.getAllPhotosURLs(for: spotInfo.key,
-                            completion: { photoURLs in
-                              self.photosURLs.append(contentsOf: photoURLs)
-                              self.photosCollection.reloadData()
-      })
+      Spot.getAllPhotosURLs(for: spotInfo.key) { photoURLs in
+         self.photosURLs.append(contentsOf: photoURLs)
+         self.photosCollection.reloadData()
+      }
    }
    
    // MARK: - initialize user
    private func initUserLabel() {
-      User.getItemById(for: spotInfo.addedByUser,
-                       completion: { user in
-                        self.user = user
-                        self.addedByUser.setTitle(user.login, for: .normal)
-      })
+      User.getItemById(for: spotInfo.addedByUser) { user in
+         self.user = user
+         self.addedByUser.setTitle(user.login, for: .normal)
+      }
    }
    
    @IBAction func userButtonTapped(_ sender: Any) {
@@ -110,16 +111,15 @@ extension SpotInfoController: FusumaDelegate {
       }
       
       SVProgressHUD.show()
-      SpotMedia.uploadForInfo(image, for: spotInfo.key, with: 270.0,
-                              completion: { url in
-                                 if url != nil {
-                                    self.photosURLs.append(url!)
-                                    
-                                    self.photosCollection.reloadData()
-                                 }
-                                 
-                                 SVProgressHUD.dismiss()
-      })
+      SpotMedia.uploadForInfo(image, for: spotInfo.key, with: 270.0) { url in
+         if url != nil {
+            self.photosURLs.append(url!)
+            
+            self.photosCollection.reloadData()
+         }
+         
+         SVProgressHUD.dismiss()
+      }
    }
    
    func fusumaImageSelected(_ image: UIImage) {

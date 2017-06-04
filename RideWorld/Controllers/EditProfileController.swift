@@ -40,14 +40,13 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       let login = getCellFieldText(2)
       // updating values
       // check if new login free, because they must be unic
-      User.getItemByLogin(for: login,
-                          completion: { userItem in
-                           if userItem == nil || userItem!.uid == User.getCurrentUserId() { // free
-                              self.updateInfo(with: login)
-                           } else {
-                              self.showAlertThatLoginAlreadyExists()
-                           }
-      })
+      User.getItemByLogin(for: login) { userItem in
+         if userItem == nil || userItem!.uid == User.getCurrentUserId() { // free
+            self.updateInfo(with: login)
+         } else {
+            self.showAlertThatLoginAlreadyExists()
+         }
+      }
    }
    
    func updateInfo(with login: String) {
@@ -59,20 +58,18 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       uploadPhoto()
       
       returnToParentControllerOnSaveButtonTapped(bioDescription,
-                                                      login,  nameAndSename)
+                                                 login,  nameAndSename)
    }
    
    private func uploadPhoto() {
       UserMedia.upload(for: userInfo.uid,
-                       with: userPhoto.image!, withSize: 150.0,
-                       completion: { (hasFinishedSuccessfully, url) in
+                       with: userPhoto.image!, withSize: 150.0) { (hasFinishedSuccessfully, url) in
                         User.updatePhotoRef(for: self.userInfo.uid, size: 150, url: url)
-      })
+      }
       UserMedia.upload(for: userInfo.uid,
-                       with: userPhoto.image!, withSize: 90.0,
-                       completion: { (hasFinishedSuccessfully, url) in
+                       with: userPhoto.image!, withSize: 90.0) { (hasFinishedSuccessfully, url) in
                         User.updatePhotoRef(for: self.userInfo.uid, size: 90, url: url)
-      })
+      }
    }
    
    private func returnToParentControllerOnSaveButtonTapped(_ bioDescription: String, _ login: String, _ nameAndSename: String) {

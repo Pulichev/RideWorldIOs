@@ -79,24 +79,22 @@ class PostInfoViewController: UIViewController {
    }
    
    func countPostLikes() {
-      Post.getLikesCount(for: postInfo.key,
-                         completion: { likesCount in
-                           self.likesCountInt = likesCount
-                           self.likesCount.text = String(describing: likesCount)
-      })
+      Post.getLikesCount(for: postInfo.key) { likesCount in
+         self.likesCountInt = likesCount
+         self.likesCount.text = String(describing: likesCount)
+      }
    }
    
    func userLikedThisPost() {
-      Post.isLikedByUser(postInfo.key,
-                         completion: { isLiked in
-                           if isLiked {
-                              self.postIsLiked = true
-                              self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-                           } else {
-                              self.postIsLiked = false
-                              self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-                           }
-      })
+      Post.isLikedByUser(postInfo.key) { isLiked in
+         if isLiked {
+            self.postIsLiked = true
+            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+         } else {
+            self.postIsLiked = false
+            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+         }
+      }
    }
    
    func postLiked(_ sender: Any) {
@@ -125,7 +123,8 @@ class PostInfoViewController: UIViewController {
       // init new like
       let currentUserId = User.getCurrentUserId()
       let placedTime = String(describing: Date())
-      let newLike = LikeItem(who: currentUserId, what: postInfo.key, postWasAddedBy: postInfo.addedByUser, at: placedTime)
+      let newLike = LikeItem(who: currentUserId, what: postInfo.key,
+                             postWasAddedBy: postInfo.addedByUser, at: placedTime)
       
       Like.add(newLike)
    }
@@ -178,7 +177,7 @@ class PostInfoViewController: UIViewController {
    private func downloadOriginalImage() {
       let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
       imageViewForView.kf.indicatorType = .activity
-
+      
       imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef700)) //Using kf for caching images.
       DispatchQueue.main.async {
          self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
@@ -288,23 +287,22 @@ class PostInfoViewController: UIViewController {
    
    private func goToUserProfile(tappedUserLogin: String) {
       User.getItemByLogin(
-         for: tappedUserLogin,
-         completion: { fetchedUserItem in
-            if let userItem = fetchedUserItem { // have we founded?
-               if fetchedUserItem?.uid == self.user.uid {
-                  _ = self.navigationController?.popViewController(animated: true) // go back
+      for: tappedUserLogin) { fetchedUserItem in
+         if let userItem = fetchedUserItem { // have we founded?
+            if fetchedUserItem?.uid == self.user.uid {
+               _ = self.navigationController?.popViewController(animated: true) // go back
+            } else {
+               if userItem.uid == User.getCurrentUserId() {
+                  self.performSegue(withIdentifier: "fromPostInfoToUserProfile", sender: self)
                } else {
-                  if userItem.uid == User.getCurrentUserId() {
-                     self.performSegue(withIdentifier: "fromPostInfoToUserProfile", sender: self)
-                  } else {
-                     self.ridersInfoForSending = userItem
-                     self.performSegue(withIdentifier: "fromPostInfoToRidersProfile", sender: self)
-                  }
+                  self.ridersInfoForSending = userItem
+                  self.performSegue(withIdentifier: "fromPostInfoToRidersProfile", sender: self)
                }
-            } else { // if no user founded for tapped nickname
-               self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
             }
-      })
+         } else { // if no user founded for tapped nickname
+            self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
+         }
+      }
    }
    
    private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {

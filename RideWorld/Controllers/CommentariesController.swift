@@ -56,33 +56,33 @@ UITableViewDelegate {
       addPostDescAsComment()
       
       Comment.loadList(
-         for: post.key,
-         completion: { loadedComments in
-            self.comments.append(contentsOf: loadedComments)
-            
-            self.tableView.reloadData()
-      })
+      for: post.key) { loadedComments in
+         self.comments.append(contentsOf: loadedComments)
+         
+         self.tableView.reloadData()
+      }
    }
    
    func addPostDescAsComment() {
-      let descAsComment = CommentItem(userId!, post.key, post.addedByUser, postDescription!, postDate, "")
+      let descAsComment = CommentItem(userId!, post.key,
+                                      post.addedByUser, postDescription!,
+                                      postDate, "")
       comments.append(descAsComment)
    }
    
    @IBAction func sendComment(_ sender: UIButton) {
-      Comment.add(
-         for: post, withText: newCommentTextField.text,
-         completion: { newComment in
-            self.newCommentTextField.text = ""
-            self.view.endEditing(true)
-
-            self.comments.append(newComment)
-            // add to tableView
-            self.tableView.beginUpdates()
-            let lastIndex = IndexPath(row: self.comments.count - 1, section: 0)
-            self.tableView.insertRows(at: [lastIndex], with: .none)
-            self.tableView.endUpdates()
-      })
+      Comment.add(for: post,
+                  withText: newCommentTextField.text) { newComment in
+                     self.newCommentTextField.text = ""
+                     self.view.endEditing(true)
+                     
+                     self.comments.append(newComment)
+                     // add to tableView
+                     self.tableView.beginUpdates()
+                     let lastIndex = IndexPath(row: self.comments.count - 1, section: 0)
+                     self.tableView.insertRows(at: [lastIndex], with: .none)
+                     self.tableView.endUpdates()
+      }
    }
    
    func numberOfSections(in tableView: UITableView) -> Int {
@@ -106,7 +106,7 @@ UITableViewDelegate {
       cell.commentText.handleMentionTap { mention in // mention is @userLogin
          self.goToUserProfile(tappedUserLogin: mention)
       }
-
+      
       cell.userNickName.addTarget(self, action: #selector(goToUserProfileFromNickNameButton), for: .touchUpInside)
       
       //configure right buttons
@@ -173,12 +173,10 @@ UITableViewDelegate {
       if userId == User.getCurrentUserId() {
          performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
       } else {
-         User.getItemById(
-            for: userId,
-            completion: { fetchedUserItem in
-               self.ridersInfoForSending = fetchedUserItem
-               self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
-         })
+         User.getItemById(for: userId) { fetchedUserItem in
+            self.ridersInfoForSending = fetchedUserItem
+            self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
+         }
       }
    }
    
@@ -190,19 +188,18 @@ UITableViewDelegate {
    // from @username
    private func goToUserProfile(tappedUserLogin: String) {
       User.getItemByLogin(
-         for: tappedUserLogin,
-         completion: { fetchedUserItem in
-            if let userItem = fetchedUserItem { // have we founded?
-               if userItem.uid == User.getCurrentUserId() {
-                  self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
-               } else {
-                  self.ridersInfoForSending = userItem
-                  self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
-               }
-            } else { // if no user founded for tapped nickname
-               self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
+      for: tappedUserLogin) { fetchedUserItem in
+         if let userItem = fetchedUserItem { // have we founded?
+            if userItem.uid == User.getCurrentUserId() {
+               self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
+            } else {
+               self.ridersInfoForSending = userItem
+               self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
             }
-      })
+         } else { // if no user founded for tapped nickname
+            self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
+         }
+      }
    }
    
    private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {

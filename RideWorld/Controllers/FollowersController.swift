@@ -25,22 +25,19 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
    
    private func loadFollowList() {
       if followersOrFollowingList == true { // followers ref
-         User.getFollowersList(for: userId,
-                               completion: { followersList in
-                                 self.followList = followersList
-                                 DispatchQueue.main.async {
-                                    self.tableView.reloadData()
-                                 }
-         })
+         User.getFollowersList(for: userId) { followersList in
+            self.followList = followersList
+            DispatchQueue.main.async {
+               self.tableView.reloadData()
+            }
+         }
       } else { // following ref
-         User.getFollowingsList(for: userId,
-                                completion: { followingsList in
-                                 self.followList = followingsList
-                                 DispatchQueue.main.async {
-                                    self.tableView.reloadData()
-                                 }
-         })
-         
+         User.getFollowingsList(for: userId) { followingsList in
+            self.followList = followingsList
+            DispatchQueue.main.async {
+               self.tableView.reloadData()
+            }
+         }
       }
    }
    
@@ -67,7 +64,7 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
       return cell
    }
    
-   // here is redirecting to user profile by click on row. 
+   // here is redirecting to user profile by click on row.
    // So we have 2 redirects. By image and row
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       let row = indexPath.row

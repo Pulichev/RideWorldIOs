@@ -29,14 +29,13 @@ class RegistrationController: UIViewController {
    }
    
    @IBAction func signUpButtonTapped(_ sender: Any) {
-      User.getItemByLogin(for: userLogin.text!,
-                          completion: { userItem in
-                           if userItem == nil {
-                              self.createAndLogin()
-                           } else {
-                              self.showAlertThatLoginAlreadyExists()
-                           }
-      })
+      User.getItemByLogin(for: userLogin.text!) { userItem in
+         if userItem == nil {
+            self.createAndLogin()
+         } else {
+            self.showAlertThatLoginAlreadyExists()
+         }
+      }
    }
    
    private func createAndLogin() {

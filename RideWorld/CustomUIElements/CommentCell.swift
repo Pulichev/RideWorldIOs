@@ -35,7 +35,7 @@ class CommentCell: MGSwipeTableCell {
    }
    
    func initialiseUserPhoto() {
-      userPhoto.image = UIImage(named: "grayRec.jpg")
+      userPhoto.image = UIImage(named: "grayRec.png")
       
       User.getItemById(for: comment.userId) { user in
          if user.photo90ref != nil {

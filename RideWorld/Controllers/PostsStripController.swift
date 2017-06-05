@@ -292,7 +292,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    func addPlaceHolder(cell: PostsCell) {
-      let placeholderImage = UIImage(named: "grayRec.jpg")
+      let placeholderImage = UIImage(named: "grayRec.png")
       let placeholder = UIImageView(frame: cell.spotPostMedia.bounds)
       placeholder.image = placeholderImage
       placeholder.contentMode = .scaleAspectFill

@@ -6,7 +6,6 @@
 import UIKit
 import MapKit
 import CoreLocation
-import Cluster
 
 class MainFormController: UIViewController {
    

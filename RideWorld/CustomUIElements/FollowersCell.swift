@@ -25,7 +25,7 @@ class FollowersCell: UITableViewCell {
    }
    
    func initialiseUserPhoto() {
-      userImage.image = UIImage(named: "grayRec.jpg")
+      userImage.image = UIImage(named: "grayRec.png")
       
       if follower.photo90ref != nil {
          self.userImage.kf.setImage(with: URL(string: follower.photo90ref!)) // Using kf for caching images.

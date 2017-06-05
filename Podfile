@@ -15,8 +15,6 @@ target 'RideWorld' do
   pod ‘MGSwipeTableCell’
   pod 'SVProgressHUD'
   pod 'DateToolsSwift'
-  pod ‘Cluster’
-  pod 'HanekeSwift'
 
   # Pods for RideWorld
 

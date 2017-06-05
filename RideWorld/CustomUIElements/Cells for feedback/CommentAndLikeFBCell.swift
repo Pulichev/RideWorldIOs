@@ -18,7 +18,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
          User.getItemById(for: userId) { user in
             self.userItem = user
             
-            self.userPhoto.image = UIImage(named: "grayRec.jpg") // default picture
+            self.userPhoto.image = UIImage(named: "grayRec.png") // default picture
             if let url = user.photo90ref {
                self.userPhoto?.kf.setImage(with: URL(
                   string: url))

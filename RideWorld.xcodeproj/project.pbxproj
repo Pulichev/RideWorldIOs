@@ -21,6 +21,7 @@
 		9F2BFEEC1E9105D3005FEF0C /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */; };
 		9F2D4C971EAD21E100235451 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2D4C951EAD21E100235451 /* delete.png */; };
 		9F2D4C981EAD21E100235451 /* reply.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2D4C961EAD21E100235451 /* reply.png */; };
+		9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3022BD1EE5BF19001827B3 /* grayRec.png */; };
 		9F49EB301E688718007ADAD1 /* SpotItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F49EB2F1E688718007ADAD1 /* SpotItem.swift */; };
 		9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */; };
 		9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */; };
@@ -126,6 +127,7 @@
 		9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = CustomUIElements/CommentCell.swift; sourceTree = "<group>"; };
 		9F2D4C951EAD21E100235451 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = Pictures/delete.png; sourceTree = "<group>"; };
 		9F2D4C961EAD21E100235451 /* reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = reply.png; path = Pictures/reply.png; sourceTree = "<group>"; };
+		9F3022BD1EE5BF19001827B3 /* grayRec.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grayRec.png; path = Pictures/grayRec.png; sourceTree = "<group>"; };
 		9F49EB2F1E688718007ADAD1 /* SpotItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotItem.swift; path = Data/SpotItem.swift; sourceTree = "<group>"; };
 		9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlus.png; path = Pictures/ButtonPlus.png; sourceTree = "<group>"; };
 		9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonLogout.png; path = Pictures/ButtonLogout.png; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 		9F2380721E34DA20009D41E8 /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				9F3022BD1EE5BF19001827B3 /* grayRec.png */,
 				9F2D4C951EAD21E100235451 /* delete.png */,
 				9F2D4C961EAD21E100235451 /* reply.png */,
 				9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */,
@@ -641,6 +644,7 @@
 				9F6163471E7E89C1001664B7 /* no_photo.png in Resources */,
 				9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */,
 				9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */,
+				9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */,
 				9F4A84491E6329D100C1E5F2 /* biography.png in Resources */,
 				9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */,
 				9F4A84471E63229E00C1E5F2 /* login.png in Resources */,

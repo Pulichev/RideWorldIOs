@@ -185,16 +185,17 @@ extension MainFormController: MKMapViewDelegate {
 extension MainFormController: CLLocationManagerDelegate {
    func setStartRegion() {
       let span: MKCoordinateSpan = MKCoordinateSpanMake(0.1, 0.1)
+      var myLocation: CLLocationCoordinate2D
       if let coordinates = locationManager.location?.coordinate {
-         let myLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(coordinates.latitude,
-                                                                             coordinates.longitude)
-         let region: MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
-         mapView.setRegion(region, animated: true)
+         myLocation = CLLocationCoordinate2DMake(coordinates.latitude,
+                                                 coordinates.longitude)
       } else {
-         let myLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(55.925314, 37.824127)
-         let region: MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
-         mapView.setRegion(region, animated: true)
+         myLocation = CLLocationCoordinate2DMake(55.925314,
+                                                 37.824127)
       }
+      
+      let region: MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
+      mapView.setRegion(region, animated: true)
    }
    
    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

@@ -28,8 +28,11 @@ UITableViewDelegate {
    @IBOutlet weak var newCommentTextField: UITextField! {
       didSet {
          newCommentTextField.delegate = self
+         newCommentTextField.keyboardType = .twitter
       }
    }
+   
+   @IBOutlet weak var newCommentView: UIView!
    
    var comments = [CommentItem]()
    var postDescription: String? //
@@ -72,16 +75,17 @@ UITableViewDelegate {
    
    @IBAction func sendComment(_ sender: UIButton) {
       Comment.add(for: post,
-                  withText: newCommentTextField.text) { newComment in
-                     self.newCommentTextField.text = ""
-                     self.view.endEditing(true)
-                     
-                     self.comments.append(newComment)
-                     // add to tableView
-                     self.tableView.beginUpdates()
-                     let lastIndex = IndexPath(row: self.comments.count - 1, section: 0)
-                     self.tableView.insertRows(at: [lastIndex], with: .none)
-                     self.tableView.endUpdates()
+                  withText: newCommentTextField.text)
+      { newComment in
+         self.newCommentTextField.text = ""
+         self.view.endEditing(true)
+         
+         self.comments.append(newComment)
+         // add to tableView
+         self.tableView.beginUpdates()
+         let lastIndex = IndexPath(row: self.comments.count - 1, section: 0)
+         self.tableView.insertRows(at: [lastIndex], with: .none)
+         self.tableView.endUpdates()
       }
    }
    
@@ -228,6 +232,14 @@ UITableViewDelegate {
       default: break
       }
    }
+   
+   @IBOutlet weak var newCommentViewBotConstraint: NSLayoutConstraint!
+   
+   override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      
+      self.newCommentViewBotConstraint.constant = 0
+   }
 }
 
 // MARK: - DZNEmptyDataSet for empty data tables
@@ -243,7 +255,6 @@ extension CommentariesController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource
       let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
       return NSAttributedString(string: str, attributes: attrs)
    }
-   
 }
 
 // MARK: - Scroll view on keyboard show/hide
@@ -251,27 +262,16 @@ extension CommentariesController: UITextFieldDelegate {
    func keyboardWillShow(notification: NSNotification) {
       if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
          let keyboardHeight = keyboardSize.height
-         let swipeSize = keyboardHeight - 49
-         view.frame.origin.y -= swipeSize
-         let tableViewBound = tableView.frame
-         let tableViewHeight = tableView.bounds.height
-         tableView.frame = CGRect(x: tableViewBound.minX, y: tableViewBound.minY + swipeSize,
-                                  width: tableViewBound.maxX, height: tableViewHeight - swipeSize)
-         print(view.frame.origin.y)
+//         let tabBarHeight = self.tabBarController?.tabBar.frame.size.height
+         UIView.animate(withDuration: 1.0, animations: {
+            self.newCommentViewBotConstraint.constant = -keyboardHeight + 43//tabBarHeight!
+            self.view.layoutIfNeeded()
+         })
       }
    }
    
    func keyboardWillHide(notification: NSNotification) {
-      if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-         let keyboardHeight = keyboardSize.height
-         let swipeSize = keyboardHeight - 49
-         view.frame.origin.y += swipeSize
-         let tableViewBound = tableView.frame
-         let tableViewHeight = tableView.bounds.height
-         tableView.frame = CGRect(x: tableViewBound.minX, y: tableViewBound.minY - swipeSize,
-                                  width: tableViewBound.maxX, height: tableViewHeight + swipeSize)
-         print(view.frame.origin.y)
-      }
+      self.newCommentViewBotConstraint.constant = 0
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

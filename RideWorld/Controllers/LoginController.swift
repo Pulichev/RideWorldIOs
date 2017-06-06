@@ -10,7 +10,6 @@ import UIKit
 import FirebaseAuth
 
 class LoginController: UIViewController, UITextFieldDelegate {
-   
    @IBOutlet weak var userLogin: UITextField!
    @IBOutlet weak var userPassword: UITextField!
    
@@ -23,10 +22,13 @@ class LoginController: UIViewController, UITextFieldDelegate {
       userPassword.delegate = self
       
       //For scrolling the view if keyboard on
-      NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow),
-                                             name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-      NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide),
-                                             name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      NotificationCenter.default.addObserver(
+         self, selector: #selector(LoginController.keyboardWillShow),
+         name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+      
+      NotificationCenter.default.addObserver(
+         self, selector: #selector(LoginController.keyboardWillHide),
+         name: NSNotification.Name.UIKeyboardWillHide, object: nil)
       
       super.viewDidLoad()
    }
@@ -44,14 +46,14 @@ class LoginController: UIViewController, UITextFieldDelegate {
    
    private func signIn(with email: String) {
       FIRAuth.auth()!.signIn(withEmail: email,
-                             password: userPassword.text!) {
-                              user, error in
-                              if error != nil {
-                                 self.errorLabel.text = "Wrong login or password!"
-                                 print("\(String(describing: error?.localizedDescription))")
-                              } else {
-                                 self.performSegue(withIdentifier: "fromLoggedInToTabBar", sender: self)
-                              }
+                             password: userPassword.text!)
+      { user, error in
+         if error != nil {
+            self.errorLabel.text = "Wrong login or password!"
+            print("\(String(describing: error?.localizedDescription))")
+         } else {
+            self.performSegue(withIdentifier: "fromLoggedInToTabBar", sender: self)
+         }
       }
    }
    

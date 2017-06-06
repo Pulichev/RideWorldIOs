@@ -27,7 +27,6 @@ class MainFormController: UIViewController {
       
       DispatchQueue.main.async {
          self.mapViewInitialize()
-         //MigratingDataFromBELToFireBase.migrate()
          self.loadSpotsOnMap()
       }
    }
@@ -186,9 +185,16 @@ extension MainFormController: MKMapViewDelegate {
 extension MainFormController: CLLocationManagerDelegate {
    func setStartRegion() {
       let span: MKCoordinateSpan = MKCoordinateSpanMake(0.1, 0.1)
-      let myLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(55.925314, 37.824127)
-      let region: MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
-      mapView.setRegion(region, animated: true)
+      if let coordinates = locationManager.location?.coordinate {
+         let myLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(coordinates.latitude,
+                                                                             coordinates.longitude)
+         let region: MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
+         mapView.setRegion(region, animated: true)
+      } else {
+         let myLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(55.925314, 37.824127)
+         let region: MKCoordinateRegion = MKCoordinateRegionMake(myLocation, span)
+         mapView.setRegion(region, animated: true)
+      }
    }
    
    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -208,7 +214,7 @@ extension MainFormController: CLLocationManagerDelegate {
    }
    
    @IBAction func AddNewSpot(_ sender: Any) {
-      if distanceToNearestPin() > 50.0 {
+      if distanceToNearestPin() > 10.0 {
          performSegue(withIdentifier: "addNewSpot", sender: self)
       } else {
          showAlertThatToCloseToExistingSpot()
@@ -217,8 +223,7 @@ extension MainFormController: CLLocationManagerDelegate {
    
    private func distanceToNearestPin() -> Float {
       let pins = mapView.annotations
-      //let currentLocation = mapView.userLocation.location!
-      var minDistance: CLLocationDistance = 0.0
+      var minDistance: CLLocationDistance = 1000000.0
       
       for pin in pins {
          let coord = pin.coordinate
@@ -226,7 +231,7 @@ extension MainFormController: CLLocationManagerDelegate {
          
          let distance : CLLocationDistance = locationManager.location!.distance(from: loc)
          
-         if distance < minDistance || minDistance == 0.0 {
+         if distance < minDistance || minDistance == 1000000.0 {
             minDistance = distance
          }
       }

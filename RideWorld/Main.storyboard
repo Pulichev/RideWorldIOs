@@ -255,8 +255,8 @@
                         <outlet property="mapView" destination="w8G-iW-QKa" id="hst-SK-MUj"/>
                         <segue destination="H2C-mG-pr3" kind="presentation" identifier="fromMainFormToLogin" id="iw2-JO-qSE"/>
                         <segue destination="28g-9l-NVL" kind="show" identifier="addNewSpot" id="Cu9-hd-la3"/>
-                        <segue destination="LlJ-V1-BNZ" kind="show" identifier="spotDetailsTapped" id="PDm-Oj-MlC"/>
                         <segue destination="6uJ-a1-Lta" kind="show" identifier="goToSpotInfo" id="ZuM-Rf-uph"/>
+                        <segue destination="LlJ-V1-BNZ" kind="show" identifier="spotDetailsTapped" id="SYx-8l-lm6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1915,10 +1915,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="ZpR-8C-QJR"/>
         <segue reference="nax-92-cwD"/>
-        <segue reference="PDm-Oj-MlC"/>
+        <segue reference="SYx-8l-lm6"/>
+        <segue reference="6R6-CY-IE2"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="eb8-9P-3Sr"/>
-        <segue reference="T3A-kh-NPf"/>
+        <segue reference="TEa-lr-7L1"/>
         <segue reference="RlL-e4-xY6"/>
     </inferredMetricsTieBreakers>
 </document>

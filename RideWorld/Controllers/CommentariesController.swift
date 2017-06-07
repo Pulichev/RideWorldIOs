@@ -262,7 +262,8 @@ extension CommentariesController: UITextFieldDelegate {
    func keyboardWillShow(notification: NSNotification) {
       if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
          let keyboardHeight = keyboardSize.height
-//         let tabBarHeight = self.tabBarController?.tabBar.frame.size.height
+//         let tabBarHeight = tabBarController?.tabBar.frame.size.height
+//         let navBarHeight = navigationController?.navigationBar.frame.size.height
          UIView.animate(withDuration: 1.0, animations: {
             self.newCommentViewBotConstraint.constant = -keyboardHeight + 43//tabBarHeight!
             self.view.layoutIfNeeded()

@@ -116,12 +116,12 @@
                   moduleName = "RideWorld"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/RideWorld/RideWorld/Controllers/CommentariesController.swift"
-                  timestampString = "518476898.400089"
+                  timestampString = "518559504.673962"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "267"
                   endingLineNumber = "267"
-                  offsetFromSymbolStart = "1312">
+                  offsetFromSymbolStart = "772">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -131,7 +131,7 @@
                   moduleName = "RideWorld"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/vladislavpulicev/Documents/RideWorld/RideWorld/Controllers/CommentariesController.swift"
-                  timestampString = "518476898.402066"
+                  timestampString = "518559504.675322"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "268"

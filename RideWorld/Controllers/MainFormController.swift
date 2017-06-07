@@ -213,7 +213,9 @@ extension MainFormController: CLLocationManagerDelegate {
    }
    
    @IBAction func AddNewSpot(_ sender: Any) {
-      if distanceToNearestPin() > 10.0 {
+      let dist = distanceToNearestPin()
+      
+      if dist > 10.0 {
          performSegue(withIdentifier: "addNewSpot", sender: self)
       } else {
          showAlertThatToCloseToExistingSpot()
@@ -222,7 +224,7 @@ extension MainFormController: CLLocationManagerDelegate {
    
    private func distanceToNearestPin() -> Float {
       let pins = mapView.annotations
-      var minDistance: CLLocationDistance = 1000000.0
+      var minDistance: CLLocationDistance = 1000000000.0
       
       for pin in pins {
          let coord = pin.coordinate
@@ -230,7 +232,8 @@ extension MainFormController: CLLocationManagerDelegate {
          
          let distance : CLLocationDistance = locationManager.location!.distance(from: loc)
          
-         if distance < minDistance || minDistance == 1000000.0 {
+         if (distance < minDistance && distance != 0.0)
+            || minDistance == 1000000000.0 {
             minDistance = distance
          }
       }
@@ -240,8 +243,8 @@ extension MainFormController: CLLocationManagerDelegate {
    
    private func showAlertThatToCloseToExistingSpot() {
       let alert = UIAlertController(title: "Error!",
-                                    message: "You are trying to add spot to close to already existed",
-                                    preferredStyle: .alert)
+                                    message: "You are trying to add spot to close to already existed. Distance have to be more than 10 meters.)",
+         preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       

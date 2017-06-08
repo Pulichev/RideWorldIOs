@@ -57,13 +57,23 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
          
          desc.customize { description in
             //Looks for userItem.login
-            let loginTappedType = ActiveType.custom(pattern: "\(userItem.login)\\b")
-            desc.enabledTypes.append(loginTappedType)
-            desc.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
-            desc.customColor[loginTappedType] = UIColor.purple
-//            desc.font = UIFont.boldSystemFont(ofSize: 16.0)
+            let loginTappedType = ActiveType.custom(pattern: "^\(userItem.login)\\b")
+            description.enabledTypes.append(loginTappedType)
+            description.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
+            description.customColor[loginTappedType] = UIColor.black
             
-            desc.handleMentionTap { mention in // mention is @userLogin
+            desc.configureLinkAttribute = { (type, attributes, isSelected) in
+               var atts = attributes
+               switch type {
+               case .custom(pattern: "^\(self.userItem.login)\\b"):
+                  atts[NSFontAttributeName] = UIFont.boldSystemFont(ofSize: 13)
+               default: ()
+               }
+               
+               return atts
+            }
+            
+            description.handleMentionTap { mention in // mention is @userLogin
                self.goToUserProfile(tappedUserLogin: mention)
             }
          }

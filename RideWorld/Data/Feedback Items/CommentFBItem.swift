@@ -13,6 +13,7 @@ class CommentFBItem: FeedbackItem {
    var postItem: PostItem?
    var postAddedByUser: String!
    var userId: String!
+   var userItem: UserItem!
    
    init(snapshot: [String: Any], _ key: String,
         completion: @escaping (_ commentFBItem: CommentFBItem) -> Void) {
@@ -30,7 +31,10 @@ class CommentFBItem: FeedbackItem {
       // we need to dont add this feedback
       Post.getItemById(for: postId) { post in
          self.postItem = post
-         completion(self)
+         User.getItemById(for: self.userId) { userItem in
+            self.userItem = userItem
+            completion(self)
+         }
       }
    }
 }

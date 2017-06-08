@@ -75,8 +75,8 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       let row = indexPath.row
       let followItem = feedbackItems[row] as! FollowerFBItem
       cell.delegate = self // for user info taps to perform segue
-      cell.userId = followItem.userId
-      cell.desc.text = "started following you."
+      cell.userItem = followItem.userItem
+      cell.desc.text = followItem.userItem.login + " started following you."
       cell.dateTime.text = DateTimeParser.getDateTime(from: followItem.dateTime)
       
       return cell
@@ -95,13 +95,13 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          let commentFBItem = fbItem as! CommentFBItem
          cell.delegateUserTaps = self
          cell.delegatePostTaps = self
-         cell.userId = commentFBItem.userId
+         cell.userItem = commentFBItem.userItem
          cell.postId = commentFBItem.postId
          cell.postItem = commentFBItem.postItem!
          if commentFBItem.postAddedByUser == User.getCurrentUserId() {
-            cell.desc.text = " commented your photo: " + commentFBItem.text
+            cell.descText = commentFBItem.userItem.login + " commented your photo: " + commentFBItem.text
          } else { // for @userId not author
-            cell.desc.text = " mentioned you in comment."
+            cell.descText = commentFBItem.userItem.login + " mentioned you in comment: " + commentFBItem.text
          }
          cell.dateTime.text = DateTimeParser.getDateTime(from: commentFBItem.dateTime)
       }
@@ -110,10 +110,10 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          let likeFBItem = fbItem as! LikeFBItem
          cell.delegateUserTaps = self
          cell.delegatePostTaps = self
-         cell.userId = likeFBItem.userId
+         cell.userItem = likeFBItem.userItem
          cell.postId = likeFBItem.postId
          cell.postItem = likeFBItem.postItem!
-         cell.desc.text = " liked your photo."
+         cell.descText = likeFBItem.userItem.login + " liked your photo."
          cell.dateTime.text = DateTimeParser.getDateTime(from: likeFBItem.dateTime)
       }
       

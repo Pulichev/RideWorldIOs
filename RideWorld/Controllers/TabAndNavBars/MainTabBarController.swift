@@ -29,7 +29,7 @@ class MainTabBarController: UITabBarController {
    }
    
    private func loadFeedbackItems() {
-      FeedbackItem.getArray() { fbItems in
+      Feedback.getArray() { fbItems in
          self.feedbackItems = fbItems
          
          if let del = self.delegateFBItemsChanges {

@@ -1644,7 +1644,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="102.5"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x72-j5-HAe" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
-                                                            <rect key="frame" x="8" y="0.0" width="50" height="50"/>
+                                                            <rect key="frame" x="8" y="5" width="50" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="50" id="bRd-Hm-OM6"/>
                                                                 <constraint firstAttribute="height" constant="50" id="vui-cv-8GK"/>
@@ -1672,7 +1672,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="T2u-uu-mya" secondAttribute="trailing" constant="8" id="2n3-W6-v0L"/>
                                                         <constraint firstItem="T2u-uu-mya" firstAttribute="top" secondItem="XNJ-Lj-wrE" secondAttribute="top" id="5IT-rI-Jvd"/>
-                                                        <constraint firstItem="x72-j5-HAe" firstAttribute="top" secondItem="XNJ-Lj-wrE" secondAttribute="top" id="CB6-mm-Tcq"/>
+                                                        <constraint firstItem="x72-j5-HAe" firstAttribute="top" secondItem="XNJ-Lj-wrE" secondAttribute="top" constant="5" id="CB6-mm-Tcq"/>
                                                         <constraint firstAttribute="trailing" secondItem="c5z-Zk-pYm" secondAttribute="trailing" constant="8" id="Cj7-wi-VpQ"/>
                                                         <constraint firstItem="x72-j5-HAe" firstAttribute="leading" secondItem="XNJ-Lj-wrE" secondAttribute="leading" constant="8" id="HNh-E0-0vW"/>
                                                         <constraint firstItem="c5z-Zk-pYm" firstAttribute="top" secondItem="T2u-uu-mya" secondAttribute="bottom" constant="7" id="PgX-mW-gAo"/>

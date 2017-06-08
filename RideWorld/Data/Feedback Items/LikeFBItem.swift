@@ -12,6 +12,7 @@ class LikeFBItem: FeedbackItem {
    var userId: String!
    var postAddedByUserId: String!
    var dateTime: String!
+   var userItem: UserItem!
    
    init(snapshot: [String: Any], _ key: String,
         completion: @escaping (_ likeFBItem: LikeFBItem) -> Void) {
@@ -28,7 +29,10 @@ class LikeFBItem: FeedbackItem {
       // we need to dont add this feedback
       Post.getItemById(for: postId) { post in
          self.postItem = post
-         completion(self)
+         User.getItemById(for: self.userId) { userItem in
+            self.userItem = userItem
+            completion(self)
+         }
       }
    }
 }

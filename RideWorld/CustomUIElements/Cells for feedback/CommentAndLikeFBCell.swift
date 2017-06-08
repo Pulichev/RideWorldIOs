@@ -13,37 +13,18 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    weak var delegateUserTaps: TappedUserDelegate? // for sending user info
    weak var delegatePostTaps: TappedPostDelegate? // for sending post info
    
-   var userId: String! { // maybe userItem
-      didSet {
-         User.getItemById(for: userId) { user in
-            self.userItem = user
-            
-            self.userPhoto.image = UIImage(named: "grayRec.png") // default picture
-            if let url = user.photo90ref {
-               self.userPhoto?.kf.setImage(with: URL(
-                  string: url))
-            }
-         }
-      }
-   }
-   
    var userItem: UserItem! {
       didSet {
-         desc.text = userItem.login + desc.text!
-         
-         desc.customize { description in
-            let loginTappedType = ActiveType.custom(pattern: "\\s\(userItem.login)\\b") //Looks for userItem.login
-            description.enabledTypes.append(loginTappedType)
-            description.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
-            description.customColor[loginTappedType] = UIColor.purple
+         self.userPhoto.image = UIImage(named: "grayRec.png") // default picture
+         if let url = userItem.photo90ref {
+            self.userPhoto?.kf.setImage(with: URL(
+               string: url))
          }
       }
    }
    
    var postAddedByUser: String!
-   
    var postId: String!
-   
    var postItem: PostItem! {
       didSet {
          postPhoto?.kf.setImage(with: URL(
@@ -70,13 +51,26 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    }
    
    // text info
-   @IBOutlet weak var desc: ActiveLabel! {
+   var descText: String! {
       didSet {
-         desc.handleMentionTap { mention in // mention is @userLogin
-            self.goToUserProfile(tappedUserLogin: mention)
+         desc.text = descText
+         
+         desc.customize { description in
+            //Looks for userItem.login
+            let loginTappedType = ActiveType.custom(pattern: "\(userItem.login)\\b")
+            desc.enabledTypes.append(loginTappedType)
+            desc.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
+            desc.customColor[loginTappedType] = UIColor.purple
+//            desc.font = UIFont.boldSystemFont(ofSize: 16.0)
+            
+            desc.handleMentionTap { mention in // mention is @userLogin
+               self.goToUserProfile(tappedUserLogin: mention)
+            }
          }
       }
    }
+   
+   @IBOutlet weak var desc: ActiveLabel!
    
    @IBOutlet weak var dateTime: UILabel!
    

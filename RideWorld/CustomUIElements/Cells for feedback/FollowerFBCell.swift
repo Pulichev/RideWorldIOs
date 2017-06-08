@@ -11,24 +11,18 @@ import UIKit
 class FollowerFBCell: UITableViewCell { // FB = feedback
    weak var delegate: TappedUserDelegate? // for sending user info
    
-   var userId: String! { // maybe userItem
+   var userItem: UserItem! {
       didSet {
-         User.getItemById(for: userId) { user in
-            self.userItem = user
-            
-            self.userPhoto.image = UIImage(named: "grayRec.png") // default picture
-            if let url = user.photo90ref {
-               self.userPhoto?.kf.setImage(with: URL(string: url))
-            }
-            
-            self.loginButton.setTitle(user.login,
-                                      for: .normal)
-            self.initialiseFollowButton()
+         self.userPhoto.image = UIImage(named: "grayRec.png") // default picture
+         if let url = userItem.photo90ref {
+            self.userPhoto?.kf.setImage(with: URL(string: url))
          }
+         
+         self.loginButton.setTitle(userItem.login,
+                                   for: .normal)
+         self.initialiseFollowButton()
       }
    }
-   
-   var userItem: UserItem!
    
    // MARK: - @IBOutlets
    // media
@@ -47,7 +41,7 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    @IBOutlet weak var dateTime: UILabel!
    
    private func initialiseFollowButton() {
-      User.isCurrentUserFollowing(this: userId) { isFollowing in
+      User.isCurrentUserFollowing(this: userItem.uid) { isFollowing in
          if isFollowing {
             self.followButton.setTitle("Following", for: .normal)
          } else {
@@ -58,11 +52,11 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    
    @IBAction func followButtonTapped(_ sender: UIButton) {
       if followButton.currentTitle == "Follow" { // add or remove like
-         User.addFollowing(to: userId)
-         User.addFollower(to: userId)
+         User.addFollowing(to: userItem.uid)
+         User.addFollower(to: userItem.uid)
       } else {
-         User.removeFollowing(from: userId)
-         User.removeFollower(from: userId)
+         User.removeFollowing(from: userItem.uid)
+         User.removeFollower(from: userItem.uid)
       }
       
       swapFollowButtonTittle()

@@ -23,13 +23,23 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
                self.userPhoto?.kf.setImage(with: URL(
                   string: url))
             }
-            self.userLoginButton.setTitle(user.login,
-                                          for: .normal)
          }
       }
    }
    
-   var userItem: UserItem!
+   var userItem: UserItem! {
+      didSet {
+         desc.text = userItem.login + desc.text!
+         
+         desc.customize { description in
+            let loginTappedType = ActiveType.custom(pattern: "\\s\(userItem.login)\\b") //Looks for userItem.login
+            description.enabledTypes.append(loginTappedType)
+            description.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
+            description.customColor[loginTappedType] = UIColor.purple
+         }
+      }
+   }
+   
    var postAddedByUser: String!
    
    var postId: String!
@@ -60,15 +70,14 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    }
    
    // text info
-   @IBOutlet weak var userLoginButton: UIButton!
    @IBOutlet weak var desc: ActiveLabel! {
       didSet {
          desc.handleMentionTap { mention in // mention is @userLogin
             self.goToUserProfile(tappedUserLogin: mention)
          }
-         
       }
    }
+   
    @IBOutlet weak var dateTime: UILabel!
    
    override func awakeFromNib() {

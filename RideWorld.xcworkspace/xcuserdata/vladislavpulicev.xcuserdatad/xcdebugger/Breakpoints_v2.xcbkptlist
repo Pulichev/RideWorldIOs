@@ -99,46 +99,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RideWorld/Controllers/CommentariesController.swift"
-            timestampString = "518476898.395052"
+            filePath = "RideWorld/CustomUIElements/Cells for feedback/CommentAndLikeFBCell.swift"
+            timestampString = "518563269.646259"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
-            landmarkName = "keyboardWillShow(notification:)"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "userInfoTapped()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "RideWorld.CommentariesController.keyboardWillShow (notification : __ObjC.NSNotification) -&gt; ()"
-                  moduleName = "RideWorld"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/RideWorld/RideWorld/Controllers/CommentariesController.swift"
-                  timestampString = "518559504.673962"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "267"
-                  endingLineNumber = "267"
-                  offsetFromSymbolStart = "772">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "RideWorld.CommentariesController.(keyboardWillShow (notification : __ObjC.NSNotification) -&gt; ()).(closure #1)"
-                  moduleName = "RideWorld"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vladislavpulicev/Documents/RideWorld/RideWorld/Controllers/CommentariesController.swift"
-                  timestampString = "518559504.675322"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "268"
-                  endingLineNumber = "268"
-                  offsetFromSymbolStart = "28">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

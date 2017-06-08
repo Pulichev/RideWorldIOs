@@ -215,7 +215,7 @@ extension MainFormController: CLLocationManagerDelegate {
    @IBAction func AddNewSpot(_ sender: Any) {
       let dist = distanceToNearestPin()
       
-      if dist > 10.0 {
+      if dist > 50.0 {
          performSegue(withIdentifier: "addNewSpot", sender: self)
       } else {
          showAlertThatToCloseToExistingSpot()
@@ -227,14 +227,16 @@ extension MainFormController: CLLocationManagerDelegate {
       var minDistance: CLLocationDistance = 1000000000.0
       
       for pin in pins {
-         let coord = pin.coordinate
-         let loc = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
-         
-         let distance : CLLocationDistance = locationManager.location!.distance(from: loc)
-         
-         if (distance < minDistance && distance != 0.0)
-            || minDistance == 1000000000.0 {
-            minDistance = distance
+         if !(pin is MKUserLocation) { // if not user location
+            let coord = pin.coordinate
+            let loc = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
+            
+            let distance : CLLocationDistance = locationManager.location!.distance(from: loc)
+            
+            if (distance < minDistance && distance != 0.0)
+               || minDistance == 1000000000.0 {
+               minDistance = distance
+            }
          }
       }
       
@@ -243,8 +245,9 @@ extension MainFormController: CLLocationManagerDelegate {
    
    private func showAlertThatToCloseToExistingSpot() {
       let alert = UIAlertController(title: "Error!",
-                                    message: "You are trying to add spot to close to already existed. Distance have to be more than 10 meters.)",
-         preferredStyle: .alert)
+                                    message: "You are trying to add spot to close to already existed. "
+                                       + "Distance have to be more than 50 meters.",
+                                    preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       

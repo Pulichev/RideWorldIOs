@@ -99,9 +99,9 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.postId = commentFBItem.postId
          cell.postItem = commentFBItem.postItem!
          if commentFBItem.postAddedByUser == User.getCurrentUserId() {
-            cell.desc.text = "commented your photo: " + commentFBItem.text
+            cell.desc.text = " commented your photo: " + commentFBItem.text
          } else { // for @userId not author
-            cell.desc.text = "mentioned you in comment."
+            cell.desc.text = " mentioned you in comment."
          }
          cell.dateTime.text = DateTimeParser.getDateTime(from: commentFBItem.dateTime)
       }
@@ -113,7 +113,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.userId = likeFBItem.userId
          cell.postId = likeFBItem.postId
          cell.postItem = likeFBItem.postItem!
-         cell.desc.text = "liked your photo."
+         cell.desc.text = " liked your photo."
          cell.dateTime.text = DateTimeParser.getDateTime(from: likeFBItem.dateTime)
       }
       

@@ -55,28 +55,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
       didSet {
          desc.text = descText
          
-         desc.customize { description in
-            //Looks for userItem.login
-            let loginTappedType = ActiveType.custom(pattern: "^\(userItem.login)\\b")
-            description.enabledTypes.append(loginTappedType)
-            description.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
-            description.customColor[loginTappedType] = UIColor.black
-            
-            desc.configureLinkAttribute = { (type, attributes, isSelected) in
-               var atts = attributes
-               switch type {
-               case .custom(pattern: "^\(self.userItem.login)\\b"):
-                  atts[NSFontAttributeName] = UIFont.boldSystemFont(ofSize: 13)
-               default: ()
-               }
-               
-               return atts
-            }
-            
-            description.handleMentionTap { mention in // mention is @userLogin
-               self.goToUserProfile(tappedUserLogin: mention)
-            }
-         }
+         customizeDescUserLogin()
       }
    }
    
@@ -112,6 +91,31 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
       User.getItemByLogin(
       for: tappedUserLogin) { fetchedUserItem in
          self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
+      }
+   }
+   
+   private func customizeDescUserLogin() {
+      desc.customize { description in
+         //Looks for userItem.login
+         let loginTappedType = ActiveType.custom(pattern: "^\(userItem.login)\\b")
+         description.enabledTypes.append(loginTappedType)
+         description.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
+         description.customColor[loginTappedType] = UIColor.black
+         
+         desc.configureLinkAttribute = { (type, attributes, isSelected) in
+            var atts = attributes
+            switch type {
+            case .custom(pattern: "^\(self.userItem.login)\\b"):
+               atts[NSFontAttributeName] = UIFont(name: "TrebuchetMS-Bold", size: 15)
+            default: ()
+            }
+            
+            return atts
+         }
+         
+         description.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(tappedUserLogin: mention)
+         }
       }
    }
 }

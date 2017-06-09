@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ActiveLabel
 
 class FollowerFBCell: UITableViewCell { // FB = feedback
    weak var delegate: TappedUserDelegate? // for sending user info
@@ -18,8 +19,6 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
             self.userPhoto?.kf.setImage(with: URL(string: url))
          }
          
-         self.loginButton.setTitle(userItem.login,
-                                   for: .normal)
          self.initialiseFollowButton()
       }
    }
@@ -35,8 +34,16 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    }
    
    // text info
-   @IBOutlet weak var loginButton: UIButton!
-   @IBOutlet weak var desc: UILabel!
+   var descText: String! {
+      didSet {
+         desc.text = descText
+         
+         customizeDescUserLogin()
+      }
+   }
+   
+   @IBOutlet weak var desc: ActiveLabel!
+   
    @IBOutlet weak var followButton: UIButton!
    @IBOutlet weak var dateTime: UILabel!
    
@@ -75,6 +82,27 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
          followButton.setTitle("Following", for: .normal)
       } else {
          followButton.setTitle("Follow", for: .normal)
+      }
+   }
+   
+   private func customizeDescUserLogin() {
+      desc.customize { description in
+         //Looks for userItem.login
+         let loginTappedType = ActiveType.custom(pattern: "^\(userItem.login)\\b")
+         description.enabledTypes.append(loginTappedType)
+         description.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
+         description.customColor[loginTappedType] = UIColor.black
+         
+         desc.configureLinkAttribute = { (type, attributes, isSelected) in
+            var atts = attributes
+            switch type {
+            case .custom(pattern: "^\(self.userItem.login)\\b"):
+               atts[NSFontAttributeName] = UIFont(name: "CourierNewPS-BoldMT", size: 15)
+            default: ()
+            }
+            
+            return atts
+         }
       }
    }
 }

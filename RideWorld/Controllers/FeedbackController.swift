@@ -76,7 +76,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       let followItem = feedbackItems[row] as! FollowerFBItem
       cell.delegate = self // for user info taps to perform segue
       cell.userItem = followItem.userItem
-      cell.desc.text = followItem.userItem.login + " started following you."
+      cell.descText = followItem.userItem.login + " started following you."
       cell.dateTime.text = DateTimeParser.getDateTime(from: followItem.dateTime)
       
       return cell

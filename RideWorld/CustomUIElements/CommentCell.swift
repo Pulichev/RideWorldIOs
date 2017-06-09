@@ -13,6 +13,7 @@ import MGSwipeTableCell
 class CommentCell: MGSwipeTableCell {
    @IBOutlet weak var userPhoto: RoundedImageView!
    @IBOutlet weak var userNickName: UIButton!
+   var userItem: UserItem!
    @IBOutlet weak var commentText: ActiveLabel! {
       didSet {
          commentText.numberOfLines = 0
@@ -31,16 +32,20 @@ class CommentCell: MGSwipeTableCell {
          date.text = DateTimeParser.getDateTime(from: comment.datetime)
          initialiseUserPhoto()
          initialiseUserButton()
+         
+         User.getItemById(for: comment.userId) { user in
+            if user.photo90ref != nil {
+               self.userItem = user
+            }
+         }
       }
    }
    
    func initialiseUserPhoto() {
       userPhoto.image = UIImage(named: "grayRec.png")
       
-      User.getItemById(for: comment.userId) { user in
-         if user.photo90ref != nil {
-            self.userPhoto.kf.setImage(with: URL(string: user.photo90ref!)) // Using kf for caching images.
-         }
+      if userItem.photo90ref != nil {
+         self.userPhoto.kf.setImage(with: URL(string: userItem.photo90ref!)) // Using kf for caching images.
       }
    }
    

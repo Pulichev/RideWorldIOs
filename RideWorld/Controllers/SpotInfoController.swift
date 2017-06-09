@@ -10,12 +10,18 @@ import UIKit
 import Kingfisher
 import Fusuma
 import SVProgressHUD
+import BouncyLayout
 
 class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
    var spotInfo: SpotItem!
    var user: UserItem!
    
-   @IBOutlet weak var photosCollection: UICollectionView!
+   let layout = BouncyLayout()
+   @IBOutlet weak var photosCollection: UICollectionView! {
+      didSet {
+         photosCollection.collectionViewLayout = layout
+      }
+   }
    var photosURLs = [String]()
    
    @IBOutlet weak var name: UILabel!

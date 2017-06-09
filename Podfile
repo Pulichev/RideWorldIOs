@@ -15,6 +15,7 @@ target 'RideWorld' do
   pod ‘MGSwipeTableCell’
   pod 'SVProgressHUD'
   pod 'DateToolsSwift'
+  pod "BouncyLayout"
 
   # Pods for RideWorld
 

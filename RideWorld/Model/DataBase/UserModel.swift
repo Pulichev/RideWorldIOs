@@ -96,7 +96,7 @@ struct User {
    // MARK: - Posts part
    static func getPostsIds(for userId: String,
                            completion: @escaping (_ postIds: [String]?) -> Void) {
-      let refToUserPosts = refToUsersNode.child(userId).child("posts")
+      let refToUserPosts = FIRDatabase.database().reference(withPath: "MainDataBase/usersposts").child(userId)
       
       refToUserPosts.observeSingleEvent(of: .value, with: { snapshot in
          if let value = snapshot.value as? [String: Any] {
@@ -111,9 +111,9 @@ struct User {
    // MARK: - Follow part
    static func getFollowersCountString(userId: String,
                                        completion: @escaping (_ followersCount: String) -> Void) {
-      let refToUser = refToUsersNode.child(userId)
-      let refToFollowers = refToUser.child("followers")
-      refToFollowers.observe(.value, with: { snapshot in
+      let refToUserFollowers = FIRDatabase.database().reference(withPath: "MainDataBase/usersfollowers").child(userId)
+      
+      refToUserFollowers.observe(.value, with: { snapshot in
          if let value = snapshot.value as? [String: Any] {
             completion(String(describing: value.count))
          } else {
@@ -124,9 +124,9 @@ struct User {
    
    static func getFollowingsCountString(userId: String,
                                         completion: @escaping (_ followingsCount: String) -> Void) {
-      let refToUser = refToUsersNode.child(userId)
-      let refToFollowings = refToUser.child("following")
-      refToFollowings.observe(.value, with: { snapshot in
+      let refToUserFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/usersfollowings").child(userId)
+      
+      refToUserFollowings.observe(.value, with: { snapshot in
          if let value = snapshot.value as? [String: Any] {
             completion(String(describing: value.count))
          } else {
@@ -137,7 +137,7 @@ struct User {
    
    static func getFollowersList(for userId: String,
                                 completion: @escaping (_ followersList: [UserItem]) -> Void) {
-      let refToUserFollowers = refToUsersNode.child(userId).child("followers")
+      let refToUserFollowers = FIRDatabase.database().reference(withPath: "MainDataBase/usersfollowers").child(userId)
       
       var followersList = [UserItem]()
       
@@ -160,7 +160,7 @@ struct User {
    
    static func getFollowingsList(for userId: String,
                                  completion: @escaping (_ followingsList: [UserItem]) -> Void) {
-      let refToUserFollowings = refToUsersNode.child(userId).child("following")
+      let refToUserFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/usersfollowings").child(userId)
       
       var followingsList = [UserItem]()
       
@@ -186,7 +186,7 @@ struct User {
       
       if self.alreadyLoadedCountOfPosts == 0 { // if we just started
          let currentUserId = getCurrentUserId()
-         let refToUserFollowings = refToUsersNode.child(currentUserId).child("following")
+         let refToUserFollowings = FIRDatabase.database().reference(withPath: "MainDataBase/usersfollowings").child(currentUserId)
          
          refToUserFollowings.observeSingleEvent(of: .value, with: { snapshot in
             var followingsIds = [String]()
@@ -208,7 +208,7 @@ struct User {
    static func isCurrentUserFollowing(this userId: String,
                                       completion: @escaping(_ isFollowing: Bool) -> Void) {
       let currentUserId = self.getCurrentUserId()
-      let refToCurrentUser = refToUsersNode.child(currentUserId).child("following")
+      let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/usersfollowings").child(currentUserId)
       
       refToCurrentUser.observeSingleEvent(of: .value, with: { snapshot in
          if var value = snapshot.value as? [String : Bool] {
@@ -224,15 +224,13 @@ struct User {
    }
    
    static func addFollowing(to userId: String) {
-      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId())
-         .child("following").child(userId)
+      let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/usersfollowings").child(self.getCurrentUserId()).child(userId)
       
       refToCurrentUser.setValue(true)
    }
    
    static func removeFollowing(from userId: String) {
-      let refToCurrentUser = refToUsersNode.child(self.getCurrentUserId())
-         .child("following").child(userId)
+      let refToCurrentUser = FIRDatabase.database().reference(withPath: "MainDataBase/usersfollowings").child(self.getCurrentUserId()).child(userId)
       
       refToCurrentUser.removeValue()
    }
@@ -242,7 +240,7 @@ struct User {
       let keyToFeedbackNode = ref.child("feedback").child(userId).childByAutoId().key
       
       let updates: [String: Any?] = [
-         "/users/" + userId + "/followers/" + getCurrentUserId() : keyToFeedbackNode,
+         "/usersfollowers/" + userId + "/" + getCurrentUserId() : keyToFeedbackNode,
          "/feedback/" + userId + "/" + keyToFeedbackNode :
             [
                getCurrentUserId() : String(describing: Date()),
@@ -258,7 +256,7 @@ struct User {
       
       getFeedbackKey(for: userId) { fbKey in
          let updates: [String: Any?] = [
-            "/users/" + userId + "/followers/" + getCurrentUserId() : nil,
+            "/usersfollowers/" + userId + "/" + getCurrentUserId() : nil,
             "/feedback/" + userId + "/" + fbKey: nil
          ]
          
@@ -270,7 +268,7 @@ struct User {
    static func getFeedbackKey(for followedUserId: String,
                               completion: @escaping (_ fbId: String) -> Void) {
       let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
-         .child("/users/" + followedUserId + "/followers/" + getCurrentUserId())
+         .child("/usersfollowers/" + followedUserId + "/" + getCurrentUserId())
       
       ref.observeSingleEvent(of: .value, with: { snapshot in
          let fbKey = snapshot.value as! String

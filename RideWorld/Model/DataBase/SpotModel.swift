@@ -10,6 +10,8 @@ import FirebaseDatabase
 
 struct Spot {
    static var refToSpotNode = FIRDatabase.database().reference(withPath: "MainDataBase/spots")
+   static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotsposts")
+   static var refToSpotPhotosNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotphotos")
    
    static func getNewSpotRefKey() -> String {
       return refToSpotNode.childByAutoId().key
@@ -49,7 +51,7 @@ struct Spot {
    static func getSpotPostsIds(for spotId: String,
                                completion: @escaping (_ postsIds: [String]?) -> Void) {
       if alreadyLoadedCountOfPosts == 0 { // if we havent already loaded PostsIds
-         let refToSpotPosts = refToSpotNode.child(spotId).child("posts")
+         let refToSpotPosts = refToSpotPostsNode.child(spotId)
          
          refToSpotPosts.observeSingleEvent(of: .value, with: { snapshot in
             if let value = snapshot.value as? NSDictionary {
@@ -123,7 +125,7 @@ struct Spot {
    // MARK: - Photos part
    static func addNewPhotoURL(for spotId: String, _ url: String,
                               completion: @escaping (_ hasFinishedWithNoError: Bool) -> Void) {
-      let refToNewPhoto = refToSpotNode.child(spotId).child("photos").childByAutoId()
+      let refToNewPhoto = refToSpotPhotosNode.child(spotId).childByAutoId()
       
       refToNewPhoto.setValue(url) { (error, _) in
          if error == nil {
@@ -134,7 +136,7 @@ struct Spot {
    
    static func getAllPhotosURLs(for spotId: String,
                                 completion: @escaping (_ urls: [String]) -> Void) {
-      let refToPhotos = refToSpotNode.child(spotId).child("photos")
+      let refToPhotos = refToSpotPhotosNode.child(spotId)
       
       refToPhotos.observeSingleEvent(of: .value, with: { snapshot in
          if let value = snapshot.value as? NSDictionary {

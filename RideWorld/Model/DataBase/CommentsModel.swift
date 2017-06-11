@@ -9,7 +9,7 @@
 import FirebaseDatabase
 
 struct Comment {
-   static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost")
+   static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/posts")
    
    // Function for loading comments for certain post
    static func loadList(for postId: String,
@@ -46,7 +46,7 @@ struct Comment {
          userIds.append(post.addedByUser) // adding post author
          
          var updates: [String: Any?] = [
-            "/spotpost/" + post.key + "/comments/" + refForNewCommentKey:
+            "/posts/" + post.key + "/comments/" + refForNewCommentKey:
                newComment.toAnyObject()
          ]
          

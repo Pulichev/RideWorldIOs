@@ -14,12 +14,12 @@ struct Like {
    static func add(_ newLike: LikeItem) {
       // add like id for user feedback implementation
       var like = newLike
-      let likeRef = ref.child("/users/" + newLike.userId + "/likePlaced/onposts/" + newLike.postId).childByAutoId()
+      let likeRef = ref.child("/userslikes/" + newLike.userId + "/onposts/" + newLike.postId).childByAutoId()
       like.key = likeRef.key
       
       var updates: [String: Any?] = [
-         "/users/"    + like.userId + "/likePlaced/onposts/" + like.postId: like.toAnyObject(),
-         "/spotpost/" + like.postId + "/likes/"              + like.userId: like.toAnyObject()
+         "/userslikes/"    + like.userId + "/onposts/" + like.postId: like.toAnyObject(),
+         "/posts/" + like.postId + "/likes/"              + like.userId: like.toAnyObject()
       ]
       
       if like.userId != like.postAddedByUserId { // dont add your own likes
@@ -33,8 +33,8 @@ struct Like {
    
    static func remove(with userId: String, _ post: PostItem) {
       var updates: [String: Any?] = [
-         "/users/"    + userId   + "/likePlaced/onposts/" + post.key: nil,
-         "/spotpost/" + post.key + "/likes/"              + userId:   nil
+         "/userslikes/"    + userId   + "/onposts/" + post.key: nil,
+         "/posts/" + post.key + "/likes/"              + userId:   nil
       ]
       
       // deleting from feedback node
@@ -49,7 +49,7 @@ struct Like {
    
    static func getLikeFromUser(id: String, postId: String,
                                completion: @escaping (_ likeId: LikeItem) -> Void) {
-      let refToLike = ref.child("/users/" + id + "/likePlaced/onposts/" + postId)
+      let refToLike = ref.child("/userslikes/" + id + "/onposts/" + postId)
       
       refToLike.observeSingleEvent(of: .value, with: { snapshot in
          let like = LikeItem(snapshot: snapshot)

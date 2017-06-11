@@ -9,7 +9,8 @@
 import FirebaseDatabase
 
 struct Post {
-   static var refToPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/posts")
+   static var refToMainDataBaseNode = FIRDatabase.database().reference(withPath: "MainDataBase")
+   static var refToPostsNode = refToMainDataBaseNode.child("posts")
    
    static func getItemById(for postId: String,
                            completion: @escaping (_ postItem: PostItem?) -> Void) {
@@ -28,7 +29,7 @@ struct Post {
    
    static func getLikesCount(for postId: String,
                              completion: @escaping (_ likesCount: Int) -> Void) {
-      let refToPostLikes = refToPostsNode.child(postId).child("likes")
+      let refToPostLikes = refToMainDataBaseNode.child("postslikes").child(postId)
       
       // catch if user liked this post
       refToPostLikes.observeSingleEvent(of: .value, with: { snapshot in
@@ -41,7 +42,7 @@ struct Post {
                              completion: @escaping (_ isLiked: Bool) -> Void) {
       let currentUserId = User.getCurrentUserId()
       
-      let refToCurrentUserLikeOnPost = refToPostsNode.child(postId).child("likes").child(currentUserId)
+      let refToCurrentUserLikeOnPost = refToMainDataBaseNode.child("postslikes").child(postId).child(currentUserId)
       
       refToCurrentUserLikeOnPost.observeSingleEvent(of: .value, with: { snapshot in
          if (snapshot.value as? [String : Any]) != nil {

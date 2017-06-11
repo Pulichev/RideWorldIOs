@@ -30,12 +30,12 @@ class CommentCell: MGSwipeTableCell {
          commentText.text = comment.commentary
          // Formatting date to yyyy-mm-dd
          date.text = DateTimeParser.getDateTime(from: comment.datetime)
-         initialiseUserPhoto()
          initialiseUserButton()
          
          User.getItemById(for: comment.userId) { user in
             if user.photo90ref != nil {
                self.userItem = user
+               self.initialiseUserPhoto()
             }
          }
       }

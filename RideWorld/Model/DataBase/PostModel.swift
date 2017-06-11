@@ -9,7 +9,7 @@
 import FirebaseDatabase
 
 struct Post {
-   static var refToPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotpost")
+   static var refToPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/posts")
    
    static func getItemById(for postId: String,
                            completion: @escaping (_ postItem: PostItem?) -> Void) {
@@ -61,19 +61,18 @@ struct Post {
       let mainReference = FIRDatabase.database().reference(withPath: "MainDataBase")
       
       let updates = [
-         "/spotpost/" + postItem.key: postItem.toAnyObject(),
-         "/spots/" + postItem.spotId + "/posts/" + postItem.key: true,
+         "/posts/" + postItem.key: postItem.toAnyObject(),
+         "/spotsposts/" + postItem.spotId + "/posts/" + postItem.key: true,
          "/users/" + postItem.addedByUser + "/posts/" + postItem.key: true
       ]
       
-      mainReference.updateChildValues(updates,
-                                      withCompletionBlock: { (error, _) in
-                                       if error == nil {
-                                          completion(true)
-                                       } else {
-                                          completion(false)
-                                       }
-      })
+      mainReference.updateChildValues(updates) { (error, _) in
+         if error == nil {
+            completion(true)
+         } else {
+            completion(false)
+         }
+      }
    }
    
    // we dont need escaping here. User will not wait,
@@ -83,8 +82,8 @@ struct Post {
       let mainReference = FIRDatabase.database().reference(withPath: "MainDataBase")
       
       let updates: [String: Any?] = [
-         "/spotpost/" + postItem.key: nil,
-         "/spots/" + postItem.spotId + "/posts/" + postItem.key: nil,
+         "/posts/" + postItem.key: nil,
+         "/spotsposts/" + postItem.spotId + "/posts/" + postItem.key: nil,
          "/users/" + postItem.addedByUser + "/posts/" + postItem.key: nil
       ]
       

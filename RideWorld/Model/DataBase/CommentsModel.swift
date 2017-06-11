@@ -9,12 +9,12 @@
 import FirebaseDatabase
 
 struct Comment {
-   static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/posts")
+   static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/postscomments")
    
    // Function for loading comments for certain post
    static func loadList(for postId: String,
                         completion: @escaping (_ loadedComments: [CommentItem]) -> Void) {
-      let ref = refToSpotPostsNode.child(postId).child("comments")
+      let ref = refToSpotPostsNode.child(postId)
       
       ref.queryOrdered(byChild: "key").observeSingleEvent(of: .value, with: { snapshot in
          var newItems: [CommentItem] = []
@@ -33,7 +33,7 @@ struct Comment {
                    completion: @escaping (_ loadedComment: CommentItem) -> Void) {
       let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
       
-      let refForNewCommentKey = refToSpotPostsNode.child(post.key).child("comments")
+      let refForNewCommentKey = refToSpotPostsNode.child(post.key)
          .childByAutoId().key
       
       let currentUserId = User.getCurrentUserId()
@@ -46,7 +46,7 @@ struct Comment {
          userIds.append(post.addedByUser) // adding post author
          
          var updates: [String: Any?] = [
-            "/posts/" + post.key + "/comments/" + refForNewCommentKey:
+            "/postscomments/" + post.key + "/" + refForNewCommentKey:
                newComment.toAnyObject()
          ]
          
@@ -117,7 +117,7 @@ struct Comment {
          var userIds = mentionedUserIds
          userIds.append(post.addedByUser) // adding post author
          
-         var updates: [String: Any?] = ["/posts/" + post.key + "/comments/" + comment.key: nil]
+         var updates: [String: Any?] = ["/postscommetns/" + post.key + "/" + comment.key: nil]
          
          for userId in userIds {
             updates.updateValue(nil, forKey: "/feedback/" + userId + "/" + comment.key) //

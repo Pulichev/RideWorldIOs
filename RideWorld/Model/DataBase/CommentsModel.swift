@@ -47,7 +47,9 @@ struct Comment {
          
          var updates: [String: Any?] = [
             "/postscomments/" + post.key + "/" + refForNewCommentKey:
-               newComment.toAnyObject()
+               newComment.toAnyObject(),
+            "/posts/" + post.key + "/comments/" + refForNewCommentKey: true
+               // need it for counting comments
          ]
          
          for userId in userIds {

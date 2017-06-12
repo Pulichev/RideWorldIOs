@@ -33,18 +33,19 @@ class CommentCell: MGSwipeTableCell {
    var userItem: UserItem! {
       didSet {
          commentText.text = userItem.login + " " + comment.commentary
+         customizeWithActiveLabel()
       }
    }
    
-   @IBOutlet weak var commentText: ActiveLabel! {
-      didSet {
-         commentText.numberOfLines = 0
-         commentText.enabledTypes = [.mention, .hashtag, .url]
-         commentText.textColor = .black
-         commentText.mentionColor = .brown
-         commentText.hashtagColor = .purple
-      }
-   }
+   @IBOutlet weak var commentText: ActiveLabel! //{
+//      didSet {
+//         commentText.numberOfLines = 0
+//         commentText.enabledTypes = [.mention, .hashtag, .url]
+//         commentText.textColor = .black
+//         commentText.mentionColor = .brown
+//         commentText.hashtagColor = .purple
+//      }
+//   }
    @IBOutlet weak var date: UILabel!
    
    func initialiseUserPhoto() {

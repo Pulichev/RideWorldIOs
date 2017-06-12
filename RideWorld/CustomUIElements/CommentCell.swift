@@ -11,9 +11,31 @@ import ActiveLabel
 import MGSwipeTableCell
 
 class CommentCell: MGSwipeTableCell {
+   weak var delegateUserTaps: TappedUserDelegate? // for sending user info
+   
    @IBOutlet weak var userPhoto: RoundedImageView!
    @IBOutlet weak var userNickName: UIButton!
-   var userItem: UserItem!
+   
+   var comment: CommentItem! {
+      didSet {
+         // Formatting date to yyyy-mm-dd
+         date.text = DateTimeParser.getDateTime(from: comment.datetime)
+         
+         User.getItemById(for: comment.userId) { user in
+            if user.photo90ref != nil {
+               self.userItem = user
+               self.initialiseUserPhoto()
+            }
+         }
+      }
+   }
+   
+   var userItem: UserItem! {
+      didSet {
+         commentText.text = userItem.login + " " + comment.commentary
+      }
+   }
+   
    @IBOutlet weak var commentText: ActiveLabel! {
       didSet {
          commentText.numberOfLines = 0
@@ -24,22 +46,6 @@ class CommentCell: MGSwipeTableCell {
       }
    }
    @IBOutlet weak var date: UILabel!
-   
-   var comment: CommentItem! {
-      didSet {
-         commentText.text = comment.commentary
-         // Formatting date to yyyy-mm-dd
-         date.text = DateTimeParser.getDateTime(from: comment.datetime)
-         initialiseUserButton()
-         
-         User.getItemById(for: comment.userId) { user in
-            if user.photo90ref != nil {
-               self.userItem = user
-               self.initialiseUserPhoto()
-            }
-         }
-      }
-   }
    
    func initialiseUserPhoto() {
       userPhoto.image = UIImage(named: "grayRec.png")
@@ -52,6 +58,43 @@ class CommentCell: MGSwipeTableCell {
    func initialiseUserButton() {
       User.getItemById(for: comment.userId) { userItem in
          self.userNickName.setTitle(userItem.login, for: .normal)
+      }
+   }
+   
+   func userInfoTapped() {
+      delegateUserTaps?.userInfoTapped(userItem)
+   }
+   
+   // from @username
+   private func goToUserProfile(tappedUserLogin: String) {
+      User.getItemByLogin(
+      for: tappedUserLogin) { fetchedUserItem in
+         self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
+      }
+   }
+   
+   private func customizeWithActiveLabel() {
+      commentText.customize { description in
+         //Looks for userItem.login
+         let loginTappedType = ActiveType.custom(pattern: "^\(userItem.login)\\b")
+         description.enabledTypes.append(loginTappedType)
+         description.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
+         description.customColor[loginTappedType] = UIColor.black
+         
+         description.configureLinkAttribute = { (type, attributes, isSelected) in
+            var atts = attributes
+            switch type {
+            case .custom(pattern: "^\(self.userItem.login)\\b"):
+               atts[NSFontAttributeName] = UIFont(name: "CourierNewPS-BoldMT", size: 15)
+            default: ()
+            }
+            
+            return atts
+         }
+         
+         description.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(tappedUserLogin: mention)
+         }
       }
    }
 }

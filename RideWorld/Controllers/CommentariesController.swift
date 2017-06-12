@@ -105,15 +105,10 @@ UITableViewDelegate {
       
       cell.comment = comments[row]
       // adding tap event -> perform segue to profile
-//      let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile(_:)))
+      let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile(_:)))
       cell.userPhoto.tag = row
       cell.userPhoto.isUserInteractionEnabled = true
-//      cell.userPhoto.addGestureRecognizer(tapGestureRecognizer)
-//      cell.commentText.handleMentionTap { mention in // mention is @userLogin
-//         self.goToUserProfile(tappedUserLogin: mention)
-//      }
-      
-//      cell.userNickName.addTarget(self, action: #selector(goToUserProfileFromNickNameButton), for: .touchUpInside)
+      cell.userPhoto.addGestureRecognizer(tapGestureRecognizer)
       
       //configure right buttons
       addFuncButtons(to: cell, at: row)
@@ -173,51 +168,19 @@ UITableViewDelegate {
    
    //MARK: - segues actions part
    // from comment author photo
-//   func goToProfile(_ sender: UIGestureRecognizer) {
-//      let userId = comments[(sender.view?.tag)!].userId
-//      
-//      if userId == User.getCurrentUserId() {
-//         performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
-//      } else {
-//         User.getItemById(for: userId) { fetchedUserItem in
-//            self.ridersInfoForSending = fetchedUserItem
-//            self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
-//         }
-//      }
-//   }
-//   
-//   // nickname button tapped
-//   func goToUserProfileFromNickNameButton(sender: UIButton!) {
-//      goToUserProfile(tappedUserLogin: sender.currentTitle!)
-//   }
-//   
-//   // from @username
-//   private func goToUserProfile(tappedUserLogin: String) {
-//      User.getItemByLogin(
-//      for: tappedUserLogin) { fetchedUserItem in
-//         if let userItem = fetchedUserItem { // have we founded?
-//            if userItem.uid == User.getCurrentUserId() {
-//               self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
-//            } else {
-//               self.ridersInfoForSending = userItem
-//               self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
-//            }
-//         } else { // if no user founded for tapped nickname
-//            self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
-//         }
-//      }
-//   }
-//   
-//   private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {
-//      let alert = UIAlertController(title: "Error!",
-//                                    message: "No user has been founded founded with nickname \(tappedUserLogin)",
-//         preferredStyle: .alert)
-//      
-//      alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-//      
-//      present(alert, animated: true, completion: nil)
-//   }
-//   
+   func goToProfile(_ sender: UIGestureRecognizer) {
+      let userId = comments[(sender.view?.tag)!].userId
+      
+      if userId == User.getCurrentUserId() {
+         performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
+      } else {
+         User.getItemById(for: userId) { fetchedUserItem in
+            self.ridersInfoForSending = fetchedUserItem
+            self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
+         }
+      }
+   }
+
    var ridersInfoForSending: UserItem!
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

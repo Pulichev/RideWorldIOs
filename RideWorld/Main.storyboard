@@ -238,22 +238,10 @@
                             <constraint firstItem="nOg-jt-mhR" firstAttribute="centerX" secondItem="w8G-iW-QKa" secondAttribute="centerX" id="qsA-ZG-bHu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="RideWorld" id="BPL-Qz-8kq">
-                        <barButtonItem key="rightBarButtonItem" image="logOut" style="plain" id="8Qe-c2-j5k">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qxu-cM-dGm">
-                                <rect key="frame" x="327" y="6" width="32" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="logOut"/>
-                                <connections>
-                                    <action selector="logoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yqq-SA-02e"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="RideWorld" id="BPL-Qz-8kq"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="w8G-iW-QKa" id="hst-SK-MUj"/>
-                        <segue destination="H2C-mG-pr3" kind="presentation" identifier="fromMainFormToLogin" id="iw2-JO-qSE"/>
                         <segue destination="28g-9l-NVL" kind="show" identifier="addNewSpot" id="Cu9-hd-la3"/>
                         <segue destination="6uJ-a1-Lta" kind="show" identifier="goToSpotInfo" id="ZuM-Rf-uph"/>
                         <segue destination="LlJ-V1-BNZ" kind="show" identifier="spotDetailsTapped" id="SYx-8l-lm6"/>
@@ -459,7 +447,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Oiz-6g-cE1"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bR8-av-9X0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qxc-pj-QnL">
@@ -1272,7 +1260,21 @@
                             <constraint firstItem="C4x-Bn-Hds" firstAttribute="top" secondItem="zBH-CJ-T0B" secondAttribute="bottom" constant="8" symbolic="YES" id="x6t-PD-JNO"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="H6x-9y-8OV"/>
+                    <navigationItem key="navigationItem" id="H6x-9y-8OV">
+                        <barButtonItem key="rightBarButtonItem" image="logOut" style="plain" id="8Qe-c2-j5k">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Qxu-cM-dGm">
+                                <rect key="frame" x="327" y="6" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="logOut"/>
+                                <connections>
+                                    <action selector="logoutButtonTapped:" destination="MsB-Ex-yak" eventType="touchUpInside" id="3FM-WO-g4I"/>
+                                </connections>
+                            </button>
+                            <connections>
+                                <action selector="logoutButtonTapped:" destination="MsB-Ex-yak" id="Klt-hM-90F"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="editButton" destination="6Gf-2N-ipQ" id="2Ki-nm-lZ2"/>
                         <outlet property="followersButton" destination="RMI-Pf-SCZ" id="ZxH-ET-9Rm"/>
@@ -1286,6 +1288,7 @@
                         <segue destination="rut-Zp-VLC" kind="show" identifier="editUserProfile" id="VHE-cE-WMz"/>
                         <segue destination="WfP-RX-tLc" kind="show" identifier="goToPostInfoFromUserProfile" id="eyf-4a-ZNN"/>
                         <segue destination="7kR-w8-gJL" kind="show" identifier="goToFollowersFromUserNode" id="TeE-da-wxz"/>
+                        <segue destination="H2C-mG-pr3" kind="presentation" identifier="fromUserProfileToLogin" id="B8h-VV-QE7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TrM-ku-OEb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1873,7 +1876,7 @@
         <segue reference="QOa-aY-bXL"/>
         <segue reference="T3A-kh-NPf"/>
         <segue reference="eb8-9P-3Sr"/>
-        <segue reference="RlL-e4-xY6"/>
-        <segue reference="nax-92-cwD"/>
+        <segue reference="TeE-da-wxz"/>
+        <segue reference="eyf-4a-ZNN"/>
     </inferredMetricsTieBreakers>
 </document>

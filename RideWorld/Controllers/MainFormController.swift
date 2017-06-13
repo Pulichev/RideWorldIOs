@@ -68,12 +68,6 @@ class MainFormController: UIViewController {
       }
    }
    
-   @IBAction func logoutButtonTapped(_ sender: Any) {
-      if User.signOut() { // if no errors
-         performSegue(withIdentifier: "fromMainFormToLogin", sender: self)
-      }
-   }
-   
    func displayAdditionalOptions() {
       //mapView.showsCompass = false
       //mapView.showsTraffic = true

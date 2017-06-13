@@ -197,6 +197,12 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       performSegue(withIdentifier: "goToFollowersFromUserNode", sender: self)
    }
    
+   @IBAction func logoutButtonTapped(_ sender: Any) {
+      if User.signOut() { // if no errors
+         performSegue(withIdentifier: "fromUserProfileToLogin", sender: self)
+      }
+   }
+   
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       switch segue.identifier! {
       case "goToPostInfoFromUserProfile":

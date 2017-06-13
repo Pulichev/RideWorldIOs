@@ -9,12 +9,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>BouncyLayout.xcscheme</key>
+		<key>DateToolsSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>DateToolsSwift.xcscheme</key>
+		<key>ESTabBarController-swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -77,7 +77,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2F658E8BF84B844DEB85D7279F4150C0</key>
+		<key>3D2080E13E304A62D54E11341C660AEA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,12 +87,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>596E2BF0D45B6D6BBF2898BEBD5295DD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6B03ED66F47AD591C0066DA58205C3A1</key>
+		<key>5E707FF8CB3D090CCB960ECC250DC20F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,6 +98,11 @@
 			<true/>
 		</dict>
 		<key>A2EBB9DBC32E6FB582A1ECD510A6C075</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABF9DD5F18A22376192B4AF3B0B9DC6A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

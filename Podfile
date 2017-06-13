@@ -15,7 +15,7 @@ target 'RideWorld' do
   pod ‘MGSwipeTableCell’
   pod 'SVProgressHUD'
   pod 'DateToolsSwift'
-  pod "BouncyLayout"
+  pod "ESTabBarController-swift"
 
   # Pods for RideWorld
 

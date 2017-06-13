@@ -85,15 +85,14 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       for newItem in newItems! {
          // need to cache all cells before adding
-         _ = PostItemCellCache(newItem,
-                               completion: { cellCache in
-                                 countOfCachedCells += 1
-                                 newItemsCache.append(cellCache)
-                                 
-                                 if countOfCachedCells == newItems?.count {
-                                    completion(newItemsCache)
-                                 }
-         })
+         _ = PostItemCellCache(newItem) { cellCache in
+            countOfCachedCells += 1
+            newItemsCache.append(cellCache)
+            
+            if countOfCachedCells == newItems?.count {
+               completion(newItemsCache)
+            }
+         }
       }
    }
    
@@ -111,15 +110,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    private func loadPosts(completion: @escaping (_ newItems: [PostItem]?) -> Void) {
       if cameFromSpotOrMyStrip {
-         Spot.getPosts(for: spotDetailsItem.key, countOfNewItemsToAdd: postsLoadStep,
-                       completion: { newItems in
-                        completion(newItems)
-         })
+         Spot.getPosts(for: spotDetailsItem.key, countOfNewItemsToAdd: postsLoadStep)
+         { newItems in
+            completion(newItems)
+         }
       } else {
-         User.getStripPosts(countOfNewItemsToAdd: postsLoadStep,
-                            completion: { newItems in
-                              completion(newItems)
-         })
+         User.getStripPosts(countOfNewItemsToAdd: postsLoadStep)
+         { newItems in
+            completion(newItems)
+         }
       }
    }
    
@@ -501,7 +500,12 @@ extension PostsStripController {
       super.viewWillAppear(animated)
       
       if !cameFromSpotOrMyStrip {
-         self.navigationItem.title = "Ride World" // navbar title
+         let titleView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+         titleView.contentMode = .scaleAspectFit
+         titleView.image = UIImage(named: "rideWorldLogo.png")
+         
+         self.navigationItem.titleView = titleView
+         
          self.navigationItem.rightBarButtonItem = nil // hide delete button
       }
    }

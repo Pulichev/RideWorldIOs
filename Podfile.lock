@@ -1,7 +1,7 @@
 PODS:
   - ActiveLabel (0.7.0)
-  - BouncyLayout (1.0.1)
   - DateToolsSwift (2.0.3)
+  - ESTabBarController-swift (2.4)
   - Firebase/Core (3.11.0):
     - FirebaseAnalytics (= 3.6.0)
     - FirebaseCore (= 3.4.6)
@@ -52,8 +52,8 @@ PODS:
 
 DEPENDENCIES:
   - ActiveLabel
-  - BouncyLayout
   - DateToolsSwift
+  - ESTabBarController-swift
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
@@ -66,8 +66,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ActiveLabel: eb405c5b99275be52fac161f7a55cab1dd672c54
-  BouncyLayout: ffdf9ca5826241670a6432a762627b473f4ddbb2
   DateToolsSwift: bf69bf9056d9e53c5c03f06e51f219b9b8b02f9e
+  ESTabBarController-swift: af496895039ba10ae60bf825473c45f23fc5c8b6
   Firebase: b8134e285eb33201115bc688bc5d7f112923bc1f
   FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
   FirebaseAuth: b436e4ecebe068bf8e8c6e4e29de5756ffe7ee24
@@ -85,6 +85,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftLint: 90665265ae50b58167c674a11c680bbabe9d6513
 
-PODFILE CHECKSUM: 6849df2ce6f9d3a4839046f7c40555fc8bb4aba3
+PODFILE CHECKSUM: 5f0d09e5eb5f5254a5994f172211ddee56ce7b02
 
 COCOAPODS: 1.1.1

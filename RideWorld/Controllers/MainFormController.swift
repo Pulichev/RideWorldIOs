@@ -6,6 +6,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import ESTabBarController_swift
 
 class MainFormController: UIViewController {
    
@@ -254,7 +255,11 @@ extension MainFormController {
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
-      self.navigationItem.title = "Ride World" // navbar title
+      let titleView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
+      titleView.contentMode = .scaleAspectFit
+      titleView.image = UIImage(named: "rideWorldLogo.png")
+      
+      self.navigationItem.titleView = titleView
    }
    
    override func viewWillDisappear(_ animated: Bool) {

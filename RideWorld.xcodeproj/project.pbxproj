@@ -34,6 +34,7 @@
 		9F4A84491E6329D100C1E5F2 /* biography.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84481E6329D100C1E5F2 /* biography.png */; };
 		9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A844A1E632A3400C1E5F2 /* email.ico */; };
 		9F4A844D1E632AE800C1E5F2 /* nameAndSename.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A844C1E632AE800C1E5F2 /* nameAndSename.png */; };
+		9F506B661EF05DA700F0CABC /* rideWorldLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F506B651EF05DA700F0CABC /* rideWorldLogo.png */; };
 		9F5609811E7C6A630000DB21 /* PostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609801E7C6A630000DB21 /* PostItem.swift */; };
 		9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */; };
 		9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609841E7C6BB50000DB21 /* PostsCell.swift */; };
@@ -141,6 +142,7 @@
 		9F4A84481E6329D100C1E5F2 /* biography.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = biography.png; path = Pictures/biography.png; sourceTree = "<group>"; };
 		9F4A844A1E632A3400C1E5F2 /* email.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; name = email.ico; path = Pictures/email.ico; sourceTree = "<group>"; };
 		9F4A844C1E632AE800C1E5F2 /* nameAndSename.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nameAndSename.png; path = Pictures/nameAndSename.png; sourceTree = "<group>"; };
+		9F506B651EF05DA700F0CABC /* rideWorldLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rideWorldLogo.png; path = Pictures/rideWorldLogo.png; sourceTree = "<group>"; };
 		9F5609801E7C6A630000DB21 /* PostItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostItem.swift; path = Data/PostItem.swift; sourceTree = "<group>"; };
 		9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostItemCellCache.swift; path = Core/PostItemCellCache.swift; sourceTree = "<group>"; };
 		9F5609841E7C6BB50000DB21 /* PostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCell.swift; path = CustomUIElements/PostsCell.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 		9F2380721E34DA20009D41E8 /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				9F506B651EF05DA700F0CABC /* rideWorldLogo.png */,
 				9F3022BD1EE5BF19001827B3 /* grayRec.png */,
 				9F2D4C951EAD21E100235451 /* delete.png */,
 				9F2D4C961EAD21E100235451 /* reply.png */,
@@ -646,6 +649,7 @@
 				9F2D4C981EAD21E100235451 /* reply.png in Resources */,
 				9F6163471E7E89C1001664B7 /* no_photo.png in Resources */,
 				9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */,
+				9F506B661EF05DA700F0CABC /* rideWorldLogo.png in Resources */,
 				9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */,
 				9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */,
 				9F4A84491E6329D100C1E5F2 /* biography.png in Resources */,

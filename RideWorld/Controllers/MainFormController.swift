@@ -156,21 +156,22 @@ extension MainFormController: MKMapViewDelegate {
       }
       
       // customize pin image
-      annotationView!.image = UIImage(named: "email.ico")
+      let customPin = annotation as! CustomPin
+      annotationView!.image = getProperImage(for: customPin.spotItem.type)
       
       return annotationView
    }
    
-   private func getProperItem(for type: Int) -> UIImage {
+   private func getProperImage(for type: Int) -> UIImage {
       switch type {
       case 1:
-         return UIImage(named: "street")!
+         return UIImage(named: "Street")!
       case 2:
-         return UIImage(named: "park")!
+         return UIImage(named: "Park")!
       case 3:
-         return UIImage(named: "dirt")!
+         return UIImage(named: "Dirt")!
       default:
-         return UIImage(named: "street")!
+         return UIImage(named: "Street")!
       }
    }
    

@@ -24,6 +24,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    @IBOutlet weak var imageView: UIImageView!
+   @IBOutlet weak var spotTypePicker: UIPickerView!
    
    override func viewDidLoad() {
       UICustomizing()
@@ -55,7 +56,8 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       
       let currUserId = User.getCurrentUserId()
       let newSpotKey = Spot.getNewSpotRefKey()
-      var newSpot = SpotItem(name: self.spotTitle.text!,
+      let type = spotTypePicker.selectedRow(inComponent: 0)
+      var newSpot = SpotItem(type: type, name: self.spotTitle.text!,
                              description: self.spotDescription.text!,
                              latitude: self.spotLatitude, longitude: self.spotLongitude,
                              addedByUser: currUserId, key: newSpotKey)
@@ -125,7 +127,31 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view. Look at extension
 }
 
-//MARK: - Fusuma delegate
+// MARK: - Picker delegate
+extension NewSpotController: UIPickerViewDelegate, UIPickerViewDataSource {
+   func numberOfComponents(in pickerView: UIPickerView) -> Int {
+      return 1
+   }
+   
+   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+      return 3
+   }
+   
+   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+      switch row {
+      case 0:
+         return "Street"
+      case 1:
+         return "Park"
+      case 2:
+         return "Dirt"
+      default:
+         return ""
+      }
+   }
+}
+
+// MARK: - Fusuma delegate
 extension NewSpotController: FusumaDelegate {
    @IBAction func takePhoto(_ sender: Any) {
       let fusuma = FusumaViewController()

@@ -598,14 +598,25 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bb2-Iz-hCb">
+                                <rect key="frame" x="0.0" y="510" width="375" height="108"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="28g-9l-NVL" id="ZAE-ya-weu"/>
+                                    <outlet property="delegate" destination="28g-9l-NVL" id="17u-48-Y1w"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="b0b-S2-wIf" firstAttribute="trailing" secondItem="e6A-Q2-7gE" secondAttribute="trailing" id="30S-ik-s2j"/>
+                            <constraint firstItem="Bb2-Iz-hCb" firstAttribute="top" secondItem="e6A-Q2-7gE" secondAttribute="bottom" constant="5" id="9an-I5-z4A"/>
                             <constraint firstItem="JKR-dD-JOV" firstAttribute="leading" secondItem="b0b-S2-wIf" secondAttribute="leading" id="IOI-ig-Vsn"/>
                             <constraint firstItem="JKR-dD-JOV" firstAttribute="top" secondItem="7bo-0z-85p" secondAttribute="bottom" constant="8" symbolic="YES" id="OhI-gA-5pK"/>
+                            <constraint firstAttribute="trailing" secondItem="Bb2-Iz-hCb" secondAttribute="trailing" id="OjS-iM-ZV9"/>
                             <constraint firstItem="e6A-Q2-7gE" firstAttribute="top" secondItem="b0b-S2-wIf" secondAttribute="bottom" constant="8" symbolic="YES" id="TFF-He-YSa"/>
+                            <constraint firstItem="Bb2-Iz-hCb" firstAttribute="leading" secondItem="MSF-p0-ANE" secondAttribute="leading" id="aw7-Xu-pza"/>
                             <constraint firstItem="b0b-S2-wIf" firstAttribute="leading" secondItem="e6A-Q2-7gE" secondAttribute="leading" id="dmT-e9-lIK"/>
+                            <constraint firstItem="2Fa-YJ-abt" firstAttribute="top" secondItem="Bb2-Iz-hCb" secondAttribute="bottom" id="hCq-6E-4un"/>
                             <constraint firstItem="JKR-dD-JOV" firstAttribute="trailing" secondItem="MSF-p0-ANE" secondAttribute="trailingMargin" id="jgx-YJ-nOo"/>
                             <constraint firstItem="JKR-dD-JOV" firstAttribute="leading" secondItem="MSF-p0-ANE" secondAttribute="leadingMargin" id="riP-g6-8Xo"/>
                             <constraint firstItem="JKR-dD-JOV" firstAttribute="trailing" secondItem="b0b-S2-wIf" secondAttribute="trailing" id="s5W-CL-Ppu"/>
@@ -625,6 +636,7 @@
                         <outlet property="imageView" destination="JKR-dD-JOV" id="6ik-dV-K7T"/>
                         <outlet property="spotDescription" destination="e6A-Q2-7gE" id="gLl-46-z2f"/>
                         <outlet property="spotTitle" destination="b0b-S2-wIf" id="fgi-8X-h0L"/>
+                        <outlet property="spotTypePicker" destination="Bb2-Iz-hCb" id="hoM-F4-Sow"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N2a-xc-cSP" userLabel="First Responder" sceneMemberID="firstResponder"/>

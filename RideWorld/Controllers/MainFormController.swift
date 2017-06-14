@@ -146,19 +146,35 @@ extension MainFormController: MKMapViewDelegate {
       }
       
       let identifier = "CustomPin"
-      
       var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+      
       if annotationView == nil {
-         annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+         annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)// MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
          annotationView?.canShowCallout = true
       } else {
          annotationView!.annotation = annotation
       }
       
+      // customize pin image
+      annotationView!.image = UIImage(named: "email.ico")
+      
       return annotationView
    }
    
-   func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotItem) {
+   private func getProperItem(for type: Int) -> UIImage {
+      switch type {
+      case 1:
+         return UIImage(named: "street")!
+      case 2:
+         return UIImage(named: "park")!
+      case 3:
+         return UIImage(named: "dirt")!
+      default:
+         return UIImage(named: "street")!
+      }
+   }
+   
+   private func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotItem) {
       let pinfoView = PinInfoView()
       pinfoView.addPhoto(spot: spotPin)
       pinfoView.goToInfoButton.addTarget(self, action: #selector(goToInfo), for: .touchDown)
@@ -210,11 +226,11 @@ extension MainFormController: CLLocationManagerDelegate {
    @IBAction func AddNewSpot(_ sender: Any) {
       let dist = distanceToNearestPin()
       
-      if dist > 50.0 {
+//      if dist > 50.0 {
          performSegue(withIdentifier: "addNewSpot", sender: self)
-      } else {
-         showAlertThatToCloseToExistingSpot()
-      }
+//      } else {
+//         showAlertThatToCloseToExistingSpot()
+//      }
    }
    
    private func distanceToNearestPin() -> Float {

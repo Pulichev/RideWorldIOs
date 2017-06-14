@@ -11,6 +11,7 @@ import FirebaseDatabase
 struct SpotItem {
    
    let key: String
+   let type: Int // 1 - Street, 2 - Park, 3 - Dirt
    
    let name: String
    let description: String
@@ -23,8 +24,9 @@ struct SpotItem {
    
    let ref: FIRDatabaseReference?
    
-   init(name: String, description: String, latitude: Double, longitude: Double, addedByUser: String, key: String = "") {
+   init(type: Int, name: String, description: String, latitude: Double, longitude: Double, addedByUser: String, key: String = "") {
       self.key = key
+      self.type = type
       
       self.name = name
       self.description = description
@@ -39,6 +41,7 @@ struct SpotItem {
    init(snapshot: FIRDataSnapshot) {
       let snapshotValue = snapshot.value as! [String: AnyObject]
       key = snapshotValue["key"] as! String
+      type = snapshotValue["type"] as! Int
       
       name = snapshotValue["name"] as! String
       description = snapshotValue["description"] as! String
@@ -54,6 +57,7 @@ struct SpotItem {
    func toAnyObject() -> Any {
       return [
          "key": key,
+         "type": type,
          
          "name": name,
          "description": description,

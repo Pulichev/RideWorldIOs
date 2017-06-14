@@ -164,11 +164,11 @@ extension MainFormController: MKMapViewDelegate {
    
    private func getProperImage(for type: Int) -> UIImage {
       switch type {
-      case 1:
+      case 0:
          return UIImage(named: "Street")!
-      case 2:
+      case 1:
          return UIImage(named: "Park")!
-      case 3:
+      case 2:
          return UIImage(named: "Dirt")!
       default:
          return UIImage(named: "Street")!

@@ -21,9 +21,31 @@ class CommentItem {
    
    let feedbackKey: String!
    
-   let ref: FIRDatabaseReference?
+   let ref: DatabaseReference?
    
-   // classic
+   // classic. Downloading data for user
+   init(_ userId: String, _ postId: String, _ postAddedByUser: String,
+        _ commentary: String, _ datetime: String,
+        _ key: String, completion: @escaping (_ item: CommentItem?) -> Void) {
+      self.key = key
+      
+      self.userId = userId
+      self.postId = postId
+      self.postAddedByUser = postAddedByUser
+      self.commentary = commentary
+      self.datetime = datetime
+      
+      self.feedbackKey = key
+      
+      self.ref = nil
+      
+      UserModel.getItemById(for: self.userId) { user in
+         self.userItem = user
+         completion(self)
+      }
+   }
+   
+   // for saving
    init(_ userId: String, _ postId: String, _ postAddedByUser: String,
         _ commentary: String, _ datetime: String,
         _ key: String) {
@@ -40,29 +62,7 @@ class CommentItem {
       self.ref = nil
    }
    
-   // for adding desc as comment
-   init(_ userId: String, _ postId: String, _ postAddedByUser: String,
-        _ commentary: String, _ datetime: String,
-        _ key: String, completion: @escaping (_ item: CommentItem?) -> Void) {
-      self.key = key
-      
-      self.userId = userId
-      self.postId = postId
-      self.postAddedByUser = postAddedByUser
-      self.commentary = commentary
-      self.datetime = datetime
-      
-      self.feedbackKey = key
-      
-      self.ref = nil
-      
-      User.getItemById(for: self.userId) { user in
-         self.userItem = user
-         completion(self)
-      }
-   }
-   
-   init(snapshot: FIRDataSnapshot,
+   init(snapshot: DataSnapshot,
         completion: @escaping (_ item: CommentItem?) -> Void) {
       let snapshotValue = snapshot.value as! [String: AnyObject]
       key = snapshotValue["key"] as! String
@@ -77,7 +77,7 @@ class CommentItem {
       
       ref = snapshot.ref
       
-      User.getItemById(for: self.userId) { user in
+      UserModel.getItemById(for: self.userId) { user in
          self.userItem = user
          completion(self)
       }

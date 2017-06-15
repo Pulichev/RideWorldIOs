@@ -10,7 +10,7 @@ import FirebaseStorage
 import FirebaseDatabase // TEMP
 
 struct PostMedia {
-   static let refToPostMedia = FIRStorage.storage().reference(withPath: "media/spotPostMedia/")
+   static let refToPostMedia = Storage.storage().reference(withPath: "media/spotPostMedia/")
    
    static func getImageData200x200(for post: PostItem,
                                    completion: @escaping(_ imageData: Data?) -> Void) {
@@ -63,7 +63,7 @@ struct PostMedia {
       
       //with low compression
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
-      postPhotoRef.put(dataLowCompression, metadata: nil) { (meta , error) in
+      postPhotoRef.putData(dataLowCompression, metadata: nil) { (meta , error) in
          if error == nil {
             // save url to post node
             completion(true, (meta?.downloadURL()?.absoluteString)!)
@@ -124,7 +124,7 @@ struct PostMedia {
          
          let data = try Data(contentsOf: video, options: .mappedIfSafe)
          
-         postVideoRef.put(data, metadata: nil) { (meta, error) in
+         postVideoRef.putData(data, metadata: nil) { (meta, error) in
             if error == nil {
                completion(true, (meta?.downloadURL()?.absoluteString)!)
             } else {

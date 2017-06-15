@@ -9,7 +9,7 @@
 import FirebaseStorage
 
 struct UserMedia {
-   static let refToUserMainPhotoURLs = FIRStorage.storage().reference(withPath: "media/userMainPhotoURLs")
+   static let refToUserMainPhotoURLs = Storage.storage().reference(withPath: "media/userMainPhotoURLs")
    
    // MARK: - Upload part
    static func upload(for userId: String, with image: UIImage, withSize sizePx: Double,
@@ -20,7 +20,7 @@ struct UserMedia {
       let userPhotoRef = refToUserMainPhotoURLs.child(userId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
       //with low compression
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
-      userPhotoRef.put(dataLowCompression, metadata: nil) { (meta , error) in
+      userPhotoRef.putData(dataLowCompression, metadata: nil) { (meta , error) in
          if error == nil {
             // save url to post node
             completion(true, (meta?.downloadURL()?.absoluteString)!)

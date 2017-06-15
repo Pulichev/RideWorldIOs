@@ -25,14 +25,14 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
    
    private func loadFollowList() {
       if followersOrFollowingList == true { // followers ref
-         User.getFollowersList(for: userId) { followersList in
+         UserModel.getFollowersList(for: userId) { followersList in
             self.followList = followersList
             DispatchQueue.main.async {
                self.tableView.reloadData()
             }
          }
       } else { // following ref
-         User.getFollowingsList(for: userId) { followingsList in
+         UserModel.getFollowingsList(for: userId) { followingsList in
             self.followList = followingsList
             DispatchQueue.main.async {
                self.tableView.reloadData()
@@ -78,7 +78,7 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
    }
    
    func goToProfile(row: Int) {
-      if followList[row].uid == User.getCurrentUserId() {
+      if followList[row].uid == UserModel.getCurrentUserId() {
          performSegue(withIdentifier: "openUserProfileFromFollowList", sender: self)
       } else {
          ridersInfoForSending = followList[row]

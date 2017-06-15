@@ -115,7 +115,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             completion(newItems)
          }
       } else {
-         User.getStripPosts(countOfNewItemsToAdd: postsLoadStep)
+         UserModel.getStripPosts(countOfNewItemsToAdd: postsLoadStep)
          { newItems in
             completion(newItems)
          }
@@ -169,7 +169,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    func refresh(sender: Any) {
       // clear our structs
       Spot.clearCurrentData()
-      User.clearCurrentData()
+      UserModel.clearCurrentData()
       
       loadPosts(completion: { newItems in
          if newItems == nil { return }
@@ -389,9 +389,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    private func goToUserProfile(tappedUserLogin: String) {
-      User.getItemByLogin(for: tappedUserLogin) { fetchedUserItem in
+      UserModel.getItemByLogin(for: tappedUserLogin) { fetchedUserItem in
          if let userItem = fetchedUserItem { // have we founded?
-            if userItem.uid == User.getCurrentUserId() {
+            if userItem.uid == UserModel.getCurrentUserId() {
                self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
             } else {
                self.ridersInfoForSending = userItem
@@ -416,7 +416,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    // go to riders profile
    func nickNameTapped(sender: UIButton!) {
       // check if going to current user
-      if postItemCellsCache[sender.tag].userInfo.uid == User.getCurrentUserId() {
+      if postItemCellsCache[sender.tag].userInfo.uid == UserModel.getCurrentUserId() {
          performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
       } else {
          ridersInfoForSending = postItemCellsCache[sender.tag].userInfo
@@ -517,8 +517,8 @@ extension PostsStripController {
       Spot.alreadyLoadedCountOfPosts = 0
       Spot.spotPostsIds.removeAll()
       
-      User.alreadyLoadedCountOfPosts = 0
-      User.postsIds.removeAll()
+      UserModel.alreadyLoadedCountOfPosts = 0
+      UserModel.postsIds.removeAll()
       
       if !cameFromSpotOrMyStrip {
          // Show the navigation bar on other view controllers

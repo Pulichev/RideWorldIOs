@@ -9,8 +9,8 @@
 import FirebaseDatabase
 import FirebaseAuth
 
-struct User {
-   static var refToMainDataBase = FIRDatabase.database().reference(withPath: "MainDataBase")
+struct UserModel {
+   static var refToMainDataBase = Database.database().reference(withPath: "MainDataBase")
    static var refToUsersNode = refToMainDataBase.child("users")
    
    // MARK: - Create user after registration
@@ -28,7 +28,7 @@ struct User {
    // MARK: - Sign in / Sign up part
    static func signOut() -> Bool {
       do {
-         try FIRAuth.auth()!.signOut()
+         try Auth.auth().signOut()
          return true
       } catch {
          print("Error while signing out!")
@@ -38,11 +38,11 @@ struct User {
    
    // MARK: - Get part
    static func getCurrentUserId() -> String {
-      return (FIRAuth.auth()?.currentUser?.uid)!
+      return (Auth.auth().currentUser?.uid)!
    }
    
-   static func getCurrentUser() -> FIRUser {
-      return (FIRAuth.auth()?.currentUser)!
+   static func getCurrentUser() -> User {
+      return (Auth.auth().currentUser)!
    }
    
    static func getItemById(for userId: String,
@@ -59,11 +59,11 @@ struct User {
       refToUsersNode.observeSingleEvent(of: .value, with: { snapshot in
          
          for user in snapshot.children {
-            let snapshotValue = (user as! FIRDataSnapshot).value as! [String: AnyObject]
+            let snapshotValue = (user as! DataSnapshot).value as! [String: AnyObject]
             let login = snapshotValue["login"] as! String // getting login of user
             
             if login == userLogin {
-               let userItem = UserItem(snapshot: user as! FIRDataSnapshot)
+               let userItem = UserItem(snapshot: user as! DataSnapshot)
                completion(userItem)
                return
             }

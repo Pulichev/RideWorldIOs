@@ -39,7 +39,7 @@ class PostItemCellCache {
    }
    
    func initializeUser(completion: @escaping () -> Void) {
-      User.getItemById(for: post.addedByUser) { userItem in
+      UserModel.getItemById(for: post.addedByUser) { userItem in
          self.userInfo = userItem
          self.userNickName = self.userInfo.login
          completion()

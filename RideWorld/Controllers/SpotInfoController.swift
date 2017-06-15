@@ -59,14 +59,14 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    
    // MARK: - initialize user
    private func initUserLabel() {
-      User.getItemById(for: spotInfo.addedByUser) { user in
+      UserModel.getItemById(for: spotInfo.addedByUser) { user in
          self.user = user
          self.addedByUser.setTitle(user.login, for: .normal)
       }
    }
    
    @IBAction func userButtonTapped(_ sender: Any) {
-      if user.uid == User.getCurrentUserId() {
+      if user.uid == UserModel.getCurrentUserId() {
          self.performSegue(withIdentifier: "goToUserProfileFromSpotInfo", sender: self)
       } else {
          self.performSegue(withIdentifier: "goToRidersProfileFromSpotInfo", sender: self)
@@ -92,6 +92,10 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
 
 //MARK: - Fusuma
 extension SpotInfoController: FusumaDelegate {
+   func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
+      
+   }
+
    // MARK: - Add new photo part
    @IBAction func addPhotoButtonTapped(_ sender: Any) {
       let fusuma = FusumaViewController()

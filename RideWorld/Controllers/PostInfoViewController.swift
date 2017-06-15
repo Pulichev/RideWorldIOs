@@ -121,7 +121,7 @@ class PostInfoViewController: UIViewController {
    // MARK: - Add and remove like
    func addNewLike() {
       // init new like
-      let currentUserId = User.getCurrentUserId()
+      let currentUserId = UserModel.getCurrentUserId()
       let placedTime = String(describing: Date())
       let newLike = LikeItem(who: currentUserId, what: postInfo.key,
                              postWasAddedBy: postInfo.addedByUser, at: placedTime)
@@ -130,7 +130,7 @@ class PostInfoViewController: UIViewController {
    }
    
    func removeExistedLike() {
-      let currentUserId = User.getCurrentUserId()
+      let currentUserId = UserModel.getCurrentUserId()
       
       Like.remove(with: currentUserId, postInfo)
    }
@@ -286,13 +286,13 @@ class PostInfoViewController: UIViewController {
    var ridersInfoForSending: UserItem!
    
    private func goToUserProfile(tappedUserLogin: String) {
-      User.getItemByLogin(
+      UserModel.getItemByLogin(
       for: tappedUserLogin) { fetchedUserItem in
          if let userItem = fetchedUserItem { // have we founded?
             if fetchedUserItem?.uid == self.user.uid {
                _ = self.navigationController?.popViewController(animated: true) // go back
             } else {
-               if userItem.uid == User.getCurrentUserId() {
+               if userItem.uid == UserModel.getCurrentUserId() {
                   self.performSegue(withIdentifier: "fromPostInfoToUserProfile", sender: self)
                } else {
                   self.ridersInfoForSending = userItem

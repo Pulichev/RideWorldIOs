@@ -10,7 +10,7 @@ struct Feedback {
    static func getArray(
       completion: @escaping (_ fbItems: [FeedbackItem]) -> Void) {
       
-      User.getFeedbackSnapShotData(for: User.getCurrentUserId()) { feedItemsSnapshot in
+      UserModel.getFeedbackSnapShotData(for: UserModel.getCurrentUserId()) { feedItemsSnapshot in
          if feedItemsSnapshot == nil { return }
          
          var feedbackItems = [FeedbackItem]()

@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 class FeedbackController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-   private let userId: String = User.getCurrentUserId()
+   private let userId: String = UserModel.getCurrentUserId()
    fileprivate var userItem: UserItem? // current user user item
    
    @IBOutlet weak var tableView: UITableView! {
@@ -43,7 +43,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    }
    
    private func initializeCurrentUserItem() {
-      User.getItemById(for: userId) { user in
+      UserModel.getItemById(for: userId) { user in
          self.userItem = user
       }
    }
@@ -98,7 +98,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.userItem = commentFBItem.userItem
          cell.postId = commentFBItem.postId
          cell.postItem = commentFBItem.postItem!
-         if commentFBItem.postAddedByUser == User.getCurrentUserId() {
+         if commentFBItem.postAddedByUser == UserModel.getCurrentUserId() {
             cell.descText = commentFBItem.userItem.login + " commented your photo: " + commentFBItem.text
          } else { // for @userId not author
             cell.descText = commentFBItem.userItem.login + " mentioned you in comment: " + commentFBItem.text
@@ -131,7 +131,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    func setIsViewedPropToTrue() {
       for fbItem in feedbackItems {
          if !fbItem.isViewed {
-            User.setFeedbackIsViewedToTrue(withKey: fbItem.key)
+            UserModel.setFeedbackIsViewedToTrue(withKey: fbItem.key)
          }
       }
       

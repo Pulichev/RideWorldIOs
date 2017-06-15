@@ -9,7 +9,7 @@
 import FirebaseDatabase
 
 struct Comment {
-   static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/postscomments")
+   static var refToSpotPostsNode = Database.database().reference(withPath: "MainDataBase/postscomments")
    
    // Function for loading comments for certain post
    static func loadList(for postId: String,
@@ -26,13 +26,13 @@ struct Comment {
       })
    }
    
-   private static func initComments(_ snapshot: FIRDataSnapshot,
+   private static func initComments(_ snapshot: DataSnapshot,
                              completion: @escaping (_ items: [CommentItem]) -> Void) {
       var newItems: [CommentItem] = []
       var count = 0
       
       for item in snapshot.children {
-         let _ = CommentItem(snapshot: item as! FIRDataSnapshot) { item in
+         let _ = CommentItem(snapshot: item as! DataSnapshot) { item in
             if item != nil {
                newItems.append(item!)
                count += 1
@@ -47,12 +47,12 @@ struct Comment {
    
    static func add(for post: PostItem, withText text: String?,
                    completion: @escaping (_ loadedComment: CommentItem) -> Void) {
-      let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
+      let ref = Database.database().reference(withPath: "MainDataBase")
       
       let refForNewCommentKey = refToSpotPostsNode.child(post.key)
          .childByAutoId().key
       
-      let currentUserId = User.getCurrentUserId()
+      let currentUserId = UserModel.getCurrentUserId()
       let currentDateTime = String(describing: Date())
       let newComment = CommentItem(currentUserId, post.key, post.addedByUser,
                                    text!, currentDateTime, refForNewCommentKey)
@@ -97,7 +97,7 @@ struct Comment {
       var countOfProcessedUsers = 0
       
       for userLogin in userLogins {
-         User.getItemByLogin(for: userLogin) { user in
+         UserModel.getItemByLogin(for: userLogin) { user in
             countOfProcessedUsers += 1
             
             if user != nil {
@@ -129,7 +129,7 @@ struct Comment {
    }
    
    static func remove(_ comment: CommentItem, from post: PostItem) {
-      let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
+      let ref = Database.database().reference(withPath: "MainDataBase")
       
       getAllMentionedUsersIds(from: comment.commentary) { mentionedUserIds in
          var userIds = mentionedUserIds

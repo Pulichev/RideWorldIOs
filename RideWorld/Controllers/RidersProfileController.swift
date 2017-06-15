@@ -64,7 +64,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    }
    
    private func isCurrentUserFollowing() {
-      User.isCurrentUserFollowing(this: ridersInfo.uid) { isFollowing in
+      UserModel.isCurrentUserFollowing(this: ridersInfo.uid) { isFollowing in
          if isFollowing {
             self.followButton.setTitle("Following", for: .normal)
          } else {
@@ -75,12 +75,12 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    }
    
    private func initialiseFollowing() {
-      User.getFollowersCountString(
+      UserModel.getFollowersCountString(
       userId: ridersInfo.uid) { countOfFollowersString in
          self.followersButton.setTitle(countOfFollowersString, for: .normal)
       }
       
-      User.getFollowingsCountString(
+      UserModel.getFollowingsCountString(
       userId: ridersInfo.uid) { countOfFollowingsString in
          self.followingButton.setTitle(countOfFollowingsString, for: .normal)
       }
@@ -96,7 +96,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    }
    
    func initializePosts() {
-      User.getPostsIds(for: ridersInfo.uid) { postsIds in
+      UserModel.getPostsIds(for: ridersInfo.uid) { postsIds in
          if postsIds != nil {
             var loadedPosts = [PostItem]()
             
@@ -173,11 +173,11 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    // MARK: - Following logic
    @IBAction func followButtonTapped(_ sender: Any) {
       if followButton.currentTitle == "Follow" { // add or remove like
-         User.addFollowing(to: ridersInfo.uid)
-         User.addFollower(to: ridersInfo.uid)
+         UserModel.addFollowing(to: ridersInfo.uid)
+         UserModel.addFollower(to: ridersInfo.uid)
       } else {
-         User.removeFollowing(from: ridersInfo.uid)
-         User.removeFollower(from: ridersInfo.uid)
+         UserModel.removeFollowing(from: ridersInfo.uid)
+         UserModel.removeFollower(from: ridersInfo.uid)
       }
       
       swapFollowButtonTittle()

@@ -47,7 +47,7 @@ class CommentCell: MGSwipeTableCell {
    }
    
    func initialiseUserButton() {
-      User.getItemById(for: comment.userId) { userItem in
+      UserModel.getItemById(for: comment.userId) { userItem in
          self.userNickName.setTitle(userItem.login, for: .normal)
       }
    }
@@ -58,7 +58,7 @@ class CommentCell: MGSwipeTableCell {
    
    // from @username
    private func goToUserProfile(tappedUserLogin: String) {
-      User.getItemByLogin(
+      UserModel.getItemByLogin(
       for: tappedUserLogin) { fetchedUserItem in
          self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
       }

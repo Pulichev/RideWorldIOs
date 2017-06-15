@@ -19,13 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    
    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
       // FireBase init part
-      FIRApp.configure()
-      FIRDatabase.database().persistenceEnabled = false
+      FirebaseApp.configure()
+      Database.database().isPersistenceEnabled = false
       
       self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
       
       // Setting initial viewController for user loggedIn?
-      if(FIRAuth.auth()?.currentUser != nil) {
+      if(Auth.auth().currentUser != nil) {
          self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController")
       } else {
          self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginPage")

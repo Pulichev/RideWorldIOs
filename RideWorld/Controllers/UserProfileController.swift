@@ -71,8 +71,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       initLoadingView()
       setLoadingScreen()
       
-      let currentUserId = User.getCurrentUserId()
-      User.getItemById(for: currentUserId,
+      let currentUserId = UserModel.getCurrentUserId()
+      UserModel.getItemById(for: currentUserId,
                        completion: { fetchedUserItem in
                         self.userInfo = fetchedUserItem
       })
@@ -88,12 +88,12 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
    
    private func initialiseFollowing() {
-      User.getFollowersCountString(
+      UserModel.getFollowersCountString(
       userId: userInfo.uid) { countOfFollowersString in
          self.followersButton.setTitle(countOfFollowersString, for: .normal)
       }
       
-      User.getFollowingsCountString(
+      UserModel.getFollowingsCountString(
       userId: userInfo.uid) { countOfFollowingsString in
          self.followingButton.setTitle(countOfFollowingsString, for: .normal)
       }
@@ -109,7 +109,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
    
    func initializePosts() {
-      User.getPostsIds(for: userInfo.uid) { postsIds in
+      UserModel.getPostsIds(for: userInfo.uid) { postsIds in
          if postsIds != nil {
             var loadedPosts = [PostItem]()
             
@@ -198,7 +198,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
    
    @IBAction func logoutButtonTapped(_ sender: Any) {
-      if User.signOut() { // if no errors
+      if UserModel.signOut() { // if no errors
          performSegue(withIdentifier: "fromUserProfileToLogin", sender: self)
       }
    }

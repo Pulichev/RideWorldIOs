@@ -9,9 +9,9 @@
 import FirebaseDatabase
 
 struct Spot {
-   static var refToSpotNode = FIRDatabase.database().reference(withPath: "MainDataBase/spots")
-   static var refToSpotPostsNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotsposts")
-   static var refToSpotPhotosNode = FIRDatabase.database().reference(withPath: "MainDataBase/spotphotos")
+   static var refToSpotNode = Database.database().reference(withPath: "MainDataBase/spots")
+   static var refToSpotPostsNode = Database.database().reference(withPath: "MainDataBase/spotsposts")
+   static var refToSpotPhotosNode = Database.database().reference(withPath: "MainDataBase/spotphotos")
    
    static func getNewSpotRefKey() -> String {
       return refToSpotNode.childByAutoId().key
@@ -33,7 +33,7 @@ struct Spot {
          var spotsList: [SpotItem] = []
          
          for item in snapshot.children {
-            let spotDetailsItem = SpotItem(snapshot: item as! FIRDataSnapshot)
+            let spotDetailsItem = SpotItem(snapshot: item as! DataSnapshot)
             spotsList.append(spotDetailsItem)
          }
          

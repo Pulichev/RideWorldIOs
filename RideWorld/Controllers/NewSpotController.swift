@@ -54,7 +54,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    @IBAction func saveSpotDetails(_ sender: Any) {
       showSavingProgress()
       
-      let currUserId = User.getCurrentUserId()
+      let currUserId = UserModel.getCurrentUserId()
       let newSpotKey = Spot.getNewSpotRefKey()
       let type = spotTypePicker.selectedRow(inComponent: 0)
       var newSpot = SpotItem(type: type, name: self.spotTitle.text!,
@@ -153,6 +153,10 @@ extension NewSpotController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 // MARK: - Fusuma delegate
 extension NewSpotController: FusumaDelegate {
+   func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
+      
+   }
+
    @IBAction func takePhoto(_ sender: Any) {
       let fusuma = FusumaViewController()
       fusuma.delegate = self

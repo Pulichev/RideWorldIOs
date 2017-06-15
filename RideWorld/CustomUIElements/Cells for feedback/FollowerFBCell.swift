@@ -48,7 +48,7 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    @IBOutlet weak var dateTime: UILabel!
    
    private func initialiseFollowButton() {
-      User.isCurrentUserFollowing(this: userItem.uid) { isFollowing in
+      UserModel.isCurrentUserFollowing(this: userItem.uid) { isFollowing in
          if isFollowing {
             self.followButton.setTitle("Following", for: .normal)
          } else {
@@ -59,11 +59,11 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    
    @IBAction func followButtonTapped(_ sender: UIButton) {
       if followButton.currentTitle == "Follow" { // add or remove like
-         User.addFollowing(to: userItem.uid)
-         User.addFollower(to: userItem.uid)
+         UserModel.addFollowing(to: userItem.uid)
+         UserModel.addFollower(to: userItem.uid)
       } else {
-         User.removeFollowing(from: userItem.uid)
-         User.removeFollower(from: userItem.uid)
+         UserModel.removeFollowing(from: userItem.uid)
+         UserModel.removeFollower(from: userItem.uid)
       }
       
       swapFollowButtonTittle()

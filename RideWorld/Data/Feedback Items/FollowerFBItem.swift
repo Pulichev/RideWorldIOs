@@ -21,7 +21,7 @@ class FollowerFBItem: FeedbackItem {
       userId = snapshot.keys.first!
       self.dateTime = snapshot.values.first as! String
       
-      User.getItemById(for: userId) { userItem in
+      UserModel.getItemById(for: userId) { userItem in
          self.userItem = userItem
          completion(self)
       }

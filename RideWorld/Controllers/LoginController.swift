@@ -35,7 +35,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
    
    @IBAction func loginButtonTapped(_ sender: Any) {
       // catching user email for login
-      User.getItemByLogin(for: userLogin.text!) { userItem in
+      UserModel.getItemByLogin(for: userLogin.text!) { userItem in
          if userItem != nil {
             self.signIn(with: userItem!.email)
          } else {
@@ -45,7 +45,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
    }
    
    private func signIn(with email: String) {
-      FIRAuth.auth()!.signIn(withEmail: email,
+      Auth.auth().signIn(withEmail: email,
                              password: userPassword.text!)
       { user, error in
          if error != nil {

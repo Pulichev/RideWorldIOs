@@ -117,7 +117,7 @@ UITableViewDelegate {
    }
    
    private func addFuncButtons(to cell: CommentCell, at row: Int) {
-      let currentUserId = User.getCurrentUserId()
+      let currentUserId = UserModel.getCurrentUserId()
       
       if (cell.comment.userId == currentUserId // if its current user comment
          || userId! == currentUserId) // if current user is post author
@@ -171,7 +171,7 @@ UITableViewDelegate {
    func goToProfile(_ sender: UIGestureRecognizer) {
       let userId = comments[(sender.view?.tag)!].userId
       
-      if userId == User.getCurrentUserId() {
+      if userId == UserModel.getCurrentUserId() {
          performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
       } else {
          self.ridersInfoForSending = comments[(sender.view?.tag)!].userItem
@@ -208,7 +208,7 @@ UITableViewDelegate {
 extension CommentariesController: TappedUserDelegate {
    func userInfoTapped(_ user: UserItem?) {
       if user != nil {
-         if user?.uid == User.getCurrentUserId() {
+         if user?.uid == UserModel.getCurrentUserId() {
             self.performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
          } else {
             ridersInfoForSending = user
@@ -233,13 +233,13 @@ extension CommentariesController: TappedUserDelegate {
 // MARK: - DZNEmptyDataSet for empty data tables
 extension CommentariesController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = ":("
+      let str = "Wait please"
       let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
       return NSAttributedString(string: str, attributes: attrs)
    }
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = "Nothing to show"
+      let str = "Downloading data.."
       let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
       return NSAttributedString(string: str, attributes: attrs)
    }

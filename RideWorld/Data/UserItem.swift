@@ -1,5 +1,5 @@
 //  602660
-//  User.swift
+//  UserModel.swift
 //  RideWorld
 //
 //  Created by Владислав Пуличев on 03.03.17.
@@ -21,7 +21,7 @@ struct UserItem {
    var photo150ref: String?
    var photo90ref: String?
    
-   let ref: FIRDatabaseReference?
+   let ref: DatabaseReference?
    
    init(uid: String, email: String, login: String,
         bioDescription: String = "", nameAndSename: String = "", createdDate: String,
@@ -40,7 +40,7 @@ struct UserItem {
       self.ref = nil
    }
    
-   init(snapshot: FIRDataSnapshot) {
+   init(snapshot: DataSnapshot) {
       let snapshotValue = snapshot.value as! [String: AnyObject]
       uid = snapshotValue["uid"] as! String
       

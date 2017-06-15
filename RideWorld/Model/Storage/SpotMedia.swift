@@ -9,8 +9,8 @@
 import FirebaseStorage
 
 struct SpotMedia {
-   static let refToSpotMainPhotoURLs = FIRStorage.storage().reference(withPath: "media/spotMainPhotoURLs")
-   static let refToSpotInfoPhotos = FIRStorage.storage().reference(withPath: "media/spotInfoPhotos")
+   static let refToSpotMainPhotoURLs = Storage.storage().reference(withPath: "media/spotMainPhotoURLs")
+   static let refToSpotInfoPhotos = Storage.storage().reference(withPath: "media/spotInfoPhotos")
    
    static func upload(_ photo: UIImage, for spotId: String,
                       with sizePx: Double,
@@ -19,7 +19,7 @@ struct SpotMedia {
       let refToNewSpotPhoto = refToSpotMainPhotoURLs.child(spotId + ".jpeg")
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 1.0)!
       
-      refToNewSpotPhoto.put(dataLowCompression, metadata: nil) { (meta , error) in
+      refToNewSpotPhoto.putData(dataLowCompression, metadata: nil) { (meta , error) in
          if error == nil {
             completion(true, (meta?.downloadURL()?.absoluteString)!)
          } else {
@@ -34,7 +34,7 @@ struct SpotMedia {
       let refToNewPhoto = refToSpotInfoPhotos.child(spotId).child(String(describing: Date()) + ".jpeg")
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
       
-      refToNewPhoto.put(dataLowCompression, metadata: nil) { (metadata , error) in
+      refToNewPhoto.putData(dataLowCompression, metadata: nil) { (metadata , error) in
          if error == nil {
             let url = (metadata?.downloadURL()?.absoluteString)!
             Spot.addNewPhotoURL(for: spotId, url) { hasFinished in

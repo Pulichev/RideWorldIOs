@@ -9,7 +9,7 @@
 import FirebaseDatabase
 
 struct Post {
-   static var refToMainDataBaseNode = FIRDatabase.database().reference(withPath: "MainDataBase")
+   static var refToMainDataBaseNode = Database.database().reference(withPath: "MainDataBase")
    static var refToPostsNode = refToMainDataBaseNode.child("posts")
    
    static func getItemById(for postId: String,
@@ -40,7 +40,7 @@ struct Post {
    
    static func isLikedByUser(_ postId: String,
                              completion: @escaping (_ isLiked: Bool) -> Void) {
-      let currentUserId = User.getCurrentUserId()
+      let currentUserId = UserModel.getCurrentUserId()
       
       let refToCurrentUserLikeOnPost = refToMainDataBaseNode.child("postslikes").child(postId).child(currentUserId)
       
@@ -59,7 +59,7 @@ struct Post {
    
    static func add(_ postItem: PostItem,
                    completion: @escaping (_ hasFinished: Bool) -> Void) {
-      let mainReference = FIRDatabase.database().reference(withPath: "MainDataBase")
+      let mainReference = Database.database().reference(withPath: "MainDataBase")
       
       let updates = [
          "/posts/" + postItem.key: postItem.toAnyObject(),
@@ -80,7 +80,7 @@ struct Post {
    // while post is deleting. Like async. But with media,
    // some garbage can remain
    static func remove(_ postItem: PostItem) {
-      let mainReference = FIRDatabase.database().reference(withPath: "MainDataBase")
+      let mainReference = Database.database().reference(withPath: "MainDataBase")
       
       let updates: [String: Any?] = [
          "/posts/" + postItem.key: nil,

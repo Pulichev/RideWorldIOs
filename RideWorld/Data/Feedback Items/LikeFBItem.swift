@@ -29,7 +29,7 @@ class LikeFBItem: FeedbackItem {
       // we need to dont add this feedback
       Post.getItemById(for: postId) { post in
          self.postItem = post
-         User.getItemById(for: self.userId) { userItem in
+         UserModel.getItemById(for: self.userId) { userItem in
             self.userItem = userItem
             completion(self)
          }

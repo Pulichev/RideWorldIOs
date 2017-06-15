@@ -30,7 +30,7 @@ struct PostItem {
    
    let addedByUser: String
    
-   let ref: FIRDatabaseReference?
+   let ref: DatabaseReference?
    
    init(_ isPhoto: Bool, _ description: String, _ createdDate: String, _ spotId: String, _ addedByUser: String, _ key: String = "") {
       self.key = key
@@ -45,7 +45,7 @@ struct PostItem {
       ref = nil
    }
    
-   init(snapshot: FIRDataSnapshot) {
+   init(snapshot: DataSnapshot) {
       key = snapshot.key
       
       let snapshotValue = snapshot.value as! [String: AnyObject]

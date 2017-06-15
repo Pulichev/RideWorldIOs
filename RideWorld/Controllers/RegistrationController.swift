@@ -29,7 +29,7 @@ class RegistrationController: UIViewController {
    }
    
    @IBAction func signUpButtonTapped(_ sender: Any) {
-      User.getItemByLogin(for: userLogin.text!) { userItem in
+      UserModel.getItemByLogin(for: userLogin.text!) { userItem in
          if userItem == nil {
             self.createAndLogin()
          } else {
@@ -39,16 +39,16 @@ class RegistrationController: UIViewController {
    }
    
    private func createAndLogin() {
-      FIRAuth.auth()!.createUser(withEmail: userEmail.text!,
+      Auth.auth().createUser(withEmail: userEmail.text!,
                                  password: userPassword.text!)
       { user, error in
          if error == nil {
             // log in
-            FIRAuth.auth()!.signIn(withEmail: self.userEmail.text!,
+            Auth.auth().signIn(withEmail: self.userEmail.text!,
                                    password: self.userPassword.text!)
             { result in
                // create new user in database, not in FIRAuth
-               User.create(with: self.userLogin.text!)
+               UserModel.create(with: self.userLogin.text!)
                
                self.performSegue(withIdentifier: "fromRegistrationToTabBar", sender: self)
             }

@@ -80,7 +80,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
    }
    
    private func createNewPostItem() -> PostItem {
-      let currentUser = User.getCurrentUser()
+      let currentUser = UserModel.getCurrentUser()
       let createdDate = String(describing: Date())
       let newPostId = Post.getNewPostId()
       let postItem = PostItem(isNewMediaIsPhoto, postDescription.text, createdDate,
@@ -191,6 +191,10 @@ class NewPostController: UIViewController, UITextViewDelegate {
 
 //Fusuma
 extension NewPostController: FusumaDelegate {
+   func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
+      
+   }
+
    @IBAction func takeMedia(_ sender: Any) {
       let fusuma = FusumaViewController()
       fusuma.delegate = self

@@ -18,7 +18,7 @@ struct LikeItem {
    
    var feedbackKey: String
    
-   let ref: FIRDatabaseReference?
+   let ref: DatabaseReference?
    
    init(who userId: String, what postId: String,
         postWasAddedBy userIdAddedBy: String,
@@ -35,7 +35,7 @@ struct LikeItem {
       ref = nil
    }
    
-   init(snapshot: FIRDataSnapshot) {
+   init(snapshot: DataSnapshot) {
       let snapshotValue = snapshot.value as! [String: AnyObject]
       key = snapshotValue["key"] as! String
       

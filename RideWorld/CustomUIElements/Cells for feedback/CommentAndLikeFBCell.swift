@@ -88,7 +88,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    
    // from @username
    private func goToUserProfile(tappedUserLogin: String) {
-      User.getItemByLogin(
+      UserModel.getItemByLogin(
       for: tappedUserLogin) { fetchedUserItem in
          self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
       }

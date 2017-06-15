@@ -22,7 +22,7 @@ struct SpotItem {
    
    let addedByUser: String
    
-   let ref: FIRDatabaseReference?
+   let ref: DatabaseReference?
    
    init(type: Int, name: String, description: String, latitude: Double, longitude: Double, addedByUser: String, key: String = "") {
       self.key = key
@@ -38,7 +38,7 @@ struct SpotItem {
       self.ref = nil
    }
    
-   init(snapshot: FIRDataSnapshot) {
+   init(snapshot: DataSnapshot) {
       let snapshotValue = snapshot.value as! [String: AnyObject]
       key = snapshotValue["key"] as! String
       type = snapshotValue["type"] as! Int

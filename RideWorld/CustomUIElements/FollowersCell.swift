@@ -33,8 +33,8 @@ class FollowersCell: UITableViewCell {
    }
    
    func initialiseFollowButton() {
-      if follower.uid != User.getCurrentUserId() {
-         User.isCurrentUserFollowing(this: follower.uid) { isFollowing in
+      if follower.uid != UserModel.getCurrentUserId() {
+         UserModel.isCurrentUserFollowing(this: follower.uid) { isFollowing in
             if isFollowing {
                self.button.setTitle("Following", for: .normal)
             } else {
@@ -48,11 +48,11 @@ class FollowersCell: UITableViewCell {
    
    @IBAction func followButtonTapped(_ sender: Any) {
       if button.currentTitle == "Follow" { // add or remove like
-         User.addFollowing(to: follower.uid)
-         User.addFollower(to: follower.uid)
+         UserModel.addFollowing(to: follower.uid)
+         UserModel.addFollower(to: follower.uid)
       } else {
-         User.removeFollowing(from: follower.uid)
-         User.removeFollower(from: follower.uid)
+         UserModel.removeFollowing(from: follower.uid)
+         UserModel.removeFollower(from: follower.uid)
       }
       
       swapFollowButtonTittle()

@@ -9,7 +9,7 @@
 import FirebaseDatabase
 
 struct Like {
-   static let ref = FIRDatabase.database().reference(withPath: "MainDataBase")
+   static let ref = Database.database().reference(withPath: "MainDataBase")
    
    static func add(_ newLike: LikeItem) {
       // add like id for user feedback implementation

@@ -20,32 +20,22 @@ class CommentCell: MGSwipeTableCell {
       didSet {
          // Formatting date to yyyy-mm-dd
          date.text = DateTimeParser.getDateTime(from: comment.datetime)
-         
-         User.getItemById(for: comment.userId) { user in
-            if user.photo90ref != nil {
-               self.userItem = user
-               self.initialiseUserPhoto()
-            }
-         }
       }
    }
    
    var userItem: UserItem! {
       didSet {
-         commentText.text = userItem.login + " " + comment.commentary
-         customizeWithActiveLabel()
+         initialiseUserPhoto()
       }
    }
    
-   @IBOutlet weak var commentText: ActiveLabel! //{
-//      didSet {
-//         commentText.numberOfLines = 0
-//         commentText.enabledTypes = [.mention, .hashtag, .url]
-//         commentText.textColor = .black
-//         commentText.mentionColor = .brown
-//         commentText.hashtagColor = .purple
-//      }
-//   }
+   var commentTextInfo: String! {
+      didSet {
+         commentText.text = commentTextInfo
+         customizeWithActiveLabel()
+      }
+   }
+   @IBOutlet weak var commentText: ActiveLabel!
    @IBOutlet weak var date: UILabel!
    
    func initialiseUserPhoto() {
@@ -81,6 +71,7 @@ class CommentCell: MGSwipeTableCell {
          description.enabledTypes.append(loginTappedType)
          description.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
          description.customColor[loginTappedType] = UIColor.black
+         description.numberOfLines = 0
          
          description.configureLinkAttribute = { (type, attributes, isSelected) in
             var atts = attributes

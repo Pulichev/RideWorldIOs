@@ -57,9 +57,9 @@ struct Feedback {
             }
          }
       } else { // follow
-         feedBackItem = FollowerFBItem(snapshot: value!, key) { item in
+         let _ = FollowerFBItem(snapshot: value!, key) { item in
             if item.userItem != nil {
-               completion(feedBackItem)
+               completion(item)
             } else {
                completion(nil)
             }

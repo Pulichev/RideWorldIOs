@@ -19,14 +19,30 @@ struct Comment {
       ref.queryOrdered(byChild: "key").observeSingleEvent(of: .value, with: { snapshot in
          var newItems: [CommentItem] = []
          
-         for item in snapshot.children {
-            let commentItem = CommentItem(snapshot: item as! FIRDataSnapshot)
-            newItems.append(commentItem)
+         initComments(snapshot) { items in
+            newItems = items.sorted(by: { $0.key < $1.key })
+            completion(newItems)
          }
-         
-         newItems = newItems.sorted(by: { $0.key < $1.key })
-         completion(newItems)
       })
+   }
+   
+   private static func initComments(_ snapshot: FIRDataSnapshot,
+                             completion: @escaping (_ items: [CommentItem]) -> Void) {
+      var newItems: [CommentItem] = []
+      var count = 0
+      
+      for item in snapshot.children {
+         let _ = CommentItem(snapshot: item as! FIRDataSnapshot) { item in
+            if item != nil {
+               newItems.append(item!)
+               count += 1
+               
+               if count == Int(snapshot.childrenCount) {
+                  completion(newItems)
+               }
+            }
+         }
+      }
    }
    
    static func add(for post: PostItem, withText text: String?,

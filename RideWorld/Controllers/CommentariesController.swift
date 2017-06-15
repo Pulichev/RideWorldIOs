@@ -35,7 +35,7 @@ UITableViewDelegate {
    @IBOutlet weak var newCommentView: UIView!
    
    var comments = [CommentItem]()
-
+   
    
    var postDescription: String? //
    var userId: String?          // For adding desc as comment
@@ -54,21 +54,25 @@ UITableViewDelegate {
    }
    
    func loadComments() {
-      self.addPostDescAsComment()
-      
-      Comment.loadList(
-      for: post.key) { loadedComments in
-         self.comments.append(contentsOf: loadedComments)
-         
-         self.tableView.reloadData()
+      self.addPostDescAsComment() { _ in
+         Comment.loadList(
+         for: self.post.key) { loadedComments in
+            self.comments.append(contentsOf: loadedComments)
+            
+            self.tableView.reloadData()
+         }
       }
    }
    
-   func addPostDescAsComment() {
-      let descAsComment = CommentItem(userId!, post.key,
-                                      post.addedByUser, postDescription!,
-                                      postDate, "")
-      comments.append(descAsComment)
+   func addPostDescAsComment(completion: @escaping (_ isAdded: Bool) -> Void) {
+      let _ = CommentItem(userId!, post.key,
+                          post.addedByUser, postDescription!,
+                          postDate, "") { item in
+                           if item != nil {
+                              self.comments.append(item!)
+                           }
+                           completion(true)
+      }
    }
    
    @IBAction func sendComment(_ sender: UIButton) {
@@ -98,6 +102,8 @@ UITableViewDelegate {
       cell.delegateUserTaps = self
       
       cell.comment = comments[row]
+      cell.userItem = cell.comment.userItem
+      cell.commentTextInfo = cell.userItem.login + " " + cell.comment.commentary
       // adding tap event -> perform segue to profile
       let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile(_:)))
       cell.userPhoto.tag = row
@@ -168,10 +174,8 @@ UITableViewDelegate {
       if userId == User.getCurrentUserId() {
          performSegue(withIdentifier: "openUserProfileFromCommentsList", sender: self)
       } else {
-         User.getItemById(for: userId) { fetchedUserItem in
-            self.ridersInfoForSending = fetchedUserItem
-            self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
-         }
+         self.ridersInfoForSending = comments[(sender.view?.tag)!].userItem
+         self.performSegue(withIdentifier: "openRidersProfileFromCommentsList", sender: self)
       }
    }
    

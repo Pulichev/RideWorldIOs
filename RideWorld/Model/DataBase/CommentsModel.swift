@@ -119,7 +119,7 @@ struct Comment {
          var userIds = mentionedUserIds
          userIds.append(post.addedByUser) // adding post author
          
-         var updates: [String: Any?] = ["/postscommetns/" + post.key + "/" + comment.key: nil]
+         var updates: [String: Any?] = ["/postscomments/" + post.key + "/" + comment.key: nil]
          
          for userId in userIds {
             updates.updateValue(nil, forKey: "/feedback/" + userId + "/" + comment.key) //

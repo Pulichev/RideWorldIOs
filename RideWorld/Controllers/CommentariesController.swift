@@ -18,10 +18,10 @@ UITableViewDelegate {
       didSet {
          tableView.delegate = self
          tableView.dataSource = self
-         tableView.emptyDataSetSource = self
-         tableView.emptyDataSetDelegate = self
          tableView.estimatedRowHeight = 80
          tableView.rowHeight = UITableViewAutomaticDimension
+         tableView.emptyDataSetSource = self
+         tableView.emptyDataSetDelegate = self
          tableView.tableFooterView = UIView() // deleting empty rows
       }
    }
@@ -35,6 +35,8 @@ UITableViewDelegate {
    @IBOutlet weak var newCommentView: UIView!
    
    var comments = [CommentItem]()
+
+   
    var postDescription: String? //
    var userId: String?          // For adding desc as comment
    var postDate: String!        //
@@ -51,12 +53,8 @@ UITableViewDelegate {
                                              name: NSNotification.Name.UIKeyboardWillHide, object: nil)
    }
    
-   override func didReceiveMemoryWarning() {
-      super.didReceiveMemoryWarning()
-   }
-   
    func loadComments() {
-      addPostDescAsComment()
+      self.addPostDescAsComment()
       
       Comment.loadList(
       for: post.key) { loadedComments in
@@ -87,10 +85,6 @@ UITableViewDelegate {
          self.tableView.insertRows(at: [lastIndex], with: .none)
          self.tableView.endUpdates()
       }
-   }
-   
-   func numberOfSections(in tableView: UITableView) -> Int {
-      return 1
    }
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -180,7 +174,7 @@ UITableViewDelegate {
          }
       }
    }
-
+   
    var ridersInfoForSending: UserItem!
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

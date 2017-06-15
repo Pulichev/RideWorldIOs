@@ -27,7 +27,7 @@ struct Comment {
    }
    
    private static func initComments(_ snapshot: DataSnapshot,
-                             completion: @escaping (_ items: [CommentItem]) -> Void) {
+                                    completion: @escaping (_ items: [CommentItem]) -> Void) {
       var newItems: [CommentItem] = []
       var count = 0
       
@@ -54,34 +54,35 @@ struct Comment {
       
       let currentUserId = UserModel.getCurrentUserId()
       let currentDateTime = String(describing: Date())
-      let newComment = CommentItem(currentUserId, post.key, post.addedByUser,
-                                   text!, currentDateTime, refForNewCommentKey)
-      
-      getAllMentionedUsersIds(from: text!) { mentionedUserIds in
-         var userIds = mentionedUserIds
-         userIds.append(post.addedByUser) // adding post author
-         
-         var updates: [String: Any?] = [
-            "/postscomments/" + post.key + "/" + refForNewCommentKey:
-               newComment.toAnyObject(),
-            "/posts/" + post.key + "/comments/" + refForNewCommentKey: true
-            // need it for counting comments
-         ]
-         
-         for userId in userIds {
-            // dont add to feedback all
-            // actions on user posts
+      let _ = CommentItem(currentUserId, post.key, post.addedByUser,
+                          text!, currentDateTime, refForNewCommentKey)
+      { newComment in
+         getAllMentionedUsersIds(from: text!) { mentionedUserIds in
+            var userIds = mentionedUserIds
+            userIds.append(post.addedByUser) // adding post author
             
-            if userId != newComment.userId {
-               var commentForFeedback = newComment.toAnyObject()
-               commentForFeedback["isViewed"] = false // when user will open feedback -> true
-               updates.updateValue(commentForFeedback,
-                                   forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
+            var updates: [String: Any?] = [
+               "/postscomments/" + post.key + "/" + refForNewCommentKey:
+                  newComment!.toAnyObject(),
+               "/posts/" + post.key + "/comments/" + refForNewCommentKey: true
+               // need it for counting comments
+            ]
+            
+            for userId in userIds {
+               // dont add to feedback all
+               // actions on user posts
+               
+               if userId != newComment!.userId {
+                  var commentForFeedback = newComment!.toAnyObject()
+                  commentForFeedback["isViewed"] = false // when user will open feedback -> true
+                  updates.updateValue(commentForFeedback,
+                                      forKey: "/feedback/" + userId + "/" + refForNewCommentKey)
+               }
             }
-         }
-         
-         ref.updateChildValues(updates) { (error, _) in
-            completion(newComment)
+            
+            ref.updateChildValues(updates) { (error, _) in
+               completion(newComment!)
+            }
          }
       }
    }

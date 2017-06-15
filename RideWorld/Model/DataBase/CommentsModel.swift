@@ -49,7 +49,7 @@ struct Comment {
             "/postscomments/" + post.key + "/" + refForNewCommentKey:
                newComment.toAnyObject(),
             "/posts/" + post.key + "/comments/" + refForNewCommentKey: true
-               // need it for counting comments
+            // need it for counting comments
          ]
          
          for userId in userIds {
@@ -119,7 +119,9 @@ struct Comment {
          var userIds = mentionedUserIds
          userIds.append(post.addedByUser) // adding post author
          
-         var updates: [String: Any?] = ["/postscomments/" + post.key + "/" + comment.key: nil]
+         var updates: [String: Any?] = ["/postscomments/" + post.key + "/" + comment.key: nil,
+                                        "/posts/" + post.key + "/comments/" + comment.key: nil
+         ]
          
          for userId in userIds {
             updates.updateValue(nil, forKey: "/feedback/" + userId + "/" + comment.key) //

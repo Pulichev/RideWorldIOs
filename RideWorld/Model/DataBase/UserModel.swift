@@ -382,4 +382,24 @@ struct UserModel {
       
       refToEntityIsViewed.setValue(true)
    }
+   
+   // MARK: - Search part
+   static func searchUsersWithLogin(startedWith text: String,
+                                    completion: @escaping (_ users: [UserItem]) -> Void) {
+      refToUsersNode
+         .queryOrdered(byChild: "login")
+         .queryStarting(atValue: text)
+         .queryEnding(atValue: text+"\u{f8ff}")
+         .observeSingleEvent(of: .value, with: { snapshot in
+            var users = [UserItem]()
+            
+            for user in snapshot.children {
+               let user = UserItem(snapshot: user as! DataSnapshot)
+               
+               users.append(user)
+            }
+            
+            completion(users)
+         })
+   }
 }

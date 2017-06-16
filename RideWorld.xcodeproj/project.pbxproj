@@ -72,6 +72,7 @@
 		9FE3B71C1EC665E500E7ED40 /* CommentFBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B71B1EC665E500E7ED40 /* CommentFBItem.swift */; };
 		9FE3B71E1EC6660600E7ED40 /* FollowerFBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B71D1EC6660600E7ED40 /* FollowerFBItem.swift */; };
 		9FE3B7201EC6664900E7ED40 /* LikeFBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B71F1EC6664900E7ED40 /* LikeFBItem.swift */; };
+		9FE3CA5A1EF4292B0080BCF2 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3CA591EF4292B0080BCF2 /* SearchController.swift */; };
 		9FE79C101ECE3BFB008BEBB2 /* TappedUserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE79C0F1ECE3BFB008BEBB2 /* TappedUserDelegate.swift */; };
 		9FE79C121ECF8604008BEBB2 /* TappedPostDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE79C111ECF8604008BEBB2 /* TappedPostDelegate.swift */; };
 		9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */; };
@@ -187,6 +188,7 @@
 		9FE3B71B1EC665E500E7ED40 /* CommentFBItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentFBItem.swift; path = "Data/Feedback Items/CommentFBItem.swift"; sourceTree = "<group>"; };
 		9FE3B71D1EC6660600E7ED40 /* FollowerFBItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowerFBItem.swift; path = "Data/Feedback Items/FollowerFBItem.swift"; sourceTree = "<group>"; };
 		9FE3B71F1EC6664900E7ED40 /* LikeFBItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeFBItem.swift; path = "Data/Feedback Items/LikeFBItem.swift"; sourceTree = "<group>"; };
+		9FE3CA591EF4292B0080BCF2 /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchController.swift; path = Controllers/SearchController.swift; sourceTree = "<group>"; };
 		9FE79C0F1ECE3BFB008BEBB2 /* TappedUserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedUserDelegate.swift; path = Protocols/TappedUserDelegate.swift; sourceTree = "<group>"; };
 		9FE79C111ECF8604008BEBB2 /* TappedPostDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedPostDelegate.swift; path = Protocols/TappedPostDelegate.swift; sourceTree = "<group>"; };
 		9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				9F2978FF1E9037090051EF5F /* CommentariesController.swift */,
 				9FF285941EB6088700EE0EC1 /* SpotInfoController.swift */,
 				9FE3B7111EC4D6D600E7ED40 /* FeedbackController.swift */,
+				9FE3CA591EF4292B0080BCF2 /* SearchController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -835,6 +838,7 @@
 				9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */,
 				9FE79C101ECE3BFB008BEBB2 /* TappedUserDelegate.swift in Sources */,
 				9FE79C121ECF8604008BEBB2 /* TappedPostDelegate.swift in Sources */,
+				9FE3CA5A1EF4292B0080BCF2 /* SearchController.swift in Sources */,
 				9FE3B7171EC4D78E00E7ED40 /* FollowerFBCell.swift in Sources */,
 				9FFB14F61E7848F600D10620 /* FollowersController.swift in Sources */,
 				9FE3B71A1EC6290B00E7ED40 /* FeedbackItem.swift in Sources */,

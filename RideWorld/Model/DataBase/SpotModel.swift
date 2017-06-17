@@ -144,4 +144,24 @@ struct Spot {
          }
       })
    }
+   
+   // MARK: - Search part
+   static func searchSpotsWithName(startedWith text: String,
+                                   completion: @escaping (_ spots: [SpotItem]) -> Void) {
+      refToSpotNode
+         .queryOrdered(byChild: "name")
+         .queryStarting(atValue: text)
+         .queryEnding(atValue: text+"\u{f8ff}")
+         .observeSingleEvent(of: .value, with: { snapshot in
+            var spots = [SpotItem]()
+            
+            for spot in snapshot.children {
+               let spot = SpotItem(snapshot: spot as! DataSnapshot)
+               
+               spots.append(spot)
+            }
+            
+            completion(spots)
+         })
+   }
 }

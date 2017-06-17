@@ -73,6 +73,7 @@
 		9FE3B71E1EC6660600E7ED40 /* FollowerFBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B71D1EC6660600E7ED40 /* FollowerFBItem.swift */; };
 		9FE3B7201EC6664900E7ED40 /* LikeFBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B71F1EC6664900E7ED40 /* LikeFBItem.swift */; };
 		9FE3CA5A1EF4292B0080BCF2 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3CA591EF4292B0080BCF2 /* SearchController.swift */; };
+		9FE3CA611EF4EEF10080BCF2 /* SearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3CA601EF4EEF10080BCF2 /* SearchResultsCell.swift */; };
 		9FE79C101ECE3BFB008BEBB2 /* TappedUserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE79C0F1ECE3BFB008BEBB2 /* TappedUserDelegate.swift */; };
 		9FE79C121ECF8604008BEBB2 /* TappedPostDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE79C111ECF8604008BEBB2 /* TappedPostDelegate.swift */; };
 		9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */; };
@@ -189,6 +190,7 @@
 		9FE3B71D1EC6660600E7ED40 /* FollowerFBItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowerFBItem.swift; path = "Data/Feedback Items/FollowerFBItem.swift"; sourceTree = "<group>"; };
 		9FE3B71F1EC6664900E7ED40 /* LikeFBItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeFBItem.swift; path = "Data/Feedback Items/LikeFBItem.swift"; sourceTree = "<group>"; };
 		9FE3CA591EF4292B0080BCF2 /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchController.swift; path = Controllers/SearchController.swift; sourceTree = "<group>"; };
+		9FE3CA601EF4EEF10080BCF2 /* SearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsCell.swift; path = "CustomUIElements/Cells for search/SearchResultsCell.swift"; sourceTree = "<group>"; };
 		9FE79C0F1ECE3BFB008BEBB2 /* TappedUserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedUserDelegate.swift; path = Protocols/TappedUserDelegate.swift; sourceTree = "<group>"; };
 		9FE79C111ECF8604008BEBB2 /* TappedPostDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedPostDelegate.swift; path = Protocols/TappedPostDelegate.swift; sourceTree = "<group>"; };
 		9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				9F5609841E7C6BB50000DB21 /* PostsCell.swift */,
 				9F4A84421E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift */,
 				9FC14FDB1E48E7690097579B /* CustomPin.swift */,
+				9FE3CA601EF4EEF10080BCF2 /* SearchResultsCell.swift */,
 				9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */,
 				9FFB14F71E784E4B00D10620 /* FollowersCell.swift */,
 				9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */,
@@ -851,6 +854,7 @@
 				9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */,
 				9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */,
 				9FF114A91EB4C8F600152279 /* DateTimeParser.swift in Sources */,
+				9FE3CA611EF4EEF10080BCF2 /* SearchResultsCell.swift in Sources */,
 				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FBCFAE81E73445900A5C95D /* Image.swift in Sources */,

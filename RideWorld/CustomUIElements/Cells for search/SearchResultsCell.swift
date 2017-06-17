@@ -10,7 +10,7 @@ import UIKit
 
 class SearchResultsCell: UITableViewCell {
 
-   @IBOutlet weak var photo: UIImageView!
+   @IBOutlet weak var photo: RoundedImageView!
    @IBOutlet weak var name: UIButton!
    
     override func awakeFromNib() {

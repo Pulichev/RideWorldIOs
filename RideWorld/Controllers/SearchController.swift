@@ -59,19 +59,24 @@ class SearchController: UITableViewController {
       case "Riders":
          let rider = riders[row]
          
-         let riderProfilePhotoURL = URL(string: rider.photo90ref!)
+         if rider.photo90ref != nil {
+            let riderProfilePhotoURL = URL(string: rider.photo90ref!)
+            
+            cell.photo.kf.setImage(with: riderProfilePhotoURL)
+         }
          
-         cell.photo.kf.setImage(with: riderProfilePhotoURL)
          cell.name!.setTitle(rider.login, for: .normal)
          
       case "Spots":
          let spot = spots[row]
          
-         let spotPhotoURL = URL(string: spot.mainPhotoRef)
+         if spot.mainPhotoRef != nil {
+            let spotPhotoURL = URL(string: spot.mainPhotoRef)
          
-         cell.photo.kf.setImage(with: spotPhotoURL)
+            cell.photo.kf.setImage(with: spotPhotoURL)
+         }
          cell.name!.setTitle(spot.name, for: .normal)
-
+         
       default: break
       }
       

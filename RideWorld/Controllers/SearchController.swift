@@ -13,7 +13,9 @@ class SearchController: UITableViewController {
    
    // MARK: - Properties
    var riders = [UserItem]()
+   var filteredRiders = [UserItem]()
    var spots = [SpotItem]()
+   var filteredSpots = [SpotItem]()
    
    let searchController = UISearchController(searchResultsController: nil)
    var selectedScope = "Riders" // default value is "Riders"

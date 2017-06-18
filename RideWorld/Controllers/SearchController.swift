@@ -13,7 +13,9 @@ class SearchController: UITableViewController {
    
    // MARK: - Properties
    var riders = [UserItem]()
+   var filteredRiders = [UserItem]()
    var spots = [SpotItem]()
+   var filteredSpots = [SpotItem]()
    
    let searchController = UISearchController(searchResultsController: nil)
    var selectedScope = "Riders" // default value is "Riders"
@@ -42,10 +44,10 @@ class SearchController: UITableViewController {
    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       switch selectedScope {
       case "Riders":
-         return riders.count
+         return filteredRiders.count
          
       case "Spots":
-         return spots.count
+         return filteredSpots.count
          
       default: return 0
       }
@@ -58,7 +60,7 @@ class SearchController: UITableViewController {
       
       switch selectedScope {
       case "Riders":
-         let rider = riders[row]
+         let rider = filteredRiders[row]
          
          if rider.photo90ref != nil {
             let riderProfilePhotoURL = URL(string: rider.photo90ref!)
@@ -69,7 +71,7 @@ class SearchController: UITableViewController {
          cell.name!.setTitle(rider.login, for: .normal)
          
       case "Spots":
-         let spot = spots[row]
+         let spot = filteredSpots[row]
          
          if spot.mainPhotoRef != nil {
             let spotPhotoURL = URL(string: spot.mainPhotoRef)
@@ -91,12 +93,14 @@ class SearchController: UITableViewController {
             // get items from db where 1st symbol is entered character
             UserModel.searchUsersWithLogin(startedWith: searchText) { users in
                self.riders = users
+               self.filteredRiders = users
                
                self.tableView.reloadData()
             }
          } else {
             // filter items from already downloaded from db
-            
+            filteredRiders = riders.filter { $0.login.hasPrefix(searchText) }
+            self.tableView.reloadData()
          }
          
       case "Spots":
@@ -104,12 +108,14 @@ class SearchController: UITableViewController {
             // get items from db where 1st symbol is entered character
             Spot.searchSpotsWithName(startedWith: searchText) { spots in
                self.spots = spots
+               self.filteredSpots = spots
                
                self.tableView.reloadData()
             }
          } else {
             // filter items from already downloaded from db
-            
+            filteredSpots = spots.filter { $0.name.hasPrefix(searchText) }
+            self.tableView.reloadData()
          }
          
       default: break
@@ -120,18 +126,19 @@ class SearchController: UITableViewController {
 extension SearchController: UISearchBarDelegate {
    // MARK: - UISearchBar Delegate
    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-      if searchController.isActive && searchController.searchBar.text != "" {
          searchBar.text = ""
          
          clearTableData()
          
          self.selectedScope = searchBar.scopeButtonTitles![selectedScope]
-      }
    }
    
    fileprivate func clearTableData() {
       riders.removeAll()
+      filteredRiders.removeAll()
       spots.removeAll()
+      filteredSpots.removeAll()
+      
       tableView.reloadData()
    }
 }

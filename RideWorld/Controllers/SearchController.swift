@@ -86,6 +86,12 @@ class SearchController: UITableViewController {
       return cell
    }
    
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      let row = indexPath.row
+      
+      
+   }
+   
    func filterContentForSearchText(_ searchText: String) {
       switch self.selectedScope {
       case "Riders":

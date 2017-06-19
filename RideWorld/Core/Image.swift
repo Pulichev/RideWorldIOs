@@ -34,6 +34,21 @@ struct Image {
       return newImage!
    }
    
+   static func resize(sourceImage: UIImage, toWidth: CGFloat) -> UIImage {
+      let oldWidth = sourceImage.size.width
+      let scaleFactor = toWidth / oldWidth
+      
+      let newHeight = sourceImage.size.height * scaleFactor
+      let newWidth = oldWidth * scaleFactor
+      
+      UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+      sourceImage.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+      let newImage = UIGraphicsGetImageFromCurrentImageContext()
+      UIGraphicsEndImageContext()
+      
+      return newImage!
+   }
+   
    static func addBlur(on imageView: UIImageView) {
       let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
       let blurEffectView = UIVisualEffectView(effect: blurEffect)

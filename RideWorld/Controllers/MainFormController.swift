@@ -227,11 +227,11 @@ extension MainFormController: CLLocationManagerDelegate {
    @IBAction func AddNewSpot(_ sender: Any) {
       let dist = distanceToNearestPin()
       
-//      if dist > 50.0 {
+      if dist > 50.0 {
          performSegue(withIdentifier: "addNewSpot", sender: self)
-//      } else {
-//         showAlertThatToCloseToExistingSpot()
-//      }
+      } else {
+         showAlertThatToCloseToExistingSpot()
+      }
    }
    
    private func distanceToNearestPin() -> Float {

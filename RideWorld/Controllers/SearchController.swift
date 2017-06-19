@@ -86,10 +86,25 @@ class SearchController: UITableViewController {
       return cell
    }
    
+   var spotDetailsForSendingToSpotInfoController: SpotItem!
+   var riderItemForSending: UserItem!
+   
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       let row = indexPath.row
       
-      
+      if selectedScope == "Spots" {
+         spotDetailsForSendingToSpotInfoController = self.filteredSpots[row]
+         self.performSegue(withIdentifier: "fromSearchToSpotInfo", sender: self)
+      } else { // Riders
+         let selectedRider = self.filteredRiders[row]
+         
+         if selectedRider.uid == UserModel.getCurrentUserId() {
+            self.performSegue(withIdentifier: "fromSearchToUserProfile", sender: self)
+         } else {
+            self.riderItemForSending = selectedRider
+            self.performSegue(withIdentifier: "fromSearchToRiderProfile", sender: self)
+         }
+      }
    }
    
    func filterContentForSearchText(_ searchText: String) {
@@ -127,16 +142,35 @@ class SearchController: UITableViewController {
       default: break
       }
    }
+   
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      switch segue.identifier! {
+      case "fromSearchToSpotInfo":
+         let spotInfoController = (segue.destination as! SpotInfoController)
+         spotInfoController.spotInfo = spotDetailsForSendingToSpotInfoController
+         
+      case "fromSearchToUserProfile":
+         let userProfileController = segue.destination as! UserProfileController
+         userProfileController.cameFromSpotDetails = true
+         
+      case "fromSearchToRiderProfile":
+         let newRidersProfileController = segue.destination as! RidersProfileController
+         newRidersProfileController.ridersInfo = riderItemForSending
+         newRidersProfileController.title = riderItemForSending.login
+
+      default: break
+      }
+   }
 }
 
 extension SearchController: UISearchBarDelegate {
    // MARK: - UISearchBar Delegate
    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-         searchBar.text = ""
-         
-         clearTableData()
-         
-         self.selectedScope = searchBar.scopeButtonTitles![selectedScope]
+      searchBar.text = ""
+      
+      clearTableData()
+      
+      self.selectedScope = searchBar.scopeButtonTitles![selectedScope]
    }
    
    fileprivate func clearTableData() {

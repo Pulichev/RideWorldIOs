@@ -11,7 +11,7 @@ import UIKit
 class SearchResultsCell: UITableViewCell {
 
    @IBOutlet weak var photo: RoundedImageView!
-   @IBOutlet weak var name: UIButton!
+   @IBOutlet weak var name: UILabel!
    
     override func awakeFromNib() {
         super.awakeFromNib()

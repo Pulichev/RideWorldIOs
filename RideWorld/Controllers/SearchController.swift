@@ -36,6 +36,12 @@ class SearchController: UITableViewController {
       tableView.tableHeaderView = searchController.searchBar
    }
    
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      
+      self.navigationItem.title = "Search"
+   }
+   
    // MARK: - Table View
    override func numberOfSections(in tableView: UITableView) -> Int {
       return 1
@@ -68,7 +74,7 @@ class SearchController: UITableViewController {
             cell.photo.kf.setImage(with: riderProfilePhotoURL)
          }
          
-         cell.name!.setTitle(rider.login, for: .normal)
+         cell.name!.text = rider.login
          
       case "Spots":
          let spot = filteredSpots[row]
@@ -78,7 +84,7 @@ class SearchController: UITableViewController {
             
             cell.photo.kf.setImage(with: spotPhotoURL)
          }
-         cell.name!.setTitle(spot.name, for: .normal)
+         cell.name!.text = spot.name
          
       default: break
       }
@@ -193,5 +199,20 @@ extension SearchController: UISearchResultsUpdating {
       if searchController.searchBar.text == "" {
          clearTableData()
       }
+   }
+}
+
+// MARK: - DZNEmptyDataSet for empty data tables
+extension SearchController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+   func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+      let str = "Search"
+      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+      return NSAttributedString(string: str, attributes: attrs)
+   }
+   
+   func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+      let str = "Start entering something"
+      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+      return NSAttributedString(string: str, attributes: attrs)
    }
 }

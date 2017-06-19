@@ -124,6 +124,8 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
+      self.navigationItem.title = "FeedBack"
+      
       perform(#selector(setIsViewedPropToTrue), with: nil, afterDelay: 3.0)
    }
    

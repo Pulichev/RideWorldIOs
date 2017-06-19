@@ -70,6 +70,7 @@ UITableViewDelegate {
                           postDate, "") { item in
                            if item != nil {
                               self.comments.append(item!)
+                              self.tableView.reloadData()
                            }
                            completion(true)
       }
@@ -130,7 +131,7 @@ UITableViewDelegate {
             },
             MGSwipeButton(title: "", icon: UIImage(named:"reply.png"), backgroundColor: .darkGray) {
                (sender: MGSwipeTableCell!) -> Bool in
-               self.replyToUser(with: cell.userNickName.currentTitle!)
+               self.replyToUser(with: cell.userItem.login)
                return true
             }
          ]
@@ -139,7 +140,7 @@ UITableViewDelegate {
          cell.rightButtons = [
             MGSwipeButton(title: "", icon: UIImage(named:"reply.png"), backgroundColor: .darkGray) {
                (sender: MGSwipeTableCell!) -> Bool in
-               self.replyToUser(with: cell.userNickName.currentTitle!)
+               self.replyToUser(with: cell.userItem.login)
                return true
             }
          ]

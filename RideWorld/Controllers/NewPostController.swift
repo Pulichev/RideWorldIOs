@@ -277,7 +277,7 @@ extension NewPostController: FusumaDelegate {
    
    func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
       let urlAsset = AVURLAsset(url: inputURL, options: nil)
-      guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetMediumQuality) else {
+      guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPreset640x480) else {
          handler(nil)
          
          return

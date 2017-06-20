@@ -83,9 +83,9 @@ class NewPostController: UIViewController, UITextViewDelegate {
       let currentUser = UserModel.getCurrentUser()
       let createdDate = String(describing: Date())
       let newPostId = Post.getNewPostId()
-      let postItem = PostItem(isNewMediaIsPhoto, postDescription.text, createdDate,
-                              spotDetailsItem.key, currentUser.uid,
-                              newPostId)
+      let postItem = PostItem(isNewMediaIsPhoto, postDescription.text,
+                              createdDate, spotDetailsItem.key,
+                              currentUser.uid, newPostId)
       return postItem
    }
    

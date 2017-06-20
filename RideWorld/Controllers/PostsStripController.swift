@@ -16,6 +16,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       didSet {
          tableView.delegate = self
          tableView.dataSource = self
+         tableView.estimatedRowHeight = 800
+         tableView.rowHeight = UITableViewAutomaticDimension
          tableView.emptyDataSetSource = self
          tableView.emptyDataSetDelegate = self
       }

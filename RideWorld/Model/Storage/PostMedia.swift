@@ -55,7 +55,7 @@ struct PostMedia {
    
    static func upload(_ image: UIImage, for post: PostItem, withSize sizePx: Double,
                       completion: @escaping (_ hasFinished: Bool, _ url: String) -> Void) {
-      let resizedPhoto = Image.resize(image, targetSize: CGSize(width: sizePx, height: sizePx))
+      let resizedPhoto = Image.resize(sourceImage: image, toWidth: CGFloat(sizePx)) //Image.resize(image, targetSize: CGSize(width: sizePx, height: sizePx))
       let sizePxInt = Int(sizePx) // to generate link properly. It doesn't have ".0" in sizes
       let sizePxString = String(describing: sizePxInt)
       let postPhotoRef = refToPostMedia.child(post.spotId)

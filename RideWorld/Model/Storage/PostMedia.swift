@@ -54,21 +54,21 @@ struct PostMedia {
    }
    
    static func upload(_ image: UIImage, for post: PostItem, withSize sizePx: Double,
-                      completion: @escaping (_ hasFinished: Bool, _ url: String) -> Void) {
-      let resizedPhoto = Image.resize(sourceImage: image, toWidth: CGFloat(sizePx)) //Image.resize(image, targetSize: CGSize(width: sizePx, height: sizePx))
+                      completion: @escaping (_ hasFinished: Bool, _ url: String, _ aspectRatio: Double) -> Void) {
+      let resizedPhoto = Image.resize(sourceImage: image, toWidth: CGFloat(sizePx))
       let sizePxInt = Int(sizePx) // to generate link properly. It doesn't have ".0" in sizes
       let sizePxString = String(describing: sizePxInt)
       let postPhotoRef = refToPostMedia.child(post.spotId)
          .child(post.key + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
       
       //with low compression
-      let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 0.8)!
+      let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto.image, 0.8)!
       postPhotoRef.putData(dataLowCompression, metadata: nil) { (meta , error) in
          if error == nil {
             // save url to post node
-            completion(true, (meta?.downloadURL()?.absoluteString)!)
+            completion(true, (meta?.downloadURL()?.absoluteString)!, resizedPhoto.aspectRatio)
          } else {
-            completion(false, "")
+            completion(false, "", 0.0)
          }
       }
    }

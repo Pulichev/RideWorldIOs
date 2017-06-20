@@ -34,7 +34,7 @@ struct Image {
       return newImage!
    }
    
-   static func resize(sourceImage: UIImage, toWidth: CGFloat) -> UIImage {
+   static func resize(sourceImage: UIImage, toWidth: CGFloat) -> (image: UIImage, aspectRatio: Double) {
       let oldWidth = sourceImage.size.width
       let scaleFactor = toWidth / oldWidth
       
@@ -46,7 +46,7 @@ struct Image {
       let newImage = UIGraphicsGetImageFromCurrentImageContext()
       UIGraphicsEndImageContext()
       
-      return newImage!
+      return (newImage!, Double(scaleFactor))
    }
    
    static func addBlur(on imageView: UIImageView) {

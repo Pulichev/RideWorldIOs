@@ -348,7 +348,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                   circularProgress.view.progress = percentage
             }, completionHandler: { _ in
                circularProgress.view.isHidden = true
-            })
+            }) 
       })
    }
    

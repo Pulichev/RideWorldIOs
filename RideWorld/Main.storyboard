@@ -692,7 +692,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p8v-Yk-bdS">
-                                                    <rect key="frame" x="0.0" y="404" width="375" height="117.5"/>
+                                                    <rect key="frame" x="0.0" y="405" width="375" height="116.5"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="respectActive" translatesAutoresizingMaskIntoConstraints="NO" id="cYo-lm-77A">
                                                             <rect key="frame" x="5" y="0.0" width="60" height="33.5"/>
@@ -731,7 +731,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PI7-5H-s26">
-                                                            <rect key="frame" x="5" y="87.5" width="365" height="30"/>
+                                                            <rect key="frame" x="5" y="87.5" width="365" height="29"/>
                                                             <state key="normal" title="Open commentaries">
                                                                 <color key="titleColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
@@ -767,10 +767,10 @@
                                                         <constraint firstAttribute="trailing" secondItem="PI7-5H-s26" secondAttribute="trailing" constant="5" id="zap-fJ-e7s"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N2D-r0-VaT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="399"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N2D-r0-VaT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="5qB-WT-qFS"/>
+                                                        <constraint firstAttribute="height" constant="400" id="5qB-WT-qFS"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>

@@ -6,7 +6,6 @@
 import UIKit
 import MapKit
 import CoreLocation
-import ESTabBarController_swift
 
 class MainFormController: UIViewController {
    

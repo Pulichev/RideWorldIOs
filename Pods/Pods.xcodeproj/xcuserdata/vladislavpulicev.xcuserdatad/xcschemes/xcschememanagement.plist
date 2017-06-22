@@ -14,11 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ESTabBarController-swift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Fusuma.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -30,6 +25,11 @@
 			<false/>
 		</dict>
 		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>KYCircularProgress.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -77,12 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2F0C0F810568D3E82219429D9D870F04</key>
+		<key>281AC042AC50D995618578D7E6D372C7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3D2080E13E304A62D54E11341C660AEA</key>
+		<key>2F0C0F810568D3E82219429D9D870F04</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,7 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E707FF8CB3D090CCB960ECC250DC20F</key>
+		<key>5C1F0BC8AD9DB9D282F6612636923786</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,11 +103,6 @@
 			<true/>
 		</dict>
 		<key>A2EBB9DBC32E6FB582A1ECD510A6C075</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>ABF9DD5F18A22376192B4AF3B0B9DC6A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -123,6 +118,11 @@
 			<true/>
 		</dict>
 		<key>E89CFD99B895BCC6E8EDC2F95A03500C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F69D8DD77CF0619805FEDEA563924B0B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

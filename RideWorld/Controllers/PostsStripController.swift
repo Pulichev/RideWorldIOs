@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import Kingfisher
 import ActiveLabel
+import KYCircularProgress
 
 class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
    @IBOutlet weak var tableView: UITableView! {
@@ -262,7 +263,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.spotPostPhotoHeight.constant = height
          setPhoto(on: cell) // cell.spotPostPhoto setting async
          cell.addDoubleTapGestureOnPostPhotos()
-         cell.layoutIfNeeded()
          
          return cell
       } else {
@@ -295,14 +295,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.spotPostMediaHeight.constant = height
          setVideo(on: cell, cacheKey: row) // cell.spotPostPhoto setting async
          cell.addDoubleTapGestureOnPostPhotos()
-         cell.layoutIfNeeded()
          
          return cell
       }
    }
    
    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-      let customCell = cell as! PostsCellWithVideo
+      guard let customCell = cell as? PostsCellWithVideo else { return }
       if (!customCell.post.isPhoto && customCell.player != nil) {
          if (customCell.player.rate != 0 && (customCell.player.error == nil)) {
             // player is playing
@@ -327,11 +326,30 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       // set gray thumbnail
       cell.spotPostPhoto.image = UIImage(named: "grayRec.png")
       
-      // get low resolution, then original
-      let processor = BlurImageProcessor(blurRadius: 0.1)
-      cell.spotPostPhoto.kf.setImage(with: URL(string: cell.post.mediaRef10), placeholder: nil, options: [.processor(processor)], progressBlock: nil) { finished in
-         cell.spotPostPhoto.kf.setImage(with: URL(string: cell.post.mediaRef700), placeholder: cell.spotPostPhoto.image, options: nil)
-      }
+      // blur for 10px thumbnail
+      let blurProc01 = BlurImageProcessor(blurRadius: 0.1)
+      
+      let circularProgress = CircularProgress(on: cell.spotPostPhoto.frame)
+      cell.spotPostPhoto.addSubview(circularProgress.view)
+      
+      // download 10px thumbnail
+      cell.spotPostPhoto.kf.setImage(
+         with: URL(string: cell.post.mediaRef10),
+         options: [.processor(blurProc01)],
+         completionHandler: { (image, error, cacheType, imageUrl) in
+            // download original
+            cell.spotPostPhoto.kf.setImage(
+               with: URL(string: cell.post.mediaRef700),
+               placeholder: image, // 10px
+               progressBlock: { receivedSize, totalSize in
+                  // create KYCircularProgress
+                  let percentage = (Double(receivedSize) / Double(totalSize))
+                  
+                  circularProgress.view.progress = percentage
+            }, completionHandler: { _ in
+               circularProgress.view.isHidden = true
+            })
+      })
    }
    
    func setVideo(on cell: PostsCellWithVideo, cacheKey: Int) {
@@ -364,7 +382,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          downloadBigThumbnail(postKey: self.posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
       }
    }
-
+   
    
    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
       // thumbnail!

@@ -57,6 +57,7 @@
 		9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCD1E48E5E30097579B /* RegistrationController.swift */; };
 		9FC14FD61E48E7300097579B /* plus-512.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9FC14FD51E48E7300097579B /* plus-512.gif */; };
 		9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDB1E48E7690097579B /* CustomPin.swift */; };
+		9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */; };
 		9FD0BF4B1EACC0D1000ACF9F /* pinInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */; };
 		9FD4A1DE1ED7591B00B4C0D2 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */; };
 		9FD4A1E31EDE019400B4C0D2 /* FeedbackItemsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */; };
@@ -175,6 +176,7 @@
 		9FC14FCD1E48E5E30097579B /* RegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegistrationController.swift; path = Controllers/RegistrationController.swift; sourceTree = "<group>"; };
 		9FC14FD51E48E7300097579B /* plus-512.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "plus-512.gif"; path = "Pictures/plus-512.gif"; sourceTree = "<group>"; };
 		9FC14FDB1E48E7690097579B /* CustomPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPin.swift; path = CustomUIElements/CustomPin.swift; sourceTree = "<group>"; };
+		9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularProgress.swift; path = Core/CircularProgress.swift; sourceTree = "<group>"; };
 		9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = pinInfoView.swift; path = CustomUIElements/pinInfoView.swift; sourceTree = "<group>"; };
 		9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = Controllers/TabAndNavBars/MainTabBarController.swift; sourceTree = "<group>"; };
 		9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackItemsDelegate.swift; path = Protocols/FeedbackItemsDelegate.swift; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 				9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */,
 				9FF114A81EB4C8F600152279 /* DateTimeParser.swift */,
 				9FE3B70F1EC22A2800E7ED40 /* String.swift */,
+				9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -860,6 +863,7 @@
 				9FE3CA611EF4EEF10080BCF2 /* SearchResultsCell.swift in Sources */,
 				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
+				9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */,
 				9FBCFAE81E73445900A5C95D /* Image.swift in Sources */,
 				9FE3B70C1EBCDC4C00E7ED40 /* LoadingProcessView.swift in Sources */,
 				9FF1BF791EA2C5B600A2CEF2 /* LikeModel.swift in Sources */,

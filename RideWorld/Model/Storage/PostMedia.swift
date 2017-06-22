@@ -78,22 +78,23 @@ struct PostMedia {
       var post = postForUpdate // we will insert refs to media to this object
       UIImageWriteToSavedPhotosAlbum(image, nil, nil , nil) //saving image to camera roll
       
-      upload(image, for: post, withSize: 700.0) { (hasFinishedSuccessfully, url) in
+      upload(image, for: post, withSize: 700.0) { (hasFinishedSuccessfully, url, aspectRatio) in
          
          if hasFinishedSuccessfully {
             post.mediaRef700 = url
+            post.mediaAspectRatio = aspectRatio
             
-            upload(image, for: post, withSize: 200.0) { (hasFinishedSuccessfully, url) in
+            upload(image, for: post, withSize: 200.0) { (hasFinishedSuccessfully, url, _) in
                
                if hasFinishedSuccessfully {
                   post.mediaRef200 = url
                   
-                  upload(image, for: post, withSize: 70.0) { (hasFinishedSuccessfully, url) in
+                  upload(image, for: post, withSize: 70.0) { (hasFinishedSuccessfully, url, _) in
                      
                      if hasFinishedSuccessfully {
                         post.mediaRef70 = url
                         
-                        upload(image, for: post, withSize: 10.0) { (hasFinishedSuccessfully, url) in
+                        upload(image, for: post, withSize: 10.0) { (hasFinishedSuccessfully, url, _) in
                            
                            if hasFinishedSuccessfully {
                               post.mediaRef10 = url
@@ -146,25 +147,26 @@ struct PostMedia {
       var post = postForUpdate // we will insert refs to media to this object
       // upload screenshots
       upload(screenShot, for: post, withSize: 700.0)
-      { (hasFinishedSuccessfully, url) in
+      { (hasFinishedSuccessfully, url, mediaAspectRatio) in
+         post.mediaAspectRatio = mediaAspectRatio
          
          if hasFinishedSuccessfully {
             post.mediaRef700 = url
             
             upload(screenShot, for: post, withSize: 200.0)
-            { (hasFinishedSuccessfully, url) in
+            { (hasFinishedSuccessfully, url, _) in
                
                if hasFinishedSuccessfully {
                   post.mediaRef200 = url
                   
                   upload(screenShot, for: post, withSize: 70.0)
-                  { (hasFinishedSuccessfully, url) in
+                  { (hasFinishedSuccessfully, url, _) in
                      
                      if hasFinishedSuccessfully {
                         post.mediaRef70 = url
                         
                         upload(screenShot, for: post, withSize: 10.0)
-                        { (hasFinishedSuccessfully, url) in
+                        { (hasFinishedSuccessfully, url, _) in
                            
                            if hasFinishedSuccessfully {
                               post.mediaRef10 = url

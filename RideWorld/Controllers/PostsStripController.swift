@@ -16,7 +16,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       didSet {
          tableView.delegate = self
          tableView.dataSource = self
-         tableView.estimatedRowHeight = 800
+         tableView.estimatedRowHeight = 300
          tableView.rowHeight = UITableViewAutomaticDimension
          tableView.emptyDataSetSource = self
          tableView.emptyDataSetDelegate = self
@@ -197,16 +197,18 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       // from tableView
       var indexPaths = [IndexPath]()
       
-      for i in self.postsLoadStep...(self.posts.count - 1) {
-         indexPaths.append(IndexPath(row: i, section: 0))
+      if self.postsLoadStep < self.posts.count - 1 {
+         for i in self.postsLoadStep...(self.posts.count - 1) {
+            indexPaths.append(IndexPath(row: i, section: 0))
+         }
+         
+         self.tableView.deleteRows(at: indexPaths, with: .none)
+         
+         // from arrays
+         self.posts = Array(self.posts[0..<self.postsLoadStep])
+         self.postItemCellsCache = Array(self.postItemCellsCache[0..<self.postsLoadStep])
+         self.tableView.endUpdates()
       }
-      
-      self.tableView.deleteRows(at: indexPaths, with: .none)
-      
-      // from arrays
-      self.posts = Array(self.posts[0..<self.postsLoadStep])
-      self.postItemCellsCache = Array(self.postItemCellsCache[0..<self.postsLoadStep])
-      self.tableView.endUpdates()
    }
    
    private func reloadTableDataWithRefreshedItems(_ newItems: [PostItem]) {
@@ -253,8 +255,12 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       cell.postIsLiked          = cellFromCache.postIsLiked
       cell.isPhoto              = cellFromCache.isPhoto
       cell.isLikedPhoto.image   = cellFromCache.isLikedPhoto.image
+      let width = view.frame.size.width
+      let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
+      cell.spotPostMediaHeight.constant = height
       setMediaOnCellFromCacheOrDownload(cell: cell, cacheKey: row) // cell.spotPostPhoto setting async
       cell.addDoubleTapGestureOnPostPhotos()
+      cell.layoutIfNeeded()
       
       return cell
    }
@@ -294,9 +300,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    func addPlaceHolder(cell: PostsCell) {
       let placeholderImage = UIImage(named: "grayRec.png")
-      let placeholder = UIImageView(frame: cell.spotPostMedia.bounds)
+      let placeholder = UIImageView(frame: cell.spotPostMedia.frame)
       placeholder.image = placeholderImage
-      placeholder.contentMode = .scaleAspectFill
+      placeholder.contentMode = .scaleAspectFit
+      placeholder.layer.contentsGravity = kCAGravityResizeAspect
       cell.spotPostMedia.layer.addSublayer(placeholder.layer)
    }
    
@@ -304,6 +311,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       if postItemCellsCache[cacheKey].isCached {
          let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
          imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) //Using kf for caching images.
+         imageViewForView.contentMode = .scaleAspectFit
          
          DispatchQueue.main.async {
             cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
@@ -312,6 +320,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
          let processor = BlurImageProcessor(blurRadius: 0.1)
          imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10), placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
+         imageViewForView.contentMode = .scaleAspectFit
          
          DispatchQueue.main.async {
             cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
@@ -324,6 +333,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    private func downloadOriginalImage(cell: PostsCell, cacheKey: Int) {
       let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
       imageViewForView.kf.indicatorType = .activity
+      imageViewForView.contentMode = .scaleAspectFit
       imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) //Using kf for caching images.
       DispatchQueue.main.async {
          self.postItemCellsCache[cacheKey].isCached = true
@@ -352,7 +362,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       let processor = BlurImageProcessor(blurRadius: 0.1)
       imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10),
                                    placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
-      imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+      imageViewForView.contentMode = .scaleAspectFit
       
       cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
       
@@ -362,10 +372,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCell) {
       // thumbnail!
       let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
+      imageViewForView.contentMode = .scaleAspectFit
       let processor = BlurImageProcessor(blurRadius: 0.1)
       imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef200),
                                    placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
-      imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+      imageViewForView.layer.contentsGravity = kCAGravityResizeAspect
       
       cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
       

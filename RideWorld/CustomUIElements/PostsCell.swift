@@ -18,6 +18,7 @@ class PostsCell: UITableViewCell {
    }
    var userInfo: UserItem! // user, who posted
    
+   @IBOutlet weak var spotPostMediaHeight: NSLayoutConstraint!
    @IBOutlet var spotPostMedia: UIView!
    var player: AVPlayer!
    

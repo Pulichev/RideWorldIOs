@@ -39,14 +39,15 @@ struct Image {
       let scaleFactor = toWidth / oldWidth
       
       let newHeight = sourceImage.size.height * scaleFactor
-      let newWidth = oldWidth * scaleFactor
       
-      UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-      sourceImage.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+      let aspectRatio = newHeight / toWidth
+      
+      UIGraphicsBeginImageContext(CGSize(width: toWidth, height: newHeight))
+      sourceImage.draw(in: CGRect(x: 0, y: 0, width: toWidth, height: newHeight))
       let newImage = UIGraphicsGetImageFromCurrentImageContext()
       UIGraphicsEndImageContext()
       
-      return (newImage!, Double(scaleFactor))
+      return (newImage!, Double(aspectRatio))
    }
    
    static func addBlur(on imageView: UIImageView) {

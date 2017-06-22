@@ -23,6 +23,7 @@ struct PostItem {
    var mediaRef200: String!
    var mediaRef700: String!
    var videoRef: String!
+   var mediaAspectRatio: Double!
    
    var commentsCount: Int! = 0
    
@@ -32,7 +33,9 @@ struct PostItem {
    
    let ref: DatabaseReference?
    
-   init(_ isPhoto: Bool, _ description: String, _ createdDate: String, _ spotId: String, _ addedByUser: String, _ key: String = "") {
+   init(_ isPhoto: Bool, _ description: String,
+        _ createdDate: String, _ spotId: String,
+        _ addedByUser: String, _ key: String = "") {
       self.key = key
       
       self.isPhoto = isPhoto
@@ -61,6 +64,8 @@ struct PostItem {
       if !isPhoto {
          videoRef = snapshotValue["videoRef"] as! String
       }
+      
+      mediaAspectRatio = snapshotValue["mediaAspectRatio"] as! Double
       
       spotId = snapshotValue["spotId"] as! String
       
@@ -91,6 +96,8 @@ struct PostItem {
       if !isPhoto {
          valuesArray["videoRef"] = videoRef
       }
+      
+      valuesArray["mediaAspectRatio"] = mediaAspectRatio
       
       valuesArray["spotId"] = spotId
       valuesArray["addedByUser"] = addedByUser

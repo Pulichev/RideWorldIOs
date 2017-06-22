@@ -37,7 +37,7 @@
 		9F506B661EF05DA700F0CABC /* rideWorldLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F506B651EF05DA700F0CABC /* rideWorldLogo.png */; };
 		9F5609811E7C6A630000DB21 /* PostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609801E7C6A630000DB21 /* PostItem.swift */; };
 		9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */; };
-		9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609841E7C6BB50000DB21 /* PostsCell.swift */; };
+		9F5609851E7C6BB50000DB21 /* PostsCellWithVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609841E7C6BB50000DB21 /* PostsCellWithVideo.swift */; };
 		9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609861E7C8C990000DB21 /* PostsStripController.swift */; };
 		9F6154921EA67D4800160CB3 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6154911EA67D4800160CB3 /* RoundedImageView.swift */; };
 		9F6163471E7E89C1001664B7 /* no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6163461E7E89C1001664B7 /* no_photo.png */; };
@@ -74,6 +74,7 @@
 		9FE3B7201EC6664900E7ED40 /* LikeFBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B71F1EC6664900E7ED40 /* LikeFBItem.swift */; };
 		9FE3CA5A1EF4292B0080BCF2 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3CA591EF4292B0080BCF2 /* SearchController.swift */; };
 		9FE3CA611EF4EEF10080BCF2 /* SearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3CA601EF4EEF10080BCF2 /* SearchResultsCell.swift */; };
+		9FE3CA631EFC1E7A0080BCF2 /* PostsCellWithPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3CA621EFC1E7A0080BCF2 /* PostsCellWithPhoto.swift */; };
 		9FE79C101ECE3BFB008BEBB2 /* TappedUserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE79C0F1ECE3BFB008BEBB2 /* TappedUserDelegate.swift */; };
 		9FE79C121ECF8604008BEBB2 /* TappedPostDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE79C111ECF8604008BEBB2 /* TappedPostDelegate.swift */; };
 		9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */; };
@@ -147,7 +148,7 @@
 		9F506B651EF05DA700F0CABC /* rideWorldLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rideWorldLogo.png; path = Pictures/rideWorldLogo.png; sourceTree = "<group>"; };
 		9F5609801E7C6A630000DB21 /* PostItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostItem.swift; path = Data/PostItem.swift; sourceTree = "<group>"; };
 		9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostItemCellCache.swift; path = Core/PostItemCellCache.swift; sourceTree = "<group>"; };
-		9F5609841E7C6BB50000DB21 /* PostsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCell.swift; path = CustomUIElements/PostsCell.swift; sourceTree = "<group>"; };
+		9F5609841E7C6BB50000DB21 /* PostsCellWithVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCellWithVideo.swift; path = CustomUIElements/PostsCellWithVideo.swift; sourceTree = "<group>"; };
 		9F5609861E7C8C990000DB21 /* PostsStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsStripController.swift; path = Controllers/PostsStripController.swift; sourceTree = "<group>"; };
 		9F6154911EA67D4800160CB3 /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedImageView.swift; path = Core/RoundedImageView.swift; sourceTree = "<group>"; };
 		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
@@ -191,6 +192,7 @@
 		9FE3B71F1EC6664900E7ED40 /* LikeFBItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeFBItem.swift; path = "Data/Feedback Items/LikeFBItem.swift"; sourceTree = "<group>"; };
 		9FE3CA591EF4292B0080BCF2 /* SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchController.swift; path = Controllers/SearchController.swift; sourceTree = "<group>"; };
 		9FE3CA601EF4EEF10080BCF2 /* SearchResultsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsCell.swift; path = "CustomUIElements/Cells for search/SearchResultsCell.swift"; sourceTree = "<group>"; };
+		9FE3CA621EFC1E7A0080BCF2 /* PostsCellWithPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCellWithPhoto.swift; path = CustomUIElements/PostsCellWithPhoto.swift; sourceTree = "<group>"; };
 		9FE79C0F1ECE3BFB008BEBB2 /* TappedUserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedUserDelegate.swift; path = Protocols/TappedUserDelegate.swift; sourceTree = "<group>"; };
 		9FE79C111ECF8604008BEBB2 /* TappedPostDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedPostDelegate.swift; path = Protocols/TappedPostDelegate.swift; sourceTree = "<group>"; };
 		9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -419,7 +421,8 @@
 			isa = PBXGroup;
 			children = (
 				9FE3B7131EC4D70900E7ED40 /* Cells for feedback */,
-				9F5609841E7C6BB50000DB21 /* PostsCell.swift */,
+				9F5609841E7C6BB50000DB21 /* PostsCellWithVideo.swift */,
+				9FE3CA621EFC1E7A0080BCF2 /* PostsCellWithPhoto.swift */,
 				9F4A84421E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift */,
 				9FC14FDB1E48E7690097579B /* CustomPin.swift */,
 				9FE3CA601EF4EEF10080BCF2 /* SearchResultsCell.swift */,
@@ -880,12 +883,13 @@
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
 				9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */,
 				9FF285951EB6088700EE0EC1 /* SpotInfoController.swift in Sources */,
+				9FE3CA631EFC1E7A0080BCF2 /* PostsCellWithPhoto.swift in Sources */,
 				9FF1BF721E9E801F00A2CEF2 /* UserMedia.swift in Sources */,
 				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
 				9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */,
 				9FF1BF701E9D707400A2CEF2 /* UserModel.swift in Sources */,
 				9FE3B71C1EC665E500E7ED40 /* CommentFBItem.swift in Sources */,
-				9F5609851E7C6BB50000DB21 /* PostsCell.swift in Sources */,
+				9F5609851E7C6BB50000DB21 /* PostsCellWithVideo.swift in Sources */,
 				9FE3B71E1EC6660600E7ED40 /* FollowerFBItem.swift in Sources */,
 				9FF1BF7D1EA551BB00A2CEF2 /* SpotMedia.swift in Sources */,
 				9FF1BF7B1EA3C0DC00A2CEF2 /* SpotModel.swift in Sources */,

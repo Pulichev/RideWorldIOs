@@ -230,44 +230,80 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCell", for: indexPath) as! PostsCell
       let row = indexPath.row
       
-      if cell.userLikedOrDeletedLike { // when cell appears checking if like was tapped
-         cell.userLikedOrDeletedLike = false
-         updateCellLikesCache(objectId: cell.post.key) // if yes updating cache
+      if postItemCellsCache[row].isPhoto {
+         let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithPhoto", for: indexPath) as! PostsCellWithPhoto
+         
+         if cell.userLikedOrDeletedLike { // when cell appears checking if like was tapped
+            cell.userLikedOrDeletedLike = false
+            updateCellLikesCache(objectId: cell.post.key) // if yes updating cache
+         }
+         
+         let cellFromCache = postItemCellsCache[row]
+         cell.post                 = cellFromCache.post
+         cell.userInfo             = cellFromCache.userInfo
+         cell.userNickName.setTitle(cellFromCache.userNickName, for: .normal)
+         cell.userNickName.tag     = row // for segue to send userId to ridersProfile
+         cell.userNickName.addTarget(self, action: #selector(nickNameTapped), for: .touchUpInside)
+         cell.openComments.tag     = row // for segue to send postId to comments
+         cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
+         cell.postDate.text        = cellFromCache.postDate
+         cell.postDescription.text = cellFromCache.postDescription
+         cell.postDescription.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(tappedUserLogin: mention)
+         }
+         cell.likesCount.text      = String(cellFromCache.likesCount)
+         cell.postIsLiked          = cellFromCache.postIsLiked
+         
+         cell.isLikedPhoto.image   = cellFromCache.isLikedPhoto.image
+         let width = view.frame.size.width
+         let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
+         cell.spotPostPhotoHeight.constant = height
+         setPhoto(on: cell) // cell.spotPostPhoto setting async
+         cell.addDoubleTapGestureOnPostPhotos()
+         cell.layoutIfNeeded()
+         
+         return cell
+      } else {
+         let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithVideo", for: indexPath) as! PostsCellWithVideo
+         
+         if cell.userLikedOrDeletedLike { // when cell appears checking if like was tapped
+            cell.userLikedOrDeletedLike = false
+            updateCellLikesCache(objectId: cell.post.key) // if yes updating cache
+         }
+         
+         let cellFromCache = postItemCellsCache[row]
+         cell.post                 = cellFromCache.post
+         cell.userInfo             = cellFromCache.userInfo
+         cell.userNickName.setTitle(cellFromCache.userNickName, for: .normal)
+         cell.userNickName.tag     = row // for segue to send userId to ridersProfile
+         cell.userNickName.addTarget(self, action: #selector(nickNameTapped), for: .touchUpInside)
+         cell.openComments.tag     = row // for segue to send postId to comments
+         cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
+         cell.postDate.text        = cellFromCache.postDate
+         cell.postDescription.text = cellFromCache.postDescription
+         cell.postDescription.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(tappedUserLogin: mention)
+         }
+         cell.likesCount.text      = String(cellFromCache.likesCount)
+         cell.postIsLiked          = cellFromCache.postIsLiked
+         
+         cell.isLikedPhoto.image   = cellFromCache.isLikedPhoto.image
+         let width = view.frame.size.width
+         let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
+         cell.spotPostMediaHeight.constant = height
+         setVideo(on: cell, cacheKey: row) // cell.spotPostPhoto setting async
+         cell.addDoubleTapGestureOnPostPhotos()
+         cell.layoutIfNeeded()
+         
+         return cell
       }
-      
-      let cellFromCache = postItemCellsCache[row]
-      cell.post                 = cellFromCache.post
-      cell.userInfo             = cellFromCache.userInfo
-      cell.userNickName.setTitle(cellFromCache.userNickName, for: .normal)
-      cell.userNickName.tag     = row // for segue to send userId to ridersProfile
-      cell.userNickName.addTarget(self, action: #selector(nickNameTapped), for: .touchUpInside)
-      cell.openComments.tag     = row // for segue to send postId to comments
-      cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
-      cell.postDate.text        = cellFromCache.postDate
-      cell.postDescription.text = cellFromCache.postDescription
-      cell.postDescription.handleMentionTap { mention in // mention is @userLogin
-         self.goToUserProfile(tappedUserLogin: mention)
-      }
-      cell.likesCount.text      = String(cellFromCache.likesCount)
-      cell.postIsLiked          = cellFromCache.postIsLiked
-      cell.isPhoto              = cellFromCache.isPhoto
-      cell.isLikedPhoto.image   = cellFromCache.isLikedPhoto.image
-      let width = view.frame.size.width
-      let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
-      cell.spotPostMediaHeight.constant = height
-      setMediaOnCellFromCacheOrDownload(cell: cell, cacheKey: row) // cell.spotPostPhoto setting async
-      cell.addDoubleTapGestureOnPostPhotos()
-      cell.layoutIfNeeded()
-      
-      return cell
    }
    
    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-      let customCell = cell as! PostsCell
-      if (!customCell.isPhoto && customCell.player != nil) {
+      let customCell = cell as! PostsCellWithVideo
+      if (!customCell.post.isPhoto && customCell.player != nil) {
          if (customCell.player.rate != 0 && (customCell.player.error == nil)) {
             // player is playing
             customCell.player.pause()
@@ -287,61 +323,34 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    // MARK: - Set media part
-   func setMediaOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
-      addPlaceHolder(cell: cell)
+   private func setPhoto(on cell: PostsCellWithPhoto) {
+      // set gray thumbnail
+      cell.spotPostPhoto.image = UIImage(named: "grayRec.png")
       
-      //Downloading and caching media
-      if posts[cacheKey].isPhoto {
-         setImageOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
-      } else {
-         setVideoOnCellFromCacheOrDownload(cell: cell, cacheKey: cacheKey)
+      // get low resolution, then original
+      let processor = BlurImageProcessor(blurRadius: 0.1)
+      cell.spotPostPhoto.kf.setImage(with: URL(string: cell.post.mediaRef10), placeholder: nil, options: [.processor(processor)], progressBlock: nil) { finished in
+         cell.spotPostPhoto.kf.setImage(with: URL(string: cell.post.mediaRef700), placeholder: cell.spotPostPhoto.image, options: nil)
       }
    }
    
-   func addPlaceHolder(cell: PostsCell) {
+   func setVideo(on cell: PostsCellWithVideo, cacheKey: Int) {
+      addPlaceHolder(cell: cell)
+      
+      //Downloading and caching media
+      setVideoFromCacheOrDownload(on: cell, cacheKey: cacheKey)
+   }
+   
+   func addPlaceHolder(cell: PostsCellWithVideo) {
       let placeholderImage = UIImage(named: "grayRec.png")
       let placeholder = UIImageView(frame: cell.spotPostMedia.frame)
       placeholder.image = placeholderImage
-      placeholder.contentMode = .scaleAspectFit
+      placeholder.contentMode = .scaleAspectFill
       placeholder.layer.contentsGravity = kCAGravityResizeAspect
       cell.spotPostMedia.layer.addSublayer(placeholder.layer)
    }
    
-   func setImageOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
-      if postItemCellsCache[cacheKey].isCached {
-         let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-         imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) //Using kf for caching images.
-         imageViewForView.contentMode = .scaleAspectFit
-         
-         DispatchQueue.main.async {
-            cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-         }
-      } else {
-         let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-         let processor = BlurImageProcessor(blurRadius: 0.1)
-         imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10), placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
-         imageViewForView.contentMode = .scaleAspectFit
-         
-         DispatchQueue.main.async {
-            cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-         }
-         
-         self.downloadOriginalImage(cell: cell, cacheKey: cacheKey)
-      }
-   }
-   
-   private func downloadOriginalImage(cell: PostsCell, cacheKey: Int) {
-      let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-      imageViewForView.kf.indicatorType = .activity
-      imageViewForView.contentMode = .scaleAspectFit
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) //Using kf for caching images.
-      DispatchQueue.main.async {
-         self.postItemCellsCache[cacheKey].isCached = true
-         cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-      }
-   }
-   
-   private func setVideoOnCellFromCacheOrDownload(cell: PostsCell, cacheKey: Int) {
+   private func setVideoFromCacheOrDownload(on cell: PostsCellWithVideo, cacheKey: Int) {
       if (mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
          let cachedAsset = mediaCache.object(forKey: cacheKey) as? AVAsset
          cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
@@ -352,24 +361,12 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
          cell.player.play()
       } else {
-         downloadThumbnail(cacheKey: cacheKey, cell: cell)
+         downloadBigThumbnail(postKey: self.posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
       }
    }
+
    
-   private func downloadThumbnail(cacheKey: Int, cell: PostsCell) {
-      // thumbnail!
-      let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-      let processor = BlurImageProcessor(blurRadius: 0.1)
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef10),
-                                   placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
-      imageViewForView.contentMode = .scaleAspectFit
-      
-      cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-      
-      self.downloadBigThumbnail(postKey: self.posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
-   }
-   
-   private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCell) {
+   private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
       // thumbnail!
       let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
       imageViewForView.contentMode = .scaleAspectFit
@@ -383,7 +380,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
    }
    
-   private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCell) {
+   private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
       let assetForCache = AVAsset(url: URL(string: cell.post.videoRef)!)
       
       self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)

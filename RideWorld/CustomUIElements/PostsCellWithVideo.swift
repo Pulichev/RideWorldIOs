@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import ActiveLabel
 
-class PostsCell: UITableViewCell {
+class PostsCellWithVideo: UITableViewCell {
    var post: PostItem! {
       didSet {
          openComments.setTitle("Open commentaries (\(post.commentsCount!))", for: .normal)
@@ -37,7 +37,7 @@ class PostsCell: UITableViewCell {
    @IBOutlet weak var isLikedPhoto: UIImageView!
    @IBOutlet weak var likesCount: UILabel!
    @IBOutlet weak var openComments: UIButton!
-   var isPhoto: Bool!
+   
    var postIsLiked: Bool!
    
    var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post

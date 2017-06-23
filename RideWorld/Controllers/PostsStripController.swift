@@ -342,33 +342,18 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                with: URL(string: cell.post.mediaRef700),
                placeholder: image, // 10px
                progressBlock: { receivedSize, totalSize in
-                  // create KYCircularProgress
                   let percentage = (Double(receivedSize) / Double(totalSize))
-                  
                   circularProgress.view.progress = percentage
             }, completionHandler: { _ in
                circularProgress.view.isHidden = true
-            }) 
+            })
       })
    }
    
    func setVideo(on cell: PostsCellWithVideo, cacheKey: Int) {
       addPlaceHolder(cell: cell)
       
-      //Downloading and caching media
-      setVideoFromCacheOrDownload(on: cell, cacheKey: cacheKey)
-   }
-   
-   func addPlaceHolder(cell: PostsCellWithVideo) {
-      let placeholderImage = UIImage(named: "grayRec.png")
-      let placeholder = UIImageView(frame: cell.spotPostMedia.frame)
-      placeholder.image = placeholderImage
-      placeholder.contentMode = .scaleAspectFill
-      placeholder.layer.contentsGravity = kCAGravityResizeAspect
-      cell.spotPostMedia.layer.addSublayer(placeholder.layer)
-   }
-   
-   private func setVideoFromCacheOrDownload(on cell: PostsCellWithVideo, cacheKey: Int) {
+      //Check cache. Exists -> get it, no - plce thumbnail and download
       if (mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
          let cachedAsset = mediaCache.object(forKey: cacheKey) as? AVAsset
          cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
@@ -383,13 +368,21 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
+   func addPlaceHolder(cell: PostsCellWithVideo) {
+      let placeholderImage = UIImage(named: "grayRec.png")
+      let placeholder = UIImageView(frame: cell.spotPostMedia.frame)
+      placeholder.image = placeholderImage
+      placeholder.contentMode = .scaleAspectFill
+      placeholder.layer.contentsGravity = kCAGravityResizeAspect
+      cell.spotPostMedia.layer.addSublayer(placeholder.layer)
+   }
    
    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
       // thumbnail!
       let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
       imageViewForView.contentMode = .scaleAspectFit
       let processor = BlurImageProcessor(blurRadius: 0.1)
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef200),
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700),
                                    placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
       imageViewForView.layer.contentsGravity = kCAGravityResizeAspect
       

@@ -108,9 +108,12 @@ class NewPostController: UIViewController, UITextViewDelegate {
    }
    
    private func uploadVideo(for postItem: PostItem) {
+      let screen = generateVideoScreenShot()
+      
       PostMedia.uploadVideoForPost(
          with: newVideoUrl, for: postItem,
-         screenShot: generateVideoScreenShot()) { (hasFinishedUploading, post) in
+         screenShot: screen.image,
+         aspectRatio: screen.aspectRatio) { (hasFinishedUploading, post) in
             if hasFinishedUploading {
                Post.add(post!) { hasFinishedSuccessfully in
                   if hasFinishedSuccessfully {
@@ -144,23 +147,26 @@ class NewPostController: UIViewController, UITextViewDelegate {
       self.showAlertThatErrorInNewPost()
    }
    
-   func generateVideoScreenShot() -> UIImage {
+   func generateVideoScreenShot() -> (image: UIImage, aspectRatio: Double) {
       do {
          let asset = AVURLAsset(url: newVideoUrl, options: nil)
+         let videoTrack = asset.tracks(withMediaType: AVMediaTypeVideo)[0]
+         let size = videoTrack.naturalSize
+         let aspectRatio = size.height / size.width
          
          let imgGenerator = AVAssetImageGenerator(asset: asset)
          imgGenerator.appliesPreferredTrackTransform = true
-         
+
          let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
          let videoScreenShot = UIImage(cgImage: cgImage)
          
-         return videoScreenShot
+         return (videoScreenShot, Double(aspectRatio))
       } catch {
          print(error)
          
          let failImage = UIImage(named: "plus-512.gif")
          
-         return failImage!
+         return (failImage!, 1.0)
       }
    }
    

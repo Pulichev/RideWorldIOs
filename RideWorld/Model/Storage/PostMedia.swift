@@ -12,28 +12,6 @@ import FirebaseDatabase // TEMP
 struct PostMedia {
    static let refToPostMedia = Storage.storage().reference(withPath: "media/spotPostMedia/")
    
-   static func getImageData200x200(for post: PostItem,
-                                   completion: @escaping(_ imageData: Data?) -> Void) {
-      let refToMedia = refToPostMedia.child(post.spotId)
-         .child(post.key + "_resolution200x200.jpeg")
-      
-      refToMedia.downloadURL { (URL, error) in
-         if let error = error {
-            print("\(error)")
-         } else {
-            // async images downloading
-            URLSession.shared.dataTask(with: URL!) { (data, response, error) in
-               if error != nil {
-                  print("Error in URLSession: " + (error.debugDescription))
-                  completion(nil)
-               } else {
-                  completion(data)
-               }
-               }.resume()
-         }
-      }
-   }
-   
    static func deletePhoto(for spotId: String, _ postId: String, withSize sizePx: Int) {
       let sizePxString = String(describing: sizePx)
       
@@ -142,13 +120,13 @@ struct PostMedia {
    // Like transaction :)
    // Bad view actually
    static func uploadVideoForPost(with videoURL: URL, for postForUpdate: PostItem,
-                                  screenShot: UIImage,
+                                  screenShot: UIImage, aspectRatio: Double,
                                   completion: @escaping (_ hasFinished: Bool, _ postWithRefs: PostItem?) -> Void) {
       var post = postForUpdate // we will insert refs to media to this object
       // upload screenshots
       upload(screenShot, for: post, withSize: 700.0)
       { (hasFinishedSuccessfully, url, mediaAspectRatio) in
-         post.mediaAspectRatio = mediaAspectRatio
+         post.mediaAspectRatio = aspectRatio
          
          if hasFinishedSuccessfully {
             post.mediaRef700 = url

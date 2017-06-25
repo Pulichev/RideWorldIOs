@@ -397,7 +397,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
       cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
       let playerLayer = AVPlayerLayer(player: cell.player)
-      playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+      playerLayer.videoGravity = AVLayerVideoGravityResizeAspect
       playerLayer.frame = cell.spotPostMedia.bounds
       
       cell.spotPostMedia.layer.addSublayer(playerLayer)

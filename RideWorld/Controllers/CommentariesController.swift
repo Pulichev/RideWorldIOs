@@ -252,7 +252,7 @@ extension CommentariesController: UITextFieldDelegate {
       if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
          let keyboardHeight = keyboardSize.height
          UIView.animate(withDuration: 1.0, animations: {
-            self.newCommentViewBotConstraint.constant = -keyboardHeight + 43
+            self.newCommentViewBotConstraint.constant = -keyboardHeight
             self.view.layoutIfNeeded()
          })
       }

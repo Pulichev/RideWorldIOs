@@ -26,6 +26,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
    var newVideoUrl: URL!
    var player: AVQueuePlayer!
    var playerLooper: NSObject? //for looping video. It should be class variable
+   var videoAspectRatio: Double!
    
    var photoView = UIImageView()
    
@@ -108,12 +109,12 @@ class NewPostController: UIViewController, UITextViewDelegate {
    }
    
    private func uploadVideo(for postItem: PostItem) {
-      let screen = generateVideoScreenShot()
+      let screenshot = generateVideoScreenShot()
       
       PostMedia.uploadVideoForPost(
          with: newVideoUrl, for: postItem,
-         screenShot: screen.image,
-         aspectRatio: screen.aspectRatio) { (hasFinishedUploading, post) in
+         screenShot: screenshot,
+         aspectRatio: videoAspectRatio) { (hasFinishedUploading, post) in
             if hasFinishedUploading {
                Post.add(post!) { hasFinishedSuccessfully in
                   if hasFinishedSuccessfully {
@@ -147,26 +148,23 @@ class NewPostController: UIViewController, UITextViewDelegate {
       self.showAlertThatErrorInNewPost()
    }
    
-   func generateVideoScreenShot() -> (image: UIImage, aspectRatio: Double) {
+   func generateVideoScreenShot() -> UIImage {
       do {
          let asset = AVURLAsset(url: newVideoUrl, options: nil)
-         let videoTrack = asset.tracks(withMediaType: AVMediaTypeVideo)[0]
-         let size = videoTrack.naturalSize
-         let aspectRatio = size.height / size.width
          
          let imgGenerator = AVAssetImageGenerator(asset: asset)
          imgGenerator.appliesPreferredTrackTransform = true
-
+         
          let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(0, 1), actualTime: nil)
          let videoScreenShot = UIImage(cgImage: cgImage)
          
-         return (videoScreenShot, Double(aspectRatio))
+         return videoScreenShot
       } catch {
          print(error)
          
          let failImage = UIImage(named: "plus-512.gif")
          
-         return (failImage!, 1.0)
+         return failImage!
       }
    }
    
@@ -192,7 +190,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
             photoOrVideoView.isUserInteractionEnabled = false
          }
       }
-   }// for disabling user touches, while uploading
+   } // for disabling user touches, while uploading
 }
 
 //Fusuma
@@ -200,7 +198,7 @@ extension NewPostController: FusumaDelegate {
    func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
       
    }
-
+   
    @IBAction func takeMedia(_ sender: Any) {
       let fusuma = FusumaViewController()
       fusuma.delegate = self
@@ -232,6 +230,8 @@ extension NewPostController: FusumaDelegate {
    }
    
    func fusumaVideoCompleted(withFileURL fileURL: URL) {
+      initAspectRatioOfVideo(with: fileURL)
+      
       isNewMediaIsPhoto = false
       photoView.image = nil
       
@@ -279,6 +279,21 @@ extension NewPostController: FusumaDelegate {
       newVideoUrl = compressedURL //update newVideoUrl to already compressed video
       
       print("video completed and output to file: \(fileURL)")
+   }
+   
+   private func initAspectRatioOfVideo(with fileURL: URL) {
+      let resolution = resolutionForLocalVideo(url: fileURL)
+      
+      let width = resolution?.width
+      let height = resolution?.height
+      
+      self.videoAspectRatio = Double(height! / width!)
+   }
+   
+   func resolutionForLocalVideo(url: URL) -> CGSize? {
+      guard let track = AVURLAsset(url: url).tracks(withMediaType: AVMediaTypeVideo).first else { return nil }
+      let size = track.naturalSize.applying(track.preferredTransform)
+      return CGSize(width: fabs(size.width), height: fabs(size.height))
    }
    
    func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {

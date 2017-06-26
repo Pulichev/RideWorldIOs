@@ -293,7 +293,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let width = view.frame.size.width
          let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
          cell.spotPostMediaHeight.constant = height
-         setVideo(on: cell, cacheKey: row) // cell.spotPostPhoto setting async
+         setVideo(on: cell, cacheKey: row)
          cell.addDoubleTapGestureOnPostPhotos()
          
          return cell
@@ -369,11 +369,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    func addPlaceHolder(cell: PostsCellWithVideo) {
-      let placeholderImage = UIImage(named: "grayRec.png")
       let placeholder = UIImageView(frame: cell.spotPostMedia.frame)
+      let placeholderImage = UIImage(named: "grayRec.png")
       placeholder.image = placeholderImage
       placeholder.contentMode = .scaleAspectFill
-      placeholder.layer.contentsGravity = kCAGravityResizeAspect
+      placeholder.layer.contentsGravity = kCAGravityResizeAspectFill
       cell.spotPostMedia.layer.addSublayer(placeholder.layer)
    }
    
@@ -397,7 +397,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
       cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
       let playerLayer = AVPlayerLayer(player: cell.player)
-      playerLayer.videoGravity = AVLayerVideoGravityResizeAspect
+      playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
       playerLayer.frame = cell.spotPostMedia.bounds
       
       cell.spotPostMedia.layer.addSublayer(playerLayer)

@@ -170,9 +170,9 @@ public final class FusumaViewController: UIViewController {
          closeButton.setImage(closeImage?.withRenderingMode(.alwaysTemplate), for: .selected)
          closeButton.tintColor = fusumaBaseTintColor
          
-         videoButton.setImage(videoImage, for: UIControlState())
-         videoButton.setImage(videoImage, for: .highlighted)
-         videoButton.setImage(videoImage, for: .selected)
+         videoButton.setImage(videoImage?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+         videoButton.setImage(videoImage?.withRenderingMode(.alwaysTemplate), for: .highlighted)
+         videoButton.setImage(videoImage?.withRenderingMode(.alwaysTemplate), for: .selected)
          videoButton.tintColor  = fusumaTintColor
          videoButton.adjustsImageWhenHighlighted = false
          
@@ -266,7 +266,6 @@ public final class FusumaViewController: UIViewController {
       cameraView.initialize()
       
       if hasVideo {
-         
          videoView.frame = CGRect(origin: CGPoint.zero, size: videoShotContainer.frame.size)
          videoView.layoutIfNeeded()
          videoView.initialize()

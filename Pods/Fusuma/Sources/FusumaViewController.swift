@@ -45,9 +45,9 @@ extension FusumaDelegate {
    func fusumaClosed() {}
 }
 
-public var fusumaBaseTintColor   = UIColor.hex("#FFFFFF", alpha: 1.0)
-public var fusumaTintColor       = UIColor.hex("#25769b", alpha: 1.0)
-public var fusumaBackgroundColor = UIColor.hex("#616266", alpha: 1.0)
+public var fusumaBaseTintColor   = UIColor.hex("#404444", alpha: 1.0)
+public var fusumaTintColor       = UIColor.hex("#688a8e", alpha: 1.0)
+public var fusumaBackgroundColor = UIColor.hex("#ffffff", alpha: 1.0)
 
 public var fusumaAlbumImage : UIImage? = nil
 public var fusumaCameraImage : UIImage? = nil
@@ -62,7 +62,7 @@ public var fusumaShotImage : UIImage? = nil
 public var fusumaVideoStartImage : UIImage? = nil
 public var fusumaVideoStopImage : UIImage? = nil
 
-public var fusumaCropImage: Bool = true
+public var fusumaCropImage: Bool = false
 
 public var fusumaSavesImage: Bool = true
 

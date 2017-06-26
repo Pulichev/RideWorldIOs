@@ -691,7 +691,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="521.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="pti-Mk-zcp">
+                                                <view clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="pti-Mk-zcp" customClass="VideoContainerView" customModule="RideWorld" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>

@@ -293,6 +293,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let width = view.frame.size.width
          let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
          cell.spotPostMediaHeight.constant = height
+         cell.spotPostMedia.layoutIfNeeded()
          setVideo(on: cell, cacheKey: row)
          cell.addDoubleTapGestureOnPostPhotos()
          
@@ -358,9 +359,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let cachedAsset = mediaCache.object(forKey: cacheKey) as? AVAsset
          cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
          let playerLayer = AVPlayerLayer(player: (cell.player))
-         playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+         playerLayer.videoGravity = kCAGravityResizeAspectFill
          playerLayer.frame = cell.spotPostMedia.bounds
          cell.spotPostMedia.layer.addSublayer(playerLayer)
+         cell.spotPostMedia.playerLayer = playerLayer
          
          cell.player.play()
       } else {
@@ -369,24 +371,28 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    func addPlaceHolder(cell: PostsCellWithVideo) {
-      let placeholder = UIImageView(frame: cell.spotPostMedia.frame)
+      let placeholder = UIImageView()
       let placeholderImage = UIImage(named: "grayRec.png")
       placeholder.image = placeholderImage
-      placeholder.contentMode = .scaleAspectFill
       placeholder.layer.contentsGravity = kCAGravityResizeAspectFill
+      placeholder.contentMode = .scaleAspectFill
+      placeholder.frame = cell.spotPostMedia.bounds
       cell.spotPostMedia.layer.addSublayer(placeholder.layer)
+      cell.spotPostMedia.playerLayer = placeholder.layer
    }
    
    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
       // thumbnail!
-      let imageViewForView = UIImageView(frame: cell.spotPostMedia.frame)
-      imageViewForView.contentMode = .scaleAspectFit
+      let imageViewForView = UIImageView()
+      imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
+      imageViewForView.contentMode = .scaleAspectFill
+      imageViewForView.frame = cell.spotPostMedia.bounds
       let processor = BlurImageProcessor(blurRadius: 0.1)
       imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700),
                                    placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
-      imageViewForView.layer.contentsGravity = kCAGravityResizeAspect
       
       cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+      cell.spotPostMedia.playerLayer = imageViewForView.layer
       
       self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
    }
@@ -399,8 +405,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       let playerLayer = AVPlayerLayer(player: cell.player)
       playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
       playerLayer.frame = cell.spotPostMedia.bounds
+      print("\(playerLayer.frame.width)")
+      print("\(playerLayer.frame.height)")
       
       cell.spotPostMedia.layer.addSublayer(playerLayer)
+      cell.spotPostMedia.playerLayer = playerLayer
       
       cell.player.play()
    }

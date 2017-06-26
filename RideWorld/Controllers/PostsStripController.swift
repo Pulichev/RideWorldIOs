@@ -374,7 +374,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       let placeholder = UIImageView()
       let placeholderImage = UIImage(named: "grayRec.png")
       placeholder.image = placeholderImage
-      placeholder.layer.contentsGravity = kCAGravityResizeAspectFill
+      placeholder.layer.contentsGravity = kCAGravityResize
       placeholder.contentMode = .scaleAspectFill
       placeholder.frame = cell.spotPostMedia.bounds
       cell.spotPostMedia.layer.addSublayer(placeholder.layer)
@@ -384,17 +384,16 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
       // thumbnail!
       let imageViewForView = UIImageView()
-      imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-      imageViewForView.contentMode = .scaleAspectFill
-      imageViewForView.frame = cell.spotPostMedia.bounds
-      let processor = BlurImageProcessor(blurRadius: 0.1)
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700),
-                                   placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
-      
-      cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-      cell.spotPostMedia.playerLayer = imageViewForView.layer
-      
-      self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) { _ in
+         imageViewForView.layer.contentsGravity = kCAGravityResize
+         imageViewForView.contentMode = .scaleAspectFill
+         imageViewForView.frame = cell.spotPostMedia.bounds
+         
+         cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+         cell.spotPostMedia.playerLayer = imageViewForView.layer
+         
+         self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
+      }//Using kf for caching images.
    }
    
    private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {

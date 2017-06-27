@@ -5,17 +5,18 @@ target 'RideWorld' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'SwiftLint'
-  pod ‘Fusuma’
   pod 'Firebase/Storage'
   pod 'FirebaseAuth'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Kingfisher', '~> 3.0'
-  pod ‘ActiveLabel’
-  pod ‘MGSwipeTableCell’
+  pod 'ActiveLabel'
+  pod 'MGSwipeTableCell'
   pod 'SVProgressHUD'
   pod 'DateToolsSwift'
   pod 'KYCircularProgress'
+  pod 'ESPullToRefresh'
+  pod ‘Fusuma’
 
   # Pods for RideWorld
 

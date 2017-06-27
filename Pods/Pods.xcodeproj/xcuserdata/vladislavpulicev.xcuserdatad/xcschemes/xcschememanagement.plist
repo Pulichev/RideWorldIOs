@@ -14,6 +14,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ESPullToRefresh-ESPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ESPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Fusuma.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,12 +82,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1CD80321715FDB12A3A31B7BCB09EA28</key>
+		<key>10F0C3C80828CC88CE8154B17E6E0B8F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>281AC042AC50D995618578D7E6D372C7</key>
+		<key>1CD80321715FDB12A3A31B7BCB09EA28</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,12 +97,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3D26EEF3271C89E6AB0A77978B96E94A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3E0D8640A124012AB6F0A9F775A38285</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>41EE948088EB9B45364DDC1B70BB8D8B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5C1F0BC8AD9DB9D282F6612636923786</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>83D04EDAE5838FE3657C87DD12181688</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -118,11 +143,6 @@
 			<true/>
 		</dict>
 		<key>E89CFD99B895BCC6E8EDC2F95A03500C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F69D8DD77CF0619805FEDEA563924B0B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

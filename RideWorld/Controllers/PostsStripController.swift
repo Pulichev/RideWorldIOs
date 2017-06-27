@@ -22,27 +22,22 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          tableView.rowHeight = UITableViewAutomaticDimension
          tableView.emptyDataSetSource = self
          tableView.emptyDataSetDelegate = self
+         tableView.tableFooterView = UIView() // deleting empty rows
          
-         self.tableView.es_addPullToRefresh {
-            [weak self] in
-            /// Do anything you want...
+         self.tableView.es_addPullToRefresh { [weak self] in
             self?.refresh() {
                self?.tableView.es_stopPullToRefresh(ignoreDate: true)
             }
-            
-            //            self?.tableView.es_stopPullToRefresh(completion: true, ignoreFooter: false)
          }
          
-         self.tableView.es_addInfiniteScrolling {
-            [weak self] in
-            /// Do anything you want...
-            self?.loadMoreBegin() { _ in
-               self?.tableView.es_stopLoadingMore()
+         self.tableView.es_addInfiniteScrolling { [weak self] in
+            self?.loadMore() { newItemsExisting in
+               if newItemsExisting {
+                  self?.tableView.es_stopLoadingMore()
+               } else {
+                  self?.tableView.es_noticeNoMoreData()
+               }
             }
-            /// If common end
-//            self?.tableView.es_stopLoadingMore()
-            /// If no more data
-//            self?.tableView.es_noticeNoMoreData()
          }
       }
    }
@@ -60,7 +55,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    override func viewDidLoad() {
       super.viewDidLoad()
-
+      
       initLoadingView()
       setLoadingScreen()
       
@@ -76,18 +71,19 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       if newItems == nil { // no more posts
          self.removeLoadingScreen()
          self.tableView.reloadData() // for dzempty
-         return
-      }
-      
-      loadPostsCache(newItems) { postsCache in
-         self.posts.append(contentsOf: newItems!)
-         self.postItemCellsCache.append(contentsOf: postsCache)
-         self.removeLoadingScreen()
-         let countOfCachedCells = postsCache.count
-         self.reloadNewCells(
-            startingFrom: self.posts.count - countOfCachedCells,
-            count: countOfCachedCells)
          completion(true)
+      } else {
+         
+         loadPostsCache(newItems) { postsCache in
+            self.posts.append(contentsOf: newItems!)
+            self.postItemCellsCache.append(contentsOf: postsCache)
+            self.removeLoadingScreen()
+            let countOfCachedCells = postsCache.count
+            self.reloadNewCells(
+               startingFrom: self.posts.count - countOfCachedCells,
+               count: countOfCachedCells)
+            completion(true)
+         }
       }
    }
    
@@ -139,15 +135,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    // MARK: - Infinite scrolling and refresh
    private let postsLoadStep = 5
    
-   func loadMoreBegin(loadMoreEnd: @escaping (_ hasFinished: Bool) -> Void) {
-      DispatchQueue.global(qos: .userInitiated).async {
-         self.loadPosts(completion: { newItems in
+   func loadMore(completion: @escaping (_ newItemsExisting: Bool) -> Void) {
+      self.loadPosts() { newItems in
+         if newItems == nil || newItems?.count == 0 {
+            completion(false)
+         } else {
             self.appendLoadedPosts(newItems) { hasFinished in
-               DispatchQueue.main.async {
-                  loadMoreEnd(true)
-               }
+               completion(true)
             }
-         })
+         }
       }
    }
    

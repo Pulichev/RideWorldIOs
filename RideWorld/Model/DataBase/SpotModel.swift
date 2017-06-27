@@ -75,11 +75,15 @@ struct Spot {
             completion(nil)
          }
          
-         guard let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd)
-            else { // if no more posts
+         guard let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd) else { // if no more posts
                completion(nil)
                return
          }
+         
+         if nextPostsIds.count == 0 {
+            completion(nil)
+         }
+         
          var newPosts = [PostItem]()
          var countOfNewPostsLoaded = 0
          

@@ -315,14 +315,18 @@ struct UserModel {
             completion(nil) // if no posts
          }
          
-         guard let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd)
-            else { // if no more posts
-               completion(nil)
-               return
+         guard let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd) else { // if no more posts
+            completion(nil)
+            return
+         }
+         
+         if nextPostsIds.count == 0 {
+            completion(nil)
          }
          
          var newPosts = [PostItem]()
          var countOfNewPostsLoaded = 0
+         
          for postId in nextPostsIds {
             Post.getItemById(for: postId) { post in
                if post != nil { // founded without errors

@@ -51,7 +51,7 @@
 		9FB681D61E2E70CE00D9A436 /* RideWorldUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681D51E2E70CE00D9A436 /* RideWorldUITests.swift */; };
 		9FBCFAE81E73445900A5C95D /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE71E73445900A5C95D /* Image.swift */; };
 		9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FC91E48E5E30097579B /* LoginController.swift */; };
-		9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCA1E48E5E30097579B /* MainFormController.swift */; };
+		9FC14FD01E48E5E30097579B /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCA1E48E5E30097579B /* MapController.swift */; };
 		9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCB1E48E5E30097579B /* NewPostController.swift */; };
 		9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCC1E48E5E30097579B /* NewSpotController.swift */; };
 		9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCD1E48E5E30097579B /* RegistrationController.swift */; };
@@ -170,7 +170,7 @@
 		9FB681D71E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FBCFAE71E73445900A5C95D /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Image.swift; path = Core/Image.swift; sourceTree = "<group>"; };
 		9FC14FC91E48E5E30097579B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controllers/LoginController.swift; sourceTree = "<group>"; };
-		9FC14FCA1E48E5E30097579B /* MainFormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainFormController.swift; path = Controllers/MainFormController.swift; sourceTree = "<group>"; };
+		9FC14FCA1E48E5E30097579B /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapController.swift; path = Controllers/MapController.swift; sourceTree = "<group>"; };
 		9FC14FCB1E48E5E30097579B /* NewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewPostController.swift; path = Controllers/NewPostController.swift; sourceTree = "<group>"; };
 		9FC14FCC1E48E5E30097579B /* NewSpotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewSpotController.swift; path = Controllers/NewSpotController.swift; sourceTree = "<group>"; };
 		9FC14FCD1E48E5E30097579B /* RegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegistrationController.swift; path = Controllers/RegistrationController.swift; sourceTree = "<group>"; };
@@ -389,7 +389,7 @@
 				9F5609861E7C8C990000DB21 /* PostsStripController.swift */,
 				9FFB14F51E7848F600D10620 /* FollowersController.swift */,
 				9FC14FC91E48E5E30097579B /* LoginController.swift */,
-				9FC14FCA1E48E5E30097579B /* MainFormController.swift */,
+				9FC14FCA1E48E5E30097579B /* MapController.swift */,
 				9FC14FCB1E48E5E30097579B /* NewPostController.swift */,
 				9FC14FCC1E48E5E30097579B /* NewSpotController.swift */,
 				9FC14FCD1E48E5E30097579B /* RegistrationController.swift */,
@@ -872,7 +872,7 @@
 				9F5609811E7C6A630000DB21 /* PostItem.swift in Sources */,
 				9F4A84451E62F58700C1E5F2 /* EditProfileCell.swift in Sources */,
 				9F2400751EE9AB2C003601F8 /* FeedbackModel.swift in Sources */,
-				9FC14FD01E48E5E30097579B /* MainFormController.swift in Sources */,
+				9FC14FD01E48E5E30097579B /* MapController.swift in Sources */,
 				9FD4A1E31EDE019400B4C0D2 /* FeedbackItemsDelegate.swift in Sources */,
 				9F4A84411E62F4C100C1E5F2 /* UserProfileController.swift in Sources */,
 				9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */,

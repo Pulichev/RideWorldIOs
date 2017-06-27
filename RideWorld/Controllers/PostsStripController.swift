@@ -11,8 +11,9 @@ import AVFoundation
 import Kingfisher
 import ActiveLabel
 import KYCircularProgress
+import ESPullToRefresh
 
-class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
+class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    @IBOutlet weak var tableView: UITableView! {
       didSet {
          tableView.delegate = self
@@ -21,17 +22,28 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          tableView.rowHeight = UITableViewAutomaticDimension
          tableView.emptyDataSetSource = self
          tableView.emptyDataSetDelegate = self
-      }
-   }
-   
-   var refreshControl: UIRefreshControl! {
-      didSet {
-         refreshControl.attributedTitle = NSAttributedString(string: "Идет обновление...")
-         refreshControl.addTarget(self,
-                                  action: #selector(PostsStripController.refresh),
-                                  for: UIControlEvents.valueChanged)
-         tableView.addSubview(refreshControl)
-         tableView.tableFooterView?.isHidden = true // hide on start
+         
+         self.tableView.es_addPullToRefresh {
+            [weak self] in
+            /// Do anything you want...
+            self?.refresh() {
+               self?.tableView.es_stopPullToRefresh(ignoreDate: true)
+            }
+            
+            //            self?.tableView.es_stopPullToRefresh(completion: true, ignoreFooter: false)
+         }
+         
+         self.tableView.es_addInfiniteScrolling {
+            [weak self] in
+            /// Do anything you want...
+            self?.loadMoreBegin() { _ in
+               self?.tableView.es_stopLoadingMore()
+            }
+            /// If common end
+//            self?.tableView.es_stopLoadingMore()
+            /// If no more data
+//            self?.tableView.es_noticeNoMoreData()
+         }
       }
    }
    
@@ -48,8 +60,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
-      refreshControl = UIRefreshControl()
+
       initLoadingView()
       setLoadingScreen()
       
@@ -128,34 +139,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    // MARK: - Infinite scrolling and refresh
    private let postsLoadStep = 5
    
-   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-      let currentOffset = scrollView.contentOffset.y
-      let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
-      let deltaOffset   = maximumOffset - currentOffset
-      
-      if deltaOffset <= 0 {
-         if currentOffset > 0 { // if we are in the end
-            loadMore()
-         }
-      }
-   }
-   
-   private var loadMoreStatus = false
-   
-   func loadMore() {
-      if !loadMoreStatus {
-         loadMoreStatus = true
-         activityIndicator.startAnimating()
-         tableView.tableFooterView?.isHidden = false
-         
-         loadMoreBegin(loadMoreEnd: { hasFinished in
-            self.loadMoreStatus = false
-            self.activityIndicator.stopAnimating()
-            self.tableView.tableFooterView?.isHidden = true
-         })
-      }
-   }
-   
    func loadMoreBegin(loadMoreEnd: @escaping (_ hasFinished: Bool) -> Void) {
       DispatchQueue.global(qos: .userInitiated).async {
          self.loadPosts(completion: { newItems in
@@ -169,15 +152,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    // function for pull to refresh
-   func refresh(sender: Any) {
+   func refresh(completion: @escaping () -> Void) {
       // clear our structs
       Spot.clearCurrentData()
       UserModel.clearCurrentData()
       
-      loadPosts(completion: { newItems in
+      loadPosts() { newItems in
          if newItems == nil { return }
          
-         if self.posts.count != self.postsLoadStep {
+         if self.posts.count > self.postsLoadStep {
             self.clearAllTableButFirstStepCount()
          }
          
@@ -185,11 +168,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let currentItemsFirstItemsKeys = (Array(self.posts[0..<self.postsLoadStep]).map { $0.key })
          
          if newItemsFirstItemsKeys != currentItemsFirstItemsKeys { // if new posts.
-            self.reloadTableDataWithRefreshedItems(newItems!)
+            self.reloadTableDataWithRefreshedItems(newItems!) {
+               completion()
+            }
          } else {
-            self.refreshControl.endRefreshing() // ending refreshing
+            completion()
          }
-      })
+      }
    }
    
    private func clearAllTableButFirstStepCount() {
@@ -212,7 +197,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
-   private func reloadTableDataWithRefreshedItems(_ newItems: [PostItem]) {
+   private func reloadTableDataWithRefreshedItems(_ newItems: [PostItem],
+                                                  completion: @escaping () -> Void) {
       self.tableView.beginUpdates()
       
       self.posts = newItems
@@ -221,7 +207,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          self.postItemCellsCache = postsCache
          self.tableView.reloadData()
          self.tableView.endUpdates()
-         self.refreshControl.endRefreshing() // ending refreshing
+         completion()
       }
    }
    

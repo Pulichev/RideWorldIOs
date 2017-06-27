@@ -199,7 +199,7 @@
         <!--RideWorld-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="MainFormController" id="BYZ-38-t0r" customClass="MainFormController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainFormController" id="BYZ-38-t0r" customClass="MapController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -658,31 +658,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="522" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1JN-k2-5ma">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="lvN-w7-pw8">
-                                    <rect key="frame" x="0.0" y="1072" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="btZ-2J-ypm">
-                                            <rect key="frame" x="115" y="12" width="20" height="20"/>
-                                        </activityIndicatorView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading new media.." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsQ-Od-e60">
-                                            <rect key="frame" x="155" y="11" width="150" height="21"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="150" id="Ykn-3f-563"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="wsQ-Od-e60" secondAttribute="trailing" constant="70" id="0YB-Ui-YD2"/>
-                                        <constraint firstItem="wsQ-Od-e60" firstAttribute="leading" secondItem="btZ-2J-ypm" secondAttribute="trailing" constant="20" id="UHp-Bp-IhG"/>
-                                        <constraint firstItem="btZ-2J-ypm" firstAttribute="bottom" secondItem="wsQ-Od-e60" secondAttribute="bottom" id="muU-DW-Lhl"/>
-                                        <constraint firstItem="btZ-2J-ypm" firstAttribute="centerY" secondItem="lvN-w7-pw8" secondAttribute="centerY" id="oU5-bN-hIl"/>
-                                    </constraints>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PostsCellWithVideo" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostsCellWithVideo" rowHeight="522" id="kZK-Ti-fyZ" customClass="PostsCellWithVideo" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="522"/>
@@ -928,7 +903,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="btZ-2J-ypm" id="uIt-RW-E1A"/>
                         <outlet property="tableView" destination="1JN-k2-5ma" id="cl3-1G-8gn"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromSpotDetails" id="6R6-CY-IE2"/>
                         <segue destination="ULr-hs-bKD" kind="show" identifier="addNewPost" id="JdC-Rg-e8F"/>
@@ -1639,7 +1613,7 @@
                         <viewControllerLayoutGuide type="bottom" id="nZM-aB-FfF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xFQ-8P-gan">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vZe-mX-9ju">
@@ -1653,7 +1627,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="ImageCollectionViewCell" id="iAE-Ty-LXv" customClass="ImageCollectionViewCell" customModule="RideWorld" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-24.5" width="298" height="295"/>
+                                        <rect key="frame" x="0.0" y="-49" width="298" height="295"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="298" height="295"/>
@@ -2115,13 +2089,13 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TEa-lr-7L1"/>
+        <segue reference="RlL-e4-xY6"/>
+        <segue reference="6R6-CY-IE2"/>
         <segue reference="SYx-8l-lm6"/>
         <segue reference="ZpR-8C-QJR"/>
-        <segue reference="mni-re-zkP"/>
+        <segue reference="TEa-lr-7L1"/>
         <segue reference="nax-92-cwD"/>
+        <segue reference="ZuM-Rf-uph"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="6R6-CY-IE2"/>
-        <segue reference="RlL-e4-xY6"/>
     </inferredMetricsTieBreakers>
 </document>

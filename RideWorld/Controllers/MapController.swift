@@ -7,7 +7,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MainFormController: UIViewController {
+class MapController: UIViewController {
    
    var spotsFromDB = [SpotItem]()
    
@@ -124,7 +124,7 @@ class MainFormController: UIViewController {
 }
 
 // MARK: - MKMapViewDelegate
-extension MainFormController: MKMapViewDelegate {
+extension MapController: MKMapViewDelegate {
    //download pictures and etc on tap on pin
    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
       if !(view.annotation! is MKUserLocation) {
@@ -193,7 +193,7 @@ extension MainFormController: MKMapViewDelegate {
 }
 
 // MARK: - CLLocationManagerDelegate
-extension MainFormController: CLLocationManagerDelegate {
+extension MapController: CLLocationManagerDelegate {
    func setStartRegion() {
       let span: MKCoordinateSpan = MKCoordinateSpanMake(0.1, 0.1)
       var myLocation: CLLocationCoordinate2D
@@ -267,7 +267,7 @@ extension MainFormController: CLLocationManagerDelegate {
 }
 
 // MARK: - Part for hide and view navbar
-extension MainFormController {
+extension MapController {
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       

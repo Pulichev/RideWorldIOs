@@ -41,6 +41,20 @@ class PostsCellWithPhoto: UITableViewCell {
    
    var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post
    
+   func initialize(with cachedCell: PostItemCellCache) {
+      post                 = cachedCell.post
+      userInfo             = cachedCell.userInfo
+      userNickName.setTitle(cachedCell.userNickName, for: .normal)
+
+      postDate.text        = cachedCell.postDate
+      postDescription.text = cachedCell.postDescription
+
+      likesCount.text      = String(cachedCell.likesCount)
+      postIsLiked          = cachedCell.postIsLiked
+      
+      isLikedPhoto.image   = cachedCell.isLikedPhoto.image
+   }
+   
    func addDoubleTapGestureOnPostPhotos() {
       //adding method on spot main photo tap
       let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:))) //target was only self

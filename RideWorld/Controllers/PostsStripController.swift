@@ -42,8 +42,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
-   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-   
    var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
    
    var spotDetailsItem: SpotItem! // using it if come from spot
@@ -73,7 +71,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          self.tableView.reloadData() // for dzempty
          completion(true)
       } else {
-         
          loadPostsCache(newItems) { postsCache in
             self.posts.append(contentsOf: newItems!)
             self.postItemCellsCache.append(contentsOf: postsCache)
@@ -173,6 +170,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
+   // function for refresh
    private func clearAllTableButFirstStepCount() {
       self.tableView.beginUpdates()
       // clear all but firsts #postsLoadStep
@@ -224,22 +222,17 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          }
          
          let cellFromCache = postItemCellsCache[row]
-         cell.post                 = cellFromCache.post
-         cell.userInfo             = cellFromCache.userInfo
-         cell.userNickName.setTitle(cellFromCache.userNickName, for: .normal)
+         cell.initialize(with: cellFromCache)
+         
          cell.userNickName.tag     = row // for segue to send userId to ridersProfile
          cell.userNickName.addTarget(self, action: #selector(nickNameTapped), for: .touchUpInside)
          cell.openComments.tag     = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
-         cell.postDate.text        = cellFromCache.postDate
-         cell.postDescription.text = cellFromCache.postDescription
+         
          cell.postDescription.handleMentionTap { mention in // mention is @userLogin
             self.goToUserProfile(tappedUserLogin: mention)
          }
-         cell.likesCount.text      = String(cellFromCache.likesCount)
-         cell.postIsLiked          = cellFromCache.postIsLiked
          
-         cell.isLikedPhoto.image   = cellFromCache.isLikedPhoto.image
          let width = view.frame.size.width
          let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
          cell.spotPostPhotoHeight.constant = height
@@ -256,22 +249,17 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          }
          
          let cellFromCache = postItemCellsCache[row]
-         cell.post                 = cellFromCache.post
-         cell.userInfo             = cellFromCache.userInfo
-         cell.userNickName.setTitle(cellFromCache.userNickName, for: .normal)
+         cell.initialize(with: cellFromCache)
+         
          cell.userNickName.tag     = row // for segue to send userId to ridersProfile
          cell.userNickName.addTarget(self, action: #selector(nickNameTapped), for: .touchUpInside)
          cell.openComments.tag     = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
-         cell.postDate.text        = cellFromCache.postDate
-         cell.postDescription.text = cellFromCache.postDescription
+         
          cell.postDescription.handleMentionTap { mention in // mention is @userLogin
             self.goToUserProfile(tappedUserLogin: mention)
          }
-         cell.likesCount.text      = String(cellFromCache.likesCount)
-         cell.postIsLiked          = cellFromCache.postIsLiked
          
-         cell.isLikedPhoto.image   = cellFromCache.isLikedPhoto.image
          let width = view.frame.size.width
          let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
          cell.spotPostMediaHeight.constant = height
@@ -297,9 +285,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    private func updateCellLikesCache(objectId: String) {
       for postCellCache in postItemCellsCache {
          if postCellCache.post.key == objectId {
-            DispatchQueue.main.async {
-               postCellCache.changeLikeToDislikeAndViceVersa()
-            }
+            postCellCache.changeLikeToDislikeAndViceVersa()
          }
       }
    }
@@ -348,7 +334,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
          cell.player.play()
       } else {
-         downloadBigThumbnail(postKey: self.posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
+         downloadBigThumbnail(postKey: posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
       }
    }
    
@@ -375,7 +361,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.spotPostMedia.playerLayer = imageViewForView.layer
          
          self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
-      }//Using kf for caching images.
+      }
    }
    
    private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
@@ -386,8 +372,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       let playerLayer = AVPlayerLayer(player: cell.player)
       playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
       playerLayer.frame = cell.spotPostMedia.bounds
-      print("\(playerLayer.frame.width)")
-      print("\(playerLayer.frame.height)")
       
       cell.spotPostMedia.layer.addSublayer(playerLayer)
       cell.spotPostMedia.playerLayer = playerLayer

@@ -19,7 +19,7 @@ class PostsCellWithVideo: UITableViewCell {
    var userInfo: UserItem! // user, who posted
    
    @IBOutlet weak var spotPostMediaHeight: NSLayoutConstraint!
-   @IBOutlet var spotPostMedia: VideoContainerView!
+   @IBOutlet var spotPostMedia: MediaContainerView!
    var player: AVPlayer!
    
    @IBOutlet weak var postDate: UILabel!

@@ -96,12 +96,12 @@ struct PostMedia {
       }
    }
    
-   static func upload(with video: URL, for post: PostItem,
+   static func uploadVideo(with url: URL, for post: PostItem,
                       completion: @escaping (_ hasFinished: Bool, _ url: String) -> Void) {
       do {
          let postVideoRef = refToPostMedia.child(post.spotId).child(post.key + ".m4v")
          
-         let data = try Data(contentsOf: video, options: .mappedIfSafe)
+         let data = try Data(contentsOf: url, options: .mappedIfSafe)
          
          postVideoRef.putData(data, metadata: nil) { (meta, error) in
             if error == nil {
@@ -150,7 +150,7 @@ struct PostMedia {
                               post.mediaRef10 = url
                               
                               // upload video
-                              upload(with: videoURL, for: post)
+                              uploadVideo(with: videoURL, for: post)
                               { (hasFinishedSuccessfully, url) in
                                  
                                  if hasFinishedSuccessfully {
@@ -161,6 +161,7 @@ struct PostMedia {
                                     if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(path) {
                                        UISaveVideoAtPathToSavedPhotosAlbum(path, nil, nil, nil)
                                     }
+                                    
                                     completion(true, post)
                                  } else {
                                     completion(false, nil)

@@ -21,17 +21,17 @@ class NewPostController: UIViewController, UITextViewDelegate {
          postDescription.layer.cornerRadius = 5
       }
    }
-   @IBOutlet weak var photoOrVideoView: UIView!
+   @IBOutlet weak var photoOrVideoView: MediaContainerView!
    
    // MARK: - Media vars part
    var newVideoUrl: URL!
    var player: AVQueuePlayer!
    var playerLooper: NSObject? //for looping video. It should be class variable
-   var videoAspectRatio: Double!
    
    var photoView = UIImageView()
    
-   var aspectRatio: Double!
+   @IBOutlet weak var mediaContainerHeight: NSLayoutConstraint!
+   var mediaAspectRatio: Double!
    
    var isNewMediaIsPhoto = true //if true - photo, false - video. Default - true
    
@@ -51,8 +51,11 @@ class NewPostController: UIViewController, UITextViewDelegate {
       //adding method on spot main photo tap
       addGestureToOpenCameraOnPhotoTap()
       photoView.image = UIImage(named: "plus-512.gif") //Setting default picture
+      photoView.layer.contentsGravity = kCAGravityResize
+      photoView.contentMode = .scaleAspectFill
       photoView.layer.frame = photoOrVideoView.bounds
       photoOrVideoView.layer.addSublayer(photoView.layer)
+      photoOrVideoView.playerLayer = photoView.layer
    }
    
    func addGestureToOpenCameraOnPhotoTap() {
@@ -116,7 +119,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
       PostMedia.uploadVideoForPost(
          with: newVideoUrl, for: postItem,
          screenShot: screenshot,
-         aspectRatio: videoAspectRatio) { (hasFinishedUploading, post) in
+         aspectRatio: mediaAspectRatio) { (hasFinishedUploading, post) in
             if hasFinishedUploading {
                Post.add(post!) { hasFinishedSuccessfully in
                   if hasFinishedSuccessfully {
@@ -220,22 +223,45 @@ extension NewPostController: FusumaDelegate {
       }
       
       isNewMediaIsPhoto = true
+      mediaAspectRatio = image.aspectRatio
       
-      photoView.image = image
-      photoView.contentMode = .scaleAspectFill
-      
-      photoOrVideoView.layer.addSublayer(photoView.layer)
+      setPhoto(image)
    }
    
    func fusumaImageSelected(_ image: UIImage) {
       //look example on https://github.com/ytakzk/Fusuma
+      mediaAspectRatio = image.aspectRatio
+      
+      setPhoto(image)
+   }
+   
+   func setPhoto(_ image: UIImage) {
+      changeMediaContainerHeight()
+      
+      let photoView = UIImageView()
+      photoView.image = image
+      photoView.layer.contentsGravity = kCAGravityResize
+      photoView.contentMode = .scaleAspectFill
+      photoView.frame = photoOrVideoView.bounds
+      
+      photoOrVideoView.layer.addSublayer(photoView.layer)
+      photoOrVideoView.playerLayer = photoView.layer
+   }
+   
+   func changeMediaContainerHeight() {
+      let width = view.frame.size.width
+      let height = CGFloat(Double(width) * mediaAspectRatio)
+      mediaContainerHeight.constant = height
+      
+      photoOrVideoView.layoutIfNeeded()
    }
    
    func fusumaVideoCompleted(withFileURL fileURL: URL) {
       initAspectRatioOfVideo(with: fileURL)
       
+      changeMediaContainerHeight()
+      
       isNewMediaIsPhoto = false
-      photoView.image = nil
       
       player = AVQueuePlayer()
       
@@ -244,8 +270,8 @@ extension NewPostController: FusumaDelegate {
       playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
       playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
       playerLayer.frame = photoOrVideoView.bounds
-      
       photoOrVideoView.layer.addSublayer(playerLayer)
+      photoOrVideoView.playerLayer = playerLayer
       
       player.play()
       
@@ -289,7 +315,7 @@ extension NewPostController: FusumaDelegate {
       let width = resolution?.width
       let height = resolution?.height
       
-      self.videoAspectRatio = Double(height! / width!)
+      mediaAspectRatio = Double(height! / width!)
    }
    
    func resolutionForLocalVideo(url: URL) -> CGSize? {
@@ -323,6 +349,8 @@ extension NewPostController: FusumaDelegate {
       default:
          print("Called just after dismissed FusumaViewController")
       }
+      
+      mediaAspectRatio = image.aspectRatio
    }
    
    func fusumaCameraRollUnauthorized() {

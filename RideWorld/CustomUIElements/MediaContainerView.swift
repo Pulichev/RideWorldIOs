@@ -6,7 +6,7 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-class VideoContainerView: UIView {
+class MediaContainerView: UIView {
    var playerLayer: CALayer?
    
    override func layoutSublayers(of layer: CALayer) {

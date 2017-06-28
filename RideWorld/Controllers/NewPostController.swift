@@ -23,12 +23,15 @@ class NewPostController: UIViewController, UITextViewDelegate {
    }
    @IBOutlet weak var photoOrVideoView: UIView!
    
+   // MARK: - Media vars part
    var newVideoUrl: URL!
    var player: AVQueuePlayer!
    var playerLooper: NSObject? //for looping video. It should be class variable
    var videoAspectRatio: Double!
    
    var photoView = UIImageView()
+   
+   var aspectRatio: Double!
    
    var isNewMediaIsPhoto = true //if true - photo, false - video. Default - true
    
@@ -66,7 +69,6 @@ class NewPostController: UIViewController, UITextViewDelegate {
       return numberOfChars < 100
    }
    
-   // NEED CODE REVIEW
    @IBAction func savePost(_ sender: Any) {
       showSavingProgress()
       

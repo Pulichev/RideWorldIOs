@@ -14,6 +14,7 @@ import KYCircularProgress
 import ESPullToRefresh
 
 class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+   
    @IBOutlet weak var tableView: UITableView! {
       didSet {
          tableView.delegate = self
@@ -84,6 +85,20 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
+   private func loadPosts(completion: @escaping (_ newItems: [PostItem]?) -> Void) {
+      if cameFromSpotOrMyStrip {
+         Spot.getPosts(for: spotDetailsItem.key, countOfNewItemsToAdd: postsLoadStep)
+         { newItems in
+            completion(newItems)
+         }
+      } else {
+         UserModel.getStripPosts(countOfNewItemsToAdd: postsLoadStep)
+         { newItems in
+            completion(newItems)
+         }
+      }
+   }
+   
    func loadPostsCache(_ newItems: [PostItem]?,
                        completion: @escaping (_ cachedItems: [PostItemCellCache]) -> Void) {
       var newItemsCache = [PostItemCellCache]()
@@ -113,20 +128,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       tableView.beginUpdates()
       tableView.insertRows(at: indexPaths, with: .none)
       tableView.endUpdates()
-   }
-   
-   private func loadPosts(completion: @escaping (_ newItems: [PostItem]?) -> Void) {
-      if cameFromSpotOrMyStrip {
-         Spot.getPosts(for: spotDetailsItem.key, countOfNewItemsToAdd: postsLoadStep)
-         { newItems in
-            completion(newItems)
-         }
-      } else {
-         UserModel.getStripPosts(countOfNewItemsToAdd: postsLoadStep)
-         { newItems in
-            completion(newItems)
-         }
-      }
    }
    
    // MARK: - Infinite scrolling and refresh
@@ -210,6 +211,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       return posts.count
    }
    
+   // not best code, but idk atm how to review it. 
+   //                   ﾉ (￣▽￣)ノ
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let row = indexPath.row
       
@@ -298,7 +301,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       // blur for 10px thumbnail
       let blurProc01 = BlurImageProcessor(blurRadius: 0.1)
       
-      let circularProgress = CircularProgress(on: cell.spotPostPhoto.frame)
+      let circularProgress = CircularProgress(on: cell.spotPostPhoto.bounds)
       cell.spotPostPhoto.addSubview(circularProgress.view)
       
       // download 10px thumbnail
@@ -550,9 +553,9 @@ extension PostsStripController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    
    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
       if haveWeFinishedLoading {
-         return Image.resize(UIImage(named: "no_photo.png")!, targetSize: CGSize(width: 300.0, height: 300.0))
+         return Image.resize(sourceImage: UIImage(named: "no_photo.png")!, toWidth: 300).image
       } else {
-         return Image.resize(UIImage(named: "PleaseWaitTxt.gif")!, targetSize: CGSize(width: 300.0, height: 300.0))
+         return Image.resize(sourceImage: UIImage(named: "PleaseWaitTxt.gif")!, toWidth: 300).image
       }
    }
 }

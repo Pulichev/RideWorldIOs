@@ -18,7 +18,9 @@ class PostInfoViewController: UIViewController {
    var isCurrentUserProfile: Bool!
    var delegateDeleting: ForUpdatingUserProfilePosts?
    
-   @IBOutlet var spotPostMedia: UIView!
+   @IBOutlet var spotPostMedia: MediaContainerView!
+   @IBOutlet weak var mediaContainerHeight: NSLayoutConstraint!
+   
    var isPhoto: Bool!
    var player: AVPlayer!
    
@@ -62,6 +64,11 @@ class PostInfoViewController: UIViewController {
          self.addDoubleTapGestureOnPostMedia()
          self.setOpenCommentsButtonTittle()
       }
+      
+      let width = view.frame.size.width
+      let height = CGFloat(Double(width) * postInfo.mediaAspectRatio)
+      mediaContainerHeight.constant = height
+      spotPostMedia.layoutIfNeeded()
       
       addMediaToView()
    }
@@ -162,26 +169,38 @@ class PostInfoViewController: UIViewController {
    private var _mainPartOfMediaref: String!
    
    func setImage() {
-      // download thumbnail first
-      let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-      let processor = BlurImageProcessor(blurRadius: 0.1)
+      let imageView = UIImageView()
+      imageView.layer.contentsGravity = kCAGravityResize
+      imageView.contentMode = .scaleAspectFill
+      imageView.frame = spotPostMedia.bounds
       
-      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef10), placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
-      DispatchQueue.main.async {
-         self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-      }
+      spotPostMedia.layer.addSublayer(imageView.layer)
+      spotPostMedia.playerLayer = imageView.layer
       
-      self.downloadOriginalImage()
-   }
-   
-   private func downloadOriginalImage() {
-      let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-      imageViewForView.kf.indicatorType = .activity
+      // blur for 10px thumbnail
+      let blurProc01 = BlurImageProcessor(blurRadius: 0.1)
       
-      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef700)) //Using kf for caching images.
-      DispatchQueue.main.async {
-         self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-      }
+      let circularProgress = CircularProgress(on: spotPostMedia.bounds)
+      spotPostMedia.addSubview(circularProgress.view)
+      
+      // download 10px thumbnail
+      imageView.kf.setImage(
+         with: URL(string: postInfo.mediaRef10),
+         placeholder: UIImage(named: "grayRec.png"),
+         options: [.processor(blurProc01)],
+         completionHandler: { (image, error, cacheType, imageUrl) in
+            // download original
+            imageView.kf.setImage(
+               with: URL(string: self.postInfo.mediaRef700),
+               placeholder: image, // 10px
+               progressBlock: { receivedSize, totalSize in
+                  let percentage = (Double(receivedSize) / Double(totalSize))
+                  circularProgress.view.progress = percentage
+            }, completionHandler: { _ in
+               circularProgress.view.isHidden = true
+            })
+      })
+      
    }
    
    func setVideo() {

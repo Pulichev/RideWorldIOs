@@ -204,45 +204,48 @@ class PostInfoViewController: UIViewController {
    }
    
    func setVideo() {
-      downloadThumbnail()
+      addPlaceHolder()
+      downloadBigThumbnail()
    }
    
-   private func downloadThumbnail() {
-      let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-      let processor = BlurImageProcessor(blurRadius: 0.1)
-      
-      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef10),
-                                   placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
-      imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-      
-      self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-      
-      self.downloadBigThumbnail()
+   func addPlaceHolder() {
+      let placeholder = UIImageView()
+      let placeholderImage = UIImage(named: "grayRec.png")
+      placeholder.image = placeholderImage
+      placeholder.layer.contentsGravity = kCAGravityResize
+      placeholder.contentMode = .scaleAspectFill
+      placeholder.frame = spotPostMedia.bounds
+      spotPostMedia.layer.addSublayer(placeholder.layer)
+      spotPostMedia.playerLayer = placeholder.layer
    }
    
    private func downloadBigThumbnail() {
-      let imageViewForView = UIImageView(frame: self.spotPostMedia.frame)
-      let processor = BlurImageProcessor(blurRadius: 0.1)
-      
-      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef200),
-                                   placeholder: nil, options: [.processor(processor)]) //Using kf for caching images.
-      imageViewForView.layer.contentsGravity = kCAGravityResizeAspectFill
-      
-      self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-      
-      self.downloadVideo()
+      // thumbnail!
+      let imageViewForView = UIImageView()
+      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef700)) { _ in
+         imageViewForView.layer.contentsGravity = kCAGravityResize
+         imageViewForView.contentMode = .scaleAspectFill
+         imageViewForView.frame = self.spotPostMedia.bounds
+         
+         self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+         self.spotPostMedia.playerLayer = imageViewForView.layer
+         
+         self.downloadVideo()
+      }
    }
    
    private func downloadVideo() {
       let assetForCache = AVAsset(url: URL(string: postInfo.videoRef)!)
-      self.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-      let playerLayer = AVPlayerLayer(player: self.player)
+
+      player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+      let playerLayer = AVPlayerLayer(player: player)
       playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-      playerLayer.frame = self.spotPostMedia.bounds
+      playerLayer.frame = spotPostMedia.bounds
       
-      self.spotPostMedia.layer.addSublayer(playerLayer)
+      spotPostMedia.layer.addSublayer(playerLayer)
+      spotPostMedia.playerLayer = playerLayer
       
-      self.player.play()
+      player.play()
    }
    
    // MARK: - Delete post part

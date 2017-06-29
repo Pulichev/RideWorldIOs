@@ -237,8 +237,7 @@ extension NewPostController: FusumaDelegate {
    
    func setPhoto(_ image: UIImage) {
       changeMediaContainerHeight()
-      
-      let photoView = UIImageView()
+
       photoView.image = image
       photoView.layer.contentsGravity = kCAGravityResize
       photoView.contentMode = .scaleAspectFill

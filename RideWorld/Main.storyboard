@@ -1065,24 +1065,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0F-NJ-MDv">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0F-NJ-MDv">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3dE-Qr-GPz" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="s2M-t3-luU" customClass="MediaContainerView" customModule="RideWorld" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="299"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="299" id="n7d-zK-MgC"/>
+                                                    <constraint firstAttribute="height" constant="299" id="Vfe-sK-IgL"/>
                                                 </constraints>
                                             </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Des" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b6x-qq-LDc">
-                                                <rect key="frame" x="8" y="307" width="359" height="100"/>
+                                                <rect key="frame" x="8" y="309" width="359" height="100"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="100" id="FHq-Ff-Xcd"/>
+                                                    <constraint firstAttribute="height" constant="100" id="t6l-bD-1Xi"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1090,33 +1090,32 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="s2M-t3-luU" firstAttribute="top" secondItem="3dE-Qr-GPz" secondAttribute="top" id="06D-Lm-gD8"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="b6x-qq-LDc" secondAttribute="bottom" constant="20" id="9fH-J4-7BP"/>
-                                            <constraint firstItem="s2M-t3-luU" firstAttribute="leading" secondItem="3dE-Qr-GPz" secondAttribute="leading" id="FN9-zB-fWj"/>
-                                            <constraint firstAttribute="trailing" secondItem="s2M-t3-luU" secondAttribute="trailing" id="K6z-fI-dVS"/>
-                                            <constraint firstItem="b6x-qq-LDc" firstAttribute="top" secondItem="s2M-t3-luU" secondAttribute="bottom" constant="8" id="KXh-8g-mEw"/>
-                                            <constraint firstAttribute="trailing" secondItem="b6x-qq-LDc" secondAttribute="trailing" constant="8" id="X9V-VX-Eqq"/>
-                                            <constraint firstItem="b6x-qq-LDc" firstAttribute="leading" secondItem="3dE-Qr-GPz" secondAttribute="leading" constant="8" id="zJM-lu-Ca2"/>
+                                            <constraint firstItem="s2M-t3-luU" firstAttribute="top" secondItem="3dE-Qr-GPz" secondAttribute="top" id="BW9-qT-hAB"/>
+                                            <constraint firstItem="b6x-qq-LDc" firstAttribute="leading" secondItem="3dE-Qr-GPz" secondAttribute="leading" constant="8" id="ZxH-tb-veC"/>
+                                            <constraint firstItem="s2M-t3-luU" firstAttribute="leading" secondItem="3dE-Qr-GPz" secondAttribute="leading" id="gVp-uQ-A8h"/>
+                                            <constraint firstItem="b6x-qq-LDc" firstAttribute="top" secondItem="s2M-t3-luU" secondAttribute="bottom" constant="10" id="gx5-RW-TW9"/>
+                                            <constraint firstAttribute="trailing" secondItem="s2M-t3-luU" secondAttribute="trailing" id="pdS-47-xIt"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="b6x-qq-LDc" secondAttribute="bottom" constant="20" id="tMh-63-ZYI"/>
+                                            <constraint firstAttribute="trailing" secondItem="b6x-qq-LDc" secondAttribute="trailing" constant="8" id="vmQ-kS-Mq8"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="3dE-Qr-GPz" secondAttribute="trailing" id="LTf-b9-z6h"/>
-                                    <constraint firstItem="3dE-Qr-GPz" firstAttribute="centerX" secondItem="Q0F-NJ-MDv" secondAttribute="centerX" id="MDd-i6-e69"/>
-                                    <constraint firstItem="3dE-Qr-GPz" firstAttribute="top" secondItem="Q0F-NJ-MDv" secondAttribute="top" id="PF1-Rs-HzD"/>
-                                    <constraint firstAttribute="bottom" secondItem="3dE-Qr-GPz" secondAttribute="bottom" id="RhS-wp-fWz"/>
-                                    <constraint firstItem="3dE-Qr-GPz" firstAttribute="leading" secondItem="Q0F-NJ-MDv" secondAttribute="leading" id="e9L-mb-RXY"/>
+                                    <constraint firstItem="3dE-Qr-GPz" firstAttribute="centerY" secondItem="Q0F-NJ-MDv" secondAttribute="centerY" id="4GM-iX-pvH"/>
+                                    <constraint firstAttribute="bottom" secondItem="3dE-Qr-GPz" secondAttribute="bottom" id="K8H-Iu-1Fh"/>
+                                    <constraint firstAttribute="trailing" secondItem="3dE-Qr-GPz" secondAttribute="trailing" id="RuJ-eV-QQD"/>
+                                    <constraint firstItem="3dE-Qr-GPz" firstAttribute="leading" secondItem="Q0F-NJ-MDv" secondAttribute="leading" id="WsW-cC-mWw"/>
+                                    <constraint firstItem="3dE-Qr-GPz" firstAttribute="top" secondItem="Q0F-NJ-MDv" secondAttribute="top" id="ZT9-98-I3O"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Q0F-NJ-MDv" secondAttribute="trailing" id="1NL-8l-fD5"/>
-                            <constraint firstItem="mmF-Im-Wgc" firstAttribute="top" secondItem="Q0F-NJ-MDv" secondAttribute="bottom" id="9IL-WU-PKC"/>
-                            <constraint firstItem="Q0F-NJ-MDv" firstAttribute="top" secondItem="NRn-J8-hMY" secondAttribute="bottom" id="PHR-IT-O05"/>
-                            <constraint firstItem="3dE-Qr-GPz" firstAttribute="width" secondItem="WyZ-EX-gB1" secondAttribute="width" id="qAb-0v-CWG"/>
-                            <constraint firstItem="3dE-Qr-GPz" firstAttribute="height" secondItem="WyZ-EX-gB1" secondAttribute="height" id="qaa-uE-ED2"/>
-                            <constraint firstItem="Q0F-NJ-MDv" firstAttribute="leading" secondItem="WyZ-EX-gB1" secondAttribute="leading" id="zOQ-yK-uQ9"/>
+                            <constraint firstItem="Q0F-NJ-MDv" firstAttribute="leading" secondItem="WyZ-EX-gB1" secondAttribute="leading" id="Iwy-w1-dAk"/>
+                            <constraint firstItem="Q0F-NJ-MDv" firstAttribute="top" secondItem="NRn-J8-hMY" secondAttribute="bottom" id="Ppo-jd-KNA"/>
+                            <constraint firstItem="mmF-Im-Wgc" firstAttribute="top" secondItem="Q0F-NJ-MDv" secondAttribute="bottom" id="R4i-pu-wDj"/>
+                            <constraint firstAttribute="trailing" secondItem="Q0F-NJ-MDv" secondAttribute="trailing" id="b3j-Qe-MnA"/>
+                            <constraint firstItem="3dE-Qr-GPz" firstAttribute="width" secondItem="WyZ-EX-gB1" secondAttribute="width" id="y4F-Ci-cwm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DLc-4R-jfw">
@@ -1131,7 +1130,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
-                        <outlet property="mediaContainerHeight" destination="n7d-zK-MgC" id="jIo-fi-esC"/>
+                        <outlet property="mediaContainerHeight" destination="Vfe-sK-IgL" id="Dsb-ME-pid"/>
                         <outlet property="photoOrVideoView" destination="s2M-t3-luU" id="A0e-CU-vHa"/>
                         <outlet property="postDescription" destination="b6x-qq-LDc" id="Off-0L-KpR"/>
                     </connections>

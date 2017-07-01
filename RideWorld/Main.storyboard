@@ -1092,47 +1092,47 @@
                         <viewControllerLayoutGuide type="bottom" id="mmF-Im-Wgc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WyZ-EX-gB1">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gHE-EP-IER">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Cb-WX-2eo" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="scaleAspectFit" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="299" translatesAutoresizingMaskIntoConstraints="NO" id="s2M-t3-luU" customClass="MediaContainerView" customModule="RideWorld" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="299"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Des" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b6x-qq-LDc">
+                                                <rect key="frame" x="5" y="307" width="365" height="80"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="299" id="Vfe-sK-IgL"/>
-                                                </constraints>
-                                            </view>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="365" placeholderIntrinsicHeight="100" text="Des" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b6x-qq-LDc">
-                                                <rect key="frame" x="5" y="307" width="365" height="100"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="t6l-bD-1Xi"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="t6l-bD-1Xi"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2M-t3-luU" customClass="MediaContainerView" customModule="RideWorld" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="299"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="299" id="Vfe-sK-IgL"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="b6x-qq-LDc" firstAttribute="leading" secondItem="3Cb-WX-2eo" secondAttribute="leading" constant="5" id="PKQ-c9-vo5"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="b6x-qq-LDc" secondAttribute="bottom" constant="5" id="QoS-we-bdT"/>
                                             <constraint firstItem="b6x-qq-LDc" firstAttribute="top" secondItem="s2M-t3-luU" secondAttribute="bottom" constant="8" id="SFi-al-VC0"/>
                                             <constraint firstAttribute="trailing" secondItem="s2M-t3-luU" secondAttribute="trailing" id="UxN-uG-CZy"/>
-                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="b6x-qq-LDc" secondAttribute="bottom" constant="20" id="X4G-bn-3PQ"/>
                                             <constraint firstAttribute="trailing" secondItem="b6x-qq-LDc" secondAttribute="trailing" constant="5" id="g88-4o-Rhp"/>
-                                            <constraint firstAttribute="height" constant="667" id="m4w-LK-acH"/>
+                                            <constraint firstItem="s2M-t3-luU" firstAttribute="top" secondItem="3Cb-WX-2eo" secondAttribute="top" id="jTz-e3-Yc4"/>
                                             <constraint firstItem="s2M-t3-luU" firstAttribute="leading" secondItem="3Cb-WX-2eo" secondAttribute="leading" id="mgj-h5-etO"/>
-                                            <constraint firstItem="s2M-t3-luU" firstAttribute="top" secondItem="3Cb-WX-2eo" secondAttribute="top" id="xji-aR-wMi"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="3Cb-WX-2eo" firstAttribute="top" secondItem="gHE-EP-IER" secondAttribute="top" id="14p-wK-HBM"/>
+                                    <constraint firstItem="3Cb-WX-2eo" firstAttribute="width" secondItem="gHE-EP-IER" secondAttribute="width" id="Fe3-tg-UZc"/>
                                     <constraint firstAttribute="bottom" secondItem="3Cb-WX-2eo" secondAttribute="bottom" id="Qgu-Ms-QTU"/>
                                     <constraint firstAttribute="trailing" secondItem="3Cb-WX-2eo" secondAttribute="trailing" id="hHH-0Y-1kR"/>
                                     <constraint firstItem="3Cb-WX-2eo" firstAttribute="leading" secondItem="gHE-EP-IER" secondAttribute="leading" id="sRa-7F-hIH"/>
@@ -1142,10 +1142,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gHE-EP-IER" firstAttribute="leading" secondItem="WyZ-EX-gB1" secondAttribute="leading" id="RFk-tK-3wl"/>
-                            <constraint firstItem="mmF-Im-Wgc" firstAttribute="top" secondItem="gHE-EP-IER" secondAttribute="bottom" id="S3Z-Xg-XYK"/>
-                            <constraint firstItem="3Cb-WX-2eo" firstAttribute="width" secondItem="WyZ-EX-gB1" secondAttribute="width" id="c7G-th-5ip"/>
-                            <constraint firstItem="gHE-EP-IER" firstAttribute="top" secondItem="NRn-J8-hMY" secondAttribute="bottom" id="iGL-lg-e9l"/>
+                            <constraint firstItem="gHE-EP-IER" firstAttribute="top" secondItem="NRn-J8-hMY" secondAttribute="bottom" constant="-20" id="iGL-lg-e9l"/>
                             <constraint firstAttribute="trailing" secondItem="gHE-EP-IER" secondAttribute="trailing" id="xXv-gM-xfe"/>
+                            <constraint firstAttribute="bottom" secondItem="gHE-EP-IER" secondAttribute="bottom" id="y4I-8d-CeI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DLc-4R-jfw">
@@ -1156,8 +1155,8 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="667"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mediaContainerHeight" destination="Vfe-sK-IgL" id="Dsb-ME-pid"/>
                         <outlet property="photoOrVideoView" destination="s2M-t3-luU" id="A0e-CU-vHa"/>

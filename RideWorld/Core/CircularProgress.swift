@@ -13,17 +13,14 @@ class CircularProgress {
    var view: KYCircularProgress
    
    init(on frame: CGRect) {
-      view = KYCircularProgress(frame: CGRect(x: 0,
-                                              y: 0,
-                                              width: frame.width,
-                                              height: frame.width),
+      view = KYCircularProgress(frame: frame,
                                 showGuide: true)
       
       let center = CGPoint(x: frame.width / 2,
                            y: frame.height / 2)
       
       view.path = UIBezierPath(arcCenter: center,
-                               radius: CGFloat((view.frame).width / 5),
+                               radius: CGFloat(frame.width / 5),
                                startAngle: CGFloat(0.0),
                                endAngle: CGFloat(2 * Double.pi),
                                clockwise: true)

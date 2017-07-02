@@ -55,6 +55,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    override func viewDidLoad() {
       super.viewDidLoad()
       
+      // temp
+      let cache = ImageCache.default
+
+      cache.clearMemoryCache()
+      cache.clearDiskCache()
+      //
+      
       initLoadingView()
       setLoadingScreen()
       
@@ -229,13 +236,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
          cell.delegateUserTaps = self
          
-         cell.openComments.tag     = row // for segue to send postId to comments
+         cell.openComments.tag = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
-         
          let width = view.frame.size.width
-         let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
+         let height = width * CGFloat(cell.post.mediaAspectRatio)
          cell.spotPostPhotoHeight.constant = height
-         setPhoto(on: cell) // cell.spotPostPhoto setting async
+         cell.spotPostPhoto.frame.size.height = height
+         setPhoto(on: cell)
          cell.addDoubleTapGestureOnPostPhotos()
          
          return cell
@@ -252,13 +259,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
          cell.delegateUserTaps = self
          
-         cell.openComments.tag     = row // for segue to send postId to comments
+         cell.openComments.tag = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
          
          let width = view.frame.size.width
-         let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
+         let height = width * CGFloat(cell.post.mediaAspectRatio)
          cell.spotPostMediaHeight.constant = height
-         cell.spotPostMedia.layoutIfNeeded()
+//         cell.spotPostMedia.layoutIfNeeded()
          setVideo(on: cell, cacheKey: row)
          cell.addDoubleTapGestureOnPostPhotos()
          
@@ -292,7 +299,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       // blur for 10px thumbnail
       let blurProc01 = BlurImageProcessor(blurRadius: 0.1)
-      
       let circularProgress = CircularProgress(on: cell.spotPostPhoto.bounds)
       cell.spotPostPhoto.addSubview(circularProgress.view)
       

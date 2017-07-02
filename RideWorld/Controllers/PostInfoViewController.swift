@@ -12,6 +12,7 @@ import Kingfisher
 import ActiveLabel
 
 class PostInfoViewController: UIViewController {
+   
    var postInfo: PostItem!
    var user: UserItem!
    
@@ -25,7 +26,6 @@ class PostInfoViewController: UIViewController {
    var player: AVPlayer!
    
    @IBOutlet var postDate: UILabel!
-   @IBOutlet var userNickName: UILabel!
    @IBOutlet var postDescription: ActiveLabel! {
       didSet {
          postDescription.numberOfLines = 0
@@ -33,8 +33,8 @@ class PostInfoViewController: UIViewController {
          postDescription.textColor = .black
          postDescription.mentionColor = .brown
          postDescription.hashtagColor = .purple
-         postDescription.handleMentionTap { mention in // mention is @userLogin
-            self.goToUserProfile(tappedUserLogin: mention)
+         postDescription.handleMentionTap { login in // mention is @userLogin
+            self.goToUserProfile(with: login)
          }
          postDescription.handleHashtagTap { hashtag in }
       }
@@ -56,8 +56,8 @@ class PostInfoViewController: UIViewController {
             self.navigationItem.rightBarButtonItem = nil // hide delete button
          }
          
-         self.postDescription.text = self.postInfo.description
-         self.userNickName.text = self.user.login
+         self.postDescription.text = self.user.login + " " + self.postInfo.description
+         self.customizeDescUserLogin()
          self.countPostLikes()
          self.userLikedThisPost()
          self.initializeDate()
@@ -307,7 +307,7 @@ class PostInfoViewController: UIViewController {
    
    var ridersInfoForSending: UserItem!
    
-   private func goToUserProfile(tappedUserLogin: String) {
+   private func goToUserProfile(with tappedUserLogin: String) {
       UserModel.getItemByLogin(
       for: tappedUserLogin) { fetchedUserItem in
          if let userItem = fetchedUserItem { // have we founded?
@@ -335,6 +335,34 @@ class PostInfoViewController: UIViewController {
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       
       present(alert, animated: true, completion: nil)
+   }
+   
+   private func customizeDescUserLogin() {
+      postDescription.customize { description in
+         //Looks for userItem.login
+         let loginTappedType = ActiveType.custom(pattern: "^\(user.login)\\b")
+         description.enabledTypes.append(loginTappedType)
+         description.handleCustomTap(for: loginTappedType) { login in
+            self.goToUserProfile(with: login)
+         }
+         
+         description.customColor[loginTappedType] = UIColor.black
+         
+         postDescription.configureLinkAttribute = { (type, attributes, isSelected) in
+            var atts = attributes
+            switch type {
+            case .custom(pattern: "^\(self.user.login)\\b"):
+               atts[NSFontAttributeName] = UIFont(name: "CourierNewPS-BoldMT", size: 15)
+            default: ()
+            }
+            
+            return atts
+         }
+         
+         description.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(with: mention)
+         }
+      }
    }
    
    // MARK: - prepare for segue

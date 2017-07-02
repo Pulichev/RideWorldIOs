@@ -11,6 +11,9 @@ import AVFoundation
 import ActiveLabel
 
 class PostsCellWithVideo: UITableViewCell {
+   
+   weak var delegateUserTaps: TappedUserDelegate? // for sending user info
+   
    var post: PostItem! {
       didSet {
          openComments.setTitle("Open commentaries (\(post.commentsCount!))", for: .normal)
@@ -23,7 +26,6 @@ class PostsCellWithVideo: UITableViewCell {
    var player: AVPlayer!
    
    @IBOutlet weak var postDate: UILabel!
-   @IBOutlet weak var userNickName: UIButton!
    @IBOutlet weak var postDescription: ActiveLabel! {
       didSet {
          postDescription.numberOfLines = 0
@@ -45,10 +47,10 @@ class PostsCellWithVideo: UITableViewCell {
    func initialize(with cachedCell: PostItemCellCache) {
       post                 = cachedCell.post
       userInfo             = cachedCell.userInfo
-      userNickName.setTitle(cachedCell.userNickName, for: .normal)
       
       postDate.text        = cachedCell.postDate
-      postDescription.text = cachedCell.postDescription
+      postDescription.text = userInfo.login + " " + cachedCell.postDescription
+      customizeDescUserLogin()
       
       likesCount.text      = String(cachedCell.likesCount)
       postIsLiked          = cachedCell.postIsLiked
@@ -99,5 +101,45 @@ class PostsCellWithVideo: UITableViewCell {
       let currentUserId = UserModel.getCurrentUserId()
       
       Like.remove(with: currentUserId, post)
+   }
+   
+   func userInfoTapped() {
+      delegateUserTaps?.userInfoTapped(userInfo)
+   }
+   
+   // from @username
+   private func goToUserProfile(tappedUserLogin: String) {
+      UserModel.getItemByLogin(
+      for: tappedUserLogin) { fetchedUserItem in
+         self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
+      }
+   }
+   
+   private func customizeDescUserLogin() {
+      postDescription.customize { description in
+         //Looks for userItem.login
+         let loginTappedType = ActiveType.custom(pattern: "^\(userInfo.login)\\b")
+         description.enabledTypes.append(loginTappedType)
+         description.handleCustomTap(for: loginTappedType) { login in
+            self.userInfoTapped()
+         }
+         
+         description.customColor[loginTappedType] = UIColor.black
+         
+         postDescription.configureLinkAttribute = { (type, attributes, isSelected) in
+            var atts = attributes
+            switch type {
+            case .custom(pattern: "^\(self.userInfo.login)\\b"):
+               atts[NSFontAttributeName] = UIFont(name: "CourierNewPS-BoldMT", size: 15)
+            default: ()
+            }
+            
+            return atts
+         }
+         
+         description.handleMentionTap { mention in // mention is @userLogin
+            self.goToUserProfile(tappedUserLogin: mention)
+         }
+      }
    }
 }

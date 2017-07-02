@@ -10,6 +10,7 @@ import UIKit
 import ActiveLabel
 
 class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
+   
    weak var delegateUserTaps: TappedUserDelegate? // for sending user info
    weak var delegatePostTaps: TappedPostDelegate? // for sending post info
    
@@ -74,10 +75,6 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
       // Configure the view for the selected state
    }
    
-   @IBAction func loginButtonTapped(_ sender: UIButton) {
-      userInfoTapped()
-   }
-   
    func userInfoTapped() {
       delegateUserTaps?.userInfoTapped(userItem)
    }
@@ -99,7 +96,9 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
          //Looks for userItem.login
          let loginTappedType = ActiveType.custom(pattern: "^\(userItem.login)\\b")
          description.enabledTypes.append(loginTappedType)
-         description.handleCustomTap(for: loginTappedType) { login in self.userInfoTapped() }
+         description.handleCustomTap(for: loginTappedType) { login in
+            self.userInfoTapped()
+         }
          description.customColor[loginTappedType] = UIColor.black
          
          desc.configureLinkAttribute = { (type, attributes, isSelected) in

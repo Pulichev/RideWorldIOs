@@ -227,14 +227,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let cellFromCache = postItemCellsCache[row]
          cell.initialize(with: cellFromCache)
          
-         cell.userNickName.tag     = row // for segue to send userId to ridersProfile
-         cell.userNickName.addTarget(self, action: #selector(nickNameTapped), for: .touchUpInside)
+         cell.delegateUserTaps = self
+         
          cell.openComments.tag     = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
-         
-         cell.postDescription.handleMentionTap { mention in // mention is @userLogin
-            self.goToUserProfile(tappedUserLogin: mention)
-         }
          
          let width = view.frame.size.width
          let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
@@ -254,14 +250,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let cellFromCache = postItemCellsCache[row]
          cell.initialize(with: cellFromCache)
          
-         cell.userNickName.tag     = row // for segue to send userId to ridersProfile
-         cell.userNickName.addTarget(self, action: #selector(nickNameTapped), for: .touchUpInside)
+         cell.delegateUserTaps = self
+         
          cell.openComments.tag     = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
-         
-         cell.postDescription.handleMentionTap { mention in // mention is @userLogin
-            self.goToUserProfile(tappedUserLogin: mention)
-         }
          
          let width = view.frame.size.width
          let height = CGFloat(Double(width) * cell.post.mediaAspectRatio)
@@ -386,21 +378,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       performSegue(withIdentifier: "addNewPost", sender: self)
    }
    
-   private func goToUserProfile(tappedUserLogin: String) {
-      UserModel.getItemByLogin(for: tappedUserLogin) { fetchedUserItem in
-         if let userItem = fetchedUserItem { // have we founded?
-            if userItem.uid == UserModel.getCurrentUserId() {
-               self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
-            } else {
-               self.ridersInfoForSending = userItem
-               self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
-            }
-         } else { // if no user founded for tapped nickname
-            self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
-         }
-      }
-   }
-   
    private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {
       let alert = UIAlertController(title: "Error!",
                                     message: "No user founded with nickname \(tappedUserLogin)",
@@ -409,17 +386,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
       
       present(alert, animated: true, completion: nil)
-   }
-   
-   // go to riders profile
-   func nickNameTapped(sender: UIButton!) {
-      // check if going to current user
-      if postItemCellsCache[sender.tag].userInfo.uid == UserModel.getCurrentUserId() {
-         performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
-      } else {
-         ridersInfoForSending = postItemCellsCache[sender.tag].userInfo
-         performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
-      }
    }
    
    // go to comments
@@ -488,6 +454,32 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    private func removeLoadingScreen() {
       loadingView.dismiss()
       haveWeFinishedLoading = true
+   }
+}
+
+// to send userItem from cell to perform segue
+extension PostsStripController: TappedUserDelegate {
+   func userInfoTapped(_ user: UserItem?) {
+      if user != nil {
+         if user!.uid == UserModel.getCurrentUserId() {
+            self.performSegue(withIdentifier: "ifChoosedCurrentUser", sender: self)
+         } else {
+            self.ridersInfoForSending = user!
+            self.performSegue(withIdentifier: "openRidersProfileFromSpotDetails", sender: self)
+         }
+      } else {
+         showAlertThatUserLoginNotFounded()
+      }
+   }
+   
+   private func showAlertThatUserLoginNotFounded() {
+      let alert = UIAlertController(title: "Error!",
+                                    message: "No user has been founded!",
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
    }
 }
 

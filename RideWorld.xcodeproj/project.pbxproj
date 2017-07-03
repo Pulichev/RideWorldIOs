@@ -16,6 +16,8 @@
 		9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */; };
 		9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */; };
 		9F2400751EE9AB2C003601F8 /* FeedbackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */; };
+		9F252C191F0AE51F000B0B74 /* PostHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F252C171F0AE51F000B0B74 /* PostHeader.swift */; };
+		9F252C1A1F0AE51F000B0B74 /* PostHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F252C181F0AE51F000B0B74 /* PostHeader.xib */; };
 		9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2978FF1E9037090051EF5F /* CommentariesController.swift */; };
 		9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2979011E903BDC0051EF5F /* CommentItem.swift */; };
 		9F2BFEEC1E9105D3005FEF0C /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */; };
@@ -138,6 +140,8 @@
 		9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = PleaseWaitTxt.gif; path = Pictures/PleaseWaitTxt.gif; sourceTree = "<group>"; };
 		9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditedUserInfoDelegate.swift; path = Protocols/EditedUserInfoDelegate.swift; sourceTree = "<group>"; };
 		9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackModel.swift; path = Model/DataBase/FeedbackModel.swift; sourceTree = "<group>"; };
+		9F252C171F0AE51F000B0B74 /* PostHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostHeader.swift; path = CustomUIElements/PostHeader.swift; sourceTree = "<group>"; };
+		9F252C181F0AE51F000B0B74 /* PostHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PostHeader.xib; path = Views/PostHeader.xib; sourceTree = "<group>"; };
 		9F2978FF1E9037090051EF5F /* CommentariesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesController.swift; path = Controllers/CommentariesController.swift; sourceTree = "<group>"; };
 		9F2979011E903BDC0051EF5F /* CommentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentItem.swift; path = Data/CommentItem.swift; sourceTree = "<group>"; };
 		9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = CustomUIElements/CommentCell.swift; sourceTree = "<group>"; };
@@ -342,6 +346,7 @@
 				9FD648DB1E573F0600C673CA /* Main.storyboard */,
 				9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */,
 				9F6DD9C41F0AE0CA00E3300E /* DesignableX */,
+				9F252C181F0AE51F000B0B74 /* PostHeader.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -472,6 +477,7 @@
 				9FE3B7131EC4D70900E7ED40 /* Cells for feedback */,
 				9F5609841E7C6BB50000DB21 /* PostsCellWithVideo.swift */,
 				9FE3CA621EFC1E7A0080BCF2 /* PostsCellWithPhoto.swift */,
+				9F252C171F0AE51F000B0B74 /* PostHeader.swift */,
 				9F4A84421E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift */,
 				9FC14FDB1E48E7690097579B /* CustomPin.swift */,
 				9FE3CA601EF4EEF10080BCF2 /* SearchResultsCell.swift */,
@@ -708,6 +714,7 @@
 				9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */,
 				9F506B661EF05DA700F0CABC /* rideWorldLogo.png in Resources */,
 				9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */,
+				9F252C1A1F0AE51F000B0B74 /* PostHeader.xib in Resources */,
 				9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */,
 				9F4A84491E6329D100C1E5F2 /* biography.png in Resources */,
 				9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */,
@@ -932,6 +939,7 @@
 				9FE3B7121EC4D6D600E7ED40 /* FeedbackController.swift in Sources */,
 				9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */,
 				9F4A84431E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift in Sources */,
+				9F252C191F0AE51F000B0B74 /* PostHeader.swift in Sources */,
 				9FF1BF771EA28C5500A2CEF2 /* PostMedia.swift in Sources */,
 				9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */,
 				9FF1BF751EA27C3600A2CEF2 /* PostModel.swift in Sources */,

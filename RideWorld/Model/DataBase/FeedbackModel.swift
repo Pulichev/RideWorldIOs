@@ -38,7 +38,6 @@ struct Feedback {
    
    static private func getProperItem(_ value: [String: Any]?, _ key: String,
                                      completion: @escaping(_ item: FeedbackItem?) -> Void) {
-      var feedBackItem: FeedbackItem!
       // what type of feedbacK?
       if value!["commentary"] != nil { // comment
          let _ = CommentFBItem(snapshot: value!, key) { item in

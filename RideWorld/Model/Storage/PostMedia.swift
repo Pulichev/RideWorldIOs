@@ -72,7 +72,7 @@ struct PostMedia {
                      if hasFinishedSuccessfully {
                         post.mediaRef70 = url
                         
-                        upload(image, for: post, withSize: 10.0) { (hasFinishedSuccessfully, url, _) in
+                        upload(image, for: post, withSize: 25.0) { (hasFinishedSuccessfully, url, _) in
                            
                            if hasFinishedSuccessfully {
                               post.mediaRef10 = url
@@ -143,7 +143,7 @@ struct PostMedia {
                      if hasFinishedSuccessfully {
                         post.mediaRef70 = url
                         
-                        upload(screenShot, for: post, withSize: 10.0)
+                        upload(screenShot, for: post, withSize: 25.0)
                         { (hasFinishedSuccessfully, url, _) in
                            
                            if hasFinishedSuccessfully {

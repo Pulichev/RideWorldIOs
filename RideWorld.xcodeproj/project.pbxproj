@@ -18,6 +18,7 @@
 		9F2400751EE9AB2C003601F8 /* FeedbackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */; };
 		9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2978FF1E9037090051EF5F /* CommentariesController.swift */; };
 		9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2979011E903BDC0051EF5F /* CommentItem.swift */; };
+		9F2A0DAA1F0AB1A100D5F54B /* DesignableX in Resources */ = {isa = PBXBuildFile; fileRef = 9F2A0DA91F0AB1A100D5F54B /* DesignableX */; };
 		9F2BFEEC1E9105D3005FEF0C /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */; };
 		9F2D4C971EAD21E100235451 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2D4C951EAD21E100235451 /* delete.png */; };
 		9F2D4C981EAD21E100235451 /* reply.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2D4C961EAD21E100235451 /* reply.png */; };
@@ -130,6 +131,7 @@
 		9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackModel.swift; path = Model/DataBase/FeedbackModel.swift; sourceTree = "<group>"; };
 		9F2978FF1E9037090051EF5F /* CommentariesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesController.swift; path = Controllers/CommentariesController.swift; sourceTree = "<group>"; };
 		9F2979011E903BDC0051EF5F /* CommentItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentItem.swift; path = Data/CommentItem.swift; sourceTree = "<group>"; };
+		9F2A0DA91F0AB1A100D5F54B /* DesignableX */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DesignableX; sourceTree = "<group>"; };
 		9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentCell.swift; path = CustomUIElements/CommentCell.swift; sourceTree = "<group>"; };
 		9F2D4C951EAD21E100235451 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = Pictures/delete.png; sourceTree = "<group>"; };
 		9F2D4C961EAD21E100235451 /* reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = reply.png; path = Pictures/reply.png; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 		9FB681B41E2E70CE00D9A436 /* RideWorld */ = {
 			isa = PBXGroup;
 			children = (
+				9F2A0DA91F0AB1A100D5F54B /* DesignableX */,
 				9FD648DB1E573F0600C673CA /* Main.storyboard */,
 				9FF1BF731E9FE3AF00A2CEF2 /* Supporting files */,
 				9FF1BF651E9D33AF00A2CEF2 /* Model */,
@@ -649,6 +652,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F2A0DAA1F0AB1A100D5F54B /* DesignableX in Resources */,
 				9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */,
 				9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */,
 				9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */,

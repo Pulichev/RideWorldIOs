@@ -284,18 +284,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
-   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-      return 44
-   }
-   
-   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-      let headerView = Bundle.main.loadNibNamed("PostHeader", owner: self, options: nil)?.first as! PostHeader
-      
-      headerView.spotPhoto.kf.setImage(with: URL())
-      headerView.spotName.text =
-      return headerView
-   }
-   
    private func updateCellLikesCache(objectId: String) {
       for postCellCache in postItemCellsCache {
          if postCellCache.post.key == objectId {

@@ -16,11 +16,11 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="PostHeader" customModule="RideWorld" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM" customClass="PostHeader" customModule="RideWorld" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lEi-xj-eLj">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lEi-xj-eLj" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="lEi-xj-eLj" secondAttribute="height" multiplier="1:1" id="DDe-ht-uqv"/>
@@ -46,6 +46,10 @@
                     <constraint firstItem="lEi-xj-eLj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="xG4-Ur-4Fo"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="spotName" destination="SmT-mF-mG9" id="u7T-je-zYw"/>
+                <outlet property="spotPhoto" destination="lEi-xj-eLj" id="kfn-nl-BJr"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>

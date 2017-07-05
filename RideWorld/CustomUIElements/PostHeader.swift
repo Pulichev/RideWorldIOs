@@ -9,6 +9,9 @@
 import UIKit
 
 class PostHeader: UITableViewCell {
+   
+   @IBOutlet weak var spotPhoto: RoundedImageView!
+   @IBOutlet weak var spotName: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,5 +23,4 @@ class PostHeader: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }

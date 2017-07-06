@@ -21,6 +21,9 @@ class PostsCellWithVideo: UITableViewCell {
    }
    var userInfo: UserItem! // user, who posted
    
+   @IBOutlet weak var userPhoto: RoundedImageView!
+   @IBOutlet weak var userLoginHeaderButton: UIButton!
+   
    @IBOutlet weak var spotPostMediaHeight: NSLayoutConstraint!
    @IBOutlet var spotPostMedia: MediaContainerView!
    var player: AVPlayer!
@@ -48,6 +51,11 @@ class PostsCellWithVideo: UITableViewCell {
       post                 = cachedCell.post
       userInfo             = cachedCell.userInfo
       
+      userLoginHeaderButton.setTitle(userInfo.login, for: .normal)
+      if userInfo.photo90ref != nil {
+         userPhoto.kf.setImage(with: URL(string: userInfo.photo90ref!))
+      }
+      
       postDate.text        = cachedCell.postDate
       postDescription.text = userInfo.login + " " + cachedCell.postDescription
       customizeDescUserLogin()
@@ -56,6 +64,13 @@ class PostsCellWithVideo: UITableViewCell {
       postIsLiked          = cachedCell.postIsLiked
       
       isLikedPhoto.image   = cachedCell.isLikedPhoto.image
+   }
+   
+   func addDoubleTapGestureOnUserPhoto() {
+      let tap = UITapGestureRecognizer(target:self, action:#selector(userInfoTapped))
+      tap.numberOfTapsRequired = 1
+      userPhoto.addGestureRecognizer(tap)
+      userPhoto.isUserInteractionEnabled = true
    }
    
    func addDoubleTapGestureOnPostPhotos() {

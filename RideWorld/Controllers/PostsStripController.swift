@@ -244,6 +244,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.spotPostPhoto.frame.size.height = height
          setPhoto(on: cell)
          cell.addDoubleTapGestureOnPostPhotos()
+         cell.addDoubleTapGestureOnUserPhoto()
          
          return cell
       } else {
@@ -265,9 +266,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let width = view.frame.size.width
          let height = width * CGFloat(cell.post.mediaAspectRatio)
          cell.spotPostMediaHeight.constant = height
-//         cell.spotPostMedia.layoutIfNeeded()
          setVideo(on: cell, cacheKey: row)
          cell.addDoubleTapGestureOnPostPhotos()
+         cell.addDoubleTapGestureOnUserPhoto()
          
          return cell
       }

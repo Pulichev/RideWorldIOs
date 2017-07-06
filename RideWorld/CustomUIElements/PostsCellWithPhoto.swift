@@ -21,6 +21,9 @@ class PostsCellWithPhoto: UITableViewCell {
    }
    var userInfo: UserItem! // user, who posted
    
+   @IBOutlet weak var userPhoto: RoundedImageView!
+   @IBOutlet weak var userLoginHeaderButton: UIButton!
+   
    @IBOutlet weak var spotPostPhotoHeight: NSLayoutConstraint!
    @IBOutlet var spotPostPhoto: UIImageView!
    
@@ -38,7 +41,7 @@ class PostsCellWithPhoto: UITableViewCell {
    @IBOutlet weak var isLikedPhoto: UIImageView!
    @IBOutlet weak var likesCount: UILabel!
    @IBOutlet weak var openComments: UIButton!
-
+   
    var postIsLiked: Bool!
    
    var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post
@@ -46,20 +49,32 @@ class PostsCellWithPhoto: UITableViewCell {
    func initialize(with cachedCell: PostItemCellCache) {
       post                 = cachedCell.post
       userInfo             = cachedCell.userInfo
-
+      
+      userLoginHeaderButton.setTitle(userInfo.login, for: .normal)
+      if userInfo.photo90ref != nil {
+         userPhoto.kf.setImage(with: URL(string: userInfo.photo90ref!))
+      }
+      
       postDate.text        = cachedCell.postDate
       postDescription.text = userInfo.login + " " + cachedCell.postDescription
       customizeDescUserLogin()
-
+      
       likesCount.text      = String(cachedCell.likesCount)
       postIsLiked          = cachedCell.postIsLiked
       
       isLikedPhoto.image   = cachedCell.isLikedPhoto.image
    }
    
+   func addDoubleTapGestureOnUserPhoto() {
+      let tap = UITapGestureRecognizer(target:self, action:#selector(userInfoTapped))
+      tap.numberOfTapsRequired = 1
+      userPhoto.addGestureRecognizer(tap)
+      userPhoto.isUserInteractionEnabled = true
+   }
+   
    func addDoubleTapGestureOnPostPhotos() {
       //adding method on spot main photo tap
-      let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:))) //target was only self
+      let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
       tap.numberOfTapsRequired = 2
       spotPostPhoto.addGestureRecognizer(tap)
       spotPostPhoto.isUserInteractionEnabled = true
@@ -100,6 +115,10 @@ class PostsCellWithPhoto: UITableViewCell {
       let currentUserId = UserModel.getCurrentUserId()
       
       Like.remove(with: currentUserId, post)
+   }
+   
+   @IBAction func userLoginHeaderButtonTapped(_ sender: UIButton) {
+      delegateUserTaps?.userInfoTapped(userInfo)
    }
    
    func userInfoTapped() {

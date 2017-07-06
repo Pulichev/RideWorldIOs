@@ -118,6 +118,10 @@ class PostsCellWithVideo: UITableViewCell {
       Like.remove(with: currentUserId, post)
    }
    
+   @IBAction func userLoginHeaderButtonTapped(_ sender: UIButton) {
+      delegateUserTaps?.userInfoTapped(userInfo)
+   }
+   
    func userInfoTapped() {
       delegateUserTaps?.userInfoTapped(userInfo)
    }

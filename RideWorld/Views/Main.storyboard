@@ -781,6 +781,9 @@
                                                             <state key="normal" title="Button">
                                                                 <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="userLoginHeaderButtonTapped:" destination="kZK-Ti-fyZ" eventType="touchUpInside" id="6Ks-Vc-Qxz"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBk-sQ-gSw">
                                                             <rect key="frame" x="340" y="5" width="30" height="30"/>

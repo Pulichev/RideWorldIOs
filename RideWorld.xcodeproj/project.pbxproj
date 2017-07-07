@@ -40,6 +40,7 @@
 		9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609861E7C8C990000DB21 /* PostsStripController.swift */; };
 		9F6154921EA67D4800160CB3 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6154911EA67D4800160CB3 /* RoundedImageView.swift */; };
 		9F6163471E7E89C1001664B7 /* no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6163461E7E89C1001664B7 /* no_photo.png */; };
+		9F61C20E1F0ED8230023B7D1 /* UIViewExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61C20D1F0ED8230023B7D1 /* UIViewExtenstions.swift */; };
 		9F6DD9CF1F0AE0DE00E3300E /* UIButtonX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */; };
 		9F6DD9D01F0AE0DE00E3300E /* UIImageViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */; };
 		9F6DD9D11F0AE0DE00E3300E /* UILabelX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */; };
@@ -162,6 +163,7 @@
 		9F5609861E7C8C990000DB21 /* PostsStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsStripController.swift; path = Controllers/PostsStripController.swift; sourceTree = "<group>"; };
 		9F6154911EA67D4800160CB3 /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedImageView.swift; path = Core/RoundedImageView.swift; sourceTree = "<group>"; };
 		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
+		9F61C20D1F0ED8230023B7D1 /* UIViewExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtenstions.swift; path = Core/UIViewExtenstions.swift; sourceTree = "<group>"; };
 		9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButtonX.swift; path = Views/DesignableX/UIButtonX.swift; sourceTree = "<group>"; };
 		9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageViewX.swift; path = Views/DesignableX/UIImageViewX.swift; sourceTree = "<group>"; };
 		9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabelX.swift; path = Views/DesignableX/UILabelX.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 				9FF114A81EB4C8F600152279 /* DateTimeParser.swift */,
 				9FE3B70F1EC22A2800E7ED40 /* String.swift */,
 				9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */,
+				9F61C20D1F0ED8230023B7D1 /* UIViewExtenstions.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 				9F4A84451E62F58700C1E5F2 /* EditProfileCell.swift in Sources */,
 				9F2400751EE9AB2C003601F8 /* FeedbackModel.swift in Sources */,
 				9FC14FD01E48E5E30097579B /* MapController.swift in Sources */,
+				9F61C20E1F0ED8230023B7D1 /* UIViewExtenstions.swift in Sources */,
 				9FD4A1E31EDE019400B4C0D2 /* FeedbackItemsDelegate.swift in Sources */,
 				9F4A84411E62F4C100C1E5F2 /* UserProfileController.swift in Sources */,
 				9F6DD9CF1F0AE0DE00E3300E /* UIButtonX.swift in Sources */,

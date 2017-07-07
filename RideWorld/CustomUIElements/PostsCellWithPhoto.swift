@@ -117,6 +117,30 @@ class PostsCellWithPhoto: UITableViewCell {
       Like.remove(with: currentUserId, post)
    }
    
+   @IBAction func openAlert(_ sender: UIButton) {
+      print("a")
+      let alertController = UIAlertController(title: nil, message: "Takes the appearance of the bottom bar if specified; otherwise, same as UIActionSheetStyleDefault.", preferredStyle: .actionSheet)
+      
+      let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+         // ...
+      }
+      alertController.addAction(cancelAction)
+      
+      let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+         // ...
+      }
+      alertController.addAction(OKAction)
+      
+      let destroyAction = UIAlertAction(title: "Destroy", style: .destructive) { action in
+         print(action)
+      }
+      alertController.addAction(destroyAction)
+      
+      parentViewController?.present(alertController, animated: true) {
+         // ...
+      }
+   }
+   
    @IBAction func userLoginHeaderButtonTapped(_ sender: UIButton) {
       delegateUserTaps?.userInfoTapped(userInfo)
    }

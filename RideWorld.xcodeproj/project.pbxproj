@@ -41,6 +41,7 @@
 		9F6154921EA67D4800160CB3 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6154911EA67D4800160CB3 /* RoundedImageView.swift */; };
 		9F6163471E7E89C1001664B7 /* no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6163461E7E89C1001664B7 /* no_photo.png */; };
 		9F61C20E1F0ED8230023B7D1 /* UIViewExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61C20D1F0ED8230023B7D1 /* UIViewExtenstions.swift */; };
+		9F61C2101F1101A00023B7D1 /* TappedSpotInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */; };
 		9F6DD9CF1F0AE0DE00E3300E /* UIButtonX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */; };
 		9F6DD9D01F0AE0DE00E3300E /* UIImageViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */; };
 		9F6DD9D11F0AE0DE00E3300E /* UILabelX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */; };
@@ -164,6 +165,7 @@
 		9F6154911EA67D4800160CB3 /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedImageView.swift; path = Core/RoundedImageView.swift; sourceTree = "<group>"; };
 		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
 		9F61C20D1F0ED8230023B7D1 /* UIViewExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtenstions.swift; path = Core/UIViewExtenstions.swift; sourceTree = "<group>"; };
+		9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedSpotInfoDelegate.swift; path = Protocols/TappedSpotInfoDelegate.swift; sourceTree = "<group>"; };
 		9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButtonX.swift; path = Views/DesignableX/UIButtonX.swift; sourceTree = "<group>"; };
 		9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageViewX.swift; path = Views/DesignableX/UIImageViewX.swift; sourceTree = "<group>"; };
 		9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabelX.swift; path = Views/DesignableX/UILabelX.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				9FE79C0F1ECE3BFB008BEBB2 /* TappedUserDelegate.swift */,
 				9FE79C111ECF8604008BEBB2 /* TappedPostDelegate.swift */,
 				9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */,
+				9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -942,6 +945,7 @@
 				9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */,
 				9F6DD9D61F0AE0DE00E3300E /* UIViewX.swift in Sources */,
 				9F6DD9D01F0AE0DE00E3300E /* UIImageViewX.swift in Sources */,
+				9F61C2101F1101A00023B7D1 /* TappedSpotInfoDelegate.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,
 				9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */,
 				9FF285951EB6088700EE0EC1 /* SpotInfoController.swift in Sources */,

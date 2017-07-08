@@ -57,7 +57,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       // temp
       let cache = ImageCache.default
-
+      
       cache.clearMemoryCache()
       cache.clearDiskCache()
       //
@@ -218,7 +218,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       return posts.count
    }
    
-   // not best code, but idk atm how to review it. 
+   // not best code, but idk atm how to review it.
    //                   ﾉ (￣▽￣)ノ
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let row = indexPath.row
@@ -235,6 +235,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.initialize(with: cellFromCache)
          
          cell.delegateUserTaps = self
+         cell.delegateSpotInfoTaps = self
          
          cell.openComments.tag = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
@@ -409,6 +410,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    var postDescForSending: String!
    var postDateTimeForSending: String!
    var postUserIdForSending: String!
+   var spotInfoForSending: SpotItem!
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       switch segue.identifier! {
@@ -431,6 +433,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          commentariesController.postDescription = postDescForSending
          commentariesController.postDate = postDateTimeForSending
          commentariesController.userId = postUserIdForSending
+         
+      case "fromPostToSpotInfo":
+         let spotInfoController = segue.destination as! SpotInfoController
+         spotInfoController.spotInfo = spotInfoForSending
          
       default: break
       }
@@ -487,6 +493,15 @@ extension PostsStripController: TappedUserDelegate {
       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
       
       present(alert, animated: true, completion: nil)
+   }
+}
+
+extension PostsStripController: TappedSpotInfoDelegate {
+   func spotInfoTapped(with id: String) {
+      Spot.getItemById(for: id) { spot in
+         self.spotInfoForSending = spot
+         self.performSegue(withIdentifier: "fromPostToSpotInfo", sender: self)
+      }
    }
 }
 

@@ -17,6 +17,15 @@ struct Spot {
       return refToSpotNode.childByAutoId().key
    }
    
+   static func getItemById(for spotId: String,
+                           completion: @escaping (_ spotItem: SpotItem) -> Void) {
+      let refToSpot = refToSpotNode.child(spotId)
+      refToSpot.observeSingleEvent(of: .value, with: { snapshot in
+         let spot = SpotItem(snapshot: snapshot)
+         completion(spot)
+      })
+   }
+   
    static func create(_ spot: SpotItem,
                       completion: @escaping (_ hasFinished: Bool) -> Void) {
       refToSpotNode.child(spot.key).setValue(spot.toAnyObject()) { (error, _) in

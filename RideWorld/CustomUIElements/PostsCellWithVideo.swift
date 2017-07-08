@@ -13,6 +13,7 @@ import ActiveLabel
 class PostsCellWithVideo: UITableViewCell {
    
    weak var delegateUserTaps: TappedUserDelegate? // for sending user info
+   weak var delegateSpotInfoTaps: TappedSpotInfoDelegate? // when tapping go to spot info from alert
    
    var post: PostItem! {
       didSet {
@@ -122,24 +123,23 @@ class PostsCellWithVideo: UITableViewCell {
       print("a")
       let alertController = UIAlertController(title: nil, message: "Takes the appearance of the bottom bar if specified; otherwise, same as UIActionSheetStyleDefault.", preferredStyle: .actionSheet)
       
-      let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
-         // ...
-      }
+      let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+      
       alertController.addAction(cancelAction)
       
-      let OKAction = UIAlertAction(title: "OK", style: .default) { action in
-         // ...
+      let goToSpotInfoAction = UIAlertAction(title: "Go To Spot Info", style: .default) { action in
+         self.goToSpotInfo()
       }
-      alertController.addAction(OKAction)
       
-      let destroyAction = UIAlertAction(title: "Destroy", style: .destructive) { action in
+      alertController.addAction(goToSpotInfoAction)
+      
+      let reportAction = UIAlertAction(title: "Report rider", style: .destructive) { action in
          print(action)
       }
-      alertController.addAction(destroyAction)
       
-      UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true) {
-         // ...
-      }
+      alertController.addAction(reportAction)
+      
+      parentViewController?.present(alertController, animated: true) // you can see Core/UIViewExtensions
    }
    
    @IBAction func userLoginHeaderButtonTapped(_ sender: UIButton) {
@@ -156,6 +156,10 @@ class PostsCellWithVideo: UITableViewCell {
       for: tappedUserLogin) { fetchedUserItem in
          self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
       }
+   }
+   
+   func goToSpotInfo() {
+      delegateSpotInfoTaps?.spotInfoTapped(with: post.spotId)
    }
    
    private func customizeDescUserLogin() {

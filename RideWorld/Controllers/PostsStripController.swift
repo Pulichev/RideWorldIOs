@@ -260,6 +260,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.initialize(with: cellFromCache)
          
          cell.delegateUserTaps = self
+         cell.delegateSpotInfoTaps = self
          
          cell.openComments.tag = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)

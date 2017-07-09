@@ -48,6 +48,9 @@ class PostInfoViewController: UIViewController {
    
    @IBOutlet weak var deleteButton: UIBarButtonItem!
    
+   @IBOutlet weak var userPhoto: RoundedImageView!
+   @IBOutlet weak var userLoginHeaderButton: UIButton!
+   
    override func viewDidLoad() {
       super.viewDidLoad()
       
@@ -63,6 +66,11 @@ class PostInfoViewController: UIViewController {
          self.initializeDate()
          self.addDoubleTapGestureOnPostMedia()
          self.setOpenCommentsButtonTittle()
+         
+         self.userLoginHeaderButton.setTitle(self.user.login, for: .normal)
+         if self.user.photo90ref != nil {
+            self.userPhoto.kf.setImage(with: URL(string: self.user.photo90ref!))
+         }
       }
       
       let width = view.frame.size.width
@@ -79,6 +87,11 @@ class PostInfoViewController: UIViewController {
       tap.numberOfTapsRequired = 2
       spotPostMedia.addGestureRecognizer(tap)
       spotPostMedia.isUserInteractionEnabled = true
+      
+      let tapOnUser = UITapGestureRecognizer(target:self, action:#selector(goToPostAuthor))
+      tap.numberOfTapsRequired = 1
+      userPhoto.addGestureRecognizer(tapOnUser)
+      userPhoto.isUserInteractionEnabled = true
    }
    
    func initializeDate() {
@@ -154,6 +167,40 @@ class PostInfoViewController: UIViewController {
       }
    }
    
+   @IBAction func userLoginHeaderButtonTapped(_ sender: UIButton) {
+      goToPostAuthor()
+   }
+   
+   func goToPostAuthor() {
+      goToUserProfile(with: self.user.login)
+   }
+   
+   @IBAction func openAlert(_ sender: UIButton) {
+      print("a")
+      let alertController = UIAlertController(title: nil, message: "Takes the appearance of the bottom bar if specified; otherwise, same as UIActionSheetStyleDefault.", preferredStyle: .actionSheet)
+      
+      let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+      
+      alertController.addAction(cancelAction)
+      
+      let goToSpotInfoAction = UIAlertAction(title: "Go To Spot Info", style: .default) { action in
+         Spot.getItemById(for: self.postInfo.spotId) { spot in
+            self.spotInfoForSending = spot
+            self.performSegue(withIdentifier: "fromPostInfoToSpotInfo", sender: self)
+         }
+      }
+      
+      alertController.addAction(goToSpotInfoAction)
+      
+      let reportAction = UIAlertAction(title: "Report rider", style: .destructive) { action in
+         print(action)
+      }
+      
+      alertController.addAction(reportAction)
+      
+      present(alertController, animated: true) // you can see Core/UIViewExtensions
+   }
+   
    // MARK: - Add media
    func addMediaToView() {
       spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
@@ -200,7 +247,6 @@ class PostInfoViewController: UIViewController {
                circularProgress.view.isHidden = true
             })
       })
-      
    }
    
    func setVideo() {
@@ -365,6 +411,8 @@ class PostInfoViewController: UIViewController {
       }
    }
    
+   var spotInfoForSending: SpotItem! // for going from alert to spot
+   
    // MARK: - prepare for segue
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       switch segue.identifier! {
@@ -383,6 +431,10 @@ class PostInfoViewController: UIViewController {
          commentariesController.postDescription = postInfo.description
          commentariesController.postDate = postInfo.createdDate
          commentariesController.userId = postInfo.addedByUser
+         
+      case "fromPostInfoToSpotInfo":
+         let spotInfoController = segue.destination as! SpotInfoController
+         spotInfoController.spotInfo = spotInfoForSending
          
       default: break
       }

@@ -282,7 +282,7 @@ class PostInfoViewController: UIViewController {
    
    private func downloadVideo() {
       let assetForCache = AVAsset(url: URL(string: postInfo.videoRef)!)
-
+      
       player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
       let playerLayer = AVPlayerLayer(player: player)
       playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
@@ -354,21 +354,21 @@ class PostInfoViewController: UIViewController {
    var ridersInfoForSending: UserItem!
    
    private func goToUserProfile(with tappedUserLogin: String) {
-      UserModel.getItemByLogin(
-      for: tappedUserLogin) { fetchedUserItem in
-         if let userItem = fetchedUserItem { // have we founded?
-            if fetchedUserItem?.uid == self.user.uid {
-               _ = self.navigationController?.popViewController(animated: true) // go back
-            } else {
+      if user.login == tappedUserLogin {
+         _ = self.navigationController?.popViewController(animated: true) // go back
+      } else {
+         UserModel.getItemByLogin(
+         for: tappedUserLogin) { fetchedUserItem in
+            if let userItem = fetchedUserItem { // have we founded?
                if userItem.uid == UserModel.getCurrentUserId() {
                   self.performSegue(withIdentifier: "fromPostInfoToUserProfile", sender: self)
                } else {
                   self.ridersInfoForSending = userItem
                   self.performSegue(withIdentifier: "fromPostInfoToRidersProfile", sender: self)
                }
+            } else { // if no user founded for tapped nickname
+               self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
             }
-         } else { // if no user founded for tapped nickname
-            self.showAlertThatUserLoginNotFounded(tappedUserLogin: tappedUserLogin)
          }
       }
    }

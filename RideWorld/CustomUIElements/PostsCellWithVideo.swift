@@ -133,13 +133,33 @@ class PostsCellWithVideo: UITableViewCell {
       
       alertController.addAction(goToSpotInfoAction)
       
-      let reportAction = UIAlertAction(title: "Report rider", style: .destructive) { action in
-         print(action)
+      let reportAction = UIAlertAction(title: "Report post", style: .destructive) { action in
+         self.openReportReasonEnterAlert()
       }
       
       alertController.addAction(reportAction)
       
       parentViewController?.present(alertController, animated: true) // you can see Core/UIViewExtensions
+   }
+   
+   func openReportReasonEnterAlert() {
+      let alertController = UIAlertController(title: "Report post", message: "", preferredStyle: .alert)
+      
+      let saveAction = UIAlertAction(title: "Send", style: .destructive, handler: { alert in
+         let reasonTextField = alertController.textFields![0] as UITextField
+         UserModel.addReportOnPost(with: self.post.key, reason: reasonTextField.text!)
+      })
+      
+      let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+      
+      alertController.addTextField { textField in
+         textField.placeholder = "Enter reason.."
+      }
+      
+      alertController.addAction(saveAction)
+      alertController.addAction(cancelAction)
+      
+      parentViewController?.present(alertController, animated: true, completion: nil)
    }
    
    @IBAction func userLoginHeaderButtonTapped(_ sender: UIButton) {

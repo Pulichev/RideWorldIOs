@@ -133,7 +133,7 @@ class PostsCellWithPhoto: UITableViewCell {
       
       alertController.addAction(goToSpotInfoAction)
       
-      let reportAction = UIAlertAction(title: "Report rider", style: .destructive) { action in
+      let reportAction = UIAlertAction(title: "Report post", style: .destructive) { action in
          self.openReportReasonEnterAlert()
       }
       
@@ -143,17 +143,14 @@ class PostsCellWithPhoto: UITableViewCell {
    }
    
    func openReportReasonEnterAlert() {
-      let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
+      let alertController = UIAlertController(title: "Report post", message: "", preferredStyle: .alert)
       
-      let saveAction = UIAlertAction(title: "Send report", style: .default, handler: { alert in
-         
+      let saveAction = UIAlertAction(title: "Send", style: .destructive, handler: { alert in
          let reasonTextField = alertController.textFields![0] as UITextField
-         print(reasonTextField.text!)
+         UserModel.addReportOnPost(with: self.post.key, reason: reasonTextField.text!)
       })
       
-      let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { action in
-         
-      })
+      let cancelAction = UIAlertAction(title: "Cancel", style: .default)
       
       alertController.addTextField { textField in
          textField.placeholder = "Enter reason.."

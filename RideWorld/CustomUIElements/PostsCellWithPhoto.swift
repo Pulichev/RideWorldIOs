@@ -134,12 +134,35 @@ class PostsCellWithPhoto: UITableViewCell {
       alertController.addAction(goToSpotInfoAction)
       
       let reportAction = UIAlertAction(title: "Report rider", style: .destructive) { action in
-         print(action)
+         self.openReportReasonEnterAlert()
       }
       
       alertController.addAction(reportAction)
       
       parentViewController?.present(alertController, animated: true) // you can see Core/UIViewExtensions
+   }
+   
+   func openReportReasonEnterAlert() {
+      let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
+      
+      let saveAction = UIAlertAction(title: "Send report", style: .default, handler: { alert in
+         
+         let reasonTextField = alertController.textFields![0] as UITextField
+         print(reasonTextField.text!)
+      })
+      
+      let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { action in
+         
+      })
+      
+      alertController.addTextField { textField in
+         textField.placeholder = "Enter reason.."
+      }
+      
+      alertController.addAction(saveAction)
+      alertController.addAction(cancelAction)
+      
+      parentViewController?.present(alertController, animated: true, completion: nil)
    }
    
    @IBAction func userLoginHeaderButtonTapped(_ sender: UIButton) {

@@ -406,4 +406,11 @@ struct UserModel {
             completion(users)
          })
    }
+   
+   // MARK: - Reports section
+   static func addReportOnPost(with id: String, reason text: String) {
+      let refToReport = refToMainDataBase.child("reportedposts").child(id).childByAutoId()
+      
+      refToReport.setValue(text)
+   }
 }

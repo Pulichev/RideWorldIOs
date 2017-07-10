@@ -39,6 +39,7 @@ class PostsCellWithPhoto: UITableViewCell {
          postDescription.handleHashtagTap { hashtag in }
       }
    }
+   
    @IBOutlet weak var isLikedPhoto: UIImageView!
    @IBOutlet weak var likesCount: UILabel!
    @IBOutlet weak var openComments: UIButton!

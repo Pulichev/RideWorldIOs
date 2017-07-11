@@ -262,6 +262,27 @@ struct UserModel {
       }
    }
    
+   static func addFollowingToSpot(with id: String) {
+      let refToUserSpotFollowing = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId()).child(id)
+      
+      refToUserSpotFollowing.setValue(true)
+   }
+   
+   static func removeFollowingToSpot(with id: String) {
+      let refToUserSpotFollowing = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId()).child(id)
+      
+      refToUserSpotFollowing.removeValue()
+   }
+   
+   static func isCurrentUserFollowingSpot(with id: String,
+                                          completion: @escaping(_ isFollowing: Bool) -> Void) {
+      
+   }
+   
+   static func getUserFollowedSpots(completion: @escaping (_ spotsIds: [String]) -> Void) {
+      
+   }
+   
    // get feedback key from user, from which we have unsubscribed
    static func getFeedbackKey(for followedUserId: String,
                               completion: @escaping (_ fbId: String) -> Void) {

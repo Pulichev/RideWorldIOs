@@ -338,7 +338,32 @@ struct UserModel {
                   }
                   
                   if countOfProcessedFollowings == followingsIds.count {
-                     completion(followingsPostsIds.sorted(by: { $0 > $1 })) // with order by date
+                     // also we need to add posts from followed spots
+                     self.getUserFollowedSpots() { spotsIds in
+                        let spotsIdsCount = spotsIds.count
+                        
+                        if spotsIdsCount == 0 {
+                           completion(followingsPostsIds.sorted(by: { $0 > $1 })) // with order by date
+                        }
+                        
+                        var countofProcessedSpotsIds = 0
+                        
+                        for spotId in spotsIds {
+                           Spot.getSpotPostsIds(for: spotId) { postsIds in
+                              if postsIds != nil {
+                                 followingsPostsIds.append(contentsOf: postsIds!)
+                              }
+                              
+                              countofProcessedSpotsIds += 1
+                              
+                              if countofProcessedSpotsIds == spotsIdsCount {
+                                 let followingsPostsIdsWODuplicates = Array(Set(followingsPostsIds)) // remove duplicates
+                                 
+                                 completion(followingsPostsIdsWODuplicates.sorted(by: { $0 > $1 })) // with order by date
+                              }
+                           }
+                        }
+                     }
                   }
                }
             }

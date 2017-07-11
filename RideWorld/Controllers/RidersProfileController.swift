@@ -183,6 +183,14 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       swapFollowButtonTittle()
    }
    
+   private func swapFollowButtonTittle() {
+      if followButton.currentTitle == "Follow" {
+         followButton.setTitle("Following", for: .normal)
+      } else {
+         followButton.setTitle("Follow", for: .normal)
+      }
+   }
+   
    private var fromFollowersOrFollowing: Bool! // true - followers else following
    
    @IBAction func followersButtonTapped(_ sender: Any) {
@@ -193,14 +201,6 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    @IBAction func followingButtonTapped(_ sender: Any) {
       fromFollowersOrFollowing = false
       performSegue(withIdentifier: "goToFollowersFromRidersNode", sender: self)
-   }
-   
-   private func swapFollowButtonTittle() {
-      if followButton.currentTitle == "Follow" {
-         followButton.setTitle("Following", for: .normal)
-      } else {
-         followButton.setTitle("Follow", for: .normal)
-      }
    }
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

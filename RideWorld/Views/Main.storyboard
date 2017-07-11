@@ -1636,7 +1636,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hyO-8D-pzd">
-                                <rect key="frame" x="0.0" y="244" width="375" height="304"/>
+                                <rect key="frame" x="0.0" y="244" width="375" height="353"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditProfileCell" id="NUz-cv-B5A" userLabel="EditProfileCell" customClass="EditProfileCell" customModule="RideWorld" customModuleProvider="target">
@@ -1912,7 +1912,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="AKu-vk-s0g">
-                        <barButtonItem key="rightBarButtonItem" title="Follow" id="Tfu-iJ-iXj">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Follow" id="Tfu-iJ-iXj">
                             <connections>
                                 <action selector="followSpotButtonTapped:" destination="6uJ-a1-Lta" id="ma7-rQ-iv8"/>
                             </connections>

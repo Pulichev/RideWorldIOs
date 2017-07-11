@@ -10,6 +10,7 @@ import FirebaseDatabase
 import FirebaseAuth
 
 struct UserModel {
+   
    static var refToMainDataBase = Database.database().reference(withPath: "MainDataBase")
    static var refToUsersNode = refToMainDataBase.child("users")
    
@@ -262,25 +263,45 @@ struct UserModel {
       }
    }
    
+   static var refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId())
+   
    static func addFollowingToSpot(with id: String) {
-      let refToUserSpotFollowing = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId()).child(id)
+      let refToUserSpotFollowing = refToUserFollowedSpots.child(id)
       
       refToUserSpotFollowing.setValue(true)
    }
    
    static func removeFollowingToSpot(with id: String) {
-      let refToUserSpotFollowing = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId()).child(id)
+      let refToUserSpotFollowing = refToUserFollowedSpots.child(id)
       
       refToUserSpotFollowing.removeValue()
    }
    
    static func isCurrentUserFollowingSpot(with id: String,
                                           completion: @escaping(_ isFollowing: Bool) -> Void) {
-      
+      refToUserFollowedSpots.observeSingleEvent(of: .value, with: { snapshot in
+         if var value = snapshot.value as? [String : Bool] {
+            if value[id] != nil {
+               completion(true)
+            } else {
+               completion(false)
+            }
+         } else {
+            completion(false)
+         }
+      })
    }
    
    static func getUserFollowedSpots(completion: @escaping (_ spotsIds: [String]) -> Void) {
-      
+      refToUserFollowedSpots.observeSingleEvent(of: .value, with: { snapshot in
+         var spotsIds = [String]()
+         
+         if let value = snapshot.value as? NSDictionary {
+            spotsIds.append(contentsOf: (value.allKeys as! [String]))
+         }
+         
+         completion(spotsIds)
+      })
    }
    
    // get feedback key from user, from which we have unsubscribed

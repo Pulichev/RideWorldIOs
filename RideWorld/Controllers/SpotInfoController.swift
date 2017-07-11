@@ -32,6 +32,7 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
       
       initializePhotos()
       initUserLabel()
+      initFollowButton()
    }
    
    // MARK: - Photo collection part
@@ -74,10 +75,37 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
       }
    }
    
+   //MARK: - follow part
    @IBOutlet weak var followSpotButton: UIBarButtonItem!
    
+   private func initFollowButton() {
+      UserModel.isCurrentUserFollowingSpot(with: spotInfo.key) { isFollowing in
+         if isFollowing {
+            self.followSpotButton.title = "Following"
+         } else {
+            self.followSpotButton.title = "Follow"
+         }
+         
+         self.followSpotButton.isEnabled = true
+      }
+   }
+   
    @IBAction func followSpotButtonTapped(_ sender: Any) {
+      if followSpotButton.title == "Follow" { // add or remove like
+         UserModel.addFollowingToSpot(with: spotInfo.key)
+      } else {
+         UserModel.removeFollowingToSpot(with: spotInfo.key)
+      }
       
+      swapFollowButtonTittle()
+   }
+   
+   private func swapFollowButtonTittle() {
+      if followSpotButton.title == "Follow" {
+         followSpotButton.title = "Following"
+      } else {
+         followSpotButton.title = "Follow"
+      }
    }
    
    // MARK: - prepare for segue

@@ -12,14 +12,14 @@ class FollowerFBItem: FeedbackItem {
    var userItem: UserItem!
    
    init(snapshot: [String: Any], _ key: String,
-        completion: @escaping (_ commentFBItem: FollowerFBItem) -> Void) {
+        completion: @escaping (_ followerFBItem: FollowerFBItem) -> Void) {
       super.init()
       self.type = 1
       self.key = key
       self.isViewed = snapshot["isViewed"] as! Bool
       
-      userId = snapshot.keys.first!
-      self.dateTime = snapshot.values.first as! String
+      self.userId = snapshot["userId"] as! String
+      self.dateTime = snapshot["datetime"] as! String
       
       UserModel.getItemById(for: userId) { userItem in
          self.userItem = userItem

@@ -244,7 +244,8 @@ struct UserModel {
          "/usersfollowers/" + userId + "/" + getCurrentUserId() : keyToFeedbackNode,
          "/feedback/" + userId + "/" + keyToFeedbackNode :
             [
-               getCurrentUserId() : String(describing: Date()),
+               "userId" : getCurrentUserId(),
+               "datetime" : String(describing: Date()),
                "isViewed" : false
          ]
       ]
@@ -329,7 +330,7 @@ struct UserModel {
          self.getFollowingsIdsForCurrentUser() { followingsIds in
             var countOfProcessedFollowings = 0
             
-            for followingId in followingsIds {
+            for followingId in followingsIds { // here we will have atleast 1 user (self)
                self.getPostsIds(for: followingId) { postsIds in
                   countOfProcessedFollowings += 1
                   

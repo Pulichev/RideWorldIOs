@@ -51,6 +51,7 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    }
    
    private func initializePhotos() {
+      self.photosURLs.append(self.spotInfo.mainPhotoRef)
       Spot.getAllPhotosURLs(for: spotInfo.key) { photoURLs in
          self.photosURLs.append(contentsOf: photoURLs)
          self.photosCollection.reloadData()
@@ -71,6 +72,12 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
       } else {
          self.performSegue(withIdentifier: "goToRidersProfileFromSpotInfo", sender: self)
       }
+   }
+   
+   @IBOutlet weak var followSpotButton: UIBarButtonItem!
+   
+   @IBAction func followSpotButtonTapped(_ sender: Any) {
+      
    }
    
    // MARK: - prepare for segue

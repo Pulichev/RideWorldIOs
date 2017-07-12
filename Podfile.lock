@@ -29,7 +29,6 @@ PODS:
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - Fusuma (1.1.0)
   - GoogleToolboxForMac/DebugUtils (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/Defines (2.1.1)
@@ -55,7 +54,6 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - FirebaseAuth
-  - Fusuma
   - Kingfisher (~> 3.0)
   - KYCircularProgress
   - MGSwipeTableCell
@@ -73,7 +71,6 @@ SPEC CHECKSUMS:
   FirebaseDatabase: d829b3a8c3e2ac7a16773c5df226966b0805dfc2
   FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
   FirebaseStorage: 8110a1ed2034c8fbfd83890d2acc9cdbbd99afec
-  Fusuma: 087dcf57cd0e8712d357dcf14559927da369642c
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   Kingfisher: 7297492bf8cec9b2e2dee3519f2219948580d98e
@@ -82,6 +79,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftLint: 3f7543509c931d1291395335f34e245d3919b7f2
 
-PODFILE CHECKSUM: 3a92754de2d25b86ab49c4dc2e7296c0a374cc82
+PODFILE CHECKSUM: c04910a0b6d125158286d3d64e7124fd51102821
 
 COCOAPODS: 1.1.1

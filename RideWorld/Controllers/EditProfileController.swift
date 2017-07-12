@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import Fusuma
+//import Fusuma
+import YPImagePicker
 
 class EditProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    var delegate: EditedUserInfoDelegate?
@@ -157,82 +158,21 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    //if we tapped UITextField and then another UITextField
 }
 
-//MARK: - Fusuma
-extension EditProfileController: FusumaDelegate {
-   func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
-      
-   }
-   
+// MARK: - Camera extension
+extension EditProfileController {
    @IBAction func changeProfilePhotoButtonTapped(_ sender: Any) {
-      let fusuma = FusumaViewController()
-      fusuma.delegate = self
-      fusuma.hasVideo = false // If you want to let the users allow to use video.
-      present(fusuma, animated: true, completion: nil)
-   }
-   
-   // MARK: FusumaDelegate Protocol
-   func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
-      switch source {
-      case .camera:
-         print("Image captured from Camera")
-      case .library:
-         print("Image selected from Camera Roll")
-      default:
-         print("Image selected")
+      let picker = YPImagePicker()
+      
+      picker.didSelectImage = { img in
+         self.userPhoto.image = img
+         self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
+         self.userPhoto.layer.masksToBounds = true
+         self.userPhoto.layer.borderWidth = 0
+         
+         picker.dismiss(animated: true, completion: nil)
       }
       
-      userPhoto.image = image
-      userPhoto.layer.cornerRadius = userPhoto.frame.size.height / 2
-      userPhoto.layer.masksToBounds = true
-      userPhoto.layer.borderWidth = 0
-   }
-   
-   func fusumaImageSelected(_ image: UIImage) {
-      //look example on https://github.com/ytakzk/Fusuma
-   }
-   
-   func fusumaVideoCompleted(withFileURL fileURL: URL) {
-      //If u want to use video in future - add code here. You can watch code in NewPostController.swift
-   }
-   
-   func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
-      switch source {
-      case .camera:
-         print("Called just after dismissed FusumaViewController using Camera")
-      case .library:
-         print("Called just after dismissed FusumaViewController using Camera Roll")
-      default:
-         print("Called just after dismissed FusumaViewController")
-      }
-   }
-   
-   func fusumaCameraRollUnauthorized() {
-      
-      print("Camera roll unauthorized")
-      
-      let alert = UIAlertController(title: "Access Requested", message: "Saving image needs to access your photo album", preferredStyle: .alert)
-      
-      alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (action) -> Void in
-         
-         if let url = URL(string:UIApplicationOpenSettingsURLString) {
-            UIApplication.shared.openURL(url)
-         }
-         
-      }))
-      
-      alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
-         
-      }))
-      
-      present(alert, animated: true, completion: nil)
-   }
-   
-   func fusumaClosed() {
-      print("Called when the FusumaViewController disappeared")
-   }
-   
-   func fusumaWillClosed() {
-      print("Called when the close button is pressed")
+      present(picker, animated: true, completion: nil)
    }
 }
 

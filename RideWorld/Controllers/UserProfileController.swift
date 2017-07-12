@@ -73,8 +73,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       
       let currentUserId = UserModel.getCurrentUserId()
       UserModel.getItemById(for: currentUserId,
-                       completion: { fetchedUserItem in
-                        self.userInfo = fetchedUserItem
+                            completion: { fetchedUserItem in
+                              self.userInfo = fetchedUserItem
       })
    }
    
@@ -232,7 +232,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    // MARK: - when data loading
    var loadingView: LoadingProcessView!
-
+   
    private func initLoadingView() {
       let width: CGFloat = 120
       let height: CGFloat = 30
@@ -260,13 +260,15 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
 
 // MARK: - Go/came to/from EditProfileController
 extension UserProfileController: EditedUserInfoDelegate {
-   func dataChanged(userInfo: UserItem, profilePhoto: UIImage) {
+   func dataChanged(userInfo: UserItem, profilePhoto: UIImage?) {
       cameFromEdit = true
       self.userInfo = userInfo
       userNameAndSename.text = userInfo.nameAndSename
       userBio.text = userInfo.bioDescription
       
-      userProfilePhoto.image = profilePhoto
+      if profilePhoto != nil {
+         userProfilePhoto.image = profilePhoto
+      }
    }
 }
 

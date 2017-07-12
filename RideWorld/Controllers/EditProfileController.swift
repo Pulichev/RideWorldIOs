@@ -17,7 +17,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    @IBOutlet var tableView: UITableView!
    @IBOutlet var userPhoto: RoundedImageView!
    
-   var userPhotoTemp = UIImage()
+   var userPhotoTemp: UIImage!
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -37,7 +37,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    }
    
    @IBAction func saveButtonTapped(_ sender: Any) {
-      let login = getCellFieldText(2)
+      let login = getCellFieldText(2).lowercased()
       // updating values
       // check if new login free, because they must be unic
       UserModel.getItemByLogin(for: login) { userItem in
@@ -55,7 +55,9 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       
       UserModel.updateInfo(for: userInfo.uid, bioDescription, login, nameAndSename)
       
-      uploadPhoto()
+      if userPhotoTemp != nil {
+         uploadPhoto()
+      }
       
       returnToParentControllerOnSaveButtonTapped(bioDescription,
                                                  login,  nameAndSename)
@@ -79,7 +81,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       userInfo.nameAndSename = nameAndSename
       
       if let del = delegate {
-         del.dataChanged(userInfo: userInfo, profilePhoto: userPhoto.image!)
+         del.dataChanged(userInfo: userInfo, profilePhoto: userPhoto.image)
       }
       
       // return to profile
@@ -160,7 +162,7 @@ extension EditProfileController: FusumaDelegate {
    func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
       
    }
-
+   
    @IBAction func changeProfilePhotoButtonTapped(_ sender: Any) {
       let fusuma = FusumaViewController()
       fusuma.delegate = self

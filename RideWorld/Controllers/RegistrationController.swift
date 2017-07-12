@@ -7,6 +7,7 @@
 //
 
 import FirebaseAuth
+import SVProgressHUD
 
 class RegistrationController: UIViewController {
    @IBOutlet weak var userEmail: UITextField!
@@ -29,6 +30,8 @@ class RegistrationController: UIViewController {
    }
    
    @IBAction func signUpButtonTapped(_ sender: Any) {
+      SVProgressHUD.show()
+      
       UserModel.getItemByLogin(for: userLogin.text!) { userItem in
          if userItem == nil {
             self.createAndLogin()
@@ -50,15 +53,21 @@ class RegistrationController: UIViewController {
                // create new user in database, not in FIRAuth
                UserModel.create(with: self.userLogin.text!)
                
+               SVProgressHUD.dismiss()
+               
                self.performSegue(withIdentifier: "fromRegistrationToTabBar", sender: self)
             }
          } else {
+            SVProgressHUD.dismiss()
+
             print("\(String(describing: error?.localizedDescription))")
          }
       }
    }
    
    private func showAlertThatLoginAlreadyExists() {
+      SVProgressHUD.dismiss()
+
       let alert = UIAlertController(title: "Registration failed!",
                                     message: "Login already exists.",
                                     preferredStyle: .alert)

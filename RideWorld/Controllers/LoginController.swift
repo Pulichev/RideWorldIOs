@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import SVProgressHUD
 
 class LoginController: UIViewController, UITextFieldDelegate {
    @IBOutlet weak var userLogin: UITextField!
@@ -34,6 +35,8 @@ class LoginController: UIViewController, UITextFieldDelegate {
    }
    
    @IBAction func loginButtonTapped(_ sender: Any) {
+      SVProgressHUD.show()
+      
       // catching user email for login
       UserModel.getItemByLogin(for: userLogin.text!) { userItem in
          if userItem != nil {
@@ -48,6 +51,9 @@ class LoginController: UIViewController, UITextFieldDelegate {
       Auth.auth().signIn(withEmail: email,
                              password: userPassword.text!)
       { user, error in
+         
+         SVProgressHUD.dismiss()
+         
          if error != nil {
             self.errorLabel.text = "Wrong login or password!"
             print("\(String(describing: error?.localizedDescription))")

@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import YPImagePicker
 import SVProgressHUD
+import Gallery
 
 class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
    var spotLatitude: Double!

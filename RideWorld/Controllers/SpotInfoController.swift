@@ -8,8 +8,8 @@
 
 import UIKit
 import Kingfisher
-import YPImagePicker
 import SVProgressHUD
+import Gallery
 
 class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
    var spotInfo: SpotItem!
@@ -126,26 +126,42 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
 }
 
 // MARK: - Camera extension
-extension SpotInfoController {
+extension SpotInfoController : GalleryControllerDelegate {
    
    @IBAction func addPhotoButtonTapped(_ sender: Any) {
-      let picker = YPImagePicker()
+      let gallery = GalleryController()
+      gallery.delegate = self
       
-      picker.didSelectImage = { img in
-         SVProgressHUD.show()
-         SpotMedia.uploadForInfo(img, for: self.spotInfo.key, with: 270.0) { url in
-            if url != nil {
-               self.photosURLs.append(url!)
-               
-               self.photosCollection.reloadData()
-            }
+      Config.Camera.imageLimit = 1
+      Config.showsVideoTab = false
+      
+      present(gallery, animated: true, completion: nil)
+   }
+   
+   func galleryController(_ controller: GalleryController, didSelectImages images: [UIImage]) {
+      let img = images[0]
+      
+      SVProgressHUD.show()
+      SpotMedia.uploadForInfo(img, for: self.spotInfo.key, with: 270.0) { url in
+         if url != nil {
+            self.photosURLs.append(url!)
             
-            SVProgressHUD.dismiss()
+            self.photosCollection.reloadData()
          }
          
-         picker.dismiss(animated: true, completion: nil)
+         SVProgressHUD.dismiss()
       }
       
-      present(picker, animated: true, completion: nil)
+      controller.dismiss(animated: true, completion: nil)
+   }
+   
+   func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
+   }
+   
+   func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
+   }
+   
+   func galleryControllerDidCancel(_ controller: GalleryController) {
+      controller.dismiss(animated: true, completion: nil)
    }
 }

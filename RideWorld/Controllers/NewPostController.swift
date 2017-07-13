@@ -9,8 +9,10 @@
 import UIKit
 import AVFoundation
 import SVProgressHUD
+import Gallery
 
 class NewPostController: UIViewController, UITextViewDelegate {
+   
    var spotDetailsItem: SpotItem!
    
    @IBOutlet weak var postDescription: UITextView! {
@@ -198,128 +200,154 @@ class NewPostController: UIViewController, UITextViewDelegate {
 }
 
 // MARK: - Camera extension
-extension NewPostController {
+extension NewPostController : GalleryControllerDelegate {
    
    @IBAction func takeMedia(_ sender: Any) {
-//      let picker = YPImagePicker()
-//      
-//      picker.showsVideo = true
-//      
-//      picker.didSelectImage = { img in
-//         self.isNewMediaIsPhoto = true
-//         self.mediaAspectRatio = img.aspectRatio
-//         
-//         self.setPhoto(img)
-//         
-//         picker.dismiss(animated: true, completion: nil)
-//      }
-//
-//      picker.didSelectVideo = { fileURL in
-//         self.initAspectRatioOfVideo(with: fileURL)
-//         
-//         self.changeMediaContainerHeight()
-//         
-//         self.isNewMediaIsPhoto = false
-//         
-//         self.player = AVQueuePlayer()
-//         
-//         let playerLayer = AVPlayerLayer(player: self.player)
-//         let playerItem = AVPlayerItem(url: fileURL)
-//         playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
-//         playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-//         playerLayer.frame = photoOrVideoView.bounds
-//         photoOrVideoView.layer.addSublayer(playerLayer)
-//         photoOrVideoView.playerLayer = playerLayer
-//         
-//         player.play()
-//         
-//         newVideoUrl = fileURL
-//         
-//         let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
-//         
-//         compressVideo(inputURL: fileURL as URL, outputURL: compressedURL) { (exportSession) in
-//            guard let session = exportSession else {
-//               return
-//            }
-//            
-//            switch session.status {
-//            case .unknown:
-//               break
-//            case .waiting:
-//               break
-//            case .exporting:
-//               break
-//            case .completed:
-//               guard let compressedData = NSData(contentsOf: compressedURL) else {
-//                  return
-//               }
-//               
-//               print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
-//            case .failed:
-//               break
-//            case .cancelled:
-//               break
-//            }
-//         }
-//         
-//         self.newVideoUrl = compressedURL //update newVideoUrl to already compressed video
-//         
-//         print("video completed and output to file: \(fileURL)")
-//      }
-//      
-//      present(picker, animated: true, completion: nil)
+      let gallery = GalleryController()
+      gallery.delegate = self
+      
+      Config.Camera.imageLimit = 1
+      Config.showsVideoTab = true
+      
+      present(gallery, animated: true, completion: nil)
    }
    
-//   func setPhoto(_ image: UIImage) {
-//      changeMediaContainerHeight()
-//      
-//      photoView.image = image
-//      photoView.layer.contentsGravity = kCAGravityResize
-//      photoView.contentMode = .scaleAspectFill
-//      photoView.frame = photoOrVideoView.bounds
-//      
-//      photoOrVideoView.layer.addSublayer(photoView.layer)
-//      photoOrVideoView.playerLayer = photoView.layer
-//   }
-//   
-//   func changeMediaContainerHeight() {
-//      let width = view.frame.size.width
-//      let height = CGFloat(Double(width) * mediaAspectRatio)
-//      mediaContainerHeight.constant = height
-//      
-//      photoOrVideoView.layoutIfNeeded()
-//   }
-//   
-//   private func initAspectRatioOfVideo(with fileURL: URL) {
-//      let resolution = resolutionForLocalVideo(url: fileURL)
-//      
-//      let width = resolution?.width
-//      let height = resolution?.height
-//      
-//      mediaAspectRatio = Double(height! / width!)
-//   }
-//   
-//   func resolutionForLocalVideo(url: URL) -> CGSize? {
-//      guard let track = AVURLAsset(url: url).tracks(withMediaType: AVMediaTypeVideo).first else { return nil }
-//      let size = track.naturalSize.applying(track.preferredTransform)
-//      return CGSize(width: fabs(size.width), height: fabs(size.height))
-//   }
-//   
-//   func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
-//      let urlAsset = AVURLAsset(url: inputURL, options: nil)
-//      guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetMediumQuality) else {
-//         handler(nil)
-//         
-//         return
-//      }
-//      
-//      exportSession.outputURL = outputURL
-//      exportSession.outputFileType = AVFileTypeQuickTimeMovie
-//      exportSession.shouldOptimizeForNetworkUse = true
-//      exportSession.exportAsynchronously { () -> Void in
-//         handler(exportSession)
-//      }
-//   }
+   func galleryController(_ controller: GalleryController, didSelectImages images: [UIImage]) {
+      let img = images[0]
+      
+      self.isNewMediaIsPhoto = true
+      self.mediaAspectRatio = img.aspectRatio
+      
+      self.setPhoto(img)
+      
+      controller.dismiss(animated: true, completion: nil)
+   }
+   
+   func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
+      video.fetchAVAsset() { asset in
+         
+         let avasset = asset! as! AVURLAsset
+         
+         let fileURL = avasset.url
+         
+         //      let fileURL = URL(string: video.asset.localIdentifier)
+         
+         self.initAspectRatioOfVideo(with: fileURL)
+         
+         self.changeMediaContainerHeight()
+         
+         self.isNewMediaIsPhoto = false
+         
+         self.player = AVQueuePlayer()
+         
+         let playerLayer = AVPlayerLayer(player: self.player)
+         let playerItem = AVPlayerItem(url: fileURL)
+         self.playerLooper = AVPlayerLooper(player: self.player, templateItem: playerItem)
+         playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+         playerLayer.frame = self.photoOrVideoView.bounds
+         self.photoOrVideoView.layer.addSublayer(playerLayer)
+         self.photoOrVideoView.playerLayer = playerLayer
+         
+         self.player.play()
+         
+         self.newVideoUrl = fileURL
+         
+         let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
+         
+         self.compressVideo(inputURL: fileURL as URL, outputURL: compressedURL) { (exportSession) in
+            guard let session = exportSession else {
+               return
+            }
+            
+            switch session.status {
+            case .unknown:
+               break
+            case .waiting:
+               break
+            case .exporting:
+               break
+            case .completed:
+               guard let compressedData = NSData(contentsOf: compressedURL) else {
+                  return
+               }
+               
+               print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
+            case .failed:
+               break
+            case .cancelled:
+               break
+            }
+         }
+         
+         self.newVideoUrl = compressedURL //update newVideoUrl to already compressed video
+         
+         print("video completed and output to file: \(fileURL)")
+         
+         DispatchQueue.main.async {
+            controller.dismiss(animated: true, completion: nil)
+         }
+      }
+   }
+   
+   func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
+   }
+   
+   func galleryControllerDidCancel(_ controller: GalleryController) {
+      controller.dismiss(animated: true, completion: nil)
+   }
+   
+   func setPhoto(_ image: UIImage) {
+      changeMediaContainerHeight()
+      
+      photoView.image = image
+      photoView.layer.contentsGravity = kCAGravityResize
+      photoView.contentMode = .scaleAspectFill
+      photoView.frame = photoOrVideoView.bounds
+      
+      photoOrVideoView.layer.addSublayer(photoView.layer)
+      photoOrVideoView.playerLayer = photoView.layer
+   }
+   
+   func changeMediaContainerHeight() {
+      let width = view.frame.size.width
+      let height = CGFloat(Double(width) * mediaAspectRatio)
+      DispatchQueue.main.async {
+         self.mediaContainerHeight.constant = height
+         
+         self.photoOrVideoView.layoutIfNeeded()
+      }
+   }
+   
+   private func initAspectRatioOfVideo(with fileURL: URL) {
+      let resolution = resolutionForLocalVideo(url: fileURL)
+      
+      let width = resolution?.width
+      let height = resolution?.height
+      
+      mediaAspectRatio = Double(height! / width!)
+   }
+   
+   func resolutionForLocalVideo(url: URL) -> CGSize? {
+      guard let track = AVURLAsset(url: url).tracks(withMediaType: AVMediaTypeVideo).first else { return nil }
+      let size = track.naturalSize.applying(track.preferredTransform)
+      return CGSize(width: fabs(size.width), height: fabs(size.height))
+   }
+   
+   func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
+      let urlAsset = AVURLAsset(url: inputURL, options: nil)
+      guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetMediumQuality) else {
+         handler(nil)
+         
+         return
+      }
+      
+      exportSession.outputURL = outputURL
+      exportSession.outputFileType = AVFileTypeQuickTimeMovie
+      exportSession.shouldOptimizeForNetworkUse = true
+      exportSession.exportAsynchronously { () -> Void in
+         handler(exportSession)
+      }
+   }
 }
 
 //Keyboard manipulations

@@ -157,6 +157,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       // clear our structs
       Spot.clearCurrentData()
       UserModel.clearCurrentData()
+      mediaCache.removeAllObjects()
       
       loadPosts() { newItems in
          if newItems == nil { return }

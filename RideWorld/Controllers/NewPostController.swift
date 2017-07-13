@@ -247,6 +247,8 @@ extension NewPostController : GalleryControllerDelegate {
                return
          }
          
+//         guard let avcapture = asset! as? AVComposition else { return }
+         
          let fileURL = avasset.url
          
          self.initAspectRatioOfVideo(with: fileURL)

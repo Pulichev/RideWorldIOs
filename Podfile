@@ -16,7 +16,7 @@ target 'RideWorld' do
   pod 'DateToolsSwift'
   pod 'KYCircularProgress'
   pod 'ESPullToRefresh'
-  #pod ‘Fusuma’
+  pod 'Gallery'
 
   # Pods for RideWorld
 

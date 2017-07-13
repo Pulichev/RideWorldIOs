@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-//import Fusuma
 import SVProgressHUD
 
 class NewPostController: UIViewController, UITextViewDelegate {
@@ -198,46 +197,82 @@ class NewPostController: UIViewController, UITextViewDelegate {
    } // for disabling user touches, while uploading
 }
 
-//Fusuma
-extension NewPostController { //: FusumaDelegate {
-//   func fusumaMultipleImageSelected(_ images: [UIImage], source: FusumaMode) {
-//      
-//   }
-//   
+// MARK: - Camera extension
+extension NewPostController {
+   
    @IBAction func takeMedia(_ sender: Any) {
-//      let fusuma = FusumaViewController()
-//      fusuma.delegate = self
-//      fusuma.hasVideo = true // If you want to let the users allow to use video.
-//      present(fusuma, animated: true, completion: nil)
-   }
+//      let picker = YPImagePicker()
+//      
+//      picker.showsVideo = true
+//      
+//      picker.didSelectImage = { img in
+//         self.isNewMediaIsPhoto = true
+//         self.mediaAspectRatio = img.aspectRatio
+//         
+//         self.setPhoto(img)
+//         
+//         picker.dismiss(animated: true, completion: nil)
+//      }
 //
-//   // MARK: FusumaDelegate Protocol
-//   func fusumaImageSelected(_ image: UIImage, source: FusumaMode) {
-//      switch source {
-//      case .camera:
-//         print("Image captured from Camera")
-//      case .library:
-//         print("Image selected from Camera Roll")
-//      default:
-//         print("Image selected")
+//      picker.didSelectVideo = { fileURL in
+//         self.initAspectRatioOfVideo(with: fileURL)
+//         
+//         self.changeMediaContainerHeight()
+//         
+//         self.isNewMediaIsPhoto = false
+//         
+//         self.player = AVQueuePlayer()
+//         
+//         let playerLayer = AVPlayerLayer(player: self.player)
+//         let playerItem = AVPlayerItem(url: fileURL)
+//         playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
+//         playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+//         playerLayer.frame = photoOrVideoView.bounds
+//         photoOrVideoView.layer.addSublayer(playerLayer)
+//         photoOrVideoView.playerLayer = playerLayer
+//         
+//         player.play()
+//         
+//         newVideoUrl = fileURL
+//         
+//         let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
+//         
+//         compressVideo(inputURL: fileURL as URL, outputURL: compressedURL) { (exportSession) in
+//            guard let session = exportSession else {
+//               return
+//            }
+//            
+//            switch session.status {
+//            case .unknown:
+//               break
+//            case .waiting:
+//               break
+//            case .exporting:
+//               break
+//            case .completed:
+//               guard let compressedData = NSData(contentsOf: compressedURL) else {
+//                  return
+//               }
+//               
+//               print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
+//            case .failed:
+//               break
+//            case .cancelled:
+//               break
+//            }
+//         }
+//         
+//         self.newVideoUrl = compressedURL //update newVideoUrl to already compressed video
+//         
+//         print("video completed and output to file: \(fileURL)")
 //      }
 //      
-//      isNewMediaIsPhoto = true
-//      mediaAspectRatio = image.aspectRatio
-//      
-//      setPhoto(image)
-//   }
-//   
-//   func fusumaImageSelected(_ image: UIImage) {
-//      //look example on https://github.com/ytakzk/Fusuma
-//      mediaAspectRatio = image.aspectRatio
-//      
-//      setPhoto(image)
-//   }
-//   
+//      present(picker, animated: true, completion: nil)
+   }
+   
 //   func setPhoto(_ image: UIImage) {
 //      changeMediaContainerHeight()
-//
+//      
 //      photoView.image = image
 //      photoView.layer.contentsGravity = kCAGravityResize
 //      photoView.contentMode = .scaleAspectFill
@@ -253,59 +288,6 @@ extension NewPostController { //: FusumaDelegate {
 //      mediaContainerHeight.constant = height
 //      
 //      photoOrVideoView.layoutIfNeeded()
-//   }
-//   
-//   func fusumaVideoCompleted(withFileURL fileURL: URL) {
-//      initAspectRatioOfVideo(with: fileURL)
-//      
-//      changeMediaContainerHeight()
-//      
-//      isNewMediaIsPhoto = false
-//      
-//      player = AVQueuePlayer()
-//      
-//      let playerLayer = AVPlayerLayer(player: player)
-//      let playerItem = AVPlayerItem(url: fileURL)
-//      playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
-//      playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-//      playerLayer.frame = photoOrVideoView.bounds
-//      photoOrVideoView.layer.addSublayer(playerLayer)
-//      photoOrVideoView.playerLayer = playerLayer
-//      
-//      player.play()
-//      
-//      newVideoUrl = fileURL
-//      
-//      let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
-//      
-//      compressVideo(inputURL: fileURL as URL, outputURL: compressedURL) { (exportSession) in
-//         guard let session = exportSession else {
-//            return
-//         }
-//         
-//         switch session.status {
-//         case .unknown:
-//            break
-//         case .waiting:
-//            break
-//         case .exporting:
-//            break
-//         case .completed:
-//            guard let compressedData = NSData(contentsOf: compressedURL) else {
-//               return
-//            }
-//            
-//            print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
-//         case .failed:
-//            break
-//         case .cancelled:
-//            break
-//         }
-//      }
-//      
-//      newVideoUrl = compressedURL //update newVideoUrl to already compressed video
-//      
-//      print("video completed and output to file: \(fileURL)")
 //   }
 //   
 //   private func initAspectRatioOfVideo(with fileURL: URL) {
@@ -337,48 +319,6 @@ extension NewPostController { //: FusumaDelegate {
 //      exportSession.exportAsynchronously { () -> Void in
 //         handler(exportSession)
 //      }
-//   }
-//   
-//   func fusumaDismissedWithImage(_ image: UIImage, source: FusumaMode) {
-//      switch source {
-//      case .camera:
-//         print("Called just after dismissed FusumaViewController using Camera")
-//      case .library:
-//         print("Called just after dismissed FusumaViewController using Camera Roll")
-//      default:
-//         print("Called just after dismissed FusumaViewController")
-//      }
-//      
-//      mediaAspectRatio = image.aspectRatio
-//   }
-//   
-//   func fusumaCameraRollUnauthorized() {
-//      
-//      print("Camera roll unauthorized")
-//      
-//      let alert = UIAlertController(title: "Access Requested", message: "Saving image needs to access your photo album", preferredStyle: .alert)
-//      
-//      alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (action) -> Void in
-//         
-//         if let url = URL(string:UIApplicationOpenSettingsURLString) {
-//            UIApplication.shared.openURL(url)
-//         }
-//         
-//      }))
-//      
-//      alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
-//         
-//      }))
-//      
-//      present(alert, animated: true, completion: nil)
-//   }
-//   
-//   func fusumaClosed() {
-//      print("Called when the FusumaViewController disappeared")
-//   }
-//   
-//   func fusumaWillClosed() {
-//      print("Called when the close button is pressed")
 //   }
 }
 

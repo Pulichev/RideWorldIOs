@@ -7,8 +7,7 @@
 //
 
 import UIKit
-//import Fusuma
-import YPImagePicker
+import Gallery
 
 class EditProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    var delegate: EditedUserInfoDelegate?
@@ -159,20 +158,37 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
 }
 
 // MARK: - Camera extension
-extension EditProfileController {
+extension EditProfileController: GalleryControllerDelegate {
+   
    @IBAction func changeProfilePhotoButtonTapped(_ sender: Any) {
-      let picker = YPImagePicker()
+      let gallery = GalleryController()
+      gallery.delegate = self
       
-      picker.didSelectImage = { img in
-         self.userPhoto.image = img
-         self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
-         self.userPhoto.layer.masksToBounds = true
-         self.userPhoto.layer.borderWidth = 0
-         
-         picker.dismiss(animated: true, completion: nil)
-      }
+      Config.Camera.imageLimit = 1
+      Config.showsVideoTab = false
       
-      present(picker, animated: true, completion: nil)
+      present(gallery, animated: true, completion: nil)
+   }
+   
+   func galleryController(_ controller: GalleryController, didSelectImages images: [UIImage]) {
+      let img = images[0]
+      
+      self.userPhoto.image = img
+      self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
+      self.userPhoto.layer.masksToBounds = true
+      self.userPhoto.layer.borderWidth = 0
+      
+      controller.dismiss(animated: true, completion: nil)
+   }
+   
+   func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
+   }
+   
+   func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
+   }
+   
+   func galleryControllerDidCancel(_ controller: GalleryController) {
+      controller.dismiss(animated: true, completion: nil)
    }
 }
 

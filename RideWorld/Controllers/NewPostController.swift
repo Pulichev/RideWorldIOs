@@ -223,21 +223,35 @@ extension NewPostController : GalleryControllerDelegate {
       controller.dismiss(animated: true, completion: nil)
    }
    
+   func setPhoto(_ image: UIImage) {
+      changeMediaContainerHeight()
+      
+      photoView.image = image
+      photoView.layer.contentsGravity = kCAGravityResize
+      photoView.contentMode = .scaleAspectFill
+      photoView.frame = photoOrVideoView.bounds
+      
+      photoOrVideoView.layer.addSublayer(photoView.layer)
+      photoOrVideoView.playerLayer = photoView.layer
+   }
+   
    func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
       video.fetchAVAsset() { asset in
          
-         let avasset = asset! as! AVURLAsset
+         guard let avasset = asset! as? AVURLAsset
+            else {
+               DispatchQueue.main.async {
+                  controller.dismiss(animated: true, completion: nil)
+                  self.showAlertThatUserLoginNotFounded()
+               }
+               return
+         }
          
          let fileURL = avasset.url
          
-         //      let fileURL = URL(string: video.asset.localIdentifier)
-         
          self.initAspectRatioOfVideo(with: fileURL)
-         
          self.changeMediaContainerHeight()
-         
          self.isNewMediaIsPhoto = false
-         
          self.player = AVQueuePlayer()
          
          let playerLayer = AVPlayerLayer(player: self.player)
@@ -289,23 +303,23 @@ extension NewPostController : GalleryControllerDelegate {
       }
    }
    
+   private func showAlertThatUserLoginNotFounded() {
+      DispatchQueue.main.async {
+         let alert = UIAlertController(title: "Error!",
+                                       message: "Slow motion videos are not supported!",
+                                       preferredStyle: .alert)
+         
+         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+         
+         self.present(alert, animated: true, completion: nil)
+      }
+   }
+   
    func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
    }
    
    func galleryControllerDidCancel(_ controller: GalleryController) {
       controller.dismiss(animated: true, completion: nil)
-   }
-   
-   func setPhoto(_ image: UIImage) {
-      changeMediaContainerHeight()
-      
-      photoView.image = image
-      photoView.layer.contentsGravity = kCAGravityResize
-      photoView.contentMode = .scaleAspectFill
-      photoView.frame = photoOrVideoView.bounds
-      
-      photoOrVideoView.layer.addSublayer(photoView.layer)
-      photoOrVideoView.playerLayer = photoView.layer
    }
    
    func changeMediaContainerHeight() {

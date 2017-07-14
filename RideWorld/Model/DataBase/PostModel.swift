@@ -63,8 +63,8 @@ struct Post {
       
       let updates = [
          "/posts/" + postItem.key: postItem.toAnyObject(),
-         "/spotsposts/" + postItem.spotId + "/" + postItem.key: true,
-         "/usersposts/" + postItem.addedByUser + "/" + postItem.key: true
+         "/spotsposts/" + postItem.spotId + "/" + postItem.key: postItem.toAnyObjectForFeedStrip(), // for post strip for spot
+         "/usersposts/" + postItem.addedByUser + "/" + postItem.key: postItem.toAnyObject() // for user profile
       ]
       
       mainReference.updateChildValues(updates) { (error, _) in
@@ -74,6 +74,8 @@ struct Post {
             completion(false)
          }
       }
+      // after adding new post to "/usersposts/" + postItem.addedByUser + "/" + postItem.key
+      // cloud function will add this post to post strip of followers and userself
    }
    
    // we dont need escaping here. User will not wait,
@@ -89,10 +91,7 @@ struct Post {
       ]
       
       mainReference.updateChildValues(updates)
-   }
-   
-   static func delete(with postId: String) {
-      let refToPostNode = refToPostsNode.child(postId)
-      refToPostNode.removeValue()
+      // after removing post from "/usersposts/" + postItem.addedByUser + "/" + postItem.key: nil
+      // cloud function will delete this post from post strip of followers and userself
    }
 }

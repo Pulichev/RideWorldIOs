@@ -81,6 +81,7 @@ struct PostItem {
       commentsCount = comments.count
    }
    
+   // full data
    func toAnyObject() -> Any {
       var valuesArray = [String: Any]()
       
@@ -92,6 +93,32 @@ struct PostItem {
       valuesArray["mediaRef70"] = mediaRef70
       valuesArray["mediaRef200"] = mediaRef200
       valuesArray["mediaRef700"] = mediaRef700
+      
+      if !isPhoto {
+         valuesArray["videoRef"] = videoRef
+      }
+      
+      valuesArray["mediaAspectRatio"] = mediaAspectRatio
+      
+      valuesArray["spotId"] = spotId
+      valuesArray["addedByUser"] = addedByUser
+      valuesArray["key"] = key
+      
+      return valuesArray
+   }
+   
+   // data for posts feed strip
+   func toAnyObjectForFeedStrip() -> Any {
+      var valuesArray = [String: Any]()
+      
+      valuesArray["isPhoto"] = isPhoto
+      valuesArray["description"] = description
+      valuesArray["createdDate"] = createdDate
+      
+      valuesArray["mediaRef10"] = mediaRef10
+      valuesArray["mediaRef700"] = mediaRef700
+      // no need for others mediaRefs for post strip. 
+      // just thumbnail and original
       
       if !isPhoto {
          valuesArray["videoRef"] = videoRef

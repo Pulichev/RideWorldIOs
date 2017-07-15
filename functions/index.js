@@ -60,6 +60,7 @@ exports.addPostsToNewFollowerFeed = functions.database.ref('/MainDataBase/usersf
          const followerId = event.params.followerId;
          
          let refToUserPosts = admin.database().ref('/MainDataBase/usersposts/' + userId);
+         if(event.data.val()) {
          refToUserPosts.once("value", function(snap) {
                              snap.forEach(function(childSnapshot) {
                                           let postId = childSnapshot.key;
@@ -67,6 +68,9 @@ exports.addPostsToNewFollowerFeed = functions.database.ref('/MainDataBase/usersf
                                           console.log('Added post to feed of user: '+ followerId);
                                           });
                              });
+         } else {
+         
+         }
          });
 
 // remove posts from feed on follow ending
@@ -108,12 +112,24 @@ exports.addPostsFromSpotToFeed = functions.database.ref('/MainDataBase/userspotf
                              });
          } else {
          // getting all userId of followed by me users
+         console.log('zashel');
          let refToAllFollowings = admin.database().ref('/MainDataBase/usersfollowings/' + userId);
          refToAllFollowings.once("value", function(followingssnap) {
                                  var listOfFollowedUsers = Object.keys(followingssnap.val());
-                                 for (var i = 0; i < listOfFollowedUsers.length; i++) {
-                                    console.log('ajsdioajdoijaoid' + listOfFollowedUsers[i]);
-                                 }
+                                 listOfFollowedUsers.push(userId); // add current user
+                                 
+                                 refToSpotPosts.once("value", function(snap) {
+                                                     snap.forEach(function(childSnapshot) {
+                                                                  let postId = childSnapshot.key;
+                                                                  let postAuthorId = (childSnapshot.val())['addedByUser'];
+                                                                  console.log('Post authorId: ' + postAuthorId);
+                                                                  // if i'm also not following this user, then delete post from feed
+                                                                  if (!(listOfFollowedUsers.indexOf(postAuthorId) > -1)) {
+                                                                  admin.database().ref('/MainDataBase/userpostsfeed/' + userId + '/' + postId).remove();
+                                                                  console.log('Removed post from feed of user: ' + userId);
+                                                                  }
+                                                                  });
+                                                     });
                                  });
          }
          });

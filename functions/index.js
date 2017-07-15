@@ -9,7 +9,7 @@ admin.initializeApp(functions.config().firebase);
 // POST PART
 
 // add posts to feed of followers
-exports.updateFeed = functions.database.ref('/MainDataBase/usersposts/{userId}/{postId}')
+exports.updateFeedOnNewPostAdded = functions.database.ref('/MainDataBase/usersposts/{userId}/{postId}')
 .onWrite(event => {
          const userId = event.params.userId;
          const postId = event.params.postId;
@@ -70,5 +70,42 @@ exports.addPostsToNewFollowerFeed = functions.database.ref('/MainDataBase/usersf
          });
 
 // remove posts from feed on follow ending
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// add posts on spot follow
+exports.addPostsFromSpotToFeed = functions.database.ref('/MainDataBase/userspotfollowings/{userId}/{spotId}')
+.onWrite(event => {
+         const userId = event.params.userId;
+         const spotId = event.params.spotId;
+         
+         let refToSpotPosts = admin.database().ref('/MainDataBase/spotsposts/' + spotId);
+         console.log(spotId)
+         refToSpotPosts.once("value", function(snap) {
+                             snap.forEach(function(childSnapshot) {
+                                          let postId = childSnapshot.key;
+                                          admin.database().ref('/MainDataBase/userpostsfeed/' + userId + '/' + postId).set(childSnapshot.val());
+                                          console.log('Added post to feed of user: '+ userId);
+                                          });
+                             });
+         });
 
 // **************************************************************************************

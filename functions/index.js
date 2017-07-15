@@ -15,24 +15,24 @@ exports.updateFeedOnNewPostAdded = functions.database.ref('/MainDataBase/userspo
          const postId = event.params.postId;
          
          let followersRef = admin.database().ref('/MainDataBase/usersfollowers/' + userId);
-         if(!event.data.val()){
-         // post was deleted
-         followersRef.once("value", function(snap) {
-                           snap.forEach(function(childSnapshot) {
-                                        let followerId = childSnapshot.key;
-                                        admin.database().ref('/MainDataBase/userpostsfeed/' + followerId + '/' + postId).remove();
-                                        console.log('Removed post from feed of user: '+ followerId);
-                                        });
-                           });
-         
-         admin.database().ref('/MainDataBase/userpostsfeed/' + userId + '/' + postId).remove(); // remove post from users post strip
-         } else {
+         if(event.data.val()) {
          // post was added
          followersRef.once("value", function(snap) {
                            snap.forEach(function(childSnapshot) {
                                         let followerId = childSnapshot.key;
                                         admin.database().ref('/MainDataBase/userpostsfeed/' + followerId + '/' + postId).set(event.data.val());
                                         console.log('Added post to feed of user: '+ followerId);
+                                        });
+                           });
+         
+         admin.database().ref('/MainDataBase/userpostsfeed/' + userId + '/' + postId).remove(); // remove post from users post strip
+         } else {
+         // post was deleted
+         followersRef.once("value", function(snap) {
+                           snap.forEach(function(childSnapshot) {
+                                        let followerId = childSnapshot.key;
+                                        admin.database().ref('/MainDataBase/userpostsfeed/' + followerId + '/' + postId).remove();
+                                        console.log('Removed post from feed of user: '+ followerId);
                                         });
                            });
          
@@ -91,14 +91,14 @@ exports.addPostsToNewFollowerFeed = functions.database.ref('/MainDataBase/usersf
 
 
 
-// add posts on spot follow
+// posts on spot follow / unfollow
 exports.addPostsFromSpotToFeed = functions.database.ref('/MainDataBase/userspotfollowings/{userId}/{spotId}')
 .onWrite(event => {
          const userId = event.params.userId;
          const spotId = event.params.spotId;
          
          let refToSpotPosts = admin.database().ref('/MainDataBase/spotsposts/' + spotId);
-         console.log(spotId)
+         if(event.data.val()) {
          refToSpotPosts.once("value", function(snap) {
                              snap.forEach(function(childSnapshot) {
                                           let postId = childSnapshot.key;
@@ -106,6 +106,16 @@ exports.addPostsFromSpotToFeed = functions.database.ref('/MainDataBase/userspotf
                                           console.log('Added post to feed of user: '+ userId);
                                           });
                              });
+         } else {
+         // getting all userId of followed by me users
+         let refToAllFollowings = admin.database().ref('/MainDataBase/usersfollowings/' + userId);
+         refToAllFollowings.once("value", function(followingssnap) {
+                                 var listOfFollowedUsers = Object.keys(followingssnap.val());
+                                 for (var i = 0; i < listOfFollowedUsers.length; i++) {
+                                    console.log('ajsdioajdoijaoid' + listOfFollowedUsers[i]);
+                                 }
+                                 });
+         }
          });
 
 // **************************************************************************************

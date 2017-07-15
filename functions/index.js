@@ -40,20 +40,7 @@ exports.updateFeedOnNewPostAdded = functions.database.ref('/MainDataBase/userspo
          }
          });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// add posts to feed on follow starting
+// add/remove posts to feed on follow/unfollow
 exports.addPostsToNewFollowerFeed = functions.database.ref('/MainDataBase/usersfollowers/{userId}/{followerId}')
 .onWrite(event => {
          const userId = event.params.userId;
@@ -69,31 +56,26 @@ exports.addPostsToNewFollowerFeed = functions.database.ref('/MainDataBase/usersf
                                           });
                              });
          } else {
-         
+         // get all followed by user spots
+         let refToAllFollowedSpots = admin.database().ref('/MainDataBase/userspotfollowings/' + followerId);
+         refToAllFollowedSpots.once("value", function(followedspotsssnap) {
+                                    var listOfFollowedSpots = Object.keys(followedspotsssnap.val());
+                                    
+                                    refToUserPosts.once("value", function(snap) {
+                                                        snap.forEach(function(childSnapshot) {
+                                                                     let postId = childSnapshot.key;
+                                                                     let spotId = (childSnapshot.val())['spotId'];
+                                                                     console.log('Post spotId: ' + spotId);
+                                                                     // if follower with followerId also not following this spot, then delete post from feed
+                                                                     if (!(listOfFollowedSpots.indexOf(spotId) > -1)) {
+                                                                     admin.database().ref('/MainDataBase/userpostsfeed/' + followerId + '/' + postId).remove();
+                                                                     console.log('Removed post from feed of user: ' + followerId);
+                                                                     }
+                                                                     });
+                                                        });
+                                    });
          }
          });
-
-// remove posts from feed on follow ending
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // posts on spot follow / unfollow
 exports.addPostsFromSpotToFeed = functions.database.ref('/MainDataBase/userspotfollowings/{userId}/{spotId}')
@@ -112,7 +94,6 @@ exports.addPostsFromSpotToFeed = functions.database.ref('/MainDataBase/userspotf
                              });
          } else {
          // getting all userId of followed by me users
-         console.log('zashel');
          let refToAllFollowings = admin.database().ref('/MainDataBase/usersfollowings/' + userId);
          refToAllFollowings.once("value", function(followingssnap) {
                                  var listOfFollowedUsers = Object.keys(followingssnap.val());

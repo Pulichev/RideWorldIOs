@@ -264,15 +264,17 @@ struct UserModel {
       }
    }
    
-   static var refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId())
-   
    static func addFollowingToSpot(with id: String) {
+      let refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId())
+      
       let refToUserSpotFollowing = refToUserFollowedSpots.child(id)
       
       refToUserSpotFollowing.setValue(true)
    }
    
    static func removeFollowingToSpot(with id: String) {
+      let refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId())
+
       let refToUserSpotFollowing = refToUserFollowedSpots.child(id)
       
       refToUserSpotFollowing.removeValue()
@@ -280,6 +282,8 @@ struct UserModel {
    
    static func isCurrentUserFollowingSpot(with id: String,
                                           completion: @escaping(_ isFollowing: Bool) -> Void) {
+      let refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId())
+      
       refToUserFollowedSpots.observeSingleEvent(of: .value, with: { snapshot in
          if var value = snapshot.value as? [String : Bool] {
             if value[id] != nil {
@@ -294,6 +298,8 @@ struct UserModel {
    }
    
    static func getUserFollowedSpots(completion: @escaping (_ spotsIds: [String]) -> Void) {
+      let refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId())
+      
       refToUserFollowedSpots.observeSingleEvent(of: .value, with: { snapshot in
          var spotsIds = [String]()
          

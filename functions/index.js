@@ -86,9 +86,7 @@ exports.addPostsToNewFollowerFeed = functions.database
         if (vollowedSpotsSnapValue != null) {
           // if user following some spots, we need to make some checks
           var listOfFollowedSpots = Object.keys(vollowedSpotsSnapValue);
-          console.log("zashli2222");
           refToUserPosts.once("value", function(snap) {
-            console.log("zashli3333");
             snap.forEach(function(childSnapshot) {
               let postId = childSnapshot.key;
               let spotId = childSnapshot.val()["spotId"];
@@ -107,7 +105,6 @@ exports.addPostsToNewFollowerFeed = functions.database
           });
         } else {
           // if user do not follow spots
-          console.log("zashli5");
           refToUserPosts.once("value", function(snap) {
             snap.forEach(function(childSnapshot) {
               let postId = childSnapshot.key;
@@ -150,24 +147,38 @@ exports.addPostsFromSpotToFeed = functions.database
         .database()
         .ref("/MainDataBase/usersfollowings/" + userId);
       refToAllFollowings.once("value", function(followingssnap) {
-        var listOfFollowedUsers = Object.keys(followingssnap.val());
-        listOfFollowedUsers.push(userId); // add current user
+        let followingsSnapValue = followingssnap.val();
+        if (followingsSnapValue != null) {
+          var listOfFollowedUsers = Object.keys(followingsSnapValue);
+          listOfFollowedUsers.push(userId); // add current user
 
-        refToSpotPosts.once("value", function(snap) {
-          snap.forEach(function(childSnapshot) {
-            let postId = childSnapshot.key;
-            let postAuthorId = childSnapshot.val()["addedByUser"];
-            console.log("Post authorId: " + postAuthorId);
-            // if i'm also not following this user, then delete post from feed
-            if (!(listOfFollowedUsers.indexOf(postAuthorId) > -1)) {
+          refToSpotPosts.once("value", function(snap) {
+            snap.forEach(function(childSnapshot) {
+              let postId = childSnapshot.key;
+              let postAuthorId = childSnapshot.val()["addedByUser"];
+              console.log("Post authorId: " + postAuthorId);
+              // if i'm also not following this user, then delete post from feed
+              if (!(listOfFollowedUsers.indexOf(postAuthorId) > -1)) {
+                admin
+                  .database()
+                  .ref("/MainDataBase/userpostsfeed/" + userId + "/" + postId)
+                  .remove();
+                console.log("Removed post from feed of user: " + userId);
+              }
+            });
+          });
+        } else {
+          refToSpotPosts.once("value", function(snap) {
+            snap.forEach(function(childSnapshot) {
+              let postId = childSnapshot.key;
               admin
                 .database()
                 .ref("/MainDataBase/userpostsfeed/" + userId + "/" + postId)
                 .remove();
               console.log("Removed post from feed of user: " + userId);
-            }
+            });
           });
-        });
+        }
       });
     }
   });

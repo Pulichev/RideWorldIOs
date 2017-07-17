@@ -201,7 +201,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       if UserModel.signOut() { // if no errors
          // clear our structs
          Spot.clearCurrentData()
-         UserModel.clearCurrentData()
          // then go to login
          performSegue(withIdentifier: "fromUserProfileToLogin", sender: self)
       }

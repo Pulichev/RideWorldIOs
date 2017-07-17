@@ -30,11 +30,11 @@ exports.updateFeedOnNewPostAdded = functions.database
           console.log("Added post to feed of user: " + followerId);
         });
       });
-
+      
       admin
         .database()
         .ref("/MainDataBase/userpostsfeed/" + userId + "/" + postId)
-        .remove(); // remove post from users post strip
+        .set(event.data.val()); // add post to users post strip
     } else {
       // post was deleted
       followersRef.once("value", function(snap) {
@@ -51,7 +51,7 @@ exports.updateFeedOnNewPostAdded = functions.database
       admin
         .database()
         .ref("/MainDataBase/userpostsfeed/" + userId + "/" + postId)
-        .set(event.data.val()); // add post to users post strip
+        .remove(); // remove post from users post strip
     }
   });
 

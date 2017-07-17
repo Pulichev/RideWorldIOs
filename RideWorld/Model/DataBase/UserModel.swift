@@ -183,30 +183,6 @@ struct UserModel {
       })
    }
    
-   static func getFollowingsIdsForCurrentUser(
-      completion: @escaping (_ followingsIds: [String]) -> Void) {
-      
-      if self.alreadyLoadedCountOfPosts == 0 { // if we just started
-         let currentUserId = getCurrentUserId()
-         let refToUserFollowings = refToMainDataBase.child("usersfollowings").child(currentUserId)
-         
-         refToUserFollowings.observeSingleEvent(of: .value, with: { snapshot in
-            var followingsIds = [String]()
-            
-            if let value = snapshot.value as? NSDictionary {
-               followingsIds.append(contentsOf: (value.allKeys as! [String]))
-            }
-            
-            followingsIds.append(currentUserId) // add current user to strip too
-            
-            completion(followingsIds)
-         })
-      } else {
-         completion(self.followingsIds)
-      }
-   }
-   
-   
    static func isCurrentUserFollowing(this userId: String,
                                       completion: @escaping(_ isFollowing: Bool) -> Void) {
       let currentUserId = self.getCurrentUserId()
@@ -274,7 +250,7 @@ struct UserModel {
    
    static func removeFollowingToSpot(with id: String) {
       let refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(getCurrentUserId())
-
+      
       let refToUserSpotFollowing = refToUserFollowedSpots.child(id)
       
       refToUserSpotFollowing.removeValue()
@@ -323,121 +299,60 @@ struct UserModel {
    }
    
    // MARK: - Get user strip posts part
-   static var followingsIds = [String]() // array of user followings + user ids (!NEXT NAMED FOLLOWINGSIDS!)
-   // We will update it only in refresh function of PostStripController
-   static var postsIds = [String]() // We will update it only in refresh function of PostStripController
-   
-   static var alreadyLoadedCountOfPosts: Int = 0
-   
-   static func getStripPostsIds(
-      completion: @escaping (_ postsIds: [String]) -> Void) {
-      if self.alreadyLoadedCountOfPosts == 0 { // if we haven't loaded already
-         var followingsPostsIds = [String]()
-         self.getFollowingsIdsForCurrentUser() { followingsIds in
-            var countOfProcessedFollowings = 0
-            
-            for followingId in followingsIds { // here we will have atleast 1 user (self)
-               self.getPostsIds(for: followingId) { postsIds in
-                  countOfProcessedFollowings += 1
-                  
-                  if postsIds != nil {
-                     followingsPostsIds.append(contentsOf: postsIds!)
-                  }
-                  
-                  if countOfProcessedFollowings == followingsIds.count {
-                     // also we need to add posts from followed spots
-                     self.getUserFollowedSpots() { spotsIds in
-                        let spotsIdsCount = spotsIds.count
-                        
-                        if spotsIdsCount == 0 {
-                           completion(followingsPostsIds.sorted(by: { $0 > $1 })) // with order by date
-                        }
-                        
-                        var countofProcessedSpotsIds = 0
-                        
-                        for spotId in spotsIds {
-                           Spot.getSpotPostsIds(for: spotId) { postsIds in
-                              if postsIds != nil {
-                                 followingsPostsIds.append(contentsOf: postsIds!)
-                              }
-                              
-                              countofProcessedSpotsIds += 1
-                              
-                              if countofProcessedSpotsIds == spotsIdsCount {
-                                 let followingsPostsIdsWODuplicates = Array(Set(followingsPostsIds)) // remove duplicates
-                                 
-                                 completion(followingsPostsIdsWODuplicates.sorted(by: { $0 > $1 })) // with order by date
-                              }
-                           }
-                        }
-                     }
-                  }
-               }
-            }
-         }
-      } else {
-         completion(self.postsIds)
-      }
-   }
+   public static var lastKey: String! // this is post id from which
+   // we will start search for infinite scrolling
    
    static func getStripPosts(countOfNewItemsToAdd: Int,
                              completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
-      self.getStripPostsIds() { postsIds in
-         if postsIds.count != 0 {
-            self.postsIds = postsIds
-         } else {
-            completion(nil) // if no posts
-         }
-         
-         guard let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd) else { // if no more posts
-            completion(nil)
-            return
-         }
-         
-         if nextPostsIds.count == 0 {
-            completion(nil)
-         }
-         
-         var newPosts = [PostItem]()
-         var countOfNewPostsLoaded = 0
-         
-         for postId in nextPostsIds {
-            Post.getItemById(for: postId) { post in
-               if post != nil { // founded without errors
-                  newPosts.append(post!)
-                  countOfNewPostsLoaded += 1
-                  
-                  if countOfNewPostsLoaded == nextPostsIds.count {
-                     self.alreadyLoadedCountOfPosts += nextPostsIds.count
-                     completion(newPosts.sorted(by: { $0.key > $1.key }))
-                  }
-               }
+      let refToFeedPosts = Database.database().reference(withPath: "MainDataBase/userpostsfeed/").child(getCurrentUserId())
+      
+      if lastKey == nil {
+         refToFeedPosts.queryOrderedByKey().queryLimited(toLast: UInt(countOfNewItemsToAdd)).observeSingleEvent(of: .value, with: { snapshot in
+            var postsList: [PostItem] = []
+            
+            for item in snapshot.children {
+               let postItem = PostItem(snapshot: item as! DataSnapshot)
+               postsList.append(postItem)
             }
-         }
+            
+            let orderedPostsList = postsList.sorted(by: { $0.key > $1.key })
+            let newLastKey = orderedPostsList.last?.key
+            
+            if newLastKey != lastKey {
+               lastKey = newLastKey
+               
+               completion(orderedPostsList)
+            } else {
+               completion(nil)
+            }
+         })
+      } else {
+         refToFeedPosts.queryOrderedByKey().queryEnding(atValue: lastKey).queryLimited(toLast: UInt(countOfNewItemsToAdd) + 1).observeSingleEvent(of: .value, with: { snapshot in
+            var postsList: [PostItem] = []
+            
+            for item in snapshot.children {
+               let postItem = PostItem(snapshot: item as! DataSnapshot)
+               postsList.append(postItem)
+            }
+            
+            var orderedPostsList = postsList.sorted(by: { $0.key > $1.key })
+            orderedPostsList.removeFirst(1)
+            let newLastKey = orderedPostsList.last?.key
+            
+            if newLastKey != lastKey {
+               lastKey = newLastKey
+               
+               completion(orderedPostsList)
+            } else {
+               completion(nil)
+            }
+         })
       }
    }
    
-   private static func getNextIdsForAdd(_ count: Int) -> [String]? {
-      let keysCount = self.postsIds.count
-      let startIndex = self.alreadyLoadedCountOfPosts
-      var endIndex = startIndex + count
-      
-      if startIndex > keysCount { // segmentation fault :)
-         return nil
-      }
-      
-      if endIndex > keysCount {
-         endIndex = keysCount
-      }
-      
-      let nextIds = Array(postsIds[startIndex..<endIndex])
-      
-      return nextIds
-   }
-   
-   static func clearCurrentData() {
-      alreadyLoadedCountOfPosts = 0
-      postsIds.removeAll()
+   // for refresh. reload data
+   static func dropLastKey() {
+      lastKey = nil
    }
    
    // MARK: - Feedback part

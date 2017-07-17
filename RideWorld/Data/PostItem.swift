@@ -57,8 +57,8 @@ struct PostItem {
       createdDate = snapshotValue["createdDate"] as! String
       
       mediaRef10 = snapshotValue["mediaRef10"] as! String
-      mediaRef70 = snapshotValue["mediaRef70"] as! String
-      mediaRef200 = snapshotValue["mediaRef200"] as! String
+      mediaRef70 = snapshotValue["mediaRef70"] as? String
+      mediaRef200 = snapshotValue["mediaRef200"] as? String
       mediaRef700 = snapshotValue["mediaRef700"] as! String
       
       if !isPhoto {

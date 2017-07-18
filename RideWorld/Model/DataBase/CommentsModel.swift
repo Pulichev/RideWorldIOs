@@ -63,15 +63,15 @@ struct Comment {
             
             var updates: [String: Any?] = [
                "/postscomments/" + post.key + "/" + refForNewCommentKey:
-                  newComment!.toAnyObject(),
-               "/posts/" + post.key + "/comments/" + refForNewCommentKey: true
-               // need it for counting comments
+                  newComment!.toAnyObject()
             ]
             
+            //
+            // TIP: for counting some cloud function works
+            //
+            
             for userId in userIds {
-               // dont add to feedback all
-               // actions on user posts
-               
+               // dont add to feedback all actions on user posts
                if userId != newComment!.userId {
                   var commentForFeedback = newComment!.toAnyObject()
                   commentForFeedback["isViewed"] = false // when user will open feedback -> true
@@ -136,12 +136,11 @@ struct Comment {
          var userIds = mentionedUserIds
          userIds.append(post.addedByUser) // adding post author
          
-         var updates: [String: Any?] = ["/postscomments/" + post.key + "/" + comment.key: nil,
-                                        "/posts/" + post.key + "/comments/" + comment.key: nil
+         var updates: [String: Any?] = ["/postscomments/" + post.key + "/" + comment.key: nil
          ]
          
          for userId in userIds {
-            updates.updateValue(nil, forKey: "/feedback/" + userId + "/" + comment.key) //
+            updates.updateValue(nil, forKey: "/feedback/" + userId + "/" + comment.key)
          }
          
          ref.updateChildValues(updates)

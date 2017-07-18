@@ -135,7 +135,7 @@ class PostInfoViewController: UIViewController {
    }
    
    private func setOpenCommentsButtonTittle() {
-      openComments.setTitle("Open commentaries (\(postInfo.commentsCount!))", for: .normal)
+      openComments.setTitle("Open commentaries (\(postInfo.commentsCount))", for: .normal)
    }
    
    // MARK: - Add and remove like

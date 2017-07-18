@@ -25,8 +25,8 @@ struct PostItem {
    var videoRef: String!
    var mediaAspectRatio: Double!
    
-   var commentsCount: Int! = 0
-   var likesCount: Int! = 0
+   var commentsCount: Int = 0
+   var likesCount: Int = 0
    
    let spotId: String
    

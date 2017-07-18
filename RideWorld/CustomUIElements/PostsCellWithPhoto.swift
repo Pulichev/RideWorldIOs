@@ -17,7 +17,7 @@ class PostsCellWithPhoto: UITableViewCell {
    
    var post: PostItem! {
       didSet {
-         openComments.setTitle("Open commentaries (\(post.commentsCount!))", for: .normal)
+         openComments.setTitle("Open commentaries (\(post.commentsCount))", for: .normal)
       }
    }
    var userInfo: UserItem! // user, who posted

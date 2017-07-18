@@ -1,3 +1,5 @@
+// TIP: I don't know nodejs good, so bad quality of code. Will review it in the future.
+
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require("firebase-functions");
 
@@ -5,7 +7,7 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp(functions.config().firebase);
 
-// ************************************************************************************
+// **************************************************************************************
 // POST PART
 
 // add posts to feed of followers
@@ -196,6 +198,94 @@ exports.addPostsFromSpotToFeed = functions.database
         }
       });
     }
+  });
+
+// **************************************************************************************
+
+// **************************************************************************************
+// COMMENTS PART
+
+// update comments count in every mention of post
+exports.updateCommentsCountInEachPost = functions.database
+  .ref("/MainDataBase/postscomments/{postId}/{commentId}")
+  .onWrite(event => {
+    const postId = event.params.postId;
+    const commentId = event.params.commentId;
+
+    let refToPostsComments = admin
+      .database()
+      .ref("/MainDataBase/postscomments/" + postId);
+
+    refToPostsComments.once("value", function(commentsSnap) {
+      let commentsCount = commentsSnap.numChildren();
+
+      // update comments count in each post mention
+      // first step - we need spot id to also update this post in spotposts
+      // the easiest way is to get post from comment-postAddedByUser-> userposts -> ...
+      let postAddedByUser = event.data.val()["postAddedByUser"];
+
+      let refToPost = admin
+        .database()
+        .ref("MainDataBase/usersposts/" + postAddedByUser + "/" + postId);
+
+      refToPost.once("value", function(postSnap) {
+        let spotId = postSnap.val()["spotId"];
+        console.log("spotId: " + spotId);
+
+        var updates = {};
+
+        let followersRef = admin
+          .database()
+          .ref("/MainDataBase/usersfollowers/" + postAddedByUser);
+
+        followersRef.once("value", function(snap) {
+          snap.forEach(function(childSnapshot) {
+            let followerId = childSnapshot.key;
+            // add update of followers posts feed
+            updates[
+              "/MainDataBase/userpostsfeed/" +
+                followerId +
+                "/" +
+                postId +
+                "/commentsCount"
+            ] = commentsCount;
+          });
+
+          // add update of post author posts feed
+          updates[
+            "/MainDataBase/userpostsfeed/" +
+              postAddedByUser +
+              "/" +
+              postId +
+              "/commentsCount"
+          ] = commentsCount;
+          // of usersposts
+          updates[
+            "/MainDataBase/usersposts/" +
+              postAddedByUser +
+              "/" +
+              postId +
+              "/commentsCount"
+          ] = commentsCount;
+          // of spotposts
+          updates[
+            "/MainDataBase/spotsposts/" +
+              spotId +
+              "/" +
+              postId +
+              "/commentsCount"
+          ] = commentsCount;
+          // of posts node
+          updates[
+            "/MainDataBase/posts/" +
+              postId +
+              "/commentsCount"
+          ] = commentsCount;
+
+          admin.database().ref().update(updates);
+        });
+      });
+    });
   });
 
 // **************************************************************************************

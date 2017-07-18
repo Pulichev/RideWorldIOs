@@ -221,18 +221,47 @@ exports.updateCommentsCountInEachPost = functions.database
 
       // update comments count in each post mention
       // first step - we need spot id to also update this post in spotposts
-      // the easiest way is to get post from comment-postAddedByUser-> userposts -> ...
-      let postAddedByUser = event.data.val()["postAddedByUser"];
+      // the easiest way is to get post from posts -> postId -> ...
 
-      let refToPost = admin
-        .database()
-        .ref("MainDataBase/usersposts/" + postAddedByUser + "/" + postId);
+      let refToPost = admin.database().ref("MainDataBase/posts/" + postId);
 
       refToPost.once("value", function(postSnap) {
         let spotId = postSnap.val()["spotId"];
+        let postAddedByUser = postSnap.val()["addedByUser"];
         console.log("spotId: " + spotId);
 
         var updates = {};
+
+        // add update of post author posts feed
+        updates[
+          "/MainDataBase/userpostsfeed/" +
+            postAddedByUser +
+            "/" +
+            postId +
+            "/commentsCount"
+        ] = commentsCount;
+        // of usersposts
+        updates[
+          "/MainDataBase/usersposts/" +
+            postAddedByUser +
+            "/" +
+            postId +
+            "/commentsCount"
+        ] = commentsCount;
+        // of spotposts
+        updates[
+          "/MainDataBase/spotsposts/" + spotId + "/" + postId + "/commentsCount"
+        ] = commentsCount;
+        // of posts node
+        updates[
+          "/MainDataBase/posts/" + postId + "/commentsCount"
+        ] = commentsCount;
+
+        admin.database().ref().update(updates);
+
+        // clear previous array
+        // user can have no followers
+        updates = {};
 
         let followersRef = admin
           .database()
@@ -250,37 +279,6 @@ exports.updateCommentsCountInEachPost = functions.database
                 "/commentsCount"
             ] = commentsCount;
           });
-
-          // add update of post author posts feed
-          updates[
-            "/MainDataBase/userpostsfeed/" +
-              postAddedByUser +
-              "/" +
-              postId +
-              "/commentsCount"
-          ] = commentsCount;
-          // of usersposts
-          updates[
-            "/MainDataBase/usersposts/" +
-              postAddedByUser +
-              "/" +
-              postId +
-              "/commentsCount"
-          ] = commentsCount;
-          // of spotposts
-          updates[
-            "/MainDataBase/spotsposts/" +
-              spotId +
-              "/" +
-              postId +
-              "/commentsCount"
-          ] = commentsCount;
-          // of posts node
-          updates[
-            "/MainDataBase/posts/" +
-              postId +
-              "/commentsCount"
-          ] = commentsCount;
 
           admin.database().ref().update(updates);
         });

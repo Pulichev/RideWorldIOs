@@ -211,7 +211,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       case "goToPostInfoFromUserProfile":
          let newPostInfoController = segue.destination as! PostInfoViewController
          newPostInfoController.postInfo = posts[selectedCellId]
-         newPostInfoController.user = userInfo
          newPostInfoController.isCurrentUserProfile = true
          newPostInfoController.delegateDeleting = self
          

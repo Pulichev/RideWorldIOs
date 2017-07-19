@@ -150,7 +150,6 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       case "goToPostInfoFromFeedback":
          let newPostInfoController = segue.destination as! PostInfoViewController
          newPostInfoController.postInfo = postInfoForSending
-         newPostInfoController.user = ridersInfoForSending
          newPostInfoController.isCurrentUserProfile = true
          
       default: break

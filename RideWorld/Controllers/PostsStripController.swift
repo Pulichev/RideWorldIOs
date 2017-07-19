@@ -224,7 +224,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let row = indexPath.row
       
-      if postItemCellsCache[row].isPhoto {
+      let cellFromCache = postItemCellsCache[row]
+      let post = posts[row]
+      
+      if posts[row].isPhoto {
          let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithPhoto", for: indexPath) as! PostsCellWithPhoto
          
          if cell.userLikedOrDeletedLike { // when cell appears checking if like was tapped
@@ -232,8 +235,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             updateCellLikesCache(objectId: cell.post.key) // if yes updating cache
          }
          
-         let cellFromCache = postItemCellsCache[row]
-         cell.initialize(with: cellFromCache)
+         cell.initialize(with: cellFromCache, post)
          
          cell.delegateUserTaps = self
          cell.delegateSpotInfoTaps = self
@@ -245,8 +247,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.spotPostPhotoHeight.constant = height
          cell.spotPostPhoto.frame.size.height = height
          setPhoto(on: cell)
-         cell.addDoubleTapGestureOnPostPhotos()
-         cell.addDoubleTapGestureOnUserPhoto()
          
          return cell
       } else {
@@ -257,8 +257,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             updateCellLikesCache(objectId: cell.post.key) // if yes updating cache
          }
          
-         let cellFromCache = postItemCellsCache[row]
-         cell.initialize(with: cellFromCache)
+         cell.initialize(with: cellFromCache, post)
          
          cell.delegateUserTaps = self
          cell.delegateSpotInfoTaps = self
@@ -270,8 +269,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let height = width * CGFloat(cell.post.mediaAspectRatio)
          cell.spotPostMediaHeight.constant = height
          setVideo(on: cell, cacheKey: row)
-         cell.addDoubleTapGestureOnPostPhotos()
-         cell.addDoubleTapGestureOnUserPhoto()
          
          return cell
       }

@@ -12,13 +12,9 @@ import ActiveLabel
 class PostItemCellCache {
    var key: String!
    var post: PostItem!
-   var userInfo: UserItem!
-   var userNickName = String()
-   var postDate = String()
-   var postDescription = String()
-   var isPhoto = Bool()
-   var isLikedPhoto = UIImageView()
-   var postIsLiked = Bool()
+   var postDate: String!
+   var isLikedPhoto = UIImageView() // need to fix it. 
+   var postIsLiked: Bool!
    var likesCount = Int()
    var isCached = false
    
@@ -27,22 +23,9 @@ class PostItemCellCache {
       self.post = post
       // formatting date to yyyy-mm-dd
       postDate = DateTimeParser.getDateTime(from: post.createdDate)
-      postDescription = post.description
-      isPhoto = post.isPhoto
-      initializeUser() {
-         self.userLikedThisPost() {
-            self.countPostLikes() {
-               completion(self)
-            }
-         }
-      }
-   }
-   
-   func initializeUser(completion: @escaping () -> Void) {
-      UserModel.getItemById(for: post.addedByUser) { userItem in
-         self.userInfo = userItem
-         self.userNickName = self.userInfo.login
-         completion()
+      likesCount = post.likesCount
+      self.userLikedThisPost() {
+         completion(self)
       }
    }
    
@@ -55,13 +38,6 @@ class PostItemCellCache {
             self.postIsLiked = false
             self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
          }
-         completion()
-      }
-   }
-   
-   func countPostLikes(completion: @escaping () -> Void) {
-      Post.getLikesCount(for: post.key) { countOfPostLikes in
-         self.likesCount = countOfPostLikes
          completion()
       }
    }

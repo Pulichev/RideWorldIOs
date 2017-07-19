@@ -208,7 +208,6 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       case "goToPostInfo":
          let newPostInfoController = (segue.destination as! PostInfoViewController)
          newPostInfoController.postInfo = posts[selectedCellId]
-         newPostInfoController.user = ridersInfo
          newPostInfoController.isCurrentUserProfile = false
          
       case "goToFollowersFromRidersNode":

@@ -14,7 +14,6 @@ import ActiveLabel
 class PostInfoViewController: UIViewController {
    
    var postInfo: PostItem!
-   var user: UserItem!
    
    var isCurrentUserProfile: Bool!
    var delegateDeleting: ForUpdatingUserProfilePosts?
@@ -59,17 +58,17 @@ class PostInfoViewController: UIViewController {
             self.navigationItem.rightBarButtonItem = nil // hide delete button
          }
          
-         self.postDescription.text = self.user.login + " " + self.postInfo.description
+         self.postDescription.text = self.postInfo.userLogin + " " + self.postInfo.description
          self.customizeDescUserLogin()
-         self.countPostLikes()
+         self.likesCount.text = String(describing: self.postInfo.likesCount)
          self.userLikedThisPost()
          self.initializeDate()
          self.addDoubleTapGestureOnPostMedia()
          self.setOpenCommentsButtonTittle()
          
-         self.userLoginHeaderButton.setTitle(self.user.login, for: .normal)
-         if self.user.photo90ref != nil {
-            self.userPhoto.kf.setImage(with: URL(string: self.user.photo90ref!))
+         self.userLoginHeaderButton.setTitle(self.postInfo.userLogin, for: .normal)
+         if self.postInfo.userProfilePhoto90 != nil {
+            self.userPhoto.kf.setImage(with: URL(string: self.postInfo.userProfilePhoto90!))
          }
       }
       
@@ -96,13 +95,6 @@ class PostInfoViewController: UIViewController {
    
    func initializeDate() {
       postDate.text = DateTimeParser.getDateTime(from: postInfo.createdDate)
-   }
-   
-   func countPostLikes() {
-      Post.getLikesCount(for: postInfo.key) { likesCount in
-         self.likesCountInt = likesCount
-         self.likesCount.text = String(describing: likesCount)
-      }
    }
    
    func userLikedThisPost() {
@@ -172,12 +164,12 @@ class PostInfoViewController: UIViewController {
    }
    
    func goToPostAuthor() {
-      goToUserProfile(with: self.user.login)
+      goToUserProfile(with: self.postInfo.userLogin)
    }
    
    @IBAction func openAlert(_ sender: UIButton) {
       print("a")
-      let alertController = UIAlertController(title: nil, message: "Takes the appearance of the bottom bar if specified; otherwise, same as UIActionSheetStyleDefault.", preferredStyle: .actionSheet)
+      let alertController = UIAlertController(title: nil, message: "Actions", preferredStyle: .actionSheet)
       
       let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
       
@@ -374,7 +366,7 @@ class PostInfoViewController: UIViewController {
    var ridersInfoForSending: UserItem!
    
    private func goToUserProfile(with tappedUserLogin: String) {
-      if user.login == tappedUserLogin {
+      if postInfo.userLogin == tappedUserLogin {
          _ = self.navigationController?.popViewController(animated: true) // go back
       } else {
          UserModel.getItemByLogin(
@@ -406,7 +398,7 @@ class PostInfoViewController: UIViewController {
    private func customizeDescUserLogin() {
       postDescription.customize { description in
          //Looks for userItem.login
-         let loginTappedType = ActiveType.custom(pattern: "^\(user.login)\\b")
+         let loginTappedType = ActiveType.custom(pattern: "^\(self.postInfo.userLogin)\\b")
          description.enabledTypes.append(loginTappedType)
          description.handleCustomTap(for: loginTappedType) { login in
             self.goToUserProfile(with: login)
@@ -417,7 +409,7 @@ class PostInfoViewController: UIViewController {
          postDescription.configureLinkAttribute = { (type, attributes, isSelected) in
             var atts = attributes
             switch type {
-            case .custom(pattern: "^\(self.user.login)\\b"):
+            case .custom(pattern: "^\(self.postInfo.userLogin)\\b"):
                atts[NSFontAttributeName] = UIFont(name: "CourierNewPS-BoldMT", size: 15)
             default: ()
             }

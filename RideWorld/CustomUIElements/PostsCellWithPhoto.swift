@@ -20,7 +20,6 @@ class PostsCellWithPhoto: UITableViewCell {
          openComments.setTitle("Open commentaries (\(post.commentsCount))", for: .normal)
       }
    }
-   var userInfo: UserItem! // user, who posted
    
    @IBOutlet weak var userPhoto: RoundedImageView!
    @IBOutlet weak var userLoginHeaderButton: UIButton!
@@ -48,23 +47,25 @@ class PostsCellWithPhoto: UITableViewCell {
    
    var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post
    
-   func initialize(with cachedCell: PostItemCellCache) {
-      post                 = cachedCell.post
-      userInfo             = cachedCell.userInfo
+   func initialize(with cachedCell: PostItemCellCache, _ post: PostItem) {
+      self.post                 = post
       
-      userLoginHeaderButton.setTitle(userInfo.login, for: .normal)
-      if userInfo.photo90ref != nil {
-         userPhoto.kf.setImage(with: URL(string: userInfo.photo90ref!))
+      userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
+      if post.userProfilePhoto90 != nil {
+         userPhoto.kf.setImage(with: URL(string: post.userProfilePhoto90!))
       }
       
       postDate.text        = cachedCell.postDate
-      postDescription.text = userInfo.login + " " + cachedCell.postDescription
+      postDescription.text = post.userLogin + " " + post.description
       customizeDescUserLogin()
       
       likesCount.text      = String(cachedCell.likesCount)
       postIsLiked          = cachedCell.postIsLiked
       
       isLikedPhoto.image   = cachedCell.isLikedPhoto.image
+      
+      addDoubleTapGestureOnPostPhotos()
+      addDoubleTapGestureOnUserPhoto()
    }
    
    func addDoubleTapGestureOnUserPhoto() {
@@ -121,7 +122,7 @@ class PostsCellWithPhoto: UITableViewCell {
    
    @IBAction func openAlert(_ sender: UIButton) {
       print("a")
-      let alertController = UIAlertController(title: nil, message: "Takes the appearance of the bottom bar if specified; otherwise, same as UIActionSheetStyleDefault.", preferredStyle: .actionSheet)
+      let alertController = UIAlertController(title: nil, message: "Actions", preferredStyle: .actionSheet)
       
       let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
       
@@ -163,11 +164,11 @@ class PostsCellWithPhoto: UITableViewCell {
    }
    
    @IBAction func userLoginHeaderButtonTapped(_ sender: UIButton) {
-      delegateUserTaps?.userInfoTapped(userInfo)
+      goToUserProfile(tappedUserLogin: post.userLogin)
    }
    
    func userInfoTapped() {
-      delegateUserTaps?.userInfoTapped(userInfo)
+      goToUserProfile(tappedUserLogin: post.userLogin)
    }
    
    // from @username
@@ -185,7 +186,7 @@ class PostsCellWithPhoto: UITableViewCell {
    private func customizeDescUserLogin() {
       postDescription.customize { description in
          //Looks for userItem.login
-         let loginTappedType = ActiveType.custom(pattern: "^\(userInfo.login)\\b")
+         let loginTappedType = ActiveType.custom(pattern: "^\(post.userLogin)\\b")
          description.enabledTypes.append(loginTappedType)
          description.handleCustomTap(for: loginTappedType) { login in
             self.userInfoTapped()
@@ -196,7 +197,7 @@ class PostsCellWithPhoto: UITableViewCell {
          postDescription.configureLinkAttribute = { (type, attributes, isSelected) in
             var atts = attributes
             switch type {
-            case .custom(pattern: "^\(self.userInfo.login)\\b"):
+            case .custom(pattern: "^\(self.post.userLogin)\\b"):
                atts[NSFontAttributeName] = UIFont(name: "CourierNewPS-BoldMT", size: 15)
             default: ()
             }

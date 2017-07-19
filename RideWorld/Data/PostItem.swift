@@ -68,7 +68,7 @@ struct PostItem {
       mediaRef700        = snapshotValue["mediaRef700"] as! String
 
       if !isPhoto {
-      videoRef           = snapshotValue["videoRef"] as! String
+         videoRef        = snapshotValue["videoRef"] as! String
       }
 
       mediaAspectRatio   = snapshotValue["mediaAspectRatio"] as! Double
@@ -98,7 +98,7 @@ struct PostItem {
       valuesArray["mediaRef700"]        = mediaRef700
 
       if !isPhoto {
-      valuesArray["videoRef"]           = videoRef
+         valuesArray["videoRef"]        = videoRef
       }
 
       valuesArray["mediaAspectRatio"]   = mediaAspectRatio

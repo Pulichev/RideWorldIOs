@@ -76,24 +76,27 @@ class NewPostController: UIViewController, UITextViewDelegate {
    @IBAction func savePost(_ sender: Any) {
       showSavingProgress()
       
-      let postItem = createNewPostItem()
-      
-      // first - upload media. On completion - save post info data
-      if isNewMediaIsPhoto {
-         uploadPhoto(for: postItem)
-      } else {
-         uploadVideo(for: postItem)
+      createNewPostItem() { postItem in
+         // first - upload media. On completion - save post info data
+         if self.isNewMediaIsPhoto {
+            self.uploadPhoto(for: postItem)
+         } else {
+            self.uploadVideo(for: postItem)
+         }
       }
    }
    
-   private func createNewPostItem() -> PostItem {
-      let currentUser = UserModel.getCurrentUser()
+   private func createNewPostItem(completion: @escaping (_ postItem: PostItem) -> Void) {
       let createdDate = String(describing: Date())
       let newPostId = Post.getNewPostId()
-      let postItem = PostItem(isNewMediaIsPhoto, postDescription.text,
-                              createdDate, spotDetailsItem.key,
-                              currentUser.uid, newPostId)
-      return postItem
+      let currentUserId = UserModel.getCurrentUserId()
+      
+      UserModel.getItemById(for: currentUserId) { userItem in
+         let postItem = PostItem(self.isNewMediaIsPhoto, self.postDescription.text,
+                                 createdDate, self.spotDetailsItem.key,
+                                 userItem, newPostId)
+         completion(postItem)
+      }
    }
    
    private func uploadPhoto(for postItem: PostItem) {

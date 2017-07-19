@@ -33,9 +33,7 @@ exports.updateFeedOnNewPostAdded = functions.database
           ] = event.data.val();
         });
 
-        updates[
-          "/MainDataBase/userpostsfeed/" + userId + "/" + postId
-        ] = event.data.val(); // add post to users post strip
+        // to user postsfeed it will be added on client
 
         admin.database().ref().update(updates);
       });
@@ -52,7 +50,7 @@ exports.updateFeedOnNewPostAdded = functions.database
           ] = null;
         });
 
-        updates["/MainDataBase/userpostsfeed/" + userId + "/" + postId] = null; // remove post from users post strip
+        // from user postsfeed it will be removed on client
 
         admin.database().ref().update(updates);
       });

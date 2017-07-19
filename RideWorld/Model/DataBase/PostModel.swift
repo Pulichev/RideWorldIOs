@@ -63,8 +63,9 @@ struct Post {
       
       let updates = [
          "/posts/" + postItem.key: postItem.toAnyObject(),
-         "/spotsposts/" + postItem.spotId + "/" + postItem.key: postItem.toAnyObjectForFeedStrip(), // for post strip for spot
-         "/usersposts/" + postItem.addedByUser + "/" + postItem.key: postItem.toAnyObject() // for user profile
+         "/spotsposts/" + postItem.spotId + "/" + postItem.key: postItem.toAnyObject(), // for post strip for spot
+         "/usersposts/" + postItem.addedByUser + "/" + postItem.key: postItem.toAnyObject(), // for user profile
+         "/userpostsfeed/" + postItem.addedByUser + "/" + postItem.key: postItem.toAnyObject() // for user posts feed
       ]
       
       mainReference.updateChildValues(updates) { (error, _) in
@@ -87,7 +88,8 @@ struct Post {
       let updates: [String: Any?] = [
          "/posts/" + postItem.key: nil,
          "/spotsposts/" + postItem.spotId + "/" + postItem.key: nil,
-         "/usersposts/" + postItem.addedByUser + "/" + postItem.key: nil
+         "/usersposts/" + postItem.addedByUser + "/" + postItem.key: nil,
+         "/userpostsfeed/" + postItem.addedByUser + "/" + postItem.key: nil
       ]
       
       mainReference.updateChildValues(updates)

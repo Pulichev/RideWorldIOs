@@ -96,17 +96,19 @@ struct UserModel {
    }
    
    // MARK: - Posts part
-   static func getPostsIds(for userId: String,
-                           completion: @escaping (_ postIds: [String]?) -> Void) {
+   static func getPosts(for userId: String,
+                           completion: @escaping (_ posts: [PostItem]) -> Void) {
       let refToUserPosts = refToMainDataBase.child("usersposts").child(userId)
       
       refToUserPosts.observeSingleEvent(of: .value, with: { snapshot in
-         if let value = snapshot.value as? [String: Any] {
-            let postsIds = Array(value.keys).sorted(by: { $0 > $1 })
-            completion(postsIds)
-         } else {
-            completion(nil) // if no posts
+         var postsList: [PostItem] = []
+         
+         for item in snapshot.children {
+            let postItem = PostItem(snapshot: item as! DataSnapshot)
+            postsList.append(postItem)
          }
+         
+         completion(postsList)
       })
    }
    

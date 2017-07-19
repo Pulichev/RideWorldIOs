@@ -109,25 +109,10 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
    
    func initializePosts() {
-      UserModel.getPostsIds(for: userInfo.uid) { postsIds in
-         if postsIds != nil {
-            var loadedPosts = [PostItem]()
-            
-            for postId in postsIds! {
-               Post.getItemById(for: postId) { postItem in
-                  if postItem != nil {
-                     loadedPosts.append(postItem!)
-                     
-                     //if all posts loaded
-                     if loadedPosts.count == postsIds?.count {
-                        self.posts = loadedPosts.sorted(by: { $0.key > $1.key })
-                        self.userProfileCollection.reloadData()
-                        self.removeLoadingScreen()
-                     }
-                  }
-               }
-            }
-         }
+      UserModel.getPosts(for: userInfo.uid) { posts in
+         self.posts = posts
+         self.userProfileCollection.reloadData()
+         self.removeLoadingScreen()
       }
    }
    

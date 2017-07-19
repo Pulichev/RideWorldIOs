@@ -200,10 +200,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       case "editUserProfile":
          let newEditProfileController = segue.destination as! EditProfileController
          newEditProfileController.userInfo = userInfo
-         newEditProfileController.userPhoto = RoundedImageView(image: UIImage(named: "plus-512.gif"))
-         if let image = userProfilePhoto.image {
-            newEditProfileController.userPhotoTemp = image
-         }
          newEditProfileController.delegate = self
          
       case "goToFollowersFromUserNode":

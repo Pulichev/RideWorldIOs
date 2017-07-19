@@ -90,18 +90,21 @@ struct UserModel {
          ])
    }
    
-   static func updatePhotoRef(for userId: String, size: Int, url: String) {
+   static func updatePhotoRef(for userId: String, size: Int, url: String,
+                              completion: @escaping(_ finished: Bool) -> Void) {
       let sizeString = String(describing: size)
       let refToCurrentUser = refToUsersNode.child(userId)
       
       refToCurrentUser.updateChildValues([
          "photo" + sizeString + "ref": url
-         ])
+      ]) { (_,_) in // finished
+         completion(true)
+      }
    }
    
    // MARK: - Posts part
    static func getPosts(for userId: String,
-                           completion: @escaping (_ posts: [PostItem]) -> Void) {
+                        completion: @escaping (_ posts: [PostItem]) -> Void) {
       let refToUserPosts = refToMainDataBase.child("usersposts").child(userId)
       
       refToUserPosts.observeSingleEvent(of: .value, with: { snapshot in

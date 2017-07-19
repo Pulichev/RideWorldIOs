@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import Kingfisher
 import Gallery
+import SVProgressHUD
 
 class EditProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    var delegate: EditedUserInfoDelegate?
@@ -16,8 +18,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    @IBOutlet var tableView: UITableView!
    @IBOutlet var userPhoto: RoundedImageView!
-   
-   var userPhotoTemp: UIImage!
+   fileprivate var userChangedPhoto = false
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -27,7 +28,9 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide),
                                              name: NSNotification.Name.UIKeyboardWillHide, object: nil)
       
-      userPhoto.image = userPhotoTemp
+      if userInfo.photo150ref != nil {
+         userPhoto.kf.setImage(with: URL(string: userInfo.photo150ref!))
+      }
       
       tableView.tableFooterView = UIView(frame: .zero) // deleting empty rows
    }
@@ -37,6 +40,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    }
    
    @IBAction func saveButtonTapped(_ sender: Any) {
+      SVProgressHUD.show()
       let login = getCellFieldText(2).lowercased()
       // updating values
       // check if new login free, because they must be unic
@@ -44,6 +48,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          if userItem == nil || userItem!.uid == UserModel.getCurrentUserId() { // free
             self.updateInfo(with: login)
          } else {
+            SVProgressHUD.dismiss()
             self.showAlertThatLoginAlreadyExists()
          }
       }
@@ -55,30 +60,44 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       
       UserModel.updateInfo(for: userInfo.uid, bioDescription, login, nameAndSename)
       
-      if userPhotoTemp != nil {
-         uploadPhoto()
-      }
-      
-      returnToParentControllerOnSaveButtonTapped(bioDescription,
-                                                 login,  nameAndSename)
-   }
-   
-   private func uploadPhoto() {
-      UserMedia.upload(for: userInfo.uid,
-                       with: userPhoto.image!, withSize: 150.0) { (hasFinishedSuccessfully, url) in
-                        UserModel.updatePhotoRef(for: self.userInfo.uid, size: 150, url: url)
-      }
-      UserMedia.upload(for: userInfo.uid,
-                       with: userPhoto.image!, withSize: 90.0) { (hasFinishedSuccessfully, url) in
-                        UserModel.updatePhotoRef(for: self.userInfo.uid, size: 90, url: url)
+      if userChangedPhoto {
+         uploadPhoto() { _ in
+            self.returnToParentController(bioDescription,
+                                          login,
+                                          nameAndSename)
+         }
       }
    }
    
-   private func returnToParentControllerOnSaveButtonTapped(_ bioDescription: String, _ login: String, _ nameAndSename: String) {
+   private func uploadPhoto(completion: @escaping (_ finished: Bool) -> Void) {
+      UserMedia.upload(for: userInfo.uid,
+                       with: userPhoto.image!, withSize: 150.0)
+      { (hasFinishedSuccessfully, url) in
+         
+         UserModel.updatePhotoRef(for: self.userInfo.uid, size: 150, url: url)
+         { _ in
+            
+            UserMedia.upload(for: self.userInfo.uid,
+                             with: self.userPhoto.image!, withSize: 90.0)
+            { (hasFinishedSuccessfully, url) in
+               
+               UserModel.updatePhotoRef(for: self.userInfo.uid, size: 90, url: url)
+               { _ in
+                  
+                  completion(true)
+               }
+            }
+         }
+      }
+   }
+   
+   private func returnToParentController(_ bioDescription: String, _ login: String, _ nameAndSename: String) {
       // change current user info and pass it and photo to user profile controller
       userInfo.bioDescription = bioDescription
       userInfo.login = login
       userInfo.nameAndSename = nameAndSename
+      
+      SVProgressHUD.dismiss()
       
       if let del = delegate {
          del.dataChanged(userInfo: userInfo, profilePhoto: userPhoto.image)
@@ -174,10 +193,7 @@ extension EditProfileController: GalleryControllerDelegate {
       let img = images[0]
       
       self.userPhoto.image = img
-      self.userPhoto.layer.cornerRadius = self.userPhoto.frame.size.height / 2
-      self.userPhoto.layer.masksToBounds = true
-      self.userPhoto.layer.borderWidth = 0
-      
+      self.userChangedPhoto = true
       controller.dismiss(animated: true, completion: nil)
    }
    

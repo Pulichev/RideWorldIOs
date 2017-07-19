@@ -7,7 +7,6 @@
 //
 
 import FirebaseStorage
-import FirebaseDatabase // TEMP
 
 struct PostMedia {
    static let refToPostMedia = Storage.storage().reference(withPath: "media/spotPostMedia/")

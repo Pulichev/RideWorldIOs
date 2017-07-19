@@ -55,13 +55,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      // temp
-      let cache = ImageCache.default
-      
-      cache.clearMemoryCache()
-      cache.clearDiskCache()
-      //
-      
       initLoadingView()
       setLoadingScreen()
       
@@ -157,6 +150,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       UserModel.dropLastKey()
       Spot.dropLastKey()
       mediaCache.removeAllObjects()
+      tableView.es_resetNoMoreData()
       
       loadPosts() { newItems in
          if newItems == nil { return }

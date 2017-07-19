@@ -29,6 +29,10 @@ struct UserModel {
    // MARK: - Sign in / Sign up part
    static func signOut() -> Bool {
       do {
+         // clear our structs
+         UserModel.dropLastKey()
+         Spot.dropLastKey()
+         
          try Auth.auth().signOut()
          return true
       } catch {

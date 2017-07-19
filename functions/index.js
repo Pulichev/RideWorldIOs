@@ -371,8 +371,8 @@ exports.updateLikesCountInEachPost = functions.database
 // **************************************************************************************
 // USER INFO CHANGES PART
 
-// updat user info in every mention of post,
-// if user changed his profile picrure
+// update user info in every mention of post,
+// if user changed his profile picture
 exports.updateUserPhotoRefInEachPost = functions.database
   .ref("/MainDataBase/users/{userId}/photo90ref")
   .onWrite(event => {
@@ -453,9 +453,9 @@ exports.updateUserPhotoRefInEachPost = functions.database
                   ] = photoRef;
                 });
               }
-            });
 
-            admin.database().ref().update(updates);
+              admin.database().ref().update(updates);
+            });
           });
         });
       }
@@ -463,89 +463,93 @@ exports.updateUserPhotoRefInEachPost = functions.database
   });
 
 // if user changed his login
-// exports.updateUserInfoInEachPost = functions.database
-//   .ref("/MainDataBase/users/{userId}/photo90ref")
-//   .onWrite(event => {
-//     const userId = event.params.userId;
-//     const photoRef = event.data.val();
+exports.updateUserLoginInEachPost = functions.database
+  .ref("/MainDataBase/users/{userId}/login")
+  .onWrite(event => {
+    const userId = event.params.userId;
+    const login = event.data.val();
+    console.log("Zashli");
 
-//     // get each post of user
-//     let refToUserPosts = admin
-//       .database()
-//       .ref("/MainDataBase/usersposts/" + userId);
+    // get each post of user
+    let refToUserPosts = admin
+      .database()
+      .ref("/MainDataBase/usersposts/" + userId);
 
-//     refToUserPosts.once("value", function(userPostsSnap) {
-//       let userPostsSnapValue = userPostsSnap.val();
-//       if (userPostsSnapValue != null) {
-//         // else we dont need to do smth
-//         var listOfPostsIds = Object.keys(userPostsSnapValue);
+    refToUserPosts.once("value", function(userPostsSnap) {
+      let userPostsSnapValue = userPostsSnap.val();
+      if (userPostsSnapValue != null) {
+        // else we dont need to do smth
+        var listOfPostsIds = Object.keys(userPostsSnapValue);
 
-//         listOfPostsIds.forEach(function(postId) {
-//           let refToPost = admin.database().ref("MainDataBase/posts/" + postId);
+        let followersRef = admin
+          .database()
+          .ref("/MainDataBase/usersfollowers/" + userId);
 
-//           refToPost.once("value", function(postSnap) {
-//             let spotId = postSnap.val()["spotId"];
+        followersRef.once("value", function(followersSnap) {
+          // here. To get it one time
+          listOfPostsIds.forEach(function(postId) {
+            let refToPost = admin
+              .database()
+              .ref("MainDataBase/posts/" + postId);
 
-//             var updates = {};
+            refToPost.once("value", function(postSnap) {
+              var updates = {};
 
-//             // add update of post author posts feed
-//             updates[
-//               "/MainDataBase/userpostsfeed/" +
-//                 userId +
-//                 "/" +
-//                 postId +
-//                 "/userProfilePhoto90"
-//             ] = photoRef;
-//             // of usersposts
-//             updates[
-//               "/MainDataBase/usersposts/" +
-//                 userId +
-//                 "/" +
-//                 postId +
-//                 "/userProfilePhoto90"
-//             ] = photoRef;
-//             // of spotposts
-//             updates[
-//               "/MainDataBase/spotsposts/" +
-//                 spotId +
-//                 "/" +
-//                 postId +
-//                 "/userProfilePhoto90"
-//             ] = photoRef;
-//             // of posts node
-//             updates[
-//               "/MainDataBase/posts/" + postId + "/userProfilePhoto90"
-//             ] = photoRef;
+              let spotId = postSnap.val()["spotId"];
 
-//             admin.database().ref().update(updates);
+              // add update of post author posts feed
+              updates[
+                "/MainDataBase/userpostsfeed/" +
+                  userId +
+                  "/" +
+                  postId +
+                  "/login"
+              ] = login;
+              // of usersposts
+              updates[
+                "/MainDataBase/usersposts/" +
+                  userId +
+                  "/" +
+                  postId +
+                  "/login"
+              ] = login;
+              // of spotposts
+              updates[
+                "/MainDataBase/spotsposts/" +
+                  spotId +
+                  "/" +
+                  postId +
+                  "/login"
+              ] = login;
+              // of posts node
+              updates[
+                "/MainDataBase/posts/" + postId + "/login"
+              ] = login;
 
-//             // clear previous array
-//             // user can have no followers
-//             updates = {};
+              let followersRef = admin
+                .database()
+                .ref("/MainDataBase/usersfollowers/" + userId);
 
-//             let followersRef = admin
-//               .database()
-//               .ref("/MainDataBase/usersfollowers/" + userId);
+              if (followersSnap.val() != null) {
+                followersSnap.forEach(function(childSnapshot) {
+                  let followerId = childSnapshot.key;
+                  // add update of followers posts feed
+                  updates[
+                    "/MainDataBase/userpostsfeed/" +
+                      followerId +
+                      "/" +
+                      postId +
+                      "/login"
+                  ] = login;
+                });
+              }
 
-//             followersRef.once("value", function(snap) {
-//               snap.forEach(function(childSnapshot) {
-//                 let followerId = childSnapshot.key;
-//                 // add update of followers posts feed
-//                 updates[
-//                   "/MainDataBase/userpostsfeed/" +
-//                     followerId +
-//                     "/" +
-//                     postId +
-//                     "/userProfilePhoto90"
-//                 ] = photoRef;
-//               });
-
-//               admin.database().ref().update(updates);
-//             });
-//           });
-//         });
-//       }
-//     });
-//   });
+              admin.database().ref().update(updates);
+            });
+          });
+        });
+      }
+    });
+  });
 
 // **************************************************************************************

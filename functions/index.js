@@ -287,3 +287,91 @@ exports.updateCommentsCountInEachPost = functions.database
   });
 
 // **************************************************************************************
+
+// **************************************************************************************
+// LIKES PART
+
+// update likes count in every mention of post
+// easiest way to catch it is from userlikes. 
+// lowest count of nodes
+exports.updateLikesCountInEachPost = functions.database
+  .ref("/MainDataBase/userslikes/{userId}/onposts/{postId}")
+  .onWrite(event => {
+    const postId = event.params.postId;
+    const userId = event.params.userId;
+
+    let refToPostsLikes = admin
+      .database()
+      .ref("/MainDataBase/postslikes/" + postId);
+
+    refToPostsLikes.once("value", function(likesSnap) {
+      let likesCount = likesSnap.numChildren();
+
+      // update likes count in each post mention
+      // first step - we need spot id to also update this post in spotposts
+      // the easiest way is to get post from posts -> postId -> ...
+
+      let refToPost = admin.database().ref("MainDataBase/posts/" + postId);
+
+      refToPost.once("value", function(postSnap) {
+        let spotId = postSnap.val()["spotId"];
+        let postAddedByUser = postSnap.val()["addedByUser"];
+        console.log("spotId: " + spotId);
+
+        var updates = {};
+
+        // add update of post author posts feed
+        updates[
+          "/MainDataBase/userpostsfeed/" +
+            postAddedByUser +
+            "/" +
+            postId +
+            "/likesCount"
+        ] = likesCount;
+        // of usersposts
+        updates[
+          "/MainDataBase/usersposts/" +
+            postAddedByUser +
+            "/" +
+            postId +
+            "/likesCount"
+        ] = likesCount;
+        // of spotposts
+        updates[
+          "/MainDataBase/spotsposts/" + spotId + "/" + postId + "/likesCount"
+        ] = likesCount;
+        // of posts node
+        updates[
+          "/MainDataBase/posts/" + postId + "/likesCount"
+        ] = likesCount;
+
+        admin.database().ref().update(updates);
+
+        // clear previous array
+        // user can have no followers
+        updates = {};
+
+        let followersRef = admin
+          .database()
+          .ref("/MainDataBase/usersfollowers/" + postAddedByUser);
+
+        followersRef.once("value", function(snap) {
+          snap.forEach(function(childSnapshot) {
+            let followerId = childSnapshot.key;
+            // add update of followers posts feed
+            updates[
+              "/MainDataBase/userpostsfeed/" +
+                followerId +
+                "/" +
+                postId +
+                "/likesCount"
+            ] = likesCount;
+          });
+
+          admin.database().ref().update(updates);
+        });
+      });
+    });
+  });
+
+// **************************************************************************************

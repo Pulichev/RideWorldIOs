@@ -155,7 +155,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    // function for pull to refresh
    func refresh(completion: @escaping () -> Void) {
       UserModel.dropLastKey()
-      Spot.clearCurrentData()
+      Spot.dropLastKey()
       mediaCache.removeAllObjects()
       
       loadPosts() { newItems in
@@ -523,10 +523,6 @@ extension PostsStripController {
    
    override func viewWillDisappear(_ animated: Bool) {
       super.viewWillDisappear(animated)
-      
-      // clear our structs
-      Spot.alreadyLoadedCountOfPosts = 0
-      Spot.spotPostsIds.removeAll()
       
       if !cameFromSpotOrMyStrip {
          // Show the navigation bar on other view controllers

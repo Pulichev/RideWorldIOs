@@ -51,88 +51,60 @@ struct Spot {
    }
    
    // MARK: - Get spot posts part
-   static var spotPostsIds = [String]() // full array of spot posts ids.
-   // We will update it only in refresh function of PostStripController
+   public static var lastKey: String! // this is post id from which
+   // we will start search for infinite scrolling
    
-   static var alreadyLoadedCountOfPosts: Int = 0 // We will update it only
-   // in refresh function of PostStripController
-   
-   static func getSpotPostsIds(for spotId: String,
-                               completion: @escaping (_ postsIds: [String]?) -> Void) {
-      if alreadyLoadedCountOfPosts == 0 { // if we havent already loaded PostsIds
-         let refToSpotPosts = refToSpotPostsNode.child(spotId)
-         
-         refToSpotPosts.observeSingleEvent(of: .value, with: { snapshot in
-            if let value = snapshot.value as? NSDictionary {
-               let spotPostsIds = (value.allKeys as! [String]).sorted(by: { $0 > $1 }) // with order by date
-               completion(spotPostsIds)
+   static func getPosts(for spotId: String, countOfNewItemsToAdd: Int,
+                        completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
+      let refToFeedPosts = Database.database().reference(withPath: "MainDataBase/spotsposts/").child(spotId)
+      
+      if lastKey == nil {
+         refToFeedPosts.queryOrderedByKey().queryLimited(toLast: UInt(countOfNewItemsToAdd)).observeSingleEvent(of: .value, with: { snapshot in
+            var postsList: [PostItem] = []
+            
+            for item in snapshot.children {
+               let postItem = PostItem(snapshot: item as! DataSnapshot)
+               postsList.append(postItem)
+            }
+            
+            let orderedPostsList = postsList.sorted(by: { $0.key > $1.key })
+            let newLastKey = orderedPostsList.last?.key
+            
+            if newLastKey != lastKey {
+               lastKey = newLastKey
+               
+               completion(orderedPostsList)
             } else {
                completion(nil)
             }
          })
       } else {
-         completion(self.spotPostsIds)
-      }
-   }
-   
-   static func getPosts(for spotId: String, countOfNewItemsToAdd: Int,
-                        completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
-      self.getSpotPostsIds(for: spotId) { spotPostsIds in
-         if spotPostsIds != nil {
-            self.spotPostsIds = spotPostsIds!
-         } else { // if no posts
-            completion(nil)
-         }
-         
-         guard let nextPostsIds = self.getNextIdsForAdd(countOfNewItemsToAdd) else { // if no more posts
-               completion(nil)
-               return
-         }
-         
-         if nextPostsIds.count == 0 {
-            completion(nil)
-         }
-         
-         var newPosts = [PostItem]()
-         var countOfNewPostsLoaded = 0
-         
-         for postId in nextPostsIds {
-            Post.getItemById(for: postId) { post in
-               if post != nil { // founded without errors
-                  newPosts.append(post!)
-                  countOfNewPostsLoaded += 1
-                  
-                  if countOfNewPostsLoaded == nextPostsIds.count {
-                     self.alreadyLoadedCountOfPosts += nextPostsIds.count
-                     completion(newPosts.sorted(by: { $0.key > $1.key }))
-                  }
-               }
+         refToFeedPosts.queryOrderedByKey().queryEnding(atValue: lastKey).queryLimited(toLast: UInt(countOfNewItemsToAdd) + 1).observeSingleEvent(of: .value, with: { snapshot in
+            var postsList: [PostItem] = []
+            
+            for item in snapshot.children {
+               let postItem = PostItem(snapshot: item as! DataSnapshot)
+               postsList.append(postItem)
             }
-         }
+            
+            var orderedPostsList = postsList.sorted(by: { $0.key > $1.key })
+            orderedPostsList.removeFirst(1)
+            let newLastKey = orderedPostsList.last?.key
+            
+            if newLastKey != lastKey {
+               lastKey = newLastKey
+               
+               completion(orderedPostsList)
+            } else {
+               completion(nil)
+            }
+         })
       }
    }
    
-   private static func getNextIdsForAdd(_ count: Int) -> [String]? {
-      let keysCount = self.spotPostsIds.count
-      let startIndex = self.alreadyLoadedCountOfPosts
-      var endIndex = startIndex + count
-      
-      if startIndex > keysCount { // segmentation fault :)
-         return nil
-      }
-      
-      if endIndex > keysCount {
-         endIndex = keysCount
-      }
-      
-      let nextIds = Array(spotPostsIds[startIndex..<endIndex])
-      
-      return nextIds
-   }
-   
-   static func clearCurrentData() {
-      alreadyLoadedCountOfPosts = 0
-      spotPostsIds.removeAll()
+   // for refresh. reload data
+   static func dropLastKey() {
+      lastKey = nil
    }
    
    // MARK: - Photos part

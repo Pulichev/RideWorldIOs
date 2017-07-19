@@ -42,7 +42,7 @@ struct Post {
                              completion: @escaping (_ isLiked: Bool) -> Void) {
       let currentUserId = UserModel.getCurrentUserId()
       
-      let refToCurrentUserLikeOnPost = refToMainDataBaseNode.child("postslikes").child(postId).child(currentUserId)
+      let refToCurrentUserLikeOnPost = refToMainDataBaseNode.child("userslikes").child(currentUserId).child(postId)
       
       refToCurrentUserLikeOnPost.observeSingleEvent(of: .value, with: { snapshot in
          if (snapshot.value as? [String : Any]) != nil {

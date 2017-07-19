@@ -13,7 +13,7 @@ class PostItemCellCache {
    var key: String!
    var post: PostItem!
    var postDate: String!
-   var isLikedPhoto = UIImageView() // need to fix it. 
+   var isLikedPhoto = UIImageView() // need to fix it.
    var postIsLiked: Bool!
    var likesCount = Int()
    var isCached = false
@@ -38,6 +38,7 @@ class PostItemCellCache {
             self.postIsLiked = false
             self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
          }
+         
          completion()
       }
    }

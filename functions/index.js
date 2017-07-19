@@ -226,7 +226,6 @@ exports.updateCommentsCountInEachPost = functions.database
       refToPost.once("value", function(postSnap) {
         let spotId = postSnap.val()["spotId"];
         let postAddedByUser = postSnap.val()["addedByUser"];
-        console.log("spotId: " + spotId);
 
         var updates = {};
 
@@ -290,7 +289,7 @@ exports.updateCommentsCountInEachPost = functions.database
 // LIKES PART
 
 // update likes count in every mention of post
-// easiest way to catch it is from userlikes. 
+// easiest way to catch it is from userlikes.
 // lowest count of nodes
 exports.updateLikesCountInEachPost = functions.database
   .ref("/MainDataBase/userslikes/{userId}/onposts/{postId}")
@@ -314,7 +313,6 @@ exports.updateLikesCountInEachPost = functions.database
       refToPost.once("value", function(postSnap) {
         let spotId = postSnap.val()["spotId"];
         let postAddedByUser = postSnap.val()["addedByUser"];
-        console.log("spotId: " + spotId);
 
         var updates = {};
 
@@ -339,9 +337,7 @@ exports.updateLikesCountInEachPost = functions.database
           "/MainDataBase/spotsposts/" + spotId + "/" + postId + "/likesCount"
         ] = likesCount;
         // of posts node
-        updates[
-          "/MainDataBase/posts/" + postId + "/likesCount"
-        ] = likesCount;
+        updates["/MainDataBase/posts/" + postId + "/likesCount"] = likesCount;
 
         admin.database().ref().update(updates);
 
@@ -371,5 +367,185 @@ exports.updateLikesCountInEachPost = functions.database
       });
     });
   });
+
+// **************************************************************************************
+// USER INFO CHANGES PART
+
+// updat user info in every mention of post,
+// if user changed his profile picrure
+exports.updateUserPhotoRefInEachPost = functions.database
+  .ref("/MainDataBase/users/{userId}/photo90ref")
+  .onWrite(event => {
+    const userId = event.params.userId;
+    const photoRef = event.data.val();
+    console.log("Zashli");
+
+    // get each post of user
+    let refToUserPosts = admin
+      .database()
+      .ref("/MainDataBase/usersposts/" + userId);
+
+    refToUserPosts.once("value", function(userPostsSnap) {
+      let userPostsSnapValue = userPostsSnap.val();
+      if (userPostsSnapValue != null) {
+        // else we dont need to do smth
+        var listOfPostsIds = Object.keys(userPostsSnapValue);
+
+        let followersRef = admin
+          .database()
+          .ref("/MainDataBase/usersfollowers/" + userId);
+
+        followersRef.once("value", function(followersSnap) {
+          // here. To get it one time
+          listOfPostsIds.forEach(function(postId) {
+            let refToPost = admin
+              .database()
+              .ref("MainDataBase/posts/" + postId);
+
+            refToPost.once("value", function(postSnap) {
+              let spotId = postSnap.val()["spotId"];
+
+              var updates = {};
+
+              // add update of post author posts feed
+              updates[
+                "/MainDataBase/userpostsfeed/" +
+                  userId +
+                  "/" +
+                  postId +
+                  "/userProfilePhoto90"
+              ] = photoRef;
+              // of usersposts
+              updates[
+                "/MainDataBase/usersposts/" +
+                  userId +
+                  "/" +
+                  postId +
+                  "/userProfilePhoto90"
+              ] = photoRef;
+              // of spotposts
+              updates[
+                "/MainDataBase/spotsposts/" +
+                  spotId +
+                  "/" +
+                  postId +
+                  "/userProfilePhoto90"
+              ] = photoRef;
+              // of posts node
+              updates[
+                "/MainDataBase/posts/" + postId + "/userProfilePhoto90"
+              ] = photoRef;
+
+              let followersRef = admin
+                .database()
+                .ref("/MainDataBase/usersfollowers/" + userId);
+
+              if (followersSnap.val() != null) {
+                followersSnap.forEach(function(childSnapshot) {
+                  let followerId = childSnapshot.key;
+                  // add update of followers posts feed
+                  updates[
+                    "/MainDataBase/userpostsfeed/" +
+                      followerId +
+                      "/" +
+                      postId +
+                      "/userProfilePhoto90"
+                  ] = photoRef;
+                });
+              }
+            });
+
+            admin.database().ref().update(updates);
+          });
+        });
+      }
+    });
+  });
+
+// if user changed his login
+// exports.updateUserInfoInEachPost = functions.database
+//   .ref("/MainDataBase/users/{userId}/photo90ref")
+//   .onWrite(event => {
+//     const userId = event.params.userId;
+//     const photoRef = event.data.val();
+
+//     // get each post of user
+//     let refToUserPosts = admin
+//       .database()
+//       .ref("/MainDataBase/usersposts/" + userId);
+
+//     refToUserPosts.once("value", function(userPostsSnap) {
+//       let userPostsSnapValue = userPostsSnap.val();
+//       if (userPostsSnapValue != null) {
+//         // else we dont need to do smth
+//         var listOfPostsIds = Object.keys(userPostsSnapValue);
+
+//         listOfPostsIds.forEach(function(postId) {
+//           let refToPost = admin.database().ref("MainDataBase/posts/" + postId);
+
+//           refToPost.once("value", function(postSnap) {
+//             let spotId = postSnap.val()["spotId"];
+
+//             var updates = {};
+
+//             // add update of post author posts feed
+//             updates[
+//               "/MainDataBase/userpostsfeed/" +
+//                 userId +
+//                 "/" +
+//                 postId +
+//                 "/userProfilePhoto90"
+//             ] = photoRef;
+//             // of usersposts
+//             updates[
+//               "/MainDataBase/usersposts/" +
+//                 userId +
+//                 "/" +
+//                 postId +
+//                 "/userProfilePhoto90"
+//             ] = photoRef;
+//             // of spotposts
+//             updates[
+//               "/MainDataBase/spotsposts/" +
+//                 spotId +
+//                 "/" +
+//                 postId +
+//                 "/userProfilePhoto90"
+//             ] = photoRef;
+//             // of posts node
+//             updates[
+//               "/MainDataBase/posts/" + postId + "/userProfilePhoto90"
+//             ] = photoRef;
+
+//             admin.database().ref().update(updates);
+
+//             // clear previous array
+//             // user can have no followers
+//             updates = {};
+
+//             let followersRef = admin
+//               .database()
+//               .ref("/MainDataBase/usersfollowers/" + userId);
+
+//             followersRef.once("value", function(snap) {
+//               snap.forEach(function(childSnapshot) {
+//                 let followerId = childSnapshot.key;
+//                 // add update of followers posts feed
+//                 updates[
+//                   "/MainDataBase/userpostsfeed/" +
+//                     followerId +
+//                     "/" +
+//                     postId +
+//                     "/userProfilePhoto90"
+//                 ] = photoRef;
+//               });
+
+//               admin.database().ref().update(updates);
+//             });
+//           });
+//         });
+//       }
+//     });
+//   });
 
 // **************************************************************************************

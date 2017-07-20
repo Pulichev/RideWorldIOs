@@ -265,7 +265,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJu-t2-VWD">
-                                <rect key="frame" x="16" y="20" width="343" height="142"/>
+                                <rect key="frame" x="16" y="64" width="343" height="142"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xqz-1K-Be3">
                                         <rect key="frame" x="0.0" y="114" width="343" height="10"/>
@@ -369,7 +369,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-VA-zc6">
-                                <rect key="frame" x="0.0" y="170" width="375" height="497"/>
+                                <rect key="frame" x="0.0" y="214" width="375" height="453"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="mcR-Kw-SZY">
                                     <size key="itemSize" width="105" height="100"/>
@@ -728,11 +728,11 @@
                         <viewControllerLayoutGuide type="bottom" id="xLa-BH-f7x"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleAspectFit" id="Frl-6S-pCe">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="522" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1JN-k2-5ma">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PostsCellWithPhoto" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostsCellWithPhoto" rowHeight="522" id="8ze-W5-zL7" userLabel="PostsCellWithPhoto" customClass="PostsCellWithPhoto" customModule="RideWorld" customModuleProvider="target">
@@ -1312,7 +1312,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR" userLabel="TableView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowersCell" rowHeight="48" id="kVo-9F-P8O" customClass="FollowersCell" customModule="RideWorld" customModuleProvider="target">
@@ -1464,10 +1464,10 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zBH-CJ-T0B">
-                                <rect key="frame" x="16" y="24" width="343" height="231"/>
+                                <rect key="frame" x="16" y="68" width="343" height="187"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GAM-eQ-2FL">
-                                        <rect key="frame" x="0.0" y="99" width="343" height="138"/>
+                                        <rect key="frame" x="0.0" y="99" width="343" height="94"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1868,7 +1868,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIR-BA-okl">
-                                <rect key="frame" x="16" y="431" width="343" height="30"/>
+                                <rect key="frame" x="16" y="431" width="232" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="DEx-rF-b5l"/>
                                 </constraints>
@@ -1887,10 +1887,22 @@
                                     <action selector="userButtonTapped:" destination="6uJ-a1-Lta" eventType="touchUpInside" id="u45-sM-oQY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PUz-af-Ftt">
+                                <rect key="frame" x="248" y="431" width="111" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="111" id="QSx-JR-f41"/>
+                                    <constraint firstAttribute="height" constant="30" id="u1G-8i-Y6s"/>
+                                </constraints>
+                                <state key="normal" title="Go To Posts"/>
+                                <connections>
+                                    <action selector="goToPostsButtonTapped:" destination="6uJ-a1-Lta" eventType="touchUpInside" id="Of0-aL-Cml"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="HOd-W1-e0u" firstAttribute="top" secondItem="JIR-BA-okl" secondAttribute="bottom" constant="8" symbolic="YES" id="3mb-Hp-OlB"/>
+                            <constraint firstItem="PUz-af-Ftt" firstAttribute="top" secondItem="vZe-mX-9ju" secondAttribute="bottom" constant="8" id="88H-sf-frD"/>
                             <constraint firstItem="HOd-W1-e0u" firstAttribute="trailing" secondItem="QU0-qy-BTX" secondAttribute="trailing" id="8PY-WC-fBC"/>
                             <constraint firstItem="JIR-BA-okl" firstAttribute="leading" secondItem="HOd-W1-e0u" secondAttribute="leading" id="Axf-LP-1xI"/>
                             <constraint firstItem="mUH-z7-xDr" firstAttribute="bottom" secondItem="nZM-aB-FfF" secondAttribute="top" id="BjN-uf-2Zl"/>
@@ -1899,11 +1911,12 @@
                             <constraint firstItem="HOd-W1-e0u" firstAttribute="leading" secondItem="QU0-qy-BTX" secondAttribute="leading" id="FyA-sE-TGV"/>
                             <constraint firstAttribute="trailing" secondItem="vZe-mX-9ju" secondAttribute="trailing" id="Hwf-MO-Pnk"/>
                             <constraint firstItem="vZe-mX-9ju" firstAttribute="leading" secondItem="xFQ-8P-gan" secondAttribute="leading" id="KfX-hI-KEX"/>
+                            <constraint firstAttribute="trailing" secondItem="PUz-af-Ftt" secondAttribute="trailing" constant="16" id="NEy-Rd-Amb"/>
                             <constraint firstItem="vZe-mX-9ju" firstAttribute="top" secondItem="Wsg-zA-1Te" secondAttribute="bottom" id="Ob1-v6-nbR"/>
-                            <constraint firstItem="JIR-BA-okl" firstAttribute="trailing" secondItem="HOd-W1-e0u" secondAttribute="trailing" id="QhD-eF-Qit"/>
                             <constraint firstItem="vZe-mX-9ju" firstAttribute="leading" secondItem="mUH-z7-xDr" secondAttribute="leading" constant="-16" id="VJ1-lB-cSP"/>
                             <constraint firstItem="mUH-z7-xDr" firstAttribute="top" secondItem="QU0-qy-BTX" secondAttribute="bottom" constant="7" id="bIG-5u-G3P"/>
                             <constraint firstItem="vZe-mX-9ju" firstAttribute="trailing" secondItem="mUH-z7-xDr" secondAttribute="trailing" constant="16" id="dQd-Jo-SbF"/>
+                            <constraint firstItem="PUz-af-Ftt" firstAttribute="leading" secondItem="JIR-BA-okl" secondAttribute="trailing" id="m2S-xB-HCO"/>
                             <constraint firstItem="QU0-qy-BTX" firstAttribute="centerX" secondItem="mUH-z7-xDr" secondAttribute="centerX" id="pHR-mN-1tH"/>
                             <constraint firstItem="QU0-qy-BTX" firstAttribute="top" secondItem="HOd-W1-e0u" secondAttribute="bottom" constant="8" symbolic="YES" id="vho-fm-JWb"/>
                         </constraints>
@@ -1924,11 +1937,12 @@
                         <outlet property="photosCollection" destination="vZe-mX-9ju" id="9s1-4t-qE2"/>
                         <segue destination="MsB-Ex-yak" kind="show" identifier="goToUserProfileFromSpotInfo" id="gS6-Wz-qu3"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="goToRidersProfileFromSpotInfo" id="hCy-LG-AWJ"/>
+                        <segue destination="LlJ-V1-BNZ" kind="show" identifier="fromSpotInfoToSpotPosts" id="ck8-tQ-3J4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pn1-di-Onz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2244" y="1962"/>
+            <point key="canvasLocation" x="2244" y="1961.4692653673164"/>
         </scene>
         <!--Feedback Controller-->
         <scene sceneID="LJA-4I-umE">
@@ -2292,13 +2306,13 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0eg-2s-RsF"/>
-        <segue reference="nax-92-cwD"/>
         <segue reference="ZpR-8C-QJR"/>
-        <segue reference="SYx-8l-lm6"/>
-        <segue reference="COh-cw-Ntn"/>
-        <segue reference="pip-4n-Igg"/>
+        <segue reference="gS6-Wz-qu3"/>
         <segue reference="I78-xn-cQP"/>
+        <segue reference="nax-92-cwD"/>
+        <segue reference="COh-cw-Ntn"/>
+        <segue reference="ck8-tQ-3J4"/>
+        <segue reference="hCy-LG-AWJ"/>
         <segue reference="RlL-e4-xY6"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -108,6 +108,10 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
       }
    }
    
+   @IBAction func goToPostsButtonTapped(_ sender: UIButton) {
+      performSegue(withIdentifier: "fromSpotInfoToSpotPosts", sender: self)
+   }
+   
    // MARK: - prepare for segue
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       switch segue.identifier! {
@@ -119,6 +123,11 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
       case "goToUserProfileFromSpotInfo":
          let userProfileController = segue.destination as! UserProfileController
          userProfileController.cameFromSpotDetails = true
+         
+      case "fromSpotInfoToSpotPosts":
+         let postsStripController = segue.destination as! PostsStripController
+         postsStripController.spotDetailsItem = spotInfo
+         postsStripController.cameFromSpotOrMyStrip = true // came from spot
          
       default: break
       }

@@ -125,11 +125,7 @@ struct UserModel {
       let refToUserFollowers = refToMainDataBase.child("usersfollowers").child(userId)
       
       refToUserFollowers.observe(.value, with: { snapshot in
-         if let value = snapshot.value as? [String: Any] {
-            completion(String(describing: value.count))
-         } else {
-            completion("0")
-         }
+         completion(String(describing: snapshot.childrenCount))
       })
    }
    
@@ -138,11 +134,7 @@ struct UserModel {
       let refToUserFollowings = refToMainDataBase.child("usersfollowings").child(userId)
       
       refToUserFollowings.observe(.value, with: { snapshot in
-         if let value = snapshot.value as? [String: Any] {
-            completion(String(describing: value.count))
-         } else {
-            completion("0")
-         }
+         completion(String(describing: snapshot.childrenCount))
       })
    }
    

@@ -66,6 +66,10 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
                                           login,
                                           nameAndSename)
          }
+      } else {
+         returnToParentController(bioDescription,
+                                  login,
+                                  nameAndSename)
       }
    }
    

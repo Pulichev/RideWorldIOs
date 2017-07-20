@@ -378,7 +378,6 @@ exports.updateUserPhotoRefInEachPost = functions.database
   .onWrite(event => {
     const userId = event.params.userId;
     const photoRef = event.data.val();
-    console.log("Zashli");
 
     // get each post of user
     let refToUserPosts = admin
@@ -468,7 +467,6 @@ exports.updateUserLoginInEachPost = functions.database
   .onWrite(event => {
     const userId = event.params.userId;
     const login = event.data.val();
-    console.log("Zashli");
 
     // get each post of user
     let refToUserPosts = admin
@@ -503,7 +501,7 @@ exports.updateUserLoginInEachPost = functions.database
                   userId +
                   "/" +
                   postId +
-                  "/login"
+                  "/userLogin"
               ] = login;
               // of usersposts
               updates[
@@ -511,7 +509,7 @@ exports.updateUserLoginInEachPost = functions.database
                   userId +
                   "/" +
                   postId +
-                  "/login"
+                  "/userLogin"
               ] = login;
               // of spotposts
               updates[
@@ -519,11 +517,11 @@ exports.updateUserLoginInEachPost = functions.database
                   spotId +
                   "/" +
                   postId +
-                  "/login"
+                  "/userLogin"
               ] = login;
               // of posts node
               updates[
-                "/MainDataBase/posts/" + postId + "/login"
+                "/MainDataBase/posts/" + postId + "/userLogin"
               ] = login;
 
               let followersRef = admin
@@ -539,7 +537,7 @@ exports.updateUserLoginInEachPost = functions.database
                       followerId +
                       "/" +
                       postId +
-                      "/login"
+                      "/userLogin"
                   ] = login;
                 });
               }

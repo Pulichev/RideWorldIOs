@@ -246,6 +246,7 @@ extension UserProfileController: EditedUserInfoDelegate {
       self.userInfo = userInfo
       userNameAndSename.text = userInfo.nameAndSename
       userBio.text = userInfo.bioDescription
+      navigationItem.title = userInfo.login
       
       if profilePhoto != nil {
          userProfilePhoto.image = profilePhoto

@@ -160,14 +160,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             self.clearAllTableButFirstStepCount()
          }
          
-         let newItemsFirstItemsKeys = (Array(newItems!).map { $0.key })
-         let currentItemsFirstItemsKeys = (Array(self.posts[0..<self.postsLoadStep]).map { $0.key })
-         
-         if newItemsFirstItemsKeys != currentItemsFirstItemsKeys { // if new posts.
-            self.reloadTableDataWithRefreshedItems(newItems!) {
-               completion()
-            }
-         } else {
+         self.reloadTableDataWithRefreshedItems(newItems!) {
             completion()
          }
       }

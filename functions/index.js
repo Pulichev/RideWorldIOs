@@ -288,84 +288,81 @@ exports.updateCommentsCountInEachPost = functions.database
 // **************************************************************************************
 // LIKES PART
 
-// update likes count in every mention of post
-// easiest way to catch it is from userlikes.
-// lowest count of nodes
+// add like to posts likes node + count
 exports.updateLikesCountInEachPost = functions.database
   .ref("/MainDataBase/userslikes/{userId}/onposts/{postId}")
   .onWrite(event => {
     const postId = event.params.postId;
     const userId = event.params.userId;
 
+    let refToPostsLikeByUser = admin
+      .database()
+      .ref(
+        "MainDataBase/postsLikesAndCommentsCountInfo/" +
+          postId +
+          "/likes/" +
+          userId
+      );
+
     let refToPostsLikes = admin
       .database()
-      .ref("/MainDataBase/postslikes/" + postId);
+      .ref("MainDataBase/postsLikesAndCommentsCountInfo/" + postId + "/likes");
 
-    refToPostsLikes.once("value", function(likesSnap) {
-      let likesCount = likesSnap.numChildren();
+    if (event.data.val()) {
+      // like was added
+      refToPostsLikeByUser.set(true, function(error) {
+        if (error) {
+          console.log(
+            "Error in saving like for postId: " +
+              postId +
+              "and userId: " +
+              userId
+          );
+        } else {
+          // like was saved
+          // now update likes count
+          refToPostsLikes.once("value", function(likesSnap) {
+            let likesCount = likesSnap.numChildren();
 
-      // update likes count in each post mention
-      // first step - we need spot id to also update this post in spotposts
-      // the easiest way is to get post from posts -> postId -> ...
-
-      let refToPost = admin.database().ref("MainDataBase/posts/" + postId);
-
-      refToPost.once("value", function(postSnap) {
-        let spotId = postSnap.val()["spotId"];
-        let postAddedByUser = postSnap.val()["addedByUser"];
-
-        var updates = {};
-
-        // add update of post author posts feed
-        updates[
-          "/MainDataBase/userpostsfeed/" +
-            postAddedByUser +
-            "/" +
-            postId +
-            "/likesCount"
-        ] = likesCount;
-        // of usersposts
-        updates[
-          "/MainDataBase/usersposts/" +
-            postAddedByUser +
-            "/" +
-            postId +
-            "/likesCount"
-        ] = likesCount;
-        // of spotposts
-        updates[
-          "/MainDataBase/spotsposts/" + spotId + "/" + postId + "/likesCount"
-        ] = likesCount;
-        // of posts node
-        updates["/MainDataBase/posts/" + postId + "/likesCount"] = likesCount;
-
-        admin.database().ref().update(updates);
-
-        // clear previous array
-        // user can have no followers
-        updates = {};
-
-        let followersRef = admin
-          .database()
-          .ref("/MainDataBase/usersfollowers/" + postAddedByUser);
-
-        followersRef.once("value", function(snap) {
-          snap.forEach(function(childSnapshot) {
-            let followerId = childSnapshot.key;
-            // add update of followers posts feed
-            updates[
-              "/MainDataBase/userpostsfeed/" +
-                followerId +
-                "/" +
-                postId +
-                "/likesCount"
-            ] = likesCount;
+            let refToPostsLikesCount = admin
+              .database()
+              .ref(
+                "MainDataBase/postsLikesAndCommentsCountInfo/" +
+                  postId +
+                  "/likesCount"
+              );
+            refToPostsLikesCount.set(likesCount);
           });
-
-          admin.database().ref().update(updates);
-        });
+        }
       });
-    });
+    } else {
+      // like was removed
+      refToPostsLikeByUser.set(null, function(error) {
+        if (error) {
+          console.log(
+            "Error in removing like for postId: " +
+              postId +
+              "and userId: " +
+              userId
+          );
+        } else {
+          // like was removed
+          // now update likes count
+          refToPostsLikes.once("value", function(likesSnap) {
+            let likesCount = likesSnap.numChildren();
+
+            let refToPostsLikesCount = admin
+              .database()
+              .ref(
+                "MainDataBase/postsLikesAndCommentsCountInfo/" +
+                  postId +
+                  "/likesCount"
+              );
+            refToPostsLikesCount.set(likesCount);
+          });
+        }
+      });
+    }
   });
 
 // **************************************************************************************
@@ -520,9 +517,7 @@ exports.updateUserLoginInEachPost = functions.database
                   "/userLogin"
               ] = login;
               // of posts node
-              updates[
-                "/MainDataBase/posts/" + postId + "/userLogin"
-              ] = login;
+              updates["/MainDataBase/posts/" + postId + "/userLogin"] = login;
 
               let followersRef = admin
                 .database()

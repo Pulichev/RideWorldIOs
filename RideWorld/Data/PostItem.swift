@@ -73,9 +73,6 @@ struct PostItem {
 
       mediaAspectRatio   = snapshotValue["mediaAspectRatio"] as! Double
 
-      commentsCount      = snapshotValue["commentsCount"] as! Int
-      likesCount         = snapshotValue["likesCount"] as! Int
-
       spotId             = snapshotValue["spotId"] as! String
 
       addedByUser        = snapshotValue["addedByUser"] as! String
@@ -102,9 +99,6 @@ struct PostItem {
       }
 
       valuesArray["mediaAspectRatio"]   = mediaAspectRatio
-
-      valuesArray["commentsCount"]      = commentsCount
-      valuesArray["likesCount"]         = likesCount
 
       valuesArray["spotId"]             = spotId
       valuesArray["addedByUser"]        = addedByUser

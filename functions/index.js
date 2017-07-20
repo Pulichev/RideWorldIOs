@@ -203,84 +203,66 @@ exports.addPostsFromSpotToFeed = functions.database
 // **************************************************************************************
 // COMMENTS PART
 
-// update comments count in every mention of post
+// add comments to posts node + count
 exports.updateCommentsCountInEachPost = functions.database
   .ref("/MainDataBase/postscomments/{postId}/{commentId}")
   .onWrite(event => {
     const postId = event.params.postId;
     const commentId = event.params.commentId;
 
+    let refToPostsCommentId = admin
+      .database()
+      .ref(
+        "MainDataBase/postsLikesAndCommentsCountInfo/" +
+          postId +
+          "/comments/" +
+          commentId
+      );
+
     let refToPostsComments = admin
       .database()
-      .ref("/MainDataBase/postscomments/" + postId);
+      .ref(
+        "MainDataBase/postsLikesAndCommentsCountInfo/" + postId + "/comments"
+      );
 
-    refToPostsComments.once("value", function(commentsSnap) {
-      let commentsCount = commentsSnap.numChildren();
+    let refToPostsCommentsCount = admin
+      .database()
+      .ref(
+        "MainDataBase/postsLikesAndCommentsCountInfo/" +
+          postId +
+          "/counting/commentsCount"
+      );
 
-      // update comments count in each post mention
-      // first step - we need spot id to also update this post in spotposts
-      // the easiest way is to get post from posts -> postId -> ...
+    if (event.data.val()) {
+      // comment was added
+      refToPostsCommentId.set(true, function(error) {
+        if (error) {
+          console.log("Error in saving comment for postId: " + postId);
+        } else {
+          // comment was saved
+          // now update comments count
+          refToPostsComments.once("value", function(commentsSnap) {
+            let commentsCount = commentsSnap.numChildren();
 
-      let refToPost = admin.database().ref("MainDataBase/posts/" + postId);
-
-      refToPost.once("value", function(postSnap) {
-        let spotId = postSnap.val()["spotId"];
-        let postAddedByUser = postSnap.val()["addedByUser"];
-
-        var updates = {};
-
-        // add update of post author posts feed
-        updates[
-          "/MainDataBase/userpostsfeed/" +
-            postAddedByUser +
-            "/" +
-            postId +
-            "/commentsCount"
-        ] = commentsCount;
-        // of usersposts
-        updates[
-          "/MainDataBase/usersposts/" +
-            postAddedByUser +
-            "/" +
-            postId +
-            "/commentsCount"
-        ] = commentsCount;
-        // of spotposts
-        updates[
-          "/MainDataBase/spotsposts/" + spotId + "/" + postId + "/commentsCount"
-        ] = commentsCount;
-        // of posts node
-        updates[
-          "/MainDataBase/posts/" + postId + "/commentsCount"
-        ] = commentsCount;
-
-        admin.database().ref().update(updates);
-
-        // clear previous array
-        // user can have no followers
-        updates = {};
-
-        let followersRef = admin
-          .database()
-          .ref("/MainDataBase/usersfollowers/" + postAddedByUser);
-
-        followersRef.once("value", function(snap) {
-          snap.forEach(function(childSnapshot) {
-            let followerId = childSnapshot.key;
-            // add update of followers posts feed
-            updates[
-              "/MainDataBase/userpostsfeed/" +
-                followerId +
-                "/" +
-                postId +
-                "/commentsCount"
-            ] = commentsCount;
+            refToPostsCommentsCount.set(commentsCount);
           });
-
-          admin.database().ref().update(updates);
-        });
+        }
       });
-    });
+    } else {
+      // comment was removed
+      refToPostsCommentId.set(null, function(error) {
+        if (error) {
+          console.log("Error in removing comment from postId: " + postId);
+        } else {
+          // comment was removed
+          // now update comments count
+          refToPostsComments.once("value", function(likesSnap) {
+            let likesCount = likesSnap.numChildren();
+            refToPostsCommentsCount.set(likesCount);
+          });
+        }
+      });
+    }
   });
 
 // **************************************************************************************
@@ -308,6 +290,14 @@ exports.updateLikesCountInEachPost = functions.database
       .database()
       .ref("MainDataBase/postsLikesAndCommentsCountInfo/" + postId + "/likes");
 
+    let refToPostsLikesCount = admin
+      .database()
+      .ref(
+        "MainDataBase/postsLikesAndCommentsCountInfo/" +
+          postId +
+          "/counting/likesCount"
+      );
+
     if (event.data.val()) {
       // like was added
       refToPostsLikeByUser.set(true, function(error) {
@@ -323,14 +313,6 @@ exports.updateLikesCountInEachPost = functions.database
           // now update likes count
           refToPostsLikes.once("value", function(likesSnap) {
             let likesCount = likesSnap.numChildren();
-
-            let refToPostsLikesCount = admin
-              .database()
-              .ref(
-                "MainDataBase/postsLikesAndCommentsCountInfo/" +
-                  postId +
-                  "/likesCount"
-              );
             refToPostsLikesCount.set(likesCount);
           });
         }
@@ -350,14 +332,6 @@ exports.updateLikesCountInEachPost = functions.database
           // now update likes count
           refToPostsLikes.once("value", function(likesSnap) {
             let likesCount = likesSnap.numChildren();
-
-            let refToPostsLikesCount = admin
-              .database()
-              .ref(
-                "MainDataBase/postsLikesAndCommentsCountInfo/" +
-                  postId +
-                  "/likesCount"
-              );
             refToPostsLikesCount.set(likesCount);
           });
         }

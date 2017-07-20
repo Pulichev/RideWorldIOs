@@ -57,4 +57,20 @@ struct Like {
          completion(like)
       })
    }
+   
+   static func isLikedByUser(_ postId: String,
+                             completion: @escaping (_ isLiked: Bool) -> Void) {
+      let currentUserId = UserModel.getCurrentUserId()
+      
+      let refToPostLikeByUser = Database.database().reference(withPath: "MainDataBase/postsLikesAndCommentsCountInfo")
+         .child(postId).child("likes").child(currentUserId)
+      
+      refToPostLikeByUser.observeSingleEvent(of: .value, with: { snapshot in
+         if let isLiked = snapshot.value as? Bool {
+            completion(isLiked)
+         } else {
+            completion(false)
+         }
+      })
+   }
 }

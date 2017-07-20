@@ -16,30 +16,35 @@ class PostItemCellCache {
    var isLikedPhoto = UIImageView() // need to fix it.
    var postIsLiked: Bool!
    var likesCount = Int()
+   var commentsCount = Int()
    var isCached = false
    
-   init(_ post: PostItem, completion: @escaping (_ cellCache: PostItemCellCache) -> Void) {
+   init(_ post: PostItem,
+        completion: @escaping (_ cellCache: PostItemCellCache) -> Void) {
       key = post.key
       self.post = post
       // formatting date to yyyy-mm-dd
       postDate = DateTimeParser.getDateTime(from: post.createdDate)
-      likesCount = post.likesCount
-      self.userLikedThisPost() {
-         completion(self)
+      
+      Post.getLikesAndCommentsCount(for: key) { (likesCount, commentsCount) in
+         self.likesCount = likesCount
+         self.commentsCount = commentsCount
+         
+         Like.isLikedByUser(self.key) { isLiked in
+            self.initLikeData(isLiked)
+            
+            completion(self)
+         }
       }
    }
    
-   func userLikedThisPost(completion: @escaping () -> Void) {
-      Post.isLikedByUser(post.key) { isLiked in
-         if isLiked {
-            self.postIsLiked = true
-            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-         } else {
-            self.postIsLiked = false
-            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-         }
-         
-         completion()
+   func initLikeData(_ isLiked: Bool) {
+      if isLiked {
+         self.postIsLiked = true
+         self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+      } else {
+         self.postIsLiked = false
+         self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
       }
    }
    

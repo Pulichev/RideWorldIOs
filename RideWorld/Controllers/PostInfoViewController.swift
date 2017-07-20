@@ -60,11 +60,19 @@ class PostInfoViewController: UIViewController {
          
          self.postDescription.text = self.postInfo.userLogin + " " + self.postInfo.description
          self.customizeDescUserLogin()
-         self.likesCount.text = String(describing: self.postInfo.likesCount)
-         self.userLikedThisPost()
+         
+         Post.getLikesAndCommentsCount(for: self.postInfo.key) { (likesCount, commentsCount) in
+            self.likesCount.text = String(describing: likesCount)
+            let commentsCountString = String(describing: commentsCount)
+            self.openComments.setTitle("Open commentaries (\(commentsCountString))", for: .normal)
+            
+            Like.isLikedByUser(self.postInfo.key) { isLiked in
+               self.initLikeData(isLiked)
+            }
+         }
+
          self.initializeDate()
          self.addDoubleTapGestureOnPostMedia()
-         self.setOpenCommentsButtonTittle()
          
          self.userLoginHeaderButton.setTitle(self.postInfo.userLogin, for: .normal)
          if self.postInfo.userProfilePhoto90 != nil {
@@ -97,15 +105,13 @@ class PostInfoViewController: UIViewController {
       postDate.text = DateTimeParser.getDateTime(from: postInfo.createdDate)
    }
    
-   func userLikedThisPost() {
-      Post.isLikedByUser(postInfo.key) { isLiked in
-         if isLiked {
-            self.postIsLiked = true
-            self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-         } else {
-            self.postIsLiked = false
-            self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-         }
+   func initLikeData(_ isLiked: Bool) {
+      if isLiked {
+         self.postIsLiked = true
+         self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+      } else {
+         self.postIsLiked = false
+         self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
       }
    }
    
@@ -124,10 +130,6 @@ class PostInfoViewController: UIViewController {
          
          postIsLiked = false
       }
-   }
-   
-   private func setOpenCommentsButtonTittle() {
-      openComments.setTitle("Open commentaries (\(postInfo.commentsCount))", for: .normal)
    }
    
    // MARK: - Add and remove like

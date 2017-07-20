@@ -15,11 +15,7 @@ class PostsCellWithPhoto: UITableViewCell {
    weak var delegateUserTaps: TappedUserDelegate? // for sending user info
    weak var delegateSpotInfoTaps: TappedSpotInfoDelegate? // when tapping go to spot info from alert
    
-   var post: PostItem! {
-      didSet {
-         openComments.setTitle("Open commentaries (\(post.commentsCount))", for: .normal)
-      }
-   }
+   var post: PostItem!
    
    @IBOutlet weak var userPhoto: RoundedImageView!
    @IBOutlet weak var userLoginHeaderButton: UIButton!
@@ -59,7 +55,10 @@ class PostsCellWithPhoto: UITableViewCell {
       postDescription.text = post.userLogin + " " + post.description
       customizeDescUserLogin()
       
-      likesCount.text      = String(cachedCell.likesCount)
+      likesCount.text      = String(describing: cachedCell.likesCount)
+      let commentsCount    = String(describing: cachedCell.commentsCount)
+      openComments.setTitle("Open commentaries (\(commentsCount))", for: .normal)
+      
       postIsLiked          = cachedCell.postIsLiked
       
       isLikedPhoto.image   = cachedCell.isLikedPhoto.image

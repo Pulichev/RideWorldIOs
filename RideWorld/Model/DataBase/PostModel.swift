@@ -96,4 +96,26 @@ struct Post {
       // after removing post from "/usersposts/" + postItem.addedByUser + "/" + postItem.key: nil
       // cloud function will delete this post from post strip of followers and userself
    }
+   
+   // MARK: - Likes and comments count
+   static func getLikesAndCommentsCount(for postId: String,
+                                        completion: @escaping (_ likesCount: Int, _ commentsCount: Int) -> Void) {
+      let refToPostCounts = Database.database().reference(withPath: "MainDataBase/postsLikesAndCommentsCountInfo")
+         .child(postId).child("counting")
+      
+      refToPostCounts.observeSingleEvent(of: .value, with: { snapshot in
+         var commentsCount = 0
+         var likesCount = 0
+         
+         if let countOfLikes = (snapshot.value as? [String: Any])?["likesCount"] as? Int {
+            likesCount = countOfLikes
+         }
+         
+         if let countOfComments = (snapshot.value as? [String: Any])?["commentsCount"] as? Int {
+            commentsCount = countOfComments
+         }
+         
+         completion(likesCount, commentsCount)
+      })
+   }
 }

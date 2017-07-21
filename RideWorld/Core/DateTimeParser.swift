@@ -23,7 +23,7 @@ struct DateTimeParser {
    }
    
    // converting string date from firebase database to Date
-   private static func stringToDate(_ str: String) -> Date {
+   static func stringToDate(_ str: String) -> Date {
       let formatter = DateFormatter()
       formatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
       let date = formatter.date(from: str)!
@@ -31,7 +31,7 @@ struct DateTimeParser {
       return date
    }
    
-   private static func countOfDaysFromToday(for date: Date) -> Int {
+   static func countOfDaysFromToday(for date: Date) -> Int {
       let calendar = NSCalendar.current
       
       // Replace the hour (time) of both dates with 00:00

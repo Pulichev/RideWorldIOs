@@ -153,11 +153,21 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          break
          
       case 2:
-         cell.field.text = userInfo.login
-         cell.field.placeholder = "Enter new nickname"
-         leftImageView.image = UIImage(named: "login.png")
-         leftView.addSubview(leftImageView)
-         cell.field.leftView = leftView
+         // check last time of login change
+         UserModel.getCountOfDaysAfterLastLoginChangeDate() { countOfDaysFromLastChange in
+            if countOfDaysFromLastChange < 180 {
+               cell.field.isEnabled = false
+               cell.field.text = self.userInfo.login + " <- days for next change: " + String((180 - countOfDaysFromLastChange))
+            } else {
+               cell.field.text = self.userInfo.login
+            }
+            
+            leftImageView.image = UIImage(named: "login.png")
+            leftView.addSubview(leftImageView)
+            cell.field.leftView = leftView
+            cell.field.placeholder = "Enter new login"
+         }
+
          break
          
       case 3:

@@ -50,6 +50,21 @@ struct UserModel {
       }
    }
    
+   // get last time login was changed
+   static func getCountOfDaysAfterLastLoginChangeDate(
+      completion: @escaping (_ countOfDays: Int) -> Void) {
+      let currentUserId = getCurrentUserId()
+      let refToUserLastLoginChangeDate = refToMainDataBase.child("usersdates").child(currentUserId).child("lastLoginUpdate")
+      
+      refToUserLastLoginChangeDate.observeSingleEvent(of: .value, with: { snapshot in
+         let lastLoginChangeDateString = snapshot.value as! String
+         let lastLoginChangeDate = DateTimeParser.stringToDate(lastLoginChangeDateString)
+         let countOfDays = DateTimeParser.countOfDaysFromToday(for: lastLoginChangeDate)
+         
+         completion(countOfDays)
+      })
+   }
+   
    // MARK: - Get part
    static func getCurrentUserId() -> String {
       return (Auth.auth().currentUser?.uid)!

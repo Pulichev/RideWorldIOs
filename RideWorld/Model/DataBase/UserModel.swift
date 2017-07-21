@@ -15,15 +15,24 @@ struct UserModel {
    static var refToUsersNode = refToMainDataBase.child("users")
    
    // MARK: - Create user after registration
-   static func create(with login: String) {
+   static func create(with login: String, completion: @escaping (_ isFinished: Bool) -> Void) {
       let loggedInUser = self.getCurrentUser()
-      let currentDate = Date()
       let newUser = UserItem(uid: loggedInUser.uid, email: loggedInUser.email!,
-                             login: login, createdDate: String(describing: currentDate))
+                             login: login)
       
       // Create a child path with a key set to the uid underneath the "users" node
       let refToNewUser = refToUsersNode.child(loggedInUser.uid)
-      refToNewUser.setValue(newUser.toAnyObject())
+      refToNewUser.setValue(newUser.toAnyObject()) { _ in
+         // add to special node create date and last login update (by default - current date)
+         let refToUserDates = refToMainDataBase.child("usersdates").child(loggedInUser.uid)
+         let currentDate = String(describing: Date())
+         // lastLoginUpdate - need it to prevent login change more ofthen than 100 days
+         refToUserDates.setValue(["createdDate": currentDate,
+                                  "lastLoginUpdate": currentDate])
+         { _ in
+            completion(true)
+         }
+      }
    }
    
    // MARK: - Sign in / Sign up part

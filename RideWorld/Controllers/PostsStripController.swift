@@ -371,17 +371,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    @IBAction func addNewPost(_ sender: Any) {
       performSegue(withIdentifier: "addNewPost", sender: self)
    }
-   
-   private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {
-      let alert = UIAlertController(title: "Error!",
-                                    message: "No user founded with nickname \(tappedUserLogin)",
-         preferredStyle: .alert)
       
-      alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-      
-      present(alert, animated: true, completion: nil)
-   }
-   
    // go to comments
    func goToComments(sender: UIButton!) {
       postForSending = posts[sender.tag]

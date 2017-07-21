@@ -15,7 +15,6 @@ struct UserItem {
    var login: String
    var bioDescription: String?
    var nameAndSename: String?
-   let createdDate: String
    
    // photos refs
    var photo150ref: String?
@@ -24,7 +23,7 @@ struct UserItem {
    let ref: DatabaseReference?
    
    init(uid: String, email: String, login: String,
-        bioDescription: String = "", nameAndSename: String = "", createdDate: String,
+        bioDescription: String = "", nameAndSename: String = "",
         photo150ref: String = "", photo90ref: String = "") {
       self.uid = uid
       
@@ -32,7 +31,6 @@ struct UserItem {
       self.login = login
       self.bioDescription = bioDescription
       self.nameAndSename = nameAndSename
-      self.createdDate = createdDate
       
       self.photo150ref = photo150ref
       self.photo90ref = photo90ref
@@ -48,7 +46,6 @@ struct UserItem {
       login = snapshotValue["login"] as! String
       bioDescription = snapshotValue["bioDescription"] as? String
       nameAndSename = snapshotValue["nameAndSename"] as? String
-      createdDate = snapshotValue["createdDate"] as! String
       
       photo150ref = snapshotValue["photo150ref"] as? String
       photo90ref = snapshotValue["photo90ref"] as? String
@@ -64,7 +61,6 @@ struct UserItem {
          "login": login,
          "bioDescription": bioDescription,
          "nameAndSename": nameAndSename,
-         "createdDate": createdDate,
          
          "photo150ref": photo150ref,
          "photo90ref": photo90ref

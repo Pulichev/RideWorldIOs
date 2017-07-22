@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1063,11 +1064,26 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zpC-Ow-CQ1">
-                        <barButtonItem key="rightBarButtonItem" title="Add post" id="a4U-CQ-qRv">
-                            <connections>
-                                <action selector="addNewPost:" destination="LlJ-V1-BNZ" id="YWQ-Hm-dpk"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Add post" id="a4U-CQ-qRv">
+                                <connections>
+                                    <action selector="addNewPost:" destination="LlJ-V1-BNZ" id="YWQ-Hm-dpk"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="tQc-Fc-f61">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GBJ-0z-9D5">
+                                    <rect key="frame" x="234" y="-2" width="48" height="48"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="Reload">
+                                        <color key="titleColor" red="0.11110009517766495" green="0.11110009517766495" blue="0.11110009517766495" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="ReloadButtonTapped:" destination="LlJ-V1-BNZ" eventType="touchUpInside" id="IyX-xt-np5"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="1JN-k2-5ma" id="cl3-1G-8gn"/>
@@ -1297,7 +1313,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dOM-KR-kwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6458" y="-747"/>
+            <point key="canvasLocation" x="5663" y="931"/>
         </scene>
         <!--Followers Controller-->
         <scene sceneID="Rv1-dO-VKW">
@@ -2307,12 +2323,12 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZpR-8C-QJR"/>
-        <segue reference="gS6-Wz-qu3"/>
-        <segue reference="I78-xn-cQP"/>
-        <segue reference="nax-92-cwD"/>
-        <segue reference="COh-cw-Ntn"/>
+        <segue reference="TEa-lr-7L1"/>
         <segue reference="ck8-tQ-3J4"/>
-        <segue reference="hCy-LG-AWJ"/>
+        <segue reference="Xyq-8K-e8w"/>
+        <segue reference="6R6-CY-IE2"/>
+        <segue reference="QOa-aY-bXL"/>
         <segue reference="RlL-e4-xY6"/>
+        <segue reference="nax-92-cwD"/>
     </inferredMetricsTieBreakers>
 </document>

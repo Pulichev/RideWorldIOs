@@ -145,6 +145,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
+   @IBAction func ReloadButtonTapped(_ sender: Any) {
+      refresh() { _ in }
+   }
+   
    // function for pull to refresh
    func refresh(completion: @escaping () -> Void) {
       UserModel.dropLastKey()

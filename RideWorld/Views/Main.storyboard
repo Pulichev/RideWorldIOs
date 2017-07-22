@@ -1079,7 +1079,7 @@
                                         <color key="titleColor" red="0.11110009517766495" green="0.11110009517766495" blue="0.11110009517766495" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </state>
                                     <connections>
-                                        <action selector="ReloadButtonTapped:" destination="LlJ-V1-BNZ" eventType="touchUpInside" id="IyX-xt-np5"/>
+                                        <action selector="reloadButtonTapped:" destination="LlJ-V1-BNZ" eventType="touchUpInside" id="KJR-Cw-QVk"/>
                                     </connections>
                                 </button>
                             </barButtonItem>

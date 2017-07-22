@@ -145,7 +145,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
-   @IBAction func ReloadButtonTapped(_ sender: Any) {
+   @IBAction func reloadButtonTapped(_ sender: Any) {
       refresh() { _ in }
    }
    

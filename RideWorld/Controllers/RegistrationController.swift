@@ -58,11 +58,23 @@ class RegistrationController: UIViewController {
                }
             }
          } else {
-            SVProgressHUD.dismiss()
-
-            print("\(String(describing: error?.localizedDescription))")
+            let errorText = String(describing: error?.localizedDescription)
+            
+            self.showAlertWithError(text: errorText)
          }
       }
+   }
+   
+   private func showAlertWithError(text: String) {
+      SVProgressHUD.dismiss()
+      
+      let alert = UIAlertController(title: "Registration failed!",
+                                    message: text,
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
    }
    
    private func showAlertThatLoginAlreadyExists() {

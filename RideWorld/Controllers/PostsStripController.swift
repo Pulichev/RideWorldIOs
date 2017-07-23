@@ -382,6 +382,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       postDescForSending = posts[sender.tag].description
       postDateTimeForSending = posts[sender.tag].createdDate
       postUserIdForSending = posts[sender.tag].addedByUser
+      
       performSegue(withIdentifier: "goToCommentsFromPostStrip", sender: self)
    }
    
@@ -498,7 +499,10 @@ extension PostsStripController {
          
          self.navigationItem.titleView = titleView
          
-         self.navigationItem.rightBarButtonItem = nil // hide delete button
+         // hide add post button
+         if self.navigationItem.rightBarButtonItems?.count == 2 {
+            self.navigationItem.rightBarButtonItems?.remove(at: 0)
+         }
       }
    }
    

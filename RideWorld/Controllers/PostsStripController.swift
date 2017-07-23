@@ -146,7 +146,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    @IBAction func reloadButtonTapped(_ sender: Any) {
-      refresh() { _ in }
+      self.loadPosts(completion: { newItems in
+         self.appendLoadedPosts(newItems) { _ in } // no need completion here
+      })
    }
    
    // function for pull to refresh

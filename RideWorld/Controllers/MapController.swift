@@ -107,8 +107,8 @@ class MapController: UIViewController {
       switch segue.identifier! {
       case "addNewSpot":
          let newSpotController = (segue.destination as! NewSpotController)
-         newSpotController.spotLatitude = mapView.userLocation.coordinate.latitude //Passing latitude
-         newSpotController.spotLongitude = mapView.userLocation.coordinate.longitude //Passing latitude
+         newSpotController.spotLatitude = pinForNewSpot.coordinate.latitude //Passing latitude
+         newSpotController.spotLongitude = pinForNewSpot.coordinate.longitude //Passing latitude
          
       case "spotDetailsTapped":
          let postsStripController = (segue.destination as! PostsStripController)
@@ -121,6 +121,13 @@ class MapController: UIViewController {
       default: break
       }
    }
+   
+   fileprivate var weAddingSpot: Bool! = false // this we will use in adding new spot
+   // to show pin of new spot or not
+   fileprivate var pinForNewSpot: MKPointAnnotation!
+   
+   @IBOutlet weak var confirmNewSpotButton: UIButton!
+   @IBOutlet weak var cancelNewSpotButton: UIButton!
 }
 
 // MARK: - MKMapViewDelegate
@@ -190,6 +197,38 @@ extension MapController: MKMapViewDelegate {
    func goToInfo() {
       performSegue(withIdentifier: "goToSpotInfo", sender: self)
    }
+   
+   // func for adding new spot. It is placing new pin on map, that will
+   // move on every drag of map.
+   func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+      if weAddingSpot {
+         removeOldNewSpotAnnotation()
+         addMewSpotAnnotation()
+      }
+   }
+   
+   fileprivate func removeOldNewSpotAnnotation() {
+      let pins = mapView.annotations
+      
+      for pin in pins {
+         if let mkPin = pin as? MKPointAnnotation {
+            if mkPin.accessibilityLabel == "NewSpotAnnotation" {
+               mapView.removeAnnotation(pin)
+            }
+         }
+      }
+   }
+   
+   fileprivate func addMewSpotAnnotation() {
+      let annotation = MKPointAnnotation()
+      annotation.coordinate = mapView.centerCoordinate
+      annotation.title = "New spot"
+      annotation.subtitle = "will be added here"
+      annotation.accessibilityLabel = "NewSpotAnnotation" // using this for detection
+      pinForNewSpot = annotation
+
+      self.mapView.addAnnotation(annotation)
+   }
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -224,13 +263,35 @@ extension MapController: CLLocationManagerDelegate {
    }
    
    @IBAction func AddNewSpot(_ sender: Any) {
+      if !weAddingSpot { // if we first time tapped button
+         weAddingSpot = true
+         
+         addMewSpotAnnotation()
+         
+         swapHidePropertyForButtonsForConfirming()
+      }
+   }
+   
+   @IBAction func confirmNewSpot(_ sender: UIButton) {
       let dist = distanceToNearestPin()
       
       if dist > 50.0 {
+         weAddingSpot = false
+         removeOldNewSpotAnnotation()
+         swapHidePropertyForButtonsForConfirming()
+         
          performSegue(withIdentifier: "addNewSpot", sender: self)
       } else {
          showAlertThatToCloseToExistingSpot()
       }
+   }
+   
+   @IBAction func cancelNewSpot(_ sender: UIButton){
+      weAddingSpot = false
+      
+      removeOldNewSpotAnnotation()
+      
+      swapHidePropertyForButtonsForConfirming()
    }
    
    private func distanceToNearestPin() -> Float {
@@ -241,9 +302,9 @@ extension MapController: CLLocationManagerDelegate {
          if !(pin is MKUserLocation) { // if not user location
             let coord = pin.coordinate
             let loc = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
+            let newSpotLocation = CLLocation(latitude: pinForNewSpot.coordinate.latitude, longitude: pinForNewSpot.coordinate.longitude)
             
-            let distance : CLLocationDistance = locationManager.location!.distance(from: loc)
-            
+            let distance : CLLocationDistance = loc.distance(from: newSpotLocation)
             if (distance < minDistance && distance != 0.0)
                || minDistance == 1000000000.0 {
                minDistance = distance
@@ -263,6 +324,16 @@ extension MapController: CLLocationManagerDelegate {
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       
       present(alert, animated: true, completion: nil)
+   }
+   
+   private func swapHidePropertyForButtonsForConfirming() {
+      if confirmNewSpotButton.isHidden {
+         confirmNewSpotButton.isHidden = false
+         cancelNewSpotButton.isHidden = false
+      } else {
+         confirmNewSpotButton.isHidden = true
+         cancelNewSpotButton.isHidden = true
+      }
    }
 }
 

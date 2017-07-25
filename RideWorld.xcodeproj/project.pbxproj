@@ -14,6 +14,7 @@
 		9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5831E898412007ABD55 /* grayRec.jpg */; };
 		9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */; };
 		9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */; };
+		9F0BA55B1F276753003FBEDB /* FloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */; };
 		9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */; };
 		9F2400751EE9AB2C003601F8 /* FeedbackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */; };
 		9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2978FF1E9037090051EF5F /* CommentariesController.swift */; };
@@ -138,6 +139,7 @@
 		9F0AC5831E898412007ABD55 /* grayRec.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grayRec.jpg; path = Pictures/grayRec.jpg; sourceTree = "<group>"; };
 		9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForUpdatingUserProfilePosts.swift; path = Protocols/ForUpdatingUserProfilePosts.swift; sourceTree = "<group>"; };
 		9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = PleaseWaitTxt.gif; path = Pictures/PleaseWaitTxt.gif; sourceTree = "<group>"; };
+		9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloatingActionButton.swift; path = "Views/Modified DesignableX/FloatingActionButton.swift"; sourceTree = "<group>"; };
 		9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditedUserInfoDelegate.swift; path = Protocols/EditedUserInfoDelegate.swift; sourceTree = "<group>"; };
 		9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackModel.swift; path = Model/DataBase/FeedbackModel.swift; sourceTree = "<group>"; };
 		9F2978FF1E9037090051EF5F /* CommentariesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesController.swift; path = Controllers/CommentariesController.swift; sourceTree = "<group>"; };
@@ -285,6 +287,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9F0BA5591F2766F4003FBEDB /* Modified DesignableX */ = {
+			isa = PBXGroup;
+			children = (
+				9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */,
+			);
+			name = "Modified DesignableX";
+			sourceTree = "<group>";
+		};
 		9F113EB71E32A4D3009AF9FD /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +353,7 @@
 		9F6DD9C31F0ADFD900E3300E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9F0BA5591F2766F4003FBEDB /* Modified DesignableX */,
 				9F6DD9D91F0AE0EA00E3300E /* Assets.xcassets */,
 				9FD648DB1E573F0600C673CA /* Main.storyboard */,
 				9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */,
@@ -937,6 +948,7 @@
 				9F6DD9CF1F0AE0DE00E3300E /* UIButtonX.swift in Sources */,
 				9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */,
 				9FE3B7121EC4D6D600E7ED40 /* FeedbackController.swift in Sources */,
+				9F0BA55B1F276753003FBEDB /* FloatingActionButton.swift in Sources */,
 				9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */,
 				9F4A84431E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift in Sources */,
 				9FF1BF771EA28C5500A2CEF2 /* PostMedia.swift in Sources */,

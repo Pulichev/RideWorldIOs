@@ -216,56 +216,62 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="a9J-0n-5TV"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOg-jt-mhR">
-                                <rect key="frame" x="161" y="494" width="53" height="52"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="8Ry-oz-rpR"/>
-                                    <constraint firstAttribute="width" constant="53" id="ZLw-7c-5cw"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="ButtonPlus.png">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="AddNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eNF-9d-0WO"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3">
                                 <rect key="frame" x="110" y="470" width="43" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="Tfx-Zj-usU"/>
-                                    <constraint firstAttribute="width" constant="43" id="twK-Dz-WM6"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="X"/>
                                 <connections>
                                     <action selector="cancelNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qFG-Qw-HQK"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO">
                                 <rect key="frame" x="222" y="469" width="39" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="39" id="H2a-BZ-HnF"/>
-                                    <constraint firstAttribute="height" constant="29" id="hST-o1-kJT"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="V"/>
                                 <connections>
                                     <action selector="confirmNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LL3-hr-wrm"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOg-jt-mhR" customClass="FloatingActionButton" customModule="RideWorld" customModuleProvider="target">
+                                <rect key="frame" x="307" y="486" width="60" height="60"/>
+                                <color key="backgroundColor" red="0.38104774746192893" green="0.38104774746192893" blue="0.38104774746192893" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="8U2-d2-8hj"/>
+                                    <constraint firstAttribute="height" constant="60" id="WG9-fT-nr5"/>
+                                </constraints>
+                                <color key="tintColor" red="0.75448128172588835" green="0.75448128172588835" blue="0.75448128172588835" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" image="NewSpotButton">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" red="0.30179251269035534" green="0.30179251269035534" blue="0.30179251269035534" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="AddNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eNF-9d-0WO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="w8G-iW-QKa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5QL-ei-SyX"/>
+                            <constraint firstAttribute="trailing" secondItem="nOg-jt-mhR" secondAttribute="trailing" constant="8" id="Bts-ry-Y3W"/>
                             <constraint firstAttribute="trailing" secondItem="w8G-iW-QKa" secondAttribute="trailing" id="GsP-bS-xmZ"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nOg-jt-mhR" secondAttribute="bottom" constant="8" id="MyS-Zu-9Q3"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nOg-jt-mhR" secondAttribute="bottom" constant="8" id="eLc-Za-phZ"/>
                             <constraint firstItem="w8G-iW-QKa" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="g6s-ED-tQM"/>
-                            <constraint firstItem="nOg-jt-mhR" firstAttribute="top" secondItem="5WW-fA-yI3" secondAttribute="bottom" constant="-4" id="iQ4-5f-7bY"/>
-                            <constraint firstItem="nOg-jt-mhR" firstAttribute="top" secondItem="iOg-UA-QUO" secondAttribute="bottom" constant="-4" id="kHH-tC-Jxh"/>
-                            <constraint firstItem="iOg-UA-QUO" firstAttribute="leading" secondItem="nOg-jt-mhR" secondAttribute="trailing" constant="8" id="nUB-4k-i4k"/>
                             <constraint firstItem="w8G-iW-QKa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="p6y-qC-emM"/>
-                            <constraint firstItem="nOg-jt-mhR" firstAttribute="centerX" secondItem="w8G-iW-QKa" secondAttribute="centerX" id="qsA-ZG-bHu"/>
-                            <constraint firstItem="nOg-jt-mhR" firstAttribute="leading" secondItem="5WW-fA-yI3" secondAttribute="trailing" constant="8" id="xMB-Sa-YKe"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="RideWorld" id="BPL-Qz-8kq"/>
@@ -2339,8 +2345,8 @@
     <resources>
         <image name="Brooklynn-Banks" width="375" height="667"/>
         <image name="Button" width="144" height="76"/>
-        <image name="ButtonPlus.png" width="128" height="128"/>
         <image name="MapItem" width="32" height="32"/>
+        <image name="NewSpotButton" width="55" height="55"/>
         <image name="PostStripItem" width="32" height="32"/>
         <image name="Profile" width="32" height="32"/>
         <image name="RegistrationButton" width="144" height="76"/>

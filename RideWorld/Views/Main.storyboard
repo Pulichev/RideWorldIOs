@@ -245,27 +245,29 @@
                                     <action selector="AddNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eNF-9d-0WO"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3">
-                                <rect key="frame" x="110" y="470" width="43" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="X"/>
-                                <connections>
-                                    <action selector="cancelNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qFG-Qw-HQK"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO">
-                                <rect key="frame" x="222" y="469" width="39" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="V"/>
-                                <connections>
-                                    <action selector="confirmNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LL3-hr-wrm"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="is2-XR-pQm" customClass="UIViewX" customModule="RideWorld" customModuleProvider="target">
                                 <rect key="frame" x="217" y="396" width="240" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO">
+                                        <rect key="frame" x="81" y="21" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" image="ConfirmButton"/>
+                                        <connections>
+                                            <action selector="confirmNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LL3-hr-wrm"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3">
+                                        <rect key="frame" x="19" y="102" width="36" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" image="DiscardButton"/>
+                                        <connections>
+                                            <action selector="cancelNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qFG-Qw-HQK"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.58623636945021695" green="0.73859850888324874" blue="0.63717855285952429" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -2362,6 +2364,8 @@
     <resources>
         <image name="Brooklynn-Banks" width="375" height="667"/>
         <image name="Button" width="144" height="76"/>
+        <image name="ConfirmButton" width="44" height="44"/>
+        <image name="DiscardButton" width="44" height="44"/>
         <image name="MapItem" width="32" height="32"/>
         <image name="NewSpotButton" width="55" height="55"/>
         <image name="PostStripItem" width="32" height="32"/>

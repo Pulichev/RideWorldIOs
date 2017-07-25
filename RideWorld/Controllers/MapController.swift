@@ -16,8 +16,6 @@ class MapController: UIViewController {
    @IBOutlet weak var mapView: MKMapView!
    @IBOutlet weak var menuView: UIViewX!
    @IBOutlet weak var addNewSpotButton: FloatingActionButton!
-   @IBOutlet weak var confirmNewSpotButton: UIButton!
-   @IBOutlet weak var cancelNewSpotButton: UIButton!
    
    lazy var locationManager: CLLocationManager = {
       let manager = CLLocationManager()
@@ -270,23 +268,18 @@ extension MapController: CLLocationManagerDelegate {
    }
    
    @IBAction func AddNewSpot(_ sender: FloatingActionButton) {
-      
-      // menu actions
+      // open/close menu and some actions with pin
       UIView.animate(withDuration: 0.3, animations: {
          if self.menuView.transform == .identity {
+            self.weAddingSpot = false
             self.closeMenu()
+            self.removeOldNewSpotAnnotation()
          } else {
+            self.weAddingSpot = true
+            self.addMewSpotAnnotation()
             self.menuView.transform = .identity
          }
       })
-      
-      if !weAddingSpot { // if we first time tapped button
-         weAddingSpot = true
-         
-         addMewSpotAnnotation()
-         
-         swapHidePropertyForButtonsForConfirming()
-      }
    }
    
    @IBAction func confirmNewSpot(_ sender: UIButton) {
@@ -294,8 +287,11 @@ extension MapController: CLLocationManagerDelegate {
       
       if dist > 50.0 {
          weAddingSpot = false
+         UIView.animate(withDuration: 0.3, animations: {
+            self.closeMenu()
+         })
+         
          removeOldNewSpotAnnotation()
-         swapHidePropertyForButtonsForConfirming()
          
          performSegue(withIdentifier: "addNewSpot", sender: self)
       } else {
@@ -305,10 +301,15 @@ extension MapController: CLLocationManagerDelegate {
    
    @IBAction func cancelNewSpot(_ sender: UIButton){
       weAddingSpot = false
+      UIView.animate(withDuration: 0.3, animations: {
+         // return button to .identity
+         self.addNewSpotButton.transform = .identity
+         self.addNewSpotButton.backgroundColor = #colorLiteral(red: 0.3804, green: 0.3804, blue: 0.3804, alpha: 1) /* #616161 */
+
+         self.closeMenu()
+      })
       
       removeOldNewSpotAnnotation()
-      
-      swapHidePropertyForButtonsForConfirming()
    }
    
    private func distanceToNearestPin() -> Float {
@@ -341,16 +342,6 @@ extension MapController: CLLocationManagerDelegate {
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       
       present(alert, animated: true, completion: nil)
-   }
-   
-   private func swapHidePropertyForButtonsForConfirming() {
-      if confirmNewSpotButton.isHidden {
-         confirmNewSpotButton.isHidden = false
-         cancelNewSpotButton.isHidden = false
-      } else {
-         confirmNewSpotButton.isHidden = true
-         cancelNewSpotButton.isHidden = true
-      }
    }
 }
 

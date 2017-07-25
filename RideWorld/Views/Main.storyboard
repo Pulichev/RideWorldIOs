@@ -24,9 +24,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Brooklynn-Banks" translatesAutoresizingMaskIntoConstraints="NO" id="PXy-GR-48A">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter login" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TcQ-Ca-XWa">
                                 <rect key="frame" x="16" y="278" width="343" height="30"/>
                                 <color key="backgroundColor" red="0.32334844559585496" green="0.30683403819770116" blue="0.30863461232556283" alpha="0.74056448063380287" colorSpace="custom" customColorSpace="displayP3"/>
@@ -80,6 +77,9 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.52778389084507038" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Brooklynn-Banks" translatesAutoresizingMaskIntoConstraints="NO" id="PXy-GR-48A">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -235,7 +235,7 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                        <real key="value" value="1"/>
+                                        <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                         <color key="value" red="0.30179251269035534" green="0.30179251269035534" blue="0.30179251269035534" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -249,16 +249,7 @@
                                 <rect key="frame" x="217" y="396" width="240" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO">
-                                        <rect key="frame" x="81" y="21" width="40" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" image="ConfirmButton"/>
-                                        <connections>
-                                            <action selector="confirmNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LL3-hr-wrm"/>
-                                        </connections>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="19" y="102" width="36" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -267,8 +258,17 @@
                                             <action selector="cancelNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qFG-Qw-HQK"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                                        <rect key="frame" x="88" y="18" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" image="ConfirmButton"/>
+                                        <connections>
+                                            <action selector="confirmNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LL3-hr-wrm"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.58623636945021695" green="0.73859850888324874" blue="0.63717855285952429" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.58431372549019611" green="0.73725490196078436" blue="0.63529411764705879" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="120"/>
@@ -285,18 +285,11 @@
                             <constraint firstItem="w8G-iW-QKa" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="g6s-ED-tQM"/>
                             <constraint firstItem="w8G-iW-QKa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="p6y-qC-emM"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="w8G-iW-QKa"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="RideWorld" id="BPL-Qz-8kq"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="addNewSpotButton" destination="nOg-jt-mhR" id="K97-W3-zXY"/>
-                        <outlet property="cancelNewSpotButton" destination="5WW-fA-yI3" id="tdJ-MF-DUw"/>
-                        <outlet property="confirmNewSpotButton" destination="iOg-UA-QUO" id="iNd-Ni-zdv"/>
+                        <outlet property="addNewSpotButton" destination="nOg-jt-mhR" id="qXT-b6-gV6"/>
                         <outlet property="mapView" destination="w8G-iW-QKa" id="hst-SK-MUj"/>
                         <outlet property="menuView" destination="is2-XR-pQm" id="Io9-R9-era"/>
                         <segue destination="28g-9l-NVL" kind="show" identifier="addNewSpot" id="Cu9-hd-la3"/>
@@ -2379,13 +2372,13 @@
         <image name="respectPassive" width="47" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZpR-8C-QJR"/>
-        <segue reference="TEa-lr-7L1"/>
+        <segue reference="Gef-69-N8A"/>
+        <segue reference="Oe2-wo-WXX"/>
+        <segue reference="RlL-e4-xY6"/>
+        <segue reference="WTf-CW-Cn6"/>
+        <segue reference="nax-92-cwD"/>
         <segue reference="SYx-8l-lm6"/>
         <segue reference="ZuM-Rf-uph"/>
-        <segue reference="6R6-CY-IE2"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="RlL-e4-xY6"/>
-        <segue reference="nax-92-cwD"/>
     </inferredMetricsTieBreakers>
 </document>

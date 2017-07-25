@@ -31,6 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginPage")
       }
       
+      // set some colors
+      UISearchBar.appearance().barTintColor = UIColor.myGray()
+      UISearchBar.appearance().tintColor = UIColor.myGreen()
+      UINavigationBar.appearance().barTintColor = UIColor.myGray()
+      UINavigationBar.appearance().tintColor = UIColor.myGreen()
+      UITabBar.appearance().barTintColor = UIColor.myGray()
+      UITabBar.appearance().tintColor = UIColor.myGreen()
+      
       return true
    }
    
@@ -58,5 +66,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    
    func applicationDidFinishLaunching(_ application: UIApplication) {
       
+   }
+}
+
+extension UIColor {
+   static func myGray() -> UIColor {
+      return #colorLiteral(red: 0.3804, green: 0.3804, blue: 0.3804, alpha: 1) /* #616161 */
+   }
+   
+   static func myGreen() -> UIColor {
+      return #colorLiteral(red: 0.5843, green: 0.7373, blue: 0.6353, alpha: 1) /* #95bca2 */
    }
 }

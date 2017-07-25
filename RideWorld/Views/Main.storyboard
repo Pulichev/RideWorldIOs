@@ -216,27 +216,9 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="a9J-0n-5TV"/>
                                 </connections>
                             </mapView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3">
-                                <rect key="frame" x="110" y="470" width="43" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="X"/>
-                                <connections>
-                                    <action selector="cancelNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qFG-Qw-HQK"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO">
-                                <rect key="frame" x="222" y="469" width="39" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="V"/>
-                                <connections>
-                                    <action selector="confirmNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LL3-hr-wrm"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOg-jt-mhR" customClass="FloatingActionButton" customModule="RideWorld" customModuleProvider="target">
                                 <rect key="frame" x="307" y="486" width="60" height="60"/>
-                                <color key="backgroundColor" red="0.38104774746192893" green="0.38104774746192893" blue="0.38104774746192893" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="8U2-d2-8hj"/>
                                     <constraint firstAttribute="height" constant="60" id="WG9-fT-nr5"/>
@@ -263,6 +245,34 @@
                                     <action selector="AddNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eNF-9d-0WO"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3">
+                                <rect key="frame" x="110" y="470" width="43" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="X"/>
+                                <connections>
+                                    <action selector="cancelNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qFG-Qw-HQK"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO">
+                                <rect key="frame" x="222" y="469" width="39" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="V"/>
+                                <connections>
+                                    <action selector="confirmNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LL3-hr-wrm"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="is2-XR-pQm" customClass="UIViewX" customModule="RideWorld" customModuleProvider="target">
+                                <rect key="frame" x="217" y="396" width="240" height="240"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.58623636945021695" green="0.73859850888324874" blue="0.63717855285952429" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="120"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -273,13 +283,20 @@
                             <constraint firstItem="w8G-iW-QKa" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="g6s-ED-tQM"/>
                             <constraint firstItem="w8G-iW-QKa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="p6y-qC-emM"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="w8G-iW-QKa"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="RideWorld" id="BPL-Qz-8kq"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="addNewSpotButton" destination="nOg-jt-mhR" id="K97-W3-zXY"/>
                         <outlet property="cancelNewSpotButton" destination="5WW-fA-yI3" id="tdJ-MF-DUw"/>
                         <outlet property="confirmNewSpotButton" destination="iOg-UA-QUO" id="iNd-Ni-zdv"/>
                         <outlet property="mapView" destination="w8G-iW-QKa" id="hst-SK-MUj"/>
+                        <outlet property="menuView" destination="is2-XR-pQm" id="Io9-R9-era"/>
                         <segue destination="28g-9l-NVL" kind="show" identifier="addNewSpot" id="Cu9-hd-la3"/>
                         <segue destination="6uJ-a1-Lta" kind="show" identifier="goToSpotInfo" id="ZuM-Rf-uph"/>
                         <segue destination="LlJ-V1-BNZ" kind="show" identifier="spotDetailsTapped" id="SYx-8l-lm6"/>
@@ -1685,7 +1702,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hyO-8D-pzd">
-                                <rect key="frame" x="0.0" y="244" width="375" height="353"/>
+                                <rect key="frame" x="0.0" y="244" width="375" height="304"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditProfileCell" id="NUz-cv-B5A" userLabel="EditProfileCell" customClass="EditProfileCell" customModule="RideWorld" customModuleProvider="target">

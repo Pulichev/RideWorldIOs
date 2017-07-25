@@ -14,6 +14,10 @@ class MapController: UIViewController {
    var spotDetailsForSendToPostsStripController: SpotItem!
    
    @IBOutlet weak var mapView: MKMapView!
+   @IBOutlet weak var menuView: UIViewX!
+   @IBOutlet weak var addNewSpotButton: FloatingActionButton!
+   @IBOutlet weak var confirmNewSpotButton: UIButton!
+   @IBOutlet weak var cancelNewSpotButton: UIButton!
    
    lazy var locationManager: CLLocationManager = {
       let manager = CLLocationManager()
@@ -29,6 +33,8 @@ class MapController: UIViewController {
          self.mapViewInitialize()
          self.loadSpotsOnMap()
       }
+      
+      closeMenu()
    }
    
    func mapViewInitialize() {
@@ -126,8 +132,9 @@ class MapController: UIViewController {
    // to show pin of new spot or not
    fileprivate var pinForNewSpot: MKPointAnnotation!
    
-   @IBOutlet weak var confirmNewSpotButton: UIButton!
-   @IBOutlet weak var cancelNewSpotButton: UIButton!
+   fileprivate func closeMenu() {
+      menuView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+   }
 }
 
 // MARK: - MKMapViewDelegate
@@ -226,7 +233,7 @@ extension MapController: MKMapViewDelegate {
       annotation.subtitle = "will be added here"
       annotation.accessibilityLabel = "NewSpotAnnotation" // using this for detection
       pinForNewSpot = annotation
-
+      
       self.mapView.addAnnotation(annotation)
    }
 }
@@ -262,7 +269,17 @@ extension MapController: CLLocationManagerDelegate {
       print("CLLocationManager error: \(error.localizedDescription)")
    }
    
-   @IBAction func AddNewSpot(_ sender: Any) {
+   @IBAction func AddNewSpot(_ sender: FloatingActionButton) {
+      
+      // menu actions
+      UIView.animate(withDuration: 0.3, animations: {
+         if self.menuView.transform == .identity {
+            self.closeMenu()
+         } else {
+            self.menuView.transform = .identity
+         }
+      })
+      
       if !weAddingSpot { // if we first time tapped button
          weAddingSpot = true
          

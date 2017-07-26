@@ -288,6 +288,9 @@ extension MapController: CLLocationManagerDelegate {
       if dist > 50.0 {
          weAddingSpot = false
          UIView.animate(withDuration: 0.3, animations: {
+            // return button to .identity
+            self.addNewSpotButton.transform = .identity
+            self.addNewSpotButton.backgroundColor = UIColor.myLightGray()
             self.closeMenu()
          })
          
@@ -304,7 +307,7 @@ extension MapController: CLLocationManagerDelegate {
       UIView.animate(withDuration: 0.3, animations: {
          // return button to .identity
          self.addNewSpotButton.transform = .identity
-         self.addNewSpotButton.backgroundColor = #colorLiteral(red: 0.3804, green: 0.3804, blue: 0.3804, alpha: 1) /* #616161 */
+         self.addNewSpotButton.backgroundColor = UIColor.myLightGray()
 
          self.closeMenu()
       })

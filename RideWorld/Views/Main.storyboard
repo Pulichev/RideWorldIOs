@@ -218,7 +218,7 @@
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOg-jt-mhR" customClass="FloatingActionButton" customModule="RideWorld" customModuleProvider="target">
                                 <rect key="frame" x="307" y="486" width="60" height="60"/>
-                                <color key="backgroundColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.49019607843137253" green="0.5490196078431373" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="8U2-d2-8hj"/>
                                     <constraint firstAttribute="height" constant="60" id="WG9-fT-nr5"/>
@@ -252,7 +252,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="19" y="102" width="36" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="0.49019607843137253" green="0.5490196078431373" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" image="DiscardButton"/>
                                         <connections>
                                             <action selector="cancelNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qFG-Qw-HQK"/>
@@ -261,14 +261,14 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="88" y="18" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" red="0.38039215686274508" green="0.38039215686274508" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="0.49019607843137253" green="0.5490196078431373" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" image="ConfirmButton"/>
                                         <connections>
                                             <action selector="confirmNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LL3-hr-wrm"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.58431372549019611" green="0.73725490196078436" blue="0.63529411764705879" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.71372549019607845" green="0.74509803921568629" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="120"/>
@@ -593,7 +593,7 @@
                                                             <action selector="openAlert:" destination="WfP-RX-tLc" eventType="touchUpInside" id="FDl-jh-zlM"/>
                                                         </connections>
                                                     </button>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TVA-M8-h0L" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TVA-M8-h0L" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
                                                         <rect key="frame" x="5" y="2" width="40" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="40" id="oPD-Aw-ed1"/>
@@ -891,7 +891,7 @@
                                                                 <action selector="openAlert:" destination="8ze-W5-zL7" eventType="touchUpInside" id="6Rz-Tv-7fX"/>
                                                             </connections>
                                                         </button>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kwc-uE-2Ct" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kwc-uE-2Ct" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
                                                             <rect key="frame" x="5" y="2" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="40" id="3A6-bo-eLb"/>
@@ -2035,7 +2035,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XNJ-Lj-wrE" userLabel="View For Min Height">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="102.5"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x72-j5-HAe" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x72-j5-HAe" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
                                                             <rect key="frame" x="8" y="5" width="50" height="50"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="50" id="bRd-Hm-OM6"/>
@@ -2043,14 +2043,14 @@
                                                             </constraints>
                                                         </imageView>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T2u-uu-mya">
-                                                            <rect key="frame" x="307" y="0.0" width="60" height="75.5"/>
+                                                            <rect key="frame" x="307" y="5" width="60" height="70.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="Sgf-Jd-Ohs"/>
-                                                                <constraint firstAttribute="height" constant="75.5" id="Tcz-Cu-1Yp"/>
+                                                                <constraint firstAttribute="height" constant="70.5" id="Tcz-Cu-1Yp"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5z-Zk-pYm">
-                                                            <rect key="frame" x="297" y="83" width="70" height="13.5"/>
+                                                            <rect key="frame" x="297" y="87.5" width="70" height="13.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="13.5" id="RxM-2k-pe8"/>
                                                                 <constraint firstAttribute="width" constant="70" id="jrv-mw-ntm"/>
@@ -2063,11 +2063,12 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="T2u-uu-mya" secondAttribute="trailing" constant="8" id="2n3-W6-v0L"/>
-                                                        <constraint firstItem="T2u-uu-mya" firstAttribute="top" secondItem="XNJ-Lj-wrE" secondAttribute="top" id="5IT-rI-Jvd"/>
+                                                        <constraint firstItem="T2u-uu-mya" firstAttribute="top" secondItem="XNJ-Lj-wrE" secondAttribute="top" constant="5" id="5IT-rI-Jvd"/>
+                                                        <constraint firstItem="T2u-uu-mya" firstAttribute="top" secondItem="XNJ-Lj-wrE" secondAttribute="top" constant="5" id="8vJ-DI-5CR"/>
                                                         <constraint firstItem="x72-j5-HAe" firstAttribute="top" secondItem="XNJ-Lj-wrE" secondAttribute="top" constant="5" id="CB6-mm-Tcq"/>
                                                         <constraint firstAttribute="trailing" secondItem="c5z-Zk-pYm" secondAttribute="trailing" constant="8" id="Cj7-wi-VpQ"/>
                                                         <constraint firstItem="x72-j5-HAe" firstAttribute="leading" secondItem="XNJ-Lj-wrE" secondAttribute="leading" constant="8" id="HNh-E0-0vW"/>
-                                                        <constraint firstItem="c5z-Zk-pYm" firstAttribute="top" secondItem="T2u-uu-mya" secondAttribute="bottom" constant="7" id="PgX-mW-gAo"/>
+                                                        <constraint firstItem="c5z-Zk-pYm" firstAttribute="top" secondItem="T2u-uu-mya" secondAttribute="bottom" constant="12" id="PgX-mW-gAo"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="zqh-ju-glW"/>
                                                     </constraints>
                                                 </view>
@@ -2122,7 +2123,7 @@
                                                         <constraint firstItem="qxt-JR-i0b" firstAttribute="top" secondItem="Omf-CW-qYA" secondAttribute="top" constant="5" id="msS-ZV-wpf"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="slJ-KW-lXt" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="slJ-KW-lXt" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
                                                     <rect key="frame" x="5" y="5" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="Z8V-Ip-EUo"/>
@@ -2298,7 +2299,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8YA-MN-caM" userLabel="View for min height">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="48.5"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Gw-6E-56a" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Gw-6E-56a" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
                                                     <rect key="frame" x="5" y="5" width="40" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="Eld-4m-NCs"/>
@@ -2373,12 +2374,12 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Gef-69-N8A"/>
-        <segue reference="Oe2-wo-WXX"/>
-        <segue reference="RlL-e4-xY6"/>
-        <segue reference="WTf-CW-Cn6"/>
-        <segue reference="nax-92-cwD"/>
+        <segue reference="0eg-2s-RsF"/>
+        <segue reference="eyf-4a-ZNN"/>
+        <segue reference="pip-4n-Igg"/>
+        <segue reference="I78-xn-cQP"/>
+        <segue reference="COh-cw-Ntn"/>
+        <segue reference="TeE-da-wxz"/>
         <segue reference="SYx-8l-lm6"/>
-        <segue reference="ZuM-Rf-uph"/>
-        <segue reference="QOa-aY-bXL"/>
     </inferredMetricsTieBreakers>
 </document>

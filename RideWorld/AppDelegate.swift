@@ -32,12 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
       
       // set some colors
-      UISearchBar.appearance().barTintColor = UIColor.myGray()
-      UISearchBar.appearance().tintColor = UIColor.myGreen()
-      UINavigationBar.appearance().barTintColor = UIColor.myGray()
-      UINavigationBar.appearance().tintColor = UIColor.myGreen()
-      UITabBar.appearance().barTintColor = UIColor.myGray()
-      UITabBar.appearance().tintColor = UIColor.myGreen()
+      UISearchBar.appearance().barTintColor = UIColor.myLightBrown()
+      UISearchBar.appearance().tintColor = UIColor.myDarkBlue()
+      UINavigationBar.appearance().barTintColor = UIColor.myLightBrown()
+      UINavigationBar.appearance().tintColor = UIColor.myDarkBlue()
+      UITabBar.appearance().barTintColor = UIColor.myLightBrown()
+      UITabBar.appearance().tintColor = UIColor.myDarkBlue()
       
       return true
    }
@@ -70,11 +70,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension UIColor {
+   // old colors
    static func myGray() -> UIColor {
       return #colorLiteral(red: 0.3804, green: 0.3804, blue: 0.3804, alpha: 1) /* #616161 */
    }
    
    static func myGreen() -> UIColor {
       return #colorLiteral(red: 0.5843, green: 0.7373, blue: 0.6353, alpha: 1) /* #95bca2 */
+   }
+   
+   // new colors
+   static func myDarkBlue() -> UIColor {
+      return #colorLiteral(red: 0.149, green: 0.2275, blue: 0.2824, alpha: 1) /* #263a48 */
+   }
+   
+   static func myDarkGray() -> UIColor {
+      return #colorLiteral(red: 0.4902, green: 0.549, blue: 0.5725, alpha: 1) /* #7d8c92 */
+   }
+   
+   static func myLightGray() -> UIColor {
+      return #colorLiteral(red: 0.7137, green: 0.7451, blue: 0.7451, alpha: 1) /* #b6bebe */
+   }
+   
+   static func myLighterBrown() -> UIColor {
+      return #colorLiteral(red: 0.8, green: 0.7804, blue: 0.7294, alpha: 1) /* #ccc7ba */
+   }
+   
+   static func myLightBrown() -> UIColor {
+      return #colorLiteral(red: 0.9294, green: 0.8431, blue: 0.7412, alpha: 1) /* #edd7bd */
    }
 }

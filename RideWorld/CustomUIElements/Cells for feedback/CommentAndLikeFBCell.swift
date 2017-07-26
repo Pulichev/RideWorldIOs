@@ -105,7 +105,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
             var atts = attributes
             switch type {
             case .custom(pattern: "^\(self.userItem.login)\\b"):
-               atts[NSFontAttributeName] = UIFont(name: "CourierNewPS-BoldMT", size: 15)
+               atts[NSFontAttributeName] = UIFont(name: "Roboto-Medium", size: 15)
             default: ()
             }
             

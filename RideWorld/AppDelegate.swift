@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       UINavigationBar.appearance().tintColor = UIColor.myDarkBlue()
       UITabBar.appearance().barTintColor = UIColor.myLightBrown()
       UITabBar.appearance().tintColor = UIColor.myDarkBlue()
+      UILabel.appearance().defaultFont =  UIFont(name: "Roboto", size: 15.0)
       
       return true
    }
@@ -69,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    }
 }
 
+// MARK: - Settings for entire application
 extension UIColor {
    // old colors
    static func myGray() -> UIColor {
@@ -98,5 +100,18 @@ extension UIColor {
    
    static func myLightBrown() -> UIColor {
       return #colorLiteral(red: 0.9294, green: 0.8431, blue: 0.7412, alpha: 1) /* #edd7bd */
+   }
+}
+
+extension UILabel{
+   dynamic var defaultFont: UIFont? {
+      get { return self.font }
+      set {
+         //get old size of lable font
+         let sizeOfOldFont = self.font.pointSize
+         //get new name of font
+         let fontNameOfNewFont = newValue?.fontName
+         self.font = UIFont(name: fontNameOfNewFont!, size: sizeOfOldFont)
+      }
    }
 }

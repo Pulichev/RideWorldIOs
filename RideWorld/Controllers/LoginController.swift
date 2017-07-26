@@ -14,10 +14,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
    @IBOutlet weak var userLogin: UITextField!
    @IBOutlet weak var userPassword: UITextField!
    
-   @IBOutlet weak var errorLabel: UILabel!
-   
    override func viewDidLoad() {
-      errorLabel.text = "" //Make no errors
       
       userLogin.delegate = self
       userPassword.delegate = self
@@ -42,7 +39,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
          if userItem != nil {
             self.signIn(with: userItem!.email)
          } else {
-            self.errorLabel.text = "Wrong login or password!"
+            self.showAlertWithError(text: "Wrong login or password!")
          }
       }
    }
@@ -55,7 +52,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
          SVProgressHUD.dismiss()
          
          if error != nil {
-            self.errorLabel.text = "Wrong login or password!"
+            self.showAlertWithError(text: "Wrong login or password!")
             print("\(String(describing: error?.localizedDescription))")
          } else {
             self.performSegue(withIdentifier: "fromLoggedInToTabBar", sender: self)
@@ -67,6 +64,17 @@ class LoginController: UIViewController, UITextFieldDelegate {
       performSegue(withIdentifier: "registration", sender: self)
    }
    
+   private func showAlertWithError(text: String) {
+      SVProgressHUD.dismiss()
+      
+      let alert = UIAlertController(title: "Login failed!",
+                                    message: text,
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
+   }
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
    //if we tapped UITextField and then another UITextField
 }

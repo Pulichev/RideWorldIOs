@@ -9,8 +9,8 @@
 import UIKit
 
 class PinInfoView: UIView {
-   private let width = 250
-   private let height = 250
+   private let width = 200
+   private let height = 200
    
    var goToInfoButton: UIButton!
    var goToPostsButton: UIButton!
@@ -19,9 +19,9 @@ class PinInfoView: UIView {
       super.init(frame: frame)
       
       let views = ["infoView": self]
-      self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[infoView(250)]",
+      self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[infoView(200)]",
                                                          options: [], metrics: nil, views: views))
-      self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[infoView(250)]",
+      self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[infoView(200)]",
                                                          options: [], metrics: nil, views: views))
       
       initButtons()
@@ -37,11 +37,11 @@ class PinInfoView: UIView {
    private func initButtons() {
       goToInfoButton = UIButton(frame: CGRect(x: 0, y: height - 35, width: width / 2 - 5, height: 35))
       goToInfoButton.setTitle("Info", for: .normal)
-      goToInfoButton.setTitleColor(UIColor.darkGray, for: .normal)
+      goToInfoButton.setTitleColor(UIColor.myDarkBlue(), for: .normal)
       
       goToPostsButton = UIButton(frame: CGRect(x: width / 2 + 5, y: height - 35, width: width / 2, height: 35))
       goToPostsButton.setTitle("Posts", for: .normal)
-      goToPostsButton.setTitleColor(UIColor.darkGray, for: .normal)
+      goToPostsButton.setTitleColor(UIColor.myDarkBlue(), for: .normal)
    }
    
    func addPhoto(spot: SpotItem) {

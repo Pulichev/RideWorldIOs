@@ -114,11 +114,13 @@ class SearchController: UITableViewController {
    }
    
    func filterContentForSearchText(_ searchText: String) {
+      let lowerCasedSearchText = searchText.lowercased()
+      
       switch self.selectedScope {
       case "Riders":
          if searchText.characters.count == 1 {
             // get items from db where 1st symbol is entered character
-            UserModel.searchUsersWithLogin(startedWith: searchText) { users in
+            UserModel.searchUsersWithLogin(startedWith: lowerCasedSearchText) { users in
                self.riders = users
                self.filteredRiders = users
                
@@ -126,14 +128,14 @@ class SearchController: UITableViewController {
             }
          } else {
             // filter items from already downloaded from db
-            filteredRiders = riders.filter { $0.login.hasPrefix(searchText) }
+            filteredRiders = riders.filter { $0.login.hasPrefix(lowerCasedSearchText) }
             self.tableView.reloadData()
          }
          
       case "Spots":
          if searchText.characters.count == 1 {
             // get items from db where 1st symbol is entered character
-            Spot.searchSpotsWithName(startedWith: searchText) { spots in
+            Spot.searchSpotsWithName(startedWith: lowerCasedSearchText) { spots in
                self.spots = spots
                self.filteredSpots = spots
                
@@ -141,7 +143,7 @@ class SearchController: UITableViewController {
             }
          } else {
             // filter items from already downloaded from db
-            filteredSpots = spots.filter { $0.name.hasPrefix(searchText) }
+            filteredSpots = spots.filter { $0.name.hasPrefix(lowerCasedSearchText) }
             self.tableView.reloadData()
          }
          

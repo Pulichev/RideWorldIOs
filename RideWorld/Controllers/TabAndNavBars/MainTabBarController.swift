@@ -34,7 +34,7 @@ class MainTabBarController: UITabBarController {
       view.addSubview(mapBackgroundView)
       
       menuButton.setImage(UIImage(named: "MapIcon"), for: .normal)
-      menuButton.tintColor = UIColor.myLightGray()
+      menuButton.tintColor = UIColor.myDarkBlue()
       menuButton.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
       
       view.layoutIfNeeded()

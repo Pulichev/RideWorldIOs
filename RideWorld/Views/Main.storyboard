@@ -218,12 +218,12 @@
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nOg-jt-mhR" customClass="FloatingActionButton" customModule="RideWorld" customModuleProvider="target">
                                 <rect key="frame" x="307" y="486" width="60" height="60"/>
-                                <color key="backgroundColor" red="0.49019607843137253" green="0.5490196078431373" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.71372549019607845" green="0.74509803921568629" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="8U2-d2-8hj"/>
                                     <constraint firstAttribute="height" constant="60" id="WG9-fT-nr5"/>
                                 </constraints>
-                                <color key="tintColor" red="0.75448128172588835" green="0.75448128172588835" blue="0.75448128172588835" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" red="0.49019607843137253" green="0.5490196078431373" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" image="NewSpotButton">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -272,6 +272,21 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="120"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetY">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -2376,7 +2391,7 @@
         <segue reference="Gef-69-N8A"/>
         <segue reference="TEa-lr-7L1"/>
         <segue reference="SYx-8l-lm6"/>
-        <segue reference="Xyq-8K-e8w"/>
+        <segue reference="ZuM-Rf-uph"/>
         <segue reference="6R6-CY-IE2"/>
         <segue reference="QOa-aY-bXL"/>
         <segue reference="eyf-4a-ZNN"/>

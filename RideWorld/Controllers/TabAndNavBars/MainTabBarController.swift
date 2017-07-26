@@ -15,6 +15,33 @@ class MainTabBarController: UITabBarController {
       super.viewDidLoad()
       
       loadFeedbackItems()
+      setupMiddleButton()
+   }
+   
+   func setupMiddleButton() {
+      let mapBackgroundView = UIViewX(frame: CGRect(x: 0, y: 0, width: 68, height: 68))
+      mapBackgroundView.backgroundColor = UIColor.myLightBrown()
+      mapBackgroundView.cornerRadius = 34
+      
+      var mapBackgroundViewFrame = mapBackgroundView.frame
+      mapBackgroundViewFrame.origin.y = view.bounds.height - mapBackgroundViewFrame.height
+      mapBackgroundViewFrame.origin.x = view.bounds.width/2 - mapBackgroundViewFrame.size.width/2
+      mapBackgroundView.frame = mapBackgroundViewFrame
+      
+      let menuButton = MapButton(frame: CGRect(x: 0, y: 0, width: 68, height: 68))
+      menuButton.layer.cornerRadius = mapBackgroundViewFrame.height/2
+      mapBackgroundView.addSubview(menuButton)
+      view.addSubview(mapBackgroundView)
+      
+      menuButton.setImage(UIImage(named: "MapIcon"), for: .normal)
+      menuButton.tintColor = UIColor.myLightGray()
+      menuButton.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
+      
+      view.layoutIfNeeded()
+   }
+   
+   @objc private func menuButtonAction(sender: UIButton) {
+      selectedIndex = 2
    }
    
    // we will send it to FeedbackTab

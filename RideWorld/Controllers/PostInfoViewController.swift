@@ -96,7 +96,7 @@ class PostInfoViewController: UIViewController {
       spotPostMedia.isUserInteractionEnabled = true
       
       let tapOnUser = UITapGestureRecognizer(target:self, action:#selector(goToPostAuthor))
-      tap.numberOfTapsRequired = 1
+      tapOnUser.numberOfTapsRequired = 1
       userPhoto.addGestureRecognizer(tapOnUser)
       userPhoto.isUserInteractionEnabled = true
    }

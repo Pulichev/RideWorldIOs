@@ -135,7 +135,7 @@ class SearchController: UITableViewController {
       case "Spots":
          if searchText.characters.count == 1 {
             // get items from db where 1st symbol is entered character
-            Spot.searchSpotsWithName(startedWith: lowerCasedSearchText) { spots in
+            Spot.searchSpotsWithName(startedWith: searchText) { spots in
                self.spots = spots
                self.filteredSpots = spots
                
@@ -143,7 +143,7 @@ class SearchController: UITableViewController {
             }
          } else {
             // filter items from already downloaded from db
-            filteredSpots = spots.filter { $0.name.hasPrefix(lowerCasedSearchText) }
+            filteredSpots = spots.filter { $0.name.hasPrefix(searchText) }
             self.tableView.reloadData()
          }
          

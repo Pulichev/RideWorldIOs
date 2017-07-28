@@ -115,6 +115,7 @@ class SearchController: UITableViewController {
    
    func filterContentForSearchText(_ searchText: String) {
       let lowerCasedSearchText = searchText.lowercased()
+      let upperCasedSearchText = searchText.uppercased()
       
       switch self.selectedScope {
       case "Riders":
@@ -135,15 +136,37 @@ class SearchController: UITableViewController {
       case "Spots":
          if searchText.characters.count == 1 {
             // get items from db where 1st symbol is entered character
-            Spot.searchSpotsWithName(startedWith: searchText) { spots in
+            Spot.searchSpotsWithName(startedWith: searchText) { spots in // original
                self.spots = spots
                self.filteredSpots = spots
                
-               self.tableView.reloadData()
+               // if typed "o", also search "O". And vice versa
+               if String.isLowercase(string: searchText) {
+                  Spot.searchSpotsWithName(startedWith: upperCasedSearchText) { spots in
+                     self.spots.append(contentsOf: spots)
+                     self.filteredSpots.append(contentsOf: spots)
+                     
+                     self.tableView.reloadData()
+                  }
+               } else {
+                  Spot.searchSpotsWithName(startedWith: lowerCasedSearchText) { spots in
+                     self.spots.append(contentsOf: spots)
+                     self.filteredSpots.append(contentsOf: spots)
+                     
+                     self.tableView.reloadData()
+                  }
+               }
             }
          } else {
             // filter items from already downloaded from db
             filteredSpots = spots.filter { $0.name.hasPrefix(searchText) }
+            
+            if String.isLowercase(string: searchText) {
+               filteredSpots.append(contentsOf: spots.filter { $0.name.hasPrefix(upperCasedSearchText) })
+            } else {
+               filteredSpots.append(contentsOf: spots.filter { $0.name.hasPrefix(lowerCasedSearchText) })
+            }
+            
             self.tableView.reloadData()
          }
          
@@ -165,7 +188,7 @@ class SearchController: UITableViewController {
          let newRidersProfileController = segue.destination as! RidersProfileController
          newRidersProfileController.ridersInfo = riderItemForSending
          newRidersProfileController.title = riderItemForSending.login
-
+         
       default: break
       }
    }

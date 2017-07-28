@@ -32,4 +32,14 @@ extension String {
       }
       return result
    }
+   
+   static func isLowercase(string: String) -> Bool {
+      let set = CharacterSet.lowercaseLetters
+      
+      if let scala = UnicodeScalar(string) {
+         return set.contains(scala)
+      } else {
+         return false
+      }
+   }
 }

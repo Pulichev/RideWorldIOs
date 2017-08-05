@@ -380,10 +380,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
    // go to comments
    func goToComments(sender: UIButton!) {
-      postForSending = posts[sender.tag]
-      postDescForSending = posts[sender.tag].description
+      postForSending         = posts[sender.tag]
+      postDescForSending     = posts[sender.tag].description
       postDateTimeForSending = posts[sender.tag].createdDate
-      postUserIdForSending = posts[sender.tag].addedByUser
+      postUserIdForSending   = posts[sender.tag].addedByUser
       
       performSegue(withIdentifier: "goToCommentsFromPostStrip", sender: self)
    }
@@ -404,7 +404,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       case "openRidersProfileFromSpotDetails":
          let newRidersProfileController = segue.destination as! RidersProfileController
          newRidersProfileController.ridersInfo = ridersInfoForSending
-         newRidersProfileController.title = ridersInfoForSending.login
+         newRidersProfileController.title      = ridersInfoForSending.login
          
       case "ifChoosedCurrentUser":
          let userProfileController = segue.destination as! UserProfileController
@@ -412,10 +412,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
       case "goToCommentsFromPostStrip":
          let commentariesController = segue.destination as! CommentariesController
-         commentariesController.post = postForSending
+         commentariesController.post            = postForSending
          commentariesController.postDescription = postDescForSending
-         commentariesController.postDate = postDateTimeForSending
-         commentariesController.userId = postUserIdForSending
+         commentariesController.postDate        = postDateTimeForSending
+         commentariesController.userId          = postUserIdForSending
          
       case "fromPostToSpotInfo":
          let spotInfoController = segue.destination as! SpotInfoController

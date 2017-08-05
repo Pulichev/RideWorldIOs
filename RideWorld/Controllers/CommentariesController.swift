@@ -198,12 +198,6 @@ UITableViewDelegate {
    }
    
    @IBOutlet weak var newCommentViewBotConstraint: NSLayoutConstraint!
-   
-   override func viewWillDisappear(_ animated: Bool) {
-      super.viewWillDisappear(animated)
-      
-      self.newCommentViewBotConstraint.constant = 0
-   }
 }
 
 extension CommentariesController: TappedUserDelegate {
@@ -264,5 +258,24 @@ extension CommentariesController: UITextFieldDelegate {
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
       view.endEditing(true)
+   }
+}
+
+// MARK: - viewWillAppear/Dissappear
+extension CommentariesController {
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      
+      let mainTabBarController = tabBarController as? MainTabBarController
+      mainTabBarController?.hideMapButton()
+   }
+   
+   override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      
+      self.newCommentViewBotConstraint.constant = 0
+      
+      let mainTabBarController = tabBarController as? MainTabBarController
+      mainTabBarController?.showMapButton()
    }
 }

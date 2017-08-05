@@ -44,7 +44,7 @@ class PostsCellWithVideo: UITableViewCell {
    var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post
    
    func initialize(with cachedCell: PostItemCellCache, _ post: PostItem) {
-      self.post                 = post
+      self.post            = post
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
       if post.userProfilePhoto90 != nil {

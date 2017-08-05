@@ -18,8 +18,12 @@ class MainTabBarController: UITabBarController {
       setupMiddleButton()
    }
    
+   // MARK: - middle button part
+   var mapBackgroundView: UIViewX!
+   var menuButton: MapButton!
+   
    func setupMiddleButton() {
-      let mapBackgroundView = UIViewX(frame: CGRect(x: 0, y: 0, width: 68, height: 68))
+      mapBackgroundView = UIViewX(frame: CGRect(x: 0, y: 0, width: 68, height: 68))
       mapBackgroundView.backgroundColor = UIColor.myLightBrown()
       mapBackgroundView.cornerRadius = 34
       
@@ -28,7 +32,7 @@ class MainTabBarController: UITabBarController {
       mapBackgroundViewFrame.origin.x = view.bounds.width/2 - mapBackgroundViewFrame.size.width/2
       mapBackgroundView.frame = mapBackgroundViewFrame
       
-      let menuButton = MapButton(frame: CGRect(x: 0, y: 0, width: 68, height: 68))
+      menuButton = MapButton(frame: CGRect(x: 0, y: 0, width: 68, height: 68))
       menuButton.layer.cornerRadius = mapBackgroundViewFrame.height/2
       mapBackgroundView.addSubview(menuButton)
       view.addSubview(mapBackgroundView)
@@ -38,6 +42,20 @@ class MainTabBarController: UITabBarController {
       menuButton.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
       
       view.layoutIfNeeded()
+   }
+   
+   func showMapButton() {
+      tabBar.isHidden            = false
+      mapBackgroundView.isHidden = false
+      menuButton.isHidden        = false
+      menuButton.isEnabled       = true
+   }
+   
+   func hideMapButton() {
+      tabBar.isHidden            = true
+      mapBackgroundView.isHidden = true
+      menuButton.isHidden        = true
+      menuButton.isEnabled       = false
    }
    
    @objc private func menuButtonAction(sender: UIButton) {

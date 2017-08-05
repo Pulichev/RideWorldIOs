@@ -54,6 +54,8 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
          } else {
             self.followButton.setTitle("Follow", for: .normal)
          }
+         
+         self.followButton.isEnabled = true
       }
    }
    

@@ -338,7 +338,7 @@ extension MapController: CLLocationManagerDelegate {
    
    private func showAlertThatToCloseToExistingSpot() {
       let alert = UIAlertController(title: "Error!",
-                                    message: "You are trying to add spot to close to already existed. "
+                                    message: "You are trying to add spot too close to already existed. "
                                        + "Distance have to be more than 50 meters.",
                                     preferredStyle: .alert)
       

@@ -40,6 +40,8 @@ class FollowersCell: UITableViewCell {
             } else {
                self.button.setTitle("Follow", for: .normal)
             }
+            
+            self.button.isEnabled = true
          }
       } else {
          button.isHidden = true

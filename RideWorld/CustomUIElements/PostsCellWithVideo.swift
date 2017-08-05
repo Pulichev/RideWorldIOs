@@ -80,6 +80,11 @@ class PostsCellWithVideo: UITableViewCell {
       tap.numberOfTapsRequired = 2
       spotPostMedia.addGestureRecognizer(tap)
       spotPostMedia.isUserInteractionEnabled = true
+      
+      let tapOnFist = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
+      tapOnFist.numberOfTapsRequired = 1
+      isLikedPhoto.addGestureRecognizer(tapOnFist)
+      isLikedPhoto.isUserInteractionEnabled = true
    }
    
    func postLiked(_ sender: Any) {

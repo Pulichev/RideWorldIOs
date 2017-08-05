@@ -80,6 +80,11 @@ class PostsCellWithPhoto: UITableViewCell {
       tap.numberOfTapsRequired = 2
       spotPostPhoto.addGestureRecognizer(tap)
       spotPostPhoto.isUserInteractionEnabled = true
+      
+      let tapOnFist = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
+      tapOnFist.numberOfTapsRequired = 1
+      isLikedPhoto.addGestureRecognizer(tapOnFist)
+      isLikedPhoto.isUserInteractionEnabled = true
    }
    
    func postLiked(_ sender: Any) {

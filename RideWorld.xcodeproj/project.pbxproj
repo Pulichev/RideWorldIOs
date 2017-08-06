@@ -11,6 +11,7 @@
 		5FA3E431B68534501CC6E020 /* Pods_RideWorld.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E2F97D61287A76F30134E8 /* Pods_RideWorld.framework */; };
 		61E22201BFB86269B4F95B6A /* Pods_RideWorldUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B65B45F2D6E92C4EF0A414F6 /* Pods_RideWorldUITests.framework */; };
 		7E70B15F5DAC197C3216DA6E /* Pods_SpotMapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EFE0AF727D03D36C374021 /* Pods_SpotMapUITests.framework */; };
+		9F047FF91F37300D0036E608 /* StyledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F047FF81F37300D0036E608 /* StyledButton.swift */; };
 		9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5831E898412007ABD55 /* grayRec.jpg */; };
 		9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */; };
 		9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */; };
@@ -149,6 +150,7 @@
 		8608F78284EF00BFC0AF17E4 /* Pods-RideWorldTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideWorldTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RideWorldTests/Pods-RideWorldTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8DC2E8B7664A1FF904F1D3C9 /* Pods_SpotMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96C3328159E2F18FCB775EE9 /* Pods-RideWorld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RideWorld.release.xcconfig"; path = "Pods/Target Support Files/Pods-RideWorld/Pods-RideWorld.release.xcconfig"; sourceTree = "<group>"; };
+		9F047FF81F37300D0036E608 /* StyledButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StyledButton.swift; path = "Views/Modified DesignableX/StyledButton.swift"; sourceTree = "<group>"; };
 		9F0AC5831E898412007ABD55 /* grayRec.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grayRec.jpg; path = Pictures/grayRec.jpg; sourceTree = "<group>"; };
 		9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForUpdatingUserProfilePosts.swift; path = Protocols/ForUpdatingUserProfilePosts.swift; sourceTree = "<group>"; };
 		9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = PleaseWaitTxt.gif; path = Pictures/PleaseWaitTxt.gif; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 			children = (
 				9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */,
 				9F0BA55C1F28D105003FBEDB /* MapButton.swift */,
+				9F047FF81F37300D0036E608 /* StyledButton.swift */,
 			);
 			name = "Modified DesignableX";
 			sourceTree = "<group>";
@@ -1037,6 +1040,7 @@
 				9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */,
 				9F0BA55D1F28D105003FBEDB /* MapButton.swift in Sources */,
 				9FE3B7151EC4D76100E7ED40 /* CommentAndLikeFBCell.swift in Sources */,
+				9F047FF91F37300D0036E608 /* StyledButton.swift in Sources */,
 				9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */,
 				9FD4A1DE1ED7591B00B4C0D2 /* MainTabBarController.swift in Sources */,
 			);

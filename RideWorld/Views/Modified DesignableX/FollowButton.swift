@@ -6,7 +6,7 @@
 //  Copyright © 2017 Владислав Пуличев. All rights reserved.
 //
 
-class StyledButton: UIButtonX {
+class FollowButton: UIButtonX {
    
    override init(frame: CGRect) {
       super.init(frame: frame)

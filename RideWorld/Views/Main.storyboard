@@ -1513,17 +1513,17 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkp-Wv-5RT">
-                                                    <rect key="frame" x="247" y="5" width="115" height="30"/>
+                                                    <rect key="frame" x="255" y="11" width="115" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="115" id="8lY-NW-bvc"/>
-                                                        <constraint firstAttribute="height" constant="30" id="gHh-aQ-Ukv"/>
+                                                        <constraint firstAttribute="width" constant="115" id="WHE-dw-DCP"/>
+                                                        <constraint firstAttribute="height" constant="30" id="nj5-rv-6Zr"/>
                                                     </constraints>
                                                     <connections>
                                                         <action selector="followButtonTapped:" destination="kVo-9F-P8O" eventType="touchUpInside" id="itb-e4-Qss"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="userNickName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3c-Z5-gxY">
-                                                    <rect key="frame" x="52" y="5" width="190" height="41.5"/>
+                                                    <rect key="frame" x="52" y="5" width="195" height="42"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1531,24 +1531,22 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-eE-b3b" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
                                                     <rect key="frame" x="5" y="5" width="42" height="42"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="42" id="ccF-9S-pux"/>
-                                                        <constraint firstAttribute="width" constant="42" id="to2-JR-zSc"/>
+                                                        <constraint firstAttribute="width" secondItem="0eh-eE-b3b" secondAttribute="height" multiplier="1:1" id="duk-oV-Zgs"/>
+                                                        <constraint firstAttribute="width" constant="42" id="t8E-lO-wTn"/>
+                                                        <constraint firstAttribute="height" constant="42" id="zqP-MC-Mla"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="nkp-Wv-5RT" firstAttribute="leading" secondItem="c3c-Z5-gxY" secondAttribute="trailing" constant="5" id="6z2-HK-pkF"/>
-                                                <constraint firstItem="c3c-Z5-gxY" firstAttribute="baseline" secondItem="nkp-Wv-5RT" secondAttribute="baseline" id="CsG-Ff-Tnk"/>
-                                                <constraint firstAttribute="bottom" secondItem="c3c-Z5-gxY" secondAttribute="bottom" constant="5" id="Dlr-QT-rlo"/>
-                                                <constraint firstItem="c3c-Z5-gxY" firstAttribute="leading" secondItem="0eh-eE-b3b" secondAttribute="trailing" constant="5" id="Jsp-SH-O3c"/>
-                                                <constraint firstItem="nkp-Wv-5RT" firstAttribute="leading" secondItem="c3c-Z5-gxY" secondAttribute="trailing" constant="5" id="MZb-gU-69O"/>
-                                                <constraint firstItem="0eh-eE-b3b" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="top" constant="5" id="ajh-X4-uE8"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="nkp-Wv-5RT" secondAttribute="trailing" constant="5" id="dtd-q4-dzV"/>
-                                                <constraint firstItem="c3c-Z5-gxY" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="top" constant="5" id="gCf-Lr-bIu"/>
-                                                <constraint firstItem="0eh-eE-b3b" firstAttribute="leading" secondItem="4LW-F1-zBL" secondAttribute="leading" constant="5" id="miZ-ZA-4RK"/>
-                                                <constraint firstAttribute="bottom" secondItem="nkp-Wv-5RT" secondAttribute="bottom" constant="5" id="nU1-fb-ViO"/>
-                                                <constraint firstAttribute="bottom" secondItem="0eh-eE-b3b" secondAttribute="bottom" constant="5" id="oYF-hU-43h"/>
-                                                <constraint firstItem="nkp-Wv-5RT" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="top" constant="5" id="weq-Rb-seH"/>
+                                                <constraint firstItem="nkp-Wv-5RT" firstAttribute="leading" secondItem="c3c-Z5-gxY" secondAttribute="trailing" constant="8" id="017-dA-h1L"/>
+                                                <constraint firstItem="c3c-Z5-gxY" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="top" constant="5" id="1Pq-hk-HXd"/>
+                                                <constraint firstAttribute="bottom" secondItem="c3c-Z5-gxY" secondAttribute="bottom" constant="5" id="8ih-TH-Ssy"/>
+                                                <constraint firstAttribute="bottom" secondItem="nkp-Wv-5RT" secondAttribute="bottom" constant="10.75" id="T58-88-SWZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="nkp-Wv-5RT" secondAttribute="trailing" constant="5" id="bej-Kg-mUB"/>
+                                                <constraint firstItem="0eh-eE-b3b" firstAttribute="leading" secondItem="4LW-F1-zBL" secondAttribute="leading" constant="5" id="gk0-RF-3tj"/>
+                                                <constraint firstItem="c3c-Z5-gxY" firstAttribute="leading" secondItem="0eh-eE-b3b" secondAttribute="trailing" constant="5" id="h5A-1e-Fc2"/>
+                                                <constraint firstItem="0eh-eE-b3b" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="top" constant="5" id="icf-qj-oRc"/>
+                                                <constraint firstItem="nkp-Wv-5RT" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="top" constant="10.75" id="icj-UD-5WB"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -2500,12 +2498,12 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZpR-8C-QJR"/>
-        <segue reference="T3A-kh-NPf"/>
-        <segue reference="COh-cw-Ntn"/>
-        <segue reference="nax-92-cwD"/>
-        <segue reference="eb8-9P-3Sr"/>
+        <segue reference="Oe2-wo-WXX"/>
         <segue reference="RlL-e4-xY6"/>
+        <segue reference="WTf-CW-Cn6"/>
         <segue reference="mni-re-zkP"/>
         <segue reference="ck8-tQ-3J4"/>
+        <segue reference="nax-92-cwD"/>
+        <segue reference="COh-cw-Ntn"/>
     </inferredMetricsTieBreakers>
 </document>

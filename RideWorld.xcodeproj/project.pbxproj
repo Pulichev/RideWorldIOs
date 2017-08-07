@@ -85,6 +85,7 @@
 		9FC14FD61E48E7300097579B /* plus-512.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9FC14FD51E48E7300097579B /* plus-512.gif */; };
 		9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDB1E48E7690097579B /* CustomPin.swift */; };
 		9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */; };
+		9FCD27681F38ED52006A8A86 /* FollowTappedFromProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */; };
 		9FD0BF4B1EACC0D1000ACF9F /* pinInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */; };
 		9FD4A1DE1ED7591B00B4C0D2 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */; };
 		9FD4A1E31EDE019400B4C0D2 /* FeedbackItemsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */; };
@@ -231,6 +232,7 @@
 		9FC14FD51E48E7300097579B /* plus-512.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "plus-512.gif"; path = "Pictures/plus-512.gif"; sourceTree = "<group>"; };
 		9FC14FDB1E48E7690097579B /* CustomPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPin.swift; path = CustomUIElements/CustomPin.swift; sourceTree = "<group>"; };
 		9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularProgress.swift; path = Core/CircularProgress.swift; sourceTree = "<group>"; };
+		9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowTappedFromProfile.swift; path = Protocols/FollowTappedFromProfile.swift; sourceTree = "<group>"; };
 		9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = pinInfoView.swift; path = CustomUIElements/pinInfoView.swift; sourceTree = "<group>"; };
 		9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = Controllers/TabAndNavBars/MainTabBarController.swift; sourceTree = "<group>"; };
 		9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackItemsDelegate.swift; path = Protocols/FeedbackItemsDelegate.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 				9FE79C111ECF8604008BEBB2 /* TappedPostDelegate.swift */,
 				9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */,
 				9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */,
+				9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -1006,6 +1009,7 @@
 				9FC14FD01E48E5E30097579B /* MapController.swift in Sources */,
 				9F61C20E1F0ED8230023B7D1 /* UIViewExtenstions.swift in Sources */,
 				9FD4A1E31EDE019400B4C0D2 /* FeedbackItemsDelegate.swift in Sources */,
+				9FCD27681F38ED52006A8A86 /* FollowTappedFromProfile.swift in Sources */,
 				9F4A84411E62F4C100C1E5F2 /* UserProfileController.swift in Sources */,
 				9F6DD9CF1F0AE0DE00E3300E /* UIButtonX.swift in Sources */,
 				9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */,

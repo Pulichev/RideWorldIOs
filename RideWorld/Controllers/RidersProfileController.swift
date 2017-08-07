@@ -10,6 +10,9 @@ import UIKit
 import AVFoundation
 
 class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+   weak var delegateFollowTaps: FollowTappedFromProfile? // if we come from feedback/followersList/followingsList
+   // and tapped follow button -> update in parent controller
+   
    var ridersInfo: UserItem!
    
    @IBOutlet var followButton: UIButton!
@@ -174,6 +177,10 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       }
       
       swapFollowButtonTittle()
+      
+      if let del = delegateFollowTaps {
+         del.followTapped(on: ridersInfo.uid)
+      }
    }
    
    private func swapFollowButtonTittle() {

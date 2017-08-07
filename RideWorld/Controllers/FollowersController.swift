@@ -11,7 +11,7 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
    
    var userId: String!
    var followersOrFollowingList: Bool! // if true - followers else - following
-   private var followList = [UserItem]()
+   fileprivate var followList = [UserItem]()
    
    override func viewDidLoad() {
       loadFollowList()
@@ -94,6 +94,7 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
          let newRidersProfileController = segue.destination as! RidersProfileController
          newRidersProfileController.ridersInfo = ridersInfoForSending
          newRidersProfileController.title = ridersInfoForSending.login
+         newRidersProfileController.delegateFollowTaps = self
          
       case "openUserProfileFromFollowList":
          let userProfileController = segue.destination as! UserProfileController
@@ -101,6 +102,20 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
          
       default: break
       }
+   }
+}
+
+extension FollowersController: FollowTappedFromProfile {
+   func followTapped(on userId: String) {
+      // update follow button
+      let index = followList.index(where: { $0.uid == userId })
+      
+      let indexPath = [IndexPath(row: index!, section: 0)]
+      
+      // update cell
+      tableView.beginUpdates()
+      tableView.reloadRows(at: indexPath, with: .none)
+      tableView.endUpdates()
    }
 }
 

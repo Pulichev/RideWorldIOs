@@ -146,6 +146,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          let newRidersProfileController = segue.destination as! RidersProfileController
          newRidersProfileController.ridersInfo = ridersInfoForSending
          newRidersProfileController.title = ridersInfoForSending?.login
+         newRidersProfileController.delegateFollowTaps = self
          
       case "goToPostInfoFromFeedback":
          let newPostInfoController = segue.destination as! PostInfoViewController
@@ -160,6 +161,24 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
 extension FeedbackController: FeedbackItemsDelegate {
    func lastUpdate(_ items: [FeedbackItem]) {
       self.feedbackItems = items
+   }
+}
+
+extension FeedbackController: FollowTappedFromProfile {
+   func followTapped(on userId: String) {
+      // update follow button
+      for fbItem in feedbackItems {
+         if fbItem.type == 1 { // if follower fb type
+            let index = feedbackItems.index(where: { $0.key == userId })
+            
+            let indexPath = [IndexPath(row: index!, section: 0)]
+            
+            // update cell
+            tableView.beginUpdates()
+            tableView.reloadRows(at: indexPath, with: .none)
+            tableView.endUpdates()
+         }
+      }
    }
 }
 

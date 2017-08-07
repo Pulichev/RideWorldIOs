@@ -34,6 +34,7 @@ class SearchController: UITableViewController {
       // Setup the Scope Bar
       searchController.searchBar.scopeButtonTitles = ["Riders", "Spots"]
       tableView.tableHeaderView = searchController.searchBar
+      tableView.tableFooterView = UIView() // deleting empty rows
    }
    
    override func viewWillAppear(_ animated: Bool) {

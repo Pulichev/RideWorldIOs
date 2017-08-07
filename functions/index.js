@@ -10,7 +10,7 @@ admin.initializeApp(functions.config().firebase);
 // **************************************************************************************
 // POST PART
 
-// add posts to feed of followers
+// add posts to feed of followers + add count of posts to userpostscount
 exports.updateFeedOnNewPostAdded = functions.database
   .ref("/MainDataBase/usersposts/{userId}/{postId}")
   .onWrite(event => {
@@ -33,9 +33,19 @@ exports.updateFeedOnNewPostAdded = functions.database
           ] = event.data.val();
         });
 
-        // to user postsfeed it will be added on client
+        let refToUserPosts = admin
+          .database()
+          .ref("/MainDataBase/usersposts/" + userId);
 
-        admin.database().ref().update(updates);
+        refToUserPosts.once("value", function(postsSnap) {
+          let postsCount = postsSnap.numChildren();
+          console.log(postsCount)
+          updates["/MainDataBase/userpostscount/" + userId] = postsCount;
+
+          // to user postsfeed it will be added on client
+
+          admin.database().ref().update(updates);
+        });
       });
     } else {
       // post was deleted
@@ -50,9 +60,18 @@ exports.updateFeedOnNewPostAdded = functions.database
           ] = null;
         });
 
-        // from user postsfeed it will be removed on client
+        let refToUserPosts = admin
+          .database()
+          .ref("/MainDataBase/usersposts/" + userId);
 
-        admin.database().ref().update(updates);
+        refToUserPosts.once("value", function(postsSnap) {
+          let postsCount = postsSnap.numChildren();
+          updates["/MainDataBase/userpostscount/" + userId] = postsCount;
+
+          // to user postsfeed it will be added on client
+
+          admin.database().ref().update(updates);
+        });
       });
     }
   });

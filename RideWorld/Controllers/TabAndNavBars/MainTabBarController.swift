@@ -23,17 +23,17 @@ class MainTabBarController: UITabBarController {
    var menuButton: MapButton!
    
    func setupMiddleButton() {
-      mapBackgroundView = UIViewX(frame: CGRect(x: 0, y: 0, width: 68, height: 68))
+      mapBackgroundView = UIViewX(frame: CGRect(x: 0, y: 0, width: 54, height: 54))
       mapBackgroundView.backgroundColor = UIColor.myLightBrown()
-      mapBackgroundView.cornerRadius = 34
+      mapBackgroundView.cornerRadius = 27
       
       var mapBackgroundViewFrame = mapBackgroundView.frame
       mapBackgroundViewFrame.origin.y = view.bounds.height - mapBackgroundViewFrame.height
-      mapBackgroundViewFrame.origin.x = view.bounds.width/2 - mapBackgroundViewFrame.size.width/2
+      mapBackgroundViewFrame.origin.x = view.bounds.width / 2 - mapBackgroundViewFrame.size.width / 2
       mapBackgroundView.frame = mapBackgroundViewFrame
       
-      menuButton = MapButton(frame: CGRect(x: 0, y: 0, width: 68, height: 68))
-      menuButton.layer.cornerRadius = mapBackgroundViewFrame.height/2
+      menuButton = MapButton(frame: CGRect(x: 0, y: 0, width: 54, height: 54))
+      menuButton.layer.cornerRadius = mapBackgroundViewFrame.height / 2
       mapBackgroundView.addSubview(menuButton)
       view.addSubview(mapBackgroundView)
       

@@ -34,6 +34,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
+   @IBOutlet weak var postsCount: UILabel!
    
    @IBOutlet var riderProfileCollection: UICollectionView!
    
@@ -61,6 +62,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       
       isCurrentUserFollowing() // this function also places title on button
       initialiseFollowing()
+      initializeRiderPostsCount()
    }
    
    private func isCurrentUserFollowing() {
@@ -86,7 +88,13 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       }
    }
    
-   func initializeUserPhoto() {
+   private func initializeRiderPostsCount() {
+      Post.getPostsCount(for: ridersInfo.uid) { postsCount in
+         self.postsCount.text = String(describing: postsCount)
+      }
+   }
+   
+   private func initializeUserPhoto() {
       if ridersProfilePhoto != nil { // if we came not from user edit controller
          if ridersInfo.photo150ref != nil {
             self.ridersProfilePhoto.kf.setImage(

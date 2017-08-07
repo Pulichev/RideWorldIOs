@@ -52,6 +52,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
+   @IBOutlet weak var postsCount: UILabel!
    
    @IBOutlet var userProfileCollection: UICollectionView! {
       didSet {
@@ -85,6 +86,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       }
       
       initialiseFollowing()
+      initializeUserPostsCount()
    }
    
    private func initialiseFollowing() {
@@ -96,6 +98,12 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       UserModel.getFollowingsCountString(
       userId: userInfo.uid) { countOfFollowingsString in
          self.followingButton.setTitle(countOfFollowingsString, for: .normal)
+      }
+   }
+   
+   private func initializeUserPostsCount() {
+      Post.getPostsCount(for: userInfo.uid) { postsCount in
+         self.postsCount.text = String(describing: postsCount)
       }
    }
    

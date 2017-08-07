@@ -59,8 +59,6 @@ struct Post {
    
    static func add(_ postItem: PostItem,
                    completion: @escaping (_ hasFinished: Bool) -> Void) {
-      let mainReference = Database.database().reference(withPath: "MainDataBase")
-      
       let updates = [
          "/posts/" + postItem.key: postItem.toAnyObject(),
          "/spotsposts/" + postItem.spotId + "/" + postItem.key: postItem.toAnyObject(), // for post strip for spot
@@ -68,7 +66,7 @@ struct Post {
          "/userpostsfeed/" + postItem.addedByUser + "/" + postItem.key: postItem.toAnyObject() // for user posts feed
       ]
       
-      mainReference.updateChildValues(updates) { (error, _) in
+      refToMainDataBaseNode.updateChildValues(updates) { (error, _) in
          if error == nil {
             completion(true)
          } else {
@@ -100,7 +98,7 @@ struct Post {
    // MARK: - Likes and comments count
    static func getLikesAndCommentsCount(for postId: String,
                                         completion: @escaping (_ likesCount: Int, _ commentsCount: Int) -> Void) {
-      let refToPostCounts = Database.database().reference(withPath: "MainDataBase/postsLikesAndCommentsCountInfo")
+      let refToPostCounts = refToMainDataBaseNode.child("postsLikesAndCommentsCountInfo")
          .child(postId).child("counting")
       
       refToPostCounts.observeSingleEvent(of: .value, with: { snapshot in
@@ -116,6 +114,21 @@ struct Post {
          }
          
          completion(likesCount, commentsCount)
+      })
+   }
+   
+   static func getPostsCount(for userId: String,
+                             completion: @escaping(_ postsCount: Int) -> Void) {
+      var postsCount = 0
+      
+      let refToPostsCount = refToMainDataBaseNode.child("userpostscount").child(userId)
+      
+      refToPostsCount.observe(.value, with: { snapshot in
+         if let countOfPosts = snapshot.value as? Int {
+            postsCount = countOfPosts
+         }
+         
+         completion(postsCount)
       })
    }
 }

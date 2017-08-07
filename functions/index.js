@@ -105,10 +105,10 @@ exports.addPostsToNewFollowerFeed = functions.database
         .database()
         .ref("/MainDataBase/userspotfollowings/" + followerId);
       refToAllFollowedSpots.once("value", function(followedspotsssnap) {
-        let vollowedSpotsSnapValue = followedspotsssnap.val();
-        if (vollowedSpotsSnapValue != null) {
+        let followedSpotsSnapValue = followedspotsssnap.val();
+        if (followedSpotsSnapValue != null) {
           // if user following some spots, we need to make some checks
-          var listOfFollowedSpots = Object.keys(vollowedSpotsSnapValue);
+          var listOfFollowedSpots = Object.keys(followedSpotsSnapValue);
           refToUserPosts.once("value", function(snap) {
             var updates = {};
 

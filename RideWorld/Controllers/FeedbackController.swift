@@ -169,14 +169,17 @@ extension FeedbackController: FollowTappedFromProfile {
       // update follow button
       for fbItem in feedbackItems {
          if fbItem.type == 1 { // if follower fb type
-            let index = feedbackItems.index(where: { $0.key == userId })
-            
-            let indexPath = [IndexPath(row: index!, section: 0)]
-            
-            // update cell
-            tableView.beginUpdates()
-            tableView.reloadRows(at: indexPath, with: .none)
-            tableView.endUpdates()
+            let followItem = fbItem as! FollowerFBItem
+            if followItem.userId == userId {
+               let index = feedbackItems.index(where: { $0.key == followItem.key })
+               
+               let indexPath = [IndexPath(row: index!, section: 0)]
+               
+               // update cell
+               tableView.beginUpdates()
+               tableView.reloadRows(at: indexPath, with: .none)
+               tableView.endUpdates()
+            }
          }
       }
    }

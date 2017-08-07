@@ -47,6 +47,8 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
          as! ImageCollectionViewCell
       let photoURL = URL(string: photosURLs[indexPath.row])
       cell.postPicture.kf.setImage(with: photoURL!)
+      cell.postPicture.clipsToBounds = true
+      cell.postPicture.layer.cornerRadius = 10
       
       return cell
    }

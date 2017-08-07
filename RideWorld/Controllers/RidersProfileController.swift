@@ -98,8 +98,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    func initializePosts() {
       UserModel.getPosts(for: ridersInfo.uid) { posts in
          self.posts = posts
-         self.riderProfileCollection.reloadData()
          self.removeLoadingScreen()
+         self.riderProfileCollection.reloadData()
       }
    }
    

@@ -356,11 +356,11 @@
                                     <action selector="AddNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eNF-9d-0WO"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="is2-XR-pQm" customClass="UIViewX" customModule="RideWorld" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="is2-XR-pQm" customClass="UIViewX" customModule="RideWorld" customModuleProvider="target">
                                 <rect key="frame" x="217" y="396" width="240" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="19" y="102" width="36" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.49019607843137253" green="0.5490196078431373" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -369,7 +369,7 @@
                                             <action selector="cancelNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qFG-Qw-HQK"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOg-UA-QUO" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="88" y="18" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.49019607843137253" green="0.5490196078431373" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -2028,19 +2028,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="283"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5an-pQ-Usu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jNS-xD-0HX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="283"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="5an-pQ-Usu" firstAttribute="top" secondItem="iAE-Ty-LXv" secondAttribute="top" id="2AE-we-8OI"/>
-                                            <constraint firstAttribute="bottom" secondItem="5an-pQ-Usu" secondAttribute="bottom" id="6On-eu-vZi"/>
-                                            <constraint firstItem="5an-pQ-Usu" firstAttribute="leading" secondItem="iAE-Ty-LXv" secondAttribute="leading" id="Fky-uy-8RN"/>
-                                            <constraint firstAttribute="trailing" secondItem="5an-pQ-Usu" secondAttribute="trailing" id="y2z-aO-MES"/>
+                                            <constraint firstAttribute="bottom" secondItem="jNS-xD-0HX" secondAttribute="bottom" id="38x-qH-4LX"/>
+                                            <constraint firstItem="jNS-xD-0HX" firstAttribute="leading" secondItem="iAE-Ty-LXv" secondAttribute="leading" id="4CJ-rj-vuv"/>
+                                            <constraint firstItem="jNS-xD-0HX" firstAttribute="top" secondItem="iAE-Ty-LXv" secondAttribute="top" id="KHh-3F-gxE"/>
+                                            <constraint firstAttribute="trailing" secondItem="jNS-xD-0HX" secondAttribute="trailing" id="h5K-1u-Ysf"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="postPicture" destination="5an-pQ-Usu" id="xQJ-gT-4RH"/>
+                                            <outlet property="postPicture" destination="jNS-xD-0HX" id="x0L-KQ-4E4"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -2522,10 +2522,10 @@
         <segue reference="ZpR-8C-QJR"/>
         <segue reference="gS6-Wz-qu3"/>
         <segue reference="mni-re-zkP"/>
+        <segue reference="hCy-LG-AWJ"/>
         <segue reference="ck8-tQ-3J4"/>
-        <segue reference="nax-92-cwD"/>
-        <segue reference="tCn-nV-MKo"/>
-        <segue reference="COh-cw-Ntn"/>
         <segue reference="RlL-e4-xY6"/>
+        <segue reference="nax-92-cwD"/>
+        <segue reference="COh-cw-Ntn"/>
     </inferredMetricsTieBreakers>
 </document>

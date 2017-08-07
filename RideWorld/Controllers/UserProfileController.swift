@@ -111,8 +111,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    func initializePosts() {
       UserModel.getPosts(for: userInfo.uid) { posts in
          self.posts = posts
-         self.userProfileCollection.reloadData()
          self.removeLoadingScreen()
+         self.userProfileCollection.reloadData()
       }
    }
    

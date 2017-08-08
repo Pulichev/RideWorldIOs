@@ -77,12 +77,37 @@ exports.updateFeedOnNewPostAdded = functions.database
   });
 
 // add/remove posts to feed on follow/unfollow
+// + change followings/followers count
 exports.addPostsToNewFollowerFeed = functions.database
   .ref("/MainDataBase/usersfollowers/{userId}/{followerId}")
   .onWrite(event => {
     const userId = event.params.userId;
     const followerId = event.params.followerId;
 
+    // first of all change followings/followers count
+    let refToUserFollowers = admin
+      .database()
+      .ref("/MainDataBase/usersfollowers/" + userId);
+    refToUserFollowers.once("value", function(followersSnap) {
+            let followersCount = followersSnap.numChildren();
+
+            // update users followers count
+            let refToUserFollowersCount = admin.database().ref("/MainDataBase/usersfollowerscount/" + userId);
+            refToUserFollowersCount.set(followersCount);
+    });
+
+    let refToFollowerFollowings = admin
+      .database()
+      .ref("/MainDataBase/usersfollowings/" + followerId);
+    refToFollowerFollowings.once("value", function(followingsSnap) {
+            let followingsCount = followingsSnap.numChildren();
+
+            // update follower followings count
+            let refToFollowerFollowingsCount = admin.database().ref("/MainDataBase/usersfollowingscount/" + followerId);
+            refToFollowerFollowingsCount.set(followingsCount);
+    });
+
+    // add/remove posts to feed on follow/unfollow
     let refToUserPosts = admin
       .database()
       .ref("/MainDataBase/usersposts/" + userId);

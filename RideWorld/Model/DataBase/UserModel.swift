@@ -146,19 +146,35 @@ struct UserModel {
    // MARK: - Follow part
    static func getFollowersCountString(userId: String,
                                        completion: @escaping (_ followersCount: String) -> Void) {
-      let refToUserFollowers = refToMainDataBase.child("usersfollowers").child(userId)
+      var followersCount = 0
       
-      refToUserFollowers.observe(.value, with: { snapshot in
-         completion(String(describing: snapshot.childrenCount))
+      let refToUserFollowersCount = refToMainDataBase.child("usersfollowerscount").child(userId)
+      
+      refToUserFollowersCount.observe(.value, with: { snapshot in
+         if let countOfFollowers = snapshot.value as? Int {
+            followersCount = countOfFollowers
+         }
+         
+         let followersCountString = String(describing: followersCount)
+         
+         completion(followersCountString)
       })
    }
    
    static func getFollowingsCountString(userId: String,
                                         completion: @escaping (_ followingsCount: String) -> Void) {
-      let refToUserFollowings = refToMainDataBase.child("usersfollowings").child(userId)
+      var followingsCount = 0
       
-      refToUserFollowings.observe(.value, with: { snapshot in
-         completion(String(describing: snapshot.childrenCount))
+      let refToUserFollowingsCount = refToMainDataBase.child("usersfollowingscount").child(userId)
+      
+      refToUserFollowingsCount.observe(.value, with: { snapshot in
+         if let countOfFollowings = snapshot.value as? Int {
+            followingsCount = countOfFollowings
+         }
+         
+         let followingsCountString = String(describing: followingsCount)
+         
+         completion(followingsCountString)
       })
    }
    

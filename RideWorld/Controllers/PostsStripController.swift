@@ -57,6 +57,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       initLoadingView()
       setLoadingScreen()
+      self.tabBarController?.delegate = self
       
       self.loadPosts(completion: { newItems in
          self.appendLoadedPosts(newItems) { _ in } // no need completion here
@@ -377,7 +378,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    @IBAction func addNewPost(_ sender: Any) {
       performSegue(withIdentifier: "addNewPost", sender: self)
    }
-      
+   
    // go to comments
    func goToComments(sender: UIButton!) {
       postForSending         = posts[sender.tag]
@@ -450,6 +451,20 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    private func removeLoadingScreen() {
       loadingView.dismiss()
       haveWeFinishedLoading = true
+   }
+}
+
+// MARK: - For scrolling table view to start on home tab bar item tap
+extension PostsStripController: UITabBarControllerDelegate {
+   func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+      
+      let tabBarIndex = tabBarController.selectedIndex
+      
+      print(tabBarIndex)
+      
+      if tabBarIndex == 0 {
+         self.tableView.setContentOffset(CGPoint.zero, animated: true)
+      }
    }
 }
 

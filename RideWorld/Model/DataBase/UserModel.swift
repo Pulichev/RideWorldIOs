@@ -139,7 +139,9 @@ struct UserModel {
             postsList.append(postItem)
          }
          
-         completion(postsList)
+         let sortedPostsList = postsList.sorted(by: { $0.key > $1.key })
+         
+         completion(sortedPostsList)
       })
    }
    

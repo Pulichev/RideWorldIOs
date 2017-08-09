@@ -196,14 +196,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    private func reloadTableDataWithRefreshedItems(_ newItems: [PostItem],
                                                   completion: @escaping () -> Void) {
-      self.tableView.beginUpdates()
-      
       self.posts = newItems
       
       self.loadPostsCache(newItems) { postsCache in
          self.postItemCellsCache = postsCache
          self.tableView.reloadData()
-         self.tableView.endUpdates()
          completion()
       }
    }

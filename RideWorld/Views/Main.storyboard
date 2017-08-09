@@ -661,12 +661,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="402.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPv-s4-Xgo">
-                                                <rect key="frame" x="242" y="306" width="120" height="17"/>
+                                                <rect key="frame" x="235" y="303" width="135" height="18"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="17" id="Cke-wx-JEd"/>
-                                                    <constraint firstAttribute="width" constant="120" id="M9h-Ds-gMM"/>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="MYt-Iq-bNZ"/>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="UW3-aD-Pwb"/>
+                                                    <constraint firstAttribute="height" constant="18" id="Cke-wx-JEd"/>
+                                                    <constraint firstAttribute="width" constant="135" id="M9h-Ds-gMM"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40033560740000002" colorSpace="custom" customColorSpace="displayP3"/>
@@ -776,7 +774,7 @@
                                             <constraint firstItem="Qxc-pj-QnL" firstAttribute="leading" secondItem="S5S-Od-QJt" secondAttribute="leading" id="6wt-7S-mXr"/>
                                             <constraint firstAttribute="trailing" secondItem="3mB-HS-4BE" secondAttribute="trailing" id="9aM-RQ-wZm"/>
                                             <constraint firstItem="Gxy-Tq-bi5" firstAttribute="top" secondItem="aFB-lR-qv2" secondAttribute="bottom" constant="8" id="A9Z-Lh-jFG"/>
-                                            <constraint firstItem="qPv-s4-Xgo" firstAttribute="top" secondItem="Qxc-pj-QnL" secondAttribute="bottom" constant="8" id="AMm-wV-etE"/>
+                                            <constraint firstItem="qPv-s4-Xgo" firstAttribute="top" secondItem="Qxc-pj-QnL" secondAttribute="bottom" constant="5" id="AMm-wV-etE"/>
                                             <constraint firstItem="3mB-HS-4BE" firstAttribute="top" secondItem="S5S-Od-QJt" secondAttribute="top" id="G3s-Ox-ZKa"/>
                                             <constraint firstItem="kak-qA-K8P" firstAttribute="top" secondItem="Gxy-Tq-bi5" secondAttribute="bottom" constant="8" id="Vtn-NR-mUv"/>
                                             <constraint firstItem="kak-qA-K8P" firstAttribute="leading" secondItem="S5S-Od-QJt" secondAttribute="leadingMargin" constant="5" id="WVk-Mk-3QG"/>
@@ -786,7 +784,7 @@
                                             <constraint firstItem="5ma-Lc-Yhj" firstAttribute="top" secondItem="Qxc-pj-QnL" secondAttribute="bottom" constant="11" id="cfs-SM-YM0"/>
                                             <constraint firstItem="Gxy-Tq-bi5" firstAttribute="leading" secondItem="S5S-Od-QJt" secondAttribute="leading" constant="5" id="gmc-93-D9c"/>
                                             <constraint firstItem="3mB-HS-4BE" firstAttribute="leading" secondItem="S5S-Od-QJt" secondAttribute="leading" id="i3k-W1-GBL"/>
-                                            <constraint firstAttribute="trailing" secondItem="qPv-s4-Xgo" secondAttribute="trailing" constant="13" id="rBs-eU-Krq"/>
+                                            <constraint firstAttribute="trailing" secondItem="qPv-s4-Xgo" secondAttribute="trailing" constant="5" id="rBs-eU-Krq"/>
                                             <constraint firstItem="Qxc-pj-QnL" firstAttribute="top" secondItem="3mB-HS-4BE" secondAttribute="bottom" id="t1z-9d-Q3V"/>
                                             <constraint firstItem="aFB-lR-qv2" firstAttribute="top" secondItem="Qxc-pj-QnL" secondAttribute="bottom" constant="3" id="u8v-7b-I2f"/>
                                             <constraint firstItem="aFB-lR-qv2" firstAttribute="leading" secondItem="S5S-Od-QJt" secondAttribute="leading" constant="5" id="v2q-Z1-2Qu"/>
@@ -966,7 +964,7 @@
                                                             <color key="highlightedColor" red="0.1947927995" green="0.2233503594" blue="0.5149975712" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAi-cp-kzp" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                            <rect key="frame" x="5" y="38" width="365" height="59"/>
+                                                            <rect key="frame" x="5" y="38" width="365" height="57"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="URy-zZ-9ah"/>
                                                             </constraints>
@@ -975,9 +973,9 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PI7-5H-s26">
-                                                            <rect key="frame" x="5" y="105" width="365" height="22"/>
+                                                            <rect key="frame" x="5" y="103" width="365" height="24"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="22" id="Ns6-5I-4W3"/>
+                                                                <constraint firstAttribute="height" constant="24" id="Ns6-5I-4W3"/>
                                                             </constraints>
                                                             <state key="normal" title="Open commentaries">
                                                                 <color key="titleColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -1621,7 +1619,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f5g-1l-QE8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="tf5-EU-9ON">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="tf5-EU-9ON">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2015,7 +2013,7 @@
                         <inset key="imageInsets" minX="-2" minY="4" maxX="2" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ZvH-44-4Fc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="ZvH-44-4Fc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2039,7 +2037,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LoginPage" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="H2C-mG-pr3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="kUm-Jk-EFt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kUm-Jk-EFt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2063,7 +2061,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="STW-of-5hp" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="P88-G9-8IC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="P88-G9-8IC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2431,7 +2429,7 @@
                         <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f63-wh-W1p">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f63-wh-W1p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2452,7 +2450,7 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="an1-kP-YTX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="an1-kP-YTX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2473,7 +2471,7 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Xl-Pa-BHx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1Xl-Pa-BHx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2494,7 +2492,7 @@
                         <inset key="imageInsets" minX="1" minY="7" maxX="-1" maxY="-7"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2PK-Bf-uzA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2PK-Bf-uzA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

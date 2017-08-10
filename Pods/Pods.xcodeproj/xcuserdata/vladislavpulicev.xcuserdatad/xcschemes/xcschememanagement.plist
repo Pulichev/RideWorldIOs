@@ -24,11 +24,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ExpandableLabel.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -107,22 +102,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>30E01F11C650E0C3126E563C155D51EF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3C5E4DBD0635C562613E8FC8FA2E1EEB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>5C1F0BC8AD9DB9D282F6612636923786</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5C602904A5148DA08A4065319065E60E</key>
+		<key>5E6033C6B147D29A4745766F11948FB5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -138,6 +123,11 @@
 			<true/>
 		</dict>
 		<key>A2EBB9DBC32E6FB582A1ECD510A6C075</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B8703AFE9BC793AC348A0BE0A92F38A8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import ExpandableLabel
 
 class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
    var userInfo: UserItem! {
@@ -18,14 +17,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             editButton.isEnabled = true
             self.navigationItem.title = userInfo.login
             
-            DispatchQueue.global(qos: .userInteractive).async {
-               self.initializeUserTextInfo()
-               self.initializeUserPhoto()
-            }
-            
-            DispatchQueue.global(qos: .userInteractive).async {
-               self.initializePosts()
-            }
+            self.initializeUserTextInfo()
+            self.initializeUserPhoto()
+            self.initializePosts()
          }
       }
    }
@@ -53,7 +47,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
    @IBOutlet weak var postsCount: UILabel!
-   @IBOutlet weak var userBio: ExpandableLabel!
+   @IBOutlet weak var userBio: UITextView!
    @IBOutlet weak var separatorLineConstraint: NSLayoutConstraint!
    
    @IBOutlet var userProfileCollection: UICollectionView! {
@@ -85,11 +79,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
    
    func initializeUserTextInfo() {
-      DispatchQueue.main.async {
-         self.userBio.numberOfLines = 2
-         self.userBio.text = self.userInfo.bioDescription
-         self.userNameAndSename.text = self.userInfo.nameAndSename
-      }
+      self.userBio.text = self.userInfo.bioDescription
+      self.userNameAndSename.text = self.userInfo.nameAndSename
       
       initialiseFollowing()
       initializeUserPostsCount()

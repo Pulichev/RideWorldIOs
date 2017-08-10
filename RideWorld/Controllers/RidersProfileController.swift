@@ -15,10 +15,10 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    
    var ridersInfo: UserItem!
    
-   @IBOutlet var followButton: UIButton!
+   @IBOutlet var followButton: FollowButton!
    
    @IBOutlet var userNameAndSename: UILabel!
-   @IBOutlet var ridersBio: UITextView!
+   @IBOutlet var ridersBio: UILabel!
    @IBOutlet var ridersProfilePhoto: RoundedImageView!
    
    @IBOutlet weak var followersStackView: UIStackView! {
@@ -38,6 +38,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
    @IBOutlet weak var postsCount: UILabel!
+   @IBOutlet weak var separatorLineConstraint: NSLayoutConstraint!
    
    @IBOutlet var riderProfileCollection: UICollectionView!
    
@@ -45,6 +46,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      
+      // 1px line fix
+      separatorLineConstraint.constant = 1 / UIScreen.main.scale // enforces it to be a true 1 pixel line
       
       initLoadingView()
       setLoadingScreen()

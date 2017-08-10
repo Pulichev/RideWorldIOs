@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import ExpandableLabel
 
 class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
    var userInfo: UserItem! {
@@ -32,7 +33,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    var cameFromEdit = false
    
    @IBOutlet var userNameAndSename: UILabel!
-   @IBOutlet var userBio: UITextView!
    @IBOutlet var userProfilePhoto: RoundedImageView!
    @IBOutlet weak var editButton: UIButton!
    
@@ -53,6 +53,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
    @IBOutlet weak var postsCount: UILabel!
+   @IBOutlet weak var userBio: ExpandableLabel!
+   @IBOutlet weak var separatorLineConstraint: NSLayoutConstraint!
    
    @IBOutlet var userProfileCollection: UICollectionView! {
       didSet {
@@ -68,6 +70,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    override func viewDidLoad() {
       super.viewDidLoad()
       
+      // 1px line fix
+      separatorLineConstraint.constant = 1 / UIScreen.main.scale // enforces it to be a true 1 pixel line
+      
       editButton.isEnabled = false // blocking when no userInfo initialized
       initLoadingView()
       setLoadingScreen()
@@ -81,6 +86,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    func initializeUserTextInfo() {
       DispatchQueue.main.async {
+         self.userBio.numberOfLines = 2
          self.userBio.text = self.userInfo.bioDescription
          self.userNameAndSename.text = self.userInfo.nameAndSename
       }

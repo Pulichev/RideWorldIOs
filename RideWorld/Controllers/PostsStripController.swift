@@ -218,7 +218,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       let cellFromCache = postItemCellsCache[row]
       let post = posts[row]
       
-      if posts[row].isPhoto {
+      if post.isPhoto {
          let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithPhoto", for: indexPath) as! PostsCellWithPhoto
          
          if cell.userLikedOrDeletedLike { // when cell appears checking if like was tapped
@@ -456,8 +456,6 @@ extension PostsStripController: UITabBarControllerDelegate {
    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
       
       let tabBarIndex = tabBarController.selectedIndex
-      
-      print(tabBarIndex)
       
       if tabBarIndex == 0 {
          self.tableView.setContentOffset(CGPoint.zero, animated: true)

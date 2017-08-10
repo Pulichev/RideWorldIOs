@@ -17,6 +17,7 @@ target 'RideWorld' do
   pod 'KYCircularProgress'
   pod 'ESPullToRefresh'
   pod 'Gallery'
+  pod 'ExpandableLabel'
 
   # Pods for RideWorld
 

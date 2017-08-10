@@ -2,6 +2,7 @@ PODS:
   - ActiveLabel (0.7.1)
   - DateToolsSwift (2.0.3)
   - ESPullToRefresh (2.6)
+  - ExpandableLabel (0.2.0)
   - Firebase/Core (4.0.4):
     - FirebaseAnalytics (= 4.0.2)
     - FirebaseCore (= 4.0.4)
@@ -57,6 +58,7 @@ DEPENDENCIES:
   - ActiveLabel
   - DateToolsSwift
   - ESPullToRefresh
+  - ExpandableLabel
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
@@ -72,6 +74,7 @@ SPEC CHECKSUMS:
   ActiveLabel: 68625f22775f51c31bb691ca8de20f1e5a3bc825
   DateToolsSwift: bf69bf9056d9e53c5c03f06e51f219b9b8b02f9e
   ESPullToRefresh: 85f4990acf87f78c6a1466bbbee7a75d7de24db9
+  ExpandableLabel: 38297e2a19d111284127dfdd50dc6f707d3a3ec2
   Firebase: 1492bf04e1b73a7353b4fb2cf5a20bac9692f341
   FirebaseAnalytics: ad41720e3e67fc63fbe3d2948d3e26932a8de311
   FirebaseAuth: ebb6abcbabae00fc47446d690c19ce68d8484fde
@@ -89,6 +92,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftLint: f60095dc173a3f3ec505bb34f5229c3dfd779a54
 
-PODFILE CHECKSUM: c231be36d1ef591b0bb31cab585dc43a4755590c
+PODFILE CHECKSUM: 0132163d821f1374209b47f5b1b732acde94b34c
 
 COCOAPODS: 1.1.1

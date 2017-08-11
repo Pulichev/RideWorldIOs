@@ -361,9 +361,8 @@
                                     <action selector="AddNewSpot:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eNF-9d-0WO"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="is2-XR-pQm" customClass="UIViewX" customModule="RideWorld" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="is2-XR-pQm" customClass="UIViewX" customModule="RideWorld" customModuleProvider="target">
                                 <rect key="frame" x="217" y="396" width="240" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5WW-fA-yI3" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="19" y="102" width="36" height="36"/>
@@ -385,6 +384,10 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.71372549019607845" green="0.74509803921568629" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="EpI-5c-IMN"/>
+                                    <constraint firstAttribute="width" constant="240" id="OBZ-mu-0k8"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="120"/>
@@ -411,10 +414,12 @@
                         <constraints>
                             <constraint firstItem="w8G-iW-QKa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="5QL-ei-SyX"/>
                             <constraint firstAttribute="trailing" secondItem="nOg-jt-mhR" secondAttribute="trailing" constant="8" id="Bts-ry-Y3W"/>
+                            <constraint firstItem="is2-XR-pQm" firstAttribute="top" secondItem="nOg-jt-mhR" secondAttribute="bottom" constant="-150" id="FHL-XC-cjD"/>
                             <constraint firstAttribute="trailing" secondItem="w8G-iW-QKa" secondAttribute="trailing" id="GsP-bS-xmZ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nOg-jt-mhR" secondAttribute="bottom" constant="8" id="eLc-Za-phZ"/>
                             <constraint firstItem="w8G-iW-QKa" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="g6s-ED-tQM"/>
                             <constraint firstItem="w8G-iW-QKa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="p6y-qC-emM"/>
+                            <constraint firstItem="is2-XR-pQm" firstAttribute="leading" secondItem="nOg-jt-mhR" secondAttribute="trailing" constant="-150" id="u4K-Md-gx7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="RideWorld" id="BPL-Qz-8kq"/>

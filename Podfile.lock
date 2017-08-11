@@ -50,6 +50,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - ReadMoreTextView (2.0.0)
   - SVProgressHUD (2.1.2)
   - SwiftLint (0.20.1)
 
@@ -65,6 +66,7 @@ DEPENDENCIES:
   - Kingfisher (~> 3.0)
   - KYCircularProgress
   - MGSwipeTableCell
+  - ReadMoreTextView
   - SVProgressHUD
   - SwiftLint
 
@@ -86,9 +88,10 @@ SPEC CHECKSUMS:
   KYCircularProgress: b782af0a68dd2032a4a523e722ec8d571c285cf2
   MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
   nanopb: 22bc080fa3955e2116b6ff3ee6c2cb3c15ab97cb
+  ReadMoreTextView: aefb9ffe11922c87fd39a09a988d7cc74c8438ba
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftLint: f60095dc173a3f3ec505bb34f5229c3dfd779a54
 
-PODFILE CHECKSUM: 4ff4a16b872991c53efabc7ec64b3474a591a196
+PODFILE CHECKSUM: 707ba842297fef26d99ae628138b1e33d29412fd
 
 COCOAPODS: 1.1.1

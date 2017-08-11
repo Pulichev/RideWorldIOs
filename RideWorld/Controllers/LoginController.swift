@@ -75,6 +75,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
       
       present(alert, animated: true, completion: nil)
    }
+   
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
    //if we tapped UITextField and then another UITextField
 }

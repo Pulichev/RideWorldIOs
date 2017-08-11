@@ -69,6 +69,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ReadMoreTextView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -107,7 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5E6033C6B147D29A4745766F11948FB5</key>
+		<key>659AA4249DDCFCF3D86379DDF63FA33C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>666DC6C9A7D23EF5C50568ED8F647A7B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,7 +137,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B8703AFE9BC793AC348A0BE0A92F38A8</key>
+		<key>A72C51090422988A13FF67F0E383BB07</key>
 		<dict>
 			<key>primary</key>
 			<true/>

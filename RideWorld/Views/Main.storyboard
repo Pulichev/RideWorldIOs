@@ -11,6 +11,11 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Light.ttf">
+            <string>Roboto-Light</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Login Controller-->
         <scene sceneID="O8p-QR-S3K">
@@ -440,7 +445,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJu-t2-VWD">
-                                <rect key="frame" x="0.0" y="5" width="375" height="159"/>
+                                <rect key="frame" x="0.0" y="5" width="375" height="208"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aYJ-c2-Cq4">
                                         <rect key="frame" x="175" y="17" width="53.5" height="46.5"/>
@@ -519,12 +524,6 @@
                                             <constraint firstAttribute="width" constant="53" id="p4s-Ka-Gjl"/>
                                         </constraints>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="989-kJ-qga">
-                                        <rect key="frame" x="5" y="111" width="365" height="43"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iPs-Tk-Dhz">
                                         <rect key="frame" x="113" y="17" width="54" height="46.5"/>
                                         <subviews>
@@ -546,33 +545,39 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2cs-vY-WSN" customClass="ReadMoreTextView" customModule="ReadMoreTextView">
+                                        <rect key="frame" x="5" y="111" width="365" height="92"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="989-kJ-qga" secondAttribute="trailing" constant="5" id="8y5-hp-RXs"/>
+                                    <constraint firstItem="2cs-vY-WSN" firstAttribute="top" secondItem="vzh-Kq-S3x" secondAttribute="bottom" constant="23" id="3DP-Fi-nqb"/>
                                     <constraint firstItem="iPs-Tk-Dhz" firstAttribute="baseline" secondItem="ZUG-YK-o6a" secondAttribute="baseline" id="Aww-L0-bg1"/>
                                     <constraint firstItem="xNU-PM-ycZ" firstAttribute="leading" secondItem="vzh-Kq-S3x" secondAttribute="trailing" constant="41" id="BVw-Is-Ux2"/>
                                     <constraint firstItem="vzh-Kq-S3x" firstAttribute="top" secondItem="xJu-t2-VWD" secondAttribute="top" id="Bp1-FX-Bsn"/>
                                     <constraint firstItem="vzh-Kq-S3x" firstAttribute="leading" secondItem="xJu-t2-VWD" secondAttribute="leading" constant="5" id="Jwt-LG-ynp"/>
                                     <constraint firstItem="iPs-Tk-Dhz" firstAttribute="height" secondItem="aYJ-c2-Cq4" secondAttribute="height" id="Mx2-cm-v9g"/>
                                     <constraint firstItem="aYJ-c2-Cq4" firstAttribute="top" secondItem="mep-uq-G9T" secondAttribute="bottom" id="Nvm-Fo-DCZ"/>
-                                    <constraint firstItem="989-kJ-qga" firstAttribute="leading" secondItem="xJu-t2-VWD" secondAttribute="leading" constant="5" id="UPo-RT-gtL"/>
                                     <constraint firstAttribute="trailing" secondItem="mep-uq-G9T" secondAttribute="trailing" constant="32" id="Y9N-ZG-M5o"/>
                                     <constraint firstItem="iPs-Tk-Dhz" firstAttribute="top" secondItem="mep-uq-G9T" secondAttribute="bottom" id="Zym-Fp-NVc"/>
+                                    <constraint firstAttribute="bottom" secondItem="2cs-vY-WSN" secondAttribute="bottom" constant="5" id="bRz-Lg-0wd"/>
                                     <constraint firstItem="iPs-Tk-Dhz" firstAttribute="leading" secondItem="vzh-Kq-S3x" secondAttribute="trailing" constant="20" id="blR-f5-EKL"/>
                                     <constraint firstItem="mep-uq-G9T" firstAttribute="top" secondItem="vzh-Kq-S3x" secondAttribute="bottom" constant="-88" id="bmB-L5-gHm"/>
                                     <constraint firstItem="ZUG-YK-o6a" firstAttribute="top" secondItem="mep-uq-G9T" secondAttribute="bottom" id="esr-re-yqF"/>
-                                    <constraint firstItem="989-kJ-qga" firstAttribute="top" secondItem="vzh-Kq-S3x" secondAttribute="bottom" constant="23" id="iB1-Ef-42K"/>
+                                    <constraint firstItem="2cs-vY-WSN" firstAttribute="leading" secondItem="xJu-t2-VWD" secondAttribute="leading" constant="5" id="gJ3-JM-PDs"/>
                                     <constraint firstItem="mep-uq-G9T" firstAttribute="leading" secondItem="vzh-Kq-S3x" secondAttribute="trailing" constant="8" id="lTf-O3-1zp"/>
                                     <constraint firstItem="xNU-PM-ycZ" firstAttribute="top" secondItem="iPs-Tk-Dhz" secondAttribute="bottom" constant="5" id="q3b-fu-Kla"/>
-                                    <constraint firstAttribute="bottom" secondItem="989-kJ-qga" secondAttribute="bottom" constant="5" id="rMi-3L-AhR"/>
                                     <constraint firstItem="ZUG-YK-o6a" firstAttribute="leading" secondItem="aYJ-c2-Cq4" secondAttribute="trailing" constant="8" id="sAH-Qo-yEv"/>
                                     <constraint firstItem="aYJ-c2-Cq4" firstAttribute="baseline" secondItem="iPs-Tk-Dhz" secondAttribute="baseline" id="syl-0q-h0B"/>
                                     <constraint firstItem="aYJ-c2-Cq4" firstAttribute="leading" secondItem="iPs-Tk-Dhz" secondAttribute="trailing" constant="8" id="uf5-9i-SxU"/>
+                                    <constraint firstAttribute="trailing" secondItem="2cs-vY-WSN" secondAttribute="trailing" constant="5" id="usA-rl-9hf"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-VA-zc6">
-                                <rect key="frame" x="0.0" y="164" width="375" height="390"/>
+                                <rect key="frame" x="0.0" y="213" width="375" height="390"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="390" id="9dz-rP-BXs"/>
@@ -615,7 +620,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vNn-Ib-ZiL" customClass="UIViewX" customModule="RideWorld" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="163" width="375" height="1"/>
+                                <rect key="frame" x="0.0" y="212" width="375" height="1"/>
                                 <color key="backgroundColor" red="0.49019607840000001" green="0.54901960780000003" blue="0.57254901960000004" alpha="0.46999999999999997" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="668-wS-MDF"/>
@@ -662,7 +667,7 @@
                         <outlet property="followingStackView" destination="aYJ-c2-Cq4" id="d10-tq-RKc"/>
                         <outlet property="postsCount" destination="7qq-3j-Vh4" id="hgc-oO-OPn"/>
                         <outlet property="riderProfileCollection" destination="Npn-VA-zc6" id="4bS-eO-vkW"/>
-                        <outlet property="ridersBio" destination="989-kJ-qga" id="2xJ-Nt-O85"/>
+                        <outlet property="ridersBio" destination="2cs-vY-WSN" id="Wh7-Wc-1rK"/>
                         <outlet property="ridersProfilePhoto" destination="vzh-Kq-S3x" id="2pj-Ev-rKs"/>
                         <outlet property="separatorLineConstraint" destination="668-wS-MDF" id="w6c-va-0Ig"/>
                         <outlet property="userNameAndSename" destination="mep-uq-G9T" id="KAY-2x-76l"/>
@@ -970,7 +975,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="522" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1JN-k2-5ma">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PostsCellWithPhoto" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostsCellWithPhoto" rowHeight="522" id="8ze-W5-zL7" userLabel="PostsCellWithPhoto" customClass="PostsCellWithPhoto" customModule="RideWorld" customModuleProvider="target">
@@ -1211,7 +1216,7 @@
                                                 <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9l-cJ-aLg" userLabel="Header View">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sOO-io-zHl" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sOO-io-zHl" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
                                                             <rect key="frame" x="5" y="2" width="40" height="40"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="sOO-io-zHl" secondAttribute="height" multiplier="1:1" id="NGv-zx-G7V"/>
@@ -1348,7 +1353,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ke3-vZ-gVY">
-                                <rect key="frame" x="0.0" y="570" width="375" height="48"/>
+                                <rect key="frame" x="0.0" y="619" width="375" height="48"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Kd-Fw-Asn" userLabel="newCommentTextField">
                                         <rect key="frame" x="8" y="9" width="290" height="30"/>
@@ -1374,13 +1379,13 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="Oyi-RF-Ctq"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="54" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j6T-oW-eAy">
-                                <rect key="frame" x="0.0" y="64" width="375" height="506"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="555"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentsTableCell" rowHeight="54" id="WCB-lt-rci" customClass="CommentCell" customModule="RideWorld" customModuleProvider="target">
@@ -1462,7 +1467,7 @@
                             <constraint firstItem="j6T-oW-eAy" firstAttribute="top" secondItem="55j-b9-1Fe" secondAttribute="bottom" id="zPD-SF-ACC"/>
                         </constraints>
                     </view>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="newCommentTextField" destination="2Kd-Fw-Asn" id="NAO-AG-b9p"/>
                         <outlet property="newCommentView" destination="ke3-vZ-gVY" id="Otx-JW-g0E"/>
@@ -1872,28 +1877,28 @@
                                             <constraint firstAttribute="width" constant="54" id="rlZ-Me-LRd"/>
                                         </constraints>
                                     </stackView>
-                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Cu-Yp-UOB">
-                                        <rect key="frame" x="5" y="114" width="365" height="87.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.32334844559999998" green="0.30683403819999999" blue="0.3086346123" alpha="0.85538848458904104" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="i80-ee-ubd" customClass="ReadMoreTextView" customModule="ReadMoreTextView">
+                                        <rect key="frame" x="5" y="114" width="365" height="88"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="i80-ee-ubd" secondAttribute="bottom" constant="5" id="5z8-kR-dB8"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="712-j9-pVa"/>
+                                    <constraint firstItem="i80-ee-ubd" firstAttribute="leading" secondItem="zBH-CJ-T0B" secondAttribute="leading" constant="5" id="BS4-25-CgL"/>
                                     <constraint firstItem="6hV-te-jtd" firstAttribute="leading" secondItem="wL4-SO-RPT" secondAttribute="trailing" constant="8" id="CDx-rg-c4m"/>
                                     <constraint firstItem="ZcD-bw-aLL" firstAttribute="top" secondItem="4A0-yl-41S" secondAttribute="top" id="JQj-A2-gg5"/>
                                     <constraint firstItem="ZcD-bw-aLL" firstAttribute="leading" secondItem="zBH-CJ-T0B" secondAttribute="leading" constant="10" id="Juu-3d-QAJ"/>
                                     <constraint firstItem="wL4-SO-RPT" firstAttribute="leading" secondItem="ZcD-bw-aLL" secondAttribute="trailing" constant="20" id="KAt-gB-d9w"/>
-                                    <constraint firstItem="2Cu-Yp-UOB" firstAttribute="leading" secondItem="zBH-CJ-T0B" secondAttribute="leading" constant="5" id="NI7-Fy-04p"/>
                                     <constraint firstItem="6Gf-2N-ipQ" firstAttribute="top" secondItem="6hV-te-jtd" secondAttribute="bottom" constant="5" id="PdI-it-bfV"/>
+                                    <constraint firstAttribute="trailing" secondItem="i80-ee-ubd" secondAttribute="trailing" constant="5" id="Svs-HG-TY6"/>
                                     <constraint firstItem="6Gf-2N-ipQ" firstAttribute="leading" secondItem="ZcD-bw-aLL" secondAttribute="trailing" constant="41" id="UDq-wK-M4p"/>
-                                    <constraint firstAttribute="trailing" secondItem="2Cu-Yp-UOB" secondAttribute="trailing" constant="5" id="aLy-hs-8yd"/>
                                     <constraint firstItem="wL4-SO-RPT" firstAttribute="top" secondItem="6hV-te-jtd" secondAttribute="top" id="dBj-1L-a8J"/>
-                                    <constraint firstItem="2Cu-Yp-UOB" firstAttribute="top" secondItem="ZcD-bw-aLL" secondAttribute="bottom" constant="23" id="e0H-H2-8cE"/>
+                                    <constraint firstItem="i80-ee-ubd" firstAttribute="top" secondItem="ZcD-bw-aLL" secondAttribute="bottom" constant="23" id="gdo-7Z-dJH"/>
                                     <constraint firstItem="J3f-eJ-K7L" firstAttribute="top" secondItem="4A0-yl-41S" secondAttribute="bottom" id="l3E-tN-qZL"/>
-                                    <constraint firstAttribute="bottom" secondItem="2Cu-Yp-UOB" secondAttribute="bottom" constant="5" id="pvh-4G-8au"/>
                                     <constraint firstItem="6hV-te-jtd" firstAttribute="baseline" secondItem="wL4-SO-RPT" secondAttribute="baseline" id="rGp-UU-1T7"/>
                                     <constraint firstItem="4A0-yl-41S" firstAttribute="leading" secondItem="ZcD-bw-aLL" secondAttribute="trailing" constant="7" id="szl-HD-rQj"/>
                                     <constraint firstItem="J3f-eJ-K7L" firstAttribute="leading" secondItem="6hV-te-jtd" secondAttribute="trailing" constant="8" id="wP4-WS-2Xn"/>
@@ -1940,7 +1945,7 @@
                         <outlet property="followingStackView" destination="6hV-te-jtd" id="qol-Yx-2kM"/>
                         <outlet property="postsCount" destination="g3X-fD-pkd" id="fto-m7-ncA"/>
                         <outlet property="separatorLineConstraint" destination="fov-la-uOW" id="4Ej-gV-e4H"/>
-                        <outlet property="userBio" destination="2Cu-Yp-UOB" id="eSR-92-A1m"/>
+                        <outlet property="userBio" destination="i80-ee-ubd" id="Bqv-Fm-qW7"/>
                         <outlet property="userNameAndSename" destination="4A0-yl-41S" id="b3h-SO-uvc"/>
                         <outlet property="userProfileCollection" destination="C4x-Bn-Hds" id="ifq-Mt-AMv"/>
                         <outlet property="userProfilePhoto" destination="ZcD-bw-aLL" id="yx0-Dp-W52"/>
@@ -1968,13 +1973,13 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9P-AH-deA" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                 <rect key="frame" x="97" y="206" width="180" height="30"/>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="cck-RV-BBH"/>
                                 </constraints>
                                 <color key="tintColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Change profile photo">
-                                    <color key="titleColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="titleColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -2163,7 +2168,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vZe-mX-9ju">
-                                <rect key="frame" x="0.0" y="64" width="375" height="361"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="312"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="9Lz-tp-jc8">
                                     <size key="itemSize" width="287" height="283"/>
@@ -2173,7 +2178,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="ImageCollectionViewCell" id="iAE-Ty-LXv" customClass="ImageCollectionViewCell" customModule="RideWorld" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="39" width="287" height="283"/>
+                                        <rect key="frame" x="0.0" y="14.5" width="287" height="283"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="283"/>
@@ -2201,7 +2206,7 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spot name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOd-W1-e0u">
-                                <rect key="frame" x="16" y="471" width="343" height="34"/>
+                                <rect key="frame" x="16" y="422" width="343" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="dLe-B8-bL4"/>
                                 </constraints>
@@ -2210,7 +2215,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QU0-qy-BTX">
-                                <rect key="frame" x="16" y="513" width="343" height="119"/>
+                                <rect key="frame" x="16" y="464" width="343" height="119"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="119" id="HvJ-Ae-Dbk"/>
                                 </constraints>
@@ -2219,7 +2224,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIR-BA-okl" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                                <rect key="frame" x="16" y="433" width="167" height="30"/>
+                                <rect key="frame" x="16" y="384" width="167" height="30"/>
                                 <color key="backgroundColor" red="0.14901960784313725" green="0.22745098039215686" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="DEx-rF-b5l"/>
@@ -2237,7 +2242,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUH-z7-xDr">
-                                <rect key="frame" x="16" y="637" width="343" height="30"/>
+                                <rect key="frame" x="16" y="588" width="343" height="30"/>
                                 <state key="normal">
                                     <color key="titleColor" red="0.10818527918781728" green="0.10818527918781728" blue="0.10818527918781728" alpha="0.74406035958904104" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
@@ -2246,7 +2251,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PUz-af-Ftt" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                                <rect key="frame" x="191" y="433" width="168" height="30"/>
+                                <rect key="frame" x="191" y="384" width="168" height="30"/>
                                 <color key="backgroundColor" red="0.14901960784313725" green="0.22745098039215686" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="168" id="QSx-JR-f41"/>
@@ -2588,7 +2593,7 @@
         <scene sceneID="9rX-4J-y8J">
             <objects>
                 <tableViewController id="6a5-vT-Oo8" customClass="SearchController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="NMD-Sr-eHu">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="NMD-Sr-eHu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2675,13 +2680,13 @@
         <image name="respectPassive" width="94" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CzX-Mc-6Hc"/>
-        <segue reference="TEa-lr-7L1"/>
-        <segue reference="Xyq-8K-e8w"/>
+        <segue reference="SYx-8l-lm6"/>
+        <segue reference="ZpR-8C-QJR"/>
+        <segue reference="T3A-kh-NPf"/>
         <segue reference="QOa-aY-bXL"/>
+        <segue reference="eb8-9P-3Sr"/>
         <segue reference="eyf-4a-ZNN"/>
         <segue reference="TeE-da-wxz"/>
-        <segue reference="Gef-69-N8A"/>
-        <segue reference="eb8-9P-3Sr"/>
+        <segue reference="ZuM-Rf-uph"/>
     </inferredMetricsTieBreakers>
 </document>

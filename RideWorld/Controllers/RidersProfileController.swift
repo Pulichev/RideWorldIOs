@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import ReadMoreTextView
 
 class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
    weak var delegateFollowTaps: FollowTappedFromProfile? // if we come from feedback/followersList/followingsList
@@ -18,7 +19,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    @IBOutlet var followButton: FollowButton!
    
    @IBOutlet var userNameAndSename: UILabel!
-   @IBOutlet var ridersBio: UILabel!
+   @IBOutlet var ridersBio: ReadMoreTextView!
    @IBOutlet var ridersProfilePhoto: RoundedImageView!
    
    @IBOutlet weak var followersStackView: UIStackView! {
@@ -53,17 +54,23 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       initLoadingView()
       setLoadingScreen()
       
-      DispatchQueue.main.async {
          self.initializeUserTextInfo() //async loading user
          self.initializeUserPhoto()
          self.initializePosts()
-      }
       
       riderProfileCollection.emptyDataSetSource = self
       riderProfileCollection.emptyDataSetDelegate = self
    }
    
    private func initializeUserTextInfo() {
+      ridersBio.text = ridersInfo.bioDescription
+      ridersBio.shouldTrim = true
+      ridersBio.maximumNumberOfLines = 2
+      let fontAttribute = [ NSFontAttributeName: UIFont(name: "Roboto-Light", size: 15)!,
+                            NSForegroundColorAttributeName: UIColor.myLightGray() ]
+      ridersBio.attributedReadMoreText = NSAttributedString(string: " ...show more", attributes: fontAttribute)
+      ridersBio.attributedReadLessText = NSAttributedString(string: " show less", attributes: fontAttribute)
+
       ridersBio.text = ridersInfo.bioDescription
       userNameAndSename.text = ridersInfo.nameAndSename
       

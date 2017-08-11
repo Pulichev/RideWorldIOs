@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import ReadMoreTextView
 
 class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
    var userInfo: UserItem! {
@@ -47,7 +48,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
    @IBOutlet weak var postsCount: UILabel!
-   @IBOutlet weak var userBio: UITextView!
+   @IBOutlet weak var userBio: ReadMoreTextView!
    @IBOutlet weak var separatorLineConstraint: NSLayoutConstraint!
    
    @IBOutlet var userProfileCollection: UICollectionView! {
@@ -79,8 +80,15 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    }
    
    func initializeUserTextInfo() {
-      self.userBio.text = self.userInfo.bioDescription
-      self.userNameAndSename.text = self.userInfo.nameAndSename
+      userBio.text = userInfo.bioDescription
+      userBio.shouldTrim = true
+      userBio.maximumNumberOfLines = 2
+      let fontAttribute = [ NSFontAttributeName: UIFont(name: "Roboto-Light", size: 15)!,
+                            NSForegroundColorAttributeName: UIColor.myLightGray() ]
+      userBio.attributedReadMoreText = NSAttributedString(string: " ...show more", attributes: fontAttribute)
+      userBio.attributedReadLessText = NSAttributedString(string: " show less", attributes: fontAttribute)
+      
+      userNameAndSename.text = userInfo.nameAndSename
       
       initialiseFollowing()
       initializeUserPostsCount()
@@ -92,8 +100,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
          self.followersButton.setTitle(countOfFollowersString, for: .normal)
       }
       
-      UserModel.getFollowingsCountString(
-      userId: userInfo.uid) { countOfFollowingsString in
+      UserModel.getFollowingsCountString(userId: userInfo.uid) { countOfFollowingsString in
          self.followingButton.setTitle(countOfFollowingsString, for: .normal)
       }
    }

@@ -77,18 +77,22 @@ UITableViewDelegate {
    }
    
    @IBAction func sendComment(_ sender: UIButton) {
-      Comment.add(for: post,
-                  withText: newCommentTextField.text)
-      { newComment in
-         self.newCommentTextField.text = ""
-         self.view.endEditing(true)
-         
-         self.comments.append(newComment)
-         // add to tableView
-         self.tableView.beginUpdates()
-         let lastIndex = IndexPath(row: self.comments.count - 1, section: 0)
-         self.tableView.insertRows(at: [lastIndex], with: .none)
-         self.tableView.endUpdates()
+      if newCommentTextField.text != "" {
+         Comment.add(for: post,
+                     withText: newCommentTextField.text)
+         { newComment in
+            self.newCommentTextField.text = ""
+            self.view.endEditing(true)
+            
+            self.comments.append(newComment)
+            // add to tableView
+            self.tableView.beginUpdates()
+            let lastIndex = IndexPath(row: self.comments.count - 1, section: 0)
+            self.tableView.insertRows(at: [lastIndex], with: .none)
+            self.tableView.endUpdates()
+         }
+      } else {
+         showAlertWithError(text: "New comment can't be empty!")
       }
    }
    
@@ -195,6 +199,16 @@ UITableViewDelegate {
          
       default: break
       }
+   }
+   
+   private func showAlertWithError(text: String) {
+      let alert = UIAlertController(title: "Woops!",
+                                    message: text,
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
    }
    
    @IBOutlet weak var newCommentViewBotConstraint: NSLayoutConstraint!

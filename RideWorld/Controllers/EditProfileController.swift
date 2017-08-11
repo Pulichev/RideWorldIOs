@@ -12,11 +12,17 @@ import Gallery
 import SVProgressHUD
 
 class EditProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+   
    var delegate: EditedUserInfoDelegate?
    
    var userInfo: UserItem!
    
-   @IBOutlet var tableView: UITableView!
+   @IBOutlet var tableView: UITableView! {
+      didSet {
+         tableView.tableFooterView = UIView(frame: .zero) // deleting empty rows
+      }
+   }
+   
    @IBOutlet var userPhoto: RoundedImageView!
    fileprivate var userChangedPhoto = false
    
@@ -31,8 +37,6 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       if userInfo.photo150ref != nil {
          userPhoto.kf.setImage(with: URL(string: userInfo.photo150ref!))
       }
-      
-      tableView.tableFooterView = UIView(frame: .zero) // deleting empty rows
    }
    
    private func getCellFieldText(_ row: Int) -> String {
@@ -153,21 +157,14 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          break
          
       case 2:
-         // check last time of login change
-         UserModel.getCountOfDaysAfterLastLoginChangeDate() { countOfDaysFromLastChange in
-            if countOfDaysFromLastChange < 180 {
-               cell.field.isEnabled = false
-               cell.field.text = self.userInfo.login + " <- days for next change: " + String((180 - countOfDaysFromLastChange))
-            } else {
-               cell.field.text = self.userInfo.login
-            }
-            
-            leftImageView.image = UIImage(named: "login.png")
-            leftView.addSubview(leftImageView)
-            cell.field.leftView = leftView
-            cell.field.placeholder = "Enter new login"
-         }
-
+         cell.field.delegate = self // for detecting tap and check last update time
+         cell.field.text = self.userInfo.login
+         leftImageView.image = UIImage(named: "login.png")
+         leftView.addSubview(leftImageView)
+         cell.field.leftView = leftView
+         cell.field.placeholder = "Enter new login"
+         addTapGesture(on: cell.field) // for checking last login change date on click b4 editing
+         
          break
          
       case 3:
@@ -188,6 +185,54 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
    //if we tapped UITextField and then another UITextField
+   
+   var loginTextField: UITextField!
+}
+
+extension EditProfileController: UITextFieldDelegate {
+   
+   fileprivate func addTapGesture(on textField: UITextField) {
+      loginTextField = textField
+      
+      let tap = UITapGestureRecognizer(target: self, action:#selector(checkLastUpdateTime))
+      tap.numberOfTapsRequired = 1
+      textField.addGestureRecognizer(tap)
+      textField.isUserInteractionEnabled = true
+   }
+   
+   func checkLastUpdateTime() {
+      //view.endEditing(true) // close keyboard from other properties
+      
+      SVProgressHUD.show()
+      
+      UserModel.getCountOfDaysAfterLastLoginChangeDate() { countOfDaysFromLastChange in
+         SVProgressHUD.dismiss()
+         
+         if countOfDaysFromLastChange < 180 {
+            // fixing frame cz some events happening here with keyboard
+            if self.keyBoardAlreadyShowed {
+               self.view.frame.origin.y -= 100
+            }
+            
+            self.showAlertWithError(text: "Days for next change: " + String((180 - countOfDaysFromLastChange)))
+         } else {
+            self.loginTextField.isEnabled = true
+            self.loginTextField.becomeFirstResponder()
+         }
+      }
+   }
+   
+   private func showAlertWithError(text: String) {
+      SVProgressHUD.dismiss()
+      
+      let alert = UIAlertController(title: "Woops!",
+                                    message: text,
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
+   }
 }
 
 // MARK: - Camera extension

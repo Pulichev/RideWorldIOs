@@ -58,7 +58,7 @@ class RegistrationController: UIViewController {
                }
             }
          } else {
-            let errorText = String(describing: error?.localizedDescription)
+            let errorText = String(describing: error!.localizedDescription)
             
             self.showAlertWithError(text: errorText)
          }

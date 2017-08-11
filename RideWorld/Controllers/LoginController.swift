@@ -53,7 +53,6 @@ class LoginController: UIViewController, UITextFieldDelegate {
          
          if error != nil {
             self.showAlertWithError(text: "Wrong login or password!")
-            print("\(String(describing: error?.localizedDescription))")
          } else {
             self.performSegue(withIdentifier: "fromLoggedInToTabBar", sender: self)
          }

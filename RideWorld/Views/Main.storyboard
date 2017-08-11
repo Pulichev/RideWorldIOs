@@ -2772,6 +2772,9 @@
                                         <color key="value" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="0.67500535100000003" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="sendEmailButtonTapped:" destination="KYI-q8-NWN" eventType="touchUpInside" id="M8S-Wa-Rtl"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -2793,6 +2796,9 @@
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="oA2-Mx-883"/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="userEmail" destination="xjZ-RC-QgE" id="ZWg-41-dBq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4O-ch-JCt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

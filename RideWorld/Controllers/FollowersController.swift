@@ -27,16 +27,16 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
       if followersOrFollowingList == true { // followers ref
          UserModel.getFollowersList(for: userId) { followersList in
             self.followList = followersList
-            DispatchQueue.main.async {
+            
+               self.haveWeFinishedLoading = true
                self.tableView.reloadData()
-            }
          }
       } else { // following ref
          UserModel.getFollowingsList(for: userId) { followingsList in
             self.followList = followingsList
-            DispatchQueue.main.async {
+            
+            self.haveWeFinishedLoading = true
                self.tableView.reloadData()
-            }
          }
       }
    }
@@ -103,6 +103,8 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
       default: break
       }
    }
+   
+   var haveWeFinishedLoading = false // bool value have we loaded followers list or not. Mainly for DZNEmptyDataSet
 }
 
 extension FollowersController: FollowTappedFromProfile {
@@ -122,14 +124,26 @@ extension FollowersController: FollowTappedFromProfile {
 // MARK: - DZNEmptyDataSet for empty data tables
 extension FollowersController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = ":("
-      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
-      return NSAttributedString(string: str, attributes: attrs)
+      if haveWeFinishedLoading {
+         let str = ":("
+         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+         return NSAttributedString(string: str, attributes: attrs)
+      } else {
+         let str = "Wait, please"
+         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+         return NSAttributedString(string: str, attributes: attrs)
+      }
    }
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = "Nothing to show"
-      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
-      return NSAttributedString(string: str, attributes: attrs)
+      if haveWeFinishedLoading {
+         let str = "Nothing to show."
+         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+         return NSAttributedString(string: str, attributes: attrs)
+      } else {
+         let str = "Loading list.."
+         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+         return NSAttributedString(string: str, attributes: attrs)
+      }
    }
 }

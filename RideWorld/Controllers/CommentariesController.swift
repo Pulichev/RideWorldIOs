@@ -12,6 +12,7 @@ import MGSwipeTableCell
 
 class CommentariesController: UIViewController, UITableViewDataSource,
 UITableViewDelegate {
+   
    var post: PostItem!
    
    @IBOutlet weak var tableView: UITableView! {

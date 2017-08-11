@@ -17,9 +17,11 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    @IBOutlet weak var spotTitle: UITextField!
    @IBOutlet var spotDescription: UITextView! {
       didSet {
-         spotDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
-         spotDescription.layer.borderWidth = 1.0
          spotDescription.layer.cornerRadius = 5
+         // creating placeholder
+         spotDescription.text = "Write spot description"
+         spotDescription.textColor = UIColor.lightGray
+         // see also func
       }
    }
    
@@ -52,35 +54,49 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    @IBAction func saveSpotDetails(_ sender: Any) {
-      showSavingProgress()
-      
-      let currUserId = UserModel.getCurrentUserId()
-      let newSpotKey = Spot.getNewSpotRefKey()
-      let type = spotTypePicker.selectedRow(inComponent: 0)
-      var newSpot = SpotItem(type: type, name: self.spotTitle.text!,
-                             description: self.spotDescription.text!,
-                             latitude: self.spotLatitude, longitude: self.spotLongitude,
-                             addedByUser: currUserId, key: newSpotKey)
-      
-      // something like transaction. Start saving new
-      // spot info only after media has beed uploaded
-      SpotMedia.upload(imageView.image!, for: newSpotKey, with: 300.0)
-      { (isSuccessfully, url) in
-         if isSuccessfully {
-            newSpot.mainPhotoRef = url
-            Spot.create(newSpot) { hasAddedSpotSuccessfully in
-               if hasAddedSpotSuccessfully {
-                  //saving image to camera roll
-                  UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
-                  self.goBackToPosts()
-               } else {
-                  self.errorHappened()
+      if spotTitle.text! != "" {
+         showSavingProgress()
+         
+         let currUserId = UserModel.getCurrentUserId()
+         let newSpotKey = Spot.getNewSpotRefKey()
+         let type = spotTypePicker.selectedRow(inComponent: 0)
+         var newSpot = SpotItem(type: type, name: self.spotTitle.text!,
+                                description: self.spotDescription.text!,
+                                latitude: self.spotLatitude, longitude: self.spotLongitude,
+                                addedByUser: currUserId, key: newSpotKey)
+         
+         // something like transaction. Start saving new
+         // spot info only after media has beed uploaded
+         SpotMedia.upload(imageView.image!, for: newSpotKey, with: 300.0)
+         { (isSuccessfully, url) in
+            if isSuccessfully {
+               newSpot.mainPhotoRef = url
+               Spot.create(newSpot) { hasAddedSpotSuccessfully in
+                  if hasAddedSpotSuccessfully {
+                     //saving image to camera roll
+                     UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
+                     self.goBackToPosts()
+                  } else {
+                     self.errorHappened()
+                  }
                }
+            } else {
+               self.errorHappened()
             }
-         } else {
-            self.errorHappened()
          }
+      } else {
+         showAlertWithError(text: "Enter title atleast")
       }
+   }
+   
+   private func showAlertWithError(text: String) {
+      let alert = UIAlertController(title: "Woops!",
+                                    message: text,
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
    }
    
    private func showSavingProgress() {
@@ -125,6 +141,21 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }// for disabling user touches, while uploading
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view. Look at extension
+   
+   // functions for textView placeholder
+   func textViewDidBeginEditing(_ textView: UITextView) {
+      if textView.textColor == UIColor.lightGray {
+         textView.text = nil
+         textView.textColor = UIColor.black
+      }
+   }
+   
+   func textViewDidEndEditing(_ textView: UITextView) {
+      if textView.text.isEmpty {
+         textView.text = "Write spot description"
+         textView.textColor = UIColor.lightGray
+      }
+   }
 }
 
 // MARK: - Picker delegate

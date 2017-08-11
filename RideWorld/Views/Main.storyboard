@@ -131,6 +131,36 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7s-io-2Iy" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                                <rect key="frame" x="127.5" y="492" width="120" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1Jz-kr-lhE"/>
+                                    <constraint firstAttribute="width" constant="120" id="APE-YR-dCa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Forgot password?">
+                                    <color key="titleColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <segue destination="KYI-q8-NWN" kind="show" id="nQO-iQ-QVR"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esQ-ax-cyf">
+                                <rect key="frame" x="34" y="507" width="80" height="1"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Cdh-J3-c6T"/>
+                                    <constraint firstAttribute="width" constant="80" id="YLp-ya-6xo"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gQ-Io-LsY">
+                                <rect key="frame" x="261" y="507" width="80" height="1"/>
+                                <color key="backgroundColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="CnG-2M-rYr"/>
+                                    <constraint firstAttribute="width" constant="80" id="fee-tb-lB0"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -139,10 +169,16 @@
                             <constraint firstItem="f8W-0p-xYO" firstAttribute="baseline" secondItem="u3L-Xk-3S7" secondAttribute="baseline" id="FAJ-64-JCy"/>
                             <constraint firstItem="8Mi-bf-7Oa" firstAttribute="top" secondItem="TcQ-Ca-XWa" secondAttribute="bottom" constant="20" id="G0r-r8-aqN"/>
                             <constraint firstItem="fg7-lC-EhL" firstAttribute="top" secondItem="a4O-xN-4ki" secondAttribute="bottom" constant="48" id="GcJ-Ez-T7e"/>
+                            <constraint firstItem="esQ-ax-cyf" firstAttribute="top" secondItem="f8W-0p-xYO" secondAttribute="bottom" constant="55" id="Hg4-SE-wZ3"/>
                             <constraint firstItem="8Mi-bf-7Oa" firstAttribute="top" relation="greaterThanOrEqual" secondItem="dqO-Oe-EWU" secondAttribute="top" constant="322" id="O3w-nj-rDL"/>
+                            <constraint firstItem="i7s-io-2Iy" firstAttribute="top" secondItem="f8W-0p-xYO" secondAttribute="bottom" constant="40" id="ODb-S4-Pey"/>
+                            <constraint firstItem="8gQ-Io-LsY" firstAttribute="leading" secondItem="i7s-io-2Iy" secondAttribute="trailing" constant="13" id="P6A-lJ-aV5"/>
+                            <constraint firstItem="i7s-io-2Iy" firstAttribute="leading" secondItem="esQ-ax-cyf" secondAttribute="trailing" constant="13.5" id="QCW-pd-f1T"/>
                             <constraint firstAttribute="trailing" secondItem="PXy-GR-48A" secondAttribute="trailing" id="Qs6-Ew-NZR"/>
                             <constraint firstItem="PXy-GR-48A" firstAttribute="leading" secondItem="dqO-Oe-EWU" secondAttribute="leading" id="R6n-aR-947"/>
+                            <constraint firstItem="8gQ-Io-LsY" firstAttribute="top" secondItem="f8W-0p-xYO" secondAttribute="bottom" constant="55" id="URO-yI-28q"/>
                             <constraint firstItem="TcQ-Ca-XWa" firstAttribute="trailing" secondItem="8Mi-bf-7Oa" secondAttribute="trailing" id="Uqw-Ex-uTr"/>
+                            <constraint firstItem="8gQ-Io-LsY" firstAttribute="baseline" secondItem="esQ-ax-cyf" secondAttribute="baseline" id="YDR-gi-EMH"/>
                             <constraint firstItem="4Bd-CQ-gMq" firstAttribute="top" secondItem="PXy-GR-48A" secondAttribute="bottom" id="YJr-gL-JnH"/>
                             <constraint firstItem="fg7-lC-EhL" firstAttribute="leading" secondItem="dqO-Oe-EWU" secondAttribute="leadingMargin" id="bTc-fJ-DFE"/>
                             <constraint firstItem="TcQ-Ca-XWa" firstAttribute="top" secondItem="fg7-lC-EhL" secondAttribute="bottom" constant="74" id="c0g-7K-hrO"/>
@@ -153,6 +189,7 @@
                             <constraint firstItem="u3L-Xk-3S7" firstAttribute="leading" secondItem="f8W-0p-xYO" secondAttribute="trailing" constant="23" id="nX4-fq-6qi"/>
                             <constraint firstItem="f8W-0p-xYO" firstAttribute="width" secondItem="u3L-Xk-3S7" secondAttribute="width" id="ndU-IA-sCS"/>
                             <constraint firstItem="8Mi-bf-7Oa" firstAttribute="leading" secondItem="f8W-0p-xYO" secondAttribute="leading" id="pXG-zA-Op4"/>
+                            <constraint firstItem="i7s-io-2Iy" firstAttribute="centerX" secondItem="dqO-Oe-EWU" secondAttribute="centerX" id="qge-5k-l3K"/>
                             <constraint firstItem="8Mi-bf-7Oa" firstAttribute="trailing" secondItem="u3L-Xk-3S7" secondAttribute="trailing" id="xCX-t0-76T"/>
                             <constraint firstItem="f8W-0p-xYO" firstAttribute="top" secondItem="8Mi-bf-7Oa" secondAttribute="bottom" constant="20" id="zbr-n2-Sm1"/>
                         </constraints>
@@ -168,7 +205,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fMQ-II-hlj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1928.8" y="931.48425787106453"/>
+            <point key="canvasLocation" x="-1930" y="931"/>
         </scene>
         <!--Registration Controller-->
         <scene sceneID="P05-76-qe4">
@@ -2668,6 +2705,99 @@
             </objects>
             <point key="canvasLocation" x="2244" y="3868.5157421289359"/>
         </scene>
+        <!--Password Reset Controller-->
+        <scene sceneID="uUe-zH-ffh">
+            <objects>
+                <viewController storyboardIdentifier="PasswordResetController" id="KYI-q8-NWN" userLabel="Password Reset Controller" customClass="PasswordResetController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="adK-GS-hFq"/>
+                        <viewControllerLayoutGuide type="bottom" id="jaG-38-2fg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uuz-Rp-xfH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iPhone 6 Plus" translatesAutoresizingMaskIntoConstraints="NO" id="SwL-Tr-diO">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password Reset" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIf-lD-YfY" customClass="UILabelX" customModule="RideWorld" customModuleProvider="target">
+                                <rect key="frame" x="16" y="68" width="343" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="343" id="cGa-3B-0km"/>
+                                    <constraint firstAttribute="height" constant="100" id="fCu-GN-dcm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter email for account" textAlignment="natural" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="xjZ-RC-QgE" customClass="UITextFieldX" customModule="RideWorld" customModuleProvider="target">
+                                <rect key="frame" x="16" y="242" width="343" height="60"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.23383989729999999" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.57309595099999999" green="0.57032737150000001" blue="0.57586453049999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="zpz-Ge-5K8"/>
+                                </constraints>
+                                <color key="textColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="twitter"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="leftPadding">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="12"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJ5-oc-I9H" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                                <rect key="frame" x="107" y="322" width="160" height="50"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.22" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="2H2-qV-d4r"/>
+                                    <constraint firstAttribute="height" constant="50" id="cFq-tG-Odi"/>
+                                </constraints>
+                                <color key="tintColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="0.27000000000000002" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Send E-Mail">
+                                    <color key="titleColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="animate" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="9"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="0.67500535100000003" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jaG-38-2fg" firstAttribute="top" secondItem="SwL-Tr-diO" secondAttribute="bottom" id="24b-AF-OcO"/>
+                            <constraint firstItem="SwL-Tr-diO" firstAttribute="top" secondItem="uuz-Rp-xfH" secondAttribute="top" id="3Fp-rc-9Xq"/>
+                            <constraint firstItem="dJ5-oc-I9H" firstAttribute="centerX" secondItem="uuz-Rp-xfH" secondAttribute="centerX" id="F2Q-y0-9tE"/>
+                            <constraint firstItem="SwL-Tr-diO" firstAttribute="leading" secondItem="uuz-Rp-xfH" secondAttribute="leading" id="FYZ-xa-D1F"/>
+                            <constraint firstItem="IIf-lD-YfY" firstAttribute="trailing" secondItem="uuz-Rp-xfH" secondAttribute="trailingMargin" id="Kc3-H5-qDF"/>
+                            <constraint firstItem="dJ5-oc-I9H" firstAttribute="top" secondItem="xjZ-RC-QgE" secondAttribute="bottom" constant="20" id="Ltw-yc-S4T"/>
+                            <constraint firstItem="IIf-lD-YfY" firstAttribute="leading" secondItem="uuz-Rp-xfH" secondAttribute="leadingMargin" id="WBg-Tj-1GL"/>
+                            <constraint firstItem="xjZ-RC-QgE" firstAttribute="trailing" secondItem="uuz-Rp-xfH" secondAttribute="trailingMargin" id="XcP-ev-F6F"/>
+                            <constraint firstItem="xjZ-RC-QgE" firstAttribute="top" secondItem="IIf-lD-YfY" secondAttribute="bottom" constant="74" id="Y6i-6E-cE9"/>
+                            <constraint firstItem="IIf-lD-YfY" firstAttribute="top" secondItem="adK-GS-hFq" secondAttribute="bottom" constant="48" id="asz-kK-zH9"/>
+                            <constraint firstAttribute="trailing" secondItem="SwL-Tr-diO" secondAttribute="trailing" id="pnn-EM-3rI"/>
+                            <constraint firstItem="xjZ-RC-QgE" firstAttribute="leading" secondItem="uuz-Rp-xfH" secondAttribute="leadingMargin" id="rdP-rh-zFY"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <navigationItem key="navigationItem" id="oA2-Mx-883"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V4O-ch-JCt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1930" y="116"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ConfirmButton" width="44" height="44"/>
@@ -2686,7 +2816,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="SYx-8l-lm6"/>
-        <segue reference="ZpR-8C-QJR"/>
+        <segue reference="Gef-69-N8A"/>
         <segue reference="T3A-kh-NPf"/>
         <segue reference="QOa-aY-bXL"/>
         <segue reference="eb8-9P-3Sr"/>

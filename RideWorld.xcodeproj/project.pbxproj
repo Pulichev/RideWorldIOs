@@ -86,6 +86,7 @@
 		9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDB1E48E7690097579B /* CustomPin.swift */; };
 		9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */; };
 		9FCD27681F38ED52006A8A86 /* FollowTappedFromProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */; };
+		9FCD276C1F3E19FE006A8A86 /* PasswordResetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCD276B1F3E19FE006A8A86 /* PasswordResetController.swift */; };
 		9FD0BF4B1EACC0D1000ACF9F /* pinInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */; };
 		9FD4A1DE1ED7591B00B4C0D2 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */; };
 		9FD4A1E31EDE019400B4C0D2 /* FeedbackItemsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */; };
@@ -233,6 +234,7 @@
 		9FC14FDB1E48E7690097579B /* CustomPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPin.swift; path = CustomUIElements/CustomPin.swift; sourceTree = "<group>"; };
 		9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularProgress.swift; path = Core/CircularProgress.swift; sourceTree = "<group>"; };
 		9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowTappedFromProfile.swift; path = Protocols/FollowTappedFromProfile.swift; sourceTree = "<group>"; };
+		9FCD276B1F3E19FE006A8A86 /* PasswordResetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordResetController.swift; path = Controllers/PasswordResetController.swift; sourceTree = "<group>"; };
 		9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = pinInfoView.swift; path = CustomUIElements/pinInfoView.swift; sourceTree = "<group>"; };
 		9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = Controllers/TabAndNavBars/MainTabBarController.swift; sourceTree = "<group>"; };
 		9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackItemsDelegate.swift; path = Protocols/FeedbackItemsDelegate.swift; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 				9FF285941EB6088700EE0EC1 /* SpotInfoController.swift */,
 				9FE3B7111EC4D6D600E7ED40 /* FeedbackController.swift */,
 				9FE3CA591EF4292B0080BCF2 /* SearchController.swift */,
+				9FCD276B1F3E19FE006A8A86 /* PasswordResetController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -994,6 +997,7 @@
 				9FE3CA611EF4EEF10080BCF2 /* SearchResultsCell.swift in Sources */,
 				9F6DD9D31F0AE0DE00E3300E /* UITextFieldX.swift in Sources */,
 				9F6DD9D81F0AE0DE00E3300E /* UIVisualEffectViewX.swift in Sources */,
+				9FCD276C1F3E19FE006A8A86 /* PasswordResetController.swift in Sources */,
 				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */,

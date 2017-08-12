@@ -427,12 +427,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    var loadingView: LoadingProcessView!
    
    func initLoadingView() {
-      let width: CGFloat = 120
-      let height: CGFloat = 30
-      let x = (tableView.frame.width / 2) - (width / 2)
-      let y = (tableView.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
-      
-      loadingView = LoadingProcessView(frame: CGRect(x: x, y: y, width: width, height: height))
+//      let width: CGFloat = 120
+//      let height: CGFloat = 30
+//      let x = (tableView.bounds.width / 2) - (width / 2)
+//      let y = (tableView.bounds.height / 2) - (height / 2) - (navigationController?.navigationBar.bounds.height)! - 50
+
+//      loadingView = LoadingProcessView(frame: CGRect(x: x, y: y, width: width, height: height))
+      loadingView = LoadingProcessView(center: tableView.center)
       
       tableView.addSubview(loadingView)
    }

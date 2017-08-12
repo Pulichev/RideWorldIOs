@@ -18,6 +18,14 @@ class LoadingProcessView: UIView {
       addLoadingLabel()
       addSpinner()
    }
+   
+   init(center: CGPoint) {
+      super.init(frame: CGRect(x: 0, y: 0, width: 110, height: 20))
+      self.center = center
+      
+      addLoadingLabel()
+      addSpinner()
+   }
 
    required init?(coder aDecoder: NSCoder) {
       super.init(coder: aDecoder)
@@ -27,15 +35,14 @@ class LoadingProcessView: UIView {
       loadingLabel.textColor = UIColor.gray
       loadingLabel.textAlignment = NSTextAlignment.center
       loadingLabel.text = "Loading..."
-      loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
       self.addSubview(loadingLabel)
+      loadingLabel.frame = CGRect(x: 20, y: -35, width: 90, height: 20)
    }
    
    private func addSpinner() {
       spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-      spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-      
       self.addSubview(spinner)
+      spinner.frame = CGRect(x: 0, y: -35, width: 20, height: 20)
    }
    
    func show() {

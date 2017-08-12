@@ -487,7 +487,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xJu-t2-VWD">
-                                <rect key="frame" x="0.0" y="5" width="375" height="208"/>
+                                <rect key="frame" x="0.0" y="5" width="375" height="150"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aYJ-c2-Cq4">
                                         <rect key="frame" x="175" y="17" width="53.5" height="46.5"/>
@@ -588,7 +588,7 @@
                                         </subviews>
                                     </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2cs-vY-WSN" customClass="ReadMoreTextView" customModule="ReadMoreTextView">
-                                        <rect key="frame" x="5" y="111" width="365" height="92"/>
+                                        <rect key="frame" x="5" y="111" width="365" height="34"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -619,10 +619,10 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-VA-zc6">
-                                <rect key="frame" x="0.0" y="213" width="375" height="390"/>
+                                <rect key="frame" x="0.0" y="155" width="375" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="390" id="9dz-rP-BXs"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="1000" id="9dz-rP-BXs"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="mcR-Kw-SZY">
                                     <size key="itemSize" width="105" height="100"/>
@@ -662,7 +662,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vNn-Ib-ZiL" customClass="UIViewX" customModule="RideWorld" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="212" width="375" height="1"/>
+                                <rect key="frame" x="0.0" y="154" width="375" height="1"/>
                                 <color key="backgroundColor" red="0.49019607840000001" green="0.54901960780000003" blue="0.57254901960000004" alpha="0.46999999999999997" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="668-wS-MDF"/>
@@ -1025,7 +1025,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PostsCellWithPhoto" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostsCellWithPhoto" rowHeight="522" id="8ze-W5-zL7" userLabel="PostsCellWithPhoto" customClass="PostsCellWithPhoto" customModule="RideWorld" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" restorationIdentifier="PostsCellWithPhoto" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostsCellWithPhoto" rowHeight="522" id="8ze-W5-zL7" userLabel="PostsCellWithPhoto" customClass="PostsCellWithPhoto" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="522"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" tableViewCell="8ze-W5-zL7" id="gub-gj-wk1">
@@ -1181,7 +1181,7 @@
                                             <outlet property="userPhoto" destination="Kwc-uE-2Ct" id="rFW-Im-KKt"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PostsCellWithVideo" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostsCellWithVideo" rowHeight="522" id="kZK-Ti-fyZ" customClass="PostsCellWithVideo" customModule="RideWorld" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" restorationIdentifier="PostsCellWithVideo" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostsCellWithVideo" rowHeight="522" id="kZK-Ti-fyZ" customClass="PostsCellWithVideo" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="550" width="375" height="522"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" tableViewCell="kZK-Ti-fyZ" id="f8k-cG-rM6">
@@ -1402,17 +1402,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ke3-vZ-gVY">
                                 <rect key="frame" x="0.0" y="619" width="375" height="48"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Kd-Fw-Asn" userLabel="newCommentTextField">
-                                        <rect key="frame" x="8" y="9" width="290" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Kd-Fw-Asn" userLabel="newCommentTextField">
+                                        <rect key="frame" x="12" y="9" width="286" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="vGB-qK-HKq"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRW-o0-7oy" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRW-o0-7oy" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="306" y="9" width="57" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="3f9-Fl-c6S"/>
+                                            <constraint firstAttribute="width" constant="57" id="qba-fB-rKu"/>
+                                        </constraints>
                                         <state key="normal" title="Send">
                                             <color key="titleColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
@@ -1428,7 +1433,14 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
+                                    <constraint firstItem="2Kd-Fw-Asn" firstAttribute="top" secondItem="ke3-vZ-gVY" secondAttribute="top" constant="9" id="7Al-xC-YEV"/>
                                     <constraint firstAttribute="height" constant="48" id="Oyi-RF-Ctq"/>
+                                    <constraint firstItem="wRW-o0-7oy" firstAttribute="leading" secondItem="2Kd-Fw-Asn" secondAttribute="trailing" constant="8" id="ULH-jo-QuJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="wRW-o0-7oy" secondAttribute="bottom" constant="9" id="Vou-3T-6aX"/>
+                                    <constraint firstItem="wRW-o0-7oy" firstAttribute="top" secondItem="ke3-vZ-gVY" secondAttribute="top" constant="9" id="dRU-ak-eVl"/>
+                                    <constraint firstItem="2Kd-Fw-Asn" firstAttribute="leading" secondItem="ke3-vZ-gVY" secondAttribute="leading" constant="12" id="kWC-R8-Rsw"/>
+                                    <constraint firstAttribute="bottom" secondItem="2Kd-Fw-Asn" secondAttribute="bottom" constant="9" id="n36-kG-90b"/>
+                                    <constraint firstAttribute="trailing" secondItem="wRW-o0-7oy" secondAttribute="trailing" constant="12" id="u8w-MZ-4bV"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="54" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j6T-oW-eAy">
@@ -1714,7 +1726,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f5g-1l-QE8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="tf5-EU-9ON">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="tf5-EU-9ON">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1742,7 +1754,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qUf-NQ-0YO" customClass="UIViewX" customModule="RideWorld" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="212" width="375" height="1"/>
+                                <rect key="frame" x="0.0" y="158" width="375" height="1"/>
                                 <color key="backgroundColor" red="0.49019607843137253" green="0.5490196078431373" blue="0.5725490196078431" alpha="0.46999999999999997" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="fov-la-uOW"/>
@@ -1766,10 +1778,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="C4x-Bn-Hds">
-                                <rect key="frame" x="0.0" y="213" width="375" height="390"/>
+                                <rect key="frame" x="0.0" y="159" width="375" height="444"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="390" id="msy-58-mPV"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="1000" id="msy-58-mPV"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="oW4-wf-5BW">
                                     <size key="itemSize" width="105" height="100"/>
@@ -1809,7 +1821,7 @@
                                 </connections>
                             </collectionView>
                             <view opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="zBH-CJ-T0B">
-                                <rect key="frame" x="0.0" y="5" width="375" height="207"/>
+                                <rect key="frame" x="0.0" y="5" width="375" height="153"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Sename" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4A0-yl-41S">
                                         <rect key="frame" x="108" y="3" width="94" height="17"/>
@@ -1925,7 +1937,7 @@
                                         </constraints>
                                     </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="i80-ee-ubd" customClass="ReadMoreTextView" customModule="ReadMoreTextView">
-                                        <rect key="frame" x="5" y="114" width="365" height="88"/>
+                                        <rect key="frame" x="5" y="114" width="365" height="34"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2038,7 +2050,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hyO-8D-pzd">
-                                <rect key="frame" x="0.0" y="244" width="375" height="423"/>
+                                <rect key="frame" x="0.0" y="244" width="375" height="374"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditProfileCell" id="NUz-cv-B5A" userLabel="EditProfileCell" customClass="EditProfileCell" customModule="RideWorld" customModuleProvider="target">
@@ -2139,7 +2151,7 @@
                         <inset key="imageInsets" minX="-2" minY="4" maxX="2" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ZvH-44-4Fc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="ZvH-44-4Fc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2163,7 +2175,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LoginPage" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="H2C-mG-pr3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="kUm-Jk-EFt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kUm-Jk-EFt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2187,7 +2199,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="STW-of-5hp" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="P88-G9-8IC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="P88-G9-8IC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2560,7 +2572,7 @@
                         <inset key="imageInsets" minX="0.0" minY="4" maxX="0.0" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f63-wh-W1p">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f63-wh-W1p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2581,7 +2593,7 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="an1-kP-YTX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="an1-kP-YTX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2602,7 +2614,7 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Xl-Pa-BHx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1Xl-Pa-BHx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2623,7 +2635,7 @@
                         <inset key="imageInsets" minX="1" minY="7" maxX="-1" maxY="-7"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2PK-Bf-uzA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2PK-Bf-uzA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2755,7 +2767,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJ5-oc-I9H" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                                <rect key="frame" x="107" y="322" width="160" height="50"/>
+                                <rect key="frame" x="107.5" y="322" width="160" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.22" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="2H2-qV-d4r"/>
@@ -2827,12 +2839,12 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="SYx-8l-lm6"/>
-        <segue reference="Gef-69-N8A"/>
+        <segue reference="ZpR-8C-QJR"/>
         <segue reference="T3A-kh-NPf"/>
         <segue reference="QOa-aY-bXL"/>
         <segue reference="eb8-9P-3Sr"/>
-        <segue reference="eyf-4a-ZNN"/>
-        <segue reference="TeE-da-wxz"/>
-        <segue reference="ZuM-Rf-uph"/>
+        <segue reference="qSk-1a-lLs"/>
+        <segue reference="RlL-e4-xY6"/>
+        <segue reference="Xyq-8K-e8w"/>
     </inferredMetricsTieBreakers>
 </document>

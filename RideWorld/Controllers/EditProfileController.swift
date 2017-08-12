@@ -164,7 +164,6 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          cell.field.leftView = leftView
          cell.field.placeholder = "Enter new login"
          addTapGesture(on: cell.field) // for checking last login change date on click b4 editing
-         
          break
          
       case 3:

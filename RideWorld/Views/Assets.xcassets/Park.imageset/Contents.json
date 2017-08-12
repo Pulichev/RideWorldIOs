@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Park.png",
+      "filename" : "Park@1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Park2X.png",
+      "filename" : "Park@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Park3X.png",
+      "filename" : "Park@3x.png",
       "scale" : "3x"
     }
   ],

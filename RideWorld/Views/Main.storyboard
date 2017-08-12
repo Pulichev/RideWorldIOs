@@ -619,7 +619,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-VA-zc6">
-                                <rect key="frame" x="0.0" y="155" width="375" height="448"/>
+                                <rect key="frame" x="0.0" y="155" width="375" height="399"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="1000" id="9dz-rP-BXs"/>
@@ -1017,11 +1017,11 @@
                         <viewControllerLayoutGuide type="top" id="Eay-uF-Zo2"/>
                         <viewControllerLayoutGuide type="bottom" id="xLa-BH-f7x"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleAspectFit" id="Frl-6S-pCe">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleAspectFill" id="Frl-6S-pCe">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="522" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1JN-k2-5ma">
+                            <tableView clipsSubviews="YES" contentMode="scaleAspectFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="522" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1JN-k2-5ma">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1637,7 +1637,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR" userLabel="TableView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="505"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowersCell" rowHeight="52" id="kVo-9F-P8O" customClass="FollowersCell" customModule="RideWorld" customModuleProvider="target">
@@ -1778,7 +1778,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="C4x-Bn-Hds">
-                                <rect key="frame" x="0.0" y="159" width="375" height="444"/>
+                                <rect key="frame" x="0.0" y="159" width="375" height="395"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="1000" id="msy-58-mPV"/>
@@ -2840,11 +2840,11 @@
     <inferredMetricsTieBreakers>
         <segue reference="SYx-8l-lm6"/>
         <segue reference="ZpR-8C-QJR"/>
-        <segue reference="T3A-kh-NPf"/>
-        <segue reference="QOa-aY-bXL"/>
-        <segue reference="eb8-9P-3Sr"/>
-        <segue reference="qSk-1a-lLs"/>
-        <segue reference="RlL-e4-xY6"/>
+        <segue reference="TEa-lr-7L1"/>
+        <segue reference="eyf-4a-ZNN"/>
+        <segue reference="TeE-da-wxz"/>
         <segue reference="Xyq-8K-e8w"/>
+        <segue reference="6R6-CY-IE2"/>
+        <segue reference="QOa-aY-bXL"/>
     </inferredMetricsTieBreakers>
 </document>

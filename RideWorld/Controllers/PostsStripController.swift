@@ -55,10 +55,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      initLoadingView()
-      setLoadingScreen()
       self.tabBarController?.delegate = self
       
+      initLoadingView()
+      setLoadingScreen()
       self.loadPosts(completion: { newItems in
          self.appendLoadedPosts(newItems) { _ in } // no need completion here
       })
@@ -433,6 +433,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
 //      let y = (tableView.bounds.height / 2) - (height / 2) - (navigationController?.navigationBar.bounds.height)! - 50
 
 //      loadingView = LoadingProcessView(frame: CGRect(x: x, y: y, width: width, height: height))
+      tableView.layoutIfNeeded()
       loadingView = LoadingProcessView(center: tableView.center)
       
       tableView.addSubview(loadingView)

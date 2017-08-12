@@ -55,10 +55,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      let cache = ImageCache.default
-      cache.clearMemoryCache()
-      cache.clearDiskCache()
-      
       tabBarController?.delegate = self
       view.layoutIfNeeded() // force to get proper size of tableView
       
@@ -273,7 +269,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let width = view.frame.size.width
          let height = width * CGFloat(cell.post.mediaAspectRatio)
          cell.spotPostMediaHeight.constant = height
-
+         
          setVideo(on: cell, cacheKey: row)
          
          return cell

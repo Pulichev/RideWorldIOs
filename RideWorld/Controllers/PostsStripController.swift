@@ -55,11 +55,18 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      self.tabBarController?.delegate = self
+      ///
+      let cache = ImageCache.default
+      cache.clearMemoryCache()
+      cache.clearDiskCache()
+      ///
+      
+      tabBarController?.delegate = self
+      view.layoutIfNeeded() // force to get proper size of tableView
       
       initLoadingView()
       setLoadingScreen()
-      self.loadPosts(completion: { newItems in
+      loadPosts(completion: { newItems in
          self.appendLoadedPosts(newItems) { _ in } // no need completion here
       })
    }
@@ -221,6 +228,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       if post.isPhoto {
          let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithPhoto", for: indexPath) as! PostsCellWithPhoto
          
+         // force update of width
+         cell.frame.size.width = view.frame.width
+         cell.layoutIfNeeded()
+         
          if cell.userLikedOrDeletedLike { // when cell appears checking if like was tapped
             cell.userLikedOrDeletedLike = false
             updateCellLikesCache(objectId: cell.post.key) // if yes updating cache
@@ -237,11 +248,16 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let height = width * CGFloat(cell.post.mediaAspectRatio)
          cell.spotPostPhotoHeight.constant = height
          cell.spotPostPhoto.frame.size.height = height
+         
          setPhoto(on: cell)
          
          return cell
       } else {
          let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithVideo", for: indexPath) as! PostsCellWithVideo
+         
+         // force update of width
+         cell.frame.size.width = view.frame.width
+         cell.layoutIfNeeded()
          
          if cell.userLikedOrDeletedLike { // when cell appears checking if like was tapped
             cell.userLikedOrDeletedLike = false
@@ -259,6 +275,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let width = view.frame.size.width
          let height = width * CGFloat(cell.post.mediaAspectRatio)
          cell.spotPostMediaHeight.constant = height
+
          setVideo(on: cell, cacheKey: row)
          
          return cell
@@ -427,13 +444,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    var loadingView: LoadingProcessView!
    
    func initLoadingView() {
-//      let width: CGFloat = 120
-//      let height: CGFloat = 30
-//      let x = (tableView.bounds.width / 2) - (width / 2)
-//      let y = (tableView.bounds.height / 2) - (height / 2) - (navigationController?.navigationBar.bounds.height)! - 50
-
-//      loadingView = LoadingProcessView(frame: CGRect(x: x, y: y, width: width, height: height))
-      tableView.layoutIfNeeded()
       loadingView = LoadingProcessView(center: tableView.center)
       
       tableView.addSubview(loadingView)

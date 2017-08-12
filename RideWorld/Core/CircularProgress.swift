@@ -20,7 +20,7 @@ class CircularProgress {
                            y: frame.height / 2)
       
       view.path = UIBezierPath(arcCenter: center,
-                               radius: CGFloat(frame.width / 5),
+                               radius: CGFloat(50.0),
                                startAngle: CGFloat(0.0),
                                endAngle: CGFloat(2 * Double.pi),
                                clockwise: true)

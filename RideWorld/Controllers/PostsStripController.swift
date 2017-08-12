@@ -55,11 +55,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    override func viewDidLoad() {
       super.viewDidLoad()
       
-      ///
       let cache = ImageCache.default
       cache.clearMemoryCache()
       cache.clearDiskCache()
-      ///
       
       tabBarController?.delegate = self
       view.layoutIfNeeded() // force to get proper size of tableView

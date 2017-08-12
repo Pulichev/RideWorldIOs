@@ -43,12 +43,6 @@ class PostsCellWithPhoto: UITableViewCell {
    
    var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post
    
-   override func layoutSubviews() {
-      super.layoutSubviews()
-      
-      self.contentView.layoutSubviews()
-   }
-   
    func initialize(with cachedCell: PostItemCellCache, _ post: PostItem) {
       self.post            = post
       

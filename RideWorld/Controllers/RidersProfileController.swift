@@ -9,8 +9,10 @@
 import UIKit
 import AVFoundation
 import ReadMoreTextView
+import Kingfisher
 
 class RidersProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+   
    weak var delegateFollowTaps: FollowTappedFromProfile? // if we come from feedback/followersList/followingsList
    // and tapped follow button -> update in parent controller
    
@@ -54,9 +56,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       initLoadingView()
       setLoadingScreen()
       
-         self.initializeUserTextInfo() //async loading user
-         self.initializeUserPhoto()
-         self.initializePosts()
+      self.initializeUserTextInfo()
+      self.initializeUserPhoto()
+      self.initializePosts()
       
       riderProfileCollection.emptyDataSetSource = self
       riderProfileCollection.emptyDataSetDelegate = self
@@ -70,7 +72,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
                             NSForegroundColorAttributeName: UIColor.myLightGray() ]
       ridersBio.attributedReadMoreText = NSAttributedString(string: " ...show more", attributes: fontAttribute)
       ridersBio.attributedReadLessText = NSAttributedString(string: " show less", attributes: fontAttribute)
-
+      
       ridersBio.text = ridersInfo.bioDescription
       userNameAndSename.text = ridersInfo.nameAndSename
       
@@ -234,11 +236,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    var loadingView: LoadingProcessView!
    
    private func initLoadingView() {
-      let width: CGFloat = 120
-      let height: CGFloat = 30
-      let x = (riderProfileCollection.frame.width / 2) - (width / 2)
-      let y = (riderProfileCollection.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
-      loadingView = LoadingProcessView(frame: CGRect(x: x, y: y, width: width, height: height))
+      loadingView = LoadingProcessView(center: riderProfileCollection.center)
       
       riderProfileCollection.addSubview(loadingView)
    }

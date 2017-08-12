@@ -9,8 +9,10 @@
 import UIKit
 import AVFoundation
 import ReadMoreTextView
+import Kingfisher
 
 class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+   
    var userInfo: UserItem! {
       didSet {
          if !cameFromEdit { // when we came from edit
@@ -69,6 +71,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       separatorLineConstraint.constant = 1 / UIScreen.main.scale // enforces it to be a true 1 pixel line
       
       editButton.isEnabled = false // blocking when no userInfo initialized
+      
       initLoadingView()
       setLoadingScreen()
       
@@ -227,12 +230,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    var loadingView: LoadingProcessView!
    
    private func initLoadingView() {
-      let width: CGFloat = 120
-      let height: CGFloat = 30
-      let x = (userProfileCollection.frame.width / 2) - (width / 2)
-      let y = (userProfileCollection.frame.height / 2) - (height / 2)
-         - (navigationController?.navigationBar.frame.height)!
-      loadingView = LoadingProcessView(frame: CGRect(x: x, y: y, width: width, height: height))
+      loadingView = LoadingProcessView(center: userProfileCollection.center)
       
       userProfileCollection.addSubview(loadingView)
    }

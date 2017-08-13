@@ -1355,6 +1355,7 @@
                     <navigationItem key="navigationItem" id="zpC-Ow-CQ1">
                         <rightBarButtonItems>
                             <barButtonItem title="Add post" id="a4U-CQ-qRv">
+                                <color key="tintColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="addNewPost:" destination="LlJ-V1-BNZ" id="YWQ-Hm-dpk"/>
                                 </connections>
@@ -1364,7 +1365,7 @@
                                     <rect key="frame" x="234" y="-2" width="48" height="48"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <state key="normal" title="Reload">
+                                    <state key="normal" image="reload">
                                         <color key="titleColor" red="0.11110009517766495" green="0.11110009517766495" blue="0.11110009517766495" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </state>
                                     <connections>
@@ -1606,7 +1607,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="DLc-4R-jfw">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="D3j-uG-cGi">
-                            <color key="tintColor" red="0.39587505690000002" green="0.56884293640000005" blue="0.65071779819999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="savePost:" destination="ULr-hs-bKD" id="Lho-pz-i6o"/>
                             </connections>
@@ -2352,6 +2353,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="AKu-vk-s0g">
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="Follow" id="Tfu-iJ-iXj">
+                            <color key="tintColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="followSpotButtonTapped:" destination="6uJ-a1-Lta" id="ma7-rQ-iv8"/>
                             </connections>
@@ -2834,17 +2836,18 @@
         <image name="heart" width="35" height="35"/>
         <image name="iPhone 6 Plus" width="414" height="736"/>
         <image name="logOut" width="32" height="32"/>
+        <image name="reload" width="35" height="35"/>
         <image name="respectActive" width="94" height="59"/>
         <image name="respectPassive" width="94" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1Fi-pQ-wyF"/>
-        <segue reference="ZpR-8C-QJR"/>
-        <segue reference="AfF-Nf-smo"/>
+        <segue reference="ck8-tQ-3J4"/>
+        <segue reference="Xyq-8K-e8w"/>
+        <segue reference="gS6-Wz-qu3"/>
+        <segue reference="hCy-LG-AWJ"/>
         <segue reference="eyf-4a-ZNN"/>
         <segue reference="TeE-da-wxz"/>
-        <segue reference="Xyq-8K-e8w"/>
+        <segue reference="ZpR-8C-QJR"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="6R6-CY-IE2"/>
     </inferredMetricsTieBreakers>
 </document>

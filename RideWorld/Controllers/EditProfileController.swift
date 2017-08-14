@@ -125,61 +125,79 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    //MARK: - User settings table
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 4
+      return 5
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "EditProfileCell", for: indexPath) as! EditProfileCell
       let row = indexPath.row
       
-      let leftImageView = UIImageView()
-      let leftView = UIView()
-      leftView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-      leftImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-      
-      cell.field.leftViewMode = .always
-      
-      switch row {
-      case 0:
-         cell.field.text = userInfo.nameAndSename
-         cell.field.placeholder = "Enter new name and sename"
-         leftImageView.image = UIImage(named: "nameAndSename.png")
-         leftView.addSubview(leftImageView)
-         cell.field.leftView = leftView
-         break
+      if row != 4 { // if not LogOut button
+         let cell = tableView.dequeueReusableCell(withIdentifier: "EditProfileCell", for: indexPath) as! EditProfileCell
          
-      case 1:
-         cell.field.text = userInfo.bioDescription
-         cell.field.placeholder = "Enter new bio description"
-         leftImageView.image = UIImage(named: "biography.png")
-         leftView.addSubview(leftImageView)
-         cell.field.leftView = leftView
-         break
+         let leftImageView = UIImageView()
+         let leftView = UIView()
+         leftView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+         leftImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
          
-      case 2:
-         cell.field.delegate = self // for detecting tap and check last update time
-         cell.field.text = self.userInfo.login
-         leftImageView.image = UIImage(named: "login.png")
-         leftView.addSubview(leftImageView)
-         cell.field.leftView = leftView
-         cell.field.placeholder = "Enter new login"
-         addTapGesture(on: cell.field) // for checking last login change date on click b4 editing
-         break
+         cell.field.leftViewMode = .always
          
-      case 3:
-         cell.field.text = userInfo.email
-         cell.field.placeholder = "Enter new email"
-         leftImageView.image = UIImage(named: "email.ico")
-         leftView.addSubview(leftImageView)
-         cell.field.leftView = leftView
-         cell.field.isEnabled = false
-         break
+         switch row {
+         case 0:
+            cell.field.text = userInfo.nameAndSename
+            cell.field.placeholder = "Enter new name and sename"
+            leftImageView.image = UIImage(named: "nameAndSename.png")
+            leftView.addSubview(leftImageView)
+            cell.field.leftView = leftView
+            break
+            
+         case 1:
+            cell.field.text = userInfo.bioDescription
+            cell.field.placeholder = "Enter new bio description"
+            leftImageView.image = UIImage(named: "biography.png")
+            leftView.addSubview(leftImageView)
+            cell.field.leftView = leftView
+            break
+            
+         case 2:
+            cell.field.delegate = self // for detecting tap and check last update time
+            cell.field.text = self.userInfo.login
+            leftImageView.image = UIImage(named: "login.png")
+            leftView.addSubview(leftImageView)
+            cell.field.leftView = leftView
+            cell.field.placeholder = "Enter new login"
+            addTapGesture(on: cell.field) // for checking last login change date on click b4 editing
+            break
+            
+         case 3:
+            cell.field.text = userInfo.email
+            cell.field.placeholder = "Enter new email"
+            leftImageView.image = UIImage(named: "email.ico")
+            leftView.addSubview(leftImageView)
+            cell.field.leftView = leftView
+            cell.field.isEnabled = false
+            break
+            
+         default:
+            break
+         }
          
-      default:
-         break
+         return cell
+      } else {
+         let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
+         
+         cell.button.setTitle("SignOut", for: .normal)
+         cell.button.tintColor = UIColor.red
+         cell.button.addTarget(self, action: #selector(signOut), for: .touchUpInside)
+         
+         return cell
       }
-      
-      return cell
+   }
+   
+   func signOut() {
+      if UserModel.signOut() { // if no errors
+         // then go to login
+         performSegue(withIdentifier: "fromEditProfileToLogin", sender: self)
+      }
    }
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view
@@ -200,8 +218,6 @@ extension EditProfileController: UITextFieldDelegate {
    }
    
    func checkLastUpdateTime() {
-      //view.endEditing(true) // close keyboard from other properties
-      
       SVProgressHUD.show()
       
       UserModel.getCountOfDaysAfterLastLoginChangeDate() { countOfDaysFromLastChange in

@@ -53,8 +53,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       // 1px line fix
       separatorLineConstraint.constant = 1 / UIScreen.main.scale // enforces it to be a true 1 pixel line
       
-      initLoadingView()
-      setLoadingScreen()
+//      initLoadingView()
+//      setLoadingScreen()
       
       self.initializeUserTextInfo()
       self.initializeUserPhoto()
@@ -122,7 +122,6 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    func initializePosts() {
       UserModel.getPosts(for: ridersInfo.uid) { posts in
          self.posts = posts
-         self.removeLoadingScreen()
          self.riderProfileCollection.reloadData()
       }
    }
@@ -232,27 +231,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       }
    }
    
-   // MARK: - when data loading
-   var loadingView: LoadingProcessView!
-   
-   private func initLoadingView() {
-      loadingView = LoadingProcessView(center: riderProfileCollection.center)
-      
-      riderProfileCollection.addSubview(loadingView)
-   }
-   
    var haveWeFinishedLoading = false // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
-   
-   // Set the activity indicator into the main view
-   private func setLoadingScreen() {
-      loadingView.show()
-   }
-   
-   // Remove the activity indicator from the main view
-   private func removeLoadingScreen() {
-      loadingView.dismiss()
-      haveWeFinishedLoading = true
-   }
 }
 
 // MARK: - DZNEmptyDataSet for empty data tables

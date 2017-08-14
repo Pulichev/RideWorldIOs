@@ -72,8 +72,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       
       editButton.isEnabled = false // blocking when no userInfo initialized
       
-      initLoadingView()
-      setLoadingScreen()
+//      initLoadingView()
+//      setLoadingScreen()
       
       let currentUserId = UserModel.getCurrentUserId()
       UserModel.getItemById(for: currentUserId,
@@ -126,7 +126,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    func initializePosts() {
       UserModel.getPosts(for: userInfo.uid) { posts in
          self.posts = posts
-         self.removeLoadingScreen()
          self.userProfileCollection.reloadData()
       }
    }
@@ -226,27 +225,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       }
    }
    
-   // MARK: - when data loading
-   var loadingView: LoadingProcessView!
-   
-   private func initLoadingView() {
-      loadingView = LoadingProcessView(center: userProfileCollection.center)
-      
-      userProfileCollection.addSubview(loadingView)
-   }
-   
    var haveWeFinishedLoading = false // bool value have we loaded posts or not. Mainly for DZNEmptyDataSet
-   
-   // Set the activity indicator into the main view
-   private func setLoadingScreen() {
-      loadingView.show()
-   }
-   
-   // Remove the activity indicator from the main view
-   private func removeLoadingScreen() {
-      loadingView.dismiss()
-      haveWeFinishedLoading = true
-   }
 }
 
 // MARK: - Go/came to/from EditProfileController

@@ -353,11 +353,7 @@ extension MapController {
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
-      let titleView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
-      titleView.contentMode = .scaleAspectFit
-      titleView.image = UIImage(named: "rideWorldLogo.png")
-      
-      self.navigationItem.titleView = titleView
+      self.navigationItem.title = "RideWorld"
    }
    
    override func viewWillDisappear(_ animated: Bool) {

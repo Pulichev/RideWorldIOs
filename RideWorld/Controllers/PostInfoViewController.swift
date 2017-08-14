@@ -44,9 +44,7 @@ class PostInfoViewController: UIViewController {
    var likesCountInt = 0
    var postIsLiked: Bool!
    @IBOutlet weak var openComments: UIButton!
-   
    @IBOutlet weak var deleteButton: UIBarButtonItem!
-   
    @IBOutlet weak var userPhoto: RoundedImageView!
    @IBOutlet weak var userLoginHeaderButton: UIButton!
    
@@ -61,18 +59,10 @@ class PostInfoViewController: UIViewController {
          self.postDescription.text = self.postInfo.userLogin + " " + self.postInfo.description
          self.customizeDescUserLogin()
          
-         Post.getLikesAndCommentsCount(for: self.postInfo.key) { (likesCount, commentsCount) in
-            self.likesCount.text = String(describing: likesCount)
-            let commentsCountString = String(describing: commentsCount)
-            self.openComments.setTitle("Open commentaries (\(commentsCountString))", for: .normal)
-            
-            Like.isLikedByUser(self.postInfo.key) { isLiked in
-               self.initLikeData(isLiked)
-            }
-         }
+         self.initLikesAndDislikes()
 
          self.initializeDate()
-         self.addDoubleTapGestureOnPostMedia()
+         self.addDoubleTapGestureOnUserPhoto()
          
          self.userLoginHeaderButton.setTitle(self.postInfo.userLogin, for: .normal)
          if self.postInfo.userProfilePhoto90 != nil {
@@ -88,8 +78,14 @@ class PostInfoViewController: UIViewController {
       addMediaToView()
    }
    
-   func addDoubleTapGestureOnPostMedia() {
-      //adding method on post main photo tap
+   func addDoubleTapGestureOnUserPhoto() {
+      let tapOnUser = UITapGestureRecognizer(target:self, action:#selector(goToPostAuthor))
+      tapOnUser.numberOfTapsRequired = 1
+      userPhoto.addGestureRecognizer(tapOnUser)
+      userPhoto.isUserInteractionEnabled = true
+   }
+   
+   private func addGestureForLikes() {
       let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
       tap.numberOfTapsRequired = 2
       spotPostMedia.addGestureRecognizer(tap)
@@ -99,15 +95,24 @@ class PostInfoViewController: UIViewController {
       tapOnFist.numberOfTapsRequired = 1
       isLikedPhoto.addGestureRecognizer(tapOnFist)
       isLikedPhoto.isUserInteractionEnabled = true
-      
-      let tapOnUser = UITapGestureRecognizer(target:self, action:#selector(goToPostAuthor))
-      tapOnUser.numberOfTapsRequired = 1
-      userPhoto.addGestureRecognizer(tapOnUser)
-      userPhoto.isUserInteractionEnabled = true
    }
    
    func initializeDate() {
       postDate.text = DateTimeParser.getDateTime(from: postInfo.createdDate)
+   }
+   
+   private func initLikesAndDislikes() {
+      Post.getLikesAndCommentsCount(for: self.postInfo.key) { (likesCount, commentsCount) in
+         self.likesCount.text = String(describing: likesCount)
+         let commentsCountString = String(describing: commentsCount)
+         self.openComments.setTitle("Open commentaries (\(commentsCountString))", for: .normal)
+         
+         Like.isLikedByUser(self.postInfo.key) { isLiked in
+            self.initLikeData(isLiked)
+         }
+         
+         self.addGestureForLikes()
+      }
    }
    
    func initLikeData(_ isLiked: Bool) {

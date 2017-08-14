@@ -509,11 +509,7 @@ extension PostsStripController {
       super.viewWillAppear(animated)
       
       if !cameFromSpotOrMyStrip {
-         let titleView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 30))
-         titleView.contentMode = .scaleAspectFit
-         titleView.image = UIImage(named: "rideWorldLogo.png")
-         
-         self.navigationItem.titleView = titleView
+         self.navigationItem.title = "RideWorld"
          
          // hide add post button
          if self.navigationItem.rightBarButtonItems?.count == 2 {

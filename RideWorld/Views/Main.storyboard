@@ -2556,7 +2556,20 @@
                             <constraint firstItem="VrN-lv-5Jr" firstAttribute="top" secondItem="pVZ-9K-kV8" secondAttribute="bottom" id="WoX-we-Orz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Peo-1o-Kj8"/>
+                    <navigationItem key="navigationItem" id="Peo-1o-Kj8">
+                        <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="9jR-4T-yfs">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rbe-65-YoE" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                                <rect key="frame" x="277" y="8" width="82" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Info">
+                                    <color key="titleColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="showInfoAboutCountOfFBItems:" destination="RGC-lG-87G" eventType="touchUpInside" id="yJJ-yT-O8o"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="VrN-lv-5Jr" id="UmA-uM-txp"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromFeedbackList" id="tCn-nV-MKo"/>
@@ -2846,9 +2859,9 @@
         <segue reference="Xyq-8K-e8w"/>
         <segue reference="TEa-lr-7L1"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="6R6-CY-IE2"/>
-        <segue reference="eyf-4a-ZNN"/>
         <segue reference="TeE-da-wxz"/>
         <segue reference="ZpR-8C-QJR"/>
+        <segue reference="nax-92-cwD"/>
+        <segue reference="tCn-nV-MKo"/>
     </inferredMetricsTieBreakers>
 </document>

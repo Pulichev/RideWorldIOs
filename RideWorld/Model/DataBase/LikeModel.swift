@@ -62,12 +62,11 @@ struct Like {
                              completion: @escaping (_ isLiked: Bool) -> Void) {
       let currentUserId = UserModel.getCurrentUserId()
       
-      let refToPostLikeByUser = Database.database().reference(withPath: "MainDataBase/postsLikesAndCommentsCountInfo")
-         .child(postId).child("likes").child(currentUserId)
-      
+      let refToPostLikeByUser = Database.database().reference(withPath: "MainDataBase/userslikes").child(currentUserId)
+         .child("onposts").child(postId)
       refToPostLikeByUser.observeSingleEvent(of: .value, with: { snapshot in
-         if let isLiked = snapshot.value as? Bool {
-            completion(isLiked)
+         if let _ = snapshot.value as? [String: Any] {
+            completion(true)
          } else {
             completion(false)
          }

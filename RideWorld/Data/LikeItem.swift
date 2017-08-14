@@ -11,10 +11,10 @@ import FirebaseDatabase
 struct LikeItem {
    var key: String
    
-   let userId: String // who placed
-   let postId: String
-   let postAddedByUserId: String // who posted
-   let likePlacedTime: String
+   var userId: String // who placed
+   var postId: String
+   var postAddedByUserId: String // who posted
+   var likePlacedTime: String
    
    var feedbackKey: String
    

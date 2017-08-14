@@ -43,12 +43,12 @@ class RegistrationController: UIViewController {
    
    private func createAndLogin() {
       Auth.auth().createUser(withEmail: userEmail.text!,
-                                 password: userPassword.text!)
+                             password: userPassword.text!)
       { user, error in
          if error == nil {
             // log in
             Auth.auth().signIn(withEmail: self.userEmail.text!,
-                                   password: self.userPassword.text!)
+                               password: self.userPassword.text!)
             { result in
                // create new user in database, not in FIRAuth
                UserModel.create(with: self.userLogin.text!) { _ in
@@ -79,7 +79,7 @@ class RegistrationController: UIViewController {
    
    private func showAlertThatLoginAlreadyExists() {
       SVProgressHUD.dismiss()
-
+      
       let alert = UIAlertController(title: "Registration failed!",
                                     message: "Login already exists.",
                                     preferredStyle: .alert)
@@ -103,8 +103,10 @@ extension RegistrationController {
    }
    
    func keyboardWillHide(notification: NSNotification) {
-      view.frame.origin.y += 150
-      keyBoardAlreadyShowed = false
+      if keyBoardAlreadyShowed {
+         view.frame.origin.y += 150
+         keyBoardAlreadyShowed = false
+      }
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

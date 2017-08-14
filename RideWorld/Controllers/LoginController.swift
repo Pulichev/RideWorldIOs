@@ -46,7 +46,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
    
    private func signIn(with email: String) {
       Auth.auth().signIn(withEmail: email,
-                             password: userPassword.text!)
+                         password: userPassword.text!)
       { user, error in
          
          SVProgressHUD.dismiss()
@@ -106,8 +106,10 @@ extension LoginController {
    }
    
    func keyboardWillHide(notification: NSNotification) {
-      view.frame.origin.y += 50
-      keyBoardAlreadyShowed = false
+      if keyBoardAlreadyShowed {
+         view.frame.origin.y += 50
+         keyBoardAlreadyShowed = false
+      }
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -1362,11 +1362,12 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="tQc-Fc-f61">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GBJ-0z-9D5" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                                    <rect key="frame" x="234" y="-2" width="49" height="49"/>
+                                    <rect key="frame" x="233" y="-3" width="49" height="49"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="tintColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <state key="normal" image="reload">
-                                        <color key="titleColor" red="0.11110009517766495" green="0.11110009517766495" blue="0.11110009517766495" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="titleColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </state>
                                     <connections>
                                         <action selector="reloadButtonTapped:" destination="LlJ-V1-BNZ" eventType="touchUpInside" id="KJR-Cw-QVk"/>
@@ -2836,7 +2837,7 @@
         <image name="heart" width="35" height="35"/>
         <image name="iPhone 6 Plus" width="414" height="736"/>
         <image name="logOut" width="32" height="32"/>
-        <image name="reload" width="35" height="35"/>
+        <image name="reload" width="28" height="28"/>
         <image name="respectActive" width="94" height="59"/>
         <image name="respectPassive" width="94" height="59"/>
     </resources>

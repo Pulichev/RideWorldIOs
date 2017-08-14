@@ -1361,8 +1361,8 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="tQc-Fc-f61">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GBJ-0z-9D5">
-                                    <rect key="frame" x="234" y="-2" width="48" height="48"/>
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GBJ-0z-9D5" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                                    <rect key="frame" x="234" y="-2" width="49" height="49"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <state key="normal" image="reload">
@@ -2843,11 +2843,11 @@
     <inferredMetricsTieBreakers>
         <segue reference="ck8-tQ-3J4"/>
         <segue reference="Xyq-8K-e8w"/>
-        <segue reference="gS6-Wz-qu3"/>
-        <segue reference="hCy-LG-AWJ"/>
+        <segue reference="TEa-lr-7L1"/>
+        <segue reference="QOa-aY-bXL"/>
+        <segue reference="6R6-CY-IE2"/>
         <segue reference="eyf-4a-ZNN"/>
         <segue reference="TeE-da-wxz"/>
         <segue reference="ZpR-8C-QJR"/>
-        <segue reference="QOa-aY-bXL"/>
     </inferredMetricsTieBreakers>
 </document>

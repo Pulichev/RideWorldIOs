@@ -148,9 +148,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    @IBAction func reloadButtonTapped(_ sender: Any) {
-      self.loadPosts(completion: { newItems in
-         self.appendLoadedPosts(newItems) { _ in } // no need completion here
-      })
+      refresh() { _ in }
    }
    
    // function for pull to refresh
@@ -530,6 +528,9 @@ extension PostsStripController {
       if !cameFromSpotOrMyStrip {
          // Show the navigation bar on other view controllers
          navigationController?.setNavigationBarHidden(false, animated: animated)
+      } else { // from spot
+         // need to clear last key
+         Spot.dropLastKey()
       }
    }
 }

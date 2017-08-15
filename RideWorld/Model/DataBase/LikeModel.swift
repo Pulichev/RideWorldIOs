@@ -11,7 +11,8 @@ import FirebaseDatabase
 struct Like {
    static let ref = Database.database().reference(withPath: "MainDataBase")
    
-   static func add(_ newLike: LikeItem) {
+   static func add(_ newLike: LikeItem,
+                   completion: @escaping () -> Void) {
       // add like id for user feedback implementation
       var like = newLike
       let likeRef = ref.child("/userslikes/" + newLike.userId + "/onposts/" + newLike.postId).childByAutoId()
@@ -28,10 +29,17 @@ struct Like {
          updates.updateValue(likeForFeedBack, forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
       }
       
-      ref.updateChildValues(updates)
+      ref.updateChildValues(updates, withCompletionBlock: { error, _ in
+         if error != nil {
+            print("")
+         }
+         
+         completion()
+      })
    }
    
-   static func remove(with userId: String, _ post: PostItem) {
+   static func remove(with userId: String, _ post: PostItem,
+                      completion: @escaping () -> Void) {
       var updates: [String: Any?] = [
          "/userslikes/" + userId   + "/onposts/" + post.key: nil,
          "/postslikes/" + post.key + "/"         + userId:   nil
@@ -43,7 +51,13 @@ struct Like {
             updates.updateValue(nil, forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
          }
          
-         ref.updateChildValues(updates)
+         ref.updateChildValues(updates, withCompletionBlock: { error, _ in
+            if error != nil {
+               print("")
+            }
+            
+            completion()
+         })
       }
    }
    

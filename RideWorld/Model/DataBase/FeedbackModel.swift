@@ -7,9 +7,9 @@
 //
 
 struct Feedback {
+   
    static func getArray(
       completion: @escaping (_ fbItems: [FeedbackItem]) -> Void) {
-      
       UserModel.getFeedbackSnapShotData(for: UserModel.getCurrentUserId()) { feedItemsSnapshot in
          if feedItemsSnapshot == nil { return }
          
@@ -56,12 +56,17 @@ struct Feedback {
             }
          }
       } else { // follow
-         let _ = FollowerFBItem(snapshot: value!, key) { item in
-            if item.userItem != nil {
-               completion(item)
-            } else {
-               completion(nil)
+         if value!["userId"] != nil { // sometimes, for example, user removed like -> feedbacknode,
+            // but I have written "isViewed" = true. Then crash. We need to check other fields
+            let _ = FollowerFBItem(snapshot: value!, key) { item in
+               if item.userItem != nil {
+                  completion(item)
+               } else {
+                  completion(nil)
+               }
             }
+         } else {
+            completion(nil)
          }
       }
    }

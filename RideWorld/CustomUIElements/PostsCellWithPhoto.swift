@@ -37,6 +37,7 @@ class PostsCellWithPhoto: UITableViewCell {
    
    @IBOutlet weak var isLikedPhoto: UIImageView!
    @IBOutlet weak var likesCount: UILabel!
+   var likesCountInt: Int! = 0
    @IBOutlet weak var openComments: UIButton!
    
    var postIsLiked: Bool!
@@ -55,6 +56,7 @@ class PostsCellWithPhoto: UITableViewCell {
       postDescription.text = post.userLogin + " " + post.description
       customizeDescUserLogin()
       
+      likesCountInt = cachedCell.likesCount
       likesCount.text      = String(describing: cachedCell.likesCount)
       let commentsCount    = String(describing: cachedCell.commentsCount)
       openComments.setTitle("Open commentaries (\(commentsCount))", for: .normal)
@@ -76,52 +78,68 @@ class PostsCellWithPhoto: UITableViewCell {
    
    func addDoubleTapGestureOnPostPhotos() {
       //adding method on spot main photo tap
-      let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
+      let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked))
       tap.numberOfTapsRequired = 2
       spotPostPhoto.addGestureRecognizer(tap)
       spotPostPhoto.isUserInteractionEnabled = true
       
-      let tapOnFist = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
+      let tapOnFist = UITapGestureRecognizer(target:self, action:#selector(postLiked))
       tapOnFist.numberOfTapsRequired = 1
       isLikedPhoto.addGestureRecognizer(tapOnFist)
       isLikedPhoto.isUserInteractionEnabled = true
    }
    
-   func postLiked(_ sender: Any) {
+   var likeEventActive = false // true, when sending request
+   
+   func postLiked() {
       if (userLikedOrDeletedLike) { // it might be a situation when user liked and disliked posts with out scroll.
          userLikedOrDeletedLike = false
       } else {
          userLikedOrDeletedLike = true
       }
       
-      if(!postIsLiked) {
-         postIsLiked = true
-         isLikedPhoto.image = UIImage(named: "respectActive.png")
-         let countOfLikesInt = Int(likesCount.text!)
-         likesCount.text = String(countOfLikesInt! + 1)
-         addNewLike()
-      } else {
-         postIsLiked = false
-         isLikedPhoto.image = UIImage(named: "respectPassive.png")
-         let countOfLikesInt = Int(likesCount.text!)
-         likesCount.text = String(countOfLikesInt! - 1)
-         removeExistedLike()
+      if !likeEventActive {
+         if !postIsLiked {
+            postIsLiked = true
+            isLikedPhoto.image = UIImage(named: "respectActive.png")
+            likesCountInt = likesCountInt + 1
+            likesCount.text = String(likesCountInt)
+            
+            likeEventActive = true
+            addNewLike() { // to database
+               self.likeEventActive = false
+            }
+         } else {
+            postIsLiked = false
+            isLikedPhoto.image = UIImage(named: "respectPassive.png")
+            likesCountInt = likesCountInt - 1
+            likesCount.text = String(likesCountInt)
+            
+            likeEventActive = true
+            removeExistedLike() { // from database
+               self.likeEventActive = false
+            }
+         }
       }
    }
    
-   func addNewLike() {
+   func addNewLike(completion: @escaping () -> Void) {
       // init new like
       let currentUserId = UserModel.getCurrentUserId()
       let likePlacedTime = String(describing: Date())
       let newLike = LikeItem(who: currentUserId, what: post.key,
                              postWasAddedBy: post.addedByUser, at: likePlacedTime)
-      Like.add(newLike)
+      Like.add(newLike) {
+         completion()
+      }
    }
    
-   func removeExistedLike() {
+   func removeExistedLike(completion: @escaping () -> Void) {
       let currentUserId = UserModel.getCurrentUserId()
       
-      Like.remove(with: currentUserId, post)
+      Like.remove(with: currentUserId, post) {
+         completion()
+      }
    }
    
    @IBAction func openAlert(_ sender: UIButton) {

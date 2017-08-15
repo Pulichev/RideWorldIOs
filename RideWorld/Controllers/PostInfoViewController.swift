@@ -60,7 +60,7 @@ class PostInfoViewController: UIViewController {
          self.customizeDescUserLogin()
          
          self.initLikesAndDislikes()
-
+         
          self.initializeDate()
          self.addDoubleTapGestureOnUserPhoto()
          
@@ -86,12 +86,12 @@ class PostInfoViewController: UIViewController {
    }
    
    private func addGestureForLikes() {
-      let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
+      let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked))
       tap.numberOfTapsRequired = 2
       spotPostMedia.addGestureRecognizer(tap)
       spotPostMedia.isUserInteractionEnabled = true
       
-      let tapOnFist = UITapGestureRecognizer(target:self, action:#selector(postLiked(_:)))
+      let tapOnFist = UITapGestureRecognizer(target:self, action:#selector(postLiked))
       tapOnFist.numberOfTapsRequired = 1
       isLikedPhoto.addGestureRecognizer(tapOnFist)
       isLikedPhoto.isUserInteractionEnabled = true
@@ -103,6 +103,7 @@ class PostInfoViewController: UIViewController {
    
    private func initLikesAndDislikes() {
       Post.getLikesAndCommentsCount(for: self.postInfo.key) { (likesCount, commentsCount) in
+         self.likesCountInt = likesCount
          self.likesCount.text = String(describing: likesCount)
          let commentsCountString = String(describing: commentsCount)
          self.openComments.setTitle("Open commentaries (\(commentsCountString))", for: .normal)
@@ -125,49 +126,52 @@ class PostInfoViewController: UIViewController {
       }
    }
    
-   func postLiked(_ sender: Any) {
-      if(!postIsLiked) {
-         isLikedPhoto.image = UIImage(named: "respectActive.png")
-         let countOfLikesInt = Int(likesCount.text!)
-         likesCount.text = String(countOfLikesInt! + 1)
-         addNewLike()
-         postIsLiked = true
-      } else {
-         isLikedPhoto.image = UIImage(named: "respectPassive.png")
-         let countOfLikesInt = Int(likesCount.text!)
-         likesCount.text = String(countOfLikesInt! - 1)
-         removeExistedLike()
-         
-         postIsLiked = false
+   var likeEventActive = false // true, when sending request
+   
+   func postLiked() {
+      if !likeEventActive {
+         if !postIsLiked {
+            postIsLiked = true
+            isLikedPhoto.image = UIImage(named: "respectActive.png")
+            likesCountInt = likesCountInt + 1
+            likesCount.text = String(likesCountInt)
+            
+            likeEventActive = true
+            addNewLike() { // to database
+               self.likeEventActive = false
+            }
+         } else {
+            postIsLiked = false
+            isLikedPhoto.image = UIImage(named: "respectPassive.png")
+            likesCountInt = likesCountInt - 1
+            likesCount.text = String(likesCountInt)
+            
+            likeEventActive = true
+            removeExistedLike() { // from database
+               self.likeEventActive = false
+            }
+         }
       }
    }
    
    // MARK: - Add and remove like
-   func addNewLike() {
+   func addNewLike(completion: @escaping () -> Void) {
       // init new like
       let currentUserId = UserModel.getCurrentUserId()
       let placedTime = String(describing: Date())
       let newLike = LikeItem(who: currentUserId, what: postInfo.key,
                              postWasAddedBy: postInfo.addedByUser, at: placedTime)
       
-      Like.add(newLike)
+      Like.add(newLike) {
+         completion()
+      }
    }
    
-   func removeExistedLike() {
+   func removeExistedLike(completion: @escaping () -> Void) {
       let currentUserId = UserModel.getCurrentUserId()
       
-      Like.remove(with: currentUserId, postInfo)
-   }
-   
-   func changeLikeToDislikeAndViceVersa() { //If change = true, User liked. false - disliked
-      if (!postIsLiked) {
-         postIsLiked = true
-         isLikedPhoto.image = UIImage(named: "respectActive.png")
-         likesCountInt += 1
-      } else {
-         postIsLiked = false
-         isLikedPhoto.image = UIImage(named: "respectPassive.png")
-         likesCountInt -= 1
+      Like.remove(with: currentUserId, postInfo) {
+         completion()
       }
    }
    

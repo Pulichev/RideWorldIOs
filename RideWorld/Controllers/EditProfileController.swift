@@ -145,7 +145,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          case 0:
             cell.field.text = userInfo.nameAndSename
             cell.field.placeholder = "Enter new name and sename"
-            leftImageView.image = UIImage(named: "nameAndSename.png")
+            leftImageView.image = UIImage(named: "namesename")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
             break
@@ -153,7 +153,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          case 1:
             cell.field.text = userInfo.bioDescription
             cell.field.placeholder = "Enter new bio description"
-            leftImageView.image = UIImage(named: "biography.png")
+            leftImageView.image = UIImage(named: "info")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
             break
@@ -161,7 +161,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          case 2:
             cell.field.delegate = self // for detecting tap and check last update time
             cell.field.text = self.userInfo.login
-            leftImageView.image = UIImage(named: "login.png")
+            leftImageView.image = UIImage(named: "login")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
             cell.field.placeholder = "Enter new login"
@@ -171,7 +171,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          case 3:
             cell.field.text = userInfo.email
             cell.field.placeholder = "Enter new email"
-            leftImageView.image = UIImage(named: "email.ico")
+            leftImageView.image = UIImage(named: "mail")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
             cell.field.isEnabled = false

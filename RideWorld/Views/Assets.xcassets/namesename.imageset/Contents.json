@@ -2,15 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "RegistrationButton.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "namesename@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "namesename@3x.png",
       "scale" : "3x"
     }
   ],

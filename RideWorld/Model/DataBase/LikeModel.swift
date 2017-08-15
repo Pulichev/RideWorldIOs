@@ -31,7 +31,7 @@ struct Like {
       
       ref.updateChildValues(updates, withCompletionBlock: { error, _ in
          if error != nil {
-            print("")
+            //
          }
          
          completion()
@@ -53,7 +53,7 @@ struct Like {
          
          ref.updateChildValues(updates, withCompletionBlock: { error, _ in
             if error != nil {
-               print("")
+               //
             }
             
             completion()

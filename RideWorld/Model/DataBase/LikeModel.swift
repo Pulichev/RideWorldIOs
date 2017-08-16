@@ -12,7 +12,7 @@ struct Like {
    static let ref = Database.database().reference(withPath: "MainDataBase")
    
    static func add(_ newLike: LikeItem,
-                   completion: @escaping () -> Void) {
+                   completion: @escaping (_ isSucceded: Bool) -> Void) {
       // add like id for user feedback implementation
       var like = newLike
       let likeRef = ref.child("/userslikes/" + newLike.userId + "/onposts/" + newLike.postId).childByAutoId()
@@ -44,43 +44,20 @@ struct Like {
          
          ref.updateChildValues(updates, withCompletionBlock: { error, _ in
             if error != nil {
-               if error!.localizedDescription == "Permission denied" { // only
-                  let errorStillHappens = true
-                  var requestAlreadySended = false
-                  while errorStillHappens {
-                     if !requestAlreadySended {
-                        requestAlreadySended = true
-                        ref.updateChildValues(updates, withCompletionBlock: { error, _ in
-                           if error == nil {
-                              completion()
-                              return
-                           } else {
-                              requestAlreadySended = false
-                           }
-                        })
-                     }
-                  }
+               if error!.localizedDescription == "Permission denied" { // this can only be with concurent data
+                  // client need to resend request. Idk, how to do it from code actually. Will try 2 fix it
+                  // in the future
+                  completion(false)
                }
             } else {
-               completion()
+               completion(true)
             }
          })
       })
    }
    
-   static func sendRequestForLike(_ updates: [String: Any?],
-                                  completion: @escaping () -> Void) {
-      ref.updateChildValues(updates, withCompletionBlock: { error, _ in
-         if error == nil {
-            completion()
-         } else {
-            sendRequestForLike(updates) { }
-         }
-      })
-   }
-   
    static func remove(with userId: String, _ post: PostItem,
-                      completion: @escaping () -> Void) {
+                      completion: @escaping (_ isSucceded: Bool) -> Void) {
       var updates: [String: Any?] = [
          "/userslikes/" + userId   + "/onposts/" + post.key: nil,
          "/postslikes/" + post.key + "/"         + userId:   nil
@@ -107,25 +84,13 @@ struct Like {
             
             ref.updateChildValues(updates, withCompletionBlock: { error, _ in
                if error != nil {
-                  if error!.localizedDescription == "Permission denied" { // only
-                     let errorStillHappens = true
-                     var requestAlreadySended = false
-                     while errorStillHappens {
-                        if !requestAlreadySended {
-                           requestAlreadySended = true
-                           ref.updateChildValues(updates, withCompletionBlock: { error, _ in
-                              if error == nil {
-                                 completion()
-                                 return
-                              } else {
-                                 requestAlreadySended = false
-                              }
-                           })
-                        }
-                     }
+                  if error!.localizedDescription == "Permission denied" { // this can only be with concurent data
+                     // client need to resend request. Idk, how to do it from code actually. Will try 2 fix it
+                     // in the future
+                     completion(false)
                   }
                } else {
-                  completion()
+                  completion(true)
                }
             })
          })

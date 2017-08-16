@@ -106,7 +106,15 @@ class PostsCellWithPhoto: UITableViewCell {
             likesCount.text = String(likesCountInt)
             
             likeEventActive = true
-            addNewLike() {
+            addNewLike() { isSucceded in
+               if !isSucceded {
+                  self.showAlertOfError()
+                  self.postIsLiked = false
+                  self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+                  self.likesCountInt = self.likesCountInt - 1
+                  self.likesCount.text = String(self.likesCountInt)
+               }
+               
                self.likeEventActive = false
             }
          } else {
@@ -116,30 +124,48 @@ class PostsCellWithPhoto: UITableViewCell {
             likesCount.text = String(likesCountInt)
             
             likeEventActive = true
-            removeExistedLike() {
+            removeExistedLike() { isSucceded in
+               if !isSucceded {
+                  self.showAlertOfError()
+                  self.postIsLiked = true
+                  self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+                  self.likesCountInt = self.likesCountInt + 1
+                  self.likesCount.text = String(self.likesCountInt)
+               }
+               
                self.likeEventActive = false
             }
          }
       }
    }
    
-   func addNewLike(completion: @escaping () -> Void) {
+   func addNewLike(completion: @escaping (_ isSucceded: Bool) -> Void) {
       // init new like
       let currentUserId = UserModel.getCurrentUserId()
       let likePlacedTime = String(describing: Date())
       let newLike = LikeItem(who: currentUserId, what: post.key,
                              postWasAddedBy: post.addedByUser, at: likePlacedTime)
-      Like.add(newLike) {
-         completion()
+      Like.add(newLike) { isSucceded in
+         completion(isSucceded)
       }
    }
    
-   func removeExistedLike(completion: @escaping () -> Void) {
+   func removeExistedLike(completion: @escaping (_ isSucceded: Bool) -> Void) {
       let currentUserId = UserModel.getCurrentUserId()
       
-      Like.remove(with: currentUserId, post) {
-         completion()
+      Like.remove(with: currentUserId, post) { isSucceded in
+         completion(isSucceded)
       }
+   }
+   
+   private func showAlertOfError() {
+      let alert = UIAlertController(title: "Woops!",
+                                    message: "Some error occurred. Retry your like/removing like",
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      parentViewController?.present(alert, animated: true, completion: nil)
    }
    
    @IBAction func openAlert(_ sender: UIButton) {

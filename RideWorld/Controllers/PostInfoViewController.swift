@@ -137,7 +137,9 @@ class PostInfoViewController: UIViewController {
             likesCount.text = String(likesCountInt)
             
             likeEventActive = true
-            addNewLike() { // to database
+            addNewLike() { actualLikeCount in // to database
+               self.likesCountInt = actualLikeCount
+               self.likesCount.text = String(actualLikeCount)
                self.likeEventActive = false
             }
          } else {
@@ -147,7 +149,9 @@ class PostInfoViewController: UIViewController {
             likesCount.text = String(likesCountInt)
             
             likeEventActive = true
-            removeExistedLike() { // from database
+            removeExistedLike() { actualLikeCount in // to database
+               self.likesCountInt = actualLikeCount
+               self.likesCount.text = String(actualLikeCount)
                self.likeEventActive = false
             }
          }
@@ -155,23 +159,23 @@ class PostInfoViewController: UIViewController {
    }
    
    // MARK: - Add and remove like
-   func addNewLike(completion: @escaping () -> Void) {
+   func addNewLike(completion: @escaping (_ likesCount: Int) -> Void) {
       // init new like
       let currentUserId = UserModel.getCurrentUserId()
       let placedTime = String(describing: Date())
       let newLike = LikeItem(who: currentUserId, what: postInfo.key,
                              postWasAddedBy: postInfo.addedByUser, at: placedTime)
       
-      Like.add(newLike) {
-         completion()
+      Like.add(newLike) { actualLikeCount in
+         completion(actualLikeCount)
       }
    }
    
-   func removeExistedLike(completion: @escaping () -> Void) {
+   func removeExistedLike(completion: @escaping (_ likesCount: Int) -> Void) {
       let currentUserId = UserModel.getCurrentUserId()
       
-      Like.remove(with: currentUserId, postInfo) {
-         completion()
+      Like.remove(with: currentUserId, postInfo) { actualLikeCount in
+         completion(actualLikeCount)
       }
    }
    

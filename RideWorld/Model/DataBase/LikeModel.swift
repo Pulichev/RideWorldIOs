@@ -12,7 +12,7 @@ struct Like {
    static let ref = Database.database().reference(withPath: "MainDataBase")
    
    static func add(_ newLike: LikeItem,
-                   completion: @escaping () -> Void) {
+                   completion: @escaping (_ likesCount: Int) -> Void) {
       // add like id for user feedback implementation
       var like = newLike
       let likeRef = ref.child("/userslikes/" + newLike.userId + "/onposts/" + newLike.postId).childByAutoId()
@@ -29,17 +29,31 @@ struct Like {
          updates.updateValue(likeForFeedBack, forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
       }
       
-      ref.updateChildValues(updates, withCompletionBlock: { error, _ in
-         if error != nil {
-            //
+      // update likes count
+      let refToPostLikesCountInfo = ref.child("postsLikesAndCommentsCountInfo/" + like.postId + "/counting/likesCount")
+      refToPostLikesCountInfo.observeSingleEvent(of: .value, with: { snapshot in
+         var likesCount = 0
+         
+         if let countOfLikes = snapshot.value as? Int {
+            likesCount = countOfLikes
          }
          
-         completion()
+         updates.updateValue(likesCount + 1, forKey: "postsLikesAndCommentsCountInfo/" + like.postId + "/counting/likesCount")
+         // also add short like info
+         updates.updateValue(true, forKey: "postsLikesAndCommentsCountInfo/" + like.postId + "/likes/" + like.userId)
+         
+         ref.updateChildValues(updates, withCompletionBlock: { error, _ in
+            if error != nil {
+               print(error!.localizedDescription)
+            }
+            
+            completion(likesCount + 1) // for updating likes count on client for actual value
+         })
       })
    }
    
    static func remove(with userId: String, _ post: PostItem,
-                      completion: @escaping () -> Void) {
+                      completion: @escaping (_ likesCount: Int) -> Void) {
       var updates: [String: Any?] = [
          "/userslikes/" + userId   + "/onposts/" + post.key: nil,
          "/postslikes/" + post.key + "/"         + userId:   nil
@@ -51,12 +65,26 @@ struct Like {
             updates.updateValue(nil, forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
          }
          
-         ref.updateChildValues(updates, withCompletionBlock: { error, _ in
-            if error != nil {
-               //
+         // update likes count
+         let refToPostLikesCountInfo = ref.child("postsLikesAndCommentsCountInfo/" + like.postId + "/counting/likesCount")
+         refToPostLikesCountInfo.observeSingleEvent(of: .value, with: { snapshot in
+            var likesCount = 0
+            
+            if let countOfLikes = snapshot.value as? Int {
+               likesCount = countOfLikes
             }
             
-            completion()
+            updates.updateValue(likesCount - 1, forKey: "postsLikesAndCommentsCountInfo/" + like.postId + "/counting/likesCount")
+            // also add short like info
+            updates.updateValue(nil, forKey: "postsLikesAndCommentsCountInfo/" + like.postId + "/likes/" + like.userId)
+            
+            ref.updateChildValues(updates, withCompletionBlock: { error, _ in
+               if error != nil {
+                  print(error!.localizedDescription)
+               }
+               
+               completion(likesCount - 1) // for updating likes count on client for actual value
+            })
          })
       }
    }

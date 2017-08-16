@@ -106,7 +106,9 @@ class PostsCellWithVideo: UITableViewCell {
             likesCount.text = String(likesCountInt)
             
             likeEventActive = true
-            addNewLike() { // to database
+            addNewLike() { actualLikeCount in // to database
+               self.likesCountInt = actualLikeCount
+               self.likesCount.text = String(actualLikeCount)
                self.likeEventActive = false
             }
          } else {
@@ -116,29 +118,31 @@ class PostsCellWithVideo: UITableViewCell {
             likesCount.text = String(likesCountInt)
             
             likeEventActive = true
-            removeExistedLike() { // from database
+            removeExistedLike() { actualLikeCount in // to database
+               self.likesCountInt = actualLikeCount
+               self.likesCount.text = String(actualLikeCount)
                self.likeEventActive = false
             }
          }
       }
    }
    
-   func addNewLike(completion: @escaping () -> Void) {
+   func addNewLike(completion: @escaping (_ likesCount: Int) -> Void) {
       // init new like
       let currentUserId = UserModel.getCurrentUserId()
       let likePlacedTime = String(describing: Date())
       let newLike = LikeItem(who: currentUserId, what: post.key,
                              postWasAddedBy: post.addedByUser, at: likePlacedTime)
-      Like.add(newLike) {
-         completion()
+      Like.add(newLike) { actualLikeCount in
+         completion(actualLikeCount)
       }
    }
    
-   func removeExistedLike(completion: @escaping () -> Void) {
+   func removeExistedLike(completion: @escaping (_ likesCount: Int) -> Void) {
       let currentUserId = UserModel.getCurrentUserId()
       
-      Like.remove(with: currentUserId, post) {
-         completion()
+      Like.remove(with: currentUserId, post) { actualLikeCount in
+         completion(actualLikeCount)
       }
    }
    

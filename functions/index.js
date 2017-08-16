@@ -315,73 +315,73 @@ exports.updateCommentsCountInEachPost = functions.database
 // LIKES PART
 
 // add like to posts likes node + count
-exports.updateLikesCountInEachPost = functions.database
-  .ref("/MainDataBase/userslikes/{userId}/onposts/{postId}")
-  .onWrite(event => {
-    const postId = event.params.postId;
-    const userId = event.params.userId;
+// exports.updateLikesCountInEachPost = functions.database
+//   .ref("/MainDataBase/userslikes/{userId}/onposts/{postId}")
+//   .onWrite(event => {
+//     const postId = event.params.postId;
+//     const userId = event.params.userId;
 
-    let refToPostsLikeByUser = admin
-      .database()
-      .ref(
-        "MainDataBase/postsLikesAndCommentsCountInfo/" +
-          postId +
-          "/likes/" +
-          userId
-      );
+//     let refToPostsLikeByUser = admin
+//       .database()
+//       .ref(
+//         "MainDataBase/postsLikesAndCommentsCountInfo/" +
+//           postId +
+//           "/likes/" +
+//           userId
+//       );
 
-    let refToPostsLikes = admin
-      .database()
-      .ref("MainDataBase/postsLikesAndCommentsCountInfo/" + postId + "/likes");
+//     let refToPostsLikes = admin
+//       .database()
+//       .ref("MainDataBase/postsLikesAndCommentsCountInfo/" + postId + "/likes");
 
-    let refToPostsLikesCount = admin
-      .database()
-      .ref(
-        "MainDataBase/postsLikesAndCommentsCountInfo/" +
-          postId +
-          "/counting/likesCount"
-      );
+//     let refToPostsLikesCount = admin
+//       .database()
+//       .ref(
+//         "MainDataBase/postsLikesAndCommentsCountInfo/" +
+//           postId +
+//           "/counting/likesCount"
+//       );
 
-    if (event.data.val()) {
-      // like was added
-      refToPostsLikeByUser.set(true, function(error) {
-        if (error) {
-          console.log(
-            "Error in saving like for postId: " +
-              postId +
-              "and userId: " +
-              userId
-          );
-        } else {
-          // like was saved
-          // now update likes count
-          refToPostsLikes.once("value", function(likesSnap) {
-            let likesCount = likesSnap.numChildren();
-            refToPostsLikesCount.set(likesCount);
-          });
-        }
-      });
-    } else {
-      // like was removed
-      refToPostsLikeByUser.set(null, function(error) {
-        if (error) {
-          console.log(
-            "Error in removing like for postId: " +
-              postId +
-              "and userId: " +
-              userId
-          );
-        } else {
-          // like was removed
-          // now update likes count
-          refToPostsLikes.once("value", function(likesSnap) {
-            let likesCount = likesSnap.numChildren();
-            refToPostsLikesCount.set(likesCount);
-          });
-        }
-      });
-    }
-  });
+//     if (event.data.val()) {
+//       // like was added
+//       refToPostsLikeByUser.set(true, function(error) {
+//         if (error) {
+//           console.log(
+//             "Error in saving like for postId: " +
+//               postId +
+//               "and userId: " +
+//               userId
+//           );
+//         } else {
+//           // like was saved
+//           // now update likes count
+//           refToPostsLikes.once("value", function(likesSnap) {
+//             let likesCount = likesSnap.numChildren();
+//             refToPostsLikesCount.set(likesCount);
+//           });
+//         }
+//       });
+//     } else {
+//       // like was removed
+//       refToPostsLikeByUser.set(null, function(error) {
+//         if (error) {
+//           console.log(
+//             "Error in removing like for postId: " +
+//               postId +
+//               "and userId: " +
+//               userId
+//           );
+//         } else {
+//           // like was removed
+//           // now update likes count
+//           refToPostsLikes.once("value", function(likesSnap) {
+//             let likesCount = likesSnap.numChildren();
+//             refToPostsLikesCount.set(likesCount);
+//           });
+//         }
+//       });
+//     }
+//   });
 
 // **************************************************************************************
 // USER INFO CHANGES PART

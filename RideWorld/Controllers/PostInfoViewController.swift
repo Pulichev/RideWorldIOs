@@ -131,43 +131,44 @@ class PostInfoViewController: UIViewController {
    func postLiked() {
       if !likeEventActive {
          if !postIsLiked {
-            postIsLiked = true
-            isLikedPhoto.image = UIImage(named: "respectActive.png")
-            likesCountInt = likesCountInt + 1
-            likesCount.text = String(likesCountInt)
+            self.swapLikeInfo()
             
             likeEventActive = true
             addNewLike() { isSucceded in
                if !isSucceded {
                   self.showAlertOfError()
-                  self.postIsLiked = false
-                  self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
-                  self.likesCountInt = self.likesCountInt - 1
-                  self.likesCount.text = String(self.likesCountInt)
-               }
+                  self.swapLikeInfo()               }
                
                self.likeEventActive = false
             }
          } else {
-            postIsLiked = false
-            isLikedPhoto.image = UIImage(named: "respectPassive.png")
-            likesCountInt = likesCountInt - 1
-            likesCount.text = String(likesCountInt)
+            self.swapLikeInfo()
             
             likeEventActive = true
             removeExistedLike() { isSucceded in
                if !isSucceded {
                   self.showAlertOfError()
-                  self.postIsLiked = true
-                  self.isLikedPhoto.image = UIImage(named: "respectActive.png")
-                  self.likesCountInt = self.likesCountInt + 1
-                  self.likesCount.text = String(self.likesCountInt)
+                  self.swapLikeInfo()
                }
                
                self.likeEventActive = false
             }
          }
       }
+   }
+   
+   private func swapLikeInfo() {
+      if postIsLiked {
+         self.postIsLiked = false
+         self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
+         self.likesCountInt = self.likesCountInt - 1
+      } else {
+         self.postIsLiked = true
+         self.isLikedPhoto.image = UIImage(named: "respectActive.png")
+         self.likesCountInt = self.likesCountInt + 1
+      }
+      
+      self.likesCount.text = String(self.likesCountInt)
    }
    
    // MARK: - Add and remove like

@@ -98,7 +98,7 @@ struct Comment {
       var countOfProcessedUsers = 0
       
       for userLogin in userLogins {
-         UserModel.getItemByLogin(for: userLogin) { user in
+         UserModel.getItemByLogin(for: userLogin) { user, _ in
             countOfProcessedUsers += 1
             
             if user != nil {

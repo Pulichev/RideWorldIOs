@@ -386,7 +386,7 @@ class PostInfoViewController: UIViewController {
          _ = self.navigationController?.popViewController(animated: true) // go back
       } else {
          UserModel.getItemByLogin(
-         for: tappedUserLogin) { fetchedUserItem in
+         for: tappedUserLogin) { fetchedUserItem, _ in
             if let userItem = fetchedUserItem { // have we founded?
                if userItem.uid == UserModel.getCurrentUserId() {
                   self.performSegue(withIdentifier: "fromPostInfoToUserProfile", sender: self)

@@ -1383,11 +1383,12 @@
                         <segue destination="MsB-Ex-yak" kind="show" identifier="ifChoosedCurrentUser" id="TEa-lr-7L1"/>
                         <segue destination="ZPc-uE-xhW" kind="show" identifier="goToCommentsFromPostStrip" id="QOa-aY-bXL"/>
                         <segue destination="6uJ-a1-Lta" kind="show" identifier="fromPostToSpotInfo" id="Xyq-8K-e8w"/>
+                        <segue destination="H2C-mG-pr3" kind="show" identifier="fromStripToLogin" id="Sh7-b9-fDP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h24-NX-eSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4391.1999999999998" y="930.58470764617698"/>
+            <point key="canvasLocation" x="4257" y="931"/>
         </scene>
         <!--Commentaries Controller-->
         <scene sceneID="BiV-Rk-lJf">
@@ -1728,7 +1729,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f5g-1l-QE8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="tf5-EU-9ON">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="tf5-EU-9ON">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2162,7 +2163,7 @@
                         <inset key="imageInsets" minX="-2" minY="4" maxX="2" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="ZvH-44-4Fc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ZvH-44-4Fc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2186,7 +2187,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LoginPage" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="H2C-mG-pr3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kUm-Jk-EFt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="kUm-Jk-EFt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2210,7 +2211,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="STW-of-5hp" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="P88-G9-8IC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="P88-G9-8IC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2597,7 +2598,7 @@
                         <inset key="imageInsets" minX="-1" minY="6" maxX="1" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f63-wh-W1p">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f63-wh-W1p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2618,7 +2619,7 @@
                         <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="-8"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="an1-kP-YTX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="an1-kP-YTX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2639,7 +2640,7 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1Xl-Pa-BHx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Xl-Pa-BHx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2660,7 +2661,7 @@
                         <inset key="imageInsets" minX="1" minY="7" maxX="-1" maxY="-7"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2PK-Bf-uzA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2PK-Bf-uzA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2863,13 +2864,14 @@
         <image name="respectPassive" width="94" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Sh7-b9-fDP"/>
         <segue reference="ck8-tQ-3J4"/>
         <segue reference="Xyq-8K-e8w"/>
         <segue reference="TEa-lr-7L1"/>
         <segue reference="QOa-aY-bXL"/>
+        <segue reference="6R6-CY-IE2"/>
         <segue reference="eyf-4a-ZNN"/>
         <segue reference="TeE-da-wxz"/>
         <segue reference="ZpR-8C-QJR"/>
-        <segue reference="tCn-nV-MKo"/>
     </inferredMetricsTieBreakers>
 </document>

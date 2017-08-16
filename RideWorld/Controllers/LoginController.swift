@@ -35,11 +35,21 @@ class LoginController: UIViewController, UITextFieldDelegate {
       SVProgressHUD.show()
       
       // catching user email for login
-      UserModel.getItemByLogin(for: userLogin.text!) { userItem in
-         if userItem != nil {
-            self.signIn(with: userItem!.email)
+      UserModel.getItemByLogin(for: userLogin.text!) { userItem, error in
+         if error == "" {
+            if userItem != nil {
+               UserModel.isBlocked(with: userItem!.uid) { isBlocked in
+                  if !isBlocked {
+                     self.signIn(with: userItem!.email)
+                  } else {
+                     self.showAlertWithError(text: "User was banned!")
+                  }
+               }
+            } else {
+               self.showAlertWithError(text: "Wrong login or password!")
+            }
          } else {
-            self.showAlertWithError(text: "Wrong login or password!")
+            self.showAlertWithError(text: error)
          }
       }
    }

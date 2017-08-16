@@ -55,7 +55,7 @@ struct Spot {
    // we will start search for infinite scrolling
    
    static func getPosts(for spotId: String, countOfNewItemsToAdd: Int,
-                        completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
+                        completion: @escaping (_ postsForAdding: [PostItem]?, _ error: String) -> Void) {
       let refToFeedPosts = Database.database().reference(withPath: "MainDataBase/spotsposts/").child(spotId)
       
       if lastKey == nil {
@@ -73,10 +73,12 @@ struct Spot {
             if newLastKey != lastKey {
                lastKey = newLastKey
                
-               completion(orderedPostsList)
+               completion(orderedPostsList, "")
             } else {
-               completion(nil)
+               completion(nil, "")
             }
+         }, withCancel: { error in
+            completion(nil, error.localizedDescription)
          })
       } else {
          refToFeedPosts.queryOrderedByKey().queryEnding(atValue: lastKey).queryLimited(toLast: UInt(countOfNewItemsToAdd) + 1).observeSingleEvent(of: .value, with: { snapshot in
@@ -94,10 +96,12 @@ struct Spot {
             if newLastKey != lastKey {
                lastKey = newLastKey
                
-               completion(orderedPostsList)
+               completion(orderedPostsList, "")
             } else {
-               completion(nil)
+               completion(nil, "")
             }
+         }, withCancel: { error in
+            completion(nil, error.localizedDescription)
          })
       }
    }

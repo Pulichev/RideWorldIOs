@@ -90,13 +90,31 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    private func loadPosts(completion: @escaping (_ newItems: [PostItem]?) -> Void) {
       if cameFromSpotOrMyStrip {
          Spot.getPosts(for: spotDetailsItem.key, countOfNewItemsToAdd: postsLoadStep)
-         { newItems in
-            completion(newItems)
+         { newItems, error in
+            if error == "" {
+               completion(newItems)
+            } else {
+               if error == "Permission Denied" {
+                  if UserModel.signOut() { // if no errors
+                     // then go to login
+                     self.performSegue(withIdentifier: "fromStripToLogin", sender: self)
+                  }
+               }
+            }
          }
       } else {
          UserModel.getStripPosts(countOfNewItemsToAdd: postsLoadStep)
-         { newItems in
-            completion(newItems)
+         { newItems, error in
+            if error == "" {
+               completion(newItems)
+            } else {
+               if error == "Permission Denied" {
+                  if UserModel.signOut() { // if no errors
+                     // then go to login
+                     self.performSegue(withIdentifier: "fromStripToLogin", sender: self)
+                  }
+               }
+            }
          }
       }
    }

@@ -48,7 +48,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       let login = getCellFieldText(2).lowercased()
       // updating values
       // check if new login free, because they must be unic
-      UserModel.getItemByLogin(for: login) { userItem in
+      UserModel.getItemByLogin(for: login) { userItem, _ in
          if userItem == nil || userItem!.uid == UserModel.getCurrentUserId() { // free
             self.updateInfo(with: login)
          } else {

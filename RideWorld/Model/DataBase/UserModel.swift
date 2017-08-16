@@ -50,6 +50,19 @@ struct UserModel {
       }
    }
    
+   static func isBlocked(with userId: String,
+                         completion: @escaping (_ isBlocked: Bool) -> Void) {
+      let refToBlockForCheck = Database.database().reference(withPath: "blockedusers/" + userId)
+      
+      refToBlockForCheck.observeSingleEvent(of: .value, with: { snapshot in
+         if let _ = snapshot.value as? Bool { // it can have only "true" value
+            completion(true)
+         } else {
+            completion(false)
+         }
+      })
+   }
+   
    // get last time login was changed
    static func getCountOfDaysAfterLastLoginChangeDate(
       completion: @escaping (_ countOfDays: Int) -> Void) {
@@ -84,21 +97,22 @@ struct UserModel {
    }
    
    static func getItemByLogin(for userLogin: String,
-                              completion: @escaping (_ userItem: UserItem?) -> Void) {
+                              completion: @escaping (_ userItem: UserItem?, _ error: String) -> Void) {
       refToUsersNode.observeSingleEvent(of: .value, with: { snapshot in
-         
          for user in snapshot.children {
             let snapshotValue = (user as! DataSnapshot).value as! [String: AnyObject]
             let login = snapshotValue["login"] as! String // getting login of user
             
             if login == userLogin {
                let userItem = UserItem(snapshot: user as! DataSnapshot)
-               completion(userItem)
+               completion(userItem, "")
                return
             }
          }
          
-         completion(nil) // haven't fouded user
+         completion(nil, "No user founded with login + \(userLogin)")
+      }, withCancel: { error in
+         completion(nil, error.localizedDescription)
       })
    }
    
@@ -346,7 +360,7 @@ struct UserModel {
    // we will start search for infinite scrolling
    
    static func getStripPosts(countOfNewItemsToAdd: Int,
-                             completion: @escaping (_ postsForAdding: [PostItem]?) -> Void) {
+                             completion: @escaping (_ postsForAdding: [PostItem]?, _ error: String) -> Void) {
       let refToFeedPosts = Database.database().reference(withPath: "MainDataBase/userpostsfeed/").child(getCurrentUserId())
       
       if lastKey == nil {
@@ -364,10 +378,12 @@ struct UserModel {
             if newLastKey != lastKey {
                lastKey = newLastKey
                
-               completion(orderedPostsList)
+               completion(orderedPostsList, "")
             } else {
-               completion(nil)
+               completion(nil, "")
             }
+         }, withCancel: { error in
+            completion(nil, error.localizedDescription)
          })
       } else {
          refToFeedPosts.queryOrderedByKey().queryEnding(atValue: lastKey).queryLimited(toLast: UInt(countOfNewItemsToAdd) + 1).observeSingleEvent(of: .value, with: { snapshot in
@@ -385,10 +401,12 @@ struct UserModel {
             if newLastKey != lastKey {
                lastKey = newLastKey
                
-               completion(orderedPostsList)
+               completion(orderedPostsList, "")
             } else {
-               completion(nil)
+               completion(nil, "")
             }
+         }, withCancel: { error in
+            completion(nil, error.localizedDescription)
          })
       }
    }
@@ -409,6 +427,8 @@ struct UserModel {
          if let value = snapshot.value as? [String: AnyObject] {
             completion(value)
          }
+      }, withCancel: { error in
+         print(error.localizedDescription)
       })
    }
    

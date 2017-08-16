@@ -110,7 +110,7 @@ struct UserModel {
             }
          }
          
-         completion(nil, "No user founded with login + \(userLogin)")
+         completion(nil, "No user founded with login \(userLogin)")
       }, withCancel: { error in
          completion(nil, error.localizedDescription)
       })

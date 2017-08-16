@@ -12,7 +12,7 @@ struct Like {
    static let ref = Database.database().reference(withPath: "MainDataBase")
    
    static func add(_ newLike: LikeItem,
-                   completion: @escaping (_ likesCount: Int) -> Void) {
+                   completion: @escaping () -> Void) {
       // add like id for user feedback implementation
       var like = newLike
       let likeRef = ref.child("/userslikes/" + newLike.userId + "/onposts/" + newLike.postId).childByAutoId()
@@ -44,16 +44,43 @@ struct Like {
          
          ref.updateChildValues(updates, withCompletionBlock: { error, _ in
             if error != nil {
-               print(error!.localizedDescription)
+               if error!.localizedDescription == "Permission denied" { // only
+                  let errorStillHappens = true
+                  var requestAlreadySended = false
+                  while errorStillHappens {
+                     if !requestAlreadySended {
+                        requestAlreadySended = true
+                        ref.updateChildValues(updates, withCompletionBlock: { error, _ in
+                           if error == nil {
+                              completion()
+                              return
+                           } else {
+                              requestAlreadySended = false
+                           }
+                        })
+                     }
+                  }
+               }
+            } else {
+               completion()
             }
-            
-            completion(likesCount + 1) // for updating likes count on client for actual value
          })
       })
    }
    
+   static func sendRequestForLike(_ updates: [String: Any?],
+                                  completion: @escaping () -> Void) {
+      ref.updateChildValues(updates, withCompletionBlock: { error, _ in
+         if error == nil {
+            completion()
+         } else {
+            sendRequestForLike(updates) { }
+         }
+      })
+   }
+   
    static func remove(with userId: String, _ post: PostItem,
-                      completion: @escaping (_ likesCount: Int) -> Void) {
+                      completion: @escaping () -> Void) {
       var updates: [String: Any?] = [
          "/userslikes/" + userId   + "/onposts/" + post.key: nil,
          "/postslikes/" + post.key + "/"         + userId:   nil
@@ -80,10 +107,26 @@ struct Like {
             
             ref.updateChildValues(updates, withCompletionBlock: { error, _ in
                if error != nil {
-                  print(error!.localizedDescription)
+                  if error!.localizedDescription == "Permission denied" { // only
+                     let errorStillHappens = true
+                     var requestAlreadySended = false
+                     while errorStillHappens {
+                        if !requestAlreadySended {
+                           requestAlreadySended = true
+                           ref.updateChildValues(updates, withCompletionBlock: { error, _ in
+                              if error == nil {
+                                 completion()
+                                 return
+                              } else {
+                                 requestAlreadySended = false
+                              }
+                           })
+                        }
+                     }
+                  }
+               } else {
+                  completion()
                }
-               
-               completion(likesCount - 1) // for updating likes count on client for actual value
             })
          })
       }

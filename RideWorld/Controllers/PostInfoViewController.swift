@@ -137,9 +137,7 @@ class PostInfoViewController: UIViewController {
             likesCount.text = String(likesCountInt)
             
             likeEventActive = true
-            addNewLike() { actualLikeCount in // to database
-               self.likesCountInt = actualLikeCount
-               self.likesCount.text = String(actualLikeCount)
+            addNewLike() {
                self.likeEventActive = false
             }
          } else {
@@ -149,9 +147,7 @@ class PostInfoViewController: UIViewController {
             likesCount.text = String(likesCountInt)
             
             likeEventActive = true
-            removeExistedLike() { actualLikeCount in // to database
-               self.likesCountInt = actualLikeCount
-               self.likesCount.text = String(actualLikeCount)
+            removeExistedLike() {
                self.likeEventActive = false
             }
          }
@@ -159,23 +155,23 @@ class PostInfoViewController: UIViewController {
    }
    
    // MARK: - Add and remove like
-   func addNewLike(completion: @escaping (_ likesCount: Int) -> Void) {
+   func addNewLike(completion: @escaping () -> Void) {
       // init new like
       let currentUserId = UserModel.getCurrentUserId()
       let placedTime = String(describing: Date())
       let newLike = LikeItem(who: currentUserId, what: postInfo.key,
                              postWasAddedBy: postInfo.addedByUser, at: placedTime)
       
-      Like.add(newLike) { actualLikeCount in
-         completion(actualLikeCount)
+      Like.add(newLike) {
+         completion()
       }
    }
    
-   func removeExistedLike(completion: @escaping (_ likesCount: Int) -> Void) {
+   func removeExistedLike(completion: @escaping () -> Void) {
       let currentUserId = UserModel.getCurrentUserId()
       
-      Like.remove(with: currentUserId, postInfo) { actualLikeCount in
-         completion(actualLikeCount)
+      Like.remove(with: currentUserId, postInfo) {
+         completion()
       }
    }
    

@@ -92,13 +92,13 @@ class PostsCellWithVideo: UITableViewCell {
    var likeEventActive = false // true, when sending request
    
    func postLiked() {
-      if (userLikedOrDeletedLike) { // it might be a situation when user liked and disliked posts with out scroll.
-         userLikedOrDeletedLike = false
-      } else {
-         userLikedOrDeletedLike = true
-      }
-      
       if !likeEventActive {
+         if (userLikedOrDeletedLike) { // it might be a situation when user liked and disliked posts with out scroll.
+            userLikedOrDeletedLike = false
+         } else {
+            userLikedOrDeletedLike = true
+         }
+         
          if !postIsLiked {
             postIsLiked = true
             isLikedPhoto.image = UIImage(named: "respectActive.png")
@@ -106,9 +106,7 @@ class PostsCellWithVideo: UITableViewCell {
             likesCount.text = String(likesCountInt)
             
             likeEventActive = true
-            addNewLike() { actualLikeCount in // to database
-               self.likesCountInt = actualLikeCount
-               self.likesCount.text = String(actualLikeCount)
+            addNewLike() {
                self.likeEventActive = false
             }
          } else {
@@ -118,31 +116,29 @@ class PostsCellWithVideo: UITableViewCell {
             likesCount.text = String(likesCountInt)
             
             likeEventActive = true
-            removeExistedLike() { actualLikeCount in // to database
-               self.likesCountInt = actualLikeCount
-               self.likesCount.text = String(actualLikeCount)
+            removeExistedLike() {
                self.likeEventActive = false
             }
          }
       }
    }
    
-   func addNewLike(completion: @escaping (_ likesCount: Int) -> Void) {
+   func addNewLike(completion: @escaping () -> Void) {
       // init new like
       let currentUserId = UserModel.getCurrentUserId()
       let likePlacedTime = String(describing: Date())
       let newLike = LikeItem(who: currentUserId, what: post.key,
                              postWasAddedBy: post.addedByUser, at: likePlacedTime)
-      Like.add(newLike) { actualLikeCount in
-         completion(actualLikeCount)
+      Like.add(newLike) {
+         completion()
       }
    }
    
-   func removeExistedLike(completion: @escaping (_ likesCount: Int) -> Void) {
+   func removeExistedLike(completion: @escaping () -> Void) {
       let currentUserId = UserModel.getCurrentUserId()
       
-      Like.remove(with: currentUserId, post) { actualLikeCount in
-         completion(actualLikeCount)
+      Like.remove(with: currentUserId, post) {
+         completion()
       }
    }
    

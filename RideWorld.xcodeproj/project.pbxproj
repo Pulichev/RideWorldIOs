@@ -72,6 +72,7 @@
 		9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73B09D1E6A0E490049563A /* UserItem.swift */; };
 		9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F943EE81E6F041300709B79 /* LikeItem.swift */; };
 		9F9F9C441F0188E000871628 /* MediaContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F9C431F0188E000871628 /* MediaContainerView.swift */; };
+		9FA5A34B1F45F972008730CD /* PostsCellLikeEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5A34A1F45F972008730CD /* PostsCellLikeEventDelegate.swift */; };
 		9FAE8C201E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */; };
 		9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */; };
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
@@ -214,6 +215,7 @@
 		9F73B09D1E6A0E490049563A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserItem.swift; path = Data/UserItem.swift; sourceTree = "<group>"; };
 		9F943EE81E6F041300709B79 /* LikeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeItem.swift; path = Data/LikeItem.swift; sourceTree = "<group>"; };
 		9F9F9C431F0188E000871628 /* MediaContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaContainerView.swift; path = CustomUIElements/MediaContainerView.swift; sourceTree = "<group>"; };
+		9FA5A34A1F45F972008730CD /* PostsCellLikeEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCellLikeEventDelegate.swift; path = Protocols/PostsCellLikeEventDelegate.swift; sourceTree = "<group>"; };
 		9FAE8C1E1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+EmptyDataSet.h"; path = "Some Obj-C frameworks/UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+EmptyDataSet.m"; path = "Some Obj-C frameworks/UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		9FB681B21E2E70CE00D9A436 /* RideWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -373,6 +375,7 @@
 				9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */,
 				9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */,
 				9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */,
+				9FA5A34A1F45F972008730CD /* PostsCellLikeEventDelegate.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -1030,6 +1033,7 @@
 				9FF1BF751EA27C3600A2CEF2 /* PostModel.swift in Sources */,
 				9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */,
 				9F6DD9D61F0AE0DE00E3300E /* UIViewX.swift in Sources */,
+				9FA5A34B1F45F972008730CD /* PostsCellLikeEventDelegate.swift in Sources */,
 				9F6DD9D01F0AE0DE00E3300E /* UIImageViewX.swift in Sources */,
 				9F61C2101F1101A00023B7D1 /* TappedSpotInfoDelegate.swift in Sources */,
 				9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */,

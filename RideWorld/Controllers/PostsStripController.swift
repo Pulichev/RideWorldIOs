@@ -48,7 +48,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    var spotDetailsItem: SpotItem! // using it if come from spot
    
    private var posts = [PostItem]()
-   private var postItemCellsCache = [PostItemCellCache]()
+   fileprivate var postItemCellsCache = [PostItemCellCache]()
    
    private var mediaCache = NSMutableDictionary()
    
@@ -243,18 +243,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.frame.size.width = view.frame.width
          cell.layoutIfNeeded()
          
-         if cell.userLikedOrDeletedLike { // when cell appears checking if like was tapped
-            cell.userLikedOrDeletedLike = false
-            updateCellLikesCache(objectId: cell.post.key) // if yes updating cache
-         }
-         
          cell.initialize(with: cellFromCache, post)
          
-         cell.delegateUserTaps = self
+         cell.delegateUserTaps     = self
          cell.delegateSpotInfoTaps = self
+         cell.delegateLikeEvent    = self
          
          cell.openComments.tag = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
+         
          let width = view.frame.size.width
          let height = width * CGFloat(cell.post.mediaAspectRatio)
          cell.spotPostPhotoHeight.constant = height
@@ -270,15 +267,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.frame.size.width = view.frame.width
          cell.layoutIfNeeded()
          
-         if cell.userLikedOrDeletedLike { // when cell appears checking if like was tapped
-            cell.userLikedOrDeletedLike = false
-            updateCellLikesCache(objectId: cell.post.key) // if yes updating cache
-         }
-         
          cell.initialize(with: cellFromCache, post)
          
-         cell.delegateUserTaps = self
+         cell.delegateUserTaps     = self
          cell.delegateSpotInfoTaps = self
+         cell.delegateLikeEvent    = self
          
          cell.openComments.tag = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
@@ -471,6 +464,17 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    private func removeLoadingScreen() {
       loadingView.dismiss()
       haveWeFinishedLoading = true
+   }
+}
+
+// MARK: - Updating like info
+extension PostsStripController: PostsCellLikeEventDelegate {
+   func postLikeEventFinished(for postId: String) {
+      postItemCellsCache.forEach {
+         if $0.post.key == postId {
+            $0.changeLikeToDislikeAndViceVersa()
+         }
+      }
    }
 }
 

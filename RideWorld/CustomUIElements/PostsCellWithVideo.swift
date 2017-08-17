@@ -14,6 +14,7 @@ class PostsCellWithVideo: UITableViewCell {
    
    weak var delegateUserTaps: TappedUserDelegate? // for sending user info
    weak var delegateSpotInfoTaps: TappedSpotInfoDelegate? // when tapping go to spot info from alert
+   weak var delegateLikeEvent: PostsCellLikeEventDelegate?
    
    var post: PostItem!
    
@@ -42,8 +43,6 @@ class PostsCellWithVideo: UITableViewCell {
    
    var postIsLiked: Bool!
    
-   var userLikedOrDeletedLike = false //using this to update cache if user liked or disliked post
-   
    func initialize(with cachedCell: PostItemCellCache, _ post: PostItem) {
       self.post            = post
       
@@ -56,14 +55,12 @@ class PostsCellWithVideo: UITableViewCell {
       postDescription.text = post.userLogin + " " + post.description
       customizeDescUserLogin()
       
+      postIsLiked          = cachedCell.postIsLiked
       likesCountInt        = cachedCell.likesCount
+      isLikedPhoto.image   = cachedCell.isLikedPhoto.image
       likesCount.text      = String(describing: cachedCell.likesCount)
       let commentsCount    = String(describing: cachedCell.commentsCount)
       openComments.setTitle("Open commentaries (\(commentsCount))", for: .normal)
-      
-      postIsLiked          = cachedCell.postIsLiked
-      
-      isLikedPhoto.image   = cachedCell.isLikedPhoto.image
       
       addDoubleTapGestureOnPostPhotos()
       addDoubleTapGestureOnUserPhoto()
@@ -93,12 +90,6 @@ class PostsCellWithVideo: UITableViewCell {
    
    func postLiked() {
       if !likeEventActive {
-         if (userLikedOrDeletedLike) { // it might be a situation when user liked and disliked posts with out scroll.
-            userLikedOrDeletedLike = false
-         } else {
-            userLikedOrDeletedLike = true
-         }
-         
          if !postIsLiked {
             self.swapLikeInfo()
             
@@ -128,6 +119,7 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    private func swapLikeInfo() {
+      // update cell
       if postIsLiked {
          self.postIsLiked = false
          self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
@@ -139,6 +131,11 @@ class PostsCellWithVideo: UITableViewCell {
       }
       
       self.likesCount.text = String(self.likesCountInt)
+      
+      // update cell cache
+      if let del = self.delegateLikeEvent {
+         del.postLikeEventFinished(for: self.post.key)
+      }
    }
    
    func addNewLike(completion: @escaping (_ isSucceded: Bool) -> Void) {

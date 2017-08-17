@@ -2,17 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>AnonymousPro-Regular.ttf</string>
-		<string>Roboto-Regular.ttf</string>
-		<string>Roboto-Bold.ttf</string>
-		<string>RobotoSlab-Regular.ttf</string>
-		<string>RobotoSlab-Bold.ttf</string>
-		<string>RobotoSlab-Light.ttf</string>
-		<string>Roboto-Medium.ttf</string>
-		<string>Roboto-Light.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -50,6 +39,17 @@
 	<string>Do you want to use microphone in this application?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Do you want to give an access to photo library to this application?</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AnonymousPro-Regular.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>RobotoSlab-Regular.ttf</string>
+		<string>RobotoSlab-Bold.ttf</string>
+		<string>RobotoSlab-Light.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-Light.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

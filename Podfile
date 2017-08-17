@@ -8,6 +8,7 @@ target 'RideWorld' do
   pod 'Firebase/Storage'
   pod 'FirebaseAuth'
   pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
   pod 'Firebase/Database'
   pod 'Kingfisher', '~> 3.0'
   pod 'ActiveLabel'

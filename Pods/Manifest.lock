@@ -8,6 +8,9 @@ PODS:
   - Firebase/Database (4.0.4):
     - Firebase/Core
     - FirebaseDatabase (= 4.0.0)
+  - Firebase/Messaging (4.0.4):
+    - Firebase/Core
+    - FirebaseMessaging (= 2.0.0)
   - Firebase/Storage (4.0.4):
     - Firebase/Core
     - FirebaseStorage (= 2.0.0)
@@ -26,6 +29,12 @@ PODS:
     - FirebaseAnalytics (~> 4.0)
   - FirebaseInstanceID (2.0.0):
     - FirebaseCore (~> 4.0)
+  - FirebaseMessaging (2.0.0):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - Protobuf (~> 3.1)
   - FirebaseStorage (2.0.0):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
@@ -34,6 +43,8 @@ PODS:
   - GoogleToolboxForMac/DebugUtils (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/Defines (2.1.1)
+  - GoogleToolboxForMac/Logger (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.1):
@@ -50,6 +61,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - Protobuf (3.3.0)
   - ReadMoreTextView (2.0.0)
   - SVProgressHUD (2.1.2)
   - SwiftLint (0.20.1)
@@ -60,6 +72,7 @@ DEPENDENCIES:
   - ESPullToRefresh
   - Firebase/Core
   - Firebase/Database
+  - Firebase/Messaging
   - Firebase/Storage
   - FirebaseAuth
   - Gallery
@@ -80,6 +93,7 @@ SPEC CHECKSUMS:
   FirebaseCore: cfc042628ef9f20debe09c0eb683135fcd404cb4
   FirebaseDatabase: d829b3a8c3e2ac7a16773c5df226966b0805dfc2
   FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
+  FirebaseMessaging: 227406c05b0dc9290702d2e9f18ab5528f0c2cf2
   FirebaseStorage: 8110a1ed2034c8fbfd83890d2acc9cdbbd99afec
   Gallery: 925b8133efa9d8fe933918f242b64110c6478b98
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
@@ -88,10 +102,11 @@ SPEC CHECKSUMS:
   KYCircularProgress: b782af0a68dd2032a4a523e722ec8d571c285cf2
   MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
   nanopb: 22bc080fa3955e2116b6ff3ee6c2cb3c15ab97cb
+  Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
   ReadMoreTextView: aefb9ffe11922c87fd39a09a988d7cc74c8438ba
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   SwiftLint: f60095dc173a3f3ec505bb34f5229c3dfd779a54
 
-PODFILE CHECKSUM: 707ba842297fef26d99ae628138b1e33d29412fd
+PODFILE CHECKSUM: 1012ebe47c196c7cc79e48c3476c06f0cfd02466
 
 COCOAPODS: 1.1.1

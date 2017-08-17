@@ -7,18 +7,40 @@
 //
 
 import UIKit
+
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
 
+import UserNotifications
+import FirebaseInstanceID
+import FirebaseMessaging
+
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
    var window: UIWindow?
    
    var storyboard: UIStoryboard?
    
    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
       // FireBase init part
+      if #available(iOS 10.0, *) {
+         // For iOS 10 display notification (sent via APNS)
+         UNUserNotificationCenter.current().delegate = self
+         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+         UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: {_, _ in })
+         // For iOS 10 data message (sent via FCM
+         Messaging.messaging().delegate = self
+      } else {
+         let settings: UIUserNotificationSettings =
+            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+         application.registerUserNotificationSettings(settings)
+      }
+      
+      application.registerForRemoteNotifications()
+      
       FirebaseApp.configure()
       Database.database().isPersistenceEnabled = false
       
@@ -68,6 +90,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    func applicationDidFinishLaunching(_ application: UIApplication) {
       
    }
+}
+
+extension AppDelegate: MessagingDelegate {
+   // The callback to handle data message received via FCM for devices running iOS 10 or above.
+   func application(received remoteMessage: MessagingRemoteMessage) {
+      print(remoteMessage.appData)
+   }
+   
+   // [START refresh_token]
+   func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+      print("Firebase registration token: \(fcmToken)")
+   }
+   // [END refresh_token]
+   // [START ios_10_data_message]
+   // Receive data messages on iOS 10+ directly from FCM (bypassing APNs) when the app is in the foreground.
+   // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
+   func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+      print("Received data message: \(remoteMessage.appData)")
+   }
+   // [END ios_10_data_message]
 }
 
 // MARK: - Settings for entire application

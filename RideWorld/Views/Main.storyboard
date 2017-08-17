@@ -492,7 +492,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aYJ-c2-Cq4">
                                         <rect key="frame" x="175" y="17" width="53.5" height="46.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYU-8z-Yyb">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYU-8z-Yyb">
                                                 <rect key="frame" x="0.0" y="0.0" width="53.5" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="...">
@@ -569,7 +569,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iPs-Tk-Dhz">
                                         <rect key="frame" x="113" y="17" width="54" height="46.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87a-fo-AEh">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87a-fo-AEh">
                                                 <rect key="frame" x="0.0" y="0.0" width="54" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="...">
@@ -1838,7 +1838,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="wL4-SO-RPT">
                                         <rect key="frame" x="121" y="20" width="54" height="46.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMI-Pf-SCZ">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMI-Pf-SCZ">
                                                 <rect key="frame" x="12" y="0.0" width="30" height="33.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="...">
@@ -1892,7 +1892,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6hV-te-jtd">
                                         <rect key="frame" x="182.5" y="20" width="54" height="46.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hY3-G1-obR">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hY3-G1-obR">
                                                 <rect key="frame" x="0.0" y="0.0" width="54" height="32"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="...">
@@ -2870,8 +2870,8 @@
         <segue reference="TEa-lr-7L1"/>
         <segue reference="QOa-aY-bXL"/>
         <segue reference="6R6-CY-IE2"/>
-        <segue reference="eyf-4a-ZNN"/>
-        <segue reference="TeE-da-wxz"/>
+        <segue reference="RlL-e4-xY6"/>
+        <segue reference="qSk-1a-lLs"/>
         <segue reference="ZpR-8C-QJR"/>
     </inferredMetricsTieBreakers>
 </document>

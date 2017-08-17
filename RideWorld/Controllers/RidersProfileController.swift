@@ -24,19 +24,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    @IBOutlet var ridersBio: ReadMoreTextView!
    @IBOutlet var ridersProfilePhoto: RoundedImageView!
    
-   @IBOutlet weak var followersStackView: UIStackView! {
-      didSet {
-         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(followersButtonTapped(_:)))
-         followersStackView.addGestureRecognizer(tapGesture)
-      }
-   }
-   
-   @IBOutlet weak var followingStackView: UIStackView! {
-      didSet {
-         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(followingButtonTapped(_:)))
-         followingStackView.addGestureRecognizer(tapGesture)
-      }
-   }
+   @IBOutlet weak var followersStackView: UIStackView!
+   @IBOutlet weak var followingStackView: UIStackView!
    
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
@@ -53,12 +42,12 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       // 1px line fix
       separatorLineConstraint.constant = 1 / UIScreen.main.scale // enforces it to be a true 1 pixel line
       
-//      initLoadingView()
-//      setLoadingScreen()
-      
-      self.initializeUserTextInfo()
-      self.initializeUserPhoto()
-      self.initializePosts()
+      initializeUserTextInfo()
+      initializeUserPhoto()
+      initializePosts()
+      initGeturesRecognizersForFollowStackViews()
+      followersButton.isEnabled = true
+      followingButton.isEnabled = true
       
       riderProfileCollection.emptyDataSetSource = self
       riderProfileCollection.emptyDataSetDelegate = self
@@ -204,6 +193,14 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    }
    
    private var fromFollowersOrFollowing: Bool! // true - followers else following
+   
+   private func initGeturesRecognizersForFollowStackViews() {
+      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(followersButtonTapped(_:)))
+      followersStackView.addGestureRecognizer(tapGesture)
+      
+      let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(followingButtonTapped(_:)))
+      followingStackView.addGestureRecognizer(tapGesture2)
+   }
    
    @IBAction func followersButtonTapped(_ sender: Any) {
       fromFollowersOrFollowing = true

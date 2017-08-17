@@ -216,6 +216,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       self.posts = newItems
       
       self.loadPostsCache(newItems) { postsCache in
+         self.postItemCellsCache.removeAll()
          self.postItemCellsCache = postsCache
          self.tableView.reloadData()
          completion()

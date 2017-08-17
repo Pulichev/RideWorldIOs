@@ -23,6 +23,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             self.initializeUserTextInfo()
             self.initializeUserPhoto()
             self.initializePosts()
+            self.initGeturesRecognizersForFollowStackViews()
+            self.followersButton.isEnabled = true
+            self.followingButton.isEnabled = true
          }
       }
    }
@@ -33,19 +36,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    @IBOutlet var userProfilePhoto: RoundedImageView!
    @IBOutlet weak var editButton: UIButton!
    
-   @IBOutlet weak var followersStackView: UIStackView! {
-      didSet {
-         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(followersButtonTapped(_:)))
-         followersStackView.addGestureRecognizer(tapGesture)
-      }
-   }
-   
-   @IBOutlet weak var followingStackView: UIStackView! {
-      didSet {
-         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(followingButtonTapped(_:)))
-         followingStackView.addGestureRecognizer(tapGesture)
-      }
-   }
+   @IBOutlet weak var followersStackView: UIStackView!
+   @IBOutlet weak var followingStackView: UIStackView!
    
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
@@ -71,9 +63,6 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       separatorLineConstraint.constant = 1 / UIScreen.main.scale // enforces it to be a true 1 pixel line
       
       editButton.isEnabled = false // blocking when no userInfo initialized
-      
-//      initLoadingView()
-//      setLoadingScreen()
       
       let currentUserId = UserModel.getCurrentUserId()
       UserModel.getItemById(for: currentUserId,
@@ -186,6 +175,14 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    private var fromFollowersOrFollowing: Bool! // true - followers else following
    
+   private func initGeturesRecognizersForFollowStackViews() {
+      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(followersButtonTapped(_:)))
+      followersStackView.addGestureRecognizer(tapGesture)
+      
+      let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(followingButtonTapped(_:)))
+      followingStackView.addGestureRecognizer(tapGesture2)
+   }
+   
    @IBAction func followersButtonTapped(_ sender: Any) {
       fromFollowersOrFollowing = true
       performSegue(withIdentifier: "goToFollowersFromUserNode", sender: self)
@@ -216,7 +213,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
          newEditProfileController.userInfo = userInfo
          newEditProfileController.delegate = self
          
-      case "goToFollowersFromUserNode":
+      case "goToFollowersFromUserNode": // this segue both for followers and followings
          let newFollowersController = segue.destination as! FollowersController
          newFollowersController.userId = userInfo.uid
          newFollowersController.followersOrFollowingList = fromFollowersOrFollowing

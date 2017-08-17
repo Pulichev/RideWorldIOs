@@ -210,6 +210,7 @@ extension NewPostController : GalleryControllerDelegate {
       gallery.delegate = self
       
       Config.Camera.imageLimit = 1
+      Config.VideoEditor.maximumDuration = 15
       Config.showsVideoTab = true
       
       present(gallery, animated: true, completion: nil)
@@ -249,8 +250,6 @@ extension NewPostController : GalleryControllerDelegate {
                }
                return
          }
-         
-//         guard let avcapture = asset! as? AVComposition else { return }
          
          let fileURL = avasset.url
          

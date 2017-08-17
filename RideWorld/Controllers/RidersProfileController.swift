@@ -46,8 +46,6 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       initializeUserPhoto()
       initializePosts()
       initGeturesRecognizersForFollowStackViews()
-      followersButton.isEnabled = true
-      followingButton.isEnabled = true
       
       riderProfileCollection.emptyDataSetSource = self
       riderProfileCollection.emptyDataSetDelegate = self

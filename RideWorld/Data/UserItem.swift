@@ -35,7 +35,7 @@ struct UserItem {
       self.photo150ref = photo150ref
       self.photo90ref = photo90ref
       
-      self.ref = nil
+      ref = nil
    }
    
    init(snapshot: DataSnapshot) {
@@ -51,6 +51,20 @@ struct UserItem {
       photo90ref = snapshotValue["photo90ref"] as? String
 
       ref = snapshot.ref
+   }
+   
+   init(_ userData: [String: Any]) {
+      uid = userData["uid"] as! String
+      
+      email = userData["email"] as! String
+      login = userData["login"] as! String
+      bioDescription = userData["bioDescription"] as? String
+      nameAndSename = userData["nameAndSename"] as? String
+      
+      photo150ref = userData["photo150ref"] as? String
+      photo90ref = userData["photo90ref"] as? String
+      
+      ref = nil
    }
    
    func toAnyObject() -> Any {

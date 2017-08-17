@@ -98,19 +98,18 @@ struct UserModel {
    
    static func getItemByLogin(for userLogin: String,
                               completion: @escaping (_ userItem: UserItem?, _ error: String) -> Void) {
-      refToUsersNode.observeSingleEvent(of: .value, with: { snapshot in
-         for user in snapshot.children {
-            let snapshotValue = (user as! DataSnapshot).value as! [String: AnyObject]
-            let login = snapshotValue["login"] as! String // getting login of user
-            
-            if login == userLogin {
-               let userItem = UserItem(snapshot: user as! DataSnapshot)
-               completion(userItem, "")
-               return
-            }
+      let refToUser = refToUsersNode
+         .queryOrdered(byChild: "login")
+         .queryEqual(toValue: userLogin)
+      
+      refToUser.observeSingleEvent(of: .value, with: { snapshot in
+         if let userData = snapshot.value as? [String: [String: Any]] {
+            let userItem = UserItem(userData.first!.value)
+            completion(userItem, "")
+            return
+         } else {
+            completion(nil, "No user founded with login \(userLogin)")
          }
-         
-         completion(nil, "No user founded with login \(userLogin)")
       }, withCancel: { error in
          completion(nil, error.localizedDescription)
       })

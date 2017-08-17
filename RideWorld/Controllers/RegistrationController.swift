@@ -32,7 +32,7 @@ class RegistrationController: UIViewController {
    @IBAction func signUpButtonTapped(_ sender: Any) {
       SVProgressHUD.show()
       
-      UserModel.getItemByLogin(for: userLogin.text!) { userItem in
+      UserModel.getItemByLogin(for: userLogin.text!) { userItem, error in
          if userItem == nil {
             self.createAndLogin()
          } else {

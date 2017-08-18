@@ -40,6 +40,8 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       if let tbc = self.tabBarController as? MainTabBarController {
          feedbackItems = tbc.feedbackItems
          tbc.delegateFBItemsChanges = self
+         haveWeFinishedLoading = true
+         tableView.reloadData()
       }
    }
    
@@ -172,7 +174,9 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
 
 extension FeedbackController: FeedbackItemsDelegate {
    func lastUpdate(_ items: [FeedbackItem]) {
-      self.feedbackItems = items
+      feedbackItems = items
+      haveWeFinishedLoading = true
+      tableView.reloadData()
    }
 }
 

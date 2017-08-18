@@ -54,6 +54,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
       }
       
       // set some colors
+      customizeAppearance()
+      print(Messaging.messaging().fcmToken!)
+      
+      return true
+   }
+   
+   func customizeAppearance() {
       UISearchBar.appearance().barTintColor = UIColor.myLightBrown()
       UISearchBar.appearance().tintColor = UIColor.myDarkBlue()
       UINavigationBar.appearance().barTintColor = UIColor.myLightBrown()
@@ -61,8 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
       UITabBar.appearance().barTintColor = UIColor.myLightBrown()
       UITabBar.appearance().tintColor = UIColor.myDarkBlue()
       UILabel.appearance().defaultFont =  UIFont(name: "Roboto", size: 15.0)
-      
-      return true
    }
    
    func applicationWillResignActive(_ application: UIApplication) {

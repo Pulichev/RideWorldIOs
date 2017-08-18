@@ -67,6 +67,8 @@ class FollowersController: UIViewController, UITableViewDelegate, UITableViewDat
    // here is redirecting to user profile by click on row.
    // So we have 2 redirects. By image and row
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      tableView.deselectRow(at: indexPath, animated: true)
+      
       let row = indexPath.row
       
       goToProfile(row: row)

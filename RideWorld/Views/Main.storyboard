@@ -1639,7 +1639,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR" userLabel="TableView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR" userLabel="TableView">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -2864,14 +2864,14 @@
         <image name="respectPassive" width="94" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Sh7-b9-fDP"/>
+        <segue reference="QOa-aY-bXL"/>
         <segue reference="ck8-tQ-3J4"/>
         <segue reference="Xyq-8K-e8w"/>
-        <segue reference="TEa-lr-7L1"/>
-        <segue reference="QOa-aY-bXL"/>
-        <segue reference="6R6-CY-IE2"/>
-        <segue reference="RlL-e4-xY6"/>
-        <segue reference="qSk-1a-lLs"/>
+        <segue reference="Sh7-b9-fDP"/>
         <segue reference="ZpR-8C-QJR"/>
+        <segue reference="RlL-e4-xY6"/>
+        <segue reference="WTf-CW-Cn6"/>
+        <segue reference="qSk-1a-lLs"/>
+        <segue reference="Oe2-wo-WXX"/>
     </inferredMetricsTieBreakers>
 </document>

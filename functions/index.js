@@ -564,3 +564,84 @@ exports.updateUserLoginInEachPost = functions.database
   });
 
 // **************************************************************************************
+
+// NOTIFICATIONS PART
+exports.sendFeedbackNotification = functions.database.ref('/MainDataBase/feedback/{userId}/{feedbackId}').onWrite(event => {
+	const userId = event.params.userId;
+	const feedbackId = event.params.feedbackId;
+
+	if (!event.data.val()) { // if feedback was removed
+		return;
+	}
+
+	let feedbackValue = event.data.val();
+
+	if (!feedbackValue["userId"]) { // TIP: ometimes, for example, user removed like -> feedback node,
+		// but I have written "isViewed" = true. Then crash. We need to check other fields
+		return;
+	}
+
+	// Get user login.
+	const getFBItemAuthorLogin = admin.database().ref('/MainDataBase/users/' + userId + '/login').once('value');
+
+	// Get the list of device notification tokens.
+	const getDeviceTokensPromise = admin.database().ref('/MainDataBase/usersnotificationstokens/' + userId).once('value');
+
+	return Promise.all([getDeviceTokensPromise, getFBItemAuthorLogin]).then(results => {
+		const tokensSnapshot = results[0];
+		const FBItemAuthorLogin = results[1].val();
+
+		let notificationMainText = '';
+
+		// identify which type of feedback
+		if (feedbackValue["commentary"]) { // commentary
+			if (feedbackValue["postAddedByUser"] == userId) {
+				notificationMainText = ' commented on your post.';
+			} else {
+				notificationMainText = ' mentioned you in a comment.';
+			}
+		} else if (feedbackValue["likePlacedTime"]) { // like
+			notificationMainText = ' liked your post.';
+		} else { // follow
+			notificationMainText = ' started following you.'
+		}
+
+		// Check if there are any device tokens.
+		if (!tokensSnapshot.hasChildren()) {
+			return;
+		}
+
+		// Notification details.
+		const payload = {
+			notification: {
+				body: FBItemAuthorLogin + notificationMainText,
+        sound: 'default'
+			}
+		};
+
+		console.log('FBItemAuthorLogin: ' + FBItemAuthorLogin);
+
+		// Listing all tokens.
+		const tokens = Object.keys(tokensSnapshot.val());
+
+		// Send notifications to all tokens.
+		return admin.messaging().sendToDevice(tokens, payload).then(response => {
+			// For each message check if there was an error.
+			const tokensToRemove = [];
+			response.results.forEach((result, index) => {
+				const error = result.error;
+
+				if (error) {
+					console.error('Failure sending notification to', tokens[index], error);
+					// Cleanup the tokens who are not registered anymore.
+					if (error.code === 'messaging/invalid-registration-token' ||
+						error.code === 'messaging/registration-token-not-registered') {
+						tokensToRemove.push(tokensSnapshot.ref.child(tokens[index]).remove());
+					}
+				}
+			});
+
+			return Promise.all(tokensToRemove);
+		});
+	});
+});

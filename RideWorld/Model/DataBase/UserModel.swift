@@ -464,4 +464,21 @@ struct UserModel {
       
       refToReport.setValue(text)
    }
+   
+   // MARK: - Notifications part
+   static let refToTokens = refToMainDataBase.child("usersnotificationstokens")
+   
+   // TIP: all bad token (expired and etc.) will be deleted on call from cloud-function
+   static func addFCMToken(to userId: String, _ token: String) {
+      let refToUserToken = refToTokens.child(userId).child(token)
+      
+      refToUserToken.setValue(token)
+   }
+   
+   // is called, when user signed out
+   static func removeFCMToken(from userId: String, _ token: String) {
+      let refToUserToken = refToTokens.child(userId).child(token)
+
+      refToUserToken.removeValue()
+   }
 }

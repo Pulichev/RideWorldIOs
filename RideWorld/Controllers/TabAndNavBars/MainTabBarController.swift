@@ -136,9 +136,10 @@ extension MainTabBarController: UNUserNotificationCenterDelegate {
       
       application.registerForRemoteNotifications()
       
-      let token = Messaging.messaging().fcmToken!
+      guard let token = Messaging.messaging().fcmToken else { return } // sometimes,
+      //after reinstalling app or smth like this token sets to nil. Need to wait for
+      // didRefreshRegistrationToken function.
       let currentUserId = UserModel.getCurrentUserId()
-      
       UserModel.addFCMToken(to: currentUserId, token)
    }
 }

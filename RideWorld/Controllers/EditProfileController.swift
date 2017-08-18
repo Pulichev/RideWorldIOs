@@ -46,15 +46,27 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    @IBAction func saveButtonTapped(_ sender: Any) {
       SVProgressHUD.show()
       let login = getCellFieldText(2).lowercased()
-      // updating values
-      // check if new login free, because they must be unic
-      UserModel.getItemByLogin(for: login) { userItem, _ in
-         if userItem == nil || userItem!.uid == UserModel.getCurrentUserId() { // free
-            self.updateInfo(with: login)
-         } else {
-            SVProgressHUD.dismiss()
-            self.showAlertThatLoginAlreadyExists()
+      
+      if isLoginSatisfiesRegEx(login) {
+         // check if new login free, because they must be unic
+         UserModel.getItemByLogin(for: login) { userItem, _ in
+            if userItem == nil || userItem!.uid == UserModel.getCurrentUserId() { // free
+               self.updateInfo(with: login)
+            } else {
+               SVProgressHUD.dismiss()
+               self.showAlertWithErrorOnLoginChange("Login already exists.")
+            }
          }
+      } else {
+         showAlertWithErrorOnLoginChange("Wrong login! You can use only english letters, numbers and ._-. The maximum length is 30 characters.")
+      }
+   }
+   
+   private func isLoginSatisfiesRegEx(_ login: String) -> Bool {
+      if login.range(of: "[a-zA-Z0-9._-]{1,30}", options: .regularExpression) != nil {
+         return true
+      } else {
+         return false
       }
    }
    
@@ -115,8 +127,8 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       _ = navigationController?.popViewController(animated: true)
    }
    
-   private func showAlertThatLoginAlreadyExists() {
-      let alert = UIAlertController(title: "Login change failed!", message: "Login already exists.", preferredStyle: .alert)
+   private func showAlertWithErrorOnLoginChange(_ text: String) {
+      let alert = UIAlertController(title: "Login change failed!", message: text, preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       

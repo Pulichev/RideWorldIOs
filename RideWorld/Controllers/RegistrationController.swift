@@ -42,26 +42,38 @@ class RegistrationController: UIViewController {
    }
    
    private func createAndLogin() {
-      Auth.auth().createUser(withEmail: userEmail.text!,
-                             password: userPassword.text!)
-      { user, error in
-         if error == nil {
-            // log in
-            Auth.auth().signIn(withEmail: self.userEmail.text!,
-                               password: self.userPassword.text!)
-            { result in
-               // create new user in database, not in FIRAuth
-               UserModel.create(with: self.userLogin.text!) { _ in
-                  SVProgressHUD.dismiss()
-                  
-                  self.performSegue(withIdentifier: "fromRegistrationToTabBar", sender: self)
+      if isLoginSatisfiesRegEx(userLogin.text!) {
+         Auth.auth().createUser(withEmail: userEmail.text!,
+                                password: userPassword.text!)
+         { user, error in
+            if error == nil {
+               // log in
+               Auth.auth().signIn(withEmail: self.userEmail.text!,
+                                  password: self.userPassword.text!)
+               { result in
+                  // create new user in database, not in FIRAuth
+                  UserModel.create(with: self.userLogin.text!) { _ in
+                     SVProgressHUD.dismiss()
+                     
+                     self.performSegue(withIdentifier: "fromRegistrationToTabBar", sender: self)
+                  }
                }
+            } else {
+               let errorText = String(describing: error!.localizedDescription)
+               
+               self.showAlertWithError(text: errorText)
             }
-         } else {
-            let errorText = String(describing: error!.localizedDescription)
-            
-            self.showAlertWithError(text: errorText)
          }
+      } else {
+         showAlertWithError(text: "Wrong login! You can use only english letters, numbers and ._-. The maximum length is 30 characters.")
+      }
+   }
+   
+   private func isLoginSatisfiesRegEx(_ login: String) -> Bool {
+      if login.range(of: "^[a-zA-Z0-9._-]{1,30}$", options: .regularExpression) != nil {
+         return true
+      } else {
+         return false
       }
    }
    

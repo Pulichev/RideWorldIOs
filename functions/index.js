@@ -581,8 +581,10 @@ exports.sendFeedbackNotification = functions.database.ref('/MainDataBase/feedbac
 		return;
 	}
 
+  let feedbackUserId = feedbackValue["userId"];
+
 	// Get user login.
-	const getFBItemAuthorLogin = admin.database().ref('/MainDataBase/users/' + userId + '/login').once('value');
+	const getFBItemAuthorLogin = admin.database().ref('/MainDataBase/users/' + feedbackUserId + '/login').once('value');
 
 	// Get the list of device notification tokens.
 	const getDeviceTokensPromise = admin.database().ref('/MainDataBase/usersnotificationstokens/' + userId).once('value');

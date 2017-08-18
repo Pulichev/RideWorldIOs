@@ -136,7 +136,10 @@ extension MainTabBarController: UNUserNotificationCenterDelegate {
       
       application.registerForRemoteNotifications()
       
-      print("FCM TOKEN:" + Messaging.messaging().fcmToken!)
+      let token = Messaging.messaging().fcmToken!
+      let currentUserId = UserModel.getCurrentUserId()
+      
+      UserModel.addFCMToken(to: currentUserId, token)
    }
 }
 
@@ -145,17 +148,17 @@ extension MainTabBarController: MessagingDelegate {
    func application(received remoteMessage: MessagingRemoteMessage) {
       print(remoteMessage.appData)
    }
-   
-   // [START refresh_token]
+
    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
-      print("Firebase registration token: \(fcmToken)")
+      let currentUserId = UserModel.getCurrentUserId()
+      
+      UserModel.addFCMToken(to: currentUserId, fcmToken)
+      // we dont need to delete old token from DB, it will do cloud-function
    }
-   // [END refresh_token]
-   // [START ios_10_data_message]
+   
    // Receive data messages on iOS 10+ directly from FCM (bypassing APNs) when the app is in the foreground.
    // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
       print("Received data message: \(remoteMessage.appData)")
    }
-   // [END ios_10_data_message]
 }

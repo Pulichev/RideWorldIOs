@@ -8,11 +8,12 @@
 
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseMessaging // for signOut function
 
 struct UserModel {
    
-   static var refToMainDataBase = Database.database().reference(withPath: "MainDataBase")
-   static var refToUsersNode = refToMainDataBase.child("users")
+   static private var refToMainDataBase = Database.database().reference(withPath: "MainDataBase")
+   static private var refToUsersNode = refToMainDataBase.child("users")
    
    // MARK: - Create user after registration
    static func create(with login: String, completion: @escaping (_ isFinished: Bool) -> Void) {
@@ -41,6 +42,10 @@ struct UserModel {
          // clear our structs
          UserModel.dropLastKey()
          Spot.dropLastKey()
+         
+         // remove notifications token
+         let token = Messaging.messaging().fcmToken!
+         removeFCMToken(from: getCurrentUserId(), token)
          
          try Auth.auth().signOut()
          return true
@@ -355,7 +360,7 @@ struct UserModel {
    }
    
    // MARK: - Get user strip posts part
-   public static var lastKey: String! // this is post id from which
+   static var lastKey: String! // this is post id from which
    // we will start search for infinite scrolling
    
    static func getStripPosts(countOfNewItemsToAdd: Int,
@@ -466,7 +471,7 @@ struct UserModel {
    }
    
    // MARK: - Notifications part
-   static let refToTokens = refToMainDataBase.child("usersnotificationstokens")
+   static private let refToTokens = refToMainDataBase.child("usersnotificationstokens")
    
    // TIP: all bad token (expired and etc.) will be deleted on call from cloud-function
    static func addFCMToken(to userId: String, _ token: String) {

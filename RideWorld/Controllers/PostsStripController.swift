@@ -66,9 +66,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       loadPosts(completion: { newItems in
          self.appendLoadedPosts(newItems) { _ in } // no need completion here
       })
-//      Messaging.messaging().sendMessage(["title": "her",
-//                                         "body": "lol",
-//                                         "icon": "https://pp.userapi.com/c604628/v604628264/9802/87zlsAr8k2Y.jpg"], to: "ffnL7MpQ7bo:APA91bHRs1InMY46KNcjMyLy8xVL7lk9HgB4zcvhxkUUFGwA16Ee4bj5QZnQxBzQ139Fuf4daZC9bDC21HmVUCnAr9lvoxpMvPSYKsZMfy6g7QSogA9VBFVnd75_ZS6dIkDapPECHDEJ", withMessageID: "123", timeToLive: 100000)
    }
    
    // MARK: - Post load region

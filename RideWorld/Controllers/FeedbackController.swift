@@ -79,7 +79,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       let followItem = feedbackItems[row] as! FollowerFBItem
       cell.delegate = self // for user info taps to perform segue
       cell.userItem = followItem.userItem
-      cell.descText = followItem.userItem.login + " started following you."
+      cell.descText = followItem.userItem.login + NSLocalizedString("FBFollowing", comment: "")
       cell.dateTime.text = DateTimeParser.getDateTime(from: followItem.dateTime)
       
       return cell
@@ -102,9 +102,11 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.postId = commentFBItem.postId
          cell.postItem = commentFBItem.postItem!
          if commentFBItem.postAddedByUser == UserModel.getCurrentUserId() {
-            cell.descText = commentFBItem.userItem.login + " commented your photo: " + commentFBItem.text
+            cell.descText = commentFBItem.userItem.login + NSLocalizedString("FBComment", comment: "")
+ + commentFBItem.text
          } else { // for @userId not author
-            cell.descText = commentFBItem.userItem.login + " mentioned you in comment: " + commentFBItem.text
+            cell.descText = commentFBItem.userItem.login + NSLocalizedString("FBMention", comment: "")
+ + commentFBItem.text
          }
          cell.dateTime.text = DateTimeParser.getDateTime(from: commentFBItem.dateTime)
       }
@@ -116,7 +118,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.userItem = likeFBItem.userItem
          cell.postId = likeFBItem.postId
          cell.postItem = likeFBItem.postItem!
-         cell.descText = likeFBItem.userItem.login + " liked your photo."
+         cell.descText = likeFBItem.userItem.login + NSLocalizedString("FBLike", comment: "")
          cell.dateTime.text = DateTimeParser.getDateTime(from: likeFBItem.dateTime)
       }
       

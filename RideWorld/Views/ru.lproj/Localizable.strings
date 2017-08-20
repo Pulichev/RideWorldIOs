@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  RideWorld
+
+  Created by Владислав Пуличев on 19.08.17.
+  Copyright © 2017 Владислав Пуличев. All rights reserved.
+*/
+
+// NSLocalizedString("", comment: "")
+
+"FBComment" = " прокомментировал вашу фотографию: ";
+"FBMention" = " упомянул вас в комментарии: ";
+"FBLike" = " понравилась ваша публикация.";
+"FBFollowing" = " подписался на вас.";
+"No user founded with login " = "Не найден пользователь с логином ";
+

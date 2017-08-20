@@ -54,11 +54,11 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
                self.updateInfo(with: login)
             } else {
                SVProgressHUD.dismiss()
-               self.showAlertWithErrorOnLoginChange("Login already exists.")
+               self.showAlertWithErrorOnLoginChange(NSLocalizedString("Login already exists.", comment: ""))
             }
          }
       } else {
-         showAlertWithErrorOnLoginChange("Wrong login! You can use only english letters, numbers and ._-. The maximum length is 30 characters.")
+         showAlertWithErrorOnLoginChange(NSLocalizedString("Wrong login! You can use only english letters, numbers and ._-. The maximum length is 30 characters.", comment: ""))
       }
    }
    
@@ -128,7 +128,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    }
    
    private func showAlertWithErrorOnLoginChange(_ text: String) {
-      let alert = UIAlertController(title: "Login change failed!", message: text, preferredStyle: .alert)
+      let alert = UIAlertController(title: NSLocalizedString("Login change failed!", comment: ""), message: text, preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       
@@ -156,7 +156,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          switch row {
          case 0:
             cell.field.text = userInfo.nameAndSename
-            cell.field.placeholder = "Enter new name and sename"
+            cell.field.placeholder = NSLocalizedString("Enter new name and sename", comment: "")
             leftImageView.image = UIImage(named: "namesename")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
@@ -164,7 +164,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
             
          case 1:
             cell.field.text = userInfo.bioDescription
-            cell.field.placeholder = "Enter new bio description"
+            cell.field.placeholder = NSLocalizedString("Enter new bio description", comment: "")
             leftImageView.image = UIImage(named: "info")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
@@ -176,13 +176,13 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
             leftImageView.image = UIImage(named: "login")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
-            cell.field.placeholder = "Enter new login"
+            cell.field.placeholder = NSLocalizedString("Enter new login", comment: "")
             addTapGesture(on: cell.field) // for checking last login change date on click b4 editing
             break
             
          case 3:
             cell.field.text = userInfo.email
-            cell.field.placeholder = "Enter new email"
+            cell.field.placeholder = NSLocalizedString("Enter new email", comment: "")
             leftImageView.image = UIImage(named: "mail")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
@@ -241,7 +241,7 @@ extension EditProfileController: UITextFieldDelegate {
                self.view.frame.origin.y -= 100
             }
             
-            self.showAlertWithError(text: "Days for next change: " + String((180 - countOfDaysFromLastChange)))
+            self.showAlertWithError(text: NSLocalizedString("Days for next change: ", comment: "") + String((180 - countOfDaysFromLastChange)))
          } else {
             self.loginTextField.isEnabled = true
             self.loginTextField.becomeFirstResponder()
@@ -252,7 +252,7 @@ extension EditProfileController: UITextFieldDelegate {
    private func showAlertWithError(text: String) {
       SVProgressHUD.dismiss()
       
-      let alert = UIAlertController(title: "Woops!",
+      let alert = UIAlertController(title: NSLocalizedString("Oops!", comment: ""),
                                     message: text,
                                     preferredStyle: .alert)
       

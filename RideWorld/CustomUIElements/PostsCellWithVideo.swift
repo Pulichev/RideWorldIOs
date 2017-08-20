@@ -158,8 +158,8 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    private func showAlertOfError() {
-      let alert = UIAlertController(title: "Woops!",
-                                    message: "Some error occurred. Retry your like/removing like",
+      let alert = UIAlertController(title: NSLocalizedString("Oops", comment: ""),
+                                    message: NSLocalizedString("Some error occurred. Retry your like/removing like", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -169,19 +169,19 @@ class PostsCellWithVideo: UITableViewCell {
    
    @IBAction func openAlert(_ sender: UIButton) {
       print("a")
-      let alertController = UIAlertController(title: nil, message: "Actions", preferredStyle: .actionSheet)
+      let alertController = UIAlertController(title: nil, message: "nil", preferredStyle: .actionSheet)
       
-      let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
       
       alertController.addAction(cancelAction)
       
-      let goToSpotInfoAction = UIAlertAction(title: "Go To Spot Info", style: .default) { action in
+      let goToSpotInfoAction = UIAlertAction(title: NSLocalizedString("Go To Spot Info", comment: ""), style: .default) { action in
          self.goToSpotInfo()
       }
       
       alertController.addAction(goToSpotInfoAction)
       
-      let reportAction = UIAlertAction(title: "Report post", style: .destructive) { action in
+      let reportAction = UIAlertAction(title: NSLocalizedString("Report post", comment: ""), style: .destructive) { action in
          self.openReportReasonEnterAlert()
       }
       
@@ -191,17 +191,17 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    func openReportReasonEnterAlert() {
-      let alertController = UIAlertController(title: "Report post", message: "", preferredStyle: .alert)
+      let alertController = UIAlertController(title: NSLocalizedString("Report post", comment: ""), message: "", preferredStyle: .alert)
       
-      let saveAction = UIAlertAction(title: "Send", style: .destructive, handler: { alert in
+      let saveAction = UIAlertAction(title: NSLocalizedString("Send", comment: ""), style: .destructive, handler: { alert in
          let reasonTextField = alertController.textFields![0] as UITextField
          UserModel.addReportOnPost(with: self.post.key, reason: reasonTextField.text!)
       })
       
-      let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .default)
       
       alertController.addTextField { textField in
-         textField.placeholder = "Enter reason.."
+         textField.placeholder = NSLocalizedString("Enter reason..", comment: "")
       }
       
       alertController.addAction(saveAction)

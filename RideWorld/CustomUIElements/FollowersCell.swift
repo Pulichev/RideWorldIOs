@@ -10,6 +10,7 @@ import UIKit
 import Kingfisher
 
 class FollowersCell: UITableViewCell {
+   
    var currentUserId: String!
    
    @IBOutlet weak var nickName: UILabel!
@@ -36,9 +37,9 @@ class FollowersCell: UITableViewCell {
       if follower.uid != UserModel.getCurrentUserId() {
          UserModel.isCurrentUserFollowing(this: follower.uid) { isFollowing in
             if isFollowing {
-               self.button.setTitle("Following", for: .normal)
+               self.button.setTitle(NSLocalizedString("Following", comment: ""), for: .normal)
             } else {
-               self.button.setTitle("Follow", for: .normal)
+               self.button.setTitle(NSLocalizedString("Follow", comment: ""), for: .normal)
             }
             
             self.button.isEnabled = true
@@ -49,7 +50,7 @@ class FollowersCell: UITableViewCell {
    }
    
    @IBAction func followButtonTapped(_ sender: Any) {
-      if button.currentTitle == "Follow" { // add or remove like
+      if button.currentTitle == NSLocalizedString("Follow", comment: "") { // add or remove like
          UserModel.addFollowing(to: follower.uid)
          UserModel.addFollower(to: follower.uid)
       } else {
@@ -61,10 +62,10 @@ class FollowersCell: UITableViewCell {
    }
    
    private func swapFollowButtonTittle() {
-      if button.currentTitle == "Follow" {
-         button.setTitle("Following", for: .normal)
+      if button.currentTitle == NSLocalizedString("Follow", comment: "") {
+         button.setTitle(NSLocalizedString("Following", comment: ""), for: .normal)
       } else {
-         button.setTitle("Follow", for: .normal)
+         button.setTitle(NSLocalizedString("Follow", comment: ""), for: .normal)
       }
    }
 }

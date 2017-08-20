@@ -1,0 +1,63 @@
+/* 
+  Localizable.strings
+  RideWorld
+
+  Created by Владислав Пуличев on 19.08.17.
+  Copyright © 2017 Владислав Пуличев. All rights reserved.
+*/
+
+// NSLocalizedString("Follow", comment: "")
+
+"FBComment" = " commented your photo: ";
+"FBMention" = " mentioned you in comment: ";
+"FBLike" = " liked your post.";
+"FBFollowing" = " started following you.";
+"No user founded with login " = "No user founded with login ";
+"Oops" = "Oops";
+"Some error occurred. Retry your like/removing like" = "Some error occurred. Retry your like/removing like";
+"Cancel" = "Cancel";
+"Go To Spot Info" = "Go To Spot Info";
+"Report post" = "Report post";
+"Send" = "Send";
+"Enter reason.." = "Enter reason..";
+"Open commentaries " = "Open commentaries ";
+"Following" = "Following";
+"Follow" = "Follow";
+"Loading..." = "Loading...";
+"Error!" = "Error!";
+"No user has been founded!" = "No user has been founded!";
+"Welcome" = "Welcome";
+"Nothing to show." = "Nothing to show.";
+"Wait, please" = "Wait, please";
+"Loading list.." = "Loading list..";
+"User was banned!" = "User was banned!";
+"Wrong login or password!" = "Wrong login or password!";
+"Login failed!" = "Login failed!";
+"New spot" = "New spot";
+"will be added here" = "will be added here";
+"You are trying to add spot too close to already existed. Distance have to be more than 50 meters." = "You are trying to add spot too close to already existed. Distance have to be more than 50 meters.";
+"Creating new post failed!" = "Creating new post failed!";
+"Some error happened in new post creating." = "Some error happened in new post creating.";
+"Slow motion videos are not supported!" = "Slow motion videos are not supported!";
+"Write spot description" = "Write spot description";
+"Enter title atleast" = "Enter title atleast";
+"Creating new spot failed!" = "Creating new spot failed!";
+"Some error happened in new spot creating." = "Some error happened in new spot creating.";
+"Write spot description" = "Write spot description";
+"Wrong login! You can use only english letters, numbers and ._-. The maximum length is 30 characters." = "Wrong login! You can use only english letters, numbers and ._-. The maximum length is 30 characters.";
+"Registration failed!" = "Registration failed!";
+"Login already exists." = "Login already exists.";
+" ...show more" = " ...show more";
+" show less" = " show less";
+"Rider has no publications" = "Rider has no publications";
+"Attention!" = "Attention!";
+"Are you sure that you want to delete this post?" = "Are you sure that you want to delete this post?";
+"Delete" = "Delete";
+"You have no publications" = "You have no publications";
+"Login change failed!" = "Login change failed!";
+"Enter new name and sename" = "Enter new name and sename";
+"Enter new bio description" = "Enter new bio description";
+"Enter new login" = "Enter new login";
+"Enter new email" = "Enter new email";
+"Days for next change: " = "Days for next change: ";
+"New comment can't be empty!" = "New comment can't be empty!";

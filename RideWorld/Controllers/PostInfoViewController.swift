@@ -106,7 +106,7 @@ class PostInfoViewController: UIViewController {
          self.likesCountInt = likesCount
          self.likesCount.text = String(describing: likesCount)
          let commentsCountString = String(describing: commentsCount)
-         self.openComments.setTitle("Open commentaries (\(commentsCountString))", for: .normal)
+         self.openComments.setTitle(NSLocalizedString("Open commentaries ", comment: "") + "(\(commentsCountString))", for: .normal)
          
          Like.isLikedByUser(self.postInfo.key) { isLiked in
             self.initLikeData(isLiked)
@@ -193,8 +193,8 @@ class PostInfoViewController: UIViewController {
    }
    
    private func showAlertOfError() {
-      let alert = UIAlertController(title: "Woops!",
-                                    message: "Some error occurred. Retry your like/removing like.",
+      let alert = UIAlertController(title: NSLocalizedString("Oops!", comment: ""),
+                                    message: NSLocalizedString("Some error occurred. Retry your like/removing like", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -214,11 +214,11 @@ class PostInfoViewController: UIViewController {
       print("a")
       let alertController = UIAlertController(title: nil, message: "Actions", preferredStyle: .actionSheet)
       
-      let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
       
       alertController.addAction(cancelAction)
       
-      let goToSpotInfoAction = UIAlertAction(title: "Go To Spot Info", style: .default) { action in
+      let goToSpotInfoAction = UIAlertAction(title: NSLocalizedString("Go To Spot Info", comment: ""), style: .default) { action in
          Spot.getItemById(for: self.postInfo.spotId) { spot in
             self.spotInfoForSending = spot
             self.performSegue(withIdentifier: "fromPostInfoToSpotInfo", sender: self)
@@ -227,7 +227,7 @@ class PostInfoViewController: UIViewController {
       
       alertController.addAction(goToSpotInfoAction)
       
-      let reportAction = UIAlertAction(title: "Report post", style: .destructive) { action in
+      let reportAction = UIAlertAction(title: NSLocalizedString("Report post", comment: ""), style: .destructive) { action in
          self.openReportReasonEnterAlert()
       }
       
@@ -237,17 +237,17 @@ class PostInfoViewController: UIViewController {
    }
    
    func openReportReasonEnterAlert() {
-      let alertController = UIAlertController(title: "Report post", message: "", preferredStyle: .alert)
+      let alertController = UIAlertController(title: NSLocalizedString("Report post", comment: ""), message: "", preferredStyle: .alert)
       
-      let saveAction = UIAlertAction(title: "Send", style: .destructive, handler: { alert in
+      let saveAction = UIAlertAction(title: NSLocalizedString("Send", comment: ""), style: .destructive, handler: { alert in
          let reasonTextField = alertController.textFields![0] as UITextField
          UserModel.addReportOnPost(with: self.postInfo.key, reason: reasonTextField.text!)
       })
       
-      let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .default)
       
       alertController.addTextField { textField in
-         textField.placeholder = "Enter reason.."
+         textField.placeholder = NSLocalizedString("Enter reason..", comment: "")
       }
       
       alertController.addAction(saveAction)
@@ -351,16 +351,16 @@ class PostInfoViewController: UIViewController {
    
    // MARK: - Delete post part
    @IBAction func deletePost(_ sender: Any) {
-      let alert = UIAlertController(title: "Attention!",
-                                    message: "Are you sure that you want to delete this post?",
+      let alert = UIAlertController(title: NSLocalizedString("Attention!", comment: ""),
+                                    message: NSLocalizedString("Are you sure that you want to delete this post?", comment: ""),
                                     preferredStyle: .alert)
       
-      let deleteAction = UIAlertAction(title: "Delete",
+      let deleteAction = UIAlertAction(title: NSLocalizedString("Delete", comment: ""),
                                        style: .destructive) { action in
                                           self.startDeleteTransaction()
       }
       
-      let cancelAction = UIAlertAction(title: "Cancel",
+      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
                                        style: .default)
       
       alert.addAction(deleteAction)
@@ -429,8 +429,9 @@ class PostInfoViewController: UIViewController {
    }
    
    private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {
-      let alert = UIAlertController(title: "Error!",
-                                    message: "No user founded with nickname \(tappedUserLogin)",
+      let alert = UIAlertController(title: NSLocalizedString("Error!", comment: ""),
+                                    message: NSLocalizedString("No user founded with login ", comment: "") +
+                                    "\(tappedUserLogin)",
          preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

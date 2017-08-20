@@ -227,8 +227,8 @@ extension MapController: MKMapViewDelegate {
    fileprivate func addMewSpotAnnotation() {
       let annotation = MKPointAnnotation()
       annotation.coordinate = mapView.centerCoordinate
-      annotation.title = "New spot"
-      annotation.subtitle = "will be added here"
+      annotation.title = NSLocalizedString("New spot", comment: "")
+      annotation.subtitle = NSLocalizedString("will be added here", comment: "")
       annotation.accessibilityLabel = "NewSpotAnnotation" // using this for detection
       pinForNewSpot = annotation
       
@@ -337,9 +337,8 @@ extension MapController: CLLocationManagerDelegate {
    }
    
    private func showAlertThatToCloseToExistingSpot() {
-      let alert = UIAlertController(title: "Error!",
-                                    message: "You are trying to add spot too close to already existed. "
-                                       + "Distance have to be more than 50 meters.",
+      let alert = UIAlertController(title: NSLocalizedString("Error!", comment: ""),
+                                    message: NSLocalizedString("You are trying to add spot too close to already existed. Distance have to be more than 50 meters.", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

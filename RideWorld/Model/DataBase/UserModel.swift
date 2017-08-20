@@ -113,7 +113,7 @@ struct UserModel {
             completion(userItem, "")
             return
          } else {
-            completion(nil, "No user founded with login \(userLogin)")
+            completion(nil, NSLocalizedString("No user founded with login ", comment: "") + userLogin)
          }
       }, withCancel: { error in
          completion(nil, error.localizedDescription)

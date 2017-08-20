@@ -42,11 +42,11 @@ class LoginController: UIViewController, UITextFieldDelegate {
                   if !isBlocked {
                      self.signIn(with: userItem!.email)
                   } else {
-                     self.showAlertWithError(text: "User was banned!")
+                     self.showAlertWithError(text: NSLocalizedString("User was banned!", comment: ""))
                   }
                }
             } else {
-               self.showAlertWithError(text: "Wrong login or password!")
+               self.showAlertWithError(text: NSLocalizedString("Wrong login or password!", comment: ""))
             }
          } else {
             self.showAlertWithError(text: error)
@@ -62,7 +62,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
          SVProgressHUD.dismiss()
          
          if error != nil {
-            self.showAlertWithError(text: "Wrong login or password!")
+            self.showAlertWithError(text: NSLocalizedString("Wrong login or password!", comment: ""))
          } else {
             self.performSegue(withIdentifier: "fromLoggedInToTabBar", sender: self)
          }
@@ -76,7 +76,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
    private func showAlertWithError(text: String) {
       SVProgressHUD.dismiss()
       
-      let alert = UIAlertController(title: "Login failed!",
+      let alert = UIAlertController(title: NSLocalizedString("Login failed!", comment: ""),
                                     message: text,
                                     preferredStyle: .alert)
       

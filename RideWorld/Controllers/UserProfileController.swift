@@ -77,8 +77,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       userBio.maximumNumberOfLines = 2
       let fontAttribute = [ NSFontAttributeName: UIFont(name: "Roboto-Light", size: 15)!,
                             NSForegroundColorAttributeName: UIColor.myLightGray() ]
-      userBio.attributedReadMoreText = NSAttributedString(string: " ...show more", attributes: fontAttribute)
-      userBio.attributedReadLessText = NSAttributedString(string: " show less", attributes: fontAttribute)
+      userBio.attributedReadMoreText = NSAttributedString(string: NSLocalizedString(" ...show more", comment: ""), attributes: fontAttribute)
+      userBio.attributedReadLessText = NSAttributedString(string: NSLocalizedString(" show less", comment: ""), attributes: fontAttribute)
       
       userNameAndSename.text = userInfo.nameAndSename
       
@@ -255,7 +255,7 @@ extension UserProfileController: ForUpdatingUserProfilePosts {
 extension UserProfileController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
-         let str = "Welcome"
+         let str = NSLocalizedString("Welcome", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
@@ -267,7 +267,7 @@ extension UserProfileController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate 
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
-         let str = "You have no publications"
+         let str = NSLocalizedString("You have no publications", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {

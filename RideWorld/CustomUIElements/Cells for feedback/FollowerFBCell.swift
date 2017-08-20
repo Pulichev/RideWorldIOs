@@ -23,7 +23,6 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
       }
    }
    
-   // MARK: - @IBOutlets
    // media
    @IBOutlet weak var userPhoto: RoundedImageView! {
       didSet {

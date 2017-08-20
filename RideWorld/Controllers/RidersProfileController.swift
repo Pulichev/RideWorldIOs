@@ -57,8 +57,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       ridersBio.maximumNumberOfLines = 2
       let fontAttribute = [ NSFontAttributeName: UIFont(name: "Roboto-Light", size: 15)!,
                             NSForegroundColorAttributeName: UIColor.myLightGray() ]
-      ridersBio.attributedReadMoreText = NSAttributedString(string: " ...show more", attributes: fontAttribute)
-      ridersBio.attributedReadLessText = NSAttributedString(string: " show less", attributes: fontAttribute)
+      ridersBio.attributedReadMoreText = NSAttributedString(string: NSLocalizedString(" ...show more", comment: ""), attributes: fontAttribute)
+      ridersBio.attributedReadLessText = NSAttributedString(string: NSLocalizedString(" show less", comment: ""), attributes: fontAttribute)
       
       ridersBio.text = ridersInfo.bioDescription
       userNameAndSename.text = ridersInfo.nameAndSename
@@ -71,9 +71,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    private func isCurrentUserFollowing() {
       UserModel.isCurrentUserFollowing(this: ridersInfo.uid) { isFollowing in
          if isFollowing {
-            self.followButton.setTitle("Following", for: .normal)
+            self.followButton.setTitle(NSLocalizedString("Following", comment: ""), for: .normal)
          } else {
-            self.followButton.setTitle("Follow", for: .normal)
+            self.followButton.setTitle(NSLocalizedString("Follow", comment: ""), for: .normal)
          }
          self.followButton.isEnabled = true
       }
@@ -168,7 +168,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    
    // MARK: - Following logic
    @IBAction func followButtonTapped(_ sender: Any) {
-      if followButton.currentTitle == "Follow" { // add or remove like
+      if followButton.currentTitle == NSLocalizedString("Follow", comment: "") { // add or remove like
          UserModel.addFollowing(to: ridersInfo.uid)
          UserModel.addFollower(to: ridersInfo.uid)
       } else {
@@ -184,10 +184,10 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    }
    
    private func swapFollowButtonTittle() {
-      if followButton.currentTitle == "Follow" {
-         followButton.setTitle("Following", for: .normal)
+      if followButton.currentTitle == NSLocalizedString("Follow", comment: "") {
+         followButton.setTitle(NSLocalizedString("Following", comment: ""), for: .normal)
       } else {
-         followButton.setTitle("Follow", for: .normal)
+         followButton.setTitle(NSLocalizedString("Follow", comment: ""), for: .normal)
       }
    }
    
@@ -234,7 +234,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
 extension RidersProfileController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
-         let str = "Welcome"
+         let str = NSLocalizedString("Welcome", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
@@ -246,7 +246,7 @@ extension RidersProfileController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSourc
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
-         let str = "Rider has no publications"
+         let str = NSLocalizedString("Rider has no publications", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {

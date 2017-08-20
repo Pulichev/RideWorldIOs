@@ -34,7 +34,7 @@ class LoadingProcessView: UIView {
    private func addLoadingLabel() {
       loadingLabel.textColor = UIColor.gray
       loadingLabel.textAlignment = NSTextAlignment.center
-      loadingLabel.text = "Loading..."
+      loadingLabel.text = NSLocalizedString("Loading...", comment: "")
       self.addSubview(loadingLabel)
       loadingLabel.frame = CGRect(x: 20, y: -35, width: 90, height: 20)
    }

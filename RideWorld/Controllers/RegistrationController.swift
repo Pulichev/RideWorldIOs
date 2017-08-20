@@ -10,6 +10,7 @@ import FirebaseAuth
 import SVProgressHUD
 
 class RegistrationController: UIViewController {
+   
    @IBOutlet weak var userEmail: UITextField!
    @IBOutlet weak var userLogin: UITextField!
    @IBOutlet weak var userPassword: UITextField!
@@ -65,7 +66,7 @@ class RegistrationController: UIViewController {
             }
          }
       } else {
-         showAlertWithError(text: "Wrong login! You can use only english letters, numbers and ._-. The maximum length is 30 characters.")
+         showAlertWithError(text: NSLocalizedString("Wrong login! You can use only english letters, numbers and ._-. The maximum length is 30 characters.", comment: ""))
       }
    }
    
@@ -80,7 +81,7 @@ class RegistrationController: UIViewController {
    private func showAlertWithError(text: String) {
       SVProgressHUD.dismiss()
       
-      let alert = UIAlertController(title: "Registration failed!",
+      let alert = UIAlertController(title: NSLocalizedString("Registration failed!", comment: ""),
                                     message: text,
                                     preferredStyle: .alert)
       
@@ -92,8 +93,8 @@ class RegistrationController: UIViewController {
    private func showAlertThatLoginAlreadyExists() {
       SVProgressHUD.dismiss()
       
-      let alert = UIAlertController(title: "Registration failed!",
-                                    message: "Login already exists.",
+      let alert = UIAlertController(title: NSLocalizedString("Registration failed!", comment: ""),
+                                    message: NSLocalizedString("Login already exists.", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

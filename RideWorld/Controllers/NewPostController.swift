@@ -178,7 +178,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
    }
    
    private func showAlertThatErrorInNewPost() {
-      let alert = UIAlertController(title: "Creating new post failed!", message: "Some error happened in new post creating.", preferredStyle: .alert)
+      let alert = UIAlertController(title: NSLocalizedString("Creating new post failed!", comment: ""),
+                                    message: NSLocalizedString("Some error happened in new post creating.", comment: ""), preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       
@@ -309,8 +310,8 @@ extension NewPostController : GalleryControllerDelegate {
    
    private func showAlertThatUserLoginNotFounded() {
       DispatchQueue.main.async {
-         let alert = UIAlertController(title: "Error!",
-                                       message: "Slow motion videos are not supported!",
+         let alert = UIAlertController(title: NSLocalizedString("Error!", comment: ""),
+                                       message: NSLocalizedString("Slow motion videos are not supported!", comment: ""),
                                        preferredStyle: .alert)
          
          alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

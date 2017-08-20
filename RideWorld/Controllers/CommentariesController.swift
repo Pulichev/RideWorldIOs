@@ -93,7 +93,7 @@ UITableViewDelegate {
             self.tableView.endUpdates()
          }
       } else {
-         showAlertWithError(text: "New comment can't be empty!")
+         showAlertWithError(text: NSLocalizedString("New comment can't be empty!", comment: ""))
       }
    }
    

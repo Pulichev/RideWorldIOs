@@ -19,7 +19,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       didSet {
          spotDescription.layer.cornerRadius = 5
          // creating placeholder
-         spotDescription.text = "Write spot description"
+         spotDescription.text = NSLocalizedString("Write spot description", comment: "")
          spotDescription.textColor = UIColor.lightGray
          // see also func
       }
@@ -85,12 +85,12 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
             }
          }
       } else {
-         showAlertWithError(text: "Enter title atleast")
+         showAlertWithError(text: NSLocalizedString("Enter title atleast", comment: ""))
       }
    }
    
    private func showAlertWithError(text: String) {
-      let alert = UIAlertController(title: "Woops!",
+      let alert = UIAlertController(title: NSLocalizedString("Oops!", comment: ""),
                                     message: text,
                                     preferredStyle: .alert)
       
@@ -117,7 +117,9 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    private func showAlertThatErrorInNewSpot() {
-      let alert = UIAlertController(title: "Creating new spot failed!", message: "Some error happened in new spot creating.", preferredStyle: .alert)
+      let alert = UIAlertController(title: NSLocalizedString("Creating new spot failed!", comment: ""),
+                                    message: NSLocalizedString("Some error happened in new spot creating.", comment: ""),
+                                    preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       
@@ -152,7 +154,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    
    func textViewDidEndEditing(_ textView: UITextView) {
       if textView.text.isEmpty {
-         textView.text = "Write spot description"
+         textView.text = NSLocalizedString("Write spot description", comment: "")
          textView.textColor = UIColor.lightGray
       }
    }

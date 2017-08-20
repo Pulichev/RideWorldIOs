@@ -509,8 +509,8 @@ extension PostsStripController: TappedUserDelegate {
    }
    
    private func showAlertThatUserLoginNotFounded() {
-      let alert = UIAlertController(title: "Error!",
-                                    message: "No user has been founded!",
+      let alert = UIAlertController(title: NSLocalizedString("Error!", comment: ""),
+                                    message: NSLocalizedString("No user has been founded!", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
@@ -561,7 +561,7 @@ extension PostsStripController {
 extension PostsStripController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
-         let str = "Welcome"
+         let str = NSLocalizedString("Welcome", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
@@ -573,7 +573,7 @@ extension PostsStripController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
-         let str = "Nothing to show."
+         let str = NSLocalizedString("Nothing to show.", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {

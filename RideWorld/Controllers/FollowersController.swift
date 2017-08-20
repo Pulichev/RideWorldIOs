@@ -131,7 +131,7 @@ extension FollowersController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
-         let str = "Wait, please"
+         let str = NSLocalizedString("Wait, please", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       }
@@ -139,11 +139,11 @@ extension FollowersController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
-         let str = "Nothing to show."
+         let str = NSLocalizedString("Nothing to show.", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
-         let str = "Loading list.."
+         let str = NSLocalizedString("Loading list..", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       }

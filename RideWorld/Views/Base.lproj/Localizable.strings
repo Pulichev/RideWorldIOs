@@ -1,10 +1,10 @@
 /*
-  Localizable.strings
-  RideWorld
+ Localizable.strings
+ RideWorld
 
-  Created by Владислав Пуличев on 19.08.17.
-  Copyright © 2017 Владислав Пуличев. All rights reserved.
-*/
+ Created by Владислав Пуличев on 19.08.17.
+ Copyright © 2017 Владислав Пуличев. All rights reserved.
+ */
 
 // NSLocalizedString("Follow", comment: "")
 
@@ -73,3 +73,4 @@
 "Restart required!"                                                                                    = "Restart required!";
 "Please, restart an application"                                                                       = "Please, restart an application";
 "Language"                                                                                             = "Language";
+"SignOut"                                                                                              = "SignOut";

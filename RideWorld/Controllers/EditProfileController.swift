@@ -198,7 +198,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          if row == 4 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
             
-            cell.button.setTitle("Language", for: .normal)
+            cell.button.setTitle(NSLocalizedString("Language", comment: ""), for: .normal)
             cell.button.tintColor = UIColor.myDarkBlue()
             cell.button.addTarget(self, action: #selector(goToLanguageSelect), for: .touchUpInside)
             
@@ -206,7 +206,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          } else { // row == 5
             let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
             
-            cell.button.setTitle("SignOut", for: .normal)
+            cell.button.setTitle(NSLocalizedString("SignOut", comment: ""), for: .normal)
             cell.button.tintColor = UIColor.red
             cell.button.addTarget(self, action: #selector(signOut), for: .touchUpInside)
             

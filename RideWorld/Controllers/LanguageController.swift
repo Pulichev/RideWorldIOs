@@ -15,6 +15,7 @@ class LanguageController: UITableViewController {
       
       tableView.delegate = self
       tableView.dataSource = self
+      tableView.tableFooterView = UIView() // deleting empty rows
    }
    
    // MARK: - Table view data source
@@ -63,6 +64,8 @@ class LanguageController: UITableViewController {
       default:
          break
       }
+      
+      showAlertThatRestartRequired()
    }
    
    private func showAlertThatRestartRequired() {

@@ -79,7 +79,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       let followItem = feedbackItems[row] as! FollowerFBItem
       cell.delegate = self // for user info taps to perform segue
       cell.userItem = followItem.userItem
-      cell.descText = followItem.userItem.login + NSLocalizedString("FBFollowing", comment: "")
+      cell.descText = followItem.userItem.login + NSLocalizedString(" started following you.", comment: "")
       cell.dateTime.text = DateTimeParser.getDateTime(from: followItem.dateTime)
       
       return cell
@@ -102,10 +102,10 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.postId = commentFBItem.postId
          cell.postItem = commentFBItem.postItem!
          if commentFBItem.postAddedByUser == UserModel.getCurrentUserId() {
-            cell.descText = commentFBItem.userItem.login + NSLocalizedString("FBComment", comment: "")
+            cell.descText = commentFBItem.userItem.login + NSLocalizedString(" commented your photo: ", comment: "")
  + commentFBItem.text
          } else { // for @userId not author
-            cell.descText = commentFBItem.userItem.login + NSLocalizedString("FBMention", comment: "")
+            cell.descText = commentFBItem.userItem.login + NSLocalizedString(" mentioned you in comment: ", comment: "")
  + commentFBItem.text
          }
          cell.dateTime.text = DateTimeParser.getDateTime(from: commentFBItem.dateTime)
@@ -118,7 +118,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.userItem = likeFBItem.userItem
          cell.postId = likeFBItem.postId
          cell.postItem = likeFBItem.postItem!
-         cell.descText = likeFBItem.userItem.login + NSLocalizedString("FBLike", comment: "")
+         cell.descText = likeFBItem.userItem.login + NSLocalizedString(" liked your post.", comment: "")
          cell.dateTime.text = DateTimeParser.getDateTime(from: likeFBItem.dateTime)
       }
       
@@ -211,7 +211,7 @@ extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
-         let str = ""
+         let str = NSLocalizedString("Loading...", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       }
@@ -234,8 +234,8 @@ extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
          return Image.resize(sourceImage: UIImage(named: "no_photo.png")!,
                              toWidth: CGFloat(300)).image
       } else {
-         return Image.resize(sourceImage: UIImage(named: "PleaseWaitTxt.gif")!,
-                             toWidth: CGFloat(300)).image
+         return nil // Image.resize(sourceImage: UIImage(named: "PleaseWaitTxt.gif")!,
+                            // toWidth: CGFloat(300)).image
       }
    }
 }

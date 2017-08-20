@@ -238,7 +238,7 @@ extension RidersProfileController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSourc
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
-         let str = ""
+         let str = NSLocalizedString("Loading...", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       }
@@ -260,7 +260,7 @@ extension RidersProfileController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSourc
       if haveWeFinishedLoading {
          return Image.resize(sourceImage: UIImage(named: "no_photo.png")!, toWidth: 300).image
       } else {
-         return Image.resize(sourceImage: UIImage(named: "PleaseWaitTxt.gif")!, toWidth: 200).image
+         return nil // Image.resize(sourceImage: UIImage(named: "PleaseWaitTxt.gif")!, toWidth: 200).image
       }
    }
 }

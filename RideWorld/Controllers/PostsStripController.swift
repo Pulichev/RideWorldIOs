@@ -587,7 +587,7 @@ extension PostsStripController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
       if haveWeFinishedLoading {
          return Image.resize(sourceImage: UIImage(named: "no_photo.png")!, toWidth: 300).image
       } else {
-         return Image.resize(sourceImage: UIImage(named: "PleaseWaitTxt.gif")!, toWidth: 200).image
+         return nil // Image.resize(sourceImage: UIImage(named: "PleaseWaitTxt.gif")!, toWidth: 200).image
       }
    }
 }

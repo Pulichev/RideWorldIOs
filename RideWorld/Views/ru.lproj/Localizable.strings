@@ -27,7 +27,7 @@
 "Error!"                                                                                               = "Ошибка!";
 "No user has been founded!"                                                                            = "Пользователь не найден!";
 "Welcome"                                                                                              = "Добро пожаловать";
-"Nothing to show."                                                                                     = "Нечего показать.";
+"Nothing to show."                                                                                     = "Нечего показать";
 "Wait, please"                                                                                         = "Пожалуйста, подождите";
 "Loading list.."                                                                                       = "Загружаем список..";
 "User was banned!"                                                                                     = "Пользователь был забанен!";
@@ -63,7 +63,8 @@
 "New comment can't be empty!"                                                                          = "Новый комментарий не может быть пустым!";
 "Wait please"                                                                                          = "Пожалуйста, подождите";
 "Downloading data.."                                                                                   = "Скачиваем информацию..";
-"Info"                                                                                                 = "Информация";
+"Info"                                                                                                 = "Инфо";
+"Posts"                                                                                                = "Посты";
 "Only last 15 last news are available at the moment!"                                                  = "Показывается только 15 последних новостей!";
 "Search"                                                                                               = "Поиск";
 "Start entering something"                                                                             = "Начните вводить";
@@ -74,3 +75,4 @@
 "Please, restart an application"                                                                       = "Пожалуйста, перезапустите приложение";
 "Language"                                                                                             = "Язык";
 "SignOut"                                                                                              = "Выйти";
+"Actions"                                                                                              = "Действия";

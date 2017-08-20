@@ -177,7 +177,7 @@
 "qPv-s4-Xgo.text" = "Дата";
 
 /* Class = "UIButton"; normalTitle = "Info"; ObjectID = "rbe-65-YoE"; */
-"rbe-65-YoE.normalTitle" = "Информация";
+"rbe-65-YoE.normalTitle" = "Инфо";
 
 /* Class = "UILabel"; text = "Followers"; ObjectID = "szX-pi-xgW"; */
 "szX-pi-xgW.text" = "Подписчики";

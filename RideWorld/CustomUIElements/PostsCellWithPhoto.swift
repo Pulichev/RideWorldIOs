@@ -168,7 +168,8 @@ class PostsCellWithPhoto: UITableViewCell {
    }
    
    @IBAction func openAlert(_ sender: UIButton) {
-      let alertController = UIAlertController(title: nil, message: "Actions", preferredStyle: .actionSheet)
+      let alertController = UIAlertController(title: nil, message: NSLocalizedString("Actions", comment: ""),
+                                              preferredStyle: .actionSheet)
       
       let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
       

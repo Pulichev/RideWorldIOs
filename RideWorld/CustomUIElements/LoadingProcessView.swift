@@ -9,6 +9,7 @@
 import UIKit
 
 class LoadingProcessView: UIView {
+   
    private let spinner = UIActivityIndicatorView()
    private let loadingLabel = UILabel()
    

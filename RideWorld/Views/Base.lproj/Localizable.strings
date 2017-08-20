@@ -64,6 +64,7 @@
 "Wait please"                                                                                          = "Wait please";
 "Downloading data.."                                                                                   = "Downloading data..";
 "Info"                                                                                                 = "Info";
+"Posts"                                                                                                = "Posts";
 "Only last 15 last news are available at the moment!"                                                  = "Only last 15 last news are available at the moment!";
 "Search"                                                                                               = "Search";
 "Start entering something"                                                                             = "Start entering something";
@@ -74,3 +75,4 @@
 "Please, restart an application"                                                                       = "Please, restart an application";
 "Language"                                                                                             = "Language";
 "SignOut"                                                                                              = "SignOut";
+"Actions"                                                                                              = "Actions";

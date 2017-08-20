@@ -212,7 +212,8 @@ class PostInfoViewController: UIViewController {
    
    @IBAction func openAlert(_ sender: UIButton) {
       print("a")
-      let alertController = UIAlertController(title: nil, message: "Actions", preferredStyle: .actionSheet)
+      let alertController = UIAlertController(title: nil, message: NSLocalizedString("Actions", comment: ""),
+                                              preferredStyle: .actionSheet)
       
       let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
       

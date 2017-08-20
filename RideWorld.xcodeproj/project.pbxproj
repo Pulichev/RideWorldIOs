@@ -72,6 +72,7 @@
 		9F73B09E1E6A0E490049563A /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73B09D1E6A0E490049563A /* UserItem.swift */; };
 		9F75ABCC1F4793C3002527B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F75ABCE1F4793C3002527B0 /* Main.storyboard */; };
 		9F75ABD41F479A0C002527B0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F75ABD61F479A0C002527B0 /* Localizable.strings */; };
+		9F75ABD91F49FBD2002527B0 /* LanguageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F75ABD81F49FBD2002527B0 /* LanguageController.swift */; };
 		9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F943EE81E6F041300709B79 /* LikeItem.swift */; };
 		9F9F9C441F0188E000871628 /* MediaContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F9C431F0188E000871628 /* MediaContainerView.swift */; };
 		9FA5A34B1F45F972008730CD /* PostsCellLikeEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5A34A1F45F972008730CD /* PostsCellLikeEventDelegate.swift */; };
@@ -219,6 +220,7 @@
 		9F75ABD11F47944C002527B0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		9F75ABD51F479A0C002527B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9F75ABD71F479A12002527B0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9F75ABD81F49FBD2002527B0 /* LanguageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LanguageController.swift; path = Controllers/LanguageController.swift; sourceTree = "<group>"; };
 		9F943EE81E6F041300709B79 /* LikeItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LikeItem.swift; path = Data/LikeItem.swift; sourceTree = "<group>"; };
 		9F9F9C431F0188E000871628 /* MediaContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaContainerView.swift; path = CustomUIElements/MediaContainerView.swift; sourceTree = "<group>"; };
 		9FA5A34A1F45F972008730CD /* PostsCellLikeEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCellLikeEventDelegate.swift; path = Protocols/PostsCellLikeEventDelegate.swift; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 				9FE3B7111EC4D6D600E7ED40 /* FeedbackController.swift */,
 				9FE3CA591EF4292B0080BCF2 /* SearchController.swift */,
 				9FCD276B1F3E19FE006A8A86 /* PasswordResetController.swift */,
+				9F75ABD81F49FBD2002527B0 /* LanguageController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1022,6 +1025,7 @@
 				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */,
+				9F75ABD91F49FBD2002527B0 /* LanguageController.swift in Sources */,
 				9FBCFAE81E73445900A5C95D /* Image.swift in Sources */,
 				9FE3B70C1EBCDC4C00E7ED40 /* LoadingProcessView.swift in Sources */,
 				9FF1BF791EA2C5B600A2CEF2 /* LikeModel.swift in Sources */,

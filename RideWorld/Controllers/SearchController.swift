@@ -231,13 +231,13 @@ extension SearchController: UISearchResultsUpdating {
 // MARK: - DZNEmptyDataSet for empty data tables
 extension SearchController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = "Search"
+      let str = NSLocalizedString("Search", comment: "")
       let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
       return NSAttributedString(string: str, attributes: attrs)
    }
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = "Start entering something"
+      let str = NSLocalizedString("Start entering something", comment: "")
       let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
       return NSAttributedString(string: str, attributes: attrs)
    }

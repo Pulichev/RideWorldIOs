@@ -230,8 +230,8 @@ extension CommentariesController: TappedUserDelegate {
    }
    
    private func showAlertThatUserLoginNotFounded() {
-      let alert = UIAlertController(title: "Error!",
-                                    message: "No user has been founded!",
+      let alert = UIAlertController(title: NSLocalizedString("Error!", comment: ""),
+                                    message: NSLocalizedString("No user has been founded!", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
@@ -243,13 +243,13 @@ extension CommentariesController: TappedUserDelegate {
 // MARK: - DZNEmptyDataSet for empty data tables
 extension CommentariesController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = "Wait please"
+      let str = NSLocalizedString("Wait please", comment: "")
       let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
       return NSAttributedString(string: str, attributes: attrs)
    }
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = "Downloading data.."
+      let str = NSLocalizedString("Downloading data..", comment: "")
       let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
       return NSAttributedString(string: str, attributes: attrs)
    }

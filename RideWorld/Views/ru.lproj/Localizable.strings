@@ -1,16 +1,72 @@
-/* 
-  Localizable.strings
-  RideWorld
+/*
+ Localizable.strings
+ RideWorld
 
-  Created by Владислав Пуличев on 19.08.17.
-  Copyright © 2017 Владислав Пуличев. All rights reserved.
-*/
+ Created by Владислав Пуличев on 19.08.17.
+ Copyright © 2017 Владислав Пуличев. All rights reserved.
+ */
 
-// NSLocalizedString("", comment: "")
+// NSLocalizedString("Follow", comment: "")
 
-"FBComment" = " прокомментировал вашу фотографию: ";
-"FBMention" = " упомянул вас в комментарии: ";
-"FBLike" = " понравилась ваша публикация.";
-"FBFollowing" = " подписался на вас.";
-"No user founded with login " = "Не найден пользователь с логином ";
-
+" commented your photo: "                                                                              = " прокомментировал вашу фотографию: ";
+" mentioned you in comment: "                                                                          = " упомянул вас в комментарии: ";
+" liked your post."                                                                                    = " понравилась ваша публикация.";
+" started following you."                                                                              = " подписался на вас.";
+"No user founded with login "                                                                          = "Не найден пользователь с логином ";
+"Oops"                                                                                                 = "Ой..";
+"Some error occurred. Retry your like/removing like"                                                   = "Неизвестная ошибка. Попробуйте снова.";
+"Cancel"                                                                                               = "Отмена";
+"Go To Spot Info"                                                                                      = "Перейти к споту";
+"Report post"                                                                                          = "Пожаловаться";
+"Send"                                                                                                 = "Отпр.";
+"Enter reason.."                                                                                       = "Введите причину..";
+"Open commentaries "                                                                                   = "Открыть комментарии ";
+"Following"                                                                                            = "В подписках";
+"Follow"                                                                                               = "Подписаться";
+"Loading..."                                                                                           = "Загрузка...";
+"Error!"                                                                                               = "Ошибка!";
+"No user has been founded!"                                                                            = "Пользователь не найден!";
+"Welcome"                                                                                              = "Добро пожаловать";
+"Nothing to show."                                                                                     = "Нечего показать.";
+"Wait, please"                                                                                         = "Пожалуйста, подождите";
+"Loading list.."                                                                                       = "Загружаем список..";
+"User was banned!"                                                                                     = "Пользователь был забанен!";
+"Wrong login or password!"                                                                             = "Неверный логин или пароль!";
+"Login failed!"                                                                                        = "Ошибка входа!";
+"New spot"                                                                                             = "Новый спот";
+"will be added here"                                                                                   = "будет добавлен здесь";
+"You are trying to add spot too close to already existed. Distance have to be more than 50 meters."    = "Вы пытаетесь добавить новый спот слишком близко к уже существующим. Дистанция должна быть больше 50 метров.";
+"Creating new post failed!"                                                                            = "Ошибка при создании новой публикации!";
+"Some error happened in new post creating."                                                            = "Случилась неизвестная ошибка при создании новой публикации.";
+"Slow motion videos are not supported!"                                                                = "Замедленные видео пока не поддерживаются!";
+"Write spot description"                                                                               = "Напишите описание спота";
+"Enter title atleast"                                                                                  = "Введите хотя бы название";
+"Creating new spot failed!"                                                                            = "Ошибка при создании спота!";
+"Some error happened in new spot creating."                                                            = "Случилась неизвестная ошибка при создании спота.";
+"Write spot description"                                                                               = "Напишите описание спота";
+"Wrong login! You can use only english letters, numbers and ._-. The maximum length is 30 characters." = "Неправильный логин. Можно использовать только буквы английского алфавита, числа и ._-. Максимальная длина - 30 символов";
+"Registration failed!"                                                                                 = "Ошибка регистрации!";
+"Login already exists."                                                                                = "Логин уже занят.";
+" ...show more"                                                                                        = " ...больше";
+" show less"                                                                                           = " меньше";
+"Rider has no publications"                                                                            = "У райдера нет публикаций";
+"Attention!"                                                                                           = "Внимание!";
+"Are you sure that you want to delete this post?"                                                      = "Вы уверены, что хотите удалить эту публикацию?";
+"Delete"                                                                                               = "Удалить";
+"You have no publications"                                                                             = "У вас нет публикаций";
+"Login change failed!"                                                                                 = "Ошибка при изменении логина!";
+"Enter new name and sename"                                                                            = "Введите новое имя и фамилию";
+"Enter new bio description"                                                                            = "Введите описание";
+"Enter new login"                                                                                      = "Введите новый логин";
+"Enter new email"                                                                                      = "Введите новый E-Mail";
+"Days for next change: "                                                                               = "Дней до следующего изменения: ";
+"New comment can't be empty!"                                                                          = "Новый комментарий не может быть пустым!";
+"Wait please"                                                                                          = "Пожалуйста, подождите";
+"Downloading data.."                                                                                   = "Скачиваем информацию..";
+"Info"                                                                                                 = "Информация";
+"Only last 15 last news are available at the moment!"                                                  = "Показывается только 15 последних новостей!";
+"Search"                                                                                               = "Поиск";
+"Start entering something"                                                                             = "Начните вводить";
+"Sending E-Mail failed!"                                                                               = "Ошибка отправки E-Mail!";
+"Success!"                                                                                             = "Успех!";
+"E-Mail was sent on "                                                                                  = "E-Mail был отправлен на ";

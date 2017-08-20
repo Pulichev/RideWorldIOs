@@ -83,9 +83,9 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    private func initFollowButton() {
       UserModel.isCurrentUserFollowingSpot(with: spotInfo.key) { isFollowing in
          if isFollowing {
-            self.followSpotButton.title = "Following"
+            self.followSpotButton.title = NSLocalizedString("Following", comment: "")
          } else {
-            self.followSpotButton.title = "Follow"
+            self.followSpotButton.title = NSLocalizedString("Follow", comment: "")
          }
          
          self.followSpotButton.isEnabled = true
@@ -93,7 +93,7 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    }
    
    @IBAction func followSpotButtonTapped(_ sender: Any) {
-      if followSpotButton.title == "Follow" { // add or remove like
+      if followSpotButton.title == NSLocalizedString("Follow", comment: "") { // add or remove like
          UserModel.addFollowingToSpot(with: spotInfo.key)
       } else {
          UserModel.removeFollowingToSpot(with: spotInfo.key)
@@ -103,10 +103,10 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    }
    
    private func swapFollowButtonTittle() {
-      if followSpotButton.title == "Follow" {
-         followSpotButton.title = "Following"
+      if followSpotButton.title == NSLocalizedString("Follow", comment: "") {
+         followSpotButton.title = NSLocalizedString("Following", comment: "")
       } else {
-         followSpotButton.title = "Follow"
+         followSpotButton.title = NSLocalizedString("Follow", comment: "")
       }
    }
    

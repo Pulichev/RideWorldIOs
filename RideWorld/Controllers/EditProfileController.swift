@@ -137,13 +137,13 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    //MARK: - User settings table
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 5
+      return 6
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let row = indexPath.row
       
-      if row != 4 { // if not LogOut button
+      if row != 4 && row != 5 { // if not LogOut and Language buttons
          let cell = tableView.dequeueReusableCell(withIdentifier: "EditProfileCell", for: indexPath) as! EditProfileCell
          
          let leftImageView = UIImageView()
@@ -195,13 +195,23 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          
          return cell
       } else {
-         let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
-         
-         cell.button.setTitle("SignOut", for: .normal)
-         cell.button.tintColor = UIColor.red
-         cell.button.addTarget(self, action: #selector(signOut), for: .touchUpInside)
-         
-         return cell
+         if row == 4 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
+            
+            cell.button.setTitle("Language", for: .normal)
+            cell.button.tintColor = UIColor.myDarkBlue()
+            cell.button.addTarget(self, action: #selector(goToLanguageSelect), for: .touchUpInside)
+            
+            return cell
+         } else { // row == 5
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
+            
+            cell.button.setTitle("SignOut", for: .normal)
+            cell.button.tintColor = UIColor.red
+            cell.button.addTarget(self, action: #selector(signOut), for: .touchUpInside)
+            
+            return cell
+         }
       }
    }
    
@@ -210,6 +220,10 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          // then go to login
          performSegue(withIdentifier: "fromEditProfileToLogin", sender: self)
       }
+   }
+   
+   func goToLanguageSelect() {
+      performSegue(withIdentifier: "goToLanguageSelect", sender: self)
    }
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view

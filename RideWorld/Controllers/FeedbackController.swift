@@ -147,8 +147,8 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
    
    // Info button, shows alert, that only 15 recent feedback posts are shown
    @IBAction func showInfoAboutCountOfFBItems(_ sender: UIButtonX) {
-      let alert = UIAlertController(title: "Info",
-                                    message: "Only last 15 last news are available at the moment!",
+      let alert = UIAlertController(title: NSLocalizedString("Info", comment: ""),
+                                    message: NSLocalizedString("Only last 15 last news are available at the moment!", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
@@ -207,7 +207,7 @@ extension FeedbackController: FollowTappedFromProfile {
 extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
-         let str = "Welcome"
+         let str = NSLocalizedString("Welcome", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
@@ -219,7 +219,7 @@ extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
-         let str = "Nothing to show."
+         let str = NSLocalizedString("Nothing to show.", comment: "")
          let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
@@ -252,8 +252,8 @@ extension FeedbackController: TappedUserDelegate {
    }
    
    private func showAlertThatUserLoginNotFounded() {
-      let alert = UIAlertController(title: "Error!",
-                                    message: "No user has been founded!",
+      let alert = UIAlertController(title: NSLocalizedString("Error!", comment: ""),
+                                    message: NSLocalizedString("No user has been founded!", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))

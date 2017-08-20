@@ -16,8 +16,6 @@ class PasswordResetController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
-      // Do any additional setup after loading the view.
    }
    
    @IBAction func sendEmailButtonTapped(_ sender: UIButtonX) {
@@ -33,7 +31,7 @@ class PasswordResetController: UIViewController {
    }
    
    private func showAlertWithError(text: String) {
-      let alert = UIAlertController(title: "Sending E-Mail failed!",
+      let alert = UIAlertController(title: NSLocalizedString("Sending E-Mail failed!", comment: ""),
                                     message: text,
                                     preferredStyle: .alert)
       
@@ -43,8 +41,8 @@ class PasswordResetController: UIViewController {
    }
    
    private func showAlertThatEmailWasSent() {
-      let alert = UIAlertController(title: "Success!",
-                                    message: "E-Mail was sent on \(userEmail.text!)",
+      let alert = UIAlertController(title: NSLocalizedString("Success!", comment: ""),
+                                    message: NSLocalizedString("E-Mail was sent on ", comment: "") + "\(userEmail.text!)",
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in

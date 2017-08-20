@@ -34,14 +34,45 @@ class LanguageController: UITableViewController {
       switch (row) {
       case 0:
          cell.button.setTitle("English🇬🇧", for: .normal)
+         cell.button.tintColor = UIColor.myDarkBlue()
          break
       case 1:
          cell.button.setTitle("Русский🇷🇺", for: .normal)
+         cell.button.tintColor = UIColor.myDarkBlue()
          break
       default:
          break
       }
       
       return cell
+   }
+   
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      let row = indexPath.row
+      
+      switch (row) {
+      case 0:
+         UserDefaults.standard.set(["Base"], forKey: "AppleLanguages")
+         UserDefaults.standard.synchronize()
+         break
+         
+      case 1:
+         UserDefaults.standard.set(["Russian"], forKey: "AppleLanguages")
+         UserDefaults.standard.synchronize()
+         break
+      default:
+         break
+      }
+   }
+   
+   private func showAlertThatRestartRequired() {
+      let alert = UIAlertController(title: NSLocalizedString("Restart required!", comment: ""),
+                                    message: NSLocalizedString("Please, restart an application", comment: ""),
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
+      
    }
 }

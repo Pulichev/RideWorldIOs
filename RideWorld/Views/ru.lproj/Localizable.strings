@@ -70,3 +70,6 @@
 "Sending E-Mail failed!"                                                                               = "Ошибка отправки E-Mail!";
 "Success!"                                                                                             = "Успех!";
 "E-Mail was sent on "                                                                                  = "E-Mail был отправлен на ";
+"Restart required!"                                                                                    = "Требуется перезапуск!";
+"Please, restart an application"                                                                       = "Пожалуйста, перезапустите приложение";
+"Language"                                                                                             = "Язык";

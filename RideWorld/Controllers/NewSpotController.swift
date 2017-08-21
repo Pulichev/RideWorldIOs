@@ -48,7 +48,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    func addGestureToOpenCameraOnPhotoTap() {
-      let tap = UITapGestureRecognizer(target:self, action:#selector(takePhoto(_:)))
+      let tap = UITapGestureRecognizer(target: self, action:#selector(takePhoto(_:)))
       imageView.addGestureRecognizer(tap)
       imageView.isUserInteractionEnabled = true
    }

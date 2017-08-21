@@ -259,6 +259,7 @@ extension EditProfileController: UITextFieldDelegate {
          } else {
             self.loginTextField.isEnabled = true
             self.loginTextField.becomeFirstResponder()
+            self.showInfoAlertAboutLoginChangeTime()
          }
       }
    }
@@ -268,6 +269,16 @@ extension EditProfileController: UITextFieldDelegate {
       
       let alert = UIAlertController(title: NSLocalizedString("Oops!", comment: ""),
                                     message: text,
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
+   }
+   
+   private func showInfoAlertAboutLoginChangeTime() {
+      let alert = UIAlertController(title: NSLocalizedString("Info", comment: ""),
+                                    message: NSLocalizedString("Login changing is taking some time.", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

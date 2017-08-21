@@ -20,6 +20,11 @@ class NewPostController: UIViewController, UITextViewDelegate {
          postDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
          postDescription.layer.borderWidth = 1.0
          postDescription.layer.cornerRadius = 5
+         postDescription.layer.cornerRadius = 5
+         // creating placeholder
+         postDescription.text = NSLocalizedString("Write post description", comment: "")
+         postDescription.textColor = UIColor.lightGray
+         // see also func
       }
    }
    @IBOutlet weak var photoOrVideoView: MediaContainerView!
@@ -201,6 +206,21 @@ class NewPostController: UIViewController, UITextViewDelegate {
          }
       }
    } // for disabling user touches, while uploading
+   
+   // functions for textView placeholder
+   func textViewDidBeginEditing(_ textView: UITextView) {
+      if textView.textColor == UIColor.lightGray {
+         textView.text = nil
+         textView.textColor = UIColor.black
+      }
+   }
+   
+   func textViewDidEndEditing(_ textView: UITextView) {
+      if textView.text.isEmpty {
+         textView.text = NSLocalizedString("Write post description", comment: "")
+         textView.textColor = UIColor.lightGray
+      }
+   }
 }
 
 // MARK: - Camera extension

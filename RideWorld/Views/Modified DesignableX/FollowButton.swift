@@ -23,7 +23,7 @@ class FollowButton: UIButtonX {
    override func setTitle(_ title: String?, for state: UIControlState) {
       super.setTitle(title, for: state)
       
-      if title! == "Follow" {
+      if title! == NSLocalizedString("Follow", comment: "") {
          backgroundColor = UIColor.myDarkBlue()
          tintColor = UIColor.myLightBrown()
       } else {

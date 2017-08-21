@@ -100,8 +100,11 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    private func initializeUserPhoto() {
       if ridersProfilePhoto != nil { // if we came not from user edit controller
          if ridersInfo.photo150ref != nil {
-            self.ridersProfilePhoto.kf.setImage(
+            ridersProfilePhoto.kf.setImage(
                with: URL(string: ridersInfo.photo150ref!)) //Using kf for caching images.
+         } else {
+            ridersProfilePhoto.setImage(string: ridersInfo.login, color: nil, circular: true,
+                                        textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
          }
       }
    }

@@ -67,6 +67,9 @@ class PostInfoViewController: UIViewController {
          self.userLoginHeaderButton.setTitle(self.postInfo.userLogin, for: .normal)
          if self.postInfo.userProfilePhoto90 != nil {
             self.userPhoto.kf.setImage(with: URL(string: self.postInfo.userProfilePhoto90!))
+         } else {
+            self.userPhoto.setImage(string: self.postInfo.userLogin, color: nil, circular: true,
+                                    textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
          }
       }
       
@@ -432,7 +435,7 @@ class PostInfoViewController: UIViewController {
    private func showAlertThatUserLoginNotFounded(tappedUserLogin: String) {
       let alert = UIAlertController(title: NSLocalizedString("Error!", comment: ""),
                                     message: NSLocalizedString("No user founded with login ", comment: "") +
-                                    "\(tappedUserLogin)",
+         "\(tappedUserLogin)",
          preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

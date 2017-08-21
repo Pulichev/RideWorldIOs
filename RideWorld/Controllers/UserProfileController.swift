@@ -105,9 +105,12 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    func initializeUserPhoto() {
       if userProfilePhoto != nil { // if we came not from user edit controller
-         if (self.userInfo.photo150ref != nil) {
-            self.userProfilePhoto.kf.setImage(
+         if userInfo.photo150ref != nil {
+            userProfilePhoto.kf.setImage(
                with: URL(string: userInfo.photo150ref!)) //Using kf for caching images.
+         } else {
+            userProfilePhoto.setImage(string: userInfo.login, color: nil, circular: true,
+                                      textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
          }
       }
    }

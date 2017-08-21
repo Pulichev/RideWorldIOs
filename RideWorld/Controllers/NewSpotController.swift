@@ -57,6 +57,8 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       if spotTitle.text! != "" {
          showSavingProgress()
          
+         if spotDescription.text == "Write spot description" { spotDescription.text = "" } // removing "placeholder" fake
+         
          let currUserId = UserModel.getCurrentUserId()
          let newSpotKey = Spot.getNewSpotRefKey()
          let type = spotTypePicker.selectedRow(inComponent: 0)

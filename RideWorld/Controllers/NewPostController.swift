@@ -81,6 +81,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
    @IBAction func savePost(_ sender: Any) {
       showSavingProgress()
       
+      if postDescription.text == "Write post description" { postDescription.text = "" } // removing "placeholder" fake
+      
       createNewPostItem() { postItem in
          // first - upload media. On completion - save post info data
          if self.isNewMediaIsPhoto {

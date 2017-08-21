@@ -47,8 +47,11 @@ class PostsCellWithVideo: UITableViewCell {
       self.post            = post
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
+      
       if post.userProfilePhoto90 != nil {
          userPhoto.kf.setImage(with: URL(string: post.userProfilePhoto90!))
+      } else {
+         userPhoto.setImage(string: post.userLogin, color: nil, circular: true, textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
       }
       
       postDate.text        = cachedCell.postDate
@@ -169,19 +172,26 @@ class PostsCellWithVideo: UITableViewCell {
    
    @IBAction func openAlert(_ sender: UIButton) {
       print("a")
-      let alertController = UIAlertController(title: nil, message: NSLocalizedString("Actions", comment: ""), preferredStyle: .actionSheet)
+      let alertController = UIAlertController(title: nil,
+                                              message: NSLocalizedString("Actions", comment: ""),
+                                              preferredStyle: .actionSheet)
       
-      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
+      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
+                                       style: .cancel)
       
       alertController.addAction(cancelAction)
       
-      let goToSpotInfoAction = UIAlertAction(title: NSLocalizedString("Go To Spot Info", comment: ""), style: .default) { action in
+      let goToSpotInfoAction = UIAlertAction(title: NSLocalizedString("Go To Spot Info", comment: ""),
+                                             style: .default)
+      { action in
          self.goToSpotInfo()
       }
       
       alertController.addAction(goToSpotInfoAction)
       
-      let reportAction = UIAlertAction(title: NSLocalizedString("Report post", comment: ""), style: .destructive) { action in
+      let reportAction = UIAlertAction(title: NSLocalizedString("Report post", comment: ""),
+                                       style: .destructive)
+      { action in
          self.openReportReasonEnterAlert()
       }
       
@@ -193,9 +203,11 @@ class PostsCellWithVideo: UITableViewCell {
    func openReportReasonEnterAlert() {
       let alertController = UIAlertController(title: NSLocalizedString("Report post", comment: ""), message: "", preferredStyle: .alert)
       
-      let saveAction = UIAlertAction(title: NSLocalizedString("Send", comment: ""), style: .destructive, handler: { alert in
-         let reasonTextField = alertController.textFields![0] as UITextField
-         UserModel.addReportOnPost(with: self.post.key, reason: reasonTextField.text!)
+      let saveAction = UIAlertAction(title: NSLocalizedString("Send", comment: ""),
+                                     style: .destructive,
+                                     handler: { alert in
+            let reasonTextField = alertController.textFields![0] as UITextField
+            UserModel.addReportOnPost(with: self.post.key, reason: reasonTextField.text!)
       })
       
       let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .default)

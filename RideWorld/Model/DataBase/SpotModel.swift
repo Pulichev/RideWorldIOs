@@ -9,9 +9,10 @@
 import FirebaseDatabase
 
 struct Spot {
-   static var refToSpotNode = Database.database().reference(withPath: "MainDataBase/spots")
-   static var refToSpotPostsNode = Database.database().reference(withPath: "MainDataBase/spotsposts")
-   static var refToSpotPhotosNode = Database.database().reference(withPath: "MainDataBase/spotphotos")
+   static var refToMainDataBase = Database.database().reference(withPath: "MainDataBase")
+   static var refToSpotNode = refToMainDataBase.child("spots")
+   static var refToSpotPostsNode = refToMainDataBase.child("spotsposts")
+   static var refToSpotPhotosNode = refToMainDataBase.child("spotphotos")
    
    static func getNewSpotRefKey() -> String {
       return refToSpotNode.childByAutoId().key
@@ -47,6 +48,23 @@ struct Spot {
          }
          
          completion(spotsList)
+      })
+   }
+   
+   static func getSpotFollowingsByUserCount(with userId: String,
+                                            completion: @escaping (_ countString: String) -> Void) {
+      let refToCount = Database.database().reference(withPath: "MainDataBase/userspotfollowingscount/" + userId)
+      
+      var count = 0
+      
+      refToCount.observe(.value, with: { snapshot in
+         if let countOfFollowings = snapshot.value as? Int {
+            count = countOfFollowings
+         }
+         
+         let countOfFollowingsString = String(describing: count)
+         
+         completion(countOfFollowingsString)
       })
    }
    
@@ -152,5 +170,71 @@ struct Spot {
             
             completion(spots)
          })
+   }
+   
+   // MARK: - Followings part
+   static func addFollowingToSpot(with id: String) {
+      let refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(UserModel.getCurrentUserId())
+      
+      let refToUserSpotFollowing = refToUserFollowedSpots.child(id)
+      
+      refToUserSpotFollowing.setValue(true)
+   }
+   
+   static func removeFollowingToSpot(with id: String) {
+      let refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(UserModel.getCurrentUserId())
+      
+      let refToUserSpotFollowing = refToUserFollowedSpots.child(id)
+      
+      refToUserSpotFollowing.removeValue()
+   }
+   
+   static func isCurrentUserFollowingSpot(with id: String,
+                                          completion: @escaping(_ isFollowing: Bool) -> Void) {
+      let refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(UserModel.getCurrentUserId())
+      
+      refToUserFollowedSpots.observeSingleEvent(of: .value, with: { snapshot in
+         if var value = snapshot.value as? [String : Bool] {
+            if value[id] != nil {
+               completion(true)
+            } else {
+               completion(false)
+            }
+         } else {
+            completion(false)
+         }
+      })
+   }
+   
+   static func getUserFollowedSpots(_ userId: String,
+                                    completion: @escaping (_ spotsIds: [SpotItem]) -> Void) {
+      let refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(userId)
+      
+      refToUserFollowedSpots.observeSingleEvent(of: .value, with: { snapshot in
+         var spotsIds = [String]()
+         
+         if let value = snapshot.value as? NSDictionary {
+            spotsIds.append(contentsOf: (value.allKeys as! [String]))
+         }
+         
+         var spots = [SpotItem]()
+         var countOfProcessedItems = 0
+         
+         if spotsIds.count == 0 { completion(spots) } // if no spots followed
+         
+         for spotId in spotsIds {
+            let refToSpot = refToSpotNode.child(spotId)
+            refToSpot.observeSingleEvent(of: .value, with: { snapshot in
+               countOfProcessedItems += 1
+               
+               let spot = SpotItem(snapshot: snapshot)
+               spots.append(spot)
+               
+               if countOfProcessedItems == spotsIds.count {
+                  completion(spots)
+               }
+            })
+         }
+      })
    }
 }

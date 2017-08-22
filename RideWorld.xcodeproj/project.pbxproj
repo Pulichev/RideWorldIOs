@@ -58,6 +58,8 @@
 		9F6163471E7E89C1001664B7 /* no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6163461E7E89C1001664B7 /* no_photo.png */; };
 		9F61C20E1F0ED8230023B7D1 /* UIViewExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61C20D1F0ED8230023B7D1 /* UIViewExtenstions.swift */; };
 		9F61C2101F1101A00023B7D1 /* TappedSpotInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */; };
+		9F66AD221F4C882F009F6F69 /* SpotFollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F66AD211F4C882F009F6F69 /* SpotFollowingCell.swift */; };
+		9F66AD241F4C91A7009F6F69 /* FollowTappedFromSpotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F66AD231F4C91A7009F6F69 /* FollowTappedFromSpotInfo.swift */; };
 		9F6DD9CF1F0AE0DE00E3300E /* UIButtonX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */; };
 		9F6DD9D01F0AE0DE00E3300E /* UIImageViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */; };
 		9F6DD9D11F0AE0DE00E3300E /* UILabelX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */; };
@@ -97,6 +99,7 @@
 		9FD4A1E31EDE019400B4C0D2 /* FeedbackItemsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */; };
 		9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D31E54587800C673CA /* RidersProfileController.swift */; };
 		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
+		9FDC46F01F4B85AB00356727 /* SpotFollowingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDC46EF1F4B85AB00356727 /* SpotFollowingsController.swift */; };
 		9FE3B70C1EBCDC4C00E7ED40 /* LoadingProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B70B1EBCDC4C00E7ED40 /* LoadingProcessView.swift */; };
 		9FE3B7101EC22A2800E7ED40 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B70F1EC22A2800E7ED40 /* String.swift */; };
 		9FE3B7121EC4D6D600E7ED40 /* FeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B7111EC4D6D600E7ED40 /* FeedbackController.swift */; };
@@ -203,6 +206,8 @@
 		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
 		9F61C20D1F0ED8230023B7D1 /* UIViewExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtenstions.swift; path = Core/UIViewExtenstions.swift; sourceTree = "<group>"; };
 		9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedSpotInfoDelegate.swift; path = Protocols/TappedSpotInfoDelegate.swift; sourceTree = "<group>"; };
+		9F66AD211F4C882F009F6F69 /* SpotFollowingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotFollowingCell.swift; path = CustomUIElements/SpotFollowingCell.swift; sourceTree = "<group>"; };
+		9F66AD231F4C91A7009F6F69 /* FollowTappedFromSpotInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowTappedFromSpotInfo.swift; path = Protocols/FollowTappedFromSpotInfo.swift; sourceTree = "<group>"; };
 		9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButtonX.swift; path = Views/DesignableX/UIButtonX.swift; sourceTree = "<group>"; };
 		9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageViewX.swift; path = Views/DesignableX/UIImageViewX.swift; sourceTree = "<group>"; };
 		9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabelX.swift; path = Views/DesignableX/UILabelX.swift; sourceTree = "<group>"; };
@@ -253,6 +258,7 @@
 		9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackItemsDelegate.swift; path = Protocols/FeedbackItemsDelegate.swift; sourceTree = "<group>"; };
 		9FD648D31E54587800C673CA /* RidersProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileController.swift; path = Controllers/RidersProfileController.swift; sourceTree = "<group>"; };
 		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
+		9FDC46EF1F4B85AB00356727 /* SpotFollowingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotFollowingsController.swift; path = Controllers/SpotFollowingsController.swift; sourceTree = "<group>"; };
 		9FE3B70B1EBCDC4C00E7ED40 /* LoadingProcessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingProcessView.swift; path = CustomUIElements/LoadingProcessView.swift; sourceTree = "<group>"; };
 		9FE3B70F1EC22A2800E7ED40 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = Core/String.swift; sourceTree = "<group>"; };
 		9FE3B7111EC4D6D600E7ED40 /* FeedbackController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackController.swift; path = Controllers/FeedbackController.swift; sourceTree = "<group>"; };
@@ -384,6 +390,7 @@
 				9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */,
 				9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */,
 				9FA5A34A1F45F972008730CD /* PostsCellLikeEventDelegate.swift */,
+				9F66AD231F4C91A7009F6F69 /* FollowTappedFromSpotInfo.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -537,6 +544,7 @@
 				9FE3CA591EF4292B0080BCF2 /* SearchController.swift */,
 				9FCD276B1F3E19FE006A8A86 /* PasswordResetController.swift */,
 				9F75ABD81F49FBD2002527B0 /* LanguageController.swift */,
+				9FDC46EF1F4B85AB00356727 /* SpotFollowingsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -571,6 +579,7 @@
 				9FE3B70B1EBCDC4C00E7ED40 /* LoadingProcessView.swift */,
 				9F9F9C431F0188E000871628 /* MediaContainerView.swift */,
 				9F58FC811F422A55005502E2 /* CellWithButton.swift */,
+				9F66AD211F4C882F009F6F69 /* SpotFollowingCell.swift */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -1020,6 +1029,7 @@
 				9FF114A91EB4C8F600152279 /* DateTimeParser.swift in Sources */,
 				9FE3CA611EF4EEF10080BCF2 /* SearchResultsCell.swift in Sources */,
 				9F6DD9D31F0AE0DE00E3300E /* UITextFieldX.swift in Sources */,
+				9F66AD241F4C91A7009F6F69 /* FollowTappedFromSpotInfo.swift in Sources */,
 				9F6DD9D81F0AE0DE00E3300E /* UIVisualEffectViewX.swift in Sources */,
 				9FCD276C1F3E19FE006A8A86 /* PasswordResetController.swift in Sources */,
 				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
@@ -1066,6 +1076,7 @@
 				9FF1BF701E9D707400A2CEF2 /* UserModel.swift in Sources */,
 				9FE3B71C1EC665E500E7ED40 /* CommentFBItem.swift in Sources */,
 				9F5609851E7C6BB50000DB21 /* PostsCellWithVideo.swift in Sources */,
+				9FDC46F01F4B85AB00356727 /* SpotFollowingsController.swift in Sources */,
 				9FE3B71E1EC6660600E7ED40 /* FollowerFBItem.swift in Sources */,
 				9FF1BF7D1EA551BB00A2CEF2 /* SpotMedia.swift in Sources */,
 				9F9F9C441F0188E000871628 /* MediaContainerView.swift in Sources */,
@@ -1076,6 +1087,7 @@
 				9F0BA55D1F28D105003FBEDB /* MapButton.swift in Sources */,
 				9FE3B7151EC4D76100E7ED40 /* CommentAndLikeFBCell.swift in Sources */,
 				9F047FF91F37300D0036E608 /* FollowButton.swift in Sources */,
+				9F66AD221F4C882F009F6F69 /* SpotFollowingCell.swift in Sources */,
 				9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */,
 				9FD4A1DE1ED7591B00B4C0D2 /* MainTabBarController.swift in Sources */,
 			);

@@ -172,11 +172,25 @@ exports.addPostsToNewFollowerFeed = functions.database
   });
 
 // posts on spot follow / unfollow
-exports.addPostsFromSpotToFeed = functions.database
+// + update spot followings count
+exports.onSpotFollowCountAndPosts = functions.database
   .ref("/MainDataBase/userspotfollowings/{userId}/{spotId}")
   .onWrite(event => {
     const userId = event.params.userId;
     const spotId = event.params.spotId;
+
+    // updating count
+    let refToUserSpotFollowings = admin.database().ref("/MainDataBase/userspotfollowings/" + userId);
+    let refToUserSpotFollowingsCount = admin.database().ref("/MainDataBase/userspotfollowingscount/" + userId);
+    refToUserSpotFollowings.once("value", function(spotsSnap) {
+      if (spotsSnap.val()) {
+        let followingsCount = spotsSnap.numChildren();
+
+        refToUserSpotFollowingsCount.set(followingsCount);
+      } else {
+        refToUserSpotFollowingsCount.set(0);
+      }
+    });
 
     let refToSpotPosts = admin
       .database()

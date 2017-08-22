@@ -53,7 +53,7 @@ class FollowersCell: UITableViewCell {
    }
    
    @IBAction func followButtonTapped(_ sender: Any) {
-      if button.currentTitle == NSLocalizedString("Follow", comment: "") { // add or remove like
+      if button.currentTitle == NSLocalizedString("Follow", comment: "") {
          UserModel.addFollowing(to: follower.uid)
          UserModel.addFollower(to: follower.uid)
       } else {

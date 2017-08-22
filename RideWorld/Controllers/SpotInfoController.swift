@@ -12,6 +12,9 @@ import SVProgressHUD
 import Gallery
 
 class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+   
+   weak var delegateFollowTaps: FollowTappedFromSpotInfo?
+   
    var spotInfo: SpotItem!
    var user: UserItem!
    
@@ -81,7 +84,7 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    @IBOutlet weak var followSpotButton: UIBarButtonItem!
    
    private func initFollowButton() {
-      UserModel.isCurrentUserFollowingSpot(with: spotInfo.key) { isFollowing in
+      Spot.isCurrentUserFollowingSpot(with: spotInfo.key) { isFollowing in
          if isFollowing {
             self.followSpotButton.title = NSLocalizedString("Following", comment: "")
          } else {
@@ -94,12 +97,16 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    
    @IBAction func followSpotButtonTapped(_ sender: Any) {
       if followSpotButton.title == NSLocalizedString("Follow", comment: "") { // add or remove like
-         UserModel.addFollowingToSpot(with: spotInfo.key)
+         Spot.addFollowingToSpot(with: spotInfo.key)
       } else {
-         UserModel.removeFollowingToSpot(with: spotInfo.key)
+         Spot.removeFollowingToSpot(with: spotInfo.key)
       }
       
       swapFollowButtonTittle()
+      
+      if let del = delegateFollowTaps {
+         del.followTapped(on: spotInfo.key)
+      }
    }
    
    private func swapFollowButtonTittle() {

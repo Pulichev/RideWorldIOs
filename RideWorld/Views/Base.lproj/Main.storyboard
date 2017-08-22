@@ -740,6 +740,7 @@
                         <outlet property="userNameAndSename" destination="mep-uq-G9T" id="KAY-2x-76l"/>
                         <segue destination="WfP-RX-tLc" kind="show" identifier="goToPostInfo" id="qSk-1a-lLs"/>
                         <segue destination="7kR-w8-gJL" kind="show" identifier="goToFollowersFromRidersNode" id="RlL-e4-xY6"/>
+                        <segue destination="HLp-aL-P7i" kind="show" identifier="fromRidersProfileToSpotFollowings" id="eik-4e-pXT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4yy-2e-zws" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1747,7 +1748,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nug-XO-aGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-759.20000000000005" y="-747.07646176911555"/>
+            <point key="canvasLocation" x="2244" y="-747"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wKl-22-nCU">
@@ -2042,11 +2043,91 @@
                         <segue destination="rut-Zp-VLC" kind="show" identifier="editUserProfile" id="VHE-cE-WMz"/>
                         <segue destination="WfP-RX-tLc" kind="show" identifier="goToPostInfoFromUserProfile" id="eyf-4a-ZNN"/>
                         <segue destination="7kR-w8-gJL" kind="show" identifier="goToFollowersFromUserNode" id="TeE-da-wxz"/>
+                        <segue destination="HLp-aL-P7i" kind="show" identifier="fromUserProfileToSpotFollowings" id="BO7-mJ-xs6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TrM-ku-OEb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2241" y="61"/>
+        </scene>
+        <!--Spot Followings Controller-->
+        <scene sceneID="L71-aM-0l1">
+            <objects>
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="HLp-aL-P7i" customClass="SpotFollowingsController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" sectionHeaderHeight="28" sectionFooterHeight="28" id="1pG-b0-K9M">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowersCell" rowHeight="52" id="AtQ-TW-tCe" customClass="SpotFollowingCell" customModule="RideWorld" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="52"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AtQ-TW-tCe" id="PH0-HP-RrL">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPJ-FO-GJd">
+                                            <rect key="frame" x="52" y="5" width="195" height="0.0"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZJg-sz-b72" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
+                                            <rect key="frame" x="5" y="5.5" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Bxd-cj-3OX"/>
+                                                <constraint firstAttribute="width" constant="40" id="UNp-hy-nbo"/>
+                                            </constraints>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EIW-84-wlg" customClass="FollowButton" customModule="RideWorld" customModuleProvider="target">
+                                            <rect key="frame" x="257" y="10" width="115" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="Xyg-g2-yPF"/>
+                                                <constraint firstAttribute="width" constant="115" id="hsk-Bz-yV4"/>
+                                            </constraints>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="followButtonTapped:" destination="AtQ-TW-tCe" eventType="touchUpInside" id="Obq-VI-99f"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="bPJ-FO-GJd" firstAttribute="top" secondItem="PH0-HP-RrL" secondAttribute="top" constant="5" id="1dW-G9-bd5"/>
+                                        <constraint firstItem="EIW-84-wlg" firstAttribute="trailing" secondItem="PH0-HP-RrL" secondAttribute="trailingMargin" constant="5" id="B6H-o2-jkF"/>
+                                        <constraint firstItem="ZJg-sz-b72" firstAttribute="leading" secondItem="PH0-HP-RrL" secondAttribute="leading" constant="5" id="BqB-6h-ngn"/>
+                                        <constraint firstItem="bPJ-FO-GJd" firstAttribute="leading" secondItem="ZJg-sz-b72" secondAttribute="trailing" constant="7" id="GA7-YK-EoP"/>
+                                        <constraint firstItem="ZJg-sz-b72" firstAttribute="top" secondItem="PH0-HP-RrL" secondAttribute="top" constant="5" id="KyX-JC-miW"/>
+                                        <constraint firstAttribute="bottom" secondItem="bPJ-FO-GJd" secondAttribute="bottom" constant="4.5" id="Pri-NJ-13k"/>
+                                        <constraint firstItem="EIW-84-wlg" firstAttribute="leading" secondItem="bPJ-FO-GJd" secondAttribute="trailing" constant="10" id="Uqz-x3-YlC"/>
+                                        <constraint firstItem="EIW-84-wlg" firstAttribute="top" secondItem="PH0-HP-RrL" secondAttribute="top" constant="10" id="XLl-3c-dpB"/>
+                                        <constraint firstItem="ZJg-sz-b72" firstAttribute="width" secondItem="ZJg-sz-b72" secondAttribute="height" multiplier="1:1" id="naY-Me-QuK"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="EIW-84-wlg" secondAttribute="bottom" constant="10.75" id="zmO-Y7-uqq"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="EIW-84-wlg" id="Qzj-8J-8nv"/>
+                                    <outlet property="spotImage" destination="ZJg-sz-b72" id="JJw-QZ-Y0f"/>
+                                    <outlet property="spotName" destination="bPJ-FO-GJd" id="fJz-Gn-oka"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="HLp-aL-P7i" id="mK4-uT-6u4"/>
+                            <outlet property="delegate" destination="HLp-aL-P7i" id="Mfp-Km-3ZJ"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="6uJ-a1-Lta" kind="show" identifier="fromSpotFollowingsToSpotInfo" id="2ax-PQ-ctu"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3kJ-9K-eEy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2985" y="-747"/>
         </scene>
         <!--Edit profile info-->
         <scene sceneID="rZp-ff-gdb">
@@ -2955,14 +3036,15 @@
         <image name="respectPassive" width="94" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ck8-tQ-3J4"/>
-        <segue reference="I78-xn-cQP"/>
-        <segue reference="eyf-4a-ZNN"/>
-        <segue reference="T3A-kh-NPf"/>
-        <segue reference="COh-cw-Ntn"/>
-        <segue reference="eb8-9P-3Sr"/>
-        <segue reference="TeE-da-wxz"/>
-        <segue reference="bUh-wl-Xkc"/>
         <segue reference="Gef-69-N8A"/>
+        <segue reference="bUh-wl-Xkc"/>
+        <segue reference="Oe2-wo-WXX"/>
+        <segue reference="RlL-e4-xY6"/>
+        <segue reference="WTf-CW-Cn6"/>
+        <segue reference="eik-4e-pXT"/>
+        <segue reference="qSk-1a-lLs"/>
+        <segue reference="2ax-PQ-ctu"/>
+        <segue reference="ck8-tQ-3J4"/>
+        <segue reference="COh-cw-Ntn"/>
     </inferredMetricsTieBreakers>
 </document>

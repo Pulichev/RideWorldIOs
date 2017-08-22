@@ -64,7 +64,12 @@ struct Like {
       ]
       
       // deleting from feedback node
-      getLikeFromUser(id: userId, postId: post.key) { like in
+      getLikeFromUser(id: userId, postId: post.key) { likeItem in
+         guard let like = likeItem else {
+            completion(false)
+            return
+         }
+         
          if like.userId != like.postAddedByUserId {
             updates.updateValue(nil, forKey: "/feedback/" + like.postAddedByUserId + "/" + like.key)
          }
@@ -98,13 +103,17 @@ struct Like {
    }
    
    static func getLikeFromUser(id: String, postId: String,
-                               completion: @escaping (_ likeId: LikeItem) -> Void) {
+                               completion: @escaping (_ likeId: LikeItem?) -> Void) {
       let refToLike = ref.child("/userslikes/" + id + "/onposts/" + postId)
       
       refToLike.observeSingleEvent(of: .value, with: { snapshot in
-         let like = LikeItem(snapshot: snapshot)
-         
-         completion(like)
+         if snapshot.exists() {
+            let like = LikeItem(snapshot: snapshot)
+            
+            completion(like)
+         } else {
+            completion(nil)
+         }
       })
    }
    

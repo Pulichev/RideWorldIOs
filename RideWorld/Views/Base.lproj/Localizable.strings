@@ -14,7 +14,7 @@
 " started following you."                                                                              = " started following you.";
 "No user founded with login "                                                                          = "No user founded with login ";
 "Oops"                                                                                                 = "Oops";
-"Some error occurred. Retry your like/removing like"                                                   = "Some error occurred. Retry your like/removing like";
+"Some error occurred. Retry your like/removing like"                                                   = "Some error occurred. Retry your like/removing like. Sometimes feed refreshing required.";
 "Cancel"                                                                                               = "Cancel";
 "Go To Spot Info"                                                                                      = "Go To Spot Info";
 "Report post"                                                                                          = "Report post";

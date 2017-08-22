@@ -14,7 +14,7 @@
 " started following you."                                                                              = " подписался на вас.";
 "No user founded with login "                                                                          = "Не найден пользователь с логином ";
 "Oops"                                                                                                 = "Ой..";
-"Some error occurred. Retry your like/removing like"                                                   = "Неизвестная ошибка. Попробуйте снова.";
+"Some error occurred. Retry your like/removing like"                                                   = "Неизвестная ошибка. Попробуйте снова. Иногда требуется обновить ленту новостей.";
 "Cancel"                                                                                               = "Отмена";
 "Go To Spot Info"                                                                                      = "Перейти к споту";
 "Report post"                                                                                          = "Пожаловаться";

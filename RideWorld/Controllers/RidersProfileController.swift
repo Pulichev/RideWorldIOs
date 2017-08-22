@@ -179,11 +179,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    // MARK: - Following logic
    @IBAction func followButtonTapped(_ sender: Any) {
       if followButton.currentTitle == NSLocalizedString("Follow", comment: "") { // add or remove like
-         UserModel.addFollowing(to: ridersInfo.uid)
-         UserModel.addFollower(to: ridersInfo.uid)
+         UserModel.addFollowingAndFollower(to: ridersInfo.uid)
       } else {
-         UserModel.removeFollowing(from: ridersInfo.uid)
-         UserModel.removeFollower(from: ridersInfo.uid)
+         UserModel.removeFollowingAndFollower(from: ridersInfo.uid)
       }
       
       swapFollowButtonTittle()

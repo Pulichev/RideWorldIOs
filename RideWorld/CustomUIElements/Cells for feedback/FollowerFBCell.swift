@@ -63,11 +63,9 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    
    @IBAction func followButtonTapped(_ sender: UIButton) {
       if followButton.currentTitle == "Follow" { // add or remove like
-         UserModel.addFollowing(to: userItem.uid)
-         UserModel.addFollower(to: userItem.uid)
+         UserModel.addFollowingAndFollower(to: userItem.uid)
       } else {
-         UserModel.removeFollowing(from: userItem.uid)
-         UserModel.removeFollower(from: userItem.uid)
+         UserModel.removeFollowingAndFollower(from: userItem.uid)
       }
       
       swapFollowButtonTittle()

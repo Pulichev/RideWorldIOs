@@ -54,11 +54,9 @@ class FollowersCell: UITableViewCell {
    
    @IBAction func followButtonTapped(_ sender: Any) {
       if button.currentTitle == NSLocalizedString("Follow", comment: "") {
-         UserModel.addFollowing(to: follower.uid)
-         UserModel.addFollower(to: follower.uid)
+         UserModel.addFollowingAndFollower(to: follower.uid)
       } else {
-         UserModel.removeFollowing(from: follower.uid)
-         UserModel.removeFollower(from: follower.uid)
+         UserModel.removeFollowingAndFollower(from: follower.uid)
       }
       
       swapFollowButtonTittle()

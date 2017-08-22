@@ -262,22 +262,11 @@ struct UserModel {
       })
    }
    
-   static func addFollowing(to userId: String) {
-      let refToCurrentUser = refToMainDataBase.child("usersfollowings").child(self.getCurrentUserId()).child(userId)
-      
-      refToCurrentUser.setValue(true)
-   }
-   
-   static func removeFollowing(from userId: String) {
-      let refToCurrentUser = refToMainDataBase.child("usersfollowings").child(self.getCurrentUserId()).child(userId)
-      
-      refToCurrentUser.removeValue()
-   }
-   
-   static func addFollower(to userId: String) {
+   static func addFollowingAndFollower(to userId: String) {
       let keyToFeedbackNode = refToMainDataBase.child("feedback").child(userId).childByAutoId().key
       
       let updates: [String: Any?] = [
+         "/usersfollowings/" + getCurrentUserId() + "/" + userId : true,
          "/usersfollowers/" + userId + "/" + getCurrentUserId() : keyToFeedbackNode,
          "/feedback/" + userId + "/" + keyToFeedbackNode :
             [
@@ -290,9 +279,10 @@ struct UserModel {
       refToMainDataBase.updateChildValues(updates)
    }
    
-   static func removeFollower(from userId: String) {
+   static func removeFollowingAndFollower(from userId: String) {
       getFeedbackKey(for: userId) { fbKey in
          let updates: [String: Any?] = [
+            "/usersfollowings/" + getCurrentUserId() + "/" + userId : nil,
             "/usersfollowers/" + userId + "/" + getCurrentUserId() : nil,
             "/feedback/" + userId + "/" + fbKey: nil
          ]

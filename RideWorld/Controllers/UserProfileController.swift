@@ -116,7 +116,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
             userProfilePhoto.kf.setImage(
                with: URL(string: userInfo.photo150ref!)) //Using kf for caching images.
          } else {
-            userProfilePhoto.setImage(string: userInfo.login, color: nil, circular: true,
+            userProfilePhoto.setImage(string: userInfo.login, color: UIColor.myLightGray(), circular: true,
                                       textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
          }
       }

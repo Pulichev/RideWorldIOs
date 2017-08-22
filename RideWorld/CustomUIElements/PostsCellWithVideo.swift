@@ -51,7 +51,7 @@ class PostsCellWithVideo: UITableViewCell {
       if post.userProfilePhoto90 != nil {
          userPhoto.kf.setImage(with: URL(string: post.userProfilePhoto90!))
       } else {
-         userPhoto.setImage(string: post.userLogin, color: nil, circular: true, textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
+         userPhoto.setImage(string: post.userLogin, color: UIColor.myLightGray(), circular: true, textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
       }
       
       postDate.text        = cachedCell.postDate

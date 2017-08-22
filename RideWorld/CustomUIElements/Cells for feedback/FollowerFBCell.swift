@@ -18,7 +18,7 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
          if let url = userItem.photo90ref {
             userPhoto?.kf.setImage(with: URL(string: url))
          } else {
-            userPhoto?.setImage(string: self.userItem.login, color: nil, circular: true,
+            userPhoto?.setImage(string: self.userItem.login, color: UIColor.myLightGray(), circular: true,
                                 textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
          }
          

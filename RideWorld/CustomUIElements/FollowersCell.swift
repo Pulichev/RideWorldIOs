@@ -31,7 +31,7 @@ class FollowersCell: UITableViewCell {
       if follower.photo90ref != nil {
          userImage.kf.setImage(with: URL(string: follower.photo90ref!)) // Using kf for caching images.
       } else {
-         userImage.setImage(string: follower.login, color: nil, circular: true,
+         userImage.setImage(string: follower.login, color: UIColor.myLightGray(), circular: true,
                             textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
       }
    }

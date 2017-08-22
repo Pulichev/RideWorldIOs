@@ -68,7 +68,7 @@ class PostInfoViewController: UIViewController {
          if self.postInfo.userProfilePhoto90 != nil {
             self.userPhoto.kf.setImage(with: URL(string: self.postInfo.userProfilePhoto90!))
          } else {
-            self.userPhoto.setImage(string: self.postInfo.userLogin, color: nil, circular: true,
+            self.userPhoto.setImage(string: self.postInfo.userLogin, color: UIColor.myLightGray(), circular: true,
                                     textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
          }
       }

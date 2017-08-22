@@ -8,7 +8,9 @@
 
 import UIKit
 
-class SpotFollowingsController: UITableViewController {
+class SpotFollowingsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
+   @IBOutlet weak var tableView: UITableView!
    
    var userId: String!
    fileprivate var spotFollowList = [SpotItem]()
@@ -16,6 +18,8 @@ class SpotFollowingsController: UITableViewController {
    override func viewDidLoad() {
       loadSpotFollowList()
       
+      tableView.delegate = self
+      tableView.dataSource = self
       tableView.emptyDataSetSource = self
       tableView.emptyDataSetDelegate = self
       tableView.tableFooterView = UIView()
@@ -30,15 +34,15 @@ class SpotFollowingsController: UITableViewController {
       }
    }
    
-   override func numberOfSections(in tableView: UITableView) -> Int {
+   func numberOfSections(in tableView: UITableView) -> Int {
       return 1
    }
    
-   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return spotFollowList.count
    }
    
-   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "SpotFollowingCell", for: indexPath) as! SpotFollowingCell
       let row = indexPath.row
       
@@ -55,7 +59,7 @@ class SpotFollowingsController: UITableViewController {
    
    // here is redirecting to spot info by click on row.
    // So we have 2 redirects. By image and row
-   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       tableView.deselectRow(at: indexPath, animated: true)
       
       let row = indexPath.row
@@ -70,7 +74,7 @@ class SpotFollowingsController: UITableViewController {
    
    func goToSpotInfo(row: Int) {
       spotInfoForSending = spotFollowList[row]
-      performSegue(withIdentifier: "openRidersProfileFromspotFollowList", sender: self)
+      performSegue(withIdentifier: "fromSpotFollowingsToSpotInfo", sender: self)
    }
    
    var spotInfoForSending: SpotItem!

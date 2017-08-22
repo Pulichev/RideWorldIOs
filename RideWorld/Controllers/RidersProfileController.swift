@@ -26,9 +26,12 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    
    @IBOutlet weak var followersStackView: UIStackView!
    @IBOutlet weak var followingStackView: UIStackView!
+   @IBOutlet weak var followedSpotsStackView: UIStackView!
    
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
+   @IBOutlet weak var followedSpotsCount: UILabel!
+   
    @IBOutlet weak var postsCount: UILabel!
    @IBOutlet weak var separatorLineConstraint: NSLayoutConstraint!
    
@@ -88,6 +91,10 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       UserModel.getFollowingsCountString(
       userId: ridersInfo.uid) { countOfFollowingsString in
          self.followingButton.setTitle(countOfFollowingsString, for: .normal)
+      }
+      
+      Spot.getSpotFollowingsByUserCount(with: ridersInfo.uid) { countOfFollowingsString in
+         self.followedSpotsCount.text = countOfFollowingsString
       }
    }
    
@@ -202,6 +209,9 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       
       let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(followingButtonTapped(_:)))
       followingStackView.addGestureRecognizer(tapGesture2)
+      
+      let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(followedSpotsTapped))
+      followedSpotsStackView.addGestureRecognizer(tapGesture3)
    }
    
    @IBAction func followersButtonTapped(_ sender: Any) {
@@ -212,6 +222,10 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
    @IBAction func followingButtonTapped(_ sender: Any) {
       fromFollowersOrFollowing = false
       performSegue(withIdentifier: "goToFollowersFromRidersNode", sender: self)
+   }
+   
+   func followedSpotsTapped() {
+      performSegue(withIdentifier: "fromRidersProfileToSpotFollowings", sender: self)
    }
    
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -225,6 +239,11 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
          let newFollowersController = segue.destination as! FollowersController
          newFollowersController.userId = ridersInfo.uid
          newFollowersController.followersOrFollowingList = fromFollowersOrFollowing
+         
+      case "fromRidersProfileToSpotFollowings":
+         let newSpotFollowingsController = segue.destination as! SpotFollowingsController
+         newSpotFollowingsController.userId = ridersInfo.uid
+         break
          
       default: break
       }

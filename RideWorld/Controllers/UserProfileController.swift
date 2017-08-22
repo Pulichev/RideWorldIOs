@@ -38,9 +38,12 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    @IBOutlet weak var followersStackView: UIStackView!
    @IBOutlet weak var followingStackView: UIStackView!
+   @IBOutlet weak var followedSpotsStackView: UIStackView!
    
    @IBOutlet var followersButton: UIButton!
    @IBOutlet var followingButton: UIButton!
+   @IBOutlet weak var followedSpotsCount: UILabel!
+   
    @IBOutlet weak var postsCount: UILabel!
    @IBOutlet weak var userBio: ReadMoreTextView!
    @IBOutlet weak var separatorLineConstraint: NSLayoutConstraint!
@@ -94,6 +97,10 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       
       UserModel.getFollowingsCountString(userId: userInfo.uid) { countOfFollowingsString in
          self.followingButton.setTitle(countOfFollowingsString, for: .normal)
+      }
+      
+      Spot.getSpotFollowingsByUserCount(with: userInfo.uid) { countOfFollowingsString in
+         self.followedSpotsCount.text = countOfFollowingsString
       }
    }
    
@@ -185,6 +192,9 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       
       let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(followingButtonTapped(_:)))
       followingStackView.addGestureRecognizer(tapGesture2)
+      
+      let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(followedSpotsTapped))
+      followedSpotsStackView.addGestureRecognizer(tapGesture3)
    }
    
    @IBAction func followersButtonTapped(_ sender: Any) {
@@ -195,6 +205,10 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    @IBAction func followingButtonTapped(_ sender: Any) {
       fromFollowersOrFollowing = false
       performSegue(withIdentifier: "goToFollowersFromUserNode", sender: self)
+   }
+   
+   func followedSpotsTapped() {
+      performSegue(withIdentifier: "fromUserProfileToSpotFollowings", sender: self)
    }
    
    @IBAction func logoutButtonTapped(_ sender: Any) {
@@ -211,16 +225,24 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
          newPostInfoController.postInfo = posts[selectedCellId]
          newPostInfoController.isCurrentUserProfile = true
          newPostInfoController.delegateDeleting = self
+         break
          
       case "editUserProfile":
          let newEditProfileController = segue.destination as! EditProfileController
          newEditProfileController.userInfo = userInfo
          newEditProfileController.delegate = self
+         break
          
       case "goToFollowersFromUserNode": // this segue both for followers and followings
          let newFollowersController = segue.destination as! FollowersController
          newFollowersController.userId = userInfo.uid
          newFollowersController.followersOrFollowingList = fromFollowersOrFollowing
+         break
+         
+      case "fromUserProfileToSpotFollowings":
+         let newSpotFollowingsController = segue.destination as! SpotFollowingsController
+         newSpotFollowingsController.userId = userInfo.uid
+         break
          
       default: break
       }

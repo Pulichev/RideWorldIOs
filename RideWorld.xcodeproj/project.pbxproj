@@ -60,8 +60,10 @@
 		9F61C2101F1101A00023B7D1 /* TappedSpotInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */; };
 		9F66AD221F4C882F009F6F69 /* SpotFollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F66AD211F4C882F009F6F69 /* SpotFollowingCell.swift */; };
 		9F66AD241F4C91A7009F6F69 /* FollowTappedFromSpotInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F66AD231F4C91A7009F6F69 /* FollowTappedFromSpotInfo.swift */; };
-		9F66AD261F4DD385009F6F69 /* Source PP RU.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD251F4DD385009F6F69 /* Source PP RU.rtf */; };
-		9F66AD281F4DDB75009F6F69 /* Source ToU RU.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD271F4DDB75009F6F69 /* Source ToU RU.rtf */; };
+		9F66AD261F4DD385009F6F69 /* PP RU.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD251F4DD385009F6F69 /* PP RU.rtf */; };
+		9F66AD281F4DDB75009F6F69 /* ToU RU.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD271F4DDB75009F6F69 /* ToU RU.rtf */; };
+		9F66AD2A1F4DEA74009F6F69 /* PP EN.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD291F4DEA74009F6F69 /* PP EN.rtf */; };
+		9F66AD2C1F4DEA92009F6F69 /* ToU EN.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD2B1F4DEA92009F6F69 /* ToU EN.rtf */; };
 		9F6DD9CF1F0AE0DE00E3300E /* UIButtonX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */; };
 		9F6DD9D01F0AE0DE00E3300E /* UIImageViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */; };
 		9F6DD9D11F0AE0DE00E3300E /* UILabelX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */; };
@@ -210,8 +212,10 @@
 		9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedSpotInfoDelegate.swift; path = Protocols/TappedSpotInfoDelegate.swift; sourceTree = "<group>"; };
 		9F66AD211F4C882F009F6F69 /* SpotFollowingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotFollowingCell.swift; path = CustomUIElements/SpotFollowingCell.swift; sourceTree = "<group>"; };
 		9F66AD231F4C91A7009F6F69 /* FollowTappedFromSpotInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowTappedFromSpotInfo.swift; path = Protocols/FollowTappedFromSpotInfo.swift; sourceTree = "<group>"; };
-		9F66AD251F4DD385009F6F69 /* Source PP RU.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "Source PP RU.rtf"; path = "Views/Source PP RU.rtf"; sourceTree = "<group>"; };
-		9F66AD271F4DDB75009F6F69 /* Source ToU RU.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "Source ToU RU.rtf"; path = "Views/Source ToU RU.rtf"; sourceTree = "<group>"; };
+		9F66AD251F4DD385009F6F69 /* PP RU.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "PP RU.rtf"; path = "Views/PP RU.rtf"; sourceTree = "<group>"; };
+		9F66AD271F4DDB75009F6F69 /* ToU RU.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "ToU RU.rtf"; path = "Views/ToU RU.rtf"; sourceTree = "<group>"; };
+		9F66AD291F4DEA74009F6F69 /* PP EN.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "PP EN.rtf"; path = "Views/PP EN.rtf"; sourceTree = "<group>"; };
+		9F66AD2B1F4DEA92009F6F69 /* ToU EN.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "ToU EN.rtf"; path = "Views/ToU EN.rtf"; sourceTree = "<group>"; };
 		9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButtonX.swift; path = Views/DesignableX/UIButtonX.swift; sourceTree = "<group>"; };
 		9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageViewX.swift; path = Views/DesignableX/UIImageViewX.swift; sourceTree = "<group>"; };
 		9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabelX.swift; path = Views/DesignableX/UILabelX.swift; sourceTree = "<group>"; };
@@ -438,8 +442,10 @@
 				9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */,
 				9F6DD9C41F0AE0CA00E3300E /* DesignableX */,
 				9F75ABD61F479A0C002527B0 /* Localizable.strings */,
-				9F66AD251F4DD385009F6F69 /* Source PP RU.rtf */,
-				9F66AD271F4DDB75009F6F69 /* Source ToU RU.rtf */,
+				9F66AD251F4DD385009F6F69 /* PP RU.rtf */,
+				9F66AD271F4DDB75009F6F69 /* ToU RU.rtf */,
+				9F66AD291F4DEA74009F6F69 /* PP EN.rtf */,
+				9F66AD2B1F4DEA92009F6F69 /* ToU EN.rtf */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -807,7 +813,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F0BA5701F295DA0003FBEDB /* RobotoSlab-Light.ttf in Resources */,
-				9F66AD281F4DDB75009F6F69 /* Source ToU RU.rtf in Resources */,
+				9F66AD281F4DDB75009F6F69 /* ToU RU.rtf in Resources */,
 				9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */,
 				9F0BA5721F295DA0003FBEDB /* RobotoSlab-Thin.ttf in Resources */,
 				9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */,
@@ -826,18 +832,20 @@
 				9F75ABD41F479A0C002527B0 /* Localizable.strings in Resources */,
 				9F2D4C981EAD21E100235451 /* reply.png in Resources */,
 				9F6163471E7E89C1001664B7 /* no_photo.png in Resources */,
+				9F66AD2C1F4DEA92009F6F69 /* ToU EN.rtf in Resources */,
 				9F0BA56A1F29285D003FBEDB /* Roboto-Bold.ttf in Resources */,
 				9F0BA5751F295F06003FBEDB /* Roboto-Light.ttf in Resources */,
 				9F0BA5761F295F06003FBEDB /* Roboto-Medium.ttf in Resources */,
 				9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */,
 				9F506B661EF05DA700F0CABC /* rideWorldLogo.png in Resources */,
-				9F66AD261F4DD385009F6F69 /* Source PP RU.rtf in Resources */,
+				9F66AD261F4DD385009F6F69 /* PP RU.rtf in Resources */,
 				9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */,
 				9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */,
 				9F0BA5681F292835003FBEDB /* Roboto-Regular.ttf in Resources */,
 				9F4A84491E6329D100C1E5F2 /* biography.png in Resources */,
 				9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */,
 				9F4A84471E63229E00C1E5F2 /* login.png in Resources */,
+				9F66AD2A1F4DEA74009F6F69 /* PP EN.rtf in Resources */,
 				9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

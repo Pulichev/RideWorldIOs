@@ -44,7 +44,7 @@ class PostInfoViewController: UIViewController {
    var likesCountInt = 0
    var postIsLiked: Bool!
    @IBOutlet weak var openComments: UIButton!
-   @IBOutlet weak var deleteButton: UIBarButtonItem!
+   @IBOutlet weak var deleteButton: UIButton!
    @IBOutlet weak var userPhoto: RoundedImageView!
    @IBOutlet weak var userLoginHeaderButton: UIButton!
    

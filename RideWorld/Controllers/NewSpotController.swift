@@ -176,11 +176,11 @@ extension NewSpotController: UIPickerViewDelegate, UIPickerViewDataSource {
    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
       switch row {
       case 0:
-         return "Street"
+         return NSLocalizedString("Street", comment: "")
       case 1:
-         return "Park"
+         return NSLocalizedString("Park", comment: "")
       case 2:
-         return "Dirt"
+         return NSLocalizedString("Dirt", comment: "")
       default:
          return ""
       }

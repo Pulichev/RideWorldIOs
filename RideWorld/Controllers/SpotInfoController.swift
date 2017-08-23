@@ -81,14 +81,14 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    }
    
    //MARK: - follow part
-   @IBOutlet weak var followSpotButton: UIBarButtonItem!
+   @IBOutlet weak var followSpotButton: UIButton!
    
    private func initFollowButton() {
       Spot.isCurrentUserFollowingSpot(with: spotInfo.key) { isFollowing in
          if isFollowing {
-            self.followSpotButton.title = NSLocalizedString("Following", comment: "")
+            self.followSpotButton.setTitle(NSLocalizedString("Following", comment: ""), for: .normal)
          } else {
-            self.followSpotButton.title = NSLocalizedString("Follow", comment: "")
+            self.followSpotButton.setTitle(NSLocalizedString("Follow", comment: ""), for: .normal)
          }
          
          self.followSpotButton.isEnabled = true
@@ -96,7 +96,7 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    }
    
    @IBAction func followSpotButtonTapped(_ sender: Any) {
-      if followSpotButton.title == NSLocalizedString("Follow", comment: "") { // add or remove like
+      if followSpotButton.currentTitle == NSLocalizedString("Follow", comment: "") { // add or remove like
          Spot.addFollowingToSpot(with: spotInfo.key)
       } else {
          Spot.removeFollowingToSpot(with: spotInfo.key)
@@ -110,10 +110,10 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    }
    
    private func swapFollowButtonTittle() {
-      if followSpotButton.title == NSLocalizedString("Follow", comment: "") {
-         followSpotButton.title = NSLocalizedString("Following", comment: "")
+      if followSpotButton.currentTitle == NSLocalizedString("Follow", comment: "") {
+         followSpotButton.setTitle(NSLocalizedString("Following", comment: ""), for: .normal)
       } else {
-         followSpotButton.title = NSLocalizedString("Follow", comment: "")
+         followSpotButton.setTitle(NSLocalizedString("Follow", comment: ""), for: .normal)
       }
    }
    

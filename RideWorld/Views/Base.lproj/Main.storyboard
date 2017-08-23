@@ -1585,10 +1585,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Cb-WX-2eo" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="410"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b6x-qq-LDc">
-                                                <rect key="frame" x="5" y="307" width="365" height="80"/>
+                                                <rect key="frame" x="5" y="317" width="365" height="80"/>
                                                 <color key="backgroundColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="0.029999999999999999" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="t6l-bD-1Xi"/>
@@ -1597,7 +1597,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="twitter"/>
                                             </textView>
                                             <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="s2M-t3-luU" customClass="MediaContainerView" customModule="RideWorld" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="299"/>
+                                                <rect key="frame" x="0.0" y="10" width="375" height="299"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="299" id="Vfe-sK-IgL"/>
@@ -1611,7 +1611,7 @@
                                             <constraint firstItem="b6x-qq-LDc" firstAttribute="top" secondItem="s2M-t3-luU" secondAttribute="bottom" constant="8" id="SFi-al-VC0"/>
                                             <constraint firstAttribute="trailing" secondItem="s2M-t3-luU" secondAttribute="trailing" id="UxN-uG-CZy"/>
                                             <constraint firstAttribute="trailing" secondItem="b6x-qq-LDc" secondAttribute="trailing" constant="5" id="g88-4o-Rhp"/>
-                                            <constraint firstItem="s2M-t3-luU" firstAttribute="top" secondItem="3Cb-WX-2eo" secondAttribute="top" id="jTz-e3-Yc4"/>
+                                            <constraint firstItem="s2M-t3-luU" firstAttribute="top" secondItem="3Cb-WX-2eo" secondAttribute="top" constant="10" id="jTz-e3-Yc4"/>
                                             <constraint firstItem="s2M-t3-luU" firstAttribute="leading" secondItem="3Cb-WX-2eo" secondAttribute="leading" id="mgj-h5-etO"/>
                                         </constraints>
                                     </view>
@@ -1755,7 +1755,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f5g-1l-QE8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="tf5-EU-9ON">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="tf5-EU-9ON">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2076,7 +2076,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYi-27-4I5">
-                                                    <rect key="frame" x="52" y="5" width="195" height="0.0"/>
+                                                    <rect key="frame" x="52" y="5" width="195" height="42"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2115,7 +2115,6 @@
                                                 <constraint firstItem="MDF-cI-KiF" firstAttribute="top" secondItem="Eqz-KN-UQE" secondAttribute="top" constant="10" id="cLz-ZK-W8k"/>
                                                 <constraint firstItem="M0Q-xP-rU1" firstAttribute="width" secondItem="M0Q-xP-rU1" secondAttribute="height" multiplier="1:1" id="f6I-ax-Zfp"/>
                                                 <constraint firstItem="MDF-cI-KiF" firstAttribute="leading" secondItem="KYi-27-4I5" secondAttribute="trailing" constant="10" id="h4m-ve-SOx"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="MDF-cI-KiF" secondAttribute="bottom" constant="10.75" id="ib4-NK-b7o"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -2146,7 +2145,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wuy-V2-fhY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3335.1999999999998" y="-737.18140929535241"/>
+            <point key="canvasLocation" x="2959" y="-747"/>
         </scene>
         <!--Edit profile info-->
         <scene sceneID="rZp-ff-gdb">
@@ -2354,7 +2353,7 @@
                         <inset key="imageInsets" minX="-2" minY="4" maxX="2" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ZvH-44-4Fc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="ZvH-44-4Fc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2378,7 +2377,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LoginPage" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="H2C-mG-pr3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="kUm-Jk-EFt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kUm-Jk-EFt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2402,7 +2401,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="STW-of-5hp" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="P88-G9-8IC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="P88-G9-8IC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2789,7 +2788,7 @@
                         <inset key="imageInsets" minX="-1" minY="6" maxX="1" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f63-wh-W1p">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f63-wh-W1p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2810,7 +2809,7 @@
                         <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="-8"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="an1-kP-YTX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="an1-kP-YTX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2831,7 +2830,7 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Xl-Pa-BHx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1Xl-Pa-BHx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2852,7 +2851,7 @@
                         <inset key="imageInsets" minX="1" minY="7" maxX="-1" maxY="-7"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2PK-Bf-uzA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2PK-Bf-uzA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3058,12 +3057,12 @@
         <segue reference="Gef-69-N8A"/>
         <segue reference="Sh7-b9-fDP"/>
         <segue reference="ck8-tQ-3J4"/>
-        <segue reference="Xyq-8K-e8w"/>
-        <segue reference="6R6-CY-IE2"/>
-        <segue reference="TEa-lr-7L1"/>
+        <segue reference="OkS-TY-PQh"/>
+        <segue reference="9jf-Eh-2KR"/>
+        <segue reference="WTf-CW-Cn6"/>
+        <segue reference="RlL-e4-xY6"/>
+        <segue reference="Oe2-wo-WXX"/>
+        <segue reference="qSk-1a-lLs"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="TeE-da-wxz"/>
-        <segue reference="JLU-Th-Uca"/>
-        <segue reference="eyf-4a-ZNN"/>
     </inferredMetricsTieBreakers>
 </document>

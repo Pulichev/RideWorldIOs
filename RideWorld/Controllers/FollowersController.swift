@@ -7,6 +7,7 @@
 //
 
 class FollowersController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
    @IBOutlet var tableView: UITableView!
    
    var userId: String!

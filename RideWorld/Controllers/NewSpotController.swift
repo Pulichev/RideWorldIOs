@@ -44,7 +44,8 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    func UICustomizing() {
       //adding method on spot main photo tap
       addGestureToOpenCameraOnPhotoTap()
-      imageView.image = UIImage(named: "plus-512.gif") //Setting default picture
+      imageView.image = UIImage(named: "no photo") //Setting default picture
+      imageView.tintColor = UIColor.myDarkBlue()
    }
    
    func addGestureToOpenCameraOnPhotoTap() {

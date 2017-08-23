@@ -56,7 +56,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
    func UICustomizing() {
       //adding method on spot main photo tap
       addGestureToOpenCameraOnPhotoTap()
-      photoView.image = UIImage(named: "plus-512.gif") //Setting default picture
+      photoView.image = UIImage(named: "no photo") //Setting default picture
+      photoView.tintColor = UIColor.myDarkBlue()
       photoView.layer.contentsGravity = kCAGravityResize
       photoView.contentMode = .scaleAspectFill
       photoView.layer.frame = photoOrVideoView.bounds
@@ -178,7 +179,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
       } catch {
          print(error)
          
-         let failImage = UIImage(named: "plus-512.gif")
+         let failImage = UIImage(named: "no photo")
          
          return failImage!
       }

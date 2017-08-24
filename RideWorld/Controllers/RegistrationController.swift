@@ -8,27 +8,79 @@
 
 import FirebaseAuth
 import SVProgressHUD
+import ActiveLabel
 
 class RegistrationController: UIViewController {
    
    @IBOutlet weak var userEmail: UITextField!
    @IBOutlet weak var userLogin: UITextField!
    @IBOutlet weak var userPassword: UITextField!
+   @IBOutlet weak var agreements: ActiveLabel!
    
    override func viewDidLoad() {
-      //For scrolling the view if keyboard on
-      NotificationCenter.default.addObserver(self, selector: #selector(RegistrationController.keyboardWillShow),
-                                             name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-      NotificationCenter.default.addObserver(self, selector: #selector(RegistrationController.keyboardWillHide),
-                                             name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-      
       super.viewDidLoad()
+      //For scrolling the view if keyboard on
+      NotificationCenter.default.addObserver(self,
+                                             selector: #selector(RegistrationController.keyboardWillShow),
+                                             name: NSNotification.Name.UIKeyboardWillShow,
+                                             object: nil)
+      NotificationCenter.default.addObserver(self,
+                                             selector: #selector(RegistrationController.keyboardWillHide),
+                                             name: NSNotification.Name.UIKeyboardWillHide,
+                                             object: nil)
+      
+      setAgreenentsTextAndCustomize()
    }
    
-   override func didReceiveMemoryWarning() {
-      super.didReceiveMemoryWarning()
-      // Dispose of any resources that can be recreated.
+   private func setAgreenentsTextAndCustomize() {
+      agreements.text = NSLocalizedString("RegLinkToTerms", comment: "")
+      customizeDescUserLogin()
    }
+   
+   private func customizeDescUserLogin() {
+      agreements.customize { agreements in
+         let ToUTappedType = ActiveType.custom(pattern: "\(NSLocalizedString("RegToU", comment: ""))")
+         agreements.enabledTypes.append(ToUTappedType)
+         agreements.handleCustomTap(for: ToUTappedType) { _ in
+            self.goToTermsOfUse()
+         }
+         
+         let PPTappedType = ActiveType.custom(pattern: "\(NSLocalizedString("RegPP", comment: ""))")
+         agreements.enabledTypes.append(PPTappedType)
+         agreements.handleCustomTap(for: PPTappedType) { _ in
+            self.goToPrivacyPolicy()
+         }
+         
+         agreements.customColor[ToUTappedType] = UIColor.myLightBrown()
+         agreements.customColor[PPTappedType]  = UIColor.myLightBrown()
+      }
+   }
+   
+   // MARK: - links to textView
+   var fileNameToOpen: String!
+   
+   func goToTermsOfUse() {
+      fileNameToOpen = "ToU"
+      performSegue(withIdentifier: "fromRegToText", sender: self)
+   }
+   
+   func goToPrivacyPolicy() {
+      fileNameToOpen = "PP"
+      performSegue(withIdentifier: "fromRegToText", sender: self)
+   }
+   
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      switch segue.identifier! {
+      case "fromRegToText":
+         let newTextViewController = segue.destination as! TextViewController
+         newTextViewController.fileNameString = fileNameToOpen
+         break
+         
+      default:
+         break
+      }
+   }
+   
    
    @IBAction func signUpButtonTapped(_ sender: Any) {
       SVProgressHUD.show()

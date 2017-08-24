@@ -278,7 +278,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       performSegue(withIdentifier: "goToLanguageSelect", sender: self)
    }
    
-   // MARK: - links to WebView
+   // MARK: - links to textView
    var fileNameToOpen: String!
    
    func goToTermsOfUse() {

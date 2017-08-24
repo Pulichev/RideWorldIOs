@@ -137,13 +137,41 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    //MARK: - User settings table
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 9
+      switch section {
+      case 0:
+         return 4
+      case 1:
+         return 4
+      case 2:
+         return 1
+      default:
+         return 0
+      }
+   }
+   
+   func numberOfSections(in tableView: UITableView) -> Int {
+      return 3
+   }
+   
+   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+      switch section {
+      case 0:
+         return NSLocalizedString("User info", comment: "")
+      case 1:
+         return NSLocalizedString("General settings and rules", comment: "")
+      case 2:
+         return ""
+      default:
+         return ""
+      }
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let row = indexPath.row
+      let row     = indexPath.row
+      let section = indexPath.section
       
-      if row < 4 { // if not cell with buttons
+      switch section {
+      case 0:
          let cell = tableView.dequeueReusableCell(withIdentifier: "EditProfileCell", for: indexPath) as! EditProfileCell
          
          let leftImageView = UIImageView()
@@ -194,34 +222,30 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          }
          
          return cell
-      } else {
+         
+      case 1:
          let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
          
          switch row {
-         case 4:
+         case 0:
             cell.button.setTitle(NSLocalizedString("Language", comment: ""), for: .normal)
             cell.button.tintColor = UIColor.myDarkBlue()
             cell.button.addTarget(self, action: #selector(goToLanguageSelect), for: .touchUpInside)
             break
-         case 5:
+         case 1:
             cell.button.setTitle(NSLocalizedString("Terms of Use", comment: ""), for: .normal)
             cell.button.tintColor = UIColor.myDarkBlue()
             cell.button.addTarget(self, action: #selector(goToTermsOfUse), for: .touchUpInside)
             break
-         case 6:
+         case 2:
             cell.button.setTitle(NSLocalizedString("Privacy Policy", comment: ""), for: .normal)
             cell.button.tintColor = UIColor.myDarkBlue()
             cell.button.addTarget(self, action: #selector(goToPrivacyPolicy), for: .touchUpInside)
             break
-         case 7:
+         case 3:
             cell.button.setTitle(NSLocalizedString("Contacts", comment: ""), for: .normal)
             cell.button.tintColor = UIColor.myDarkBlue()
             cell.button.addTarget(self, action: #selector(goToContacts), for: .touchUpInside)
-            break
-         case 8:
-            cell.button.setTitle(NSLocalizedString("SignOut", comment: ""), for: .normal)
-            cell.button.tintColor = UIColor.red
-            cell.button.addTarget(self, action: #selector(signOut), for: .touchUpInside)
             break
             
          default:
@@ -229,10 +253,18 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          }
          
          return cell
+         
+      case 2:
+         let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
+         cell.button.setTitle(NSLocalizedString("SignOut", comment: ""), for: .normal)
+         cell.button.tintColor = UIColor.red
+         cell.button.addTarget(self, action: #selector(signOut), for: .touchUpInside)
+         return cell
+         
+      default:
+         // kostil. need to release...
+         return UITableViewCell()
       }
-      
-      // kostil. need to release...
-      return UITableViewCell()
    }
    
    func signOut() {

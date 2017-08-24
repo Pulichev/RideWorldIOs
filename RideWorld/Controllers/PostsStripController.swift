@@ -468,6 +468,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       loadingView.dismiss()
       haveWeFinishedLoading = true
    }
+   
+   fileprivate var isFirstClickOnTabBar = true // will user in in UITabBarControllerDelegate
 }
 
 // MARK: - Updating like info
@@ -484,8 +486,12 @@ extension PostsStripController: PostsCellLikeEventDelegate {
 // MARK: - For scrolling table view to start on home tab bar item tap
 extension PostsStripController: UITabBarControllerDelegate {
    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-      
       let tabBarIndex = tabBarController.selectedIndex
+      
+      if isFirstClickOnTabBar {
+         isFirstClickOnTabBar = false
+         return
+      }
       
       if tabBarIndex == 0 {
          self.tableView.setContentOffset(CGPoint.zero, animated: true)
@@ -534,18 +540,22 @@ extension PostsStripController {
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
+      isFirstClickOnTabBar = true
+      
       if !cameFromSpotOrMyStrip {
-         self.navigationItem.title = "RideWorld"
+         navigationItem.title = "RideWorld"
          
          // hide add post button
-         if self.navigationItem.rightBarButtonItems?.count == 2 {
-            self.navigationItem.rightBarButtonItems?.remove(at: 0)
+         if navigationItem.rightBarButtonItems?.count == 2 {
+            navigationItem.rightBarButtonItems?.remove(at: 0)
          }
       }
    }
    
    override func viewWillDisappear(_ animated: Bool) {
       super.viewWillDisappear(animated)
+      
+      isFirstClickOnTabBar = true
       
       if !cameFromSpotOrMyStrip {
          // Show the navigation bar on other view controllers

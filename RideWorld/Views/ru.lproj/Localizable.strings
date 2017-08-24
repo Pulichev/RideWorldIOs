@@ -21,7 +21,7 @@
 "Send"                                                                                                 = "Отпр.";
 "Enter reason.."                                                                                       = "Введите причину..";
 "Open commentaries "                                                                                   = "Открыть комментарии ";
-"Following"                                                                                            = "В подписках";
+"Following"                                                                                            = "Подписки";
 "Follow"                                                                                               = "Подписаться";
 "Loading..."                                                                                           = "Загрузка...";
 "Error!"                                                                                               = "Ошибка!";
@@ -81,3 +81,9 @@
 "Street"                                                                                               = "Стрит";
 "Park"                                                                                                 = "Парк";
 "Dirt"                                                                                                 = "Дерт";
+"Contacts info"                                                                                        = "Автор: Пуличев Владислав\nE-Mail: vlad.pulichev777@gmail.com\nСтраница Поддержки: https://www.facebook.com/vlad.pulichev";
+"PP"                                                                                                   = "PP RU";
+"ToU"                                                                                                  = "ToU RU";
+"Terms of Use"                                                                                         = "Условия использования";
+"Privacy Policy"                                                                                       = "Политика конфиденциальности";
+"Contacts"                                                                                             = "Контакты";

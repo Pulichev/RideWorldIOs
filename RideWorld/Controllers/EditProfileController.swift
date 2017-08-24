@@ -137,13 +137,13 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    //MARK: - User settings table
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 6
+      return 9
    }
    
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let row = indexPath.row
       
-      if row != 4 && row != 5 { // if not LogOut and Language buttons
+      if row < 4 { // if not cell with buttons
          let cell = tableView.dequeueReusableCell(withIdentifier: "EditProfileCell", for: indexPath) as! EditProfileCell
          
          let leftImageView = UIImageView()
@@ -195,24 +195,44 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          
          return cell
       } else {
-         if row == 4 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
-            
+         let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
+         
+         switch row {
+         case 4:
             cell.button.setTitle(NSLocalizedString("Language", comment: ""), for: .normal)
             cell.button.tintColor = UIColor.myDarkBlue()
             cell.button.addTarget(self, action: #selector(goToLanguageSelect), for: .touchUpInside)
-            
-            return cell
-         } else { // row == 5
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
-            
+            break
+         case 5:
+            cell.button.setTitle(NSLocalizedString("Terms of Use", comment: ""), for: .normal)
+            cell.button.tintColor = UIColor.myDarkBlue()
+            cell.button.addTarget(self, action: #selector(goToTermsOfUse), for: .touchUpInside)
+            break
+         case 6:
+            cell.button.setTitle(NSLocalizedString("Privacy Policy", comment: ""), for: .normal)
+            cell.button.tintColor = UIColor.myDarkBlue()
+            cell.button.addTarget(self, action: #selector(goToPrivacyPolicy), for: .touchUpInside)
+            break
+         case 7:
+            cell.button.setTitle(NSLocalizedString("Contacts", comment: ""), for: .normal)
+            cell.button.tintColor = UIColor.myDarkBlue()
+            cell.button.addTarget(self, action: #selector(goToContacts), for: .touchUpInside)
+            break
+         case 8:
             cell.button.setTitle(NSLocalizedString("SignOut", comment: ""), for: .normal)
             cell.button.tintColor = UIColor.red
             cell.button.addTarget(self, action: #selector(signOut), for: .touchUpInside)
+            break
             
-            return cell
+         default:
+            break
          }
+         
+         return cell
       }
+      
+      // kostil. need to release...
+      return UITableViewCell()
    }
    
    func signOut() {
@@ -224,6 +244,36 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    func goToLanguageSelect() {
       performSegue(withIdentifier: "goToLanguageSelect", sender: self)
+   }
+   
+   // MARK: - links to WebView
+   var fileNameToOpen: String!
+   
+   func goToTermsOfUse() {
+      fileNameToOpen = "ToU"
+      performSegue(withIdentifier: "fromEditToTextView", sender: self)
+   }
+   
+   func goToPrivacyPolicy() {
+      fileNameToOpen = "PP"
+      performSegue(withIdentifier: "fromEditToTextView", sender: self)
+   }
+   
+   func goToContacts() {
+      fileNameToOpen = "Contacts info" // it will mean contacts
+      performSegue(withIdentifier: "fromEditToTextView", sender: self)
+   }
+   
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      switch segue.identifier! {
+      case "fromEditToTextView":
+         let newTextViewController = segue.destination as! TextViewController
+         newTextViewController.fileNameString = fileNameToOpen
+         break
+         
+      default:
+         break
+      }
    }
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view

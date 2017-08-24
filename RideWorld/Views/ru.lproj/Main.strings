@@ -6,7 +6,7 @@
 "5ma-Lc-Yhj.text" = "0";
 
 /* Class = "UIButton"; normalTitle = "Edit profile"; ObjectID = "6Gf-2N-ipQ"; */
-"6Gf-2N-ipQ.normalTitle" = "Настройки профиля";
+"6Gf-2N-ipQ.normalTitle" = "Настройки";
 
 /* Class = "UITextField"; placeholder = "Enter password"; ObjectID = "6z7-RQ-RwM"; */
 "6z7-RQ-RwM.placeholder" = "Введите пароль";
@@ -30,7 +30,7 @@
 "9M3-vR-ACh.text" = "Дата";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "9jR-4T-yfs"; */
-"9jR-4T-yfs.title" = "Итем";
+"9jR-4T-yfs.title" = "Элемент";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "AKu-vk-s0g"; */
 "AKu-vk-s0g.title" = "Заголовок";
@@ -38,20 +38,23 @@
 /* Class = "UIButton"; normalTitle = "..."; ObjectID = "AYU-8z-Yyb"; */
 "AYU-8z-Yyb.normalTitle" = "...";
 
-/* Class = "UILabel"; text = "13"; ObjectID = "AgM-qp-O1H"; */
-"AgM-qp-O1H.text" = "13";
+/* Class = "UILabel"; text = "0"; ObjectID = "AgM-qp-O1H"; */
+"AgM-qp-O1H.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "B9Q-5c-ixp"; */
+"B9Q-5c-ixp.normalTitle" = "Удалить";
 
 /* Class = "UINavigationItem"; title = "RideWorld"; ObjectID = "BPL-Qz-8kq"; */
 "BPL-Qz-8kq.title" = "RideWorld";
-
-/* Class = "UIBarButtonItem"; title = "Delete"; ObjectID = "Bdk-bS-6Gg"; */
-"Bdk-bS-6Gg.title" = "Удалить";
 
 /* Class = "UILabel"; text = "Date"; ObjectID = "D2t-bu-omf"; */
 "D2t-bu-omf.text" = "Дата";
 
 /* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "D3j-uG-cGi"; */
 "D3j-uG-cGi.title" = "Сохранить";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "Gh7-xN-dpm"; */
+"Gh7-xN-dpm.text" = "...";
 
 /* Class = "UILabel"; text = "Spot name"; ObjectID = "HOd-W1-e0u"; */
 "HOd-W1-e0u.text" = "Имя спота";
@@ -74,11 +77,17 @@
 /* Class = "UIButton"; normalTitle = "Add Photo"; ObjectID = "JIR-BA-okl"; */
 "JIR-BA-okl.normalTitle" = "Добавить фото";
 
+/* Class = "UILabel"; text = "Spots"; ObjectID = "NEp-g7-Y29"; */
+"NEp-g7-Y29.text" = "Споты";
+
 /* Class = "UIButton"; normalTitle = "Change profile photo"; ObjectID = "O9P-AH-deA"; */
-"O9P-AH-deA.normalTitle" = "Изменить фото профиля";
+"O9P-AH-deA.normalTitle" = "Изменить фотографию";
 
 /* Class = "UIButton"; normalTitle = "Open commentaries"; ObjectID = "PI7-5H-s26"; */
 "PI7-5H-s26.normalTitle" = "Открыть комментарии";
+
+/* Class = "UILabel"; text = "Spots"; ObjectID = "PSx-v4-NHM"; */
+"PSx-v4-NHM.text" = "Споты";
 
 /* Class = "UIButton"; normalTitle = "Go To Posts"; ObjectID = "PUz-af-Ftt"; */
 "PUz-af-Ftt.normalTitle" = "Перейти к постам";
@@ -86,17 +95,17 @@
 /* Class = "UILabel"; text = "Description"; ObjectID = "QU0-qy-BTX"; */
 "QU0-qy-BTX.text" = "Описание";
 
+/* Class = "UIButton"; normalTitle = "Follow"; ObjectID = "QVI-mT-qr1"; */
+"QVI-mT-qr1.normalTitle" = "Следовать";
+
 /* Class = "UIButton"; normalTitle = "..."; ObjectID = "RMI-Pf-SCZ"; */
 "RMI-Pf-SCZ.normalTitle" = "...";
 
 /* Class = "UITextField"; placeholder = "Enter login"; ObjectID = "TcQ-Ca-XWa"; */
 "TcQ-Ca-XWa.placeholder" = "Введите логин";
 
-/* Class = "UIBarButtonItem"; title = "Follow"; ObjectID = "Tfu-iJ-iXj"; */
-"Tfu-iJ-iXj.title" = "Подписаться";
-
 /* Class = "UILabel"; text = "13"; ObjectID = "VVe-KW-Miz"; */
-"VVe-KW-Miz.text" = "13";
+"VVe-KW-Miz.text" = "0";
 
 /* Class = "UIButton"; normalTitle = "Open commentaries"; ObjectID = "VeH-SJ-JSz"; */
 "VeH-SJ-JSz.normalTitle" = "Открыть комментарии";
@@ -110,17 +119,11 @@
 /* Class = "UIButton"; normalTitle = "Sign up"; ObjectID = "ZtR-FJ-INY"; */
 "ZtR-FJ-INY.normalTitle" = "Регистрация";
 
-/* Class = "UIBarButtonItem"; title = "Add post"; ObjectID = "a4U-CQ-qRv"; */
-"a4U-CQ-qRv.title" = "Добавить пост";
-
 /* Class = "UILabel"; text = "Posts"; ObjectID = "a8x-sx-lun"; */
 "a8x-sx-lun.text" = "Посты";
 
 /* Class = "UITextField"; placeholder = "Enter spot name"; ObjectID = "b0b-S2-wIf"; */
-"b0b-S2-wIf.placeholder" = "Введите название спота";
-
-/* Class = "UITextView"; text = "Des"; ObjectID = "b6x-qq-LDc"; */
-"b6x-qq-LDc.text" = "Описание";
+"b0b-S2-wIf.placeholder" = "Введите имя спота";
 
 /* Class = "UIButton"; normalTitle = "..."; ObjectID = "bBk-sQ-gSw"; */
 "bBk-sQ-gSw.normalTitle" = "...";
@@ -132,7 +135,7 @@
 "dJ5-oc-I9H.normalTitle" = "Отправить E-Mail";
 
 /* Class = "UIButton"; normalTitle = "Login"; ObjectID = "f8W-0p-xYO"; */
-"f8W-0p-xYO.normalTitle" = "Логин";
+"f8W-0p-xYO.normalTitle" = "Войти";
 
 /* Class = "UILabel"; text = "RideWorld"; ObjectID = "fg7-lC-EhL"; */
 "fg7-lC-EhL.text" = "RideWorld";
@@ -152,11 +155,14 @@
 /* Class = "UIButton"; normalTitle = "..."; ObjectID = "hY3-G1-obR"; */
 "hY3-G1-obR.normalTitle" = "...";
 
+/* Class = "UIButton"; normalTitle = "Add post"; ObjectID = "hxZ-GI-Soh"; */
+"hxZ-GI-Soh.normalTitle" = "Добавить пост";
+
 /* Class = "UIButton"; normalTitle = "Forgot password?"; ObjectID = "i7s-io-2Iy"; */
 "i7s-io-2Iy.normalTitle" = "Забыли пароль?";
 
-/* Class = "UINavigationItem"; title = "Edit profile info"; ObjectID = "j6m-0V-vf0"; */
-"j6m-0V-vf0.title" = "Изменение профиля";
+/* Class = "UINavigationItem"; title = "Edit info"; ObjectID = "j6m-0V-vf0"; */
+"j6m-0V-vf0.title" = "Настройки";
 
 /* Class = "UILabel"; text = "Date"; ObjectID = "k0k-UO-N7j"; */
 "k0k-UO-N7j.text" = "Дата";
@@ -165,7 +171,7 @@
 "kak-qA-K8P.normalTitle" = "Открыть комментарии";
 
 /* Class = "UILabel"; text = "Name Sename"; ObjectID = "mep-uq-G9T"; */
-"mep-uq-G9T.text" = "Имя Фамилия";
+"mep-uq-G9T.text" = "Имя фамилия";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "nI3-06-gHa"; */
 "nI3-06-gHa.normalTitle" = "Кнопка";
@@ -196,3 +202,6 @@
 
 /* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "zBc-Kf-kSL"; */
 "zBc-Kf-kSL.title" = "Сохранить";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "zuD-uu-wOc"; */
+"zuD-uu-wOc.text" = "...";

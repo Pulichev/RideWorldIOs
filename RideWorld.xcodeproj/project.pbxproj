@@ -14,7 +14,6 @@
 		9F047FF91F37300D0036E608 /* FollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F047FF81F37300D0036E608 /* FollowButton.swift */; };
 		9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5831E898412007ABD55 /* grayRec.jpg */; };
 		9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */; };
-		9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */; };
 		9F0BA55B1F276753003FBEDB /* FloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */; };
 		9F0BA55D1F28D105003FBEDB /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0BA55C1F28D105003FBEDB /* MapButton.swift */; };
 		9F0BA5631F292453003FBEDB /* AnonymousPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F0BA55F1F292453003FBEDB /* AnonymousPro-Bold.ttf */; };
@@ -38,17 +37,10 @@
 		9F2D4C981EAD21E100235451 /* reply.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2D4C961EAD21E100235451 /* reply.png */; };
 		9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3022BD1EE5BF19001827B3 /* grayRec.png */; };
 		9F49EB301E688718007ADAD1 /* SpotItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F49EB2F1E688718007ADAD1 /* SpotItem.swift */; };
-		9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */; };
-		9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */; };
 		9F4A843F1E62F16C00C1E5F2 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */; };
 		9F4A84411E62F4C100C1E5F2 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A84401E62F4C100C1E5F2 /* UserProfileController.swift */; };
 		9F4A84431E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A84421E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift */; };
 		9F4A84451E62F58700C1E5F2 /* EditProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */; };
-		9F4A84471E63229E00C1E5F2 /* login.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84461E63229E00C1E5F2 /* login.png */; };
-		9F4A84491E6329D100C1E5F2 /* biography.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A84481E6329D100C1E5F2 /* biography.png */; };
-		9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A844A1E632A3400C1E5F2 /* email.ico */; };
-		9F4A844D1E632AE800C1E5F2 /* nameAndSename.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F4A844C1E632AE800C1E5F2 /* nameAndSename.png */; };
-		9F506B661EF05DA700F0CABC /* rideWorldLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F506B651EF05DA700F0CABC /* rideWorldLogo.png */; };
 		9F5609811E7C6A630000DB21 /* PostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609801E7C6A630000DB21 /* PostItem.swift */; };
 		9F5609831E7C6B700000DB21 /* PostItemCellCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */; };
 		9F5609851E7C6BB50000DB21 /* PostsCellWithVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609841E7C6BB50000DB21 /* PostsCellWithVideo.swift */; };
@@ -64,6 +56,7 @@
 		9F66AD281F4DDB75009F6F69 /* ToU RU.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD271F4DDB75009F6F69 /* ToU RU.rtf */; };
 		9F66AD2A1F4DEA74009F6F69 /* PP EN.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD291F4DEA74009F6F69 /* PP EN.rtf */; };
 		9F66AD2C1F4DEA92009F6F69 /* ToU EN.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD2B1F4DEA92009F6F69 /* ToU EN.rtf */; };
+		9F66AD2E1F4DF815009F6F69 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F66AD2D1F4DF815009F6F69 /* TextViewController.swift */; };
 		9F6DD9CF1F0AE0DE00E3300E /* UIButtonX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */; };
 		9F6DD9D01F0AE0DE00E3300E /* UIImageViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */; };
 		9F6DD9D11F0AE0DE00E3300E /* UILabelX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */; };
@@ -93,7 +86,6 @@
 		9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCB1E48E5E30097579B /* NewPostController.swift */; };
 		9FC14FD21E48E5E30097579B /* NewSpotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCC1E48E5E30097579B /* NewSpotController.swift */; };
 		9FC14FD31E48E5E30097579B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCD1E48E5E30097579B /* RegistrationController.swift */; };
-		9FC14FD61E48E7300097579B /* plus-512.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9FC14FD51E48E7300097579B /* plus-512.gif */; };
 		9FC14FDE1E48E7690097579B /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FDB1E48E7690097579B /* CustomPin.swift */; };
 		9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */; };
 		9FCD27681F38ED52006A8A86 /* FollowTappedFromProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */; };
@@ -166,7 +158,6 @@
 		9F047FF81F37300D0036E608 /* FollowButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowButton.swift; path = "Views/Modified DesignableX/FollowButton.swift"; sourceTree = "<group>"; };
 		9F0AC5831E898412007ABD55 /* grayRec.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grayRec.jpg; path = Pictures/grayRec.jpg; sourceTree = "<group>"; };
 		9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForUpdatingUserProfilePosts.swift; path = Protocols/ForUpdatingUserProfilePosts.swift; sourceTree = "<group>"; };
-		9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = PleaseWaitTxt.gif; path = Pictures/PleaseWaitTxt.gif; sourceTree = "<group>"; };
 		9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloatingActionButton.swift; path = "Views/Modified DesignableX/FloatingActionButton.swift"; sourceTree = "<group>"; };
 		9F0BA55C1F28D105003FBEDB /* MapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapButton.swift; path = "Views/Modified DesignableX/MapButton.swift"; sourceTree = "<group>"; };
 		9F0BA55F1F292453003FBEDB /* AnonymousPro-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AnonymousPro-Bold.ttf"; path = "Views/Fonts/AnonymousPro-Bold.ttf"; sourceTree = "<group>"; };
@@ -190,17 +181,10 @@
 		9F2D4C961EAD21E100235451 /* reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = reply.png; path = Pictures/reply.png; sourceTree = "<group>"; };
 		9F3022BD1EE5BF19001827B3 /* grayRec.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grayRec.png; path = Pictures/grayRec.png; sourceTree = "<group>"; };
 		9F49EB2F1E688718007ADAD1 /* SpotItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotItem.swift; path = Data/SpotItem.swift; sourceTree = "<group>"; };
-		9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPlus.png; path = Pictures/ButtonPlus.png; sourceTree = "<group>"; };
-		9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonLogout.png; path = Pictures/ButtonLogout.png; sourceTree = "<group>"; };
 		9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileController.swift; path = Controllers/EditProfileController.swift; sourceTree = "<group>"; };
 		9F4A84401E62F4C100C1E5F2 /* UserProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProfileController.swift; path = Controllers/UserProfileController.swift; sourceTree = "<group>"; };
 		9F4A84421E62F4FB00C1E5F2 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCollectionViewCell.swift; path = CustomUIElements/ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditProfileCell.swift; path = CustomUIElements/EditProfileCell.swift; sourceTree = "<group>"; };
-		9F4A84461E63229E00C1E5F2 /* login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = login.png; path = Pictures/login.png; sourceTree = "<group>"; };
-		9F4A84481E6329D100C1E5F2 /* biography.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = biography.png; path = Pictures/biography.png; sourceTree = "<group>"; };
-		9F4A844A1E632A3400C1E5F2 /* email.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; name = email.ico; path = Pictures/email.ico; sourceTree = "<group>"; };
-		9F4A844C1E632AE800C1E5F2 /* nameAndSename.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nameAndSename.png; path = Pictures/nameAndSename.png; sourceTree = "<group>"; };
-		9F506B651EF05DA700F0CABC /* rideWorldLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rideWorldLogo.png; path = Pictures/rideWorldLogo.png; sourceTree = "<group>"; };
 		9F5609801E7C6A630000DB21 /* PostItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostItem.swift; path = Data/PostItem.swift; sourceTree = "<group>"; };
 		9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostItemCellCache.swift; path = Core/PostItemCellCache.swift; sourceTree = "<group>"; };
 		9F5609841E7C6BB50000DB21 /* PostsCellWithVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCellWithVideo.swift; path = CustomUIElements/PostsCellWithVideo.swift; sourceTree = "<group>"; };
@@ -216,6 +200,8 @@
 		9F66AD271F4DDB75009F6F69 /* ToU RU.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "ToU RU.rtf"; path = "Views/ToU RU.rtf"; sourceTree = "<group>"; };
 		9F66AD291F4DEA74009F6F69 /* PP EN.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "PP EN.rtf"; path = "Views/PP EN.rtf"; sourceTree = "<group>"; };
 		9F66AD2B1F4DEA92009F6F69 /* ToU EN.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "ToU EN.rtf"; path = "Views/ToU EN.rtf"; sourceTree = "<group>"; };
+		9F66AD2D1F4DF815009F6F69 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextViewController.swift; path = Controllers/TextViewController.swift; sourceTree = "<group>"; };
+		9F66AD301F4E08B4009F6F69 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButtonX.swift; path = Views/DesignableX/UIButtonX.swift; sourceTree = "<group>"; };
 		9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageViewX.swift; path = Views/DesignableX/UIImageViewX.swift; sourceTree = "<group>"; };
 		9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabelX.swift; path = Views/DesignableX/UILabelX.swift; sourceTree = "<group>"; };
@@ -229,7 +215,6 @@
 		9F6DD9D91F0AE0EA00E3300E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Views/Assets.xcassets; sourceTree = "<group>"; };
 		9F73B09D1E6A0E490049563A /* UserItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserItem.swift; path = Data/UserItem.swift; sourceTree = "<group>"; };
 		9F75ABCF1F479401002527B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		9F75ABD01F47944B002527B0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		9F75ABD11F47944C002527B0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		9F75ABD51F479A0C002527B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9F75ABD71F479A12002527B0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -256,7 +241,6 @@
 		9FC14FCB1E48E5E30097579B /* NewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewPostController.swift; path = Controllers/NewPostController.swift; sourceTree = "<group>"; };
 		9FC14FCC1E48E5E30097579B /* NewSpotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewSpotController.swift; path = Controllers/NewSpotController.swift; sourceTree = "<group>"; };
 		9FC14FCD1E48E5E30097579B /* RegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegistrationController.swift; path = Controllers/RegistrationController.swift; sourceTree = "<group>"; };
-		9FC14FD51E48E7300097579B /* plus-512.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "plus-512.gif"; path = "Pictures/plus-512.gif"; sourceTree = "<group>"; };
 		9FC14FDB1E48E7690097579B /* CustomPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPin.swift; path = CustomUIElements/CustomPin.swift; sourceTree = "<group>"; };
 		9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularProgress.swift; path = Core/CircularProgress.swift; sourceTree = "<group>"; };
 		9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowTappedFromProfile.swift; path = Protocols/FollowTappedFromProfile.swift; sourceTree = "<group>"; };
@@ -406,30 +390,13 @@
 		9F2380721E34DA20009D41E8 /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
-				9F506B651EF05DA700F0CABC /* rideWorldLogo.png */,
 				9F3022BD1EE5BF19001827B3 /* grayRec.png */,
 				9F2D4C951EAD21E100235451 /* delete.png */,
 				9F2D4C961EAD21E100235451 /* reply.png */,
-				9F0AC5871E8DA3F9007ABD55 /* PleaseWaitTxt.gif */,
 				9F0AC5831E898412007ABD55 /* grayRec.jpg */,
 				9F6163461E7E89C1001664B7 /* no_photo.png */,
-				9F5609881E7D437A0000DB21 /* Icons */,
-				9F4A844C1E632AE800C1E5F2 /* nameAndSename.png */,
-				9F4A844A1E632A3400C1E5F2 /* email.ico */,
-				9F4A84481E6329D100C1E5F2 /* biography.png */,
-				9F4A84461E63229E00C1E5F2 /* login.png */,
-				9F4A84361E5F3ED000C1E5F2 /* ButtonLogout.png */,
-				9F4A84321E5F3D8400C1E5F2 /* ButtonPlus.png */,
-				9FC14FD51E48E7300097579B /* plus-512.gif */,
 			);
 			name = Pictures;
-			sourceTree = "<group>";
-		};
-		9F5609881E7D437A0000DB21 /* Icons */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Icons;
 			sourceTree = "<group>";
 		};
 		9F6DD9C31F0ADFD900E3300E /* Views */ = {
@@ -557,6 +524,7 @@
 				9FCD276B1F3E19FE006A8A86 /* PasswordResetController.swift */,
 				9F75ABD81F49FBD2002527B0 /* LanguageController.swift */,
 				9FDC46EF1F4B85AB00356727 /* SpotFollowingsController.swift */,
+				9F66AD2D1F4DF815009F6F69 /* TextViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -816,15 +784,11 @@
 				9F66AD281F4DDB75009F6F69 /* ToU RU.rtf in Resources */,
 				9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */,
 				9F0BA5721F295DA0003FBEDB /* RobotoSlab-Thin.ttf in Resources */,
-				9F0AC5881E8DA3F9007ABD55 /* PleaseWaitTxt.gif in Resources */,
 				9F0BA5711F295DA0003FBEDB /* RobotoSlab-Regular.ttf in Resources */,
-				9F4A84371E5F3ED000C1E5F2 /* ButtonLogout.png in Resources */,
 				9F6DD9DA1F0AE0EA00E3300E /* Assets.xcassets in Resources */,
 				9F0BA5651F292453003FBEDB /* AnonymousPro-Italic.ttf in Resources */,
 				9F2D4C971EAD21E100235451 /* delete.png in Resources */,
 				9F0BA5641F292453003FBEDB /* AnonymousPro-BoldItalic.ttf in Resources */,
-				9FC14FD61E48E7300097579B /* plus-512.gif in Resources */,
-				9F4A844D1E632AE800C1E5F2 /* nameAndSename.png in Resources */,
 				9F0BA5631F292453003FBEDB /* AnonymousPro-Bold.ttf in Resources */,
 				9F75ABCC1F4793C3002527B0 /* Main.storyboard in Resources */,
 				9F0BA56F1F295DA0003FBEDB /* RobotoSlab-Bold.ttf in Resources */,
@@ -836,15 +800,10 @@
 				9F0BA56A1F29285D003FBEDB /* Roboto-Bold.ttf in Resources */,
 				9F0BA5751F295F06003FBEDB /* Roboto-Light.ttf in Resources */,
 				9F0BA5761F295F06003FBEDB /* Roboto-Medium.ttf in Resources */,
-				9F4A844B1E632A3400C1E5F2 /* email.ico in Resources */,
-				9F506B661EF05DA700F0CABC /* rideWorldLogo.png in Resources */,
 				9F66AD261F4DD385009F6F69 /* PP RU.rtf in Resources */,
 				9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */,
 				9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */,
 				9F0BA5681F292835003FBEDB /* Roboto-Regular.ttf in Resources */,
-				9F4A84491E6329D100C1E5F2 /* biography.png in Resources */,
-				9F4A84331E5F3D8400C1E5F2 /* ButtonPlus.png in Resources */,
-				9F4A84471E63229E00C1E5F2 /* login.png in Resources */,
 				9F66AD2A1F4DEA74009F6F69 /* PP EN.rtf in Resources */,
 				9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */,
 			);
@@ -1090,6 +1049,7 @@
 				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
 				9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */,
 				9FF1BF701E9D707400A2CEF2 /* UserModel.swift in Sources */,
+				9F66AD2E1F4DF815009F6F69 /* TextViewController.swift in Sources */,
 				9FE3B71C1EC665E500E7ED40 /* CommentFBItem.swift in Sources */,
 				9F5609851E7C6BB50000DB21 /* PostsCellWithVideo.swift in Sources */,
 				9FDC46F01F4B85AB00356727 /* SpotFollowingsController.swift in Sources */,
@@ -1145,7 +1105,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9F75ABCF1F479401002527B0 /* Base */,
-				9F75ABD01F47944B002527B0 /* ru */,
+				9F66AD301F4E08B4009F6F69 /* ru */,
 			);
 			name = Main.storyboard;
 			path = Views;

@@ -96,7 +96,7 @@
                                     <constraint firstAttribute="height" constant="50" id="ltl-aZ-w1h"/>
                                 </constraints>
                                 <color key="tintColor" red="0.92941176470588238" green="0.84313725490196079" blue="0.74117647058823533" alpha="0.27000000000000002" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Login">
+                                <state key="normal" title="LogIn">
                                     <color key="titleColor" red="0.92941176470588238" green="0.84313725490196079" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -3163,7 +3163,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="gS6-Wz-qu3"/>
         <segue reference="mni-re-zkP"/>
-        <segue reference="ZpR-8C-QJR"/>
+        <segue reference="Gef-69-N8A"/>
         <segue reference="bUh-wl-Xkc"/>
         <segue reference="Z0F-cj-iPf"/>
         <segue reference="nax-92-cwD"/>

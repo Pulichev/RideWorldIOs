@@ -29,15 +29,15 @@ class RegistrationController: UIViewController {
                                              name: NSNotification.Name.UIKeyboardWillHide,
                                              object: nil)
       
-      setAgreenentsTextAndCustomize()
+      setAgreementsTextAndCustomize()
    }
    
-   private func setAgreenentsTextAndCustomize() {
+   private func setAgreementsTextAndCustomize() {
       agreements.text = NSLocalizedString("RegLinkToTerms", comment: "")
-      customizeDescUserLogin()
+      customizeAgreements()
    }
    
-   private func customizeDescUserLogin() {
+   private func customizeAgreements() {
       agreements.customize { agreements in
          let ToUTappedType = ActiveType.custom(pattern: "\(NSLocalizedString("RegToU", comment: ""))")
          agreements.enabledTypes.append(ToUTappedType)

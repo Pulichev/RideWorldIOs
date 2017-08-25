@@ -11,7 +11,7 @@ import UIKit
 class TextViewController: UIViewController {
    
    @IBOutlet weak var textView: UITextView!
-   var fileNameString: String!
+   var fileNameString: String = ""
    
    override func viewDidLoad() {
       super.viewDidLoad()

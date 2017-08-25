@@ -204,6 +204,7 @@
 		9F66AD2D1F4DF815009F6F69 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextViewController.swift; path = Controllers/TextViewController.swift; sourceTree = "<group>"; };
 		9F66AD301F4E08B4009F6F69 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		9F66AD491F508974009F6F69 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9F66AD4B1F508FFA009F6F69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButtonX.swift; path = Views/DesignableX/UIButtonX.swift; sourceTree = "<group>"; };
 		9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageViewX.swift; path = Views/DesignableX/UIImageViewX.swift; sourceTree = "<group>"; };
 		9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabelX.swift; path = Views/DesignableX/UILabelX.swift; sourceTree = "<group>"; };
@@ -1109,6 +1110,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9F66AD491F508974009F6F69 /* ru */,
+				9F66AD4B1F508FFA009F6F69 /* Base */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

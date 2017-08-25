@@ -57,6 +57,7 @@
 		9F66AD2A1F4DEA74009F6F69 /* PP EN.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD291F4DEA74009F6F69 /* PP EN.rtf */; };
 		9F66AD2C1F4DEA92009F6F69 /* ToU EN.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD2B1F4DEA92009F6F69 /* ToU EN.rtf */; };
 		9F66AD2E1F4DF815009F6F69 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F66AD2D1F4DF815009F6F69 /* TextViewController.swift */; };
+		9F66AD4A1F508974009F6F69 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F66AD481F508974009F6F69 /* InfoPlist.strings */; };
 		9F6DD9CF1F0AE0DE00E3300E /* UIButtonX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */; };
 		9F6DD9D01F0AE0DE00E3300E /* UIImageViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */; };
 		9F6DD9D11F0AE0DE00E3300E /* UILabelX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */; };
@@ -202,6 +203,7 @@
 		9F66AD2B1F4DEA92009F6F69 /* ToU EN.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = "ToU EN.rtf"; path = "Views/ToU EN.rtf"; sourceTree = "<group>"; };
 		9F66AD2D1F4DF815009F6F69 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextViewController.swift; path = Controllers/TextViewController.swift; sourceTree = "<group>"; };
 		9F66AD301F4E08B4009F6F69 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		9F66AD491F508974009F6F69 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F6DD9C51F0AE0DE00E3300E /* UIButtonX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIButtonX.swift; path = Views/DesignableX/UIButtonX.swift; sourceTree = "<group>"; };
 		9F6DD9C61F0AE0DE00E3300E /* UIImageViewX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageViewX.swift; path = Views/DesignableX/UIImageViewX.swift; sourceTree = "<group>"; };
 		9F6DD9C71F0AE0DE00E3300E /* UILabelX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabelX.swift; path = Views/DesignableX/UILabelX.swift; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 		9FF1BF731E9FE3AF00A2CEF2 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				9F66AD481F508974009F6F69 /* InfoPlist.strings */,
 				9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */,
 				9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */,
 				9FB681C11E2E70CE00D9A436 /* Info.plist */,
@@ -796,6 +799,7 @@
 				9F75ABD41F479A0C002527B0 /* Localizable.strings in Resources */,
 				9F2D4C981EAD21E100235451 /* reply.png in Resources */,
 				9F6163471E7E89C1001664B7 /* no_photo.png in Resources */,
+				9F66AD4A1F508974009F6F69 /* InfoPlist.strings in Resources */,
 				9F66AD2C1F4DEA92009F6F69 /* ToU EN.rtf in Resources */,
 				9F0BA56A1F29285D003FBEDB /* Roboto-Bold.ttf in Resources */,
 				9F0BA5751F295F06003FBEDB /* Roboto-Light.ttf in Resources */,
@@ -1101,6 +1105,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9F66AD481F508974009F6F69 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9F66AD491F508974009F6F69 /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		9F75ABCE1F4793C3002527B0 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

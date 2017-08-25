@@ -1,0 +1,5 @@
+"NSLocationUsageDescription" = "Требуется для создания новых спотов.";
+"NSCameraUsageDescription" = "Требуется для создания новых медиафайлов.";
+"NSLocationWhenInUseUsageDescription" = "Требуется для создания новых спотов.";
+"NSMicrophoneUsageDescription" = "Требуется для записи видео.";
+"NSPhotoLibraryUsageDescription" = "Требуется для добавления уже существующих медиафайлов.";

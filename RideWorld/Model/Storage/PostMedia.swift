@@ -61,7 +61,7 @@ struct PostMedia {
             post.mediaRef700 = url
             post.mediaAspectRatio = aspectRatio
             
-            upload(image, for: post, withSize: 200.0) { (hasFinishedSuccessfully, url, _) in
+            upload(image, for: post, withSize: 350.0) { (hasFinishedSuccessfully, url, _) in
                
                if hasFinishedSuccessfully {
                   post.mediaRef200 = url
@@ -130,7 +130,7 @@ struct PostMedia {
          if hasFinishedSuccessfully {
             post.mediaRef700 = url
             
-            upload(screenShot, for: post, withSize: 200.0)
+            upload(screenShot, for: post, withSize: 350.0)
             { (hasFinishedSuccessfully, url, _) in
                
                if hasFinishedSuccessfully {
@@ -166,7 +166,7 @@ struct PostMedia {
                                     completion(false, nil)
                                  }
                               }
-                           }else {
+                           } else {
                               completion(false, nil)
                            }
                         }

@@ -91,19 +91,20 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    private func uploadPhoto(completion: @escaping (_ finished: Bool) -> Void) {
       UserMedia.upload(for: userInfo.uid,
-                       with: userPhoto.image!, withSize: 150.0)
+                       with: userPhoto.image!, withSize: 350.0)
       { (hasFinishedSuccessfully, url) in
          
          UserModel.updatePhotoRef(for: self.userInfo.uid, size: 150, url: url)
          { _ in
+            self.userInfo.photo150ref = url
             
             UserMedia.upload(for: self.userInfo.uid,
-                             with: self.userPhoto.image!, withSize: 90.0)
+                             with: self.userPhoto.image!, withSize: 150.0)
             { (hasFinishedSuccessfully, url) in
                
                UserModel.updatePhotoRef(for: self.userInfo.uid, size: 90, url: url)
                { _ in
-                  
+                  self.userInfo.photo90ref = url
                   completion(true)
                }
             }

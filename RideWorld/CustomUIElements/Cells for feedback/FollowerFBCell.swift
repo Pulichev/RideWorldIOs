@@ -52,9 +52,9 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    private func initialiseFollowButton() {
       UserModel.isCurrentUserFollowing(this: userItem.uid) { isFollowing in
          if isFollowing {
-            self.followButton.setTitle("Following", for: .normal)
+            self.followButton.setTitle(NSLocalizedString("Following", comment: ""), for: .normal)
          } else {
-            self.followButton.setTitle("Follow", for: .normal)
+            self.followButton.setTitle(NSLocalizedString("Follow", comment: ""), for: .normal)
          }
          
          self.followButton.isEnabled = true
@@ -62,7 +62,7 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    }
    
    @IBAction func followButtonTapped(_ sender: UIButton) {
-      if followButton.currentTitle == "Follow" { // add or remove like
+      if followButton.currentTitle == NSLocalizedString("Follow", comment: "") { // add or remove like
          UserModel.addFollowingAndFollower(to: userItem.uid)
       } else {
          UserModel.removeFollowingAndFollower(from: userItem.uid)
@@ -80,10 +80,10 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    }
    
    private func swapFollowButtonTittle() {
-      if followButton.currentTitle == "Follow" {
-         followButton.setTitle("Following", for: .normal)
+      if followButton.currentTitle == NSLocalizedString("Follow", comment: "") {
+         followButton.setTitle(NSLocalizedString("Following", comment: ""), for: .normal)
       } else {
-         followButton.setTitle("Follow", for: .normal)
+         followButton.setTitle(NSLocalizedString("Follow", comment: ""), for: .normal)
       }
    }
    

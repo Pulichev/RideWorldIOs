@@ -169,6 +169,7 @@ extension MapController: MKMapViewDelegate {
       // customize pin image
       let customPin = annotation as! CustomPin
       annotationView!.image = getProperImage(for: customPin.spotItem.type)
+      annotationView!.centerOffset = CGPoint(x: 0, y: -33)
       
       return annotationView
    }

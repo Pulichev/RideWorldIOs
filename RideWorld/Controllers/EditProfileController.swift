@@ -58,12 +58,13 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
             }
          }
       } else {
+         SVProgressHUD.dismiss()
          showAlertWithErrorOnLoginChange(NSLocalizedString("Wrong login! You can use only english letters, numbers and ._-. The maximum length is 30 characters.", comment: ""))
       }
    }
    
    private func isLoginSatisfiesRegEx(_ login: String) -> Bool {
-      if login.range(of: "[a-zA-Z0-9._-]{1,30}", options: .regularExpression) != nil {
+      if login.range(of: "[a-zA-Z0-9._-]{1,30}$", options: .regularExpression) != nil {
          return true
       } else {
          return false

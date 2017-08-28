@@ -101,16 +101,16 @@ class RegistrationController: UIViewController {
          { user, error in
             if error == nil {
                // log in
-               Auth.auth().signIn(withEmail: self.userEmail.text!,
-                                  password: self.userPassword.text!)
-               { result in
+//               Auth.auth().signIn(withEmail: self.userEmail.text!,
+//                                  password: self.userPassword.text!)
+//               { result in
                   // create new user in database, not in FIRAuth
                   UserModel.create(with: self.userLogin.text!) { _ in
                      SVProgressHUD.dismiss()
                      
                      self.performSegue(withIdentifier: "fromRegistrationToTabBar", sender: self)
                   }
-               }
+//               }
             } else {
                let errorText = String(describing: error!.localizedDescription)
                

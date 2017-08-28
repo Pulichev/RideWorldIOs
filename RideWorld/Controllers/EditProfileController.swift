@@ -23,6 +23,8 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       }
    }
    
+   var userInfoTableValues = [String](repeating: "", count: 3) // for saving values from textField
+   
    @IBOutlet var userPhoto: RoundedImageView!
    fileprivate var userChangedPhoto = false
    
@@ -37,15 +39,17 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       if userInfo.photo150ref != nil {
          userPhoto.kf.setImage(with: URL(string: userInfo.photo150ref!))
       }
-   }
-   
-   private func getCellFieldText(_ row: Int) -> String {
-      return (tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! EditProfileCell).field.text!
+      
+      // init default values, which can be changed.
+      userInfoTableValues[0] = userInfo.nameAndSename ?? ""
+      userInfoTableValues[1] = userInfo.bioDescription ?? ""
+      userInfoTableValues[2] = userInfo.login
    }
    
    @IBAction func saveButtonTapped(_ sender: Any) {
+      view.endEditing(true)
       SVProgressHUD.show()
-      let login = getCellFieldText(2).lowercased()
+      let login = userInfoTableValues[2].lowercased()
       
       if isLoginSatisfiesRegEx(login) {
          // check if new login free, because they must be unic
@@ -72,8 +76,8 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    }
    
    func updateInfo(with login: String) {
-      let nameAndSename  = getCellFieldText(0)
-      let bioDescription = getCellFieldText(1)
+      let nameAndSename  = userInfoTableValues[0]
+      let bioDescription = userInfoTableValues[1]
       
       UserModel.updateInfo(for: userInfo.uid, bioDescription, login, nameAndSename)
       
@@ -185,24 +189,32 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          
          switch row {
          case 0:
-            cell.field.text = userInfo.nameAndSename
+            cell.field.text = userInfoTableValues[0]
             cell.field.placeholder = NSLocalizedString("Enter new name and sename", comment: "")
             leftImageView.image = UIImage(named: "namesename")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
+            // for saving new values to array
+            cell.field.tag = 0
+            cell.field.delegate = self
             break
             
          case 1:
-            cell.field.text = userInfo.bioDescription
+            cell.field.text = userInfoTableValues[1]
             cell.field.placeholder = NSLocalizedString("Enter new bio description", comment: "")
             leftImageView.image = UIImage(named: "info")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
+            // for saving new values to array
+            cell.field.tag = 1
+            cell.field.delegate = self
             break
             
          case 2:
             cell.field.delegate = self // for detecting tap and check last update time
-            cell.field.text = self.userInfo.login
+            // and saving new value on change
+            cell.field.tag = 2
+            cell.field.text = userInfoTableValues[2]
             leftImageView.image = UIImage(named: "login")
             leftView.addSubview(leftImageView)
             cell.field.leftView = leftView
@@ -368,6 +380,11 @@ extension EditProfileController: UITextFieldDelegate {
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       
       present(alert, animated: true, completion: nil)
+   }
+   
+   func textFieldDidEndEditing(_ textField: UITextField) {
+      let index = textField.tag
+      userInfoTableValues[index] = textField.text! ?? ""
    }
 }
 

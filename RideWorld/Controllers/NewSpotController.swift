@@ -14,6 +14,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    var spotLatitude: Double!
    var spotLongitude: Double!
    
+   @IBOutlet weak var scrollView: UIScrollView!
    @IBOutlet weak var spotTitle: UITextField!
    @IBOutlet var spotDescription: UITextView! {
       didSet {
@@ -41,6 +42,22 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
                                              name: NSNotification.Name.UIKeyboardWillShow, object: nil)
       NotificationCenter.default.addObserver(self, selector: #selector(NewSpotController.keyboardWillHide),
                                              name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      
+      enableUserTouches = true
+      
+      addDismissingKeyboardOnScrollTap()
+   }
+   
+   private func addDismissingKeyboardOnScrollTap() {
+      let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(singleTap))
+      singleTapGestureRecognizer.numberOfTapsRequired = 1
+      singleTapGestureRecognizer.isEnabled = true
+      singleTapGestureRecognizer.cancelsTouchesInView = false
+      scrollView.addGestureRecognizer(singleTapGestureRecognizer)
+   }
+   
+   func singleTap() {
+      view.endEditing(true)
    }
    
    func UICustomizing() {
@@ -61,7 +78,11 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
          if spotTitle.text! != "" {
             showSavingProgress()
             
-            if spotDescription.text == "Write spot description" { spotDescription.text = "" } // removing "placeholder" fake
+            if spotDescription.text == NSLocalizedString("Write spot description", comment: "")
+            {
+               // removing "placeholder" fake
+               spotDescription.text = ""
+            }
             
             let currUserId = UserModel.getCurrentUserId()
             let newSpotKey = Spot.getNewSpotRefKey()
@@ -135,7 +156,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       present(alert, animated: true, completion: nil)
    }
    
-   var enableUserTouches = true {
+   var enableUserTouches: Bool! {
       didSet {
          if enableUserTouches {
             navigationController?.navigationBar.isUserInteractionEnabled = true
@@ -232,7 +253,7 @@ extension NewSpotController : GalleryControllerDelegate {
 
 // MARK: - Scroll view on keyboard show/hide
 extension NewSpotController {
-   //if we tapped UITextField and then another UITextField
+   // if we tapped UITextField and then another UITextField
    func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
          view.frame.origin.y -= 200

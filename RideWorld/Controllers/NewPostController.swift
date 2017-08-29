@@ -15,6 +15,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
    
    var spotDetailsItem: SpotItem!
    
+   @IBOutlet weak var scrollView: UIScrollView!
+   
    @IBOutlet weak var postDescription: UITextView! {
       didSet {
          postDescription.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0).cgColor
@@ -52,6 +54,22 @@ class NewPostController: UIViewController, UITextViewDelegate {
                                              name: NSNotification.Name.UIKeyboardWillShow, object: nil)
       NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.keyboardWillHide),
                                              name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+      
+      enableUserTouches = true
+      
+      addDismissingKeyboardOnScrollTap()
+   }
+   
+   private func addDismissingKeyboardOnScrollTap() {
+      let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(singleTap))
+      singleTapGestureRecognizer.numberOfTapsRequired = 1
+      singleTapGestureRecognizer.isEnabled = true
+      singleTapGestureRecognizer.cancelsTouchesInView = false
+      scrollView.addGestureRecognizer(singleTapGestureRecognizer)
+   }
+   
+   func singleTap() {
+      view.endEditing(true)
    }
    
    func UICustomizing() {
@@ -209,7 +227,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
       present(alert, animated: true, completion: nil)
    }
    
-   var enableUserTouches = true {
+   var enableUserTouches: Bool! {
       didSet {
          if enableUserTouches {
             navigationController?.navigationBar.isUserInteractionEnabled = true

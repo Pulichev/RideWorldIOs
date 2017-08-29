@@ -16,6 +16,7 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    var delegate: EditedUserInfoDelegate?
    
    var userInfo: UserItem!
+   var sourceLogin: String!
    
    @IBOutlet var tableView: UITableView! {
       didSet {
@@ -30,6 +31,8 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      
+      sourceLogin = userInfo.login
       
       NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow),
                                              name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -80,6 +83,10 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       let bioDescription = userInfoTableValues[1]
       
       UserModel.updateInfo(for: userInfo.uid, bioDescription, login, nameAndSename)
+      
+      if login != sourceLogin {
+         UserModel.setLastLoginChangeDate()
+      }
       
       if userChangedPhoto {
          uploadPhoto() { _ in

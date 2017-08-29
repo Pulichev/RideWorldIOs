@@ -83,6 +83,13 @@ struct UserModel {
       })
    }
    
+   static func setLastLoginChangeDate() {
+      let refToLastLoginUpdate = refToMainDataBase.child("usersdates").child(getCurrentUserId()).child("lastLoginUpdate")
+      let currentDate = String(describing: Date())
+      
+      refToLastLoginUpdate.setValue(currentDate)
+   }
+   
    // MARK: - Get part
    static func getCurrentUserId() -> String {
       return (Auth.auth().currentUser?.uid)!

@@ -139,7 +139,8 @@ class MapController: UIViewController {
 extension MapController: MKMapViewDelegate {
    //download pictures and etc on tap on pin
    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-      if !(view.annotation! is MKUserLocation) {
+      if !(view.annotation! is MKUserLocation)
+         && view.annotation?.title! != NSLocalizedString("New spot", comment: "") {
          let customPin = view.annotation as! CustomPin
          spotDetailsForSendToPostsStripController = customPin.spotItem
          
@@ -209,7 +210,7 @@ extension MapController: MKMapViewDelegate {
    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
       if weAddingSpot {
          removeOldNewSpotAnnotation()
-         addMewSpotAnnotation()
+         addNewSpotAnnotation()
       }
    }
    
@@ -225,7 +226,7 @@ extension MapController: MKMapViewDelegate {
       }
    }
    
-   fileprivate func addMewSpotAnnotation() {
+   fileprivate func addNewSpotAnnotation() {
       let annotation = MKPointAnnotation()
       annotation.coordinate = mapView.centerCoordinate
       annotation.title = NSLocalizedString("New spot", comment: "")
@@ -277,7 +278,7 @@ extension MapController: CLLocationManagerDelegate {
             self.removeOldNewSpotAnnotation()
          } else {
             self.weAddingSpot = true
-            self.addMewSpotAnnotation()
+            self.addNewSpotAnnotation()
             self.menuView.transform = .identity
          }
       })
@@ -309,7 +310,7 @@ extension MapController: CLLocationManagerDelegate {
          // return button to .identity
          self.addNewSpotButton.transform = .identity
          self.addNewSpotButton.backgroundColor = UIColor.myLightGray()
-
+         
          self.closeMenu()
       })
       

@@ -143,7 +143,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
             imageView.isUserInteractionEnabled = false
          }
       }
-   }// for disabling user touches, while uploading
+   } // for disabling user touches, while uploading
    
    var keyBoardAlreadyShowed = false //using this to not let app to scroll view. Look at extension
    

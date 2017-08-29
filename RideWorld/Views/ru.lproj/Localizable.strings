@@ -62,7 +62,7 @@
 "Days for next change: "                                                                               = "Дней до следующего изменения: ";
 "New comment can't be empty!"                                                                          = "Новый комментарий не может быть пустым!";
 "Wait please"                                                                                          = "Пожалуйста, подождите";
-"Downloading data.."                                                                                   = "Скачиваем информацию..";
+"Downloading data.."                                                                                   = "Подгружаем информацию..";
 "Info"                                                                                                 = "Инфо";
 "Posts"                                                                                                = "Посты";
 "Only last 15 last news are available at the moment!"                                                  = "Показывается только 15 последних новостей!";

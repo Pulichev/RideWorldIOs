@@ -28,6 +28,8 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    @IBOutlet weak var imageView: UIImageView!
    @IBOutlet weak var spotTypePicker: UIPickerView!
    
+   var haveWeChoosedPhoto = false
+   
    override func viewDidLoad() {
       UICustomizing()
       
@@ -55,40 +57,44 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    @IBAction func saveSpotDetails(_ sender: Any) {
-      if spotTitle.text! != "" {
-         showSavingProgress()
-         
-         if spotDescription.text == "Write spot description" { spotDescription.text = "" } // removing "placeholder" fake
-         
-         let currUserId = UserModel.getCurrentUserId()
-         let newSpotKey = Spot.getNewSpotRefKey()
-         let type = spotTypePicker.selectedRow(inComponent: 0)
-         var newSpot = SpotItem(type: type, name: self.spotTitle.text!,
-                                description: self.spotDescription.text!,
-                                latitude: self.spotLatitude, longitude: self.spotLongitude,
-                                addedByUser: currUserId, key: newSpotKey)
-         
-         // something like transaction. Start saving new
-         // spot info only after media has beed uploaded
-         SpotMedia.upload(imageView.image!, for: newSpotKey, with: 300.0)
-         { (isSuccessfully, url) in
-            if isSuccessfully {
-               newSpot.mainPhotoRef = url
-               Spot.create(newSpot) { hasAddedSpotSuccessfully in
-                  if hasAddedSpotSuccessfully {
-                     //saving image to camera roll
-                     UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
-                     self.goBackToPosts()
-                  } else {
-                     self.errorHappened()
+      if haveWeChoosedPhoto {
+         if spotTitle.text! != "" {
+            showSavingProgress()
+            
+            if spotDescription.text == "Write spot description" { spotDescription.text = "" } // removing "placeholder" fake
+            
+            let currUserId = UserModel.getCurrentUserId()
+            let newSpotKey = Spot.getNewSpotRefKey()
+            let type = spotTypePicker.selectedRow(inComponent: 0)
+            var newSpot = SpotItem(type: type, name: self.spotTitle.text!,
+                                   description: self.spotDescription.text!,
+                                   latitude: self.spotLatitude, longitude: self.spotLongitude,
+                                   addedByUser: currUserId, key: newSpotKey)
+            
+            // something like transaction. Start saving new
+            // spot info only after media has beed uploaded
+            SpotMedia.upload(imageView.image!, for: newSpotKey, with: 300.0)
+            { (isSuccessfully, url) in
+               if isSuccessfully {
+                  newSpot.mainPhotoRef = url
+                  Spot.create(newSpot) { hasAddedSpotSuccessfully in
+                     if hasAddedSpotSuccessfully {
+                        //saving image to camera roll
+                        UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
+                        self.goBackToPosts()
+                     } else {
+                        self.errorHappened()
+                     }
                   }
+               } else {
+                  self.errorHappened()
                }
-            } else {
-               self.errorHappened()
             }
+         } else {
+            showAlertWithError(text: NSLocalizedString("Enter title atleast", comment: ""))
          }
       } else {
-         showAlertWithError(text: NSLocalizedString("Enter title atleast", comment: ""))
+         showAlertWithError(text: NSLocalizedString("Please, select spot photo", comment: ""))
       }
    }
    
@@ -207,6 +213,8 @@ extension NewSpotController : GalleryControllerDelegate {
       self.imageView.layer.cornerRadius = self.imageView.frame.size.height / 8
       self.imageView.layer.masksToBounds = true
       self.imageView.layer.borderWidth = 0
+      
+      haveWeChoosedPhoto = true
       
       controller.dismiss(animated: true, completion: nil)
    }

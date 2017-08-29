@@ -47,7 +47,6 @@
 		9F5609871E7C8C990000DB21 /* PostsStripController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5609861E7C8C990000DB21 /* PostsStripController.swift */; };
 		9F58FC821F422A55005502E2 /* CellWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F58FC811F422A55005502E2 /* CellWithButton.swift */; };
 		9F6154921EA67D4800160CB3 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6154911EA67D4800160CB3 /* RoundedImageView.swift */; };
-		9F6163471E7E89C1001664B7 /* no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F6163461E7E89C1001664B7 /* no_photo.png */; };
 		9F61C20E1F0ED8230023B7D1 /* UIViewExtenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61C20D1F0ED8230023B7D1 /* UIViewExtenstions.swift */; };
 		9F61C2101F1101A00023B7D1 /* TappedSpotInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */; };
 		9F66AD221F4C882F009F6F69 /* SpotFollowingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F66AD211F4C882F009F6F69 /* SpotFollowingCell.swift */; };
@@ -192,7 +191,6 @@
 		9F5609861E7C8C990000DB21 /* PostsStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsStripController.swift; path = Controllers/PostsStripController.swift; sourceTree = "<group>"; };
 		9F58FC811F422A55005502E2 /* CellWithButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CellWithButton.swift; path = CustomUIElements/CellWithButton.swift; sourceTree = "<group>"; };
 		9F6154911EA67D4800160CB3 /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedImageView.swift; path = Core/RoundedImageView.swift; sourceTree = "<group>"; };
-		9F6163461E7E89C1001664B7 /* no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = no_photo.png; path = Pictures/no_photo.png; sourceTree = "<group>"; };
 		9F61C20D1F0ED8230023B7D1 /* UIViewExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtenstions.swift; path = Core/UIViewExtenstions.swift; sourceTree = "<group>"; };
 		9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedSpotInfoDelegate.swift; path = Protocols/TappedSpotInfoDelegate.swift; sourceTree = "<group>"; };
 		9F66AD211F4C882F009F6F69 /* SpotFollowingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotFollowingCell.swift; path = CustomUIElements/SpotFollowingCell.swift; sourceTree = "<group>"; };
@@ -397,7 +395,6 @@
 				9F2D4C951EAD21E100235451 /* delete.png */,
 				9F2D4C961EAD21E100235451 /* reply.png */,
 				9F0AC5831E898412007ABD55 /* grayRec.jpg */,
-				9F6163461E7E89C1001664B7 /* no_photo.png */,
 			);
 			name = Pictures;
 			sourceTree = "<group>";
@@ -799,7 +796,6 @@
 				9F0BA5661F292453003FBEDB /* AnonymousPro-Regular.ttf in Resources */,
 				9F75ABD41F479A0C002527B0 /* Localizable.strings in Resources */,
 				9F2D4C981EAD21E100235451 /* reply.png in Resources */,
-				9F6163471E7E89C1001664B7 /* no_photo.png in Resources */,
 				9F66AD4A1F508974009F6F69 /* InfoPlist.strings in Resources */,
 				9F66AD2C1F4DEA92009F6F69 /* ToU EN.rtf in Resources */,
 				9F0BA56A1F29285D003FBEDB /* Roboto-Bold.ttf in Resources */,

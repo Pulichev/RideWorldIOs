@@ -39,7 +39,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
    @IBOutlet weak var mediaContainerHeight: NSLayoutConstraint!
    var mediaAspectRatio: Double!
    
-   var isNewMediaIsPhoto = true //if true - photo, false - video. Default - true
+   var haveWeChoosedMedia = false
+   var isNewMediaIsPhoto = true // if true - photo, false - video. Default - true
    
    override func viewDidLoad() {
       UICustomizing()
@@ -80,17 +81,21 @@ class NewPostController: UIViewController, UITextViewDelegate {
    }
    
    @IBAction func savePost(_ sender: Any) {
-      showSavingProgress()
-      
-      if postDescription.text == "Write post description" { postDescription.text = "" } // removing "placeholder" fake
-      
-      createNewPostItem() { postItem in
-         // first - upload media. On completion - save post info data
-         if self.isNewMediaIsPhoto {
-            self.uploadPhoto(for: postItem)
-         } else {
-            self.uploadVideo(for: postItem)
+      if haveWeChoosedMedia {
+         showSavingProgress()
+         
+         if postDescription.text == "Write post description" { postDescription.text = "" } // removing "placeholder" fake
+         
+         createNewPostItem() { postItem in
+            // first - upload media. On completion - save post info data
+            if self.isNewMediaIsPhoto {
+               self.uploadPhoto(for: postItem)
+            } else {
+               self.uploadVideo(for: postItem)
+            }
          }
+      } else {
+         showAlertWithError(text: NSLocalizedString("Please, select media", comment: ""))
       }
    }
    
@@ -188,6 +193,16 @@ class NewPostController: UIViewController, UITextViewDelegate {
    private func showAlertThatErrorInNewPost() {
       let alert = UIAlertController(title: NSLocalizedString("Creating new post failed!", comment: ""),
                                     message: NSLocalizedString("Some error happened in new post creating.", comment: ""), preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
+   }
+   
+   private func showAlertWithError(text: String) {
+      let alert = UIAlertController(title: NSLocalizedString("Oops!", comment: ""),
+                                    message: text,
+                                    preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       

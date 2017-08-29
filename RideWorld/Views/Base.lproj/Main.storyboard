@@ -979,7 +979,7 @@
                         <viewControllerLayoutGuide type="bottom" id="2Fa-YJ-abt"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="MSF-p0-ANE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eqh-En-7Oc">
@@ -1069,6 +1069,15 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="d3g-ZD-deq">
+                        <nil key="title"/>
+                        <button key="titleView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OsC-r8-WVG" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                            <rect key="frame" x="173" y="5.5" width="29" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="modifyPin"/>
+                            <connections>
+                                <action selector="modifyGeoPosButtonTapped:" destination="28g-9l-NVL" eventType="touchUpInside" id="CYQ-3e-uLt"/>
+                            </connections>
+                        </button>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="zBc-Kf-kSL">
                             <color key="tintColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
@@ -1079,15 +1088,35 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="imageView" destination="JKR-dD-JOV" id="6ik-dV-K7T"/>
+                        <outlet property="modifyGeoPosButton" destination="OsC-r8-WVG" id="BHp-AK-jET"/>
                         <outlet property="scrollView" destination="Eqh-En-7Oc" id="On7-Hc-lYK"/>
                         <outlet property="spotDescription" destination="e6A-Q2-7gE" id="gLl-46-z2f"/>
                         <outlet property="spotTitle" destination="b0b-S2-wIf" id="fgi-8X-h0L"/>
                         <outlet property="spotTypePicker" destination="Bb2-Iz-hCb" id="hoM-F4-Sow"/>
+                        <segue destination="flb-LG-s5x" kind="show" identifier="modifyGeoPos" id="asn-vr-3gd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N2a-xc-cSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5328.8000000000002" y="2383.3583208395803"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="hbK-aF-AdU">
+            <objects>
+                <viewController id="flb-LG-s5x" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ICE-Ft-Wqq"/>
+                        <viewControllerLayoutGuide type="bottom" id="7f3-UI-jlG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zbP-e5-vQ8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VZF-lb-w69" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6180" y="2383"/>
         </scene>
         <!--Posts Strip Controller-->
         <scene sceneID="6sC-96-HMd">
@@ -1712,7 +1741,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dOM-KR-kwt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6010" y="2383"/>
+            <point key="canvasLocation" x="5961" y="931"/>
         </scene>
         <!--Followers Controller-->
         <scene sceneID="Rv1-dO-VKW">
@@ -2657,9 +2686,12 @@
                     <navigationItem key="navigationItem" id="AKu-vk-s0g">
                         <nil key="title"/>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uk7-Bf-Eqi" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                            <rect key="frame" x="167.5" y="2" width="35" height="35"/>
+                            <rect key="frame" x="170" y="4.5" width="35" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" backgroundImage="settings"/>
+                            <connections>
+                                <action selector="modifyButtonTapped:" destination="6uJ-a1-Lta" eventType="touchUpInside" id="jp9-cz-qcK"/>
+                            </connections>
                         </button>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="ZbZ-A8-nJE">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="QVI-mT-qr1">
@@ -2680,11 +2712,13 @@
                         <outlet property="addedByUser" destination="mUH-z7-xDr" id="fi2-C7-2Cf"/>
                         <outlet property="desc" destination="QU0-qy-BTX" id="2UW-cr-c0H"/>
                         <outlet property="followSpotButton" destination="QVI-mT-qr1" id="oIh-XC-nFu"/>
+                        <outlet property="modifyButton" destination="uk7-Bf-Eqi" id="x4s-M8-b7j"/>
                         <outlet property="name" destination="HOd-W1-e0u" id="o0V-1e-Tw7"/>
                         <outlet property="photosCollection" destination="vZe-mX-9ju" id="9s1-4t-qE2"/>
                         <segue destination="MsB-Ex-yak" kind="show" identifier="goToUserProfileFromSpotInfo" id="gS6-Wz-qu3"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="goToRidersProfileFromSpotInfo" id="hCy-LG-AWJ"/>
                         <segue destination="LlJ-V1-BNZ" kind="show" identifier="fromSpotInfoToSpotPosts" id="ck8-tQ-3J4"/>
+                        <segue destination="28g-9l-NVL" kind="show" identifier="modifySpot" id="uZy-5C-eSU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pn1-di-Onz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3164,22 +3198,24 @@
         <image name="grayRec.png" width="400" height="301"/>
         <image name="heart" width="35" height="35"/>
         <image name="iPhone 6 Plus" width="414" height="736"/>
+        <image name="modifyPin" width="29" height="33"/>
         <image name="reload" width="28" height="28"/>
         <image name="respectActive" width="94" height="59"/>
         <image name="respectPassive" width="94" height="59"/>
         <image name="settings" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZpR-8C-QJR"/>
-        <segue reference="bUh-wl-Xkc"/>
+        <segue reference="eyf-4a-ZNN"/>
         <segue reference="gS6-Wz-qu3"/>
         <segue reference="mni-re-zkP"/>
-        <segue reference="hCy-LG-AWJ"/>
-        <segue reference="ck8-tQ-3J4"/>
-        <segue reference="eyf-4a-ZNN"/>
-        <segue reference="TeE-da-wxz"/>
-        <segue reference="JLU-Th-Uca"/>
-        <segue reference="COh-cw-Ntn"/>
+        <segue reference="ZpR-8C-QJR"/>
+        <segue reference="bUh-wl-Xkc"/>
         <segue reference="Z0F-cj-iPf"/>
+        <segue reference="ck8-tQ-3J4"/>
+        <segue reference="uZy-5C-eSU"/>
+        <segue reference="hCy-LG-AWJ"/>
+        <segue reference="JLU-Th-Uca"/>
+        <segue reference="TeE-da-wxz"/>
+        <segue reference="COh-cw-Ntn"/>
     </inferredMetricsTieBreakers>
 </document>

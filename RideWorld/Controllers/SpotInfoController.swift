@@ -17,6 +17,7 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    
    var spotInfo: SpotItem!
    var user: UserItem!
+   @IBOutlet weak var modifyButton: UIButtonX!
    
    @IBOutlet weak var photosCollection: UICollectionView!
    
@@ -121,6 +122,10 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
       performSegue(withIdentifier: "fromSpotInfoToSpotPosts", sender: self)
    }
    
+   @IBAction func modifyButtonTapped(_ sender: Any) {
+      performSegue(withIdentifier: "modifySpot", sender: self)
+   }
+   
    // MARK: - prepare for segue
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       switch segue.identifier! {
@@ -137,6 +142,11 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
          let postsStripController = segue.destination as! PostsStripController
          postsStripController.spotDetailsItem = spotInfo
          postsStripController.cameFromSpotOrMyStrip = true // came from spot
+         
+      case "modifySpot":
+         let newSpotController = segue.destination as! NewSpotController
+         newSpotController.spot = spotInfo
+         newSpotController.cameForNewSpot = false
          
       default: break
       }

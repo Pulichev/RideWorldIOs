@@ -113,6 +113,7 @@ class MapController: UIViewController {
          let newSpotController = (segue.destination as! NewSpotController)
          newSpotController.spotLatitude = pinForNewSpot.coordinate.latitude //Passing latitude
          newSpotController.spotLongitude = pinForNewSpot.coordinate.longitude //Passing latitude
+         newSpotController.cameForNewSpot = true
          
       case "spotDetailsTapped":
          let postsStripController = (segue.destination as! PostsStripController)
@@ -122,6 +123,7 @@ class MapController: UIViewController {
       case "goToSpotInfo":
          let spotInfoController = (segue.destination as! SpotInfoController)
          spotInfoController.spotInfo = spotDetailsForSendToPostsStripController
+         
       default: break
       }
    }

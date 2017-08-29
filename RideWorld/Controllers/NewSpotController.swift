@@ -11,6 +11,11 @@ import SVProgressHUD
 import Gallery
 
 class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+   
+   var cameForNewSpot: Bool! // true - new spot, false - modify
+   var spot: SpotItem? // for modify
+   @IBOutlet weak var modifyGeoPosButton: UIButtonX!
+   
    var spotLatitude: Double!
    var spotLongitude: Double!
    
@@ -46,6 +51,30 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       enableUserTouches = true
       
       addDismissingKeyboardOnScrollTap()
+      
+      if !cameForNewSpot { // for modify
+         initFieldsForModify()
+      }
+   }
+   
+   private func initFieldsForModify() {
+      spotTitle.text = spot!.name
+      // init texts
+      if spot!.description.isEmpty {
+         spotDescription.text = NSLocalizedString("Write spot description", comment: "")
+         spotDescription.textColor = UIColor.lightGray
+      } else {
+         spotDescription.text = spot!.description
+         spotDescription.textColor = UIColor.black
+      }
+      
+      spotLatitude = spot!.latitude
+      spotLongitude = spot!.longitude
+      
+      spotTypePicker.selectRow(spot!.type, inComponent: 0, animated: true)
+      
+      imageView.kf.setImage(with: URL(string: spot!.mainPhotoRef))
+      haveWeChoosedPhoto = true // it has been added already
    }
    
    private func addDismissingKeyboardOnScrollTap() {
@@ -84,17 +113,25 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
                spotDescription.text = ""
             }
             
-            let currUserId = UserModel.getCurrentUserId()
-            let newSpotKey = Spot.getNewSpotRefKey()
+            var currUserId = ""
+            var spotKey = ""
+            if cameForNewSpot { // generating new
+               currUserId = UserModel.getCurrentUserId()
+               spotKey = Spot.getNewSpotRefKey()
+            } else { // modify
+               // take old
+               currUserId = spot!.addedByUser
+               spotKey = spot!.key
+            }
             let type = spotTypePicker.selectedRow(inComponent: 0)
-            var newSpot = SpotItem(type: type, name: self.spotTitle.text!,
-                                   description: self.spotDescription.text!,
-                                   latitude: self.spotLatitude, longitude: self.spotLongitude,
-                                   addedByUser: currUserId, key: newSpotKey)
+            var newSpot = SpotItem(type: type, name: spotTitle.text!,
+                                   description: spotDescription.text!,
+                                   latitude: spotLatitude, longitude: spotLongitude,
+                                   addedByUser: currUserId, key: spotKey)
             
             // something like transaction. Start saving new
             // spot info only after media has beed uploaded
-            SpotMedia.upload(imageView.image!, for: newSpotKey, with: 300.0)
+            SpotMedia.upload(imageView.image!, for: spotKey, with: 300.0)
             { (isSuccessfully, url) in
                if isSuccessfully {
                   newSpot.mainPhotoRef = url
@@ -187,6 +224,10 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
          textView.text = NSLocalizedString("Write spot description", comment: "")
          textView.textColor = UIColor.lightGray
       }
+   }
+   
+   @IBAction func modifyGeoPosButtonTapped(_ sender: Any) {
+      
    }
 }
 

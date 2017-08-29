@@ -2654,10 +2654,16 @@
                             <constraint firstItem="PUz-af-Ftt" firstAttribute="width" secondItem="JIR-BA-okl" secondAttribute="width" id="ytg-3c-Q5B"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="AKu-vk-s0g">
+                    <navigationItem key="navigationItem" id="AKu-vk-s0g">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uk7-Bf-Eqi" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                            <rect key="frame" x="167.5" y="2" width="35" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" backgroundImage="settings"/>
+                        </button>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="ZbZ-A8-nJE">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="QVI-mT-qr1">
-                                <rect key="frame" x="210" y="7" width="94" height="30"/>
+                                <rect key="frame" x="265" y="7" width="94" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Follow">
@@ -2868,7 +2874,7 @@
                     <navigationItem key="navigationItem" id="Peo-1o-Kj8">
                         <barButtonItem key="rightBarButtonItem" title="Item" style="plain" id="9jR-4T-yfs">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rbe-65-YoE" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                                <rect key="frame" x="222" y="8" width="82" height="28"/>
+                                <rect key="frame" x="277" y="8" width="82" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Info">
                                     <color key="titleColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -3161,6 +3167,7 @@
         <image name="reload" width="28" height="28"/>
         <image name="respectActive" width="94" height="59"/>
         <image name="respectPassive" width="94" height="59"/>
+        <image name="settings" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZpR-8C-QJR"/>

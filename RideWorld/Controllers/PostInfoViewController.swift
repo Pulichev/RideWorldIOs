@@ -127,9 +127,11 @@ class PostInfoViewController: UIViewController {
          self.postIsLiked = false
          self.isLikedPhoto.image = UIImage(named: "respectPassive.png")
       }
+      
+      likeEventActive = false
    }
    
-   var likeEventActive = false // true, when sending request
+   var likeEventActive = true // true, when sending request
    
    func postLiked() {
       if !likeEventActive {

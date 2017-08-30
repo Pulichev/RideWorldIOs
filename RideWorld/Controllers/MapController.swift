@@ -366,7 +366,8 @@ extension MapController: SpotInfoOnMapDelegate {
          pin.spotItem = spot
          
          // remove old annotation
-         mapView.removeAnnotation(mapView.annotations[index])
+         let oldAnnotation = mapView.annotations[index]
+         mapView.removeAnnotation(oldAnnotation)
          // add updated annotation
          mapView.addAnnotation(pin)
       } else {

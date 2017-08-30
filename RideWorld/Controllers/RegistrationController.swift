@@ -162,14 +162,14 @@ class RegistrationController: UIViewController {
 extension RegistrationController {
    func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
-         view.frame.origin.y -= 150
+         view.frame.origin.y -= 100
          keyBoardAlreadyShowed = true
       }
    }
    
    func keyboardWillHide(notification: NSNotification) {
       if keyBoardAlreadyShowed {
-         view.frame.origin.y += 150
+         view.frame.origin.y += 100
          keyBoardAlreadyShowed = false
       }
    }

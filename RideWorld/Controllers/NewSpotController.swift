@@ -123,6 +123,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
                currUserId = spot!.addedByUser
                spotKey = spot!.key
             }
+            
             let type = spotTypePicker.selectedRow(inComponent: 0)
             var newSpot = SpotItem(type: type, name: spotTitle.text!,
                                    description: spotDescription.text!,
@@ -139,7 +140,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
                      if hasAddedSpotSuccessfully {
                         //saving image to camera roll
                         UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
-                        self.goBackToPosts()
+                        self.goBackToSpots()
                      } else {
                         self.errorHappened()
                      }
@@ -171,7 +172,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       enableUserTouches = false
    }
    
-   private func goBackToPosts() {
+   private func goBackToSpots() {
       SVProgressHUD.dismiss()
       self.enableUserTouches = true
       _ = self.navigationController?.popViewController(animated: true)
@@ -227,7 +228,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    @IBAction func modifyGeoPosButtonTapped(_ sender: Any) {
-      
+      performSegue(withIdentifier: "ModifyGeoPosController", sender: self)
    }
 }
 

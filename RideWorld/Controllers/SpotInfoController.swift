@@ -14,6 +14,7 @@ import Gallery
 class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
    
    weak var delegateFollowTaps: FollowTappedFromSpotInfo?
+   weak var spotInfoOnMapDelegate: SpotInfoOnMapDelegate?
    
    var spotInfo: SpotItem!
    var user: UserItem!
@@ -147,9 +148,24 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
          let newSpotController = segue.destination as! NewSpotController
          newSpotController.spot = spotInfo
          newSpotController.cameForNewSpot = false
+         newSpotController.spotInfoOnMapDelegate = self
          
       default: break
       }
+   }
+}
+
+extension SpotInfoController: SpotInfoOnMapDelegate {
+   func placeSpotOnMap(_ spot: SpotItem) {
+      // send updated spot info on map
+      spotInfoOnMapDelegate?.placeSpotOnMap(spot)
+      // also update info in spotInfo
+      spotInfo = spot
+      name.text = spotInfo.name
+      desc.text = spotInfo.description
+      // update main photo (first in array)
+      photosURLs[0] = spot.mainPhotoRef
+      self.photosCollection.reloadData()
    }
 }
 

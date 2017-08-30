@@ -111,9 +111,10 @@ class MapController: UIViewController {
       switch segue.identifier! {
       case "addNewSpot":
          let newSpotController = (segue.destination as! NewSpotController)
-         newSpotController.spotLatitude = pinForNewSpot.coordinate.latitude //Passing latitude
-         newSpotController.spotLongitude = pinForNewSpot.coordinate.longitude //Passing latitude
+         newSpotController.spotLatitude = pinForNewSpot.coordinate.latitude // passing latitude
+         newSpotController.spotLongitude = pinForNewSpot.coordinate.longitude // passing latitude
          newSpotController.cameForNewSpot = true
+         newSpotController.spotInfoOnMapDelegate = self
          
       case "spotDetailsTapped":
          let postsStripController = (segue.destination as! PostsStripController)
@@ -123,6 +124,7 @@ class MapController: UIViewController {
       case "goToSpotInfo":
          let spotInfoController = (segue.destination as! SpotInfoController)
          spotInfoController.spotInfo = spotDetailsForSendToPostsStripController
+         spotInfoController.spotInfoOnMapDelegate = self
          
       default: break
       }
@@ -236,7 +238,7 @@ extension MapController: MKMapViewDelegate {
       annotation.accessibilityLabel = "NewSpotAnnotation" // using this for detection
       pinForNewSpot = annotation
       
-      self.mapView.addAnnotation(annotation)
+      mapView.addAnnotation(annotation)
    }
 }
 
@@ -348,6 +350,37 @@ extension MapController: CLLocationManagerDelegate {
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
       
       present(alert, animated: true, completion: nil)
+   }
+}
+
+extension MapController: SpotInfoOnMapDelegate {
+   func placeSpotOnMap(_ spot: SpotItem) {
+      if let index = spotsFromDB.index(where: { $0.key == spot.key }) {
+         // update spot
+         spotsFromDB[index] = spot
+         
+         let pin = CustomPin()
+         pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
+         pin.title = spot.name
+         pin.subtitle = spot.description
+         pin.spotItem = spot
+         
+         // remove old annotation
+         mapView.removeAnnotation(mapView.annotations[index])
+         // add updated annotation
+         mapView.addAnnotation(pin)
+      } else {
+         // create spot
+         spotsFromDB.append(spot)
+         
+         let pin = CustomPin()
+         pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
+         pin.title = spot.name
+         pin.subtitle = spot.description
+         pin.spotItem = spot
+         
+         mapView.addAnnotation(pin)
+      }
    }
 }
 

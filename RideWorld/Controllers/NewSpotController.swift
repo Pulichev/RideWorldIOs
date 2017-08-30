@@ -10,11 +10,16 @@ import UIKit
 import SVProgressHUD
 import Gallery
 
+protocol SpotInfoOnMapDelegate: class {
+   func placeSpotOnMap(_ spot: SpotItem)
+}
+
 class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
    
    var cameForNewSpot: Bool! // true - new spot, false - modify
    var spot: SpotItem? // for modify
    @IBOutlet weak var modifyGeoPosButton: UIButtonX!
+   var spotInfoOnMapDelegate: SpotInfoOnMapDelegate!
    
    var spotLatitude: Double!
    var spotLongitude: Double!
@@ -75,6 +80,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       
       imageView.kf.setImage(with: URL(string: spot!.mainPhotoRef))
       haveWeChoosedPhoto = true // it has been added already
+      modifyGeoPosButton.isHidden = false
    }
    
    private func addDismissingKeyboardOnScrollTap() {
@@ -104,7 +110,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    
    @IBAction func saveSpotDetails(_ sender: Any) {
       if haveWeChoosedPhoto {
-         if spotTitle.text! != "" {
+         if spotTitle.text! != "" { // dont let save without title
             showSavingProgress()
             
             if spotDescription.text == NSLocalizedString("Write spot description", comment: "")
@@ -140,7 +146,10 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
                      if hasAddedSpotSuccessfully {
                         //saving image to camera roll
                         UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
-                        self.goBackToSpots()
+
+                        self.spotInfoOnMapDelegate.placeSpotOnMap(newSpot)
+
+                        self.goBack()
                      } else {
                         self.errorHappened()
                      }
@@ -172,7 +181,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       enableUserTouches = false
    }
    
-   private func goBackToSpots() {
+   private func goBack() {
       SVProgressHUD.dismiss()
       self.enableUserTouches = true
       _ = self.navigationController?.popViewController(animated: true)
@@ -228,7 +237,23 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
    }
    
    @IBAction func modifyGeoPosButtonTapped(_ sender: Any) {
-      performSegue(withIdentifier: "ModifyGeoPosController", sender: self)
+      performSegue(withIdentifier: "goToModifyGeoPos", sender: self)
+   }
+   
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      if segue.identifier! == "goToModifyGeoPos" {
+         let newModifyGeoPosController = segue.destination as! ModifyGeoPosController
+         newModifyGeoPosController.longitude = spot!.longitude
+         newModifyGeoPosController.latitude = spot!.latitude
+         newModifyGeoPosController.delegateNewGeoPos = self
+      }
+   }
+}
+
+extension NewSpotController: GeoPosDelegate {
+   func sendGeoPos(_ latitude: Double, _ longitude: Double) {
+      self.spotLatitude = latitude
+      self.spotLongitude = longitude
    }
 }
 

@@ -39,7 +39,7 @@ struct Spot {
    }
    
    static func getAll(completion: @escaping (_ spots: [SpotItem]) -> Void) {
-      refToSpotNode.observe(.value, with: { snapshot in
+      refToSpotNode.observeSingleEvent(of: .value, with: { snapshot in
          var spotsList: [SpotItem] = []
          
          for item in snapshot.children {

@@ -96,7 +96,7 @@
 "QU0-qy-BTX.text" = "Описание";
 
 /* Class = "UIButton"; normalTitle = "Follow"; ObjectID = "QVI-mT-qr1"; */
-"QVI-mT-qr1.normalTitle" = "Следовать";
+"QVI-mT-qr1.normalTitle" = "Подписаться";
 
 /* Class = "UIButton"; normalTitle = "..."; ObjectID = "RMI-Pf-SCZ"; */
 "RMI-Pf-SCZ.normalTitle" = "...";
@@ -205,3 +205,6 @@
 
 /* Class = "UILabel"; text = "..."; ObjectID = "zuD-uu-wOc"; */
 "zuD-uu-wOc.text" = "...";
+
+/* Class = "UIButtonX"; title = "Confirm"; ObjectID = "05h-Od-LVf"; */
+"05h-Od-LVf.normalTitle" = "Принять";

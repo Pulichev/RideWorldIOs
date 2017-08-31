@@ -1130,8 +1130,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="ilI-yc-cTH">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Kll-Ig-4XB">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="05h-Od-LVf">
-                                <rect key="frame" x="313" y="7" width="120" height="30"/>
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="05h-Od-LVf" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                                <rect key="frame" x="239" y="7" width="120" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Confirm">

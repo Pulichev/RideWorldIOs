@@ -356,9 +356,6 @@ extension MapController: CLLocationManagerDelegate {
 extension MapController: SpotInfoOnMapDelegate {
    func placeSpotOnMap(_ spot: SpotItem) {
       if let index = spotsFromDB.index(where: { $0.key == spot.key }) {
-         // update spot
-         spotsFromDB[index] = spot
-         
          let pin = CustomPin()
          pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
          pin.title = spot.name
@@ -366,7 +363,10 @@ extension MapController: SpotInfoOnMapDelegate {
          pin.spotItem = spot
          
          // remove old annotation
-         let oldAnnotation = mapView.annotations[index]
+         // find old annotation
+         let oldAnnotation = mapView.annotations.first(where: { !($0 is MKUserLocation)
+            && ($0 as! CustomPin).spotItem.key == spot.key })!
+         spotsFromDB[index] = spot
          mapView.removeAnnotation(oldAnnotation)
          // add updated annotation
          mapView.addAnnotation(pin)

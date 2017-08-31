@@ -108,6 +108,13 @@ extension LoginController {
 
 // MARK: - Scroll view on keyboard show/hide
 extension LoginController {
+   
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      textField.resignFirstResponder()
+      
+      return true
+   }
+   
    func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
          view.frame.origin.y -= 50

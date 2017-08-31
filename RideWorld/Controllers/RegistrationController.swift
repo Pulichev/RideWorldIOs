@@ -19,6 +19,10 @@ class RegistrationController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      userEmail.delegate = self
+      userLogin.delegate = self
+      userPassword.delegate = self
+      
       //For scrolling the view if keyboard on
       NotificationCenter.default.addObserver(self,
                                              selector: #selector(RegistrationController.keyboardWillShow),
@@ -159,7 +163,14 @@ class RegistrationController: UIViewController {
 }
 
 // MARK: - Scroll view on keyboard show/hide
-extension RegistrationController {
+extension RegistrationController: UITextFieldDelegate {
+   
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      textField.resignFirstResponder()
+      
+      return true
+   }
+  
    func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
          view.frame.origin.y -= 100

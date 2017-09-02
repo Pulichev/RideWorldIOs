@@ -13,6 +13,7 @@ class SpotFollowingsController: UIViewController, UITableViewDelegate, UITableVi
    @IBOutlet weak var tableView: UITableView!
    
    var userId: String!
+   
    fileprivate var spotFollowList = [SpotItem]()
    
    override func viewDidLoad() {

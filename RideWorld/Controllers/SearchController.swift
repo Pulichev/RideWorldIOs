@@ -11,7 +11,6 @@ import Kingfisher
 
 class SearchController: UITableViewController {
    
-   // MARK: - Properties
    var riders = [UserItem]()
    var filteredRiders = [UserItem]()
    var spots = [SpotItem]()

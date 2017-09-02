@@ -102,11 +102,13 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          cell.postId = commentFBItem.postId
          cell.postItem = commentFBItem.postItem!
          if commentFBItem.postAddedByUser == UserModel.getCurrentUserId() {
-            cell.descText = commentFBItem.userItem.login + NSLocalizedString(" commented your photo: ", comment: "")
- + commentFBItem.text
+            cell.descText = commentFBItem.userItem.login
+               + NSLocalizedString(" commented your photo: ", comment: "")
+               + commentFBItem.text
          } else { // for @userId not author
-            cell.descText = commentFBItem.userItem.login + NSLocalizedString(" mentioned you in comment: ", comment: "")
- + commentFBItem.text
+            cell.descText = commentFBItem.userItem.login
+               + NSLocalizedString(" mentioned you in comment: ", comment: "")
+               + commentFBItem.text
          }
          cell.dateTime.text = DateTimeParser.getDateTime(from: commentFBItem.dateTime)
       }
@@ -203,6 +205,39 @@ extension FeedbackController: FollowTappedFromProfile {
    }
 }
 
+// to send userItem from cell to perform segue
+extension FeedbackController: TappedUserDelegate {
+   func userInfoTapped(_ user: UserItem?) {
+      if user != nil {
+         ridersInfoForSending = user
+         performSegue(withIdentifier: "openRidersProfileFromFeedbackList", sender: self)
+      } else {
+         showAlertThatUserLoginNotFounded()
+      }
+   }
+   
+   private func showAlertThatUserLoginNotFounded() {
+      let alert = UIAlertController(title: NSLocalizedString("Error!", comment: ""),
+                                    message: NSLocalizedString("No user has been founded!", comment: ""),
+                                    preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+      
+      present(alert, animated: true, completion: nil)
+   }
+}
+
+// to send postItem from cell to performSegue
+extension FeedbackController: TappedPostDelegate {
+   func postInfoTapped(_ tappedPost: PostItem) {
+      if userItem != nil {
+         self.ridersInfoForSending = userItem
+         self.postInfoForSending = tappedPost
+         self.performSegue(withIdentifier: "goToPostInfoFromFeedback", sender: self)
+      }
+   }
+}
+
 // MARK: - DZNEmptyDataSet for empty data tables
 extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
@@ -234,41 +269,7 @@ extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
          return Image.resize(sourceImage: UIImage(named: "no_photo.png")!,
                              toWidth: CGFloat(300)).image
       } else {
-         return nil // Image.resize(sourceImage: UIImage(named: "PleaseWaitTxt.gif")!,
-                            // toWidth: CGFloat(300)).image
-      }
-   }
-}
-
-// to send userItem from cell to perform segue
-extension FeedbackController: TappedUserDelegate {
-   func userInfoTapped(_ user: UserItem?) {
-      if user != nil {
-         ridersInfoForSending = user
-         performSegue(withIdentifier: "openRidersProfileFromFeedbackList", sender: self)
-      } else {
-         showAlertThatUserLoginNotFounded()
-      }
-   }
-   
-   private func showAlertThatUserLoginNotFounded() {
-      let alert = UIAlertController(title: NSLocalizedString("Error!", comment: ""),
-                                    message: NSLocalizedString("No user has been founded!", comment: ""),
-                                    preferredStyle: .alert)
-      
-      alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-      
-      present(alert, animated: true, completion: nil)
-   }
-}
-
-// to send postItem from cell to performSegue
-extension FeedbackController: TappedPostDelegate {
-   func postInfoTapped(_ tappedPost: PostItem) {
-      if userItem != nil {
-         self.ridersInfoForSending = userItem
-         self.postInfoForSending = tappedPost
-         self.performSegue(withIdentifier: "goToPostInfoFromFeedback", sender: self)
+         return nil
       }
    }
 }

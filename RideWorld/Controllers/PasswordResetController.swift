@@ -51,5 +51,4 @@ class PasswordResetController: UIViewController {
       
       present(alert, animated: true, completion: nil)
    }
-
 }

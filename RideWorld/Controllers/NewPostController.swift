@@ -102,7 +102,11 @@ class NewPostController: UIViewController, UITextViewDelegate {
       if haveWeChoosedMedia {
          showSavingProgress()
          
-         if postDescription.text == "Write post description" { postDescription.text = "" } // removing "placeholder" fake
+         if postDescription.text == NSLocalizedString("Write post description", comment: "")
+         {
+            // removing "placeholder" fake
+            postDescription.text = ""
+         }
          
          createNewPostItem() { postItem in
             // first - upload media. On completion - save post info data

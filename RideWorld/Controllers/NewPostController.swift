@@ -276,8 +276,9 @@ extension NewPostController : GalleryControllerDelegate {
    func galleryController(_ controller: GalleryController, didSelectImages images: [UIImage]) {
       let img = images[0]
       
-      self.isNewMediaIsPhoto = true
-      self.mediaAspectRatio = img.aspectRatio
+      haveWeChoosedMedia = true
+      isNewMediaIsPhoto = true
+      mediaAspectRatio = img.aspectRatio
       
       self.setPhoto(img)
       
@@ -297,6 +298,8 @@ extension NewPostController : GalleryControllerDelegate {
    }
    
    func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
+      haveWeChoosedMedia = true
+      
       video.fetchAVAsset() { asset in
          
          guard let avasset = asset! as? AVURLAsset

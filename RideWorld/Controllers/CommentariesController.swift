@@ -240,21 +240,6 @@ extension CommentariesController: TappedUserDelegate {
    }
 }
 
-// MARK: - DZNEmptyDataSet for empty data tables
-extension CommentariesController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
-   func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = NSLocalizedString("Wait please", comment: "")
-      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
-      return NSAttributedString(string: str, attributes: attrs)
-   }
-   
-   func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = NSLocalizedString("Downloading data..", comment: "")
-      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
-      return NSAttributedString(string: str, attributes: attrs)
-   }
-}
-
 // MARK: - Scroll view on keyboard show/hide
 extension CommentariesController: UITextFieldDelegate {
    func keyboardWillShow(notification: NSNotification) {
@@ -292,5 +277,20 @@ extension CommentariesController {
       
       let mainTabBarController = tabBarController as? MainTabBarController
       mainTabBarController?.showMapButton()
+   }
+}
+
+// MARK: - DZNEmptyDataSet for empty data tables
+extension CommentariesController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+   func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+      let str = NSLocalizedString("Wait please", comment: "")
+      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+      return NSAttributedString(string: str, attributes: attrs)
+   }
+   
+   func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+      let str = NSLocalizedString("Downloading data..", comment: "")
+      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+      return NSAttributedString(string: str, attributes: attrs)
    }
 }

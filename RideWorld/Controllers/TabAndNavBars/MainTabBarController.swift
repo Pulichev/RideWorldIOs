@@ -16,7 +16,7 @@ class MainTabBarController: UITabBarController {
    // MARK: - Add badge to Feedback tab bar item and init FB
    override func viewDidLoad() {
       super.viewDidLoad()
-      
+
       loadFeedbackItems()
       setupMiddleButton()
       requestAndRegisterForNotifications()

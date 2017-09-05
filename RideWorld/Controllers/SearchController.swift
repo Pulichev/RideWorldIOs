@@ -124,15 +124,37 @@ class SearchController: UITableViewController {
       case "Riders":
          if searchText.characters.count == 1 {
             // get items from db where 1st symbol is entered character
-            UserModel.searchUsersWithLogin(startedWith: lowerCasedSearchText) { users in
+            UserModel.searchUsersWithLogin(startedWith: searchText) { users in // original
                self.riders = users
                self.filteredRiders = users
                
-               self.tableView.reloadData()
+               // if typed "o", also search "O". And vice versa
+               if String.isLowercase(string: searchText) {
+                  UserModel.searchUsersWithLogin(startedWith: upperCasedSearchText) { users in
+                     self.riders.append(contentsOf: users)
+                     self.filteredRiders.append(contentsOf: users)
+                     
+                     self.tableView.reloadData()
+                  }
+               } else {
+                  UserModel.searchUsersWithLogin(startedWith: lowerCasedSearchText) { users in
+                     self.riders.append(contentsOf: users)
+                     self.filteredRiders.append(contentsOf: users)
+                     
+                     self.tableView.reloadData()
+                  }
+               }
             }
          } else {
             // filter items from already downloaded from db
-            filteredRiders = riders.filter { $0.login.hasPrefix(lowerCasedSearchText) }
+            filteredRiders = riders.filter { $0.login.hasPrefix(searchText) }
+            
+            if String.isLowercase(string: searchText) {
+               filteredRiders.append(contentsOf: riders.filter { $0.login.hasPrefix(upperCasedSearchText) })
+            } else {
+               filteredRiders.append(contentsOf: riders.filter { $0.login.hasPrefix(lowerCasedSearchText) })
+            }
+            
             self.tableView.reloadData()
          }
          

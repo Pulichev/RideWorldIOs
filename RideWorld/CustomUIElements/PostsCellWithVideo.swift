@@ -63,7 +63,7 @@ class PostsCellWithVideo: UITableViewCell {
       isLikedPhoto.image   = cachedCell.isLikedPhoto.image
       likesCount.text      = String(describing: cachedCell.likesCount)
       let commentsCount    = String(describing: cachedCell.commentsCount)
-      openComments.setTitle("Open commentaries (\(commentsCount))", for: .normal)
+      openComments.setTitle(NSLocalizedString("Open commentaries ", comment: "") + "(\(commentsCount))", for: .normal)
       
       addDoubleTapGestureOnPostPhotos()
       addDoubleTapGestureOnUserPhoto()

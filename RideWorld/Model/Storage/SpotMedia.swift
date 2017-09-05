@@ -15,7 +15,7 @@ struct SpotMedia {
    static func upload(_ photo: UIImage, for spotId: String,
                       with sizePx: Double,
                       completion: @escaping (_ hasFinished: Bool, _ spot: String) -> Void) {
-      let resizedPhoto = Image.resize(sourceImage: photo, toWidth: CGFloat(sizePx)).image
+      let resizedPhoto = Image.resize(sourceImage: photo, toWidth: CGFloat(450)).image
       let refToNewSpotPhoto = refToSpotMainPhotoURLs.child(spotId + ".jpeg")
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto, 1.0)!
       

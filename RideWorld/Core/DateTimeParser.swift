@@ -26,9 +26,20 @@ struct DateTimeParser {
    static func stringToDate(_ str: String) -> Date {
       let formatter = DateFormatter()
       formatter.dateFormat = "yyyy-MM-dd HH:mm:ss +zzzz"
-      let date = formatter.date(from: str)!
       
-      return date
+      guard let formattedDate = formatter.date(from: str) else {
+         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss a +zzzz"
+         formatter.amSymbol = "AM"
+         formatter.pmSymbol = "PM"
+         
+         guard let formattedDateWithAMPM = formatter.date(from: str) else {
+            return Date()
+         }
+         
+         return formattedDateWithAMPM
+      }
+      
+      return formattedDate
    }
    
    static func countOfDaysFromToday(for date: Date) -> Int {

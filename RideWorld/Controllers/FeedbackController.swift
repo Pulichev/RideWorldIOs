@@ -187,7 +187,7 @@ extension FeedbackController: FeedbackItemsDelegate {
       tableView.reloadData()
    }
 }
-
+ 
 extension FeedbackController: FollowTappedFromProfile {
    func followTapped(on userId: String) {
       // update follow button

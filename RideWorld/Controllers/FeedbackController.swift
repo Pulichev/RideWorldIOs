@@ -171,6 +171,10 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          newPostInfoController.postInfo = postInfoForSending
          newPostInfoController.isCurrentUserProfile = true
          
+      case "openUserProfileFromFB":
+         let userProfileController = segue.destination as! UserProfileController
+         userProfileController.cameFromSpotDetails = true // maybe useless property
+         
       default: break
       }
    }
@@ -209,8 +213,12 @@ extension FeedbackController: FollowTappedFromProfile {
 extension FeedbackController: TappedUserDelegate {
    func userInfoTapped(_ user: UserItem?) {
       if user != nil {
-         ridersInfoForSending = user
-         performSegue(withIdentifier: "openRidersProfileFromFeedbackList", sender: self)
+         if user!.uid != UserModel.getCurrentUserId() {
+            ridersInfoForSending = user
+            performSegue(withIdentifier: "openRidersProfileFromFeedbackList", sender: self)
+         } else {
+            performSegue(withIdentifier: "openUserProfileFromFB", sender: self)
+         }
       } else {
          showAlertThatUserLoginNotFounded()
       }

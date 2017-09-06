@@ -52,7 +52,7 @@ class PostInfoViewController: UIViewController {
       super.viewDidLoad()
       
       DispatchQueue.main.async {
-         if !self.isCurrentUserProfile {
+         if self.postInfo.addedByUser != UserModel.getCurrentUserId() {
             self.navigationItem.rightBarButtonItem = nil // hide delete button
          }
          

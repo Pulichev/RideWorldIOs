@@ -377,10 +377,10 @@ struct UserModel {
                                        completion: @escaping (_ snapshot: [String: AnyObject]?) -> Void) {
       let refToUserFeedback = refToFeedback.child(userId)
       
-      refToUserFeedback.queryLimited(toLast: 15).observe(.value, with: { snapshot in
+      refToUserFeedback.queryLimited(toLast: 30).observe(.value, with: { snapshot in
          if let value = snapshot.value as? [String: AnyObject] {
             completion(value)
-         }
+         } 
       }, withCancel: { error in
          print(error.localizedDescription)
       })

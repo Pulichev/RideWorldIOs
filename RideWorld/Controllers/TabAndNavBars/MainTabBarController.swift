@@ -11,6 +11,7 @@ import FirebaseInstanceID
 import FirebaseMessaging
 
 class MainTabBarController: UITabBarController {
+   
    var delegateFBItemsChanges: FeedbackItemsDelegate?
    
    // MARK: - Add badge to Feedback tab bar item and init FB

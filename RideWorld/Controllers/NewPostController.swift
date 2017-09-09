@@ -164,8 +164,13 @@ class NewPostController: UIViewController, UITextViewDelegate {
             if hasFinishedUploading {
                Post.add(post!) { hasFinishedSuccessfully in
                   if hasFinishedSuccessfully {
-                     self.player.pause()
-                     self.player = nil
+                     if #available(iOS 10.0, *) {
+                        self.queuePlayer.pause()
+                        self.queuePlayer = nil
+                     } else {
+                        self.player.pause()
+                        self.player = nil
+                     }
                      self.goBackToPosts()
                   } else {
                      self.errorHappened()
@@ -322,6 +327,7 @@ extension NewPostController : GalleryControllerDelegate {
          self.initAspectRatioOfVideo(with: fileURL)
          self.changeMediaContainerHeight()
          self.isNewMediaIsPhoto = false
+         
          if #available(iOS 10.0, *) {
             self.queuePlayer = AVQueuePlayer()
             
@@ -343,6 +349,8 @@ extension NewPostController : GalleryControllerDelegate {
             playerLayer.frame = self.photoOrVideoView.bounds
             self.photoOrVideoView.layer.addSublayer(playerLayer)
             self.photoOrVideoView.playerLayer = playerLayer
+            
+            self.player.play()
          }
          
          self.newVideoUrl = fileURL

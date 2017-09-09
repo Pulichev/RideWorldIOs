@@ -33,7 +33,9 @@ class NewPostController: UIViewController, UITextViewDelegate {
    
    // MARK: - Media vars part
    var newVideoUrl: URL!
-   var player: AVQueuePlayer!
+   var queuePlayer: AVQueuePlayer! // for iOS 10+
+   var player: AVPlayer! // for iOS 9 - 9.3.5
+   
    var playerLooper: NSObject? //for looping video. It should be class variable
    
    var photoView = UIImageView()
@@ -320,17 +322,28 @@ extension NewPostController : GalleryControllerDelegate {
          self.initAspectRatioOfVideo(with: fileURL)
          self.changeMediaContainerHeight()
          self.isNewMediaIsPhoto = false
-         self.player = AVQueuePlayer()
-         
-         let playerLayer = AVPlayerLayer(player: self.player)
-         let playerItem = AVPlayerItem(url: fileURL)
-         self.playerLooper = AVPlayerLooper(player: self.player, templateItem: playerItem)
-         playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-         playerLayer.frame = self.photoOrVideoView.bounds
-         self.photoOrVideoView.layer.addSublayer(playerLayer)
-         self.photoOrVideoView.playerLayer = playerLayer
-         
-         self.player.play()
+         if #available(iOS 10.0, *) {
+            self.queuePlayer = AVQueuePlayer()
+            
+            let playerLayer = AVPlayerLayer(player: self.queuePlayer)
+            let playerItem = AVPlayerItem(url: fileURL)
+            self.playerLooper = AVPlayerLooper(player: self.queuePlayer, templateItem: playerItem)
+            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.frame = self.photoOrVideoView.bounds
+            self.photoOrVideoView.layer.addSublayer(playerLayer)
+            self.photoOrVideoView.playerLayer = playerLayer
+            
+            self.queuePlayer.play()
+         } else {
+            // iOS 9 - 9.3.5
+            self.player = AVPlayer(url: fileURL)
+            
+            let playerLayer = AVPlayerLayer(player: self.player)
+            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.frame = self.photoOrVideoView.bounds
+            self.photoOrVideoView.layer.addSublayer(playerLayer)
+            self.photoOrVideoView.playerLayer = playerLayer
+         }
          
          self.newVideoUrl = fileURL
          

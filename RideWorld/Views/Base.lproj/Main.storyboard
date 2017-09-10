@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1683,6 +1682,7 @@
                         <outlet property="newCommentTextField" destination="2Kd-Fw-Asn" id="NAO-AG-b9p"/>
                         <outlet property="newCommentView" destination="ke3-vZ-gVY" id="Otx-JW-g0E"/>
                         <outlet property="newCommentViewBotConstraint" destination="GMb-a4-xnZ" id="hEO-GU-s2K"/>
+                        <outlet property="sendCommentButton" destination="wRW-o0-7oy" id="rac-TI-rKi"/>
                         <outlet property="tableView" destination="j6T-oW-eAy" id="Kpk-UF-dNx"/>
                         <segue destination="MsB-Ex-yak" kind="show" identifier="openUserProfileFromCommentsList" id="T3A-kh-NPf"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromCommentsList" id="eb8-9P-3Sr"/>
@@ -1790,7 +1790,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR" userLabel="TableView">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowersCell" rowHeight="52" id="kVo-9F-P8O" customClass="FollowersCell" customModule="RideWorld" customModuleProvider="target">
@@ -2194,7 +2194,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="J3P-b1-lga">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SpotFollowingCell" rowHeight="52" id="0Jg-Q3-elW" customClass="SpotFollowingCell" customModule="RideWorld" customModuleProvider="target">
@@ -3271,17 +3271,17 @@
         <image name="settings" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="T3A-kh-NPf"/>
+        <segue reference="COh-cw-Ntn"/>
+        <segue reference="nax-92-cwD"/>
         <segue reference="Gef-69-N8A"/>
         <segue reference="bUh-wl-Xkc"/>
-        <segue reference="gS6-Wz-qu3"/>
+        <segue reference="Z0F-cj-iPf"/>
         <segue reference="ZuM-Rf-uph"/>
-        <segue reference="hCy-LG-AWJ"/>
         <segue reference="ck8-tQ-3J4"/>
         <segue reference="uZy-5C-eSU"/>
+        <segue reference="eb8-9P-3Sr"/>
         <segue reference="TeE-da-wxz"/>
         <segue reference="JLU-Th-Uca"/>
-        <segue reference="Z0F-cj-iPf"/>
-        <segue reference="nax-92-cwD"/>
-        <segue reference="COh-cw-Ntn"/>
     </inferredMetricsTieBreakers>
 </document>

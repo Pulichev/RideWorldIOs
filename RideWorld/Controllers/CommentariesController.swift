@@ -9,6 +9,7 @@
 import UIKit
 import ActiveLabel
 import MGSwipeTableCell
+import SVProgressHUD
 
 class CommentariesController: UIViewController, UITableViewDataSource,
 UITableViewDelegate {
@@ -77,11 +78,19 @@ UITableViewDelegate {
       }
    }
    
+   @IBOutlet weak var sendCommentButton: UIButtonX!
+   
    @IBAction func sendComment(_ sender: UIButton) {
       if newCommentTextField.text != "" {
+         sendCommentButton.isEnabled = false
+         SVProgressHUD.show()
+         
          Comment.add(for: post,
                      withText: newCommentTextField.text)
          { newComment in
+            self.sendCommentButton.isEnabled = true
+            SVProgressHUD.dismiss()
+            
             self.newCommentTextField.text = ""
             self.view.endEditing(true)
             

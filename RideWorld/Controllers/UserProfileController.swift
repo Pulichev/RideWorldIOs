@@ -130,6 +130,10 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       }
    }
    
+   @IBAction func reloadButtonTapped(_ sender: Any) {
+      initializePosts()
+   }
+   
    // MARK: - CollectionView part
    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       return posts.count

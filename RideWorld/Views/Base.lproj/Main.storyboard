@@ -690,7 +690,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Npn-VA-zc6">
-                                <rect key="frame" x="0.0" y="220" width="375" height="398"/>
+                                <rect key="frame" x="0.0" y="220" width="375" height="447"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="1000" id="9dz-rP-BXs"/>
@@ -748,7 +748,18 @@
                             <constraint firstItem="Npn-VA-zc6" firstAttribute="top" secondItem="vNn-Ib-ZiL" secondAttribute="bottom" id="jU8-Xe-E8v"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="q0R-dd-b5v"/>
+                    <navigationItem key="navigationItem" id="q0R-dd-b5v">
+                        <barButtonItem key="rightBarButtonItem" image="reload" style="plain" id="bRY-83-aXJ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SNG-vh-Y2n">
+                                <rect key="frame" x="277" y="8" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="reload"/>
+                                <connections>
+                                    <action selector="reloadButtonTapped:" destination="MKp-Ss-8Kb" eventType="touchUpInside" id="Lzc-gG-fb1"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="followButton" destination="xNU-PM-ycZ" id="oR5-Fa-1K8"/>
                         <outlet property="followedSpotsCount" destination="Gh7-xN-dpm" id="8SQ-16-C7M"/>
@@ -1682,7 +1693,6 @@
                         <outlet property="newCommentTextField" destination="2Kd-Fw-Asn" id="NAO-AG-b9p"/>
                         <outlet property="newCommentView" destination="ke3-vZ-gVY" id="Otx-JW-g0E"/>
                         <outlet property="newCommentViewBotConstraint" destination="GMb-a4-xnZ" id="hEO-GU-s2K"/>
-                        <outlet property="sendCommentButton" destination="wRW-o0-7oy" id="rac-TI-rKi"/>
                         <outlet property="tableView" destination="j6T-oW-eAy" id="Kpk-UF-dNx"/>
                         <segue destination="MsB-Ex-yak" kind="show" identifier="openUserProfileFromCommentsList" id="T3A-kh-NPf"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromCommentsList" id="eb8-9P-3Sr"/>
@@ -1879,7 +1889,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="f5g-1l-QE8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="tf5-EU-9ON">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="tf5-EU-9ON">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1931,7 +1941,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="C4x-Bn-Hds">
-                                <rect key="frame" x="0.0" y="220" width="375" height="398"/>
+                                <rect key="frame" x="0.0" y="220" width="375" height="447"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="1000" id="msy-58-mPV"/>
@@ -2156,7 +2166,18 @@
                             <constraint firstItem="zBH-CJ-T0B" firstAttribute="leading" secondItem="nl8-X3-Dgp" secondAttribute="leading" id="oWX-jM-pTd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="H6x-9y-8OV"/>
+                    <navigationItem key="navigationItem" id="H6x-9y-8OV">
+                        <barButtonItem key="rightBarButtonItem" image="reload" style="plain" id="wqx-XR-XKP">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8x1-Tu-CuS">
+                                <rect key="frame" x="331" y="8" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="reload"/>
+                                <connections>
+                                    <action selector="reloadButtonTapped:" destination="MsB-Ex-yak" eventType="touchUpInside" id="YNJ-iI-999"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="editButton" destination="6Gf-2N-ipQ" id="2Ki-nm-lZ2"/>
                         <outlet property="followedSpotsCount" destination="zuD-uu-wOc" id="TsW-fG-yJH"/>
@@ -2308,7 +2329,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="hyO-8D-pzd">
-                                <rect key="frame" x="0.0" y="266" width="375" height="352"/>
+                                <rect key="frame" x="0.0" y="266" width="375" height="401"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditProfileCell" id="NUz-cv-B5A" userLabel="EditProfileCell" customClass="EditProfileCell" customModule="RideWorld" customModuleProvider="target">
@@ -2518,7 +2539,7 @@
                         <inset key="imageInsets" minX="-2" minY="4" maxX="2" maxY="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ZvH-44-4Fc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="ZvH-44-4Fc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2542,7 +2563,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LoginPage" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="H2C-mG-pr3" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="kUm-Jk-EFt">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kUm-Jk-EFt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2566,7 +2587,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="STW-of-5hp" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="P88-G9-8IC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="P88-G9-8IC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -3003,7 +3024,7 @@
                         <inset key="imageInsets" minX="-1" minY="6" maxX="1" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f63-wh-W1p">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f63-wh-W1p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3024,7 +3045,7 @@
                         <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="-8"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="an1-kP-YTX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="an1-kP-YTX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3045,7 +3066,7 @@
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Xl-Pa-BHx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="1Xl-Pa-BHx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3066,7 +3087,7 @@
                         <inset key="imageInsets" minX="1" minY="7" maxX="-1" maxY="-7"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2PK-Bf-uzA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2PK-Bf-uzA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3271,17 +3292,17 @@
         <image name="settings" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="T3A-kh-NPf"/>
-        <segue reference="COh-cw-Ntn"/>
-        <segue reference="nax-92-cwD"/>
-        <segue reference="Gef-69-N8A"/>
-        <segue reference="bUh-wl-Xkc"/>
-        <segue reference="Z0F-cj-iPf"/>
-        <segue reference="ZuM-Rf-uph"/>
+        <segue reference="TEa-lr-7L1"/>
         <segue reference="ck8-tQ-3J4"/>
+        <segue reference="Xyq-8K-e8w"/>
         <segue reference="uZy-5C-eSU"/>
-        <segue reference="eb8-9P-3Sr"/>
-        <segue reference="TeE-da-wxz"/>
-        <segue reference="JLU-Th-Uca"/>
+        <segue reference="QOa-aY-bXL"/>
+        <segue reference="Sh7-b9-fDP"/>
+        <segue reference="6R6-CY-IE2"/>
+        <segue reference="Gef-69-N8A"/>
+        <segue reference="Z0F-cj-iPf"/>
+        <segue reference="RlL-e4-xY6"/>
+        <segue reference="9jf-Eh-2KR"/>
+        <segue reference="qSk-1a-lLs"/>
     </inferredMetricsTieBreakers>
 </document>

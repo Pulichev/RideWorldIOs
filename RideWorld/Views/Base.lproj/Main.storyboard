@@ -751,7 +751,7 @@
                     <navigationItem key="navigationItem" id="q0R-dd-b5v">
                         <barButtonItem key="rightBarButtonItem" image="reload" style="plain" id="bRY-83-aXJ">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SNG-vh-Y2n">
-                                <rect key="frame" x="277" y="8" width="28" height="28"/>
+                                <rect key="frame" x="331" y="8" width="28" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="reload"/>
                                 <connections>

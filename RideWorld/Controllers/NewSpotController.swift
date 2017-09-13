@@ -9,6 +9,7 @@
 import UIKit
 import SVProgressHUD
 import Gallery
+import Photos
 
 protocol SpotInfoOnMapDelegate: class {
    func placeSpotOnMap(_ spot: SpotItem)
@@ -294,10 +295,10 @@ extension NewSpotController : GalleryControllerDelegate {
       present(gallery, animated: true, completion: nil)
    }
    
-   func galleryController(_ controller: GalleryController, didSelectImages images: [UIImage]) {
+   func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
       let img = images[0]
       
-      self.imageView.image = img
+      self.imageView.image = img.uiImage(ofSize: PHImageManagerMaximumSize)
       self.imageView.layer.cornerRadius = self.imageView.frame.size.height / 8
       self.imageView.layer.masksToBounds = true
       self.imageView.layer.borderWidth = 0
@@ -310,7 +311,10 @@ extension NewSpotController : GalleryControllerDelegate {
    func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
    }
    
-   func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
+   func galleryController(_ controller: GalleryController, requestLightbox images: [Image]) {
+   }
+   
+   func galleryController(_ controller: GalleryController, requestLightbox images: [Image]) {
    }
    
    func galleryControllerDidCancel(_ controller: GalleryController) {

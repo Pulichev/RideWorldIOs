@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 import Gallery
+import Photos
 import SVProgressHUD
 
 class EditProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -408,10 +409,10 @@ extension EditProfileController: GalleryControllerDelegate {
       present(gallery, animated: true, completion: nil)
    }
    
-   func galleryController(_ controller: GalleryController, didSelectImages images: [UIImage]) {
+   func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
       let img = images[0]
       
-      self.userPhoto.image = img
+      self.userPhoto.image = img.uiImage(ofSize: PHImageManagerMaximumSize)
       self.userChangedPhoto = true
       controller.dismiss(animated: true, completion: nil)
    }
@@ -419,7 +420,7 @@ extension EditProfileController: GalleryControllerDelegate {
    func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
    }
    
-   func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
+   func galleryController(_ controller: GalleryController, requestLightbox images: [Image]) {
    }
    
    func galleryControllerDidCancel(_ controller: GalleryController) {

@@ -275,7 +275,7 @@ extension FeedbackController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    
    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
       if haveWeFinishedLoading {
-         return Image.resize(sourceImage: UIImage(named: "no_photo.png")!,
+         return MyImage.resize(sourceImage: UIImage(named: "no_photo.png")!,
                              toWidth: CGFloat(300)).image
       } else {
          return nil

@@ -10,6 +10,7 @@ import UIKit
 import Kingfisher
 import SVProgressHUD
 import Gallery
+import Photos
 
 class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
    
@@ -182,11 +183,11 @@ extension SpotInfoController : GalleryControllerDelegate {
       present(gallery, animated: true, completion: nil)
    }
    
-   func galleryController(_ controller: GalleryController, didSelectImages images: [UIImage]) {
+   func galleryController(_ controller: GalleryController, didSelectImages images: [Gallery.Image]) {
       let img = images[0]
       
       SVProgressHUD.show()
-      SpotMedia.uploadForInfo(img, for: self.spotInfo.key, with: 270.0) { url in
+      SpotMedia.uploadForInfo(img.uiImage(ofSize: PHImageManagerMaximumSize)!, for: self.spotInfo.key, with: 270.0) { url in
          if url != nil {
             self.photosURLs.append(url!)
             
@@ -202,7 +203,7 @@ extension SpotInfoController : GalleryControllerDelegate {
    func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
    }
    
-   func galleryController(_ controller: GalleryController, requestLightbox images: [UIImage]) {
+   func galleryController(_ controller: GalleryController, requestLightbox images: [Gallery.Image]) {
    }
    
    func galleryControllerDidCancel(_ controller: GalleryController) {

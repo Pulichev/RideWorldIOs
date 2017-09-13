@@ -398,7 +398,7 @@ extension EditProfileController: UITextFieldDelegate {
 
 // MARK: - Camera extension
 extension EditProfileController: GalleryControllerDelegate {
-   
+
    @IBAction func changeProfilePhotoButtonTapped(_ sender: Any) {
       let gallery = GalleryController()
       gallery.delegate = self
@@ -409,7 +409,7 @@ extension EditProfileController: GalleryControllerDelegate {
       present(gallery, animated: true, completion: nil)
    }
    
-   func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
+   func galleryController(_ controller: GalleryController, didSelectImages images: [Gallery.Image]) {
       let img = images[0]
       
       self.userPhoto.image = img.uiImage(ofSize: PHImageManagerMaximumSize)
@@ -420,7 +420,7 @@ extension EditProfileController: GalleryControllerDelegate {
    func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
    }
    
-   func galleryController(_ controller: GalleryController, requestLightbox images: [Image]) {
+   func galleryController(_ controller: GalleryController, requestLightbox images: [Gallery.Image]) {
    }
    
    func galleryControllerDidCancel(_ controller: GalleryController) {

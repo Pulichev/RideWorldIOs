@@ -595,7 +595,7 @@ extension PostsStripController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    
    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
       if haveWeFinishedLoading {
-         return Image.resize(sourceImage: UIImage(named: "no_photo.png")!, toWidth: 300).image
+         return MyImage.resize(sourceImage: UIImage(named: "no_photo.png")!, toWidth: 300).image
       } else {
          return nil // Image.resize(sourceImage: UIImage(named: "PleaseWaitTxt.gif")!, toWidth: 200).image
       }

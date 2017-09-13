@@ -14,7 +14,7 @@ struct UserMedia {
    // MARK: - Upload part
    static func upload(for userId: String, with image: UIImage, withSize sizePx: Double,
                       completion: @escaping (_ hasFinished: Bool, _ url: String) -> Void) {
-      let resizedPhoto = Image.resize(sourceImage: image, toWidth: CGFloat(sizePx)).image
+      let resizedPhoto = MyImage.resize(sourceImage: image, toWidth: CGFloat(sizePx)).image
       let sizePxInt = Int(sizePx) // to generate link properly. It doesn't have ".0" in sizes
       let sizePxString = String(describing: sizePxInt)
       let userPhotoRef = refToUserMainPhotoURLs.child(userId + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")

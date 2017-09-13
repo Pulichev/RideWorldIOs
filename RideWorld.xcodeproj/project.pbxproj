@@ -80,7 +80,7 @@
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
 		9FB681CB1E2E70CE00D9A436 /* RideWorldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681CA1E2E70CE00D9A436 /* RideWorldTests.swift */; };
 		9FB681D61E2E70CE00D9A436 /* RideWorldUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681D51E2E70CE00D9A436 /* RideWorldUITests.swift */; };
-		9FBCFAE81E73445900A5C95D /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE71E73445900A5C95D /* Image.swift */; };
+		9FBCFAE81E73445900A5C95D /* MyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE71E73445900A5C95D /* MyImage.swift */; };
 		9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FC91E48E5E30097579B /* LoginController.swift */; };
 		9FC14FD01E48E5E30097579B /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCA1E48E5E30097579B /* MapController.swift */; };
 		9FC14FD11E48E5E30097579B /* NewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCB1E48E5E30097579B /* NewPostController.swift */; };
@@ -237,7 +237,7 @@
 		9FB681D11E2E70CE00D9A436 /* RideWorldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RideWorldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681D51E2E70CE00D9A436 /* RideWorldUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideWorldUITests.swift; sourceTree = "<group>"; };
 		9FB681D71E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9FBCFAE71E73445900A5C95D /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Image.swift; path = Core/Image.swift; sourceTree = "<group>"; };
+		9FBCFAE71E73445900A5C95D /* MyImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyImage.swift; path = Core/MyImage.swift; sourceTree = "<group>"; };
 		9FC14FC91E48E5E30097579B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controllers/LoginController.swift; sourceTree = "<group>"; };
 		9FC14FCA1E48E5E30097579B /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapController.swift; path = Controllers/MapController.swift; sourceTree = "<group>"; };
 		9FC14FCB1E48E5E30097579B /* NewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewPostController.swift; path = Controllers/NewPostController.swift; sourceTree = "<group>"; };
@@ -536,7 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				9F6154911EA67D4800160CB3 /* RoundedImageView.swift */,
-				9FBCFAE71E73445900A5C95D /* Image.swift */,
+				9FBCFAE71E73445900A5C95D /* MyImage.swift */,
 				9F5609821E7C6B700000DB21 /* PostItemCellCache.swift */,
 				9FF114A81EB4C8F600152279 /* DateTimeParser.swift */,
 				9FE3B70F1EC22A2800E7ED40 /* String.swift */,
@@ -1015,7 +1015,7 @@
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */,
 				9F75ABD91F49FBD2002527B0 /* LanguageController.swift in Sources */,
-				9FBCFAE81E73445900A5C95D /* Image.swift in Sources */,
+				9FBCFAE81E73445900A5C95D /* MyImage.swift in Sources */,
 				9FE3B70C1EBCDC4C00E7ED40 /* LoadingProcessView.swift in Sources */,
 				9FF1BF791EA2C5B600A2CEF2 /* LikeModel.swift in Sources */,
 				9FD0BF4B1EACC0D1000ACF9F /* pinInfoView.swift in Sources */,

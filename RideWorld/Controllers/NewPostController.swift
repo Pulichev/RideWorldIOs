@@ -314,104 +314,88 @@ extension NewPostController : GalleryControllerDelegate {
    }
    
    func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
-      controller.dismiss(animated: true, completion: nil)
+      haveWeChoosedMedia = true
       
-//      let editor = AdvancedVideoEditor()
-      editor.edit(video: video) { (editedVideo: Video?, tempPath: URL?) in
-         DispatchQueue.main.async {
-            if let tempPath = tempPath {
-               let controller = AVPlayerViewController()
-               controller.player = AVPlayer(url: tempPath)
-               
-               self.present(controller, animated: true, completion: nil)
+      video.fetchAVAsset() { asset in
+         
+         guard let avasset = asset! as? AVURLAsset
+            else {
+               DispatchQueue.main.async {
+                  controller.dismiss(animated: true, completion: nil)
+                  self.showAlertThatUserLoginNotFounded()
+               }
+               return
+         }
+         
+         let fileURL = avasset.url
+         
+         self.initAspectRatioOfVideo(with: fileURL)
+         self.changeMediaContainerHeight()
+         self.isNewMediaIsPhoto = false
+         
+         if #available(iOS 10.0, *) {
+            self.queuePlayer = AVQueuePlayer()
+            
+            let playerLayer = AVPlayerLayer(player: self.queuePlayer)
+            let playerItem = AVPlayerItem(url: fileURL)
+            self.playerLooper = AVPlayerLooper(player: self.queuePlayer, templateItem: playerItem)
+            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.frame = self.photoOrVideoView.bounds
+            self.photoOrVideoView.layer.addSublayer(playerLayer)
+            self.photoOrVideoView.playerLayer = playerLayer
+            
+            self.queuePlayer.play()
+         } else {
+            // iOS 9 - 9.3.5
+            self.player = AVPlayer(url: fileURL)
+            
+            let playerLayer = AVPlayerLayer(player: self.player)
+            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.frame = self.photoOrVideoView.bounds
+            self.photoOrVideoView.layer.addSublayer(playerLayer)
+            self.photoOrVideoView.playerLayer = playerLayer
+            
+            self.player.play()
+         }
+         
+         self.newVideoUrl = fileURL
+         
+         let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
+         
+         self.compressVideo(inputURL: fileURL as URL, outputURL: compressedURL) { (exportSession) in
+            guard let session = exportSession else {
+               return
             }
+            
+            switch session.status {
+            case .unknown:
+               break
+            case .waiting:
+               break
+            case .exporting:
+               break
+            case .completed:
+               guard let compressedData = NSData(contentsOf: compressedURL) else {
+                  return
+               }
+               
+               print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
+            case .failed:
+               break
+            case .cancelled:
+               break
+            }
+         }
+         
+         self.newVideoUrl = compressedURL //update newVideoUrl to already compressed video
+         
+         print("video completed and output to file: \(fileURL)")
+         
+         DispatchQueue.main.async {
+            controller.dismiss(animated: true, completion: nil)
          }
       }
    }
-   
-//   func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
-//      haveWeChoosedMedia = true
-//      
-//      video.fetchAVAsset() { asset in
-//         
-//         guard let avasset = asset! as? AVURLAsset
-//            else {
-//               DispatchQueue.main.async {
-//                  controller.dismiss(animated: true, completion: nil)
-//                  self.showAlertThatUserLoginNotFounded()
-//               }
-//               return
-//         }
-//         
-//         let fileURL = avasset.url
-//         
-//         self.initAspectRatioOfVideo(with: fileURL)
-//         self.changeMediaContainerHeight()
-//         self.isNewMediaIsPhoto = false
-//         
-//         if #available(iOS 10.0, *) {
-//            self.queuePlayer = AVQueuePlayer()
-//            
-//            let playerLayer = AVPlayerLayer(player: self.queuePlayer)
-//            let playerItem = AVPlayerItem(url: fileURL)
-//            self.playerLooper = AVPlayerLooper(player: self.queuePlayer, templateItem: playerItem)
-//            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-//            playerLayer.frame = self.photoOrVideoView.bounds
-//            self.photoOrVideoView.layer.addSublayer(playerLayer)
-//            self.photoOrVideoView.playerLayer = playerLayer
-//            
-//            self.queuePlayer.play()
-//         } else {
-//            // iOS 9 - 9.3.5
-//            self.player = AVPlayer(url: fileURL)
-//            
-//            let playerLayer = AVPlayerLayer(player: self.player)
-//            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-//            playerLayer.frame = self.photoOrVideoView.bounds
-//            self.photoOrVideoView.layer.addSublayer(playerLayer)
-//            self.photoOrVideoView.playerLayer = playerLayer
-//            
-//            self.player.play()
-//         }
-//         
-//         self.newVideoUrl = fileURL
-//         
-//         let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
-//         
-//         self.compressVideo(inputURL: fileURL as URL, outputURL: compressedURL) { (exportSession) in
-//            guard let session = exportSession else {
-//               return
-//            }
-//            
-//            switch session.status {
-//            case .unknown:
-//               break
-//            case .waiting:
-//               break
-//            case .exporting:
-//               break
-//            case .completed:
-//               guard let compressedData = NSData(contentsOf: compressedURL) else {
-//                  return
-//               }
-//               
-//               print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
-//            case .failed:
-//               break
-//            case .cancelled:
-//               break
-//            }
-//         }
-//         
-//         self.newVideoUrl = compressedURL //update newVideoUrl to already compressed video
-//         
-//         print("video completed and output to file: \(fileURL)")
-//         
-//         DispatchQueue.main.async {
-//            controller.dismiss(animated: true, completion: nil)
-//         }
-//      }
-//   }
    
    private func showAlertThatUserLoginNotFounded() {
       DispatchQueue.main.async {

@@ -8,6 +8,7 @@
 
 import UIKit
 import ActiveLabel
+import SVProgressHUD
 
 class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    
@@ -88,8 +89,12 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    
    // from @username
    private func goToUserProfile(tappedUserLogin: String) {
+      SVProgressHUD.show()
+      
       UserModel.getItemByLogin(
       for: tappedUserLogin) { fetchedUserItem, _ in
+         SVProgressHUD.dismiss()
+         
          self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
       }
    }

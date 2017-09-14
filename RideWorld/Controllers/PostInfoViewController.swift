@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import Kingfisher
 import ActiveLabel
+import SVProgressHUD
 
 class PostInfoViewController: UIViewController {
    
@@ -418,8 +419,12 @@ class PostInfoViewController: UIViewController {
       if postInfo.userLogin == tappedUserLogin {
          _ = self.navigationController?.popViewController(animated: true) // go back
       } else {
+         SVProgressHUD.show()
+         
          UserModel.getItemByLogin(
          for: tappedUserLogin) { fetchedUserItem, _ in
+            SVProgressHUD.dismiss()
+            
             if let userItem = fetchedUserItem { // have we founded?
                if userItem.uid == UserModel.getCurrentUserId() {
                   self.performSegue(withIdentifier: "fromPostInfoToUserProfile", sender: self)

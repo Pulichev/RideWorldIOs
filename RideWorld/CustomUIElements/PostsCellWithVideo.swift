@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import ActiveLabel
+import SVProgressHUD
 
 class PostsCellWithVideo: UITableViewCell {
    
@@ -232,8 +233,12 @@ class PostsCellWithVideo: UITableViewCell {
    
    // from @username
    private func goToUserProfile(tappedUserLogin: String) {
+      SVProgressHUD.show()
+      
       UserModel.getItemByLogin(
       for: tappedUserLogin) { fetchedUserItem, _ in
+         SVProgressHUD.dismiss()
+         
          self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
       }
    }

@@ -9,6 +9,7 @@
 import UIKit
 import ActiveLabel
 import MGSwipeTableCell
+import SVProgressHUD
 
 class CommentCell: MGSwipeTableCell {
    weak var delegateUserTaps: TappedUserDelegate? // for sending user info
@@ -61,8 +62,12 @@ class CommentCell: MGSwipeTableCell {
    
    // from @username
    private func goToUserProfile(tappedUserLogin: String) {
+      SVProgressHUD.show()
+      
       UserModel.getItemByLogin(
       for: tappedUserLogin) { fetchedUserItem, _ in
+         SVProgressHUD.dismiss()
+         
          self.delegateUserTaps?.userInfoTapped(fetchedUserItem)
       }
    }

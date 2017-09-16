@@ -390,7 +390,7 @@ extension MapController {
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
-      self.navigationItem.title = "RideWorld"
+      navigationController?.setNavigationBarHidden(true, animated: animated)
    }
    
    override func viewWillDisappear(_ animated: Bool) {

@@ -146,17 +146,6 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       self.tabBarController?.tabBar.items![2].badgeValue = nil
    }
    
-////    Info button, shows alert, that only 15 recent feedback posts are shown
-//   @IBAction func showInfoAboutCountOfFBItems(_ sender: UIButtonX) {
-//      let alert = UIAlertController(title: NSLocalizedString("Info", comment: ""),
-//                                    message: NSLocalizedString("Only last 15 last news are available at the moment!", comment: ""),
-//                                    preferredStyle: .alert)
-//      
-//      alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//      
-//      present(alert, animated: true, completion: nil)
-//   }
-   
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       switch segue.identifier! {
       case "openRidersProfileFromFeedbackList":

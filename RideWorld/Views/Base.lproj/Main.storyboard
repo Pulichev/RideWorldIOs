@@ -1576,13 +1576,13 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRW-o0-7oy" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                         <rect key="frame" x="306" y="9" width="57" height="30"/>
-                                        <color key="backgroundColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.91764705882352937" green="0.88235294117647056" blue="0.84313725490196079" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="3f9-Fl-c6S"/>
                                             <constraint firstAttribute="width" constant="57" id="qba-fB-rKu"/>
                                         </constraints>
                                         <state key="normal" title="Send">
-                                            <color key="titleColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="titleColor" red="0.1764705882352941" green="0.1764705882352941" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1594,7 +1594,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92941176469999998" green="0.84313725490000002" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.1764705882352941" green="0.1764705882352941" blue="0.16078431372549018" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="2Kd-Fw-Asn" firstAttribute="top" secondItem="ke3-vZ-gVY" secondAttribute="top" constant="9" id="7Al-xC-YEV"/>
                                     <constraint firstAttribute="height" constant="48" id="Oyi-RF-Ctq"/>
@@ -1694,6 +1694,7 @@
                         <outlet property="newCommentTextField" destination="2Kd-Fw-Asn" id="NAO-AG-b9p"/>
                         <outlet property="newCommentView" destination="ke3-vZ-gVY" id="Otx-JW-g0E"/>
                         <outlet property="newCommentViewBotConstraint" destination="GMb-a4-xnZ" id="hEO-GU-s2K"/>
+                        <outlet property="sendCommentButton" destination="wRW-o0-7oy" id="byU-yT-aSH"/>
                         <outlet property="tableView" destination="j6T-oW-eAy" id="Kpk-UF-dNx"/>
                         <segue destination="MsB-Ex-yak" kind="show" identifier="openUserProfileFromCommentsList" id="T3A-kh-NPf"/>
                         <segue destination="MKp-Ss-8Kb" kind="show" identifier="openRidersProfileFromCommentsList" id="eb8-9P-3Sr"/>
@@ -3291,9 +3292,9 @@
         <segue reference="ck8-tQ-3J4"/>
         <segue reference="Xyq-8K-e8w"/>
         <segue reference="uZy-5C-eSU"/>
-        <segue reference="TEa-lr-7L1"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="6R6-CY-IE2"/>
+        <segue reference="eb8-9P-3Sr"/>
+        <segue reference="T3A-kh-NPf"/>
         <segue reference="9jf-Eh-2KR"/>
         <segue reference="RlL-e4-xY6"/>
         <segue reference="Z0F-cj-iPf"/>

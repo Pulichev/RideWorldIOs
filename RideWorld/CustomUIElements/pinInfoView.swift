@@ -37,13 +37,13 @@ class PinInfoView: UIView {
    private func initButtons() {
       goToInfoButton = UIButton(frame: CGRect(x: 0, y: height - 35, width: width / 2 - 5, height: 35))
       goToInfoButton.setTitle(NSLocalizedString("Info", comment: ""), for: .normal)
-      goToInfoButton.setTitleColor(UIColor.myDarkBlue(), for: .normal)
+      goToInfoButton.setTitleColor(UIColor.myBlack(), for: .normal)
       goToInfoButton.backgroundColor = UIColor.myLightBrown()
       goToInfoButton.layer.cornerRadius = 5
       
       goToPostsButton = UIButton(frame: CGRect(x: width / 2 + 5, y: height - 35, width: width / 2, height: 35))
       goToPostsButton.setTitle(NSLocalizedString("Posts", comment: ""), for: .normal)
-      goToPostsButton.setTitleColor(UIColor.myDarkBlue(), for: .normal)
+      goToPostsButton.setTitleColor(UIColor.myBlack(), for: .normal)
       goToPostsButton.backgroundColor = UIColor.myLightBrown()
       goToPostsButton.layer.cornerRadius = 5
    }

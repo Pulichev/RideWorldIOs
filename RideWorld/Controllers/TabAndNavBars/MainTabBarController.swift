@@ -38,7 +38,7 @@ class MainTabBarController: UITabBarController {
    
    func setupMiddleButton() {
       mapBackgroundView = UIViewX(frame: CGRect(x: 0, y: 0, width: 54, height: 54))
-      mapBackgroundView.backgroundColor = UIColor.myDarkBlue()
+      mapBackgroundView.backgroundColor = UIColor.myBlack()
       mapBackgroundView.cornerRadius = 27
       
       var mapBackgroundViewFrame = mapBackgroundView.frame

@@ -35,11 +35,11 @@ class LanguageController: UITableViewController {
       switch (row) {
       case 0:
          cell.button.setTitle("English🇬🇧", for: .normal)
-         cell.button.tintColor = UIColor.myDarkBlue()
+         cell.button.tintColor = UIColor.myBlack()
          break
       case 1:
          cell.button.setTitle("Русский🇷🇺", for: .normal)
-         cell.button.tintColor = UIColor.myDarkBlue()
+         cell.button.tintColor = UIColor.myBlack()
          break
       default:
          break

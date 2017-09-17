@@ -82,7 +82,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
       //adding method on spot main photo tap
       addGestureToOpenCameraOnPhotoTap()
       photoView.image = UIImage(named: "no photo") //Setting default picture
-      photoView.tintColor = UIColor.myDarkBlue()
+      photoView.tintColor = UIColor.myBlack()
       photoView.layer.contentsGravity = kCAGravityResize
       photoView.contentMode = .scaleAspectFill
       photoView.layer.frame = photoOrVideoView.bounds

@@ -100,7 +100,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       //adding method on spot main photo tap
       addGestureToOpenCameraOnPhotoTap()
       imageView.image = UIImage(named: "no photo") //Setting default picture
-      imageView.tintColor = UIColor.myDarkBlue()
+      imageView.tintColor = UIColor.myBlack()
    }
    
    func addGestureToOpenCameraOnPhotoTap() {

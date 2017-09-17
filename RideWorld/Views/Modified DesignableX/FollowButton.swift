@@ -24,11 +24,11 @@ class FollowButton: UIButtonX {
       super.setTitle(title, for: state)
       
       if title! == NSLocalizedString("Follow", comment: "") {
-         backgroundColor = UIColor.myDarkBlue()
+         backgroundColor = UIColor.myBlack()
          tintColor = UIColor.myLightBrown()
       } else {
          backgroundColor = UIColor.myLightBrown()
-         tintColor = UIColor.myDarkBlue()
+         tintColor = UIColor.myBlack()
       }
    }
 }

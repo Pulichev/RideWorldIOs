@@ -251,22 +251,22 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
          switch row {
          case 0:
             cell.button.setTitle(NSLocalizedString("Language", comment: ""), for: .normal)
-            cell.button.tintColor = UIColor.myDarkBlue()
+            cell.button.tintColor = UIColor.myBlack()
             cell.button.addTarget(self, action: #selector(goToLanguageSelect), for: .touchUpInside)
             break
          case 1:
             cell.button.setTitle(NSLocalizedString("Terms of Use", comment: ""), for: .normal)
-            cell.button.tintColor = UIColor.myDarkBlue()
+            cell.button.tintColor = UIColor.myBlack()
             cell.button.addTarget(self, action: #selector(goToTermsOfUse), for: .touchUpInside)
             break
          case 2:
             cell.button.setTitle(NSLocalizedString("Privacy Policy", comment: ""), for: .normal)
-            cell.button.tintColor = UIColor.myDarkBlue()
+            cell.button.tintColor = UIColor.myBlack()
             cell.button.addTarget(self, action: #selector(goToPrivacyPolicy), for: .touchUpInside)
             break
          case 3:
             cell.button.setTitle(NSLocalizedString("Contacts", comment: ""), for: .normal)
-            cell.button.tintColor = UIColor.myDarkBlue()
+            cell.button.tintColor = UIColor.myBlack()
             cell.button.addTarget(self, action: #selector(goToContacts), for: .touchUpInside)
             break
             

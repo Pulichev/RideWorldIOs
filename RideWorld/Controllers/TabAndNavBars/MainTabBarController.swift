@@ -23,13 +23,23 @@ class MainTabBarController: UITabBarController {
       requestAndRegisterForNotifications()
    }
    
+   override var selectedIndex: Int {
+      didSet {
+         if selectedIndex != 2 {
+            menuButton.tintColor = UIColor.tabBarButtonInActive()
+         } else {
+            menuButton.tintColor = UIColor.myLightBrown()
+         }
+      }
+   }
+   
    // MARK: - middle button part
    var mapBackgroundView: UIViewX!
    var menuButton: MapButton!
    
    func setupMiddleButton() {
       mapBackgroundView = UIViewX(frame: CGRect(x: 0, y: 0, width: 54, height: 54))
-      mapBackgroundView.backgroundColor = UIColor.myLightBrown()
+      mapBackgroundView.backgroundColor = UIColor.myDarkBlue()
       mapBackgroundView.cornerRadius = 27
       
       var mapBackgroundViewFrame = mapBackgroundView.frame
@@ -43,7 +53,7 @@ class MainTabBarController: UITabBarController {
       view.addSubview(mapBackgroundView)
       
       menuButton.setImage(UIImage(named: "MapIcon"), for: .normal)
-      menuButton.tintColor = UIColor.myDarkBlue()
+      menuButton.tintColor = UIColor.tabBarButtonInActive()
       menuButton.addTarget(self, action: #selector(menuButtonAction(sender:)), for: .touchUpInside)
       
       view.layoutIfNeeded()

@@ -39,12 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    }
    
    func customizeAppearance() {
-      UISearchBar.appearance().barTintColor = UIColor.myLightBrown()
-      UISearchBar.appearance().tintColor = UIColor.myDarkBlue()
-      UINavigationBar.appearance().barTintColor = UIColor.myLightBrown()
-      UINavigationBar.appearance().tintColor = UIColor.myDarkBlue()
-      UITabBar.appearance().barTintColor = UIColor.myLightBrown()
-      UITabBar.appearance().tintColor = UIColor.myDarkBlue()
+      UISearchBar.appearance().barTintColor = UIColor.myDarkBlue() //
+      UISearchBar.appearance().tintColor = UIColor.myLightBrown() //
+      UINavigationBar.appearance().barTintColor = UIColor.myDarkBlue() //
+      UINavigationBar.appearance().tintColor = UIColor.myLightBrown() //
+      UITabBar.appearance().barTintColor = UIColor.myDarkBlue() //
+      UITabBar.appearance().tintColor = UIColor.myLightBrown() //
       UILabel.appearance().defaultFont =  UIFont(name: "Roboto", size: 15.0)
    }
    
@@ -89,7 +89,8 @@ extension UIColor {
    
    // new colors
    static func myDarkBlue() -> UIColor {
-      return #colorLiteral(red: 0.149, green: 0.2275, blue: 0.2824, alpha: 1) /* #263a48 */
+//      return #colorLiteral(red: 0.149, green: 0.2275, blue: 0.2824, alpha: 1) /* #263a48 */
+      return #colorLiteral(red: 0.1765, green: 0.1765, blue: 0.1608, alpha: 1) /* #2d2d29 */
    }
    
    static func myDarkGray() -> UIColor {
@@ -105,7 +106,13 @@ extension UIColor {
    }
    
    static func myLightBrown() -> UIColor {
-      return #colorLiteral(red: 0.9294, green: 0.8431, blue: 0.7412, alpha: 1) /* #edd7bd */
+//      return #colorLiteral(red: 0.9294, green: 0.8431, blue: 0.7412, alpha: 1) /* #edd7bd */
+//      return #colorLiteral(red: 0.3529, green: 0.6275, blue: 0.6314, alpha: 1) /* #5aa0a1 */
+      return #colorLiteral(red: 0.9176, green: 0.8824, blue: 0.8431, alpha: 1) /* #eae1d7 */
+   }
+   
+   static func tabBarButtonInActive() -> UIColor {
+      return #colorLiteral(red: 0.5725, green: 0.5725, blue: 0.5725, alpha: 1) /* #929292 */
    }
 }
 

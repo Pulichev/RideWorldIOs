@@ -14,12 +14,12 @@ class MapButton: UIButtonX {
       
       UIView.animate(withDuration: 0.5) {
          self.transform = CGAffineTransform(rotationAngle: .pi)
-         self.tintColor = UIColor.myDarkBlue()
+         self.tintColor = UIColor.myLightBrown()
       }
       
       UIView.animate(withDuration: 0.5, delay: 0.25, options: UIViewAnimationOptions.curveEaseIn, animations: {
          self.transform = CGAffineTransform(rotationAngle: .pi * 2)
-         self.tintColor = UIColor.myDarkBlue()
+         self.tintColor = UIColor.myLightBrown()
       }, completion: nil)
       
       return super.beginTracking(touch, with: event)

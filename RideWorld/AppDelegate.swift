@@ -111,6 +111,10 @@ extension UIColor {
       return #colorLiteral(red: 0.9176, green: 0.8824, blue: 0.8431, alpha: 1) /* #eae1d7 */
    }
    
+   static func tabBarButtonActive() -> UIColor {
+      return #colorLiteral(red: 0.9137, green: 0.8824, blue: 0.8471, alpha: 1) /* #e9e1d8 */
+   }
+   
    static func tabBarButtonInActive() -> UIColor {
       return #colorLiteral(red: 0.5725, green: 0.5725, blue: 0.5725, alpha: 1) /* #929292 */
    }

@@ -17,19 +17,18 @@ class MainTabBarController: UITabBarController {
    // MARK: - Add badge to Feedback tab bar item and init FB
    override func viewDidLoad() {
       super.viewDidLoad()
-
+      
       loadFeedbackItems()
       setupMiddleButton()
       requestAndRegisterForNotifications()
    }
    
-   override var selectedIndex: Int {
-      didSet {
-         if selectedIndex != 2 {
-            menuButton.tintColor = UIColor.tabBarButtonInActive()
-         } else {
-            menuButton.tintColor = UIColor.myLightBrown()
-         }
+   // to change color of map button on active/inActive
+   override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+      if selectedViewController is MapController {
+         menuButton.tintColor = UIColor.myLightBrown()
+      } else {
+         menuButton.tintColor = UIColor.tabBarButtonInActive()
       }
    }
    
@@ -74,6 +73,7 @@ class MainTabBarController: UITabBarController {
    }
    
    @objc private func menuButtonAction(sender: UIButton) {
+      menuButton.tintColor = UIColor.tabBarButtonActive()
       selectedIndex = 2
    }
    
@@ -160,7 +160,7 @@ extension MainTabBarController: MessagingDelegate {
    func application(received remoteMessage: MessagingRemoteMessage) {
       print(remoteMessage.appData)
    }
-
+   
    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
       let currentUserId = UserModel.getCurrentUserId()
       

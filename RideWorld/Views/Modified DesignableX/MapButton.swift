@@ -8,18 +8,18 @@
 
 import UIKit
 
-class MapButton: UIButtonX {
+class MapButton: UIButton {
    
    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
       
       UIView.animate(withDuration: 0.5) {
          self.transform = CGAffineTransform(rotationAngle: .pi)
-         self.tintColor = UIColor.myLightBrown()
+         self.tintColor = UIColor.tabBarButtonActive()
       }
       
       UIView.animate(withDuration: 0.5, delay: 0.25, options: UIViewAnimationOptions.curveEaseIn, animations: {
          self.transform = CGAffineTransform(rotationAngle: .pi * 2)
-         self.tintColor = UIColor.myLightBrown()
+         self.tintColor = UIColor.tabBarButtonActive()
       }, completion: nil)
       
       return super.beginTracking(touch, with: event)

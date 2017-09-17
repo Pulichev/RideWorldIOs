@@ -29,7 +29,7 @@ class SpotFollowingCell: UITableViewCell {
          spotImage.kf.setImage(with: URL(string: spot.mainPhotoRef!)) // Using kf for caching images.
       } else {
          spotImage.setImage(string: spot.name, color: UIColor.myLightGray(), circular: true,
-                            textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
+                            textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
       }
    }
    

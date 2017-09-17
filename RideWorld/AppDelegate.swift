@@ -43,9 +43,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       UISearchBar.appearance().tintColor = UIColor.myLightBrown()
       UINavigationBar.appearance().barTintColor = UIColor.myBlack()
       UINavigationBar.appearance().tintColor = UIColor.myLightBrown()
+      UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.myLightBrown(),
+                                                          NSFontAttributeName : UIFont(name: "PTSans-Bold", size: 20)]
       UITabBar.appearance().barTintColor = UIColor.myBlack()
       UITabBar.appearance().tintColor = UIColor.myLightBrown()
-      UILabel.appearance().defaultFont =  UIFont(name: "Roboto", size: 15.0)
+      UILabel.appearance().defaultFont =  UIFont(name: "PT Sans", size: 15.0)
    }
    
    func applicationWillResignActive(_ application: UIApplication) {

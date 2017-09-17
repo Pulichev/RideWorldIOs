@@ -78,7 +78,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
       userBio.text = userInfo.bioDescription
       userBio.shouldTrim = true
       userBio.maximumNumberOfLines = 2
-      let fontAttribute = [ NSFontAttributeName: UIFont(name: "Roboto-Light", size: 15)!,
+      let fontAttribute = [ NSFontAttributeName: UIFont(name: "PT Sans", size: 15)!,
                             NSForegroundColorAttributeName: UIColor.myLightGray() ]
       userBio.attributedReadMoreText = NSAttributedString(string: NSLocalizedString(" ...show more", comment: ""), attributes: fontAttribute)
       userBio.attributedReadLessText = NSAttributedString(string: NSLocalizedString(" show less", comment: ""), attributes: fontAttribute)
@@ -117,7 +117,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
                with: URL(string: userInfo.photo150ref!)) //Using kf for caching images.
          } else {
             userProfilePhoto.setImage(string: userInfo.login, color: UIColor.myLightGray(), circular: true,
-                                      textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
+                                      textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
          }
       }
    }

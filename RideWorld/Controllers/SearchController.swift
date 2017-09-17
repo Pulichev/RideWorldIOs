@@ -74,7 +74,7 @@ class SearchController: UITableViewController {
             cell.photo.kf.setImage(with: riderProfilePhotoURL)
          } else {
             cell.photo.setImage(string: rider.login, color: UIColor.myLightGray(), circular: true,
-                                      textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
+                                      textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
          }
          
          cell.name!.text = rider.login

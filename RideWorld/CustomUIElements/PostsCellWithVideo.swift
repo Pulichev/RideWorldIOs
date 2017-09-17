@@ -52,7 +52,7 @@ class PostsCellWithVideo: UITableViewCell {
       if post.userProfilePhoto90 != nil {
          userPhoto.kf.setImage(with: URL(string: post.userProfilePhoto90!))
       } else {
-         userPhoto.setImage(string: post.userLogin, color: UIColor.myLightGray(), circular: true, textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
+         userPhoto.setImage(string: post.userLogin, color: UIColor.myLightGray(), circular: true, textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
       }
       
       postDate.text        = cachedCell.postDate
@@ -262,7 +262,7 @@ class PostsCellWithVideo: UITableViewCell {
             var atts = attributes
             switch type {
             case .custom(pattern: "^\(self.post.userLogin)\\b"):
-               atts[NSFontAttributeName] = UIFont(name: "Roboto-Medium", size: 15)
+               atts[NSFontAttributeName] = UIFont(name: "PTSans-Bold", size: 15)
             default: ()
             }
             

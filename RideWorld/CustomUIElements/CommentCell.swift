@@ -46,7 +46,7 @@ class CommentCell: MGSwipeTableCell {
          userPhoto.kf.setImage(with: URL(string: userItem.photo90ref!)) // Using kf for caching images.
       } else {
          userPhoto.setImage(string: userItem.login, color: UIColor.myLightGray(), circular: true,
-                             textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
+                             textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
       }
    }
    
@@ -85,7 +85,7 @@ class CommentCell: MGSwipeTableCell {
             var atts = attributes
             switch type {
             case .custom(pattern: "^\(self.userItem.login)\\b"):
-               atts[NSFontAttributeName] = UIFont(name: "Roboto-Medium", size: 15)
+               atts[NSFontAttributeName] = UIFont(name: "PTSans-Bold", size: 15)
             default: ()
             }
             

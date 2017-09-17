@@ -544,7 +544,6 @@ extension PostsStripController {
       
       if !cameFromSpotOrMyStrip {
          navigationItem.title = "RideWorld"
-         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.myLightBrown()]
          
          // hide add post button
          if navigationItem.rightBarButtonItems?.count == 2 {

@@ -70,7 +70,7 @@ class PostInfoViewController: UIViewController {
             self.userPhoto.kf.setImage(with: URL(string: self.postInfo.userProfilePhoto90!))
          } else {
             self.userPhoto.setImage(string: self.postInfo.userLogin, color: UIColor.myLightGray(), circular: true,
-                                    textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
+                                    textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
          }
       }
       
@@ -465,7 +465,7 @@ class PostInfoViewController: UIViewController {
             var atts = attributes
             switch type {
             case .custom(pattern: "^\(self.postInfo.userLogin)\\b"):
-               atts[NSFontAttributeName] = UIFont(name: "Roboto-Medium", size: 15)
+               atts[NSFontAttributeName] = UIFont(name: "PTSans-Bold", size: 15)
             default: ()
             }
             

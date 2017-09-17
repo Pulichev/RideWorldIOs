@@ -23,7 +23,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
                string: url))
          } else {
             self.userPhoto?.setImage(string: userItem.login, color: UIColor.myLightGray(), circular: true,
-                                     textAttributes: [NSFontAttributeName: UIFont(name: "Roboto-Light", size: 20)])
+                                     textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
          }
       }
    }
@@ -113,7 +113,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
             var atts = attributes
             switch type {
             case .custom(pattern: "^\(self.userItem.login)\\b"):
-               atts[NSFontAttributeName] = UIFont(name: "Roboto-Medium", size: 15)
+               atts[NSFontAttributeName] = UIFont(name: "PTSans-Bold", size: 15)
             default: ()
             }
             

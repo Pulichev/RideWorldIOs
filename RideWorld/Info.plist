@@ -43,14 +43,8 @@
 	<string>We need it for adding already existing media files.</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>AnonymousPro-Regular.ttf</string>
-		<string>Roboto-Regular.ttf</string>
-		<string>Roboto-Bold.ttf</string>
-		<string>RobotoSlab-Regular.ttf</string>
-		<string>RobotoSlab-Bold.ttf</string>
-		<string>RobotoSlab-Light.ttf</string>
-		<string>Roboto-Medium.ttf</string>
-		<string>Roboto-Light.ttf</string>
+		<string>PT_Sans-Web-Regular.ttf</string>
+		<string>PT_Sans-Web-Bold.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

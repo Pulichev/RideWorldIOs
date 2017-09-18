@@ -37,7 +37,7 @@ class FollowButton: UIButtonX {
          borderColor = UIColor.myLightBrown()
          setTitleColor(UIColor.myLightBrown(), for: .normal)
       } else {
-         backgroundColor = UIColor.myLightBrown()
+         backgroundColor = UIColor.white
          tintColor = UIColor.myBlack()
          borderColor = UIColor.myBlack()
          setTitleColor(UIColor.myBlack(), for: .normal)

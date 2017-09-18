@@ -2740,16 +2740,22 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIR-BA-okl" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                                 <rect key="frame" x="7" y="320" width="177" height="30"/>
-                                                <color key="backgroundColor" red="0.14901960784313725" green="0.22745098039215686" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="backgroundColor" red="0.14901960784313725" green="0.22745098039215686" blue="0.28235294117647058" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="DEx-rF-b5l"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="tintColor" red="0.92941176470588238" green="0.84313725490196079" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="tintColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Add Photo"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="5"/>
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -2770,15 +2776,21 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PUz-af-Ftt" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
                                                 <rect key="frame" x="191.5" y="320" width="176.5" height="30"/>
-                                                <color key="backgroundColor" red="0.14901960784313725" green="0.22745098039215686" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="backgroundColor" red="0.14901960784313725" green="0.22745098039215686" blue="0.28235294117647058" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="u1G-8i-Y6s"/>
                                                 </constraints>
-                                                <color key="tintColor" red="0.92941176470588238" green="0.84313725490196079" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="tintColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <state key="normal" title="Go To Posts"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="5"/>
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -3356,14 +3368,14 @@
         <segue reference="nax-92-cwD"/>
         <segue reference="Gef-69-N8A"/>
         <segue reference="bUh-wl-Xkc"/>
-        <segue reference="uRW-IP-s4c"/>
-        <segue reference="JLU-Th-Uca"/>
-        <segue reference="TeE-da-wxz"/>
+        <segue reference="gS6-Wz-qu3"/>
         <segue reference="OkS-TY-PQh"/>
-        <segue reference="ZJp-AC-CV2"/>
-        <segue reference="Cu9-hd-la3"/>
-        <segue reference="SYx-8l-lm6"/>
+        <segue reference="JLU-Th-Uca"/>
+        <segue reference="hCy-LG-AWJ"/>
+        <segue reference="ck8-tQ-3J4"/>
+        <segue reference="uZy-5C-eSU"/>
         <segue reference="QOa-aY-bXL"/>
-        <segue reference="tCn-nV-MKo"/>
+        <segue reference="TeE-da-wxz"/>
+        <segue reference="ZJp-AC-CV2"/>
     </inferredMetricsTieBreakers>
 </document>

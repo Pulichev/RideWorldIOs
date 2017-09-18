@@ -26,6 +26,7 @@ class MapButton: UIButton {
    }
    
    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+      return super.endTracking(touch, with: event)
    }
 }
 

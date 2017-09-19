@@ -28,11 +28,10 @@ class FollowersCell: UITableViewCell {
    func initialiseUserPhoto() {
       userImage.image = UIImage(named: "grayRec.png")
       
-      if follower.photo90ref != nil {
+      if follower.photo90ref != "" {
          userImage.kf.setImage(with: URL(string: follower.photo90ref!)) // Using kf for caching images.
       } else {
-         userImage.setImage(string: follower.login, color: UIColor.myLightGray(), circular: true,
-                            textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
+         userImage.image = UIImage(named: "noProfilePhoto")
       }
    }
    

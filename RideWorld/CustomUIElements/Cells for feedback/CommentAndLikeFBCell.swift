@@ -17,13 +17,11 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
    
    var userItem: UserItem! {
       didSet {
-         self.userPhoto.image = UIImage(named: "grayRec.png") // default picture
-         if let url = userItem.photo90ref {
-            self.userPhoto?.kf.setImage(with: URL(
-               string: url))
+         if userItem.photo90ref != "" {
+            userPhoto?.kf.setImage(with: URL(
+               string: userItem.photo90ref!))
          } else {
-            self.userPhoto?.setImage(string: userItem.login, color: UIColor.myLightGray(), circular: true,
-                                     textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
+            userPhoto?.image = UIImage(named: "noProfilePhoto")
          }
       }
    }

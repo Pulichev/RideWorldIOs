@@ -49,10 +49,10 @@ class PostsCellWithPhoto: UITableViewCell {
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
       
-      if post.userProfilePhoto90 != nil {
+      if post.userProfilePhoto90 != "" {
          userPhoto.kf.setImage(with: URL(string: post.userProfilePhoto90!))
       } else {
-         userPhoto.setImage(string: post.userLogin, color: UIColor.myLightGray(), circular: true, textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
+         userPhoto.image = UIImage(named: "noProfilePhoto")
       }
       
       postDate.text        = cachedCell.postDate

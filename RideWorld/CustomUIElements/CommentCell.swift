@@ -42,11 +42,10 @@ class CommentCell: MGSwipeTableCell {
    func initialiseUserPhoto() {
       userPhoto.image = UIImage(named: "grayRec.png")
       
-      if userItem.photo90ref != nil {
+      if userItem.photo90ref != "" {
          userPhoto.kf.setImage(with: URL(string: userItem.photo90ref!)) // Using kf for caching images.
       } else {
-         userPhoto.setImage(string: userItem.login, color: UIColor.myLightGray(), circular: true,
-                             textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
+         userPhoto.image = UIImage(named: "noProfilePhoto")
       }
    }
    

@@ -15,11 +15,10 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
    var userItem: UserItem! {
       didSet {
          userPhoto.image = UIImage(named: "grayRec.png") // default picture
-         if let url = userItem.photo90ref {
-            userPhoto?.kf.setImage(with: URL(string: url))
+         if userItem.photo90ref != ""  {
+            userPhoto?.kf.setImage(with: URL(string: userItem.photo90ref!))
          } else {
-            userPhoto?.setImage(string: self.userItem.login, color: UIColor.myLightGray(), circular: true,
-                                textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
+            userPhoto?.image = UIImage(named: "noProfilePhoto")
          }
          
          initialiseFollowButton()

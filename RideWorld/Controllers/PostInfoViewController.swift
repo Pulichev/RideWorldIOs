@@ -66,11 +66,10 @@ class PostInfoViewController: UIViewController {
          self.addDoubleTapGestureOnUserPhoto()
          
          self.userLoginHeaderButton.setTitle(self.postInfo.userLogin, for: .normal)
-         if self.postInfo.userProfilePhoto90 != nil {
+         if self.postInfo.userProfilePhoto90 != "" {
             self.userPhoto.kf.setImage(with: URL(string: self.postInfo.userProfilePhoto90!))
          } else {
-            self.userPhoto.setImage(string: self.postInfo.userLogin, color: UIColor.myLightGray(), circular: true,
-                                    textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
+            self.userPhoto.image = UIImage(named: "noProfilePhoto")
          }
       }
       

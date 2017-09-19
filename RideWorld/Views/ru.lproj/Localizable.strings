@@ -56,7 +56,7 @@
 "You have no publications"                                                                             = "У вас нет публикаций";
 "Login change failed!"                                                                                 = "Ошибка при изменении логина!";
 "Enter new name and sename"                                                                            = "Введите новое имя и фамилию";
-"Enter new bio description"                                                                            = "Введите описание";
+"Enter new bio description"                                                                            = "Расскажите о себе";
 "Enter new login"                                                                                      = "Введите новый логин";
 "Enter new email"                                                                                      = "Введите новый E-Mail";
 "Days for next change: "                                                                               = "Дней до следующего изменения: ";

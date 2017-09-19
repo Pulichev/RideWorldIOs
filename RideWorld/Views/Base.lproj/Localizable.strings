@@ -93,4 +93,10 @@
 "RegToU"                                                                                               = "Terms Of Use";
 "RegPP"                                                                                                = "Privacy Policy";
 "Please, select spot photo"                                                                            = "Please, select spot photo";
-"Please, select media" = "Please, select media";
+"Please, select media"                                                                                 = "Please, select media";
+"Loading more"                                                                                         = "Loading more";
+"No more data"                                                                                         = "No more data";
+"Loading..."                                                                                           = "Loading...";
+"Pull to refresh"                                                                                      = "Pull to refresh";
+"Release to refresh"                                                                                   = "Release to refresh";
+"Loading..."                                                                                           = "Loading...";

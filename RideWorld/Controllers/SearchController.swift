@@ -17,7 +17,7 @@ class SearchController: UITableViewController {
    var filteredSpots = [SpotItem]()
    
    let searchController = UISearchController(searchResultsController: nil)
-   var selectedScope = "Riders" // default value is "Riders"
+   var selectedScope = NSLocalizedString("Riders", comment: "") // default value is "Riders"
    
    // MARK: - View Setup
    override func viewDidLoad() {
@@ -29,9 +29,12 @@ class SearchController: UITableViewController {
       definesPresentationContext = true
       searchController.dimsBackgroundDuringPresentation = false
       searchController.searchBar.autocapitalizationType = .words
+      tableView.emptyDataSetDelegate = self
+      tableView.emptyDataSetSource = self
       
       // Setup the Scope Bar
-      searchController.searchBar.scopeButtonTitles = ["Riders", "Spots"]
+      searchController.searchBar.scopeButtonTitles = [NSLocalizedString("Riders", comment: ""),
+                                                      NSLocalizedString("Spots", comment: "")]
       tableView.tableHeaderView = searchController.searchBar
       tableView.tableFooterView = UIView() // deleting empty rows
    }
@@ -39,7 +42,7 @@ class SearchController: UITableViewController {
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
-      self.navigationItem.title = "Search"
+      self.navigationItem.title = NSLocalizedString("Search", comment: "")
    }
    
    // MARK: - Table View
@@ -49,10 +52,10 @@ class SearchController: UITableViewController {
    
    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       switch selectedScope {
-      case "Riders":
+      case NSLocalizedString("Riders", comment: ""):
          return filteredRiders.count
          
-      case "Spots":
+      case NSLocalizedString("Spots", comment: ""):
          return filteredSpots.count
          
       default: return 0
@@ -65,7 +68,7 @@ class SearchController: UITableViewController {
       let row = indexPath.row
       
       switch selectedScope {
-      case "Riders":
+      case NSLocalizedString("Riders", comment: ""):
          let rider = filteredRiders[row]
          
          if rider.photo90ref != nil {
@@ -79,7 +82,7 @@ class SearchController: UITableViewController {
          
          cell.name!.text = rider.login
          
-      case "Spots":
+      case NSLocalizedString("Spots", comment: ""):
          let spot = filteredSpots[row]
          
          if spot.mainPhotoRef != nil {
@@ -101,7 +104,7 @@ class SearchController: UITableViewController {
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       let row = indexPath.row
       
-      if selectedScope == "Spots" {
+      if selectedScope == NSLocalizedString("Spots", comment: "") {
          spotDetailsForSendingToSpotInfoController = self.filteredSpots[row]
          self.performSegue(withIdentifier: "fromSearchToSpotInfo", sender: self)
       } else { // Riders
@@ -121,7 +124,7 @@ class SearchController: UITableViewController {
       let upperCasedSearchText = searchText.uppercased()
       
       switch self.selectedScope {
-      case "Riders":
+      case NSLocalizedString("Riders", comment: ""):
          if searchText.characters.count == 1 {
             // get items from db where 1st symbol is entered character
             UserModel.searchUsersWithLogin(startedWith: searchText) { users in // original
@@ -158,7 +161,7 @@ class SearchController: UITableViewController {
             self.tableView.reloadData()
          }
          
-      case "Spots":
+      case NSLocalizedString("Spots", comment: ""):
          if searchText.characters.count == 1 {
             // get items from db where 1st symbol is entered character
             Spot.searchSpotsWithName(startedWith: searchText) { spots in // original
@@ -255,7 +258,7 @@ extension SearchController: UISearchResultsUpdating {
 // MARK: - DZNEmptyDataSet for empty data tables
 extension SearchController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-      let str = NSLocalizedString("Search", comment: "")
+      let str = NSLocalizedString("Nothing to show", comment: "")
       let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
       return NSAttributedString(string: str, attributes: attrs)
    }

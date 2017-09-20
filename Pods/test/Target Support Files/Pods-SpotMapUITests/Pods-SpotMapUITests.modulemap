@@ -1,0 +1,6 @@
+framework module Pods_SpotMapUITests {
+  umbrella header "Pods-SpotMapUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

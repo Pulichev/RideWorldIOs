@@ -1,0 +1,1 @@
+../../../Backendless/SDK/ios/CommLibiOS/include/BooleanReader.h

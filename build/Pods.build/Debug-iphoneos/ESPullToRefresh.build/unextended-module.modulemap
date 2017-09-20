@@ -1,0 +1,10 @@
+framework module ESPullToRefresh {
+  umbrella header "ESPullToRefresh-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module ESPullToRefresh.__Swift {
+    exclude header "ESPullToRefresh-Swift.h"
+}

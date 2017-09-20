@@ -289,31 +289,31 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       }
    }
    
-   func signOut() {
+   @objc func signOut() {
       if UserModel.signOut() { // if no errors
          // then go to login
          performSegue(withIdentifier: "fromEditProfileToLogin", sender: self)
       }
    }
    
-   func goToLanguageSelect() {
+   @objc func goToLanguageSelect() {
       performSegue(withIdentifier: "goToLanguageSelect", sender: self)
    }
    
    // MARK: - links to textView
    var fileNameToOpen: String!
    
-   func goToTermsOfUse() {
+   @objc func goToTermsOfUse() {
       fileNameToOpen = "ToU"
       performSegue(withIdentifier: "fromEditToTextView", sender: self)
    }
    
-   func goToPrivacyPolicy() {
+   @objc func goToPrivacyPolicy() {
       fileNameToOpen = "PP"
       performSegue(withIdentifier: "fromEditToTextView", sender: self)
    }
    
-   func goToContacts() {
+   @objc func goToContacts() {
       fileNameToOpen = "Contacts info" // it will mean contacts
       performSegue(withIdentifier: "fromEditToTextView", sender: self)
    }
@@ -347,7 +347,7 @@ extension EditProfileController: UITextFieldDelegate {
       textField.isUserInteractionEnabled = true
    }
    
-   func checkLastUpdateTime() {
+   @objc func checkLastUpdateTime() {
       SVProgressHUD.show()
       
       UserModel.getCountOfDaysAfterLastLoginChangeDate() { countOfDaysFromLastChange in

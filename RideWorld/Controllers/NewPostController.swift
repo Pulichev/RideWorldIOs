@@ -74,7 +74,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
       scrollView.addGestureRecognizer(singleTapGestureRecognizer)
    }
    
-   func singleTap() {
+   @objc func singleTap() {
       view.endEditing(true)
    }
    
@@ -339,7 +339,7 @@ extension NewPostController : GalleryControllerDelegate {
             let playerLayer = AVPlayerLayer(player: self.queuePlayer)
             let playerItem = AVPlayerItem(url: fileURL)
             self.playerLooper = AVPlayerLooper(player: self.queuePlayer, templateItem: playerItem)
-            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
             playerLayer.frame = self.photoOrVideoView.bounds
             self.photoOrVideoView.layer.addSublayer(playerLayer)
             self.photoOrVideoView.playerLayer = playerLayer
@@ -350,7 +350,7 @@ extension NewPostController : GalleryControllerDelegate {
             self.player = AVPlayer(url: fileURL)
             
             let playerLayer = AVPlayerLayer(player: self.player)
-            playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
             playerLayer.frame = self.photoOrVideoView.bounds
             self.photoOrVideoView.layer.addSublayer(playerLayer)
             self.photoOrVideoView.playerLayer = playerLayer
@@ -436,7 +436,7 @@ extension NewPostController : GalleryControllerDelegate {
    }
    
    func resolutionForLocalVideo(url: URL) -> CGSize? {
-      guard let track = AVURLAsset(url: url).tracks(withMediaType: AVMediaTypeVideo).first else { return nil }
+      guard let track = AVURLAsset(url: url).tracks(withMediaType: AVMediaType.video).first else { return nil }
       let size = track.naturalSize.applying(track.preferredTransform)
       return CGSize(width: fabs(size.width), height: fabs(size.height))
    }
@@ -450,7 +450,7 @@ extension NewPostController : GalleryControllerDelegate {
       }
       
       exportSession.outputURL = outputURL
-      exportSession.outputFileType = AVFileTypeQuickTimeMovie
+      exportSession.outputFileType = AVFileType.mov
       exportSession.shouldOptimizeForNetworkUse = true
       exportSession.exportAsynchronously { () -> Void in
          handler(exportSession)
@@ -461,11 +461,11 @@ extension NewPostController : GalleryControllerDelegate {
 //Keyboard manipulations
 extension NewPostController {
    //if we tapped UITextField and then another UITextField
-   func keyboardWillShow(notification: NSNotification) {
+   @objc func keyboardWillShow(notification: NSNotification) {
       view.frame.origin.y -= 200
    }
    
-   func keyboardWillHide(notification: NSNotification) {
+   @objc func keyboardWillHide(notification: NSNotification) {
       view.frame.origin.y += 200
    }
    

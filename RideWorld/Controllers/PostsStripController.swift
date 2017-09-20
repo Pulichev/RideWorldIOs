@@ -169,7 +169,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    @IBAction func reloadButtonTapped(_ sender: Any) {
-      refresh() { _ in }
+      refresh() {  }
    }
    
    // function for pull to refresh
@@ -344,7 +344,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let cachedAsset = mediaCache.object(forKey: cacheKey) as? AVAsset
          cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
          let playerLayer = AVPlayerLayer(player: (cell.player))
-         playerLayer.videoGravity = kCAGravityResizeAspectFill
+         playerLayer.videoGravity = AVLayerVideoGravity(rawValue: kCAGravityResizeAspectFill)
          playerLayer.frame = cell.spotPostMedia.bounds
          cell.spotPostMedia.layer.addSublayer(playerLayer)
          cell.spotPostMedia.playerLayer = playerLayer
@@ -387,7 +387,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
       cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
       let playerLayer = AVPlayerLayer(player: cell.player)
-      playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+      playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
       playerLayer.frame = cell.spotPostMedia.bounds
       
       cell.spotPostMedia.layer.addSublayer(playerLayer)
@@ -401,7 +401,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    // go to comments
-   func goToComments(sender: UIButton!) {
+   @objc func goToComments(sender: UIButton!) {
       postForSending         = posts[sender.tag]
       postDescForSending     = posts[sender.tag].description
       postDateTimeForSending = posts[sender.tag].createdDate
@@ -572,11 +572,11 @@ extension PostsStripController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
          let str = NSLocalizedString("Welcome", comment: "")
-         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
          let str = ""
-         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       }
    }
@@ -584,11 +584,11 @@ extension PostsStripController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
          let str = NSLocalizedString("Nothing to show.", comment: "")
-         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
          let str = ""
-         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       }
    }

@@ -171,14 +171,14 @@ extension RegistrationController: UITextFieldDelegate {
       return true
    }
   
-   func keyboardWillShow(notification: NSNotification) {
+   @objc func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
          view.frame.origin.y -= 100
          keyBoardAlreadyShowed = true
       }
    }
    
-   func keyboardWillHide(notification: NSNotification) {
+   @objc func keyboardWillHide(notification: NSNotification) {
       if keyBoardAlreadyShowed {
          view.frame.origin.y += 100
          keyBoardAlreadyShowed = false

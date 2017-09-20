@@ -58,8 +58,8 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       ridersBio.text = ridersInfo.bioDescription
       ridersBio.shouldTrim = true
       ridersBio.maximumNumberOfLines = 2
-      let fontAttribute = [ NSFontAttributeName: UIFont(name: "PT Sans", size: 15)!,
-                            NSForegroundColorAttributeName: UIColor.myLightGray() ]
+      let fontAttribute = [ NSAttributedStringKey.font: UIFont(name: "PT Sans", size: 15)!,
+                            NSAttributedStringKey.foregroundColor: UIColor.myLightGray() ]
       ridersBio.attributedReadMoreText = NSAttributedString(string: NSLocalizedString(" ...show more", comment: ""), attributes: fontAttribute)
       ridersBio.attributedReadLessText = NSAttributedString(string: NSLocalizedString(" show less", comment: ""), attributes: fontAttribute)
       
@@ -225,7 +225,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
       performSegue(withIdentifier: "goToFollowersFromRidersNode", sender: self)
    }
    
-   func followedSpotsTapped() {
+   @objc func followedSpotsTapped() {
       performSegue(withIdentifier: "fromRidersProfileToSpotFollowings", sender: self)
    }
    
@@ -258,11 +258,11 @@ extension RidersProfileController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSourc
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
          let str = NSLocalizedString("Welcome", comment: "")
-         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
          let str = NSLocalizedString("Loading...", comment: "")
-         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
          return NSAttributedString(string: str, attributes: attrs)
       }
    }
@@ -270,11 +270,11 @@ extension RidersProfileController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSourc
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
          let str = NSLocalizedString("Rider has no publications", comment: "")
-         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
          let str = ""
-         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
          return NSAttributedString(string: str, attributes: attrs)
       }
    }

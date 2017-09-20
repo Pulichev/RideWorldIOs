@@ -133,7 +133,7 @@ class PostInfoViewController: UIViewController {
    
    var likeEventActive = true // true, when sending request
    
-   func postLiked() {
+   @objc func postLiked() {
       if !likeEventActive {
          if !postIsLiked {
             self.swapLikeInfo()
@@ -211,7 +211,7 @@ class PostInfoViewController: UIViewController {
       goToPostAuthor()
    }
    
-   func goToPostAuthor() {
+   @objc func goToPostAuthor() {
       goToUserProfile(with: self.postInfo.userLogin)
    }
    
@@ -346,7 +346,7 @@ class PostInfoViewController: UIViewController {
       
       player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
       let playerLayer = AVPlayerLayer(player: player)
-      playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+      playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
       playerLayer.frame = spotPostMedia.bounds
       
       spotPostMedia.layer.addSublayer(playerLayer)
@@ -464,7 +464,7 @@ class PostInfoViewController: UIViewController {
             var atts = attributes
             switch type {
             case .custom(pattern: "^\(self.postInfo.userLogin)\\b"):
-               atts[NSFontAttributeName] = UIFont(name: "PTSans-Bold", size: 15)
+               atts[NSAttributedStringKey.font] = UIFont(name: "PTSans-Bold", size: 15)
             default: ()
             }
             

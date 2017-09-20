@@ -92,7 +92,7 @@ class PostsCellWithPhoto: UITableViewCell {
    
    var likeEventActive = false // true, when sending request
    
-   func postLiked() {
+   @objc func postLiked() {
       if !likeEventActive {
          if !postIsLiked {
             self.swapLikeInfo()
@@ -218,7 +218,7 @@ class PostsCellWithPhoto: UITableViewCell {
       goToUserProfile(tappedUserLogin: post.userLogin)
    }
    
-   func userInfoTapped() {
+   @objc func userInfoTapped() {
       goToUserProfile(tappedUserLogin: post.userLogin)
    }
    
@@ -253,7 +253,7 @@ class PostsCellWithPhoto: UITableViewCell {
             var atts = attributes
             switch type {
             case .custom(pattern: "^\(self.post.userLogin)\\b"):
-               atts[NSFontAttributeName] = UIFont(name: "PTSans-Bold", size: 15)
+               atts[NSAttributedStringKey.font] = UIFont(name: "PTSans-Bold", size: 15)
             default: ()
             }
             

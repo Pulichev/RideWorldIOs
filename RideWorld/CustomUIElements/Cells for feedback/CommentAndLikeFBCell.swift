@@ -77,11 +77,11 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
       // Configure the view for the selected state
    }
    
-   func userInfoTapped() {
+   @objc func userInfoTapped() {
       delegateUserTaps?.userInfoTapped(userItem)
    }
    
-   func postInfoTapped() {
+   @objc func postInfoTapped() {
       delegatePostTaps?.postInfoTapped(postItem)
    }
    
@@ -111,7 +111,7 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
             var atts = attributes
             switch type {
             case .custom(pattern: "^\(self.userItem.login)\\b"):
-               atts[NSFontAttributeName] = UIFont(name: "PTSans-Bold", size: 15)
+               atts[NSAttributedStringKey.font] = UIFont(name: "PTSans-Bold", size: 15)
             default: ()
             }
             

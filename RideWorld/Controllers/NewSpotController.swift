@@ -92,7 +92,7 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
       scrollView.addGestureRecognizer(singleTapGestureRecognizer)
    }
    
-   func singleTap() {
+   @objc func singleTap() {
       view.endEditing(true)
    }
    
@@ -322,14 +322,14 @@ extension NewSpotController : GalleryControllerDelegate {
 // MARK: - Scroll view on keyboard show/hide
 extension NewSpotController {
    // if we tapped UITextField and then another UITextField
-   func keyboardWillShow(notification: NSNotification) {
+   @objc func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
          view.frame.origin.y -= 200
          keyBoardAlreadyShowed = true
       }
    }
    
-   func keyboardWillHide(notification: NSNotification) {
+   @objc func keyboardWillHide(notification: NSNotification) {
       view.frame.origin.y += 200
       keyBoardAlreadyShowed = false
    }

@@ -183,7 +183,7 @@ UITableViewDelegate {
    
    //MARK: - segues actions part
    // from comment author photo
-   func goToProfile(_ sender: UIGestureRecognizer) {
+   @objc func goToProfile(_ sender: UIGestureRecognizer) {
       let userId = comments[(sender.view?.tag)!].userId
       
       if userId == UserModel.getCurrentUserId() {
@@ -251,7 +251,7 @@ extension CommentariesController: TappedUserDelegate {
 
 // MARK: - Scroll view on keyboard show/hide
 extension CommentariesController: UITextFieldDelegate {
-   func keyboardWillShow(notification: NSNotification) {
+   @objc func keyboardWillShow(notification: NSNotification) {
       if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
          let keyboardHeight = keyboardSize.height
          UIView.animate(withDuration: 1.0, animations: {
@@ -261,7 +261,7 @@ extension CommentariesController: UITextFieldDelegate {
       }
    }
    
-   func keyboardWillHide(notification: NSNotification) {
+   @objc func keyboardWillHide(notification: NSNotification) {
       self.newCommentViewBotConstraint.constant = 0
    }
    
@@ -293,13 +293,13 @@ extension CommentariesController {
 extension CommentariesController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       let str = NSLocalizedString("Wait please", comment: "")
-      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+      let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
       return NSAttributedString(string: str, attributes: attrs)
    }
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       let str = NSLocalizedString("Downloading data..", comment: "")
-      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+      let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
       return NSAttributedString(string: str, attributes: attrs)
    }
 }

@@ -93,9 +93,9 @@ extension UIImageView {
       if let t = text {
          var ta = textAttributes
          if ta == nil {
-            ta = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName : UIFont.systemFont(ofSize: 15.0)]
+            ta = [NSAttributedStringKey.foregroundColor.rawValue: UIColor.white, NSAttributedStringKey.font.rawValue : UIFont.systemFont(ofSize: 15.0)]
          }
-         let textSize:CGSize = t.size(attributes: ta)
+         let textSize:CGSize = t.size(withAttributes: ta)
          let bounds:CGRect = self.bounds
          t.draw(in: CGRect(x:bounds.size.width/2 - textSize.width/2, y:bounds.size.height/2 - textSize.height/2, width:textSize.width, height:textSize.height), withAttributes: ta)
       }

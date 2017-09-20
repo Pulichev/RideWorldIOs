@@ -201,11 +201,11 @@ extension MapController: MKMapViewDelegate {
       annotationView.detailCalloutAccessoryView = pinfoView
    }
    
-   func goToPosts() {
+   @objc func goToPosts() {
       performSegue(withIdentifier: "spotDetailsTapped", sender: self)
    }
    
-   func goToInfo() {
+   @objc func goToInfo() {
       performSegue(withIdentifier: "goToSpotInfo", sender: self)
    }
    

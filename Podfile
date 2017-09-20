@@ -11,7 +11,7 @@ target 'RideWorld' do
   pod 'Firebase/Messaging'
   pod 'Firebase/Database'
   pod 'Kingfisher', '~> 3.0'
-  pod 'ActiveLabel', '0.7.1'
+  pod 'ActiveLabel'
   pod 'MGSwipeTableCell'
   pod 'SVProgressHUD'
   pod 'DateToolsSwift'

@@ -521,3 +521,5 @@ open class ESRefreshFooterView: ESRefreshComponent {
     
 }
 
+
+

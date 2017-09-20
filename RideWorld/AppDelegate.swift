@@ -43,8 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       UISearchBar.appearance().tintColor = UIColor.myLightBrown()
       UINavigationBar.appearance().barTintColor = UIColor.myBlack()
       UINavigationBar.appearance().tintColor = UIColor.myLightBrown()
-      UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.myLightBrown(),
-                                                          NSFontAttributeName : UIFont(name: "PTSans-Bold", size: 20)]
+      UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.myLightBrown(),
+                                                          NSAttributedStringKey.font : UIFont(name: "PTSans-Bold", size: 20)]
       UITabBar.appearance().barTintColor = UIColor.myBlack()
       UITabBar.appearance().tintColor = UIColor.myLightBrown()
       UILabel.appearance().defaultFont =  UIFont(name: "PT Sans", size: 15.0)
@@ -109,7 +109,7 @@ extension UIColor {
 
 extension UILabel {
    
-   dynamic var defaultFont: UIFont? {
+   @objc dynamic var defaultFont: UIFont? {
       get { return self.font }
       set {
          //get old size of lable font

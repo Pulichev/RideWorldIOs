@@ -74,7 +74,7 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
       userInfoTapped()
    }
    
-   func userInfoTapped() {
+   @objc func userInfoTapped() {
       delegate?.userInfoTapped(userItem)
    }
    
@@ -98,7 +98,7 @@ class FollowerFBCell: UITableViewCell { // FB = feedback
             var atts = attributes
             switch type {
             case .custom(pattern: "^\(self.userItem.login)\\b"):
-               atts[NSFontAttributeName] = UIFont(name: "PTSans-Bold", size: 15)
+               atts[NSAttributedStringKey.font] = UIFont(name: "PTSans-Bold", size: 15)
             default: ()
             }
             

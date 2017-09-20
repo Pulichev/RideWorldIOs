@@ -84,7 +84,7 @@ class CommentCell: MGSwipeTableCell {
             var atts = attributes
             switch type {
             case .custom(pattern: "^\(self.userItem.login)\\b"):
-               atts[NSFontAttributeName] = UIFont(name: "PTSans-Bold", size: 15)
+               atts[NSAttributedStringKey.font] = UIFont(name: "PTSans-Bold", size: 15)
             default: ()
             }
             

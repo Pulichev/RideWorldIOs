@@ -77,7 +77,7 @@ class SearchController: UITableViewController {
             cell.photo.kf.setImage(with: riderProfilePhotoURL)
          } else {
             cell.photo.setImage(string: rider.login, color: UIColor.myLightGray(), circular: true,
-                                      textAttributes: [NSFontAttributeName: UIFont(name: "PT Sans", size: 20)])
+                                      textAttributes: [NSAttributedStringKey.font.rawValue: UIFont(name: "PT Sans", size: 20)])
          }
          
          cell.name!.text = rider.login
@@ -259,13 +259,13 @@ extension SearchController: UISearchResultsUpdating {
 extension SearchController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       let str = NSLocalizedString("Nothing to show", comment: "")
-      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+      let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
       return NSAttributedString(string: str, attributes: attrs)
    }
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       let str = NSLocalizedString("Start entering something", comment: "")
-      let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+      let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
       return NSAttributedString(string: str, attributes: attrs)
    }
 }

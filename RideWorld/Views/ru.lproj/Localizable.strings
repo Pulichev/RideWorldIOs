@@ -6,8 +6,6 @@
  Copyright © 2017 Владислав Пуличев. All rights reserved.
  */
 
-// NSLocalizedString("Follow", comment: "")
-
 " commented your photo: "                                                                              = " прокомментировал вашу фотографию: ";
 " mentioned you in comment: "                                                                          = " упомянул вас в комментарии: ";
 " liked your post."                                                                                    = " понравилась ваша публикация.";

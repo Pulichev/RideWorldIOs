@@ -30,11 +30,11 @@ struct Permission {
     }
 
     static var hasPermission: Bool {
-      return AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == .authorized
+      return AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .authorized
     }
 
     static func request(_ completion: @escaping () -> Void) {
-      AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { granted in
+      AVCaptureDevice.requestAccess(for: AVMediaType.video) { granted in
         completion()
       }
     }

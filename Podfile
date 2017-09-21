@@ -10,15 +10,15 @@ target 'RideWorld' do
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
   pod 'Firebase/Database'
-  pod 'Kingfisher', '~> 3.0'
+  pod 'Kingfisher', '~> 4.0.1'
   pod 'ActiveLabel'
   pod 'MGSwipeTableCell'
   pod 'SVProgressHUD'
   pod 'DateToolsSwift'
   pod 'KYCircularProgress'
   pod 'ESPullToRefresh'
-  pod 'Gallery', '1.3.0'
-  pod 'ReadMoreTextView', '1.2.0'
+  pod 'Gallery'
+  pod 'ReadMoreTextView'
 
   # Pods for RideWorld
 

@@ -29,7 +29,7 @@ import UIKit
 private var kESRefreshHeaderKey: String = ""
 private var kESRefreshFooterKey: String = ""
 
-public extension UIScrollView {
+public class ESScrollView: UIScrollView {
     
     /// Pull-to-refresh associated property
     public var es_header: ESRefreshHeaderView? {
@@ -150,10 +150,10 @@ public extension UIScrollView {
         es_footer?.stopRefreshing()
     }
     
-}
+//}
 
-public extension UIScrollView /* Date Manager */ {
-    
+//public extension UIScrollView /* Date Manager */ {
+
     /// Identifier for cache expried timeinterval and last refresh date.
     public var refreshIdentifier: String? {
         get { return self.es_header?.refreshIdentifier }

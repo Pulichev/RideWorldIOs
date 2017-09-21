@@ -99,18 +99,18 @@ class CameraView: UIView, UIGestureRecognizerDelegate {
     guard previewLayer == nil else { return }
 
     let layer = AVCaptureVideoPreviewLayer(session: session)
-    layer?.autoreverses = true
-    layer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+   layer.autoreverses = true
+   layer.videoGravity = AVLayerVideoGravity.resizeAspectFill
 
-    self.layer.insertSublayer(layer!, at: 0)
-    layer?.frame = self.layer.bounds
+   self.layer.insertSublayer(layer,at: 0)
+   layer.frame = self.layer.bounds
 
     previewLayer = layer
   }
 
   // MARK: - Action
 
-  func viewTapped(_ gr: UITapGestureRecognizer) {
+   @objc func viewTapped(_ gr: UITapGestureRecognizer) {
     let point = gr.location(in: self)
 
     focusImageView.transform = CGAffineTransform.identity
@@ -130,7 +130,7 @@ class CameraView: UIView, UIGestureRecognizerDelegate {
 
   // MARK: - Timer
 
-  func timerFired(_ timer: Timer) {
+   @objc func timerFired(_ timer: Timer) {
     UIView.animate(withDuration: 0.3, animations: {
       self.focusImageView.alpha = 0
     }, completion: { _ in

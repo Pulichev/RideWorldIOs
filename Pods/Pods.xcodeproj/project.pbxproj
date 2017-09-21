@@ -2533,7 +2533,16 @@
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
+					10F0C3C80828CC88CE8154B17E6E0B8F = {
+						LastSwiftMigration = "";
+					};
 					317C3D2C747AAE33BB8865A8BEA85E49 = {
+						LastSwiftMigration = "";
+					};
+					A2EBB9DBC32E6FB582A1ECD510A6C075 = {
+						LastSwiftMigration = "";
+					};
+					D7ABD3FB2A052F7C88C1DB88EB664012 = {
 						LastSwiftMigration = "";
 					};
 				};
@@ -3867,6 +3876,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
@@ -4050,6 +4060,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_VERSION = 4.0;
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
 			};

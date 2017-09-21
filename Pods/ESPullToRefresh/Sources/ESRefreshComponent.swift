@@ -116,10 +116,10 @@ open class ESRefreshComponent: UIView {
         }
     }
     
-}
+//}
 
-extension ESRefreshComponent /* KVO methods */ {
-    
+//extension ESRefreshComponent /* KVO methods */ {
+
     fileprivate static var context = "ESRefreshKVOContext"
     fileprivate static let offsetKeyPath = "contentOffset"
     fileprivate static let contentSizeKeyPath = "contentSize"
@@ -166,9 +166,9 @@ extension ESRefreshComponent /* KVO methods */ {
         }
     }
     
-}
+//}
 
-public extension ESRefreshComponent /* Action */ {
+//public extension ESRefreshComponent /* Action */ {
 
     public final func startRefreshing(isAuto: Bool = false) -> Void {
         guard isRefreshing == false && isAutoRefreshing == false else {

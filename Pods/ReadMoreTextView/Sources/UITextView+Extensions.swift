@@ -24,7 +24,7 @@ extension UITextView {
             #endif
         }
         #if swift(>=3.0)
-            guard textStorage.attribute(NSLinkAttributeName, at: charIndex, effectiveRange: nil) == nil else {
+         guard textStorage.attribute(NSAttributedStringKey.link, at: charIndex, effectiveRange: nil) == nil else {
                 return super.hitTest(aPoint, with: event)
             }
         #else

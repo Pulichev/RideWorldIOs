@@ -58,8 +58,8 @@ public class ReadMoreTextView: UITextView {
             isEditable = false
             
             let attributedDefaultReadMoreText = NSAttributedString(string: defaultReadMoreText, attributes: [
-                NSForegroundColorAttributeName: UIColor.lightGray,
-                NSFontAttributeName: font ?? UIFont.systemFont(ofSize: 14)
+               NSAttributedStringKey.foregroundColor: UIColor.lightGray,
+                NSAttributedStringKey.font: font ?? UIFont.systemFont(ofSize: 14)
             ])
             attributedReadMoreText.append(attributedDefaultReadMoreText)
         #else
@@ -297,8 +297,8 @@ public class ReadMoreTextView: UITextView {
     private func attributedStringWithDefaultAttributes(from text: String) -> NSAttributedString {
         #if swift(>=3.0)
             return NSAttributedString(string: text, attributes: [
-                NSFontAttributeName: font ?? UIFont.systemFont(ofSize: 14),
-                NSForegroundColorAttributeName: textColor ?? UIColor.black
+               NSAttributedStringKey.font: font ?? UIFont.systemFont(ofSize: 14),
+               NSAttributedStringKey.foregroundColor: textColor ?? UIColor.black
             ])
         #else
             return NSAttributedString(string: text, attributes: [

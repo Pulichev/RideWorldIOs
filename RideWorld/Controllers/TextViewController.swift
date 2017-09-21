@@ -36,7 +36,7 @@ class TextViewController: UIViewController {
          do {
             let attributedStringWithRtf: NSAttributedString =
                try NSAttributedString(url: rtfPath,
-                                      options: [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.rtf],
+                                      options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.rtf],
                                       documentAttributes: nil)
             
             self.textView.attributedText = attributedStringWithRtf

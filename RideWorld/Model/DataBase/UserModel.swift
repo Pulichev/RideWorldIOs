@@ -23,14 +23,14 @@ struct UserModel {
       
       // Create a child path with a key set to the uid underneath the "users" node
       let refToNewUser = refToUsersNode.child(loggedInUser.uid)
-      refToNewUser.setValue(newUser.toAnyObject()) { _ in
+      refToNewUser.setValue(newUser.toAnyObject()) { (_, _) in
          // add to special node create date and last login update (by default - current date)
          let refToUserDates = refToMainDataBase.child("usersdates").child(loggedInUser.uid)
          let currentDate = String(describing: Date())
          // lastLoginUpdate - need it to prevent login change more ofthen than 100 days
          refToUserDates.setValue(["createdDate": currentDate,
                                   "lastLoginUpdate": currentDate])
-         { _ in
+         { (_, _) in
             completion(true)
          }
       }

@@ -304,7 +304,7 @@ class PostInfoViewController: UIViewController {
                progressBlock: { receivedSize, totalSize in
                   let percentage = (Double(receivedSize) / Double(totalSize))
                   circularProgress.view.progress = percentage
-            }, completionHandler: { _ in
+            }, completionHandler: { (_, _, _, _) in
                circularProgress.view.isHidden = true
             })
       })
@@ -329,7 +329,7 @@ class PostInfoViewController: UIViewController {
    private func downloadBigThumbnail() {
       // thumbnail!
       let imageViewForView = UIImageView()
-      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef700)) { _ in
+      imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef700)) { (_, _, _, _) in
          imageViewForView.layer.contentsGravity = kCAGravityResize
          imageViewForView.contentMode = .scaleAspectFill
          imageViewForView.frame = self.spotPostMedia.bounds

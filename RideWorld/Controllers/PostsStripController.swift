@@ -330,7 +330,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                progressBlock: { receivedSize, totalSize in
                   let percentage = (Double(receivedSize) / Double(totalSize))
                   circularProgress.view.progress = percentage
-            }, completionHandler: { _ in
+            }, completionHandler: { (_, _, _, _) in
                circularProgress.view.isHidden = true
             })
       })
@@ -369,7 +369,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
       // thumbnail!
       let imageViewForView = UIImageView()
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) { _ in
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) { (_, _, _, _) in
          imageViewForView.layer.contentsGravity = kCAGravityResize
          imageViewForView.contentMode = .scaleAspectFill
          imageViewForView.frame = cell.spotPostMedia.bounds

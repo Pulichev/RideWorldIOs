@@ -29,7 +29,7 @@ import UIKit
 private var kESRefreshHeaderKey: String = ""
 private var kESRefreshFooterKey: String = ""
 
-public class ESScrollView: UIScrollView {
+public extension UIScrollView {
     
     /// Pull-to-refresh associated property
     public var es_header: ESRefreshHeaderView? {
@@ -234,25 +234,25 @@ open class ESRefreshHeaderView: ESRefreshComponent {
         }
     }
     
-    open override func offsetChangeAction(object: AnyObject?, change: [NSKeyValueChangeKey : Any]?) {
+    @objc open override func offsetChangeAction(object: AnyObject?, change: [NSKeyValueChangeKey : Any]?) {
         guard let scrollView = scrollView else {
             return
         }
-            
+
         super.offsetChangeAction(object: object, change: change)
-        
+
         guard self.isRefreshing == false && self.isAutoRefreshing == false else {
             let top = scrollViewInsets.top
             let offsetY = scrollView.contentOffset.y
             let height = self.frame.size.height
             var scrollingTop = (-offsetY > top) ? -offsetY : top
             scrollingTop = (scrollingTop > height + top) ? (height + top) : scrollingTop
-            
+
             scrollView.contentInset.top = scrollingTop
-            
+
             return
         }
-        
+
         // Check needs re-set animator's progress or not.
         var isRecordingProgress = false
         defer {
@@ -261,7 +261,7 @@ open class ESRefreshHeaderView: ESRefreshComponent {
                 self.animator.refresh(view: self, progressDidChange: percent)
             }
         }
-        
+
         let offsets = previousOffset + scrollViewInsets.top
         if offsets < -self.animator.trigger {
             // Reached critical
@@ -285,33 +285,33 @@ open class ESRefreshHeaderView: ESRefreshComponent {
         } else {
             // Normal state
         }
-        
+
         previousOffset = scrollView.contentOffset.y
-        
+
     }
-    
-    open override func start() {
+
+    @objc open override func start() {
         guard let scrollView = scrollView else {
             return
         }
-        
+
         // ignore observer
         self.ignoreObserver(true)
-        
+
         // stop scroll view bounces for animation
         scrollView.bounces = false
-        
+
         // call super start
         super.start()
-        
+
         self.animator.refreshAnimationBegin(view: self)
-        
+
         // 缓存scrollview当前的contentInset, 并根据animator的executeIncremental属性计算刷新时所需要的contentInset，它将在接下来的动画中应用。
         // Tips: 这里将self.scrollViewInsets.top更新，也可以将scrollViewInsets整个更新，因为left、right、bottom属性都没有用到，如果接下来的迭代需要使用这三个属性的话，这里可能需要额外的处理。
         var insets = scrollView.contentInset
         self.scrollViewInsets.top = insets.top
         insets.top += animator.executeIncremental
-        
+
         // We need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then.
         scrollView.contentOffset.y = previousOffset
 
@@ -324,19 +324,19 @@ open class ESRefreshHeaderView: ESRefreshComponent {
             self.ignoreObserver(false)
             scrollView.bounces = self.scrollViewBounces
         })
-        
+
     }
-    
+
     open override func stop() {
         guard let scrollView = scrollView else {
             return
         }
-        
+
         // ignore observer
         self.ignoreObserver(true)
-        
+
         self.animator.refreshAnimationEnd(view: self)
-        
+
         // Back state
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
             scrollView.contentInset.top = self.scrollViewInsets.top
@@ -348,7 +348,7 @@ open class ESRefreshHeaderView: ESRefreshComponent {
                 self.ignoreObserver(false)
         })
     }
-    
+
 }
 
 open class ESRefreshFooterView: ESRefreshComponent {
@@ -412,7 +412,7 @@ open class ESRefreshFooterView: ESRefreshComponent {
         }
     }
  
-    open override func sizeChangeAction(object: AnyObject?, change: [NSKeyValueChangeKey : Any]?) {
+    @objc open override func sizeChangeAction(object: AnyObject?, change: [NSKeyValueChangeKey : Any]?) {
         guard let scrollView = scrollView else { return }
         super.sizeChangeAction(object: object, change: change)
         let targetY = scrollView.contentSize.height + scrollViewInsets.bottom
@@ -422,14 +422,14 @@ open class ESRefreshFooterView: ESRefreshComponent {
             self.frame = rect
         }
     }
-    
-    open override func offsetChangeAction(object: AnyObject?, change: [NSKeyValueChangeKey : Any]?) {
+
+    @objc open override func offsetChangeAction(object: AnyObject?, change: [NSKeyValueChangeKey : Any]?) {
         guard let scrollView = scrollView else {
             return
         }
-        
+
         super.offsetChangeAction(object: object, change: change)
-        
+
         guard isRefreshing == false && isAutoRefreshing == false && noMoreData == false && isHidden == false else {
             // 正在loading more或者内容为空时不相应变化
             return
@@ -441,7 +441,7 @@ open class ESRefreshFooterView: ESRefreshComponent {
         } else {
             self.alpha = 1.0
         }
-        
+
         if scrollView.contentSize.height + scrollView.contentInset.top > scrollView.bounds.size.height {
             // 内容超过一个屏幕 计算公式，判断是不是在拖在到了底部
             if scrollView.contentSize.height - scrollView.contentOffset.y + scrollView.contentInset.bottom  <= scrollView.bounds.size.height {
@@ -456,18 +456,18 @@ open class ESRefreshFooterView: ESRefreshComponent {
             }
         }
     }
-    
-    open override func start() {
+
+    @objc open override func start() {
         guard let scrollView = scrollView else {
             return
         }
         super.start()
-        
+
         self.animator.refreshAnimationBegin(view: self)
-        
+
         let x = scrollView.contentOffset.x
         let y = max(0.0, scrollView.contentSize.height - scrollView.bounds.size.height + scrollView.contentInset.bottom)
-        
+
         // Call handler
         UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveLinear, animations: {
             scrollView.contentOffset = CGPoint.init(x: x, y: y)
@@ -475,14 +475,14 @@ open class ESRefreshFooterView: ESRefreshComponent {
             self.handler?()
         })
     }
-    
-    open override func stop() {
+
+    @objc open override func stop() {
         guard let scrollView = scrollView else {
             return
         }
-        
+
         self.animator.refreshAnimationEnd(view: self)
-        
+
         // Back state
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
         }, completion: { (finished) in
@@ -499,16 +499,16 @@ open class ESRefreshFooterView: ESRefreshComponent {
             contentOffset.y = min(contentOffset.y, scrollView.contentSize.height - scrollView.frame.size.height)
             if contentOffset.y < 0.0 {
                 contentOffset.y = 0.0
-                UIView.animate(withDuration: 0.1, animations: { 
+                UIView.animate(withDuration: 0.1, animations: {
                     scrollView.setContentOffset(contentOffset, animated: false)
                 })
             } else {
                 scrollView.setContentOffset(contentOffset, animated: false)
             }
         }
-        
+
     }
-    
+   
     /// Change to no-more-data status.
     open func noticeNoMoreData() {
         self.noMoreData = true

@@ -28,21 +28,21 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          tableView.emptyDataSetDelegate = self
          tableView.tableFooterView = UIView() // deleting empty rows
          
-//         self.tableView.es_addPullToRefresh { [weak self] in
-//            self?.refresh() {
-//               self?.tableView.es_stopPullToRefresh(ignoreDate: true)
-//            }
-//         }
-//
-//         self.tableView.es_addInfiniteScrolling { [weak self] in
-//            self?.loadMore() { newItemsExisting in
-//               if newItemsExisting {
-//                  self?.tableView.es_stopLoadingMore()
-//               } else {
-//                  self?.tableView.es_noticeNoMoreData()
-//               }
-//            }
-//         }
+         self.tableView.es_addPullToRefresh { [weak self] in
+            self?.refresh() {
+               self?.tableView.es_stopPullToRefresh(ignoreDate: true)
+            }
+         }
+
+         self.tableView.es_addInfiniteScrolling { [weak self] in
+            self?.loadMore() { newItemsExisting in
+               if newItemsExisting {
+                  self?.tableView.es_stopLoadingMore()
+               } else {
+                  self?.tableView.es_noticeNoMoreData()
+               }
+            }
+         }
       }
    }
    

@@ -19,6 +19,7 @@ target 'RideWorld' do
   pod 'ESPullToRefresh'
   pod 'Gallery'
   pod 'ReadMoreTextView'
+  pod 'Cosmos'
 
   # Pods for RideWorld
 

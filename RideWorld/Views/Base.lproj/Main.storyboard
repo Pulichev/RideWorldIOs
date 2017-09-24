@@ -2345,140 +2345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wuy-V2-fhY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2959" y="-747"/>
-        </scene>
-        <!--Edit info-->
-        <scene sceneID="rZp-ff-gdb">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="rut-Zp-VLC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="v7S-Ny-2hT"/>
-                        <viewControllerLayoutGuide type="bottom" id="5tp-ar-BeW"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8UZ-V5-vtf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O9P-AH-deA" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                                <rect key="frame" x="77" y="206" width="220" height="30"/>
-                                <color key="backgroundColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="220" id="cck-RV-BBH"/>
-                                </constraints>
-                                <color key="tintColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Change profile photo">
-                                    <color key="titleColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="changeProfilePhotoButtonTapped:" destination="rut-Zp-VLC" eventType="touchUpInside" id="o1a-bE-u0U"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="hyO-8D-pzd">
-                                <rect key="frame" x="0.0" y="266" width="375" height="401"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditProfileCell" id="NUz-cv-B5A" userLabel="EditProfileCell" customClass="EditProfileCell" customModule="RideWorld" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NUz-cv-B5A" id="8aE-KM-EkY">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PTe-KH-xew">
-                                                    <rect key="frame" x="8" y="-4" width="359" height="47"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="PTe-KH-xew" firstAttribute="trailing" secondItem="8aE-KM-EkY" secondAttribute="trailingMargin" id="4k5-64-hM8"/>
-                                                <constraint firstItem="PTe-KH-xew" firstAttribute="leading" secondItem="8aE-KM-EkY" secondAttribute="leadingMargin" id="D7i-aH-jtg"/>
-                                                <constraint firstItem="PTe-KH-xew" firstAttribute="top" secondItem="8aE-KM-EkY" secondAttribute="topMargin" constant="-12" id="Eag-7n-BOj"/>
-                                                <constraint firstAttribute="bottom" secondItem="PTe-KH-xew" secondAttribute="bottom" id="iVc-E1-LYA"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="field" destination="PTe-KH-xew" id="Z0O-tn-9Pc"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellWithButton" id="6UE-cg-dao" userLabel="CellWithButton" customClass="CellWithButton" customModule="RideWorld" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6UE-cg-dao" id="bqA-Ph-v23">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6h-4O-zj5" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                                    <state key="normal" title="Button"/>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="o6h-4O-zj5" secondAttribute="bottom" id="8vl-5x-4uP"/>
-                                                <constraint firstItem="o6h-4O-zj5" firstAttribute="leading" secondItem="bqA-Ph-v23" secondAttribute="leading" id="lDI-cj-GRN"/>
-                                                <constraint firstAttribute="trailing" secondItem="o6h-4O-zj5" secondAttribute="trailing" id="pVf-qo-pIt"/>
-                                                <constraint firstItem="o6h-4O-zj5" firstAttribute="top" secondItem="bqA-Ph-v23" secondAttribute="top" id="pi9-De-D7I"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="button" destination="o6h-4O-zj5" id="Ro8-Lo-bBG"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="rut-Zp-VLC" id="IIM-WD-EGg"/>
-                                    <outlet property="delegate" destination="rut-Zp-VLC" id="Sqp-Dx-6XI"/>
-                                </connections>
-                            </tableView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dpz-aj-jM0" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
-                                <rect key="frame" x="127" y="72" width="120" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="bNb-5H-T5Y"/>
-                                    <constraint firstAttribute="width" constant="120" id="cWP-qr-AMy"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="O9P-AH-deA" firstAttribute="centerX" secondItem="hyO-8D-pzd" secondAttribute="centerX" id="4RN-6L-wnw"/>
-                            <constraint firstItem="5tp-ar-BeW" firstAttribute="top" secondItem="hyO-8D-pzd" secondAttribute="bottom" id="6Rv-Bq-MwE"/>
-                            <constraint firstItem="dpz-aj-jM0" firstAttribute="top" secondItem="v7S-Ny-2hT" secondAttribute="bottom" constant="8" id="Dax-f9-6oH"/>
-                            <constraint firstItem="dpz-aj-jM0" firstAttribute="centerX" secondItem="O9P-AH-deA" secondAttribute="centerX" id="Vg0-mg-oCy"/>
-                            <constraint firstItem="hyO-8D-pzd" firstAttribute="top" secondItem="O9P-AH-deA" secondAttribute="bottom" constant="30" id="d3i-1T-gTa"/>
-                            <constraint firstItem="hyO-8D-pzd" firstAttribute="leading" secondItem="8UZ-V5-vtf" secondAttribute="leading" id="hV1-6B-nkD"/>
-                            <constraint firstAttribute="trailing" secondItem="hyO-8D-pzd" secondAttribute="trailing" id="wyg-fx-3vt"/>
-                            <constraint firstItem="O9P-AH-deA" firstAttribute="top" secondItem="dpz-aj-jM0" secondAttribute="bottom" constant="14" id="zVM-gd-09X"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Edit info" id="j6m-0V-vf0">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="8Uf-yF-hHX">
-                            <color key="tintColor" red="0.91764705879999997" green="0.88235294119999996" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            <connections>
-                                <action selector="saveButtonTapped:" destination="rut-Zp-VLC" id="ExP-m8-DaG"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <connections>
-                        <outlet property="tableView" destination="hyO-8D-pzd" id="0YC-9z-UQa"/>
-                        <outlet property="userPhoto" destination="dpz-aj-jM0" id="vBw-mD-oIh"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="b5Y-Wo-IOX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3319" y="61"/>
+            <point key="canvasLocation" x="3278" y="-747"/>
         </scene>
         <!--Edit info-->
         <scene sceneID="Xbd-65-I33">
@@ -2528,7 +2395,6 @@
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <action selector="changeProfilePhotoButtonTapped:" destination="3g2-Fb-CxV" eventType="touchUpInside" id="McQ-6X-3rA"/>
-                                                        <action selector="changeProfilePhotoButtonTapped:" destination="rut-Zp-VLC" eventType="touchUpInside" id="hYd-f0-iRH"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -2814,7 +2680,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="89h-bc-U1b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4024.8000000000002" y="60.719640179910051"/>
+            <point key="canvasLocation" x="3278" y="61"/>
         </scene>
         <!--Text View Controller-->
         <scene sceneID="Gwj-ko-Muw">
@@ -3703,7 +3569,7 @@
         <image name="settings" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="I78-xn-cQP"/>
+        <segue reference="OkS-TY-PQh"/>
         <segue reference="DFX-Og-YfY"/>
         <segue reference="Gef-69-N8A"/>
         <segue reference="jGE-7F-ggD"/>

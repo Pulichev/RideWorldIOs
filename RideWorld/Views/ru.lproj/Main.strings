@@ -24,7 +24,7 @@
 "8Mi-bf-7Oa.placeholder" = "Введите пароль";
 
 /* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "8Uf-yF-hHX"; */
-"8Uf-yF-hHX.title" = "Сохранить";
+"b5X-VF-8gy.title" = "Сохранить";
 
 /* Class = "UILabel"; text = "Date"; ObjectID = "9M3-vR-ACh"; */
 "9M3-vR-ACh.text" = "Дата";
@@ -162,7 +162,7 @@
 "i7s-io-2Iy.normalTitle" = "Забыли пароль?";
 
 /* Class = "UINavigationItem"; title = "Edit info"; ObjectID = "j6m-0V-vf0"; */
-"j6m-0V-vf0.title" = "Настройки";
+"K70-hN-6mt.title" = "Настройки";
 
 /* Class = "UILabel"; text = "Date"; ObjectID = "k0k-UO-N7j"; */
 "k0k-UO-N7j.text" = "Дата";

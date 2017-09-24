@@ -12,7 +12,7 @@ import Gallery
 import Photos
 import SVProgressHUD
 
-class EditProfileController: UITableViewController {//, UITableViewDataSource, UITableViewDelegate {
+class EditProfileController: UITableViewController {
    
    var delegate: EditedUserInfoDelegate?
    

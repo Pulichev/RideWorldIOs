@@ -12,18 +12,12 @@ import Gallery
 import Photos
 import SVProgressHUD
 
-class EditProfileController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class EditProfileController: UITableViewController {//, UITableViewDataSource, UITableViewDelegate {
    
    var delegate: EditedUserInfoDelegate?
    
    var userInfo: UserItem!
    var sourceLogin: String!
-   
-   @IBOutlet var tableView: UITableView! {
-      didSet {
-         tableView.tableFooterView = UIView(frame: .zero) // deleting empty rows
-      }
-   }
    
    var userInfoTableValues = [String](repeating: "", count: 3) // for saving values from textField
    
@@ -35,9 +29,9 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       
       sourceLogin = userInfo.login
       
-      NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillShow),
+      NotificationCenter.default.addObserver(self, selector: #selector(EditProfileController.keyboardWillShow),
                                              name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-      NotificationCenter.default.addObserver(self, selector: #selector(LoginController.keyboardWillHide),
+      NotificationCenter.default.addObserver(self, selector: #selector(EditProfileController.keyboardWillHide),
                                              name: NSNotification.Name.UIKeyboardWillHide, object: nil)
       
       if userInfo.photo150ref != nil {
@@ -48,6 +42,8 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       userInfoTableValues[0] = userInfo.nameAndSename ?? ""
       userInfoTableValues[1] = userInfo.bioDescription ?? ""
       userInfoTableValues[2] = userInfo.login
+      
+      initTableRows()
    }
    
    @IBAction func saveButtonTapped(_ sender: Any) {
@@ -149,147 +145,92 @@ class EditProfileController: UIViewController, UITableViewDataSource, UITableVie
       present(alert, animated: true, completion: nil)
    }
    
-   //MARK: - User settings table
-   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      switch section {
-      case 0:
-         return 4
-      case 1:
-         return 4
-      case 2:
-         return 1
-      default:
-         return 0
-      }
-   }
-   
-   func numberOfSections(in tableView: UITableView) -> Int {
-      return 3
-   }
-   
-   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-      switch section {
-      case 0:
-         return NSLocalizedString("User info", comment: "")
-      case 1:
-         return NSLocalizedString("General settings and rules", comment: "")
-      case 2:
-         return ""
-      default:
-         return ""
-      }
-   }
-   
-   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let row     = indexPath.row
-      let section = indexPath.section
+   @IBAction func changeProfilePhotoButtonTapped(_ sender: Any) {
+      let gallery = GalleryController()
+      gallery.delegate = self
       
+      Config.Camera.imageLimit = 1
+      Config.showsVideoTab = false
+      
+      present(gallery, animated: true, completion: nil)
+   }
+   
+   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
       switch section {
       case 0:
-         let cell = tableView.dequeueReusableCell(withIdentifier: "EditProfileCell", for: indexPath) as! EditProfileCell
-         
-         let leftImageView = UIImageView()
-         let leftView = UIView()
-         leftView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-         leftImageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-         
-         cell.field.leftViewMode = .always
-         
-         switch row {
-         case 0:
-            cell.field.text = userInfoTableValues[0]
-            cell.field.placeholder = NSLocalizedString("Enter new name and sename", comment: "")
-            leftImageView.image = UIImage(named: "namesename")
-            leftView.addSubview(leftImageView)
-            cell.field.leftView = leftView
-            // for saving new values to array
-            cell.field.tag = 0
-            cell.field.delegate = self
-            break
-            
-         case 1:
-            cell.field.text = userInfoTableValues[1]
-            cell.field.placeholder = NSLocalizedString("Enter new bio description", comment: "")
-            leftImageView.image = UIImage(named: "info")
-            leftView.addSubview(leftImageView)
-            cell.field.leftView = leftView
-            // for saving new values to array
-            cell.field.tag = 1
-            cell.field.delegate = self
-            break
-            
-         case 2:
-            cell.field.delegate = self // for detecting tap and check last update time
-            // and saving new value on change
-            cell.field.tag = 2
-            cell.field.text = userInfoTableValues[2]
-            leftImageView.image = UIImage(named: "login")
-            leftView.addSubview(leftImageView)
-            cell.field.leftView = leftView
-            cell.field.placeholder = NSLocalizedString("Enter new login", comment: "")
-            addTapGesture(on: cell.field) // for checking last login change date on click b4 editing
-            break
-            
-         case 3:
-            cell.field.text = userInfo.email
-            cell.field.placeholder = NSLocalizedString("Enter new email", comment: "")
-            leftImageView.image = UIImage(named: "mail")
-            leftView.addSubview(leftImageView)
-            cell.field.leftView = leftView
-            cell.field.isEnabled = false
-            break
-            
-         default:
-            break
-         }
-         
-         return cell
-         
+         return ""
       case 1:
-         let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
-         
-         switch row {
-         case 0:
-            cell.button.setTitle(NSLocalizedString("Language", comment: ""), for: .normal)
-            cell.button.tintColor = UIColor.myBlack()
-            cell.button.addTarget(self, action: #selector(goToLanguageSelect), for: .touchUpInside)
-            break
-         case 1:
-            cell.button.setTitle(NSLocalizedString("Terms of Use", comment: ""), for: .normal)
-            cell.button.tintColor = UIColor.myBlack()
-            cell.button.addTarget(self, action: #selector(goToTermsOfUse), for: .touchUpInside)
-            break
-         case 2:
-            cell.button.setTitle(NSLocalizedString("Privacy Policy", comment: ""), for: .normal)
-            cell.button.tintColor = UIColor.myBlack()
-            cell.button.addTarget(self, action: #selector(goToPrivacyPolicy), for: .touchUpInside)
-            break
-         case 3:
-            cell.button.setTitle(NSLocalizedString("Contacts", comment: ""), for: .normal)
-            cell.button.tintColor = UIColor.myBlack()
-            cell.button.addTarget(self, action: #selector(goToContacts), for: .touchUpInside)
-            break
-            
-         default:
-            break
-         }
-         
-         return cell
-         
+         return NSLocalizedString("User info", comment: "")
       case 2:
-         let cell = tableView.dequeueReusableCell(withIdentifier: "CellWithButton", for: indexPath) as! CellWithButton
-         cell.button.setTitle(NSLocalizedString("SignOut", comment: ""), for: .normal)
-         cell.button.tintColor = UIColor.red
-         cell.button.addTarget(self, action: #selector(signOut), for: .touchUpInside)
-         return cell
-         
+         return NSLocalizedString("General settings and rules", comment: "")
+      case 3:
+         return ""
       default:
-         // kostil. need to release...
-         return UITableViewCell()
+         return ""
       }
    }
    
-   @objc func signOut() {
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      tableView.deselectRow(at: indexPath, animated: true)
+   }
+   
+   // MARK: - IBOutlets from tableView
+   // User info section
+   @IBOutlet weak var nameAndSename: UITextFieldX!
+   @IBOutlet weak var bioDescription: UITextFieldX!
+   @IBOutlet weak var login: UITextFieldX!
+   @IBOutlet weak var email: UITextFieldX!
+   // General settings and rules section
+   @IBOutlet weak var language: UIButtonX!
+   @IBOutlet weak var termsOfUse: UIButtonX!
+   @IBOutlet weak var privacyPolicy: UIButtonX!
+   @IBOutlet weak var contacts: UIButtonX!
+   //
+   @IBOutlet weak var signOut: UIButtonX!
+   
+   private func initTableRows() {
+      // User info section
+      nameAndSename.text = userInfoTableValues[0]
+      nameAndSename.placeholder = NSLocalizedString("Enter new name and sename", comment: "")
+      nameAndSename.delegate = self
+      
+      bioDescription.text = userInfoTableValues[1]
+      bioDescription.placeholder = NSLocalizedString("Enter new bio description", comment: "")
+      bioDescription.delegate = self
+
+      login.text = userInfoTableValues[2]
+      login.placeholder = NSLocalizedString("Enter new login", comment: "")
+      login.delegate = self
+      addTapGesture(on: login) // for checking last login change date on click b4 editing
+      
+      email.text = userInfo.email
+      email.placeholder = NSLocalizedString("Enter new email", comment: "")
+      email.isEnabled = false
+
+      // General settings and rules section
+      language.setTitle(NSLocalizedString("Language", comment: ""), for: .normal)
+      language.tintColor = UIColor.myBlack()
+      language.addTarget(self, action: #selector(goToLanguageSelect), for: .touchUpInside)
+      
+      termsOfUse.setTitle(NSLocalizedString("Terms of Use", comment: ""), for: .normal)
+      termsOfUse.tintColor = UIColor.myBlack()
+      termsOfUse.addTarget(self, action: #selector(goToTermsOfUse), for: .touchUpInside)
+      
+      privacyPolicy.setTitle(NSLocalizedString("Privacy Policy", comment: ""), for: .normal)
+      privacyPolicy.tintColor = UIColor.myBlack()
+      privacyPolicy.addTarget(self, action: #selector(goToPrivacyPolicy), for: .touchUpInside)
+      
+      contacts.setTitle(NSLocalizedString("Contacts", comment: ""), for: .normal)
+      contacts.tintColor = UIColor.myBlack()
+      contacts.addTarget(self, action: #selector(goToContacts), for: .touchUpInside)
+      
+      //
+      signOut.setTitle(NSLocalizedString("SignOut", comment: ""), for: .normal)
+      signOut.tintColor = UIColor.red
+      signOut.addTarget(self, action: #selector(signOutButtonTapped), for: .touchUpInside)
+   }
+   
+   @objc func signOutButtonTapped() {
       if UserModel.signOut() { // if no errors
          // then go to login
          performSegue(withIdentifier: "fromEditProfileToLogin", sender: self)
@@ -398,16 +339,6 @@ extension EditProfileController: UITextFieldDelegate {
 
 // MARK: - Camera extension
 extension EditProfileController: GalleryControllerDelegate {
-
-   @IBAction func changeProfilePhotoButtonTapped(_ sender: Any) {
-      let gallery = GalleryController()
-      gallery.delegate = self
-      
-      Config.Camera.imageLimit = 1
-      Config.showsVideoTab = false
-      
-      present(gallery, animated: true, completion: nil)
-   }
    
    func galleryController(_ controller: GalleryController, didSelectImages images: [Gallery.Image]) {
       let img = images[0]
@@ -430,14 +361,14 @@ extension EditProfileController: GalleryControllerDelegate {
 
 // MARK: - Scroll for keyboard show/hide
 extension EditProfileController {
-   func keyboardWillShow(notification: NSNotification) {
+   @objc func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
          view.frame.origin.y -= 100
          keyBoardAlreadyShowed = true
       }
    }
    
-   func keyboardWillHide(notification: NSNotification) {
+   @objc func keyboardWillHide(notification: NSNotification) {
       view.frame.origin.y += 100
       keyBoardAlreadyShowed = false
    }

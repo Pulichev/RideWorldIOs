@@ -38,7 +38,6 @@ UITableViewDelegate {
    
    var comments = [CommentItem]()
    
-   
    var postDescription: String? //
    var userId: String?          // For adding desc as comment
    var postDate: String!        //

@@ -177,10 +177,10 @@
             </objects>
             <point key="canvasLocation" x="1987" y="1068"/>
         </scene>
-        <!--UIViewController-7kR-w8-gJL-->
+        <!--FollowersController-->
         <scene sceneID="i3p-gc-DdE">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-7kR-w8-gJL" storyboardName="Followings" referencedIdentifier="UIViewController-7kR-w8-gJL" id="0VW-kD-DIJ" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="FollowersController" storyboardName="Followings" referencedIdentifier="FollowersController" id="0VW-kD-DIJ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IuJ-wB-3b7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1320" y="558"/>

@@ -14,7 +14,7 @@
         <!--Followers Controller-->
         <scene sceneID="Rv1-dO-VKW">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-7kR-w8-gJL" automaticallyAdjustsScrollViewInsets="NO" id="7kR-w8-gJL" customClass="FollowersController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FollowersController" automaticallyAdjustsScrollViewInsets="NO" id="7kR-w8-gJL" customClass="FollowersController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uvA-Hn-mOI"/>
                         <viewControllerLayoutGuide type="bottom" id="Exw-I9-bcL"/>

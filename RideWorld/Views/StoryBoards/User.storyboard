@@ -778,10 +778,10 @@
             </objects>
             <point key="canvasLocation" x="2240" y="527"/>
         </scene>
-        <!--UIViewController-7kR-w8-gJL-->
+        <!--FollowersController-->
         <scene sceneID="Edm-bm-cgE">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-7kR-w8-gJL" storyboardName="Main" referencedIdentifier="UIViewController-7kR-w8-gJL" id="w4S-N4-5CA" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="FollowersController" storyboardName="Main" referencedIdentifier="FollowersController" id="w4S-N4-5CA" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H1f-28-4sp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2885" y="-573"/>

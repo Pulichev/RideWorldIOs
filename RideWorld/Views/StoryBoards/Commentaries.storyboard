@@ -12,7 +12,7 @@
         <!--Commentaries Controller-->
         <scene sceneID="BiV-Rk-lJf">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-ZPc-uE-xhW" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="ZPc-uE-xhW" customClass="CommentariesController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommentariesController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="ZPc-uE-xhW" customClass="CommentariesController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="55j-b9-1Fe"/>
                         <viewControllerLayoutGuide type="bottom" id="JPO-uP-UdR"/>
@@ -169,18 +169,18 @@
             </objects>
             <point key="canvasLocation" x="3278" y="2693"/>
         </scene>
-        <!--UIViewController-MKp-Ss-8Kb-->
+        <!--RiderController-->
         <scene sceneID="c18-Zw-Zxn">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-MKp-Ss-8Kb" storyboardName="Rider" referencedIdentifier="UIViewController-MKp-Ss-8Kb" id="jHz-4w-xmT" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="RiderController" storyboardName="Rider" referencedIdentifier="RiderController" id="jHz-4w-xmT" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u82-Ms-h3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4114" y="2980"/>
         </scene>
-        <!--UIViewController-MsB-Ex-yak-->
+        <!--UserProfileController-->
         <scene sceneID="AFD-f8-qvw">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-MsB-Ex-yak" storyboardName="User" referencedIdentifier="UIViewController-MsB-Ex-yak" id="8A6-Ce-SPL" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="UserProfileController" storyboardName="User" referencedIdentifier="UserProfileController" id="8A6-Ce-SPL" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vdx-K3-OsN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4109" y="2388"/>

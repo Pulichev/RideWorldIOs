@@ -104,26 +104,26 @@
             </objects>
             <point key="canvasLocation" x="2244" y="3868.5157421289359"/>
         </scene>
-        <!--UIViewController-6uJ-a1-Lta-->
+        <!--SpotInfoController-->
         <scene sceneID="JS6-lM-I16">
             <objects>
-                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UIViewController-6uJ-a1-Lta" id="iMS-xG-XLZ" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="SpotInfoController" id="iMS-xG-XLZ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6XZ-Tw-mRl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3093" y="4156"/>
         </scene>
-        <!--UIViewController-MsB-Ex-yak-->
+        <!--UserProfileController-->
         <scene sceneID="neL-Ga-FCJ">
             <objects>
-                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UIViewController-MsB-Ex-yak" id="HL4-V0-ES0" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UserProfileController" id="HL4-V0-ES0" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="En2-x5-8QO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3098" y="3868"/>
         </scene>
-        <!--UIViewController-MKp-Ss-8Kb-->
+        <!--RiderController-->
         <scene sceneID="GbN-te-GfA">
             <objects>
-                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UIViewController-MKp-Ss-8Kb" id="bcq-Fz-XT3" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="RiderController" id="bcq-Fz-XT3" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TXG-Cx-sF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3102" y="3581"/>

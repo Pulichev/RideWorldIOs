@@ -18,7 +18,7 @@
         <!--MyProfileController-->
         <scene sceneID="oNx-07-d0A">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-MsB-Ex-yak" automaticallyAdjustsScrollViewInsets="NO" id="MsB-Ex-yak" userLabel="MyProfileController" customClass="UserProfileController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserProfileController" automaticallyAdjustsScrollViewInsets="NO" id="MsB-Ex-yak" userLabel="MyProfileController" customClass="UserProfileController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Odz-1d-Izt"/>
                         <viewControllerLayoutGuide type="bottom" id="46T-6d-aUx"/>
@@ -661,7 +661,7 @@
         <!--Text View Controller-->
         <scene sceneID="Gwj-ko-Muw">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-BV3-yh-9o7" automaticallyAdjustsScrollViewInsets="NO" id="BV3-yh-9o7" customClass="TextViewController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TextViewController" automaticallyAdjustsScrollViewInsets="NO" id="BV3-yh-9o7" customClass="TextViewController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bWj-QX-wo2"/>
                         <viewControllerLayoutGuide type="bottom" id="b0z-3D-hCS"/>
@@ -744,7 +744,7 @@
         <!--Navigation Controller-->
         <scene sceneID="oMe-Nw-W80">
             <objects>
-                <navigationController storyboardIdentifier="UINavigationController-xHY-Je-O6o" automaticallyAdjustsScrollViewInsets="NO" id="xHY-Je-O6o" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="UserNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="xHY-Je-O6o" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" image="Profile" selectedImage="Profile" id="TFo-E0-PCa">
                         <inset key="imageInsets" minX="-1" minY="6" maxX="1" maxY="-6"/>
                     </tabBarItem>
@@ -770,10 +770,10 @@
             </objects>
             <point key="canvasLocation" x="3278" y="470"/>
         </scene>
-        <!--UIViewController-WfP-RX-tLc-->
+        <!--PostInfoController-->
         <scene sceneID="Nbd-Gw-8We">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-WfP-RX-tLc" storyboardName="Main" referencedIdentifier="UIViewController-WfP-RX-tLc" id="7rB-FK-8Us" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="PostInfoController" storyboardName="Main" referencedIdentifier="PostInfoController" id="7rB-FK-8Us" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NHL-kd-W9Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2240" y="527"/>
@@ -786,10 +786,10 @@
             </objects>
             <point key="canvasLocation" x="2885" y="-573"/>
         </scene>
-        <!--UIViewController-ZNP-je-M59-->
+        <!--SpotFollowingsController-->
         <scene sceneID="tr2-gF-ZhI">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-ZNP-je-M59" storyboardName="Main" referencedIdentifier="UIViewController-ZNP-je-M59" id="1wC-G3-1US" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="SpotFollowingsController" storyboardName="Main" referencedIdentifier="SpotFollowingsController" id="1wC-G3-1US" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1zw-tm-A1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2995" y="-470"/>

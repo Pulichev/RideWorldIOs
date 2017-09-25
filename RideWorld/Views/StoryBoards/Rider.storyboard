@@ -17,7 +17,7 @@
         <!--Rider Controller-->
         <scene sceneID="DOB-yG-rWN">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-MKp-Ss-8Kb" automaticallyAdjustsScrollViewInsets="NO" id="MKp-Ss-8Kb" userLabel="Rider Controller" customClass="RidersProfileController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RiderController" automaticallyAdjustsScrollViewInsets="NO" id="MKp-Ss-8Kb" userLabel="Rider Controller" customClass="RidersProfileController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="21x-Ru-2Bt"/>
                         <viewControllerLayoutGuide type="bottom" id="G3a-J6-6BS"/>
@@ -326,10 +326,10 @@
             </objects>
             <point key="canvasLocation" x="1332" y="-1892"/>
         </scene>
-        <!--UIViewController-WfP-RX-tLc-->
+        <!--PostInfoController-->
         <scene sceneID="AHk-W6-PJn">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-WfP-RX-tLc" storyboardName="Main" referencedIdentifier="UIViewController-WfP-RX-tLc" id="AQi-HX-pkA" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="PostInfoController" storyboardName="Main" referencedIdentifier="PostInfoController" id="AQi-HX-pkA" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVu-7h-AaM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3170" y="-1605"/>
@@ -342,10 +342,10 @@
             </objects>
             <point key="canvasLocation" x="3173" y="-2180"/>
         </scene>
-        <!--UIViewController-ZNP-je-M59-->
+        <!--SpotFollowingsController-->
         <scene sceneID="S6N-YJ-iIA">
             <objects>
-                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UIViewController-ZNP-je-M59" id="IwZ-9j-VyD" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="SpotFollowingsController" id="IwZ-9j-VyD" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fx9-5w-w8o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3173" y="-1893"/>

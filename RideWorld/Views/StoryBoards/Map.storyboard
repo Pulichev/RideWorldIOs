@@ -171,26 +171,26 @@
             </objects>
             <point key="canvasLocation" x="1333.125" y="931.69014084507046"/>
         </scene>
-        <!--UIViewController-28g-9l-NVL-->
+        <!--NewSpotController-->
         <scene sceneID="PAP-ef-Btb">
             <objects>
-                <viewControllerPlaceholder storyboardName="Spot" referencedIdentifier="UIViewController-28g-9l-NVL" id="MRT-1m-4O1" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Spot" referencedIdentifier="NewSpotController" id="MRT-1m-4O1" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XRA-D0-kfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2956" y="1218"/>
         </scene>
-        <!--UIViewController-6uJ-a1-Lta-->
+        <!--SpotInfoController-->
         <scene sceneID="T9d-3I-H8Z">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-6uJ-a1-Lta" storyboardName="Spot" referencedIdentifier="UIViewController-6uJ-a1-Lta" id="NSi-G1-27x" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="SpotInfoController" storyboardName="Spot" referencedIdentifier="SpotInfoController" id="NSi-G1-27x" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brR-Tr-oCF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2960" y="643"/>
         </scene>
-        <!--UIViewController-LlJ-V1-BNZ-->
+        <!--PostStripController-->
         <scene sceneID="6DI-bf-D8B">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-LlJ-V1-BNZ" storyboardName="Main" referencedIdentifier="UIViewController-LlJ-V1-BNZ" id="smk-hz-GRX" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="PostStripController" storyboardName="Main" referencedIdentifier="PostStripController" id="smk-hz-GRX" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="clN-tp-JxI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2958" y="931"/>

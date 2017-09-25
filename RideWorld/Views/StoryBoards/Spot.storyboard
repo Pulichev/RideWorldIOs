@@ -12,7 +12,7 @@
         <!--New Spot Controller-->
         <scene sceneID="hrt-Z5-8f9">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-28g-9l-NVL" automaticallyAdjustsScrollViewInsets="NO" id="28g-9l-NVL" customClass="NewSpotController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewSpotController" automaticallyAdjustsScrollViewInsets="NO" id="28g-9l-NVL" customClass="NewSpotController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7bo-0z-85p"/>
                         <viewControllerLayoutGuide type="bottom" id="2Fa-YJ-abt"/>
@@ -190,7 +190,7 @@
         <!--SpotInfoController-->
         <scene sceneID="O6t-7g-atA">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-6uJ-a1-Lta" automaticallyAdjustsScrollViewInsets="NO" id="6uJ-a1-Lta" userLabel="SpotInfoController" customClass="SpotInfoController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SpotInfoController" automaticallyAdjustsScrollViewInsets="NO" id="6uJ-a1-Lta" userLabel="SpotInfoController" customClass="SpotInfoController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wsg-zA-1Te"/>
                         <viewControllerLayoutGuide type="bottom" id="nZM-aB-FfF"/>
@@ -469,7 +469,7 @@
         <!--Navigation Controller-->
         <scene sceneID="5o6-bx-24x">
             <objects>
-                <navigationController storyboardIdentifier="UINavigationController-B8Z-Pl-NXo" automaticallyAdjustsScrollViewInsets="NO" id="B8Z-Pl-NXo" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SpotNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="B8Z-Pl-NXo" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="PostStripItem" selectedImage="PostStripItem" id="ObW-9v-5R9">
                         <inset key="imageInsets" minX="0.0" minY="8" maxX="0.0" maxY="-8"/>
                     </tabBarItem>
@@ -487,26 +487,26 @@
             </objects>
             <point key="canvasLocation" x="3614" y="2382"/>
         </scene>
-        <!--UIViewController-MsB-Ex-yak-->
+        <!--UserProfileController-->
         <scene sceneID="Jw1-at-J2s">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-MsB-Ex-yak" storyboardName="Main" referencedIdentifier="UIViewController-MsB-Ex-yak" id="pdm-W3-Qp7" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="UserProfileController" storyboardName="Main" referencedIdentifier="UserProfileController" id="pdm-W3-Qp7" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="anw-bP-2ui" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5126" y="1938"/>
         </scene>
-        <!--UIViewController-MKp-Ss-8Kb-->
+        <!--RiderController-->
         <scene sceneID="AcA-y8-LUP">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UIViewController-MKp-Ss-8Kb" storyboardName="Main" referencedIdentifier="UIViewController-MKp-Ss-8Kb" id="bUd-fs-ssz" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="RiderController" storyboardName="Main" referencedIdentifier="RiderController" id="bUd-fs-ssz" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FyG-qX-XpB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4843" y="2841"/>
         </scene>
-        <!--UIViewController-LlJ-V1-BNZ-->
+        <!--PostStripController-->
         <scene sceneID="xaH-eM-M7r">
             <objects>
-                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="UIViewController-LlJ-V1-BNZ" id="Hxh-du-tBt" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="PostStripController" id="Hxh-du-tBt" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7zO-z2-cjg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4044" y="2841"/>

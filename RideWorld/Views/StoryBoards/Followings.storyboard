@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Followers Controller-->
+        <scene sceneID="Rv1-dO-VKW">
+            <objects>
+                <viewController storyboardIdentifier="UIViewController-7kR-w8-gJL" automaticallyAdjustsScrollViewInsets="NO" id="7kR-w8-gJL" customClass="FollowersController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uvA-Hn-mOI"/>
+                        <viewControllerLayoutGuide type="bottom" id="Exw-I9-bcL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="350-Bi-pTK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Mj-NBR" userLabel="TableView">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FollowersCell" rowHeight="52" id="kVo-9F-P8O" customClass="FollowersCell" customModule="RideWorld" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kVo-9F-P8O" id="4LW-F1-zBL">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkp-Wv-5RT" customClass="FollowButton" customModule="RideWorld" customModuleProvider="target">
+                                                    <rect key="frame" x="255" y="11" width="115" height="30"/>
+                                                    <color key="backgroundColor" red="0.71372549019999998" green="0.74509803919999995" blue="0.74509803919999995" alpha="0.25" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="115" id="WHE-dw-DCP"/>
+                                                        <constraint firstAttribute="height" constant="30" id="nj5-rv-6Zr"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="...">
+                                                        <color key="titleColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="followButtonTapped:" destination="kVo-9F-P8O" eventType="touchUpInside" id="itb-e4-Qss"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3c-Z5-gxY">
+                                                    <rect key="frame" x="52" y="5" width="195" height="42"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-eE-b3b" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
+                                                    <rect key="frame" x="5" y="5" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="0eh-eE-b3b" secondAttribute="height" multiplier="1:1" id="duk-oV-Zgs"/>
+                                                        <constraint firstAttribute="width" constant="40" id="t8E-lO-wTn"/>
+                                                        <constraint firstAttribute="height" constant="40" id="zqP-MC-Mla"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="nkp-Wv-5RT" firstAttribute="leading" secondItem="c3c-Z5-gxY" secondAttribute="trailing" constant="8" id="017-dA-h1L"/>
+                                                <constraint firstItem="c3c-Z5-gxY" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="top" constant="5" id="1Pq-hk-HXd"/>
+                                                <constraint firstAttribute="bottom" secondItem="c3c-Z5-gxY" secondAttribute="bottom" constant="5" id="8ih-TH-Ssy"/>
+                                                <constraint firstAttribute="bottom" secondItem="nkp-Wv-5RT" secondAttribute="bottom" constant="10.75" id="T58-88-SWZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="nkp-Wv-5RT" secondAttribute="trailing" constant="5" id="bej-Kg-mUB"/>
+                                                <constraint firstItem="0eh-eE-b3b" firstAttribute="leading" secondItem="4LW-F1-zBL" secondAttribute="leading" constant="5" id="gk0-RF-3tj"/>
+                                                <constraint firstItem="c3c-Z5-gxY" firstAttribute="leading" secondItem="0eh-eE-b3b" secondAttribute="trailing" constant="7" id="h5A-1e-Fc2"/>
+                                                <constraint firstItem="0eh-eE-b3b" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="top" constant="5" id="icf-qj-oRc"/>
+                                                <constraint firstItem="nkp-Wv-5RT" firstAttribute="top" secondItem="4LW-F1-zBL" secondAttribute="top" constant="10.75" id="icj-UD-5WB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="button" destination="nkp-Wv-5RT" id="4Ee-ic-h4K"/>
+                                            <outlet property="nickName" destination="c3c-Z5-gxY" id="Yga-WX-c5C"/>
+                                            <outlet property="userImage" destination="0eh-eE-b3b" id="XPO-R9-1Xv"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="7kR-w8-gJL" id="k0s-GX-gMh"/>
+                                    <outlet property="delegate" destination="7kR-w8-gJL" id="rJy-fG-uxL"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Zb5-Mj-NBR" secondAttribute="trailing" id="ELI-0y-bdl"/>
+                            <constraint firstItem="Zb5-Mj-NBR" firstAttribute="top" secondItem="uvA-Hn-mOI" secondAttribute="bottom" id="QWW-7g-emb"/>
+                            <constraint firstItem="Exw-I9-bcL" firstAttribute="top" secondItem="Zb5-Mj-NBR" secondAttribute="bottom" id="Wr9-x3-cSI"/>
+                            <constraint firstItem="Zb5-Mj-NBR" firstAttribute="leading" secondItem="350-Bi-pTK" secondAttribute="leading" id="s6x-rY-TY5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="Zb5-Mj-NBR" id="OLO-nr-WC0"/>
+                        <segue destination="8A6-Ce-SPL" kind="show" identifier="openUserProfileFromFollowList" id="Oe2-wo-WXX"/>
+                        <segue destination="jHz-4w-xmT" kind="show" identifier="openRidersProfileFromFollowList" id="WTf-CW-Cn6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nug-XO-aGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2244" y="-747"/>
+        </scene>
+        <!--Spot Followings Controller-->
+        <scene sceneID="REA-84-fQo">
+            <objects>
+                <viewController storyboardIdentifier="UIViewController-ZNP-je-M59" automaticallyAdjustsScrollViewInsets="NO" id="ZNP-je-M59" customClass="SpotFollowingsController" customModule="RideWorld" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fpR-Sz-VAL"/>
+                        <viewControllerLayoutGuide type="bottom" id="6aC-uU-bx8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VWH-FY-siQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="J3P-b1-lga">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SpotFollowingCell" rowHeight="52" id="0Jg-Q3-elW" customClass="SpotFollowingCell" customModule="RideWorld" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Jg-Q3-elW" id="Eqz-KN-UQE">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="51.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYi-27-4I5">
+                                                    <rect key="frame" x="52" y="5" width="195" height="42"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M0Q-xP-rU1" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
+                                                    <rect key="frame" x="5" y="5.5" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="HFl-yS-exX"/>
+                                                        <constraint firstAttribute="height" constant="40" id="vN4-We-4jE"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MDF-cI-KiF" customClass="FollowButton" customModule="RideWorld" customModuleProvider="target">
+                                                    <rect key="frame" x="257" y="10" width="115" height="30"/>
+                                                    <color key="backgroundColor" red="0.71372549019999998" green="0.74509803919999995" blue="0.74509803919999995" alpha="0.25040132705479451" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="27W-Tg-FL8"/>
+                                                        <constraint firstAttribute="width" constant="115" id="fve-YV-0hi"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" title="...">
+                                                        <color key="titleColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="1"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="followButtonTapped:" destination="0Jg-Q3-elW" eventType="touchUpInside" id="4bd-7i-ZBh"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="M0Q-xP-rU1" firstAttribute="leading" secondItem="Eqz-KN-UQE" secondAttribute="leading" constant="5" id="B6y-Ez-DOz"/>
+                                                <constraint firstItem="MDF-cI-KiF" firstAttribute="trailing" secondItem="Eqz-KN-UQE" secondAttribute="trailingMargin" constant="5" id="LgW-Nz-kIy"/>
+                                                <constraint firstItem="KYi-27-4I5" firstAttribute="top" secondItem="Eqz-KN-UQE" secondAttribute="top" constant="5" id="Ofc-cy-Mue"/>
+                                                <constraint firstAttribute="bottom" secondItem="KYi-27-4I5" secondAttribute="bottom" constant="4.5" id="OmP-As-eBq"/>
+                                                <constraint firstItem="M0Q-xP-rU1" firstAttribute="top" secondItem="Eqz-KN-UQE" secondAttribute="top" constant="5" id="T5l-wr-D5T"/>
+                                                <constraint firstItem="KYi-27-4I5" firstAttribute="leading" secondItem="M0Q-xP-rU1" secondAttribute="trailing" constant="7" id="TVg-M8-CvQ"/>
+                                                <constraint firstItem="MDF-cI-KiF" firstAttribute="top" secondItem="Eqz-KN-UQE" secondAttribute="top" constant="10" id="cLz-ZK-W8k"/>
+                                                <constraint firstItem="M0Q-xP-rU1" firstAttribute="width" secondItem="M0Q-xP-rU1" secondAttribute="height" multiplier="1:1" id="f6I-ax-Zfp"/>
+                                                <constraint firstItem="MDF-cI-KiF" firstAttribute="leading" secondItem="KYi-27-4I5" secondAttribute="trailing" constant="10" id="h4m-ve-SOx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="button" destination="MDF-cI-KiF" id="zCt-Xo-k07"/>
+                                            <outlet property="spotImage" destination="M0Q-xP-rU1" id="sKG-cM-2lc"/>
+                                            <outlet property="spotName" destination="KYi-27-4I5" id="sOM-Ej-U46"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ZNP-je-M59" id="NAC-Dj-fA5"/>
+                                    <outlet property="delegate" destination="ZNP-je-M59" id="fS0-DC-7h6"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="J3P-b1-lga" secondAttribute="trailing" id="2UU-HQ-d2f"/>
+                            <constraint firstItem="6aC-uU-bx8" firstAttribute="top" secondItem="J3P-b1-lga" secondAttribute="bottom" id="39S-GF-vxT"/>
+                            <constraint firstItem="J3P-b1-lga" firstAttribute="leading" secondItem="VWH-FY-siQ" secondAttribute="leading" id="vIa-BR-oEt"/>
+                            <constraint firstItem="J3P-b1-lga" firstAttribute="top" secondItem="fpR-Sz-VAL" secondAttribute="bottom" id="xqT-Ne-zAb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="J3P-b1-lga" id="EaK-4H-qRK"/>
+                        <segue destination="NSi-G1-27x" kind="show" identifier="fromSpotFollowingsToSpotInfo" id="OkS-TY-PQh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wuy-V2-fhY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3631" y="-747"/>
+        </scene>
+        <!--UIViewController-6uJ-a1-Lta-->
+        <scene sceneID="T9d-3I-H8Z">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="UIViewController-6uJ-a1-Lta" storyboardName="Spot" referencedIdentifier="UIViewController-6uJ-a1-Lta" id="NSi-G1-27x" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="brR-Tr-oCF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4354" y="-748"/>
+        </scene>
+        <!--UIViewController-MKp-Ss-8Kb-->
+        <scene sceneID="c18-Zw-Zxn">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="UIViewController-MKp-Ss-8Kb" storyboardName="Rider" referencedIdentifier="UIViewController-MKp-Ss-8Kb" id="jHz-4w-xmT" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u82-Ms-h3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2950" y="-748"/>
+        </scene>
+        <!--UIViewController-MsB-Ex-yak-->
+        <scene sceneID="AFD-f8-qvw">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="UIViewController-MsB-Ex-yak" storyboardName="User" referencedIdentifier="UIViewController-MsB-Ex-yak" id="8A6-Ce-SPL" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vdx-K3-OsN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2243" y="-298"/>
+        </scene>
+    </scenes>
+</document>

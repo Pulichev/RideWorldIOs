@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       Database.database().isPersistenceEnabled = false
       // TIP: Notifications delegates are in MainTabBarController
       
-      self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+      self.storyboard = UIStoryboard(name: "Authorization", bundle: Bundle.main)
       // Setting initial viewController for user loggedIn?
       if(Auth.auth().currentUser != nil) {
          self.window?.rootViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController")

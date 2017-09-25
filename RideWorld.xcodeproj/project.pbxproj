@@ -98,6 +98,16 @@
 		9FE3CA631EFC1E7A0080BCF2 /* PostsCellWithPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3CA621EFC1E7A0080BCF2 /* PostsCellWithPhoto.swift */; };
 		9FE3FF1F1F6EF1470049215F /* PT_Sans-Web-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3FF1D1F6EF1470049215F /* PT_Sans-Web-Bold.ttf */; };
 		9FE3FF201F6EF1470049215F /* PT_Sans-Web-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3FF1E1F6EF1470049215F /* PT_Sans-Web-Regular.ttf */; };
+		9FE606941F7968DB0004DBDD /* Authorization.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE606931F7968DB0004DBDD /* Authorization.storyboard */; };
+		9FE606961F796CE00004DBDD /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE606951F796CE00004DBDD /* Search.storyboard */; };
+		9FE606981F796F400004DBDD /* Feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE606971F796F400004DBDD /* Feedback.storyboard */; };
+		9FE6069A1F7971B70004DBDD /* Spot.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE606991F7971B70004DBDD /* Spot.storyboard */; };
+		9FE6069C1F7973860004DBDD /* Rider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE6069B1F7973860004DBDD /* Rider.storyboard */; };
+		9FE6069E1F79755E0004DBDD /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE6069D1F79755E0004DBDD /* User.storyboard */; };
+		9FE606A01F79783D0004DBDD /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE6069F1F79783D0004DBDD /* Map.storyboard */; };
+		9FE606A21F7979520004DBDD /* Post.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE606A11F7979520004DBDD /* Post.storyboard */; };
+		9FE606A41F797AA70004DBDD /* Commentaries.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE606A31F797AA70004DBDD /* Commentaries.storyboard */; };
+		9FE606A61F797B310004DBDD /* Followings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FE606A51F797B310004DBDD /* Followings.storyboard */; };
 		9FE79C101ECE3BFB008BEBB2 /* TappedUserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE79C0F1ECE3BFB008BEBB2 /* TappedUserDelegate.swift */; };
 		9FE79C121ECF8604008BEBB2 /* TappedPostDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE79C111ECF8604008BEBB2 /* TappedPostDelegate.swift */; };
 		9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */; };
@@ -245,6 +255,16 @@
 		9FE3CA621EFC1E7A0080BCF2 /* PostsCellWithPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCellWithPhoto.swift; path = CustomUIElements/PostsCellWithPhoto.swift; sourceTree = "<group>"; };
 		9FE3FF1D1F6EF1470049215F /* PT_Sans-Web-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PT_Sans-Web-Bold.ttf"; path = "Views/Fonts/PT_Sans-Web-Bold.ttf"; sourceTree = "<group>"; };
 		9FE3FF1E1F6EF1470049215F /* PT_Sans-Web-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PT_Sans-Web-Regular.ttf"; path = "Views/Fonts/PT_Sans-Web-Regular.ttf"; sourceTree = "<group>"; };
+		9FE606931F7968DB0004DBDD /* Authorization.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Authorization.storyboard; path = Views/StoryBoards/Authorization.storyboard; sourceTree = "<group>"; };
+		9FE606951F796CE00004DBDD /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Search.storyboard; path = Views/StoryBoards/Search.storyboard; sourceTree = "<group>"; };
+		9FE606971F796F400004DBDD /* Feedback.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Feedback.storyboard; path = Views/StoryBoards/Feedback.storyboard; sourceTree = "<group>"; };
+		9FE606991F7971B70004DBDD /* Spot.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Spot.storyboard; path = Views/StoryBoards/Spot.storyboard; sourceTree = "<group>"; };
+		9FE6069B1F7973860004DBDD /* Rider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Rider.storyboard; path = Views/StoryBoards/Rider.storyboard; sourceTree = "<group>"; };
+		9FE6069D1F79755E0004DBDD /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = User.storyboard; path = Views/StoryBoards/User.storyboard; sourceTree = "<group>"; };
+		9FE6069F1F79783D0004DBDD /* Map.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Map.storyboard; path = Views/StoryBoards/Map.storyboard; sourceTree = "<group>"; };
+		9FE606A11F7979520004DBDD /* Post.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Post.storyboard; path = Views/StoryBoards/Post.storyboard; sourceTree = "<group>"; };
+		9FE606A31F797AA70004DBDD /* Commentaries.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Commentaries.storyboard; path = Views/StoryBoards/Commentaries.storyboard; sourceTree = "<group>"; };
+		9FE606A51F797B310004DBDD /* Followings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Followings.storyboard; path = Views/StoryBoards/Followings.storyboard; sourceTree = "<group>"; };
 		9FE79C0F1ECE3BFB008BEBB2 /* TappedUserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedUserDelegate.swift; path = Protocols/TappedUserDelegate.swift; sourceTree = "<group>"; };
 		9FE79C111ECF8604008BEBB2 /* TappedPostDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedPostDelegate.swift; path = Protocols/TappedPostDelegate.swift; sourceTree = "<group>"; };
 		9FF0135A1EAB77B300FCCCB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -374,6 +394,7 @@
 		9F6DD9C31F0ADFD900E3300E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9FE6068E1F795F000004DBDD /* Storyboards */,
 				9F0BA55E1F29241C003FBEDB /* Fonts */,
 				9F0BA5591F2766F4003FBEDB /* Modified DesignableX */,
 				9F6DD9D91F0AE0EA00E3300E /* Assets.xcassets */,
@@ -563,6 +584,23 @@
 				9FE3B71F1EC6664900E7ED40 /* LikeFBItem.swift */,
 			);
 			name = "Feedback Items";
+			sourceTree = "<group>";
+		};
+		9FE6068E1F795F000004DBDD /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				9FE606A51F797B310004DBDD /* Followings.storyboard */,
+				9FE606A31F797AA70004DBDD /* Commentaries.storyboard */,
+				9FE606A11F7979520004DBDD /* Post.storyboard */,
+				9FE6069F1F79783D0004DBDD /* Map.storyboard */,
+				9FE6069D1F79755E0004DBDD /* User.storyboard */,
+				9FE6069B1F7973860004DBDD /* Rider.storyboard */,
+				9FE606991F7971B70004DBDD /* Spot.storyboard */,
+				9FE606971F796F400004DBDD /* Feedback.storyboard */,
+				9FE606951F796CE00004DBDD /* Search.storyboard */,
+				9FE606931F7968DB0004DBDD /* Authorization.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 		9FF1BF651E9D33AF00A2CEF2 /* Model */ = {
@@ -759,18 +797,28 @@
 				9F66AD281F4DDB75009F6F69 /* ToU RU.rtf in Resources */,
 				9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */,
 				9FE3FF201F6EF1470049215F /* PT_Sans-Web-Regular.ttf in Resources */,
+				9FE606A01F79783D0004DBDD /* Map.storyboard in Resources */,
+				9FE606A21F7979520004DBDD /* Post.storyboard in Resources */,
 				9F6DD9DA1F0AE0EA00E3300E /* Assets.xcassets in Resources */,
+				9FE606A41F797AA70004DBDD /* Commentaries.storyboard in Resources */,
+				9FE6069A1F7971B70004DBDD /* Spot.storyboard in Resources */,
+				9FE606961F796CE00004DBDD /* Search.storyboard in Resources */,
 				9F2D4C971EAD21E100235451 /* delete.png in Resources */,
 				9F75ABCC1F4793C3002527B0 /* Main.storyboard in Resources */,
 				9F75ABD41F479A0C002527B0 /* Localizable.strings in Resources */,
+				9FE6069E1F79755E0004DBDD /* User.storyboard in Resources */,
+				9FE6069C1F7973860004DBDD /* Rider.storyboard in Resources */,
 				9F2D4C981EAD21E100235451 /* reply.png in Resources */,
 				9F66AD4A1F508974009F6F69 /* InfoPlist.strings in Resources */,
+				9FE606941F7968DB0004DBDD /* Authorization.storyboard in Resources */,
 				9F66AD2C1F4DEA92009F6F69 /* ToU EN.rtf in Resources */,
 				9F66AD261F4DD385009F6F69 /* PP RU.rtf in Resources */,
 				9F0AC5841E898412007ABD55 /* grayRec.jpg in Resources */,
+				9FE606A61F797B310004DBDD /* Followings.storyboard in Resources */,
 				9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */,
 				9F66AD2A1F4DEA74009F6F69 /* PP EN.rtf in Resources */,
 				9FE3FF1F1F6EF1470049215F /* PT_Sans-Web-Bold.ttf in Resources */,
+				9FE606981F796F400004DBDD /* Feedback.storyboard in Resources */,
 				9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

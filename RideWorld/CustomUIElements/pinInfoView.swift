@@ -12,8 +12,8 @@ class PinInfoView: UIView {
    private let width = 200
    private let height = 200
    
-   var goToInfoButton: UIButton!
-   var goToPostsButton: UIButton!
+   var goToInfoButton: UIButtonX!
+   var goToPostsButton: UIButtonX!
    
    override init(frame: CGRect) {
       super.init(frame: frame)
@@ -35,17 +35,21 @@ class PinInfoView: UIView {
    }
    
    private func initButtons() {
-      goToInfoButton = UIButton(frame: CGRect(x: 0, y: height - 35, width: width / 2 - 5, height: 35))
+      goToInfoButton = UIButtonX(frame: CGRect(x: 0, y: height - 35, width: width / 2 - 5, height: 35))
       goToInfoButton.setTitle(NSLocalizedString("Info", comment: ""), for: .normal)
       goToInfoButton.setTitleColor(UIColor.myBlack(), for: .normal)
-      goToInfoButton.backgroundColor = UIColor.myLightBrown()
-      goToInfoButton.layer.cornerRadius = 5
+      goToInfoButton.backgroundColor = UIColor.white
+      goToInfoButton.cornerRadius = 10
+      goToInfoButton.borderWidth = 1
+      goToInfoButton.borderColor = UIColor.myBlack()
       
-      goToPostsButton = UIButton(frame: CGRect(x: width / 2 + 5, y: height - 35, width: width / 2, height: 35))
+      goToPostsButton = UIButtonX(frame: CGRect(x: width / 2 + 5, y: height - 35, width: width / 2, height: 35))
       goToPostsButton.setTitle(NSLocalizedString("Posts", comment: ""), for: .normal)
       goToPostsButton.setTitleColor(UIColor.myBlack(), for: .normal)
-      goToPostsButton.backgroundColor = UIColor.myLightBrown()
-      goToPostsButton.layer.cornerRadius = 5
+      goToPostsButton.backgroundColor = UIColor.white
+      goToPostsButton.cornerRadius = 10
+      goToPostsButton.borderWidth = 1
+      goToPostsButton.borderColor = UIColor.myBlack()
    }
    
    func addPhoto(spot: SpotItem) {

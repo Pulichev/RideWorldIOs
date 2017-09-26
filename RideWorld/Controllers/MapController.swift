@@ -201,11 +201,17 @@ extension MapController: MKMapViewDelegate {
       annotationView.detailCalloutAccessoryView = pinfoView
    }
    
-   @objc func goToPosts() {
+   @objc func goToPosts(sender: UIButtonX) {
+      sender.endTracking(nil, with: nil) // cz of segue this function will not be called
+      // -> it will be like gray
+      
       performSegue(withIdentifier: "spotDetailsTapped", sender: self)
    }
    
-   @objc func goToInfo() {
+   @objc func goToInfo(sender: UIButtonX) {
+      sender.endTracking(nil, with: nil) // cz of segue this function will not be called
+      // -> it will be like gray
+      
       performSegue(withIdentifier: "goToSpotInfo", sender: self)
    }
    

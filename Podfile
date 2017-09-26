@@ -20,7 +20,7 @@ target 'RideWorld' do
   pod 'Gallery'
   pod 'ReadMoreTextView'
   pod 'Cosmos'
-
+  pod 'FSPagerView'
   # Pods for RideWorld
 
   target 'RideWorldTests' do

@@ -31,30 +31,6 @@
             </objects>
             <point key="canvasLocation" x="-759" y="932"/>
         </scene>
-        <!--LoginPage-->
-        <scene sceneID="hsx-lf-iYF">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="LoginPage" storyboardName="Authorization" referencedIdentifier="LoginPage" id="GGY-iT-G4U" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jg4-zK-avv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2009" y="931"/>
-        </scene>
-        <!--PasswordResetController-->
-        <scene sceneID="ZQu-uO-m8S">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="PasswordResetController" storyboardName="Authorization" referencedIdentifier="PasswordResetController" id="hH9-8J-QNc" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OD2-Hw-yIS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2010" y="620"/>
-        </scene>
-        <!--LoginController-->
-        <scene sceneID="BEK-oa-buS">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="LoginController" storyboardName="Authorization" referencedIdentifier="LoginController" id="3YA-cW-jbP" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YAS-Ko-GmG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2010" y="1195"/>
-        </scene>
         <!--Search-->
         <scene sceneID="d7b-Zn-0ST">
             <objects>
@@ -78,16 +54,16 @@
         <!--NewSpotController-->
         <scene sceneID="PAP-ef-Btb">
             <objects>
-                <viewControllerPlaceholder storyboardName="Spot" referencedIdentifier="NewSpotController" id="MRT-1m-4O1" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XRA-D0-kfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Spot" referencedIdentifier="NewSpotController" id="MRT-1m-4O1" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1318" y="1099"/>
         </scene>
         <!--SpotInfoController-->
         <scene sceneID="T9d-3I-H8Z">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="SpotInfoController" storyboardName="Spot" referencedIdentifier="SpotInfoController" id="NSi-G1-27x" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brR-Tr-oCF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="SpotInfoController" storyboardName="Spot" referencedIdentifier="SpotInfoController" id="NSi-G1-27x" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1317" y="1259"/>
         </scene>
@@ -104,16 +80,16 @@
         <!--RiderController-->
         <scene sceneID="c18-Zw-Zxn">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="RiderController" storyboardName="Rider" referencedIdentifier="RiderController" id="jHz-4w-xmT" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u82-Ms-h3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="RiderController" storyboardName="Rider" referencedIdentifier="RiderController" id="jHz-4w-xmT" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1984" y="300"/>
         </scene>
         <!--UserProfileController-->
         <scene sceneID="AFD-f8-qvw">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="UserProfileController" storyboardName="User" referencedIdentifier="UserProfileController" id="8A6-Ce-SPL" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vdx-K3-OsN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="UserProfileController" storyboardName="User" referencedIdentifier="UserProfileController" id="8A6-Ce-SPL" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1318" y="677"/>
         </scene>
@@ -130,8 +106,8 @@
         <!--TextViewController-->
         <scene sceneID="nbo-RU-c2H">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="TextViewController" storyboardName="User" referencedIdentifier="TextViewController" id="yv1-24-TOC" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h9d-pb-I6w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="TextViewController" storyboardName="User" referencedIdentifier="TextViewController" id="yv1-24-TOC" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="2681" y="1099"/>
         </scene>
@@ -148,48 +124,48 @@
         <!--MainFormController-->
         <scene sceneID="5wh-zD-vDc">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="MainFormController" storyboardName="Map" referencedIdentifier="MainFormController" id="ErD-AX-HS7" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dqp-mK-a3U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="MainFormController" storyboardName="Map" referencedIdentifier="MainFormController" id="ErD-AX-HS7" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1270" y="930"/>
         </scene>
         <!--PostStripController-->
         <scene sceneID="U4i-4W-dq0">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="PostStripController" storyboardName="Post" referencedIdentifier="PostStripController" id="Ooh-9E-xMt" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qm0-pH-n2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="PostStripController" storyboardName="Post" referencedIdentifier="PostStripController" id="Ooh-9E-xMt" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1991" y="677"/>
         </scene>
         <!--PostInfoController-->
         <scene sceneID="SuO-Nc-cuV">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="PostInfoController" storyboardName="Post" referencedIdentifier="PostInfoController" id="myz-iG-z9e" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c1F-Cf-1D1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="PostInfoController" storyboardName="Post" referencedIdentifier="PostInfoController" id="myz-iG-z9e" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1992" y="874"/>
         </scene>
         <!--CommentariesController-->
         <scene sceneID="u8c-YQ-f7y">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="CommentariesController" storyboardName="Commentaries" referencedIdentifier="CommentariesController" id="aY2-6Z-KJf" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1dc-hk-IF5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="CommentariesController" storyboardName="Commentaries" referencedIdentifier="CommentariesController" id="aY2-6Z-KJf" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1987" y="1068"/>
         </scene>
         <!--FollowersController-->
         <scene sceneID="i3p-gc-DdE">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="FollowersController" storyboardName="Followings" referencedIdentifier="FollowersController" id="0VW-kD-DIJ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IuJ-wB-3b7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="FollowersController" storyboardName="Followings" referencedIdentifier="FollowersController" id="0VW-kD-DIJ" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1320" y="558"/>
         </scene>
         <!--SpotFollowingsController-->
         <scene sceneID="8YY-zW-jbX">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="SpotFollowingsController" storyboardName="Followings" referencedIdentifier="SpotFollowingsController" id="aUq-6d-VZB" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q5y-kV-iqH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="SpotFollowingsController" storyboardName="Followings" referencedIdentifier="SpotFollowingsController" id="aUq-6d-VZB" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1987" y="496"/>
         </scene>

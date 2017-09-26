@@ -673,7 +673,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="DLc-4R-jfw">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="D3j-uG-cGi">
-                            <color key="tintColor" red="0.14901960780000001" green="0.2274509804" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" red="0.91764705879999997" green="0.88235294119999996" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="savePost:" destination="ULr-hs-bKD" id="Lho-pz-i6o"/>
                             </connections>

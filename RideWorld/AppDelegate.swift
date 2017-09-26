@@ -48,6 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       UITabBar.appearance().barTintColor = UIColor.myBlack()
       UITabBar.appearance().tintColor = UIColor.myLightBrown()
       UILabel.appearance().defaultFont =  UIFont(name: "PT Sans", size: 15.0)
+      UILabel.appearance(whenContainedInInstancesOf: [UIButton.self]).defaultFont = UIFont(name: "PT Sans", size: 15.0)
    }
    
    func applicationWillResignActive(_ application: UIApplication) {

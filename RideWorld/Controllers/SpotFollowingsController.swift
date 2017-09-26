@@ -113,11 +113,11 @@ extension SpotFollowingsController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSour
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
          let str = ":("
-         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+         let attrs = [NSAttributedStringKey.font: UIFont(name: "PTSans-Bold", size: 22)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
          let str = NSLocalizedString("Wait, please", comment: "")
-         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+         let attrs = [NSAttributedStringKey.font: UIFont(name: "PTSans-Bold", size: 22)]
          return NSAttributedString(string: str, attributes: attrs)
       }
    }
@@ -125,11 +125,11 @@ extension SpotFollowingsController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSour
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       if haveWeFinishedLoading {
          let str = NSLocalizedString("Nothing to show.", comment: "")
-         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+         let attrs = [NSAttributedStringKey.font: UIFont(name: "PT Sans", size: 19.0)]
          return NSAttributedString(string: str, attributes: attrs)
       } else {
          let str = NSLocalizedString("Loading list..", comment: "")
-         let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+         let attrs = [NSAttributedStringKey.font: UIFont(name: "PT Sans", size: 19.0)]
          return NSAttributedString(string: str, attributes: attrs)
       }
    }

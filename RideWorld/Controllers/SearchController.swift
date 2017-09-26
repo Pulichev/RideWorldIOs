@@ -258,13 +258,13 @@ extension SearchController: UISearchResultsUpdating {
 extension SearchController: DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       let str = NSLocalizedString("Nothing to show", comment: "")
-      let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+      let attrs = [NSAttributedStringKey.font: UIFont(name: "PTSans-Bold", size: 22)]
       return NSAttributedString(string: str, attributes: attrs)
    }
    
    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
       let str = NSLocalizedString("Start entering something", comment: "")
-      let attrs = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+      let attrs = [NSAttributedStringKey.font: UIFont(name: "PT Sans", size: 19.0)]
       return NSAttributedString(string: str, attributes: attrs)
    }
 }

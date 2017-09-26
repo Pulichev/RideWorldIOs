@@ -11,8 +11,9 @@ import Kingfisher
 import SVProgressHUD
 import Gallery
 import Photos
+import FSPagerView
 
-class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
    
    weak var delegateFollowTaps: FollowTappedFromSpotInfo?
    weak var spotInfoOnMapDelegate: SpotInfoOnMapDelegate?
@@ -20,6 +21,17 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
    var spotInfo: SpotItem!
    var user: UserItem!
    @IBOutlet weak var modifyButton: UIButtonX!
+   
+   @IBOutlet weak var pagerView: FSPagerView! {
+      didSet {
+         pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "SpotFSPagerViewCell")
+         pagerView.transformer = FSPagerViewTransformer(type: .overlap)
+         pagerView.isInfinite = true
+         pagerView.automaticSlidingInterval = 2.5
+         pagerView.interitemSpacing = 10
+         pagerView.itemSize = CGSize(width: 315, height: 320)
+      }
+   }
    
    @IBOutlet weak var photosCollection: UICollectionView!
    
@@ -40,21 +52,20 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
       initUserLabel()
       initFollowButton()
    }
-   
-   // MARK: - Photo collection part
-   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+   // MARK: - FSPager part
+   public func numberOfItems(in pagerView: FSPagerView) -> Int {
       return photosURLs.count
    }
    
-   func collectionView(_ collectionView: UICollectionView,
-                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      let cell = collectionView.dequeueReusableCell(
-         withReuseIdentifier: "ImageCollectionViewCell", for: indexPath as IndexPath)
-         as! ImageCollectionViewCell
-      let photoURL = URL(string: photosURLs[indexPath.row])
-      cell.postPicture.kf.setImage(with: photoURL!)
-      cell.postPicture.clipsToBounds = true
-      cell.postPicture.layer.cornerRadius = 10
+   public func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
+      let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "SpotFSPagerViewCell", at: index)
+      
+      let photoURL = URL(string: photosURLs[index])
+      cell.imageView?.kf.setImage(with: photoURL!)
+      cell.imageView?.frame.size.height = 320
+      cell.imageView?.frame.size.width = 315
+      cell.imageView?.contentMode = .scaleAspectFit
       
       return cell
    }
@@ -63,7 +74,7 @@ class SpotInfoController: UIViewController, UICollectionViewDataSource, UICollec
       self.photosURLs.append(self.spotInfo.mainPhotoRef)
       Spot.getAllPhotosURLs(for: spotInfo.key) { photoURLs in
          self.photosURLs.append(contentsOf: photoURLs)
-         self.photosCollection.reloadData()
+         self.pagerView.reloadData()
       }
    }
    
@@ -166,7 +177,7 @@ extension SpotInfoController: SpotInfoOnMapDelegate {
       desc.text = spotInfo.description
       // update main photo (first in array)
       photosURLs[0] = spot.mainPhotoRef
-      self.photosCollection.reloadData()
+      self.pagerView.reloadData()
    }
 }
 
@@ -191,7 +202,7 @@ extension SpotInfoController : GalleryControllerDelegate {
          if url != nil {
             self.photosURLs.append(url!)
             
-            self.photosCollection.reloadData()
+            self.pagerView.reloadData()
          }
          
          SVProgressHUD.dismiss()

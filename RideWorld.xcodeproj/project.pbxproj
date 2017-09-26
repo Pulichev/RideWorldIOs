@@ -68,6 +68,7 @@
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
 		9FB681CB1E2E70CE00D9A436 /* RideWorldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681CA1E2E70CE00D9A436 /* RideWorldTests.swift */; };
 		9FB681D61E2E70CE00D9A436 /* RideWorldUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681D51E2E70CE00D9A436 /* RideWorldUITests.swift */; };
+		9FBBFDBF1F7ACF06001120A8 /* SpotFSPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBBFDBE1F7ACF06001120A8 /* SpotFSPagerViewCell.swift */; };
 		9FBCFAE81E73445900A5C95D /* MyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCFAE71E73445900A5C95D /* MyImage.swift */; };
 		9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FC91E48E5E30097579B /* LoginController.swift */; };
 		9FC14FD01E48E5E30097579B /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC14FCA1E48E5E30097579B /* MapController.swift */; };
@@ -224,6 +225,7 @@
 		9FB681D11E2E70CE00D9A436 /* RideWorldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RideWorldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB681D51E2E70CE00D9A436 /* RideWorldUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideWorldUITests.swift; sourceTree = "<group>"; };
 		9FB681D71E2E70CE00D9A436 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FBBFDBE1F7ACF06001120A8 /* SpotFSPagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpotFSPagerViewCell.swift; path = CustomUIElements/SpotFSPagerViewCell.swift; sourceTree = "<group>"; };
 		9FBCFAE71E73445900A5C95D /* MyImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyImage.swift; path = Core/MyImage.swift; sourceTree = "<group>"; };
 		9FC14FC91E48E5E30097579B /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginController.swift; path = Controllers/LoginController.swift; sourceTree = "<group>"; };
 		9FC14FCA1E48E5E30097579B /* MapController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapController.swift; path = Controllers/MapController.swift; sourceTree = "<group>"; };
@@ -564,6 +566,7 @@
 				9F9F9C431F0188E000871628 /* MediaContainerView.swift */,
 				9F58FC811F422A55005502E2 /* CellWithButton.swift */,
 				9F66AD211F4C882F009F6F69 /* SpotFollowingCell.swift */,
+				9FBBFDBE1F7ACF06001120A8 /* SpotFSPagerViewCell.swift */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -1115,6 +1118,7 @@
 				9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */,
 				9F2979021E903BDC0051EF5F /* CommentItem.swift in Sources */,
 				9FF1BF701E9D707400A2CEF2 /* UserModel.swift in Sources */,
+				9FBBFDBF1F7ACF06001120A8 /* SpotFSPagerViewCell.swift in Sources */,
 				9F66AD2E1F4DF815009F6F69 /* TextViewController.swift in Sources */,
 				9FE3B71C1EC665E500E7ED40 /* CommentFBItem.swift in Sources */,
 				9F5609851E7C6BB50000DB21 /* PostsCellWithVideo.swift in Sources */,

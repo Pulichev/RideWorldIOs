@@ -1,0 +1,45 @@
+
+/* Class = "UITextField"; placeholder = "Enter password"; ObjectID = "6z7-RQ-RwM"; */
+"6z7-RQ-RwM.placeholder" = "Введите пароль";
+
+/* Class = "UITextField"; placeholder = "Enter login"; ObjectID = "885-uW-Tnk"; */
+"885-uW-Tnk.placeholder" = "Введите логин";
+
+/* Class = "UITextField"; placeholder = "Enter password"; ObjectID = "8Mi-bf-7Oa"; */
+"8Mi-bf-7Oa.placeholder" = "Введите пароль";
+
+/* Class = "UILabel"; text = "Password Reset"; ObjectID = "IIf-lD-YfY"; */
+"IIf-lD-YfY.text" = "Восстановление пароля";
+
+/* Class = "UILabel"; text = "Registration"; ObjectID = "JBV-xC-GWI"; */
+"JBV-xC-GWI.text" = "Регистрация";
+
+/* Class = "UITextField"; placeholder = "Enter login"; ObjectID = "TcQ-Ca-XWa"; */
+"TcQ-Ca-XWa.placeholder" = "Введите логин";
+
+/* Class = "UIButton"; normalTitle = "Sign up"; ObjectID = "ZtR-FJ-INY"; */
+"ZtR-FJ-INY.normalTitle" = "Регистрация";
+
+/* Class = "UIButton"; normalTitle = "Send E-Mail"; ObjectID = "dJ5-oc-I9H"; */
+"dJ5-oc-I9H.normalTitle" = "Отправить E-Mail";
+
+/* Class = "UIButton"; normalTitle = "LogIn"; ObjectID = "f8W-0p-xYO"; */
+"f8W-0p-xYO.normalTitle" = "Войти";
+
+/* Class = "UILabel"; text = "RideWorld"; ObjectID = "fg7-lC-EhL"; */
+"fg7-lC-EhL.text" = "RideWorld";
+
+/* Class = "UITextField"; placeholder = "Enter E-Mail"; ObjectID = "gbV-ec-zR7"; */
+"gbV-ec-zR7.placeholder" = "Введите E-Mail";
+
+/* Class = "UINavigationItem"; title = "Login Page"; ObjectID = "h6R-0q-QdM"; */
+"h6R-0q-QdM.title" = "Страница входа";
+
+/* Class = "UIButton"; normalTitle = "Forgot password?"; ObjectID = "i7s-io-2Iy"; */
+"i7s-io-2Iy.normalTitle" = "Забыли пароль?";
+
+/* Class = "UIButton"; normalTitle = "SignUp"; ObjectID = "u3L-Xk-3S7"; */
+"u3L-Xk-3S7.normalTitle" = "Регистрация";
+
+/* Class = "UITextField"; placeholder = "Enter email for account"; ObjectID = "xjZ-RC-QgE"; */
+"xjZ-RC-QgE.placeholder" = "Введите E-Mail от аккаунта";

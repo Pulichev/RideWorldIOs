@@ -1,0 +1,27 @@
+
+/* Class = "UILabel"; text = "..."; ObjectID = "7qq-3j-Vh4"; */
+"7qq-3j-Vh4.text" = "...";
+
+/* Class = "UIButton"; normalTitle = "..."; ObjectID = "87a-fo-AEh"; */
+"87a-fo-AEh.normalTitle" = "...";
+
+/* Class = "UIButton"; normalTitle = "..."; ObjectID = "AYU-8z-Yyb"; */
+"AYU-8z-Yyb.normalTitle" = "...";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "Gh7-xN-dpm"; */
+"Gh7-xN-dpm.text" = "...";
+
+/* Class = "UILabel"; text = "Posts"; ObjectID = "Hnp-rZ-NUi"; */
+"Hnp-rZ-NUi.text" = "Посты";
+
+/* Class = "UILabel"; text = "Spots"; ObjectID = "NEp-g7-Y29"; */
+"NEp-g7-Y29.text" = "Споты";
+
+/* Class = "UILabel"; text = "Followers"; ObjectID = "XYd-sj-L2G"; */
+"XYd-sj-L2G.text" = "Подписчики";
+
+/* Class = "UILabel"; text = "Following"; ObjectID = "hGd-sw-9OM"; */
+"hGd-sw-9OM.text" = "Подписки";
+
+/* Class = "UILabel"; text = "Name Sename"; ObjectID = "mep-uq-G9T"; */
+"mep-uq-G9T.text" = "Имя Фамилия";

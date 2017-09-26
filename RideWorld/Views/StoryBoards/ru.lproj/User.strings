@@ -1,0 +1,54 @@
+
+/* Class = "UILabel"; text = "Name Sename"; ObjectID = "4A0-yl-41S"; */
+"4A0-yl-41S.text" = "Имя Фамилия";
+
+/* Class = "UIButton"; normalTitle = "Edit profile"; ObjectID = "6Gf-2N-ipQ"; */
+"6Gf-2N-ipQ.normalTitle" = "Настройки";
+
+/* Class = "UILabel"; text = "Following"; ObjectID = "JBU-jO-feh"; */
+"JBU-jO-feh.text" = "Подписки";
+
+/* Class = "UINavigationItem"; title = "Edit info"; ObjectID = "K70-hN-6mt"; */
+"K70-hN-6mt.title" = "Настройки";
+
+/* Class = "UIButton"; normalTitle = "Change profile photo"; ObjectID = "PKY-Ao-bNK"; */
+"PKY-Ao-bNK.normalTitle" = "Изменить фотографию";
+
+/* Class = "UILabel"; text = "Spots"; ObjectID = "PSx-v4-NHM"; */
+"PSx-v4-NHM.text" = "Споты";
+
+/* Class = "UIButton"; normalTitle = "..."; ObjectID = "RMI-Pf-SCZ"; */
+"RMI-Pf-SCZ.normalTitle" = "...";
+
+/* Class = "UILabel"; text = "Posts"; ObjectID = "a8x-sx-lun"; */
+"a8x-sx-lun.text" = "Посты";
+
+/* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "b5X-VF-8gy"; */
+"b5X-VF-8gy.title" = "Сохранить";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "bqz-vA-7nK"; */
+"bqz-vA-7nK.normalTitle" = "Кнопка";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "g3X-fD-pkd"; */
+"g3X-fD-pkd.text" = "...";
+
+/* Class = "UIButton"; normalTitle = "..."; ObjectID = "hY3-G1-obR"; */
+"hY3-G1-obR.normalTitle" = "...";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "ha0-E3-PT3"; */
+"ha0-E3-PT3.normalTitle" = "Кнопка";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "iJr-Pv-PUS"; */
+"iJr-Pv-PUS.normalTitle" = "Кнопка";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "inh-du-SlG"; */
+"inh-du-SlG.normalTitle" = "Кнопка";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "lD4-cI-JtI"; */
+"lD4-cI-JtI.normalTitle" = "Кнопка";
+
+/* Class = "UILabel"; text = "Followers"; ObjectID = "szX-pi-xgW"; */
+"szX-pi-xgW.text" = "Подписчики";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "zuD-uu-wOc"; */
+"zuD-uu-wOc.text" = "...";

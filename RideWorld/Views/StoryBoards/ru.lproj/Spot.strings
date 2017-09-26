@@ -1,0 +1,24 @@
+
+/* Class = "UIButton"; normalTitle = "Confirm"; ObjectID = "05h-Od-LVf"; */
+"05h-Od-LVf.normalTitle" = "Принять";
+
+/* Class = "UILabel"; text = "Spot name"; ObjectID = "HOd-W1-e0u"; */
+"HOd-W1-e0u.text" = "Имя спота";
+
+/* Class = "UIButton"; normalTitle = "Add Photo"; ObjectID = "JIR-BA-okl"; */
+"JIR-BA-okl.normalTitle" = "Добавить фото";
+
+/* Class = "UIButton"; normalTitle = "Go To Posts"; ObjectID = "PUz-af-Ftt"; */
+"PUz-af-Ftt.normalTitle" = "Перейти к постам";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "QU0-qy-BTX"; */
+"QU0-qy-BTX.text" = "Описание";
+
+/* Class = "UIButton"; normalTitle = "Follow"; ObjectID = "QVI-mT-qr1"; */
+"QVI-mT-qr1.normalTitle" = "Подписаться";
+
+/* Class = "UITextField"; placeholder = "Enter spot name"; ObjectID = "b0b-S2-wIf"; */
+"b0b-S2-wIf.placeholder" = "Введите название";
+
+/* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "zBc-Kf-kSL"; */
+"zBc-Kf-kSL.title" = "Сохранить";

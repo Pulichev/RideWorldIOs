@@ -1,0 +1,48 @@
+
+/* Class = "UILabel"; text = "0"; ObjectID = "5ma-Lc-Yhj"; */
+"5ma-Lc-Yhj.text" = "0";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "9M3-vR-ACh"; */
+"9M3-vR-ACh.text" = "Дата";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "AgM-qp-O1H"; */
+"AgM-qp-O1H.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "Delete"; ObjectID = "B9Q-5c-ixp"; */
+"B9Q-5c-ixp.normalTitle" = "Удалить";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "D2t-bu-omf"; */
+"D2t-bu-omf.text" = "Дата";
+
+/* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "D3j-uG-cGi"; */
+"D3j-uG-cGi.title" = "Сохранить";
+
+/* Class = "UIButton"; normalTitle = "Open commentaries"; ObjectID = "PI7-5H-s26"; */
+"PI7-5H-s26.normalTitle" = "Открыть комментарии";
+
+/* Class = "UILabel"; text = "13"; ObjectID = "VVe-KW-Miz"; */
+"VVe-KW-Miz.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "Open commentaries"; ObjectID = "VeH-SJ-JSz"; */
+"VeH-SJ-JSz.normalTitle" = "Открыть комментарии";
+
+/* Class = "UIButton"; normalTitle = "..."; ObjectID = "YyH-d5-EZL"; */
+"YyH-d5-EZL.normalTitle" = "...";
+
+/* Class = "UIButton"; normalTitle = "..."; ObjectID = "bBk-sQ-gSw"; */
+"bBk-sQ-gSw.normalTitle" = "...";
+
+/* Class = "UIButton"; normalTitle = "Add post"; ObjectID = "hxZ-GI-Soh"; */
+"hxZ-GI-Soh.normalTitle" = "Добавить пост";
+
+/* Class = "UIButton"; normalTitle = "Open commentaries"; ObjectID = "kak-qA-K8P"; */
+"kak-qA-K8P.normalTitle" = "Открыть комментарии";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "nI3-06-gHa"; */
+"nI3-06-gHa.normalTitle" = "Кнопка";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "qPv-s4-Xgo"; */
+"qPv-s4-Xgo.text" = "Дата";
+
+/* Class = "UIButton"; normalTitle = "..."; ObjectID = "vm6-jE-mIG"; */
+"vm6-jE-mIG.normalTitle" = "...";

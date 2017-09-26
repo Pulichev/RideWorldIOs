@@ -165,7 +165,7 @@ extension MapController: MKMapViewDelegate {
       var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
       
       if annotationView == nil {
-         annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)// MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+         annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
          annotationView?.canShowCallout = true
       } else {
          annotationView!.annotation = annotation

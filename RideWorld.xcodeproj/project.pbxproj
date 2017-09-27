@@ -16,9 +16,9 @@
 		9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */; };
 		9F0BA55B1F276753003FBEDB /* FloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */; };
 		9F0BA55D1F28D105003FBEDB /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0BA55C1F28D105003FBEDB /* MapButton.swift */; };
-		9F140CC41F7BFF54002D70B0 /* SpotAnnotationViewCallout.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F140CC31F7BFF54002D70B0 /* SpotAnnotationViewCallout.xib */; };
 		9F140CC61F7C01D0002D70B0 /* SpotAnnotationViewCallout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F140CC51F7C01D0002D70B0 /* SpotAnnotationViewCallout.swift */; };
 		9F140CC81F7C2292002D70B0 /* SpotAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F140CC71F7C2292002D70B0 /* SpotAnnotationView.swift */; };
+		9F1CCA651F7C24FA00AF2CBB /* SpotAnnotationViewCallout.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F1CCA671F7C24FA00AF2CBB /* SpotAnnotationViewCallout.xib */; };
 		9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */; };
 		9F2400751EE9AB2C003601F8 /* FeedbackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */; };
 		9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2978FF1E9037090051EF5F /* CommentariesController.swift */; };
@@ -164,9 +164,10 @@
 		9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForUpdatingUserProfilePosts.swift; path = Protocols/ForUpdatingUserProfilePosts.swift; sourceTree = "<group>"; };
 		9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloatingActionButton.swift; path = "Views/Modified DesignableX/FloatingActionButton.swift"; sourceTree = "<group>"; };
 		9F0BA55C1F28D105003FBEDB /* MapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapButton.swift; path = "Views/Modified DesignableX/MapButton.swift"; sourceTree = "<group>"; };
-		9F140CC31F7BFF54002D70B0 /* SpotAnnotationViewCallout.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SpotAnnotationViewCallout.xib; path = Views/CustomUIElements/SpotAnnotationViewCallout.xib; sourceTree = "<group>"; };
 		9F140CC51F7C01D0002D70B0 /* SpotAnnotationViewCallout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpotAnnotationViewCallout.swift; path = CustomUIElements/SpotAnnotationViewCallout.swift; sourceTree = "<group>"; };
 		9F140CC71F7C2292002D70B0 /* SpotAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpotAnnotationView.swift; path = CustomUIElements/SpotAnnotationView.swift; sourceTree = "<group>"; };
+		9F1CCA661F7C24FA00AF2CBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SpotAnnotationViewCallout.xib; sourceTree = "<group>"; };
+		9F1CCA691F7C250500AF2CBB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SpotAnnotationViewCallout.strings; sourceTree = "<group>"; };
 		9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditedUserInfoDelegate.swift; path = Protocols/EditedUserInfoDelegate.swift; sourceTree = "<group>"; };
 		9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackModel.swift; path = Model/DataBase/FeedbackModel.swift; sourceTree = "<group>"; };
 		9F2978FF1E9037090051EF5F /* CommentariesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesController.swift; path = Controllers/CommentariesController.swift; sourceTree = "<group>"; };
@@ -383,7 +384,7 @@
 		9F140CC21F7BFF1A002D70B0 /* CustomUIElements */ = {
 			isa = PBXGroup;
 			children = (
-				9F140CC31F7BFF54002D70B0 /* SpotAnnotationViewCallout.xib */,
+				9F1CCA671F7C24FA00AF2CBB /* SpotAnnotationViewCallout.xib */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -844,7 +845,7 @@
 				9FE606AB1F79A22B0004DBDD /* Followings.storyboard in Resources */,
 				9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */,
 				9F66AD2A1F4DEA74009F6F69 /* PP EN.rtf in Resources */,
-				9F140CC41F7BFF54002D70B0 /* SpotAnnotationViewCallout.xib in Resources */,
+				9F1CCA651F7C24FA00AF2CBB /* SpotAnnotationViewCallout.xib in Resources */,
 				9FE3FF1F1F6EF1470049215F /* PT_Sans-Web-Bold.ttf in Resources */,
 				9FE606CE1F7AB3570004DBDD /* Feedback.storyboard in Resources */,
 				9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */,
@@ -1188,6 +1189,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9F1CCA671F7C24FA00AF2CBB /* SpotAnnotationViewCallout.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9F1CCA661F7C24FA00AF2CBB /* Base */,
+				9F1CCA691F7C250500AF2CBB /* ru */,
+			);
+			name = SpotAnnotationViewCallout.xib;
+			path = Views/CustomUIElements;
+			sourceTree = "<group>";
+		};
 		9F66AD481F508974009F6F69 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -312,7 +312,10 @@ extension MapController: CLLocationManagerDelegate {
          UIView.animate(withDuration: 0.3, animations: {
             // return button to .identity
             self.addNewSpotButton.transform = .identity
-            self.addNewSpotButton.backgroundColor = UIColor.myLightGray()
+            self.addNewSpotButton.backgroundColor = UIColor.myBlack()
+            self.addNewSpotButton.borderWidth = 2.0
+            self.addNewSpotButton.tintColor = UIColor.white
+            
             self.closeMenu()
          })
          
@@ -329,7 +332,9 @@ extension MapController: CLLocationManagerDelegate {
       UIView.animate(withDuration: 0.3, animations: {
          // return button to .identity
          self.addNewSpotButton.transform = .identity
-         self.addNewSpotButton.backgroundColor = UIColor.myLightGray()
+         self.addNewSpotButton.backgroundColor = UIColor.myBlack()
+         self.addNewSpotButton.borderWidth = 2.0
+         self.addNewSpotButton.tintColor = UIColor.white
          
          self.closeMenu()
       })

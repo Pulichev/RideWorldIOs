@@ -14,6 +14,7 @@ class PinInfoView: UIView {
    
    var goToInfoButton: UIButtonX!
    var goToPostsButton: UIButtonX!
+   var title: UILabelX!
    
    override init(frame: CGRect) {
       super.init(frame: frame)

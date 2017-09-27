@@ -16,6 +16,8 @@
 		9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */; };
 		9F0BA55B1F276753003FBEDB /* FloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */; };
 		9F0BA55D1F28D105003FBEDB /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0BA55C1F28D105003FBEDB /* MapButton.swift */; };
+		9F140CC41F7BFF54002D70B0 /* SpotAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F140CC31F7BFF54002D70B0 /* SpotAnnotationView.xib */; };
+		9F140CC61F7C01D0002D70B0 /* SpotAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F140CC51F7C01D0002D70B0 /* SpotAnnotationView.swift */; };
 		9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */; };
 		9F2400751EE9AB2C003601F8 /* FeedbackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */; };
 		9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2978FF1E9037090051EF5F /* CommentariesController.swift */; };
@@ -162,6 +164,8 @@
 		9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForUpdatingUserProfilePosts.swift; path = Protocols/ForUpdatingUserProfilePosts.swift; sourceTree = "<group>"; };
 		9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloatingActionButton.swift; path = "Views/Modified DesignableX/FloatingActionButton.swift"; sourceTree = "<group>"; };
 		9F0BA55C1F28D105003FBEDB /* MapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapButton.swift; path = "Views/Modified DesignableX/MapButton.swift"; sourceTree = "<group>"; };
+		9F140CC31F7BFF54002D70B0 /* SpotAnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SpotAnnotationView.xib; path = Views/CustomUIElements/SpotAnnotationView.xib; sourceTree = "<group>"; };
+		9F140CC51F7C01D0002D70B0 /* SpotAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpotAnnotationView.swift; path = CustomUIElements/SpotAnnotationView.swift; sourceTree = "<group>"; };
 		9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditedUserInfoDelegate.swift; path = Protocols/EditedUserInfoDelegate.swift; sourceTree = "<group>"; };
 		9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackModel.swift; path = Model/DataBase/FeedbackModel.swift; sourceTree = "<group>"; };
 		9F2978FF1E9037090051EF5F /* CommentariesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesController.swift; path = Controllers/CommentariesController.swift; sourceTree = "<group>"; };
@@ -376,6 +380,14 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		9F140CC21F7BFF1A002D70B0 /* CustomUIElements */ = {
+			isa = PBXGroup;
+			children = (
+				9F140CC31F7BFF54002D70B0 /* SpotAnnotationView.xib */,
+			);
+			name = CustomUIElements;
+			sourceTree = "<group>";
+		};
 		9F212A291E802810003D5A8F /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +418,7 @@
 		9F6DD9C31F0ADFD900E3300E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9F140CC21F7BFF1A002D70B0 /* CustomUIElements */,
 				9FE6068E1F795F000004DBDD /* Storyboards */,
 				9F0BA55E1F29241C003FBEDB /* Fonts */,
 				9F0BA5591F2766F4003FBEDB /* Modified DesignableX */,
@@ -567,6 +580,7 @@
 				9F58FC811F422A55005502E2 /* CellWithButton.swift */,
 				9F66AD211F4C882F009F6F69 /* SpotFollowingCell.swift */,
 				9FBBFDBE1F7ACF06001120A8 /* SpotFSPagerViewCell.swift */,
+				9F140CC51F7C01D0002D70B0 /* SpotAnnotationView.swift */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -830,6 +844,7 @@
 				9FE606AB1F79A22B0004DBDD /* Followings.storyboard in Resources */,
 				9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */,
 				9F66AD2A1F4DEA74009F6F69 /* PP EN.rtf in Resources */,
+				9F140CC41F7BFF54002D70B0 /* SpotAnnotationView.xib in Resources */,
 				9FE3FF1F1F6EF1470049215F /* PT_Sans-Web-Bold.ttf in Resources */,
 				9FE606CE1F7AB3570004DBDD /* Feedback.storyboard in Resources */,
 				9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */,
@@ -1079,6 +1094,7 @@
 				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */,
+				9F140CC61F7C01D0002D70B0 /* SpotAnnotationView.swift in Sources */,
 				9F75ABD91F49FBD2002527B0 /* LanguageController.swift in Sources */,
 				9FBCFAE81E73445900A5C95D /* MyImage.swift in Sources */,
 				9FE3B70C1EBCDC4C00E7ED40 /* LoadingProcessView.swift in Sources */,

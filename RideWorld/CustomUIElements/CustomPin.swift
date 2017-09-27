@@ -11,8 +11,8 @@ import MapKit
 
 class CustomPin: NSObject, MKAnnotation {
    var spotItem: SpotItem!
-//   var title: String? = ""
    var coordinate: CLLocationCoordinate2D
+   var title: String? = ""
    
    init(coordinate: CLLocationCoordinate2D) {
       self.coordinate = coordinate

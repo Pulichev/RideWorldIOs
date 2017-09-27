@@ -63,9 +63,7 @@ class MapController: UIViewController {
    func addPinsOnMap() {
       for spot in spotsFromDB {
          let pin = CustomPin(coordinate: CLLocationCoordinate2DMake(spot.latitude, spot.longitude))
-//         pin.coordinate =
-         //pin.title = "a" //spot.name
-//         pin.subtitle = spot.description
+
          pin.spotItem = spot
          
          mapView.addAnnotation(pin)
@@ -143,14 +141,14 @@ class MapController: UIViewController {
 extension MapController: MKMapViewDelegate {
    //download pictures and etc on tap on pin
    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-//      if !(view.annotation! is MKUserLocation)
-//         && view.annotation?.title! != NSLocalizedString("New spot", comment: "") {
+      if !(view.annotation! is MKUserLocation)
+         && view.annotation?.title! != NSLocalizedString("New spot", comment: "") {
       
          let customPin = view.annotation as! CustomPin
          spotDetailsForSendToPostsStripController = customPin.spotItem
          
          configureDetailView(annotationView: view, spotPin: customPin.spotItem)
-//      }
+      }
    }
    
    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -166,7 +164,7 @@ extension MapController: MKMapViewDelegate {
       var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
       
       if annotationView == nil {
-         annotationView = AnnotationView(annotation: annotation, reuseIdentifier: identifier)
+         annotationView = SpotAnnotationView(annotation: annotation, reuseIdentifier: identifier)
          annotationView?.canShowCallout = false
       } else {
          annotationView!.annotation = annotation
@@ -181,7 +179,7 @@ extension MapController: MKMapViewDelegate {
    }
    
    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-      if view is AnnotationView {
+      if view is SpotAnnotationView {
          for subview in view.subviews {
             subview.removeFromSuperview()
          }
@@ -202,24 +200,15 @@ extension MapController: MKMapViewDelegate {
    }
    
    private func configureDetailView(annotationView: MKAnnotationView, spotPin: SpotItem) {
-      let spotAnnotationView = Bundle.main.loadNibNamed("SpotAnnotationView", owner: self, options: nil)!.last as! SpotAnnotationView
+      let spotAnnotationViewCallout = Bundle.main.loadNibNamed("SpotAnnotationViewCallout", owner: self, options: nil)!.last as! SpotAnnotationViewCallout
       
-      spotAnnotationView.title.text = spotPin.name
-      spotAnnotationView.addPhoto(spot: spotPin)
-      spotAnnotationView.goToInfoButton.addTarget(self, action: #selector(goToInfo), for: .touchDown)
-      spotAnnotationView.goToPostsButton.addTarget(self, action: #selector(goToPosts), for: .touchDown)
+      spotAnnotationViewCallout.addPhoto(spot: spotPin)
+      spotAnnotationViewCallout.goToInfoButton.addTarget(self, action: #selector(goToInfo), for: .touchDown)
+      spotAnnotationViewCallout.goToPostsButton.addTarget(self, action: #selector(goToPosts), for: .touchDown)
       
-//      annotationView.detailCalloutAccessoryView = spotAnnotationView
-      
-      spotAnnotationView.center = CGPoint(x: annotationView.bounds.size.width / 2, y: spotAnnotationView.bounds.size.height * 0.7)
-      annotationView.addSubview(spotAnnotationView)
+      spotAnnotationViewCallout.center = CGPoint(x: annotationView.bounds.size.width / 2, y:  -spotAnnotationViewCallout.bounds.size.height * 0)
+      annotationView.addSubview(spotAnnotationViewCallout)
       mapView.setCenter((annotationView.annotation?.coordinate)!, animated: true)
-//      let pinfoView = PinInfoView()
-//      pinfoView.addPhoto(spot: spotPin)
-//      pinfoView.goToInfoButton.addTarget(self, action: #selector(goToInfo), for: .touchDown)
-//      pinfoView.goToPostsButton.addTarget(self, action: #selector(goToPosts), for: .touchDown)
-      
-//      annotationView.detailCalloutAccessoryView = pinfoView
    }
    
    @objc func goToPosts(sender: UIButtonX) {
@@ -383,11 +372,8 @@ extension MapController: CLLocationManagerDelegate {
 extension MapController: SpotInfoOnMapDelegate {
    func placeSpotOnMap(_ spot: SpotItem) {
       if let index = spotsFromDB.index(where: { $0.key == spot.key }) {
-//         let pin = CustomPin()
-//         pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
-////         pin.title = spot.name
-////         pin.subtitle = spot.description
-//         pin.spotItem = spot
+         let pin = CustomPin(coordinate: CLLocationCoordinate2DMake(spot.latitude, spot.longitude))
+         pin.spotItem = spot
          
          // remove old annotation
          // find old annotation
@@ -396,18 +382,15 @@ extension MapController: SpotInfoOnMapDelegate {
          spotsFromDB[index] = spot
          mapView.removeAnnotation(oldAnnotation)
          // add updated annotation
-//         mapView.addAnnotation(pin)
+         mapView.addAnnotation(pin)
       } else {
          // create spot
          spotsFromDB.append(spot)
          
-//         let pin = CustomPin()
-//         pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
-////         pin.title = spot.name
-////         pin.subtitle = spot.description
-//         pin.spotItem = spot
+         let pin = CustomPin(coordinate: CLLocationCoordinate2DMake(spot.latitude, spot.longitude))
+         pin.spotItem = spot
          
-//         mapView.addAnnotation(pin)
+         mapView.addAnnotation(pin)
       }
    }
 }

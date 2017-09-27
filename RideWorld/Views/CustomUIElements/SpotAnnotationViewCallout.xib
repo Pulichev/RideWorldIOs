@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SpotAnnotationViewCallout" customModule="RideWorld" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="190" height="190"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diT-M2-ftD" customClass="UIViewX" customModule="RideWorld" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="190" height="190"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="95"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yvC-Ih-xPL" customClass="RoundedImageView" customModule="RideWorld" customModuleProvider="target">
+                    <rect key="frame" x="1" y="1" width="188" height="188"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="188" id="5ik-9Z-35w"/>
+                        <constraint firstAttribute="height" constant="188" id="YP4-ax-2sz"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OD0-Qh-LF4" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="130" width="60" height="60"/>
+                    <color key="backgroundColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="2xQ-eN-2Y3"/>
+                        <constraint firstAttribute="height" constant="60" id="Hxg-Wh-x4b"/>
+                    </constraints>
+                    <state key="normal" title="Info">
+                        <color key="titleColor" red="0.91764705879999997" green="0.88235294119999996" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="30"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.91764705879999997" green="0.88235294119999996" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECT-ii-XOd" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                    <rect key="frame" x="130" y="130" width="60" height="60"/>
+                    <color key="backgroundColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="tCt-ts-HP9"/>
+                        <constraint firstAttribute="width" constant="60" id="uTN-6j-hoe"/>
+                    </constraints>
+                    <state key="normal" title="Posts">
+                        <color key="titleColor" red="0.91764705879999997" green="0.88235294119999996" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="30"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.91764705879999997" green="0.88235294119999996" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="diT-M2-ftD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="0yM-6R-j18"/>
+                <constraint firstItem="diT-M2-ftD" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="1LF-86-dst"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="yvC-Ih-xPL" secondAttribute="bottom" constant="1" id="22c-EA-EAX"/>
+                <constraint firstItem="yvC-Ih-xPL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="1" id="6Jh-3e-hvW"/>
+                <constraint firstAttribute="trailing" secondItem="yvC-Ih-xPL" secondAttribute="trailing" constant="1" id="Lnh-cO-zzR"/>
+                <constraint firstItem="ECT-ii-XOd" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="NTj-9o-cnH"/>
+                <constraint firstItem="OD0-Qh-LF4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="afO-bu-TyO"/>
+                <constraint firstItem="ECT-ii-XOd" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="biI-wZ-nXn"/>
+                <constraint firstItem="diT-M2-ftD" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="dTg-nj-W8g"/>
+                <constraint firstItem="OD0-Qh-LF4" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="fEJ-Qr-4Ex"/>
+                <constraint firstItem="diT-M2-ftD" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="fJH-d7-YxT"/>
+                <constraint firstItem="yvC-Ih-xPL" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="1" id="giU-Dx-5S5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="goToInfoButton" destination="OD0-Qh-LF4" id="a23-EE-Pd7"/>
+                <outlet property="goToPostsButton" destination="ECT-ii-XOd" id="T6t-Ad-1tx"/>
+                <outlet property="spotPhoto" destination="yvC-Ih-xPL" id="ghN-gX-120"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="50"/>
+        </view>
+    </objects>
+</document>

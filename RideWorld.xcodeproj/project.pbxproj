@@ -16,8 +16,9 @@
 		9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */; };
 		9F0BA55B1F276753003FBEDB /* FloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */; };
 		9F0BA55D1F28D105003FBEDB /* MapButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F0BA55C1F28D105003FBEDB /* MapButton.swift */; };
-		9F140CC41F7BFF54002D70B0 /* SpotAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F140CC31F7BFF54002D70B0 /* SpotAnnotationView.xib */; };
-		9F140CC61F7C01D0002D70B0 /* SpotAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F140CC51F7C01D0002D70B0 /* SpotAnnotationView.swift */; };
+		9F140CC41F7BFF54002D70B0 /* SpotAnnotationViewCallout.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F140CC31F7BFF54002D70B0 /* SpotAnnotationViewCallout.xib */; };
+		9F140CC61F7C01D0002D70B0 /* SpotAnnotationViewCallout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F140CC51F7C01D0002D70B0 /* SpotAnnotationViewCallout.swift */; };
+		9F140CC81F7C2292002D70B0 /* SpotAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F140CC71F7C2292002D70B0 /* SpotAnnotationView.swift */; };
 		9F212A2D1E802873003D5A8F /* EditedUserInfoDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */; };
 		9F2400751EE9AB2C003601F8 /* FeedbackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */; };
 		9F2979001E9037090051EF5F /* CommentariesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2978FF1E9037090051EF5F /* CommentariesController.swift */; };
@@ -81,7 +82,6 @@
 		9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */; };
 		9FCD27681F38ED52006A8A86 /* FollowTappedFromProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */; };
 		9FCD276C1F3E19FE006A8A86 /* PasswordResetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FCD276B1F3E19FE006A8A86 /* PasswordResetController.swift */; };
-		9FD0BF4B1EACC0D1000ACF9F /* pinInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */; };
 		9FD4A1DE1ED7591B00B4C0D2 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */; };
 		9FD4A1E31EDE019400B4C0D2 /* FeedbackItemsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */; };
 		9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D31E54587800C673CA /* RidersProfileController.swift */; };
@@ -164,8 +164,9 @@
 		9F0AC5851E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ForUpdatingUserProfilePosts.swift; path = Protocols/ForUpdatingUserProfilePosts.swift; sourceTree = "<group>"; };
 		9F0BA55A1F276753003FBEDB /* FloatingActionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloatingActionButton.swift; path = "Views/Modified DesignableX/FloatingActionButton.swift"; sourceTree = "<group>"; };
 		9F0BA55C1F28D105003FBEDB /* MapButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapButton.swift; path = "Views/Modified DesignableX/MapButton.swift"; sourceTree = "<group>"; };
-		9F140CC31F7BFF54002D70B0 /* SpotAnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SpotAnnotationView.xib; path = Views/CustomUIElements/SpotAnnotationView.xib; sourceTree = "<group>"; };
-		9F140CC51F7C01D0002D70B0 /* SpotAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpotAnnotationView.swift; path = CustomUIElements/SpotAnnotationView.swift; sourceTree = "<group>"; };
+		9F140CC31F7BFF54002D70B0 /* SpotAnnotationViewCallout.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SpotAnnotationViewCallout.xib; path = Views/CustomUIElements/SpotAnnotationViewCallout.xib; sourceTree = "<group>"; };
+		9F140CC51F7C01D0002D70B0 /* SpotAnnotationViewCallout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpotAnnotationViewCallout.swift; path = CustomUIElements/SpotAnnotationViewCallout.swift; sourceTree = "<group>"; };
+		9F140CC71F7C2292002D70B0 /* SpotAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpotAnnotationView.swift; path = CustomUIElements/SpotAnnotationView.swift; sourceTree = "<group>"; };
 		9F212A2C1E802873003D5A8F /* EditedUserInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditedUserInfoDelegate.swift; path = Protocols/EditedUserInfoDelegate.swift; sourceTree = "<group>"; };
 		9F2400741EE9AB2C003601F8 /* FeedbackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackModel.swift; path = Model/DataBase/FeedbackModel.swift; sourceTree = "<group>"; };
 		9F2978FF1E9037090051EF5F /* CommentariesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CommentariesController.swift; path = Controllers/CommentariesController.swift; sourceTree = "<group>"; };
@@ -240,7 +241,6 @@
 		9FCC4BDF1EFC742300F56ECE /* CircularProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularProgress.swift; path = Core/CircularProgress.swift; sourceTree = "<group>"; };
 		9FCD27671F38ED52006A8A86 /* FollowTappedFromProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FollowTappedFromProfile.swift; path = Protocols/FollowTappedFromProfile.swift; sourceTree = "<group>"; };
 		9FCD276B1F3E19FE006A8A86 /* PasswordResetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PasswordResetController.swift; path = Controllers/PasswordResetController.swift; sourceTree = "<group>"; };
-		9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = pinInfoView.swift; path = CustomUIElements/pinInfoView.swift; sourceTree = "<group>"; };
 		9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = Controllers/TabAndNavBars/MainTabBarController.swift; sourceTree = "<group>"; };
 		9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackItemsDelegate.swift; path = Protocols/FeedbackItemsDelegate.swift; sourceTree = "<group>"; };
 		9FD648D31E54587800C673CA /* RidersProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileController.swift; path = Controllers/RidersProfileController.swift; sourceTree = "<group>"; };
@@ -383,7 +383,7 @@
 		9F140CC21F7BFF1A002D70B0 /* CustomUIElements */ = {
 			isa = PBXGroup;
 			children = (
-				9F140CC31F7BFF54002D70B0 /* SpotAnnotationView.xib */,
+				9F140CC31F7BFF54002D70B0 /* SpotAnnotationViewCallout.xib */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -574,13 +574,13 @@
 				9F4A84441E62F58700C1E5F2 /* EditProfileCell.swift */,
 				9FFB14F71E784E4B00D10620 /* FollowersCell.swift */,
 				9F2BFEEB1E9105D3005FEF0C /* CommentCell.swift */,
-				9FD0BF4A1EACC0D1000ACF9F /* pinInfoView.swift */,
 				9FE3B70B1EBCDC4C00E7ED40 /* LoadingProcessView.swift */,
 				9F9F9C431F0188E000871628 /* MediaContainerView.swift */,
 				9F58FC811F422A55005502E2 /* CellWithButton.swift */,
 				9F66AD211F4C882F009F6F69 /* SpotFollowingCell.swift */,
 				9FBBFDBE1F7ACF06001120A8 /* SpotFSPagerViewCell.swift */,
-				9F140CC51F7C01D0002D70B0 /* SpotAnnotationView.swift */,
+				9F140CC51F7C01D0002D70B0 /* SpotAnnotationViewCallout.swift */,
+				9F140CC71F7C2292002D70B0 /* SpotAnnotationView.swift */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -844,7 +844,7 @@
 				9FE606AB1F79A22B0004DBDD /* Followings.storyboard in Resources */,
 				9F3022BE1EE5BF19001827B3 /* grayRec.png in Resources */,
 				9F66AD2A1F4DEA74009F6F69 /* PP EN.rtf in Resources */,
-				9F140CC41F7BFF54002D70B0 /* SpotAnnotationView.xib in Resources */,
+				9F140CC41F7BFF54002D70B0 /* SpotAnnotationViewCallout.xib in Resources */,
 				9FE3FF1F1F6EF1470049215F /* PT_Sans-Web-Bold.ttf in Resources */,
 				9FE606CE1F7AB3570004DBDD /* Feedback.storyboard in Resources */,
 				9FF0135B1EAB77B300FCCCB4 /* GoogleService-Info.plist in Resources */,
@@ -1094,12 +1094,12 @@
 				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */,
-				9F140CC61F7C01D0002D70B0 /* SpotAnnotationView.swift in Sources */,
+				9F140CC81F7C2292002D70B0 /* SpotAnnotationView.swift in Sources */,
+				9F140CC61F7C01D0002D70B0 /* SpotAnnotationViewCallout.swift in Sources */,
 				9F75ABD91F49FBD2002527B0 /* LanguageController.swift in Sources */,
 				9FBCFAE81E73445900A5C95D /* MyImage.swift in Sources */,
 				9FE3B70C1EBCDC4C00E7ED40 /* LoadingProcessView.swift in Sources */,
 				9FF1BF791EA2C5B600A2CEF2 /* LikeModel.swift in Sources */,
-				9FD0BF4B1EACC0D1000ACF9F /* pinInfoView.swift in Sources */,
 				9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */,
 				9F6154921EA67D4800160CB3 /* RoundedImageView.swift in Sources */,
 				9F58FC821F422A55005502E2 /* CellWithButton.swift in Sources */,

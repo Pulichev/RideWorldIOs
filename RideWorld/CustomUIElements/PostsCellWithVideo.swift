@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import ActiveLabel
 import SVProgressHUD
+import Player
 
 class PostsCellWithVideo: UITableViewCell {
    

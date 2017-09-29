@@ -21,6 +21,8 @@ target 'RideWorld' do
   pod 'ReadMoreTextView'
   pod 'Cosmos'
   pod 'FSPagerView'
+  pod 'Player', '~> 0.8.0'
+  
   # Pods for RideWorld
 
   target 'RideWorldTests' do

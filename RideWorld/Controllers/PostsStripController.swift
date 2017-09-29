@@ -15,6 +15,7 @@ import ESPullToRefresh
 import UserNotifications
 import FirebaseInstanceID
 import FirebaseMessaging
+import Player
 
 class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
@@ -368,32 +369,52 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
       // thumbnail!
-      let imageViewForView = UIImageView()
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) { (_, _, _, _) in
-         imageViewForView.layer.contentsGravity = kCAGravityResize
-         imageViewForView.contentMode = .scaleAspectFill
-         imageViewForView.frame = cell.spotPostMedia.bounds
-         
-         cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-         cell.spotPostMedia.playerLayer = imageViewForView.layer
-         
+//      let imageViewForView = UIImageView()
+//      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) { (_, _, _, _) in
+//         imageViewForView.layer.contentsGravity = kCAGravityResize
+//         imageViewForView.contentMode = .scaleAspectFill
+//         imageViewForView.frame = cell.spotPostMedia.bounds
+//
+//         cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+//         cell.spotPostMedia.playerLayer = imageViewForView.layer
+      
          self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
-      }
+//      }
    }
    
    private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
-      let assetForCache = AVAsset(url: URL(string: cell.post.videoRef)!)
+      var player = Player()
+      player.fillMode = PlayerFillMode.resizeAspectFill.avFoundationType
       
-      self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
-      cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-      let playerLayer = AVPlayerLayer(player: cell.player)
-      playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-      playerLayer.frame = cell.spotPostMedia.bounds
+      player.view.frame = cell.spotPostMedia.bounds
       
-      cell.spotPostMedia.layer.addSublayer(playerLayer)
-      cell.spotPostMedia.playerLayer = playerLayer
+      self.addChildViewController(player)
+      cell.spotPostMedia.addSubview(player.view)
+      player.didMove(toParentViewController: self)
       
-      cell.player.play()
+      player.url = URL(string: cell.post.videoRef)
+      player.muted = false
+      
+      player.playbackLoops = true
+      player.playFromBeginning()
+      
+      
+      
+      
+      
+      
+//      let assetForCache = AVAsset(url: URL(string: cell.post.videoRef)!)
+      
+//      self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
+//      cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
+//      let playerLayer = AVPlayerLayer(player: cell.player)
+//      playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+//      playerLayer.frame = cell.spotPostMedia.bounds
+//
+//      cell.spotPostMedia.layer.addSublayer(playerLayer)
+//      cell.spotPostMedia.playerLayer = playerLayer
+//
+//      cell.player.play()
    }
    
    @IBAction func addNewPost(_ sender: Any) {

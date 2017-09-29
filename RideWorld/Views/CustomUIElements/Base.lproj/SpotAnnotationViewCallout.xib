@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="PT_Sans-Web-Regular.ttf">
+            <string>PTSans-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -45,6 +50,7 @@
                         <constraint firstAttribute="width" constant="60" id="2xQ-eN-2Y3"/>
                         <constraint firstAttribute="height" constant="60" id="Hxg-Wh-x4b"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="19"/>
                     <state key="normal" title="Info">
                         <color key="titleColor" red="0.91764705879999997" green="0.88235294119999996" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </state>
@@ -67,6 +73,7 @@
                         <constraint firstAttribute="height" constant="60" id="tCt-ts-HP9"/>
                         <constraint firstAttribute="width" constant="60" id="uTN-6j-hoe"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="19"/>
                     <state key="normal" title="Posts">
                         <color key="titleColor" red="0.91764705879999997" green="0.88235294119999996" blue="0.84313725490000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </state>

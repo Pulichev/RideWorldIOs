@@ -25,7 +25,7 @@ class PostsCellWithVideo: UITableViewCell {
    
    @IBOutlet weak var spotPostMediaHeight: NSLayoutConstraint!
    @IBOutlet var spotPostMedia: MediaContainerView!
-   var player: AVPlayer!
+   var player = Player()
    
    @IBOutlet weak var postDate: UILabel!
    @IBOutlet weak var postDescription: ActiveLabel! {
@@ -69,6 +69,7 @@ class PostsCellWithVideo: UITableViewCell {
       
       addDoubleTapGestureOnPostPhotos()
       addDoubleTapGestureOnUserPhoto()
+      addTapGestureOnVideo()
    }
    
    func addDoubleTapGestureOnUserPhoto() {
@@ -89,6 +90,12 @@ class PostsCellWithVideo: UITableViewCell {
       tapOnFist.numberOfTapsRequired = 1
       isLikedPhoto.addGestureRecognizer(tapOnFist)
       isLikedPhoto.isUserInteractionEnabled = true
+   }
+   
+   func addTapGestureOnVideo() {
+      let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
+      tapGestureRecognizer.numberOfTapsRequired = 1
+      player.view.addGestureRecognizer(tapGestureRecognizer)
    }
    
    var likeEventActive = false // true, when sending request
@@ -273,6 +280,14 @@ class PostsCellWithVideo: UITableViewCell {
          description.handleMentionTap { mention in // mention is @userLogin
             self.goToUserProfile(tappedUserLogin: mention)
          }
+      }
+   }
+   
+   @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
+      if player.muted {
+         player.muted = false
+      } else {
+         player.muted = true
       }
    }
 }

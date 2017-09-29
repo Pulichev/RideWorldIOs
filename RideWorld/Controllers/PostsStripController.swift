@@ -293,11 +293,12 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
       guard let customCell = cell as? PostsCellWithVideo else { return }
       if (!customCell.post.isPhoto && customCell.player != nil) {
-         if (customCell.player.rate != 0 && (customCell.player.error == nil)) {
-            // player is playing
-            customCell.player.pause()
-            customCell.player = nil
-         }
+//         if (customCell.player.rate != 0 && (customCell.player.error == nil)) {
+//            // player is playing
+//            customCell.player.pause()
+//            customCell.player = nil
+//         }
+         customCell.player.pause()
       }
    }
    
@@ -341,19 +342,19 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       addPlaceHolder(cell: cell)
       
       //Check cache. Exists -> get it, no - plce thumbnail and download
-      if (mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
-         let cachedAsset = mediaCache.object(forKey: cacheKey) as? AVAsset
-         cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
-         let playerLayer = AVPlayerLayer(player: (cell.player))
-         playerLayer.videoGravity = AVLayerVideoGravity(rawValue: kCAGravityResizeAspectFill)
-         playerLayer.frame = cell.spotPostMedia.bounds
-         cell.spotPostMedia.layer.addSublayer(playerLayer)
-         cell.spotPostMedia.playerLayer = playerLayer
-         
-         cell.player.play()
-      } else {
+//      if (mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
+//         let cachedAsset = mediaCache.object(forKey: cacheKey) as? AVAsset
+//         cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
+//         let playerLayer = AVPlayerLayer(player: (cell.player))
+//         playerLayer.videoGravity = AVLayerVideoGravity(rawValue: kCAGravityResizeAspectFill)
+//         playerLayer.frame = cell.spotPostMedia.bounds
+//         cell.spotPostMedia.layer.addSublayer(playerLayer)
+//         cell.spotPostMedia.playerLayer = playerLayer
+//
+//         cell.player.play()
+//      } else {
          downloadBigThumbnail(postKey: posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
-      }
+//      }
    }
    
    func addPlaceHolder(cell: PostsCellWithVideo) {
@@ -369,34 +370,33 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
       // thumbnail!
-//      let imageViewForView = UIImageView()
-//      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) { (_, _, _, _) in
-//         imageViewForView.layer.contentsGravity = kCAGravityResize
-//         imageViewForView.contentMode = .scaleAspectFill
-//         imageViewForView.frame = cell.spotPostMedia.bounds
-//
-//         cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-//         cell.spotPostMedia.playerLayer = imageViewForView.layer
+      let imageViewForView = UIImageView()
+      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) { (_, _, _, _) in
+         imageViewForView.layer.contentsGravity = kCAGravityResize
+         imageViewForView.contentMode = .scaleAspectFill
+         imageViewForView.frame = cell.spotPostMedia.bounds
+
+         cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+         cell.spotPostMedia.playerLayer = imageViewForView.layer
       
          self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
-//      }
+      }
    }
    
    private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
-      var player = Player()
-      player.fillMode = PlayerFillMode.resizeAspectFill.avFoundationType
+      cell.player.fillMode = PlayerFillMode.resizeAspectFill.avFoundationType
       
-      player.view.frame = cell.spotPostMedia.bounds
+      cell.player.view.frame = cell.spotPostMedia.bounds
       
-      self.addChildViewController(player)
-      cell.spotPostMedia.addSubview(player.view)
-      player.didMove(toParentViewController: self)
+      self.addChildViewController(cell.player)
+      cell.spotPostMedia.addSubview(cell.player.view)
+      cell.player.didMove(toParentViewController: self)
       
-      player.url = URL(string: cell.post.videoRef)
-      player.muted = false
+      cell.player.url = URL(string: cell.post.videoRef)
+      cell.player.muted = true
       
-      player.playbackLoops = true
-      player.playFromBeginning()
+      cell.player.playbackLoops = true
+      cell.player.playFromBeginning()
       
       
       

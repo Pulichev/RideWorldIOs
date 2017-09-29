@@ -42,7 +42,13 @@ class SearchController: UITableViewController {
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
-      self.navigationItem.title = NSLocalizedString("Search", comment: "")
+      navigationItem.title = NSLocalizedString("Search", comment: "")
+   }
+   
+   override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      
+      searchController.isActive = false
    }
    
    // MARK: - Table View
@@ -120,8 +126,6 @@ class SearchController: UITableViewController {
             self.performSegue(withIdentifier: "fromSearchToRiderProfile", sender: self)
          }
       }
-      
-      searchController.isActive = false
    }
    
    func filterContentForSearchText(_ searchText: String) {

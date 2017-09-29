@@ -120,6 +120,8 @@ class SearchController: UITableViewController {
             self.performSegue(withIdentifier: "fromSearchToRiderProfile", sender: self)
          }
       }
+      
+      searchController.isActive = false
    }
    
    func filterContentForSearchText(_ searchText: String) {

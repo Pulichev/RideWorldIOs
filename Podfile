@@ -10,6 +10,7 @@ target 'RideWorld' do
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
   pod 'Firebase/Database'
+  pod 'FirebaseInstanceID', '2.0.0'
   pod 'Kingfisher', '~> 4.0.1'
   pod 'ActiveLabel'
   pod 'MGSwipeTableCell'

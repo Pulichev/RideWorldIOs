@@ -147,9 +147,9 @@ class NewSpotController: UIViewController, UITextFieldDelegate, UITextViewDelega
                      if hasAddedSpotSuccessfully {
                         //saving image to camera roll
                         UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil , nil)
-
+                        
                         self.spotInfoOnMapDelegate.placeSpotOnMap(newSpot)
-
+                        
                         self.goBack()
                      } else {
                         self.errorHappened()
@@ -324,14 +324,26 @@ extension NewSpotController {
    // if we tapped UITextField and then another UITextField
    @objc func keyboardWillShow(notification: NSNotification) {
       if !keyBoardAlreadyShowed {
-         view.frame.origin.y -= 200
-         keyBoardAlreadyShowed = true
+         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            UIView.animate(withDuration: 1.0, animations: {
+               self.view.frame.origin.y -= (keyboardHeight - 44) // 44 is tab bar height
+               self.keyBoardAlreadyShowed = true
+               self.view.layoutIfNeeded()
+            })
+         }
       }
    }
    
    @objc func keyboardWillHide(notification: NSNotification) {
-      view.frame.origin.y += 200
-      keyBoardAlreadyShowed = false
+      if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+         let keyboardHeight = keyboardSize.height
+         UIView.animate(withDuration: 1.0, animations: {
+            self.view.frame.origin.y += (keyboardHeight - 44) // 44 is tab bar height
+            self.keyBoardAlreadyShowed = false
+            self.view.layoutIfNeeded()
+         })
+      }
    }
    
    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

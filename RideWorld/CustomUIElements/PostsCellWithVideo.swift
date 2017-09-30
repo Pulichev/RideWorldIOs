@@ -117,6 +117,7 @@ class PostsCellWithVideo: UITableViewCell {
       soundStateImageView.frame = spotPostMedia.bounds
       
       if isMuted {
+         dismissSoundImage(isMuted: false) // we can mute and fast (<2.0s) unmute
          mutedImageLayer = soundStateImageView.layer
          
          spotPostMedia.layer.addSublayer(mutedImageLayer)
@@ -126,6 +127,7 @@ class PostsCellWithVideo: UITableViewCell {
             self.dismissSoundImage(isMuted: true)
          })
       } else {
+         dismissSoundImage(isMuted: true) // we can mute and fast (<2.0s) unmute
          unmutedImageLayer = soundStateImageView.layer
          
          spotPostMedia.layer.addSublayer(unmutedImageLayer)
@@ -139,9 +141,19 @@ class PostsCellWithVideo: UITableViewCell {
    
    private func dismissSoundImage(isMuted: Bool) {
       if isMuted {
-         mutedImageLayer.removeFromSuperlayer()
+         mutedImageLayer?.removeFromSuperlayer()
       } else {
-         unmutedImageLayer.removeFromSuperlayer()
+         unmutedImageLayer?.removeFromSuperlayer()
+      }
+   }
+   
+   @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
+      if player.muted {
+         player.muted = false
+         addSoundImage(isMuted: false)
+      } else {
+         player.muted = true
+         addSoundImage(isMuted: true)
       }
    }
    
@@ -328,16 +340,6 @@ class PostsCellWithVideo: UITableViewCell {
          description.handleMentionTap { mention in // mention is @userLogin
             self.goToUserProfile(tappedUserLogin: mention)
          }
-      }
-   }
-   
-   @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-      if player.muted {
-         player.muted = false
-         addSoundImage(isMuted: false)
-      } else {
-         player.muted = true
-         addSoundImage(isMuted: true)
       }
    }
 }

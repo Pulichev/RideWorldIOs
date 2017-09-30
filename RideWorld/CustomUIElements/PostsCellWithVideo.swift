@@ -72,14 +72,14 @@ class PostsCellWithVideo: UITableViewCell {
       addTapGestureOnVideo()
    }
    
-   func addDoubleTapGestureOnUserPhoto() {
+   private func addDoubleTapGestureOnUserPhoto() {
       let tap = UITapGestureRecognizer(target:self, action:#selector(userInfoTapped))
       tap.numberOfTapsRequired = 1
       userPhoto.addGestureRecognizer(tap)
       userPhoto.isUserInteractionEnabled = true
    }
    
-   func addDoubleTapGestureOnPostPhotos() {
+   private func addDoubleTapGestureOnPostPhotos() {
       //adding method on spot main photo tap
       let tap = UITapGestureRecognizer(target:self, action:#selector(postLiked)) //target was only self
       tap.numberOfTapsRequired = 2
@@ -92,13 +92,13 @@ class PostsCellWithVideo: UITableViewCell {
       isLikedPhoto.isUserInteractionEnabled = true
    }
    
-   func addTapGestureOnVideo() {
+   // MRK: - Video mute part
+   private func addTapGestureOnVideo() {
       let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
       tapGestureRecognizer.numberOfTapsRequired = 1
       player.view.addGestureRecognizer(tapGestureRecognizer)
    }
    
-   // MRK: - Video mute part
    var mutedImageLayer  : CALayer!
    var unmutedImageLayer: CALayer!
    

@@ -11,6 +11,7 @@ import AVFoundation
 import Kingfisher
 import ActiveLabel
 import SVProgressHUD
+import Player
 
 class PostInfoViewController: UIViewController {
    
@@ -23,7 +24,7 @@ class PostInfoViewController: UIViewController {
    @IBOutlet weak var mediaContainerHeight: NSLayoutConstraint!
    
    var isPhoto: Bool!
-   var player: AVPlayer!
+   var player = Player()
    
    @IBOutlet var postDate: UILabel!
    @IBOutlet var postDescription: ActiveLabel! {
@@ -64,6 +65,9 @@ class PostInfoViewController: UIViewController {
          
          self.initializeDate()
          self.addDoubleTapGestureOnUserPhoto()
+         if !self.postInfo.isPhoto {
+            self.addTapGestureOnVideo()
+         }
          
          self.userLoginHeaderButton.setTitle(self.postInfo.userLogin, for: .normal)
          if self.postInfo.userProfilePhoto90 != "" {
@@ -104,6 +108,72 @@ class PostInfoViewController: UIViewController {
       postDate.text = DateTimeParser.getDateTime(from: postInfo.createdDate)
    }
    
+   // MARK: - Video mute part
+   private func addTapGestureOnVideo() {
+      let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
+      tapGestureRecognizer.numberOfTapsRequired = 1
+      player.view.addGestureRecognizer(tapGestureRecognizer)
+   }
+   
+   var mutedImageLayer  : CALayer!
+   var unmutedImageLayer: CALayer!
+   
+   func addSoundImage(isMuted: Bool) {
+      var image: UIImage
+      
+      if isMuted {
+         image = UIImage(named: "soundOff")!
+      } else {
+         image = UIImage(named: "soundOn")!
+      }
+      
+      let soundStateImageView = UIImageView(image: image)
+      soundStateImageView.layer.contentsGravity = kCAGravityBottomLeft
+      soundStateImageView.contentMode = .bottomLeft
+      soundStateImageView.frame = spotPostMedia.bounds
+      
+      if isMuted {
+         dismissSoundImage(isMuted: false) // we can mute and fast (<2.0s) unmute
+         mutedImageLayer = soundStateImageView.layer
+         
+         spotPostMedia.layer.addSublayer(mutedImageLayer)
+         spotPostMedia.playerLayer = mutedImageLayer
+         // dismiss in 2 secs
+         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            self.dismissSoundImage(isMuted: true)
+         })
+      } else {
+         dismissSoundImage(isMuted: true) // we can mute and fast (<2.0s) unmute
+         unmutedImageLayer = soundStateImageView.layer
+         
+         spotPostMedia.layer.addSublayer(unmutedImageLayer)
+         spotPostMedia.playerLayer = unmutedImageLayer
+         
+         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            self.dismissSoundImage(isMuted: false)
+         })
+      }
+   }
+   
+   private func dismissSoundImage(isMuted: Bool) {
+      if isMuted {
+         mutedImageLayer?.removeFromSuperlayer()
+      } else {
+         unmutedImageLayer?.removeFromSuperlayer()
+      }
+   }
+   
+   @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
+      if player.muted {
+         player.muted = false
+         addSoundImage(isMuted: false)
+      } else {
+         player.muted = true
+         addSoundImage(isMuted: true)
+      }
+   }
+   
+   // MARK: - Like part
    private func initLikesAndDislikes() {
       Post.getLikesAndCommentsCount(for: self.postInfo.key) { (likesCount, commentsCount) in
          self.likesCountInt = likesCount
@@ -342,17 +412,20 @@ class PostInfoViewController: UIViewController {
    }
    
    private func downloadVideo() {
-      let assetForCache = AVAsset(url: URL(string: postInfo.videoRef)!)
+      player.fillMode = PlayerFillMode.resizeAspectFill.avFoundationType
       
-      player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-      let playerLayer = AVPlayerLayer(player: player)
-      playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-      playerLayer.frame = spotPostMedia.bounds
+      player.view.frame = spotPostMedia.bounds
       
-      spotPostMedia.layer.addSublayer(playerLayer)
-      spotPostMedia.playerLayer = playerLayer
+      self.addChildViewController(player)
+      spotPostMedia.addSubview(player.view)
+      player.didMove(toParentViewController: self)
       
-      player.play()
+      player.url = URL(string: postInfo.videoRef)!
+      player.muted = true
+      
+      player.playbackLoops = true
+      player.playFromBeginning()
+      addSoundImage(isMuted: true)
    }
    
    // MARK: - Delete post part

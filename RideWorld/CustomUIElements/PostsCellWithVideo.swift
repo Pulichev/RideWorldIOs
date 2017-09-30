@@ -98,6 +98,54 @@ class PostsCellWithVideo: UITableViewCell {
       player.view.addGestureRecognizer(tapGestureRecognizer)
    }
    
+   // MRK: - Video mute part
+   var mutedImageLayer  : CALayer!
+   var unmutedImageLayer: CALayer!
+   
+   func addSoundImage(isMuted: Bool) {
+      var image: UIImage
+      
+      if isMuted {
+         image = UIImage(named: "soundOff")!
+      } else {
+         image = UIImage(named: "soundOn")!
+      }
+      
+      let soundStateImageView = UIImageView(image: image)
+      soundStateImageView.layer.contentsGravity = kCAGravityBottomLeft
+      soundStateImageView.contentMode = .bottomLeft
+      soundStateImageView.frame = spotPostMedia.bounds
+      
+      if isMuted {
+         mutedImageLayer = soundStateImageView.layer
+         
+         spotPostMedia.layer.addSublayer(mutedImageLayer)
+         spotPostMedia.playerLayer = mutedImageLayer
+         // dismiss in 2 secs
+         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            self.dismissSoundImage(isMuted: true)
+         })
+      } else {
+         unmutedImageLayer = soundStateImageView.layer
+         
+         spotPostMedia.layer.addSublayer(unmutedImageLayer)
+         spotPostMedia.playerLayer = unmutedImageLayer
+         
+         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            self.dismissSoundImage(isMuted: false)
+         })
+      }
+   }
+   
+   private func dismissSoundImage(isMuted: Bool) {
+      if isMuted {
+         mutedImageLayer.removeFromSuperlayer()
+      } else {
+         unmutedImageLayer.removeFromSuperlayer()
+      }
+   }
+   
+   // MARK: - Like part
    var likeEventActive = false // true, when sending request
    
    @objc func postLiked() {
@@ -286,8 +334,10 @@ class PostsCellWithVideo: UITableViewCell {
    @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
       if player.muted {
          player.muted = false
+         addSoundImage(isMuted: false)
       } else {
          player.muted = true
+         addSoundImage(isMuted: true)
       }
    }
 }

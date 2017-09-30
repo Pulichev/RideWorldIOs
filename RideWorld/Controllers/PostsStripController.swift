@@ -396,6 +396,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       cell.player.playbackLoops = true
       cell.player.playFromBeginning()
+      cell.addSoundImage(isMuted: true)
    }
    
    @IBAction func addNewPost(_ sender: Any) {

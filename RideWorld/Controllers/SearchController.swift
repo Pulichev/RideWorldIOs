@@ -11,10 +11,10 @@ import Kingfisher
 
 class SearchController: UITableViewController {
    
-   var riders = [UserItem]()
+   var riders         = [UserItem]()
    var filteredRiders = [UserItem]()
-   var spots = [SpotItem]()
-   var filteredSpots = [SpotItem]()
+   var spots          = [SpotItem]()
+   var filteredSpots  = [SpotItem]()
    
    let searchController = UISearchController(searchResultsController: nil)
    var selectedScope = NSLocalizedString("Riders", comment: "") // default value is "Riders"
@@ -134,24 +134,25 @@ class SearchController: UITableViewController {
       
       switch self.selectedScope {
       case NSLocalizedString("Riders", comment: ""):
-         if searchText.characters.count == 1 {
+         if searchText.characters.count == 1 && tableView.numberOfRows(inSection: 0) == 0 {
             // get items from db where 1st symbol is entered character
             UserModel.searchUsersWithLogin(startedWith: searchText) { users in // original
-               self.riders = users
-               self.filteredRiders = users
-               
                // if typed "o", also search "O". And vice versa
                if String.isLowercase(string: searchText) {
-                  UserModel.searchUsersWithLogin(startedWith: upperCasedSearchText) { users in
-                     self.riders.append(contentsOf: users)
-                     self.filteredRiders.append(contentsOf: users)
+                  UserModel.searchUsersWithLogin(startedWith: upperCasedSearchText) { usersToAppend in
+                     self.riders = users
+                     self.filteredRiders = users
+                     self.riders.append(contentsOf: usersToAppend)
+                     self.filteredRiders.append(contentsOf: usersToAppend)
                      
                      self.tableView.reloadData()
                   }
                } else {
-                  UserModel.searchUsersWithLogin(startedWith: lowerCasedSearchText) { users in
-                     self.riders.append(contentsOf: users)
-                     self.filteredRiders.append(contentsOf: users)
+                  UserModel.searchUsersWithLogin(startedWith: lowerCasedSearchText) { usersToAppend in
+                     self.riders = users
+                     self.filteredRiders = users
+                     self.riders.append(contentsOf: usersToAppend)
+                     self.filteredRiders.append(contentsOf: usersToAppend)
                      
                      self.tableView.reloadData()
                   }
@@ -171,24 +172,25 @@ class SearchController: UITableViewController {
          }
          
       case NSLocalizedString("Spots", comment: ""):
-         if searchText.characters.count == 1 {
+         if searchText.characters.count == 1 && tableView.numberOfRows(inSection: 0) == 0 {
             // get items from db where 1st symbol is entered character
             Spot.searchSpotsWithName(startedWith: searchText) { spots in // original
-               self.spots = spots
-               self.filteredSpots = spots
-               
                // if typed "o", also search "O". And vice versa
                if String.isLowercase(string: searchText) {
-                  Spot.searchSpotsWithName(startedWith: upperCasedSearchText) { spots in
-                     self.spots.append(contentsOf: spots)
-                     self.filteredSpots.append(contentsOf: spots)
+                  Spot.searchSpotsWithName(startedWith: upperCasedSearchText) { spotsToAppend in
+                     self.spots = spots
+                     self.filteredSpots = spots
+                     self.spots.append(contentsOf: spotsToAppend)
+                     self.filteredSpots.append(contentsOf: spotsToAppend)
                      
                      self.tableView.reloadData()
                   }
                } else {
-                  Spot.searchSpotsWithName(startedWith: lowerCasedSearchText) { spots in
-                     self.spots.append(contentsOf: spots)
-                     self.filteredSpots.append(contentsOf: spots)
+                  Spot.searchSpotsWithName(startedWith: lowerCasedSearchText) { spotsToAppend in
+                     self.spots = spots
+                     self.filteredSpots = spots
+                     self.spots.append(contentsOf: spotsToAppend)
+                     self.filteredSpots.append(contentsOf: spotsToAppend)
                      
                      self.tableView.reloadData()
                   }

@@ -81,7 +81,7 @@ class MapController: UIViewController {
       mapView.showsBuildings = true
       
       let location = CLLocationCoordinate2D(latitude: 51.50722, longitude: -0.12750)
-      let altitude: CLLocationDistance  = 1000
+      let altitude: CLLocationDistance = 1000
       let heading: CLLocationDirection = 90
       let pitch = CGFloat(45)
       let camera = MKMapCamera(lookingAtCenter: location,
@@ -261,7 +261,7 @@ extension MapController: MKMapViewDelegate {
 // MARK: - CLLocationManagerDelegate
 extension MapController: CLLocationManagerDelegate {
    func setStartRegion() {
-      let span: MKCoordinateSpan = MKCoordinateSpanMake(0.1, 0.1)
+      let span: MKCoordinateSpan = MKCoordinateSpanMake(0.5, 0.5)
       var myLocation: CLLocationCoordinate2D
       if let coordinates = locationManager.location?.coordinate {
          myLocation = CLLocationCoordinate2DMake(coordinates.latitude,

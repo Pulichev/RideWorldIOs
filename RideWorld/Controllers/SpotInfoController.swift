@@ -151,16 +151,7 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
       let xCoord = alert.view.frame.width / 2 - 95 // (5 starts multiplied by 30 each, plus a 5 margin each / 2)
       let yCoord = CGFloat(25.0)
 
-      let newVote = CosmosView()
-      newVote.rating = 0.0
-      newVote.settings.starSize = 30
-      newVote.settings.filledImage = UIImage(named: "filledStar")
-      newVote.settings.emptyImage  = UIImage(named: "emptyStar")
-      newVote.settings.updateOnTouch = true
-      //Make a custom frame
-      newVote.frame = CGRect(x: 0, y: 0, width: 200.0, height: 60.0)
-      newVote.frame.origin.x = xCoord
-      newVote.frame.origin.y = yCoord
+      let newVote = configureNewVoteForAlert(x: xCoord, y: yCoord)
 
       let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: .destructive, handler: { alert in
          print(newVote.rating)
@@ -172,6 +163,21 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
       alert.view.addSubview(newVote)
 
       self.present(alert, animated: true)
+   }
+   
+   private func configureNewVoteForAlert(x: CGFloat, y: CGFloat) -> CosmosView {
+      let newVote = CosmosView()
+      newVote.rating = 1.0
+      newVote.settings.starSize = 30
+      newVote.settings.filledImage = UIImage(named: "filledStar")
+      newVote.settings.emptyImage  = UIImage(named: "emptyStar")
+      newVote.settings.updateOnTouch = true
+      //Make a custom frame
+      newVote.frame = CGRect(x: 0, y: 0, width: 200.0, height: 60.0)
+      newVote.frame.origin.x = x
+      newVote.frame.origin.y = y
+      
+      return newVote
    }
    
    // MARK: - prepare for segue

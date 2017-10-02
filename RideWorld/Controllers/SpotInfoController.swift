@@ -154,7 +154,8 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
       let newVote = CosmosView()
       newVote.rating = 0.0
       newVote.settings.starSize = 30
-      newVote.settings.emptyBorderColor = UIColor.myBlack()
+      newVote.settings.filledImage = UIImage(named: "filledStar")
+      newVote.settings.emptyImage  = UIImage(named: "emptyStar")
       newVote.settings.updateOnTouch = true
       //Make a custom frame
       newVote.frame = CGRect(x: 0, y: 0, width: 200.0, height: 60.0)
@@ -166,7 +167,7 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
       })
 
       alert.addAction(saveAction)
-      alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel))
 
       alert.view.addSubview(newVote)
 

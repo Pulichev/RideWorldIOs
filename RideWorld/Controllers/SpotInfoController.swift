@@ -12,6 +12,7 @@ import SVProgressHUD
 import Gallery
 import Photos
 import FSPagerView
+import Cosmos
 
 class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
    
@@ -52,7 +53,7 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
       initUserLabel()
       initFollowButton()
    }
-
+   
    // MARK: - FSPager part
    public func numberOfItems(in pagerView: FSPagerView) -> Int {
       return photosURLs.count
@@ -137,6 +138,39 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
    
    @IBAction func modifyButtonTapped(_ sender: Any) {
       performSegue(withIdentifier: "modifySpot", sender: self)
+   }
+   
+   // MARK: - Vote part
+   @IBOutlet weak var ratingView: CosmosView!
+   
+   @IBAction func addVote(_ sender: Any) {
+      //Alert for the rating
+      let alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .actionSheet)
+
+      //The x/y coordinate of the rating view
+      let xCoord = alert.view.frame.width / 2 - 95 // (5 starts multiplied by 30 each, plus a 5 margin each / 2)
+      let yCoord = CGFloat(25.0)
+
+      let newVote = CosmosView()
+      newVote.rating = 0.0
+      newVote.settings.starSize = 30
+      newVote.settings.emptyBorderColor = UIColor.myBlack()
+      newVote.settings.updateOnTouch = true
+      //Make a custom frame
+      newVote.frame = CGRect(x: 0, y: 0, width: 200.0, height: 60.0)
+      newVote.frame.origin.x = xCoord
+      newVote.frame.origin.y = yCoord
+
+      let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: .destructive, handler: { alert in
+         print(newVote.rating)
+      })
+
+      alert.addAction(saveAction)
+      alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+      alert.view.addSubview(newVote)
+
+      self.present(alert, animated: true)
    }
    
    // MARK: - prepare for segue

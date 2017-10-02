@@ -115,7 +115,7 @@
                     <navigationItem key="navigationItem" id="d3g-ZD-deq">
                         <nil key="title"/>
                         <button key="titleView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OsC-r8-WVG" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                            <rect key="frame" x="173" y="7.5" width="29" height="33"/>
+                            <rect key="frame" x="173" y="5.5" width="29" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="modifyPin"/>
                             <connections>
@@ -157,7 +157,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2Db-T9-GfG">
-                                <rect key="frame" x="0.0" y="68" width="375" height="599"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -171,7 +171,7 @@
                     <navigationItem key="navigationItem" id="ilI-yc-cTH">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Kll-Ig-4XB">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="05h-Od-LVf" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                                <rect key="frame" x="239" y="7" width="120" height="34"/>
+                                <rect key="frame" x="239" y="5" width="120" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Confirm">
@@ -288,10 +288,11 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nT-Xz-BEn" customClass="CosmosView" customModule="Cosmos">
-                                                <rect key="frame" x="10" y="415" width="175" height="28"/>
+                                                <rect key="frame" x="10" y="415" width="150" height="28"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="CUa-Xu-jZF"/>
+                                                    <constraint firstAttribute="width" constant="150" id="Vz1-rD-IrF"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
@@ -310,31 +311,7 @@
                                                         <integer key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="starSize">
-                                                        <real key="value" value="30"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxN-Vw-rfQ" customClass="CosmosView" customModule="Cosmos">
-                                                <rect key="frame" x="190" y="415" width="175" height="28"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
-                                                        <color key="value" red="1" green="0.72549019609999998" blue="0.098039215690000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
-                                                        <color key="value" red="1" green="0.72415865440000005" blue="0.099281566629999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
-                                                        <color key="value" red="1" green="0.72415865440000005" blue="0.099281566629999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="rating">
-                                                        <real key="value" value="2"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
-                                                        <integer key="value" value="5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="starSize">
-                                                        <real key="value" value="30"/>
+                                                        <real key="value" value="20"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
@@ -349,10 +326,19 @@
                                                     <outlet property="delegate" destination="6uJ-a1-Lta" id="1sG-Gm-wGv"/>
                                                 </connections>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27x-cp-xNR">
+                                                <rect key="frame" x="165" y="415" width="87" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="87" id="5g0-aM-NJP"/>
+                                                    <constraint firstAttribute="height" constant="28" id="zbH-nP-iSN"/>
+                                                </constraints>
+                                                <state key="normal" title="Add vote">
+                                                    <color key="titleColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="oxN-Vw-rfQ" firstAttribute="top" secondItem="HOd-W1-e0u" secondAttribute="bottom" constant="8" id="0Xm-OR-jsE"/>
                                             <constraint firstItem="sSb-Jv-irV" firstAttribute="top" secondItem="ssq-cN-93a" secondAttribute="top" id="42E-dx-lJR"/>
                                             <constraint firstAttribute="trailing" secondItem="PUz-af-Ftt" secondAttribute="trailing" constant="7" id="66e-qx-g3y"/>
                                             <constraint firstItem="mUH-z7-xDr" firstAttribute="leading" secondItem="ssq-cN-93a" secondAttribute="leading" constant="5" id="7MA-GS-TGf"/>
@@ -360,8 +346,6 @@
                                             <constraint firstAttribute="trailing" secondItem="QU0-qy-BTX" secondAttribute="trailing" constant="10" id="8nK-At-wne"/>
                                             <constraint firstAttribute="trailing" secondItem="HOd-W1-e0u" secondAttribute="trailing" constant="5" id="BB4-Du-cGc"/>
                                             <constraint firstItem="QU0-qy-BTX" firstAttribute="top" secondItem="5nT-Xz-BEn" secondAttribute="bottom" constant="8" id="FZE-N2-075"/>
-                                            <constraint firstAttribute="trailing" secondItem="oxN-Vw-rfQ" secondAttribute="trailing" constant="10" id="Hes-AU-d4h"/>
-                                            <constraint firstItem="oxN-Vw-rfQ" firstAttribute="width" secondItem="5nT-Xz-BEn" secondAttribute="width" id="L66-CJ-gNo"/>
                                             <constraint firstAttribute="trailing" secondItem="sSb-Jv-irV" secondAttribute="trailing" id="MQw-z7-Wps"/>
                                             <constraint firstItem="PUz-af-Ftt" firstAttribute="baseline" secondItem="JIR-BA-okl" secondAttribute="baseline" id="NCi-r1-rn0"/>
                                             <constraint firstAttribute="bottom" secondItem="mUH-z7-xDr" secondAttribute="bottom" id="R2k-UO-0Dg"/>
@@ -369,16 +353,16 @@
                                             <constraint firstItem="sSb-Jv-irV" firstAttribute="leading" secondItem="ssq-cN-93a" secondAttribute="leading" id="TZA-gB-U8s"/>
                                             <constraint firstItem="JIR-BA-okl" firstAttribute="height" secondItem="PUz-af-Ftt" secondAttribute="height" id="eDS-MW-PVk"/>
                                             <constraint firstItem="JIR-BA-okl" firstAttribute="top" secondItem="sSb-Jv-irV" secondAttribute="bottom" constant="8" id="efU-Pb-y3V"/>
-                                            <constraint firstItem="oxN-Vw-rfQ" firstAttribute="leading" secondItem="5nT-Xz-BEn" secondAttribute="trailing" constant="5" id="gM2-Sg-Hw1"/>
                                             <constraint firstItem="mUH-z7-xDr" firstAttribute="top" secondItem="QU0-qy-BTX" secondAttribute="bottom" constant="8" id="h8r-oN-9Gk"/>
+                                            <constraint firstItem="27x-cp-xNR" firstAttribute="top" secondItem="HOd-W1-e0u" secondAttribute="bottom" constant="8" id="itB-G7-PaE"/>
                                             <constraint firstItem="5nT-Xz-BEn" firstAttribute="top" secondItem="HOd-W1-e0u" secondAttribute="bottom" constant="8" id="iys-Yp-F2K"/>
-                                            <constraint firstItem="oxN-Vw-rfQ" firstAttribute="height" secondItem="5nT-Xz-BEn" secondAttribute="height" id="jIx-CU-YQI"/>
                                             <constraint firstItem="HOd-W1-e0u" firstAttribute="leading" secondItem="ssq-cN-93a" secondAttribute="leading" constant="5" id="ppu-Vc-cnZ"/>
                                             <constraint firstAttribute="trailing" secondItem="mUH-z7-xDr" secondAttribute="trailing" constant="5" id="q5p-2S-c3M"/>
                                             <constraint firstItem="5nT-Xz-BEn" firstAttribute="leading" secondItem="ssq-cN-93a" secondAttribute="leading" constant="10" id="tL5-uc-5vC"/>
                                             <constraint firstItem="JIR-BA-okl" firstAttribute="width" secondItem="PUz-af-Ftt" secondAttribute="width" id="tMq-MK-gLm"/>
                                             <constraint firstItem="PUz-af-Ftt" firstAttribute="leading" secondItem="JIR-BA-okl" secondAttribute="trailing" constant="7.5" id="uBL-Mp-1nH"/>
                                             <constraint firstItem="JIR-BA-okl" firstAttribute="leading" secondItem="ssq-cN-93a" secondAttribute="leading" constant="7" id="yOQ-90-TbG"/>
+                                            <constraint firstItem="27x-cp-xNR" firstAttribute="leading" secondItem="5nT-Xz-BEn" secondAttribute="trailing" constant="5" id="zHH-Cj-U97"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -402,7 +386,7 @@
                     <navigationItem key="navigationItem" id="AKu-vk-s0g">
                         <nil key="title"/>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uk7-Bf-Eqi" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                            <rect key="frame" x="170" y="6.5" width="35" height="35"/>
+                            <rect key="frame" x="170" y="4.5" width="35" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" backgroundImage="settings"/>
                             <connections>
@@ -411,7 +395,7 @@
                         </button>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="ZbZ-A8-nJE">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="QVI-mT-qr1">
-                                <rect key="frame" x="265" y="9" width="94" height="30"/>
+                                <rect key="frame" x="265" y="7" width="94" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Follow">
@@ -450,7 +434,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="an1-kP-YTX">
-                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

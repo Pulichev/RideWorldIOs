@@ -88,10 +88,13 @@ class MainTabBarController: UITabBarController {
       }
    }
    
+   var haveWeFinishedLoading = false // using this parameter on first load of FeedbackController
+   
    private func loadFeedbackItems() {
       Feedback.getArray() { fbItems in
          self.feedbackItems = fbItems
          
+         self.haveWeFinishedLoading = true
          if let del = self.delegateFBItemsChanges {
             del.lastUpdate(fbItems)
          }

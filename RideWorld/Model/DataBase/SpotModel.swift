@@ -266,7 +266,7 @@ struct Spot {
       
       var vote = 0
       
-      refToVote.observe(.value, with: { snapshot in
+      refToVote.observeSingleEvent(of: .value, with: { snapshot in
          if let userVote = snapshot.value as? Int {
             vote = userVote
          }

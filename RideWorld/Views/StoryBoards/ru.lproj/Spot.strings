@@ -1,4 +1,3 @@
-
 /* Class = "UIButton"; normalTitle = "Confirm"; ObjectID = "05h-Od-LVf"; */
 "05h-Od-LVf.normalTitle" = "Принять";
 
@@ -22,3 +21,6 @@
 
 /* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "zBc-Kf-kSL"; */
 "zBc-Kf-kSL.title" = "Сохранить";
+
+/* Class = "UIButton"; normalTitle = "Set my vote"; ObjectID = "27x-cp-xNR"; */
+"27x-cp-xNR.normalTitle" = "Проголосовать";

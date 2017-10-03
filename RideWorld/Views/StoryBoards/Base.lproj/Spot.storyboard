@@ -257,6 +257,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="WTg-pU-btm"/>
                                                 </constraints>
+                                                <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="17"/>
                                                 <state key="normal">
                                                     <color key="titleColor" red="0.10818527918781728" green="0.10818527918781728" blue="0.10818527918781728" alpha="0.74406035958904104" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
@@ -330,13 +331,12 @@
                                                 </connections>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27x-cp-xNR" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                                                <rect key="frame" x="215" y="415" width="87" height="28"/>
+                                                <rect key="frame" x="215" y="415" width="153" height="30"/>
                                                 <color key="backgroundColor" red="1" green="0.90588235294117647" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="87" id="5g0-aM-NJP"/>
-                                                    <constraint firstAttribute="height" constant="28" id="zbH-nP-iSN"/>
+                                                    <constraint firstAttribute="height" constant="30" id="zbH-nP-iSN"/>
                                                 </constraints>
-                                                <state key="normal" title="Add vote">
+                                                <state key="normal" title="Vote">
                                                     <color key="titleColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -372,6 +372,7 @@
                                             <constraint firstItem="27x-cp-xNR" firstAttribute="leading" secondItem="5nT-Xz-BEn" secondAttribute="trailing" constant="5" id="VCu-3f-ADO"/>
                                             <constraint firstItem="JIR-BA-okl" firstAttribute="height" secondItem="PUz-af-Ftt" secondAttribute="height" id="eDS-MW-PVk"/>
                                             <constraint firstItem="JIR-BA-okl" firstAttribute="top" secondItem="sSb-Jv-irV" secondAttribute="bottom" constant="8" id="efU-Pb-y3V"/>
+                                            <constraint firstAttribute="trailing" secondItem="27x-cp-xNR" secondAttribute="trailing" constant="7" id="g0v-YH-hQl"/>
                                             <constraint firstItem="mUH-z7-xDr" firstAttribute="top" secondItem="QU0-qy-BTX" secondAttribute="bottom" constant="8" id="h8r-oN-9Gk"/>
                                             <constraint firstItem="27x-cp-xNR" firstAttribute="top" secondItem="HOd-W1-e0u" secondAttribute="bottom" constant="8" id="itB-G7-PaE"/>
                                             <constraint firstItem="5nT-Xz-BEn" firstAttribute="top" secondItem="HOd-W1-e0u" secondAttribute="bottom" constant="8" id="iys-Yp-F2K"/>

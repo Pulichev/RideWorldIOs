@@ -186,6 +186,7 @@
 		9F5609841E7C6BB50000DB21 /* PostsCellWithVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCellWithVideo.swift; path = CustomUIElements/PostsCellWithVideo.swift; sourceTree = "<group>"; };
 		9F5609861E7C8C990000DB21 /* PostsStripController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsStripController.swift; path = Controllers/PostsStripController.swift; sourceTree = "<group>"; };
 		9F58FC811F422A55005502E2 /* CellWithButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CellWithButton.swift; path = CustomUIElements/CellWithButton.swift; sourceTree = "<group>"; };
+		9F5A0E231F83F59A00ED5747 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Spot.strings; sourceTree = "<group>"; };
 		9F6154911EA67D4800160CB3 /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedImageView.swift; path = Core/RoundedImageView.swift; sourceTree = "<group>"; };
 		9F61C20D1F0ED8230023B7D1 /* UIViewExtenstions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtenstions.swift; path = Core/UIViewExtenstions.swift; sourceTree = "<group>"; };
 		9F61C20F1F1101A00023B7D1 /* TappedSpotInfoDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TappedSpotInfoDelegate.swift; path = Protocols/TappedSpotInfoDelegate.swift; sourceTree = "<group>"; };
@@ -274,7 +275,6 @@
 		9FE606C51F7AB26B0004DBDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Rider.storyboard; sourceTree = "<group>"; };
 		9FE606C81F7AB26F0004DBDD /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Rider.strings; sourceTree = "<group>"; };
 		9FE606CA1F7AB2D90004DBDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Spot.storyboard; sourceTree = "<group>"; };
-		9FE606CD1F7AB2DC0004DBDD /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Spot.strings; sourceTree = "<group>"; };
 		9FE606CF1F7AB3570004DBDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Feedback.storyboard; sourceTree = "<group>"; };
 		9FE606D21F7AB3590004DBDD /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Feedback.strings; sourceTree = "<group>"; };
 		9FE606D41F7AB3880004DBDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Search.storyboard; sourceTree = "<group>"; };
@@ -1303,7 +1303,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9FE606CA1F7AB2D90004DBDD /* Base */,
-				9FE606CD1F7AB2DC0004DBDD /* ru */,
+				9F5A0E231F83F59A00ED5747 /* ru */,
 			);
 			name = Spot.storyboard;
 			path = Views/StoryBoards;

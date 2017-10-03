@@ -84,7 +84,7 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
    private func initUserLabel() {
       UserModel.getItemById(for: spotInfo.addedByUser) { user in
          self.user = user
-         self.addedByUser.setTitle(user.login, for: .normal)
+         self.addedByUser.setTitle(NSLocalizedString("Added by user: ", comment: "") + user.login, for: .normal)
       }
    }
    
@@ -133,7 +133,9 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
       }
    }
    
-   @IBAction func goToPostsButtonTapped(_ sender: UIButton) {
+   @IBAction func goToPostsButtonTapped(_ sender: UIButtonX) {
+      sender.endTracking(nil, with: nil) // cz of segue this function will not be called
+      // -> it will be like gray
       performSegue(withIdentifier: "fromSpotInfoToSpotPosts", sender: self)
    }
    
@@ -153,33 +155,38 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
    }
    
    @IBAction func addVote(_ sender: Any) {
-      //Alert for the rating
-      let alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .actionSheet)
-
-      //The x/y coordinate of the rating view
-      let xCoord = alert.view.frame.width / 2 - 95 // (5 starts multiplied by 30 each, plus a 5 margin each / 2)
-      let yCoord = CGFloat(25.0)
-
-      let newVote = configureNewVoteForAlert(x: xCoord, y: yCoord)
-
-      let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: .destructive, handler: { alert in
-         let currentUserId = UserModel.getCurrentUserId()
-         // new vote can be only 1,2,3,4,5. Average - double
-         let newVoteInt = Int(newVote.rating)
-         Spot.addNewVote(to: self.spotInfo.key, from: currentUserId, newVoteInt)
-      })
-
-      alert.addAction(saveAction)
-      alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel))
-
-      alert.view.addSubview(newVote)
-
-      self.present(alert, animated: true)
+      let currentUserId = UserModel.getCurrentUserId()
+      SVProgressHUD.show()
+      // get vote from user if it exists. Then show it. Or empty if no vote
+      Spot.getVote(from: currentUserId, on: spotInfo.key) { userVote in
+         SVProgressHUD.dismiss()
+         //Alert for the rating
+         let alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .actionSheet)
+         
+         //The x/y coordinate of the rating view
+         let xCoord = alert.view.frame.width / 2 - 95 // (5 starts multiplied by 30 each, plus a 5 margin each / 2)
+         let yCoord = CGFloat(25.0)
+         
+         let newVote = self.configureNewVoteForAlert(vote: userVote, x: xCoord, y: yCoord)
+         
+         let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: .destructive, handler: { alert in
+            // new vote can be only 1,2,3,4,5. Average - double
+            let newVoteInt = Int(newVote.rating)
+            Spot.addNewVote(to: self.spotInfo.key, from: currentUserId, newVoteInt)
+         })
+         
+         alert.addAction(saveAction)
+         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel))
+         
+         alert.view.addSubview(newVote)
+         
+         self.present(alert, animated: true)
+      }
    }
    
-   private func configureNewVoteForAlert(x: CGFloat, y: CGFloat) -> CosmosView {
+   private func configureNewVoteForAlert(vote: Int, x: CGFloat, y: CGFloat) -> CosmosView {
       let newVote = CosmosView()
-      newVote.rating = 1.0
+      newVote.rating = Double(vote)
       newVote.settings.starSize = 30
       newVote.settings.filledImage = UIImage(named: "filledStar")
       newVote.settings.emptyImage  = UIImage(named: "emptyStar")
@@ -237,7 +244,10 @@ extension SpotInfoController: SpotInfoOnMapDelegate {
 // MARK: - Camera extension
 extension SpotInfoController : GalleryControllerDelegate {
    
-   @IBAction func addPhotoButtonTapped(_ sender: Any) {
+   @IBAction func addPhotoButtonTapped(_ sender: UIButtonX) {
+      sender.endTracking(nil, with: nil) // cz of segue this function will not be called
+      // -> it will be like gray
+      
       let gallery = GalleryController()
       gallery.delegate = self
       

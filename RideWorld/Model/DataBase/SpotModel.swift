@@ -51,23 +51,6 @@ struct Spot {
       })
    }
    
-   static func getSpotFollowingsByUserCount(with userId: String,
-                                            completion: @escaping (_ countString: String) -> Void) {
-      let refToCount = Database.database().reference(withPath: "MainDataBase/userspotfollowingscount/" + userId)
-      
-      var count = 0
-      
-      refToCount.observe(.value, with: { snapshot in
-         if let countOfFollowings = snapshot.value as? Int {
-            count = countOfFollowings
-         }
-         
-         let countOfFollowingsString = String(describing: count)
-         
-         completion(countOfFollowingsString)
-      })
-   }
-   
    // MARK: - Get spot posts part
    public static var lastKey: String! // this is post id from which
    // we will start search for infinite scrolling
@@ -206,6 +189,23 @@ struct Spot {
       })
    }
    
+   static func getSpotFollowingsByUserCount(with userId: String,
+                                            completion: @escaping (_ countString: String) -> Void) {
+      let refToCount = Database.database().reference(withPath: "MainDataBase/userspotfollowingscount/" + userId)
+      
+      var count = 0
+      
+      refToCount.observe(.value, with: { snapshot in
+         if let countOfFollowings = snapshot.value as? Int {
+            count = countOfFollowings
+         }
+         
+         let countOfFollowingsString = String(describing: count)
+         
+         completion(countOfFollowingsString)
+      })
+   }
+   
    static func getUserFollowedSpots(_ userId: String,
                                     completion: @escaping (_ spotsIds: [SpotItem]) -> Void) {
       let refToUserFollowedSpots = refToMainDataBase.child("userspotfollowings").child(userId)
@@ -235,6 +235,48 @@ struct Spot {
                }
             })
          }
+      })
+   }
+   
+   // MARK: - Rating part
+   static func addNewVote(to spotId: String, from userId: String, _ vote: Int) {
+      let refToNewSpotVote = refToMainDataBase.child("spotsvotes/" + spotId + "/votes/" + userId)
+      
+      refToNewSpotVote.setValue(vote)
+   }
+   // After addNewVote show smth like alert "Your vote will be taken into account"
+   
+   // need to implement backend func to calculate average
+   
+   static func getAverageRatingOfSpot(with spotId: String,
+                                      completion: @escaping (_ ratingString: String) -> Void) {
+      let refToAverageRatingOfSpot = refToMainDataBase.child("spotsvotes/" + spotId + "/averageRating")
+      
+      var rating = 0.0
+      
+      refToAverageRatingOfSpot.observe(.value, with: { snapshot in
+         if let averageRating = snapshot.value as? Double {
+            rating = averageRating
+         }
+         
+         let ratingString = String(describing: rating)
+         
+         completion(ratingString)
+      })
+   }
+   
+   static func getVote(from userId: String, on spotId: String,
+                       completion: @escaping (_ vote: Int) -> Void) {
+      let refToVote = refToMainDataBase.child("spotsvotes/" + spotId + "/votes/" + userId)
+      
+      var vote = 0
+      
+      refToVote.observe(.value, with: { snapshot in
+         if let userVote = snapshot.value as? Int {
+            vote = userVote
+         }
+         
+         completion(vote)
       })
    }
 }

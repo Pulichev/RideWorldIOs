@@ -244,13 +244,10 @@ struct Spot {
       
       refToNewSpotVote.setValue(vote)
    }
-   // After addNewVote show smth like alert "Your vote will be taken into account"
-   
-   // need to implement backend func to calculate average
    
    static func getAverageRatingOfSpot(with spotId: String,
-                                      completion: @escaping (_ ratingString: String) -> Void) {
-      let refToAverageRatingOfSpot = refToMainDataBase.child("spotsvotes/" + spotId + "/averageRating")
+                                      completion: @escaping (_ rating: Double) -> Void) {
+      let refToAverageRatingOfSpot = refToMainDataBase.child("spotsvotes/" + spotId + "/averagerating")
       
       var rating = 0.0
       
@@ -259,9 +256,7 @@ struct Spot {
             rating = averageRating
          }
          
-         let ratingString = String(describing: rating)
-         
-         completion(ratingString)
+         completion(rating)
       })
    }
    

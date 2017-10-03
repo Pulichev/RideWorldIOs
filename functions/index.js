@@ -76,6 +76,33 @@ exports.updateFeedOnNewPostAdded = functions.database
     }
   });
 
+// calculate average spot rating
+exports.updateAverageSpotRatingOnNewVote = functions.database
+  .ref("/MainDataBase/spotsvotes/{spotId}/votes/{userId}")
+  .onWrite(event => {
+    const spotId = event.params.spotId;
+    const userId = event.params.userId;
+
+    let refToAllSpotVotes = admin.database().ref("/MainDataBase/spotsvotes/" + spotId + "/votes");
+
+    refToAllSpotVotes.once("value", function(snap) {
+      var allVotesRating = 0;
+      var votesCount = snap.numChildren();
+
+      // calculating full sum of votes
+      snap.forEach(function(childSnapshot) { 
+        let voteRating = childSnapshot.val();
+
+        allVotesRating = allVotesRating + voteRating;
+      });
+
+      let averageRating = allVotesRating / votesCount;
+
+      let refToAverageRating = admin.database().ref("/MainDataBase/spotsvotes/" + spotId + "/averagerating");
+      refToAverageRating.set(averageRating);
+    });
+  });
+
 // add/remove posts to feed on follow/unfollow
 // + change followings/followers count
 exports.addPostsToNewFollowerFeed = functions.database

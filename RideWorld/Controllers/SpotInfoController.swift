@@ -52,6 +52,7 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
       initializePhotos()
       initUserLabel()
       initFollowButton()
+      initRatingView()
    }
    
    // MARK: - FSPager part
@@ -143,6 +144,14 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
    // MARK: - Vote part
    @IBOutlet weak var ratingView: CosmosView!
    
+   private func initRatingView() {
+      ratingView.settings.fillMode = .half
+      
+      Spot.getAverageRatingOfSpot(with: spotInfo.key) { rating in
+         self.ratingView.rating = rating
+      }
+   }
+   
    @IBAction func addVote(_ sender: Any) {
       //Alert for the rating
       let alert = UIAlertController(title: "\n\n", message: "", preferredStyle: .actionSheet)
@@ -154,7 +163,10 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
       let newVote = configureNewVoteForAlert(x: xCoord, y: yCoord)
 
       let saveAction = UIAlertAction(title: NSLocalizedString("Save", comment: ""), style: .destructive, handler: { alert in
-         print(newVote.rating)
+         let currentUserId = UserModel.getCurrentUserId()
+         // new vote can be only 1,2,3,4,5. Average - double
+         let newVoteInt = Int(newVote.rating)
+         Spot.addNewVote(to: self.spotInfo.key, from: currentUserId, newVoteInt)
       })
 
       alert.addAction(saveAction)

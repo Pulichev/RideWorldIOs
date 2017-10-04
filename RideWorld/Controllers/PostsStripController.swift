@@ -38,7 +38,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
                self?.tableView.es_stopPullToRefresh(ignoreDate: true)
             }
          }
-
+         
          self.tableView.es_addInfiniteScrolling { [weak self] in
             self?.loadMore() { newItemsExisting in
                if newItemsExisting {
@@ -301,7 +301,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
       guard let customCell = cell as? PostsCellWithVideo else { return }
-         customCell.player.pause()
+      customCell.player.pause()
    }
    
    private func updateCellLikesCache(objectId: String) {
@@ -381,10 +381,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          imageViewForView.layer.contentsGravity = kCAGravityResize
          imageViewForView.contentMode = .scaleAspectFill
          imageViewForView.frame = cell.spotPostMedia.bounds
-
+         
          cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
          cell.spotPostMedia.playerLayer = imageViewForView.layer
-
+         
          self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
       }
    }
@@ -570,6 +570,8 @@ extension PostsStripController {
    override func viewWillDisappear(_ animated: Bool) {
       super.viewWillDisappear(animated)
       
+      self.coachMarksController.stop(immediately: true)
+      
       isFirstClickOnTabBar = true
       
       if !cameFromSpotOrMyStrip {
@@ -585,21 +587,42 @@ extension PostsStripController {
 // MARK: - Onboard instructions
 extension PostsStripController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
-      return 1
+      return 2
    }
    
    func coachMarksController(_ coachMarksController: CoachMarksController,
                              coachMarkAt index: Int) -> CoachMark {
-      return coachMarksController.helper.makeCoachMark(for: self.tabBarController?.tabBar.items?[0].value(forKey: "view") as? UIView)
+      if index == 0 {
+         let searchBarItemView = self.tabBarController?.tabBar.items?[1].value(forKey: "view") as? UIView
+         return coachMarksController.helper.makeCoachMark(for: searchBarItemView) {
+            (frame: CGRect) -> UIBezierPath in
+             // This will create an arc on search button.
+            return UIBezierPath(arcCenter: CGPoint(x: frame.midX, y: frame.maxY - 22.0), radius: 21.0, startAngle: 0, endAngle: CGFloat(2 * Double.pi), clockwise: true)
+         }
+      } else {
+         let mapBarItemView = self.tabBarController?.tabBar.items?[2].value(forKey: "view") as? UIView
+         return coachMarksController.helper.makeCoachMark(for: mapBarItemView) {
+            (frame: CGRect) -> UIBezierPath in
+            // This will create an arc on map button.
+            return UIBezierPath(arcCenter: CGPoint(x: frame.midX, y: frame.maxY - 31.0), radius: 30.0, startAngle: 0, endAngle: CGFloat(2 * Double.pi), clockwise: true)
+         }
+      }
    }
    
    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
       let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
       
-      coachViews.bodyView.hintLabel.text = "Hello! I'm a Coach Mark!"
-      coachViews.bodyView.nextLabel.text = "Ok!"
-      
-      return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+      if index == 0 {
+         coachViews.bodyView.hintLabel.text = "Hello! You can search your friends here!"
+         coachViews.bodyView.nextLabel.text = "Ok!"
+         
+         return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+      } else {
+         coachViews.bodyView.hintLabel.text = "Or search them on spots!"
+         coachViews.bodyView.nextLabel.text = "Ok!"
+         
+         return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+      }
    }
 }
 

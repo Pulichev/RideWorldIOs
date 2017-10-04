@@ -16,8 +16,12 @@ import UserNotifications
 import FirebaseInstanceID
 import FirebaseMessaging
 import Player
+import Instructions
 
 class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+   
+   var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
+   var spotDetailsItem: SpotItem! // using it if come from spot
    
    @IBOutlet weak var tableView: UITableView! {
       didSet {
@@ -47,17 +51,16 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
-   var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
-   
-   var spotDetailsItem: SpotItem! // using it if come from spot
-   
-   private var posts = [PostItem]()
+   private var posts                  = [PostItem]()
    fileprivate var postItemCellsCache = [PostItemCellCache]()
+   private var mediaCache             = NSMutableDictionary()
    
-   private var mediaCache = NSMutableDictionary()
+   let coachMarksController = CoachMarksController() // onboard tips controller
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      
+      self.coachMarksController.dataSource = self
       
       tabBarController?.delegate = self
       view.layoutIfNeeded() // force to get proper size of tableView
@@ -67,6 +70,12 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       loadPosts(completion: { newItems in
          self.appendLoadedPosts(newItems) { _ in } // no need completion here
       })
+   }
+   
+   override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+      
+      self.coachMarksController.start(on: self)
    }
    
    // MARK: - Post load region
@@ -473,6 +482,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    fileprivate var isFirstClickOnTabBar = true // will user in in UITabBarControllerDelegate
+   
+   // MARK: - UIViews for onboard coaching
+   let pointOfInterest = UIView()
 }
 
 // MARK: - Updating like info
@@ -567,6 +579,27 @@ extension PostsStripController {
          // need to clear last key
          Spot.dropLastKey()
       }
+   }
+}
+
+// MARK: - Onboard instructions
+extension PostsStripController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
+   func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+      return 1
+   }
+   
+   func coachMarksController(_ coachMarksController: CoachMarksController,
+                             coachMarkAt index: Int) -> CoachMark {
+      return coachMarksController.helper.makeCoachMark(for: self.tabBarController?.tabBar.items?[0].value(forKey: "view") as? UIView)
+   }
+   
+   func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+      let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+      
+      coachViews.bodyView.hintLabel.text = "Hello! I'm a Coach Mark!"
+      coachViews.bodyView.nextLabel.text = "Ok!"
+      
+      return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
    }
 }
 

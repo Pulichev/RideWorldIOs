@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import ReadMoreTextView
 import Kingfisher
+import Instructions
 
 class UserProfileController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
    
@@ -59,8 +60,12 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    
    var cameFromSpotDetails = false
    
+   let coachMarksController = CoachMarksController() // onboard tips controller
+   
    override func viewDidLoad() {
       super.viewDidLoad()
+      
+      self.coachMarksController.dataSource = self
       
       // 1px line fix
       separatorLineConstraint.constant = 1 / UIScreen.main.scale // enforces it to be a true 1 pixel line
@@ -183,6 +188,8 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
    var selectedCellId: Int!
    
    //MARK: - Buttons taps methods
+   @IBOutlet weak var editProfileButton: UIButtonX!
+   
    @IBAction func editProfileButtonTapped(_ sender: Any) {
       performSegue(withIdentifier: "editUserProfile", sender: self)
    }
@@ -276,6 +283,41 @@ extension UserProfileController: ForUpdatingUserProfilePosts {
       }
       
       userProfileCollection.reloadData()
+   }
+}
+
+// MARK: - Onboard instructions
+extension UserProfileController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
+   func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+      return 1
+   }
+   
+   func coachMarksController(_ coachMarksController: CoachMarksController,
+                             coachMarkAt index: Int) -> CoachMark {
+      let editProfileButtonView = editProfileButton
+      
+      return coachMarksController.helper.makeCoachMark(for: editProfileButtonView)
+   }
+   
+   func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+      let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+      
+      coachViews.bodyView.hintLabel.text = NSLocalizedString("You can set your profile photo here!", comment: "")
+      coachViews.bodyView.nextLabel.text = NSLocalizedString("Ok!", comment: "")
+      
+      return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+   }
+   
+   override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+      
+      self.coachMarksController.start(on: self)
+   }
+   
+   override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      
+      self.coachMarksController.stop(immediately: true)
    }
 }
 

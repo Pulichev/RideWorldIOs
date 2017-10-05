@@ -304,6 +304,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="editButton" destination="6Gf-2N-ipQ" id="2Ki-nm-lZ2"/>
+                        <outlet property="editProfileButton" destination="6Gf-2N-ipQ" id="e7C-JF-beL"/>
                         <outlet property="followedSpotsCount" destination="zuD-uu-wOc" id="TsW-fG-yJH"/>
                         <outlet property="followedSpotsStackView" destination="iEV-UG-MWr" id="fjr-Ri-cub"/>
                         <outlet property="followersButton" destination="RMI-Pf-SCZ" id="ZxH-ET-9Rm"/>

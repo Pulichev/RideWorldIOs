@@ -594,6 +594,7 @@ extension PostsStripController: CoachMarksControllerDataSource, CoachMarksContro
                              coachMarkAt index: Int) -> CoachMark {
       if index == 0 {
          let searchBarItemView = self.tabBarController?.tabBar.items?[1].value(forKey: "view") as? UIView
+         
          return coachMarksController.helper.makeCoachMark(for: searchBarItemView) {
             (frame: CGRect) -> UIBezierPath in
              // This will create an arc on search button.
@@ -602,6 +603,7 @@ extension PostsStripController: CoachMarksControllerDataSource, CoachMarksContro
          }
       } else {
          let mapBarItemView = self.tabBarController?.tabBar.items?[2].value(forKey: "view") as? UIView
+         
          return coachMarksController.helper.makeCoachMark(for: mapBarItemView) {
             (frame: CGRect) -> UIBezierPath in
             // This will create an arc on map button.

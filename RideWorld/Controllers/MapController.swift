@@ -431,5 +431,26 @@ extension MapController {
 
 // MARK: - Onboard instructions
 extension MapController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
+   func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+      return 1
+   }
    
+   func coachMarksController(_ coachMarksController: CoachMarksController,
+                             coachMarkAt index: Int) -> CoachMark {
+         let addNewSpotButtonView = addNewSpotButton.imageView
+         
+      return coachMarksController.helper.makeCoachMark(for: addNewSpotButtonView) { (frame: CGRect) -> UIBezierPath in
+         // This will create an arc on new spot button
+         return UIBezierPath(arcCenter: CGPoint(x: frame.midX, y: frame.midY), radius: 34.0, startAngle: 0, endAngle: CGFloat(2 * Double.pi), clockwise: true)
+      }
+   }
+   
+   func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: CoachMarkBodyView, arrowView: CoachMarkArrowView?) {
+      let coachViews = coachMarksController.helper.makeDefaultCoachViews(withArrow: true, arrowOrientation: coachMark.arrowOrientation)
+      
+      coachViews.bodyView.hintLabel.text = NSLocalizedString("You can add new spot by tapping this button!", comment: "")
+      coachViews.bodyView.nextLabel.text = NSLocalizedString("Ok!", comment: "")
+      
+      return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+   }
 }

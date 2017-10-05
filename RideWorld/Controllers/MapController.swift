@@ -6,6 +6,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Instructions
 
 class MapController: UIViewController {
    
@@ -24,8 +25,12 @@ class MapController: UIViewController {
       return manager
    }()
    
+   let coachMarksController = CoachMarksController() // onboard tips controller
+   
    override func viewDidLoad() {
       super.viewDidLoad()
+      
+      self.coachMarksController.dataSource = self
       
       DispatchQueue.main.async {
          self.mapViewInitialize()
@@ -33,6 +38,12 @@ class MapController: UIViewController {
       }
       
       closeMenu()
+   }
+   
+   override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+      
+      self.coachMarksController.start(on: self)
    }
    
    func mapViewInitialize() {
@@ -411,8 +422,14 @@ extension MapController {
    override func viewWillDisappear(_ animated: Bool) {
       super.viewWillDisappear(animated)
       
+      self.coachMarksController.stop(immediately: true)
+      
       // Show the navigation bar on other view controllers
       navigationController?.setNavigationBarHidden(false, animated: animated)
    }
 }
 
+// MARK: - Onboard instructions
+extension MapController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
+   
+}

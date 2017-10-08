@@ -75,7 +75,15 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(animated)
       
-      self.coachMarksController.start(on: self)
+      startCoachingIfNeeded()
+   }
+   
+   private func startCoachingIfNeeded() {
+      let defaults = UserDefaults.standard
+      let firstLaunch = defaults.object(forKey: "firstLaunch") as! Bool
+      if firstLaunch {
+         self.coachMarksController.start(on: self)
+      }
    }
    
    // MARK: - Post load region
@@ -597,7 +605,7 @@ extension PostsStripController: CoachMarksControllerDataSource, CoachMarksContro
          
          return coachMarksController.helper.makeCoachMark(for: searchBarItemView) {
             (frame: CGRect) -> UIBezierPath in
-             // This will create an arc on search button.
+            // This will create an arc on search button.
             return UIBezierPath(arcCenter: CGPoint(x: frame.midX, y: frame.maxY - 22.0),
                                 radius: 21.0, startAngle: 0, endAngle: CGFloat(2 * Double.pi), clockwise: true)
          }

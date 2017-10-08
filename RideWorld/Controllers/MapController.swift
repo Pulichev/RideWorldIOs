@@ -40,10 +40,18 @@ class MapController: UIViewController {
       closeMenu()
    }
    
+   private func startCoachingIfNeeded() {
+      let defaults = UserDefaults.standard
+      let firstLaunch = defaults.object(forKey: "firstLaunch") as! Bool
+      if firstLaunch {
+         self.coachMarksController.start(on: self)
+      }
+   }
+   
    override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(animated)
       
-      self.coachMarksController.start(on: self)
+      startCoachingIfNeeded()
    }
    
    func mapViewInitialize() {

@@ -310,7 +310,11 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    
    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
       guard let customCell = cell as? PostsCellWithVideo else { return }
-      customCell.player.pause()
+      customCell.player.stop()
+      customCell.player.muted = true
+      customCell.player.willMove(toParentViewController: self)
+      customCell.player.view.removeFromSuperview()
+      customCell.player.removeFromParentViewController()
    }
    
    private func updateCellLikesCache(objectId: String) {

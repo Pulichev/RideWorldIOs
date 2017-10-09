@@ -9,6 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="PT_Sans-Web-Bold.ttf">
+            <string>PTSans-Bold</string>
+        </array>
         <array key="PT_Sans-Web-Regular.ttf">
             <string>PTSans-Regular</string>
         </array>
@@ -257,7 +260,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="WTg-pU-btm"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="PTSans-Regular" family="PT Sans" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="PTSans-Bold" family="PT Sans" pointSize="17"/>
                                                 <state key="normal">
                                                     <color key="titleColor" red="0.10818527918781728" green="0.10818527918781728" blue="0.10818527918781728" alpha="0.74406035958904104" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </state>

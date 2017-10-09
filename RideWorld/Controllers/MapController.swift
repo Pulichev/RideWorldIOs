@@ -42,8 +42,9 @@ class MapController: UIViewController {
    
    private func startCoachingIfNeeded() {
       let defaults = UserDefaults.standard
-      let firstLaunch = defaults.object(forKey: "firstLaunch") as! Bool
-      if firstLaunch {
+      if (defaults.object(forKey: "firstLaunchOfMap") as? Bool) == nil {
+         // if it is first launch, this key will not be set upped
+         
          self.coachMarksController.start(on: self)
       }
    }
@@ -431,6 +432,8 @@ extension MapController {
       super.viewWillDisappear(animated)
       
       self.coachMarksController.stop(immediately: true)
+      let defaults = UserDefaults.standard
+      defaults.set(false, forKey: "firstLaunchOfMap")
       
       // Show the navigation bar on other view controllers
       navigationController?.setNavigationBarHidden(false, animated: animated)

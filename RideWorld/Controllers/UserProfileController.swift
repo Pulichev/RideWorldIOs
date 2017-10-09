@@ -316,8 +316,9 @@ extension UserProfileController: CoachMarksControllerDataSource, CoachMarksContr
    
    private func startCoachingIfNeeded() {
       let defaults = UserDefaults.standard
-      let firstLaunch = defaults.object(forKey: "firstLaunch") as! Bool
-      if firstLaunch {
+      if (defaults.object(forKey: "firstLaunchOfUserProfile") as? Bool) == nil {
+         // if it is first launch, this key will not be set upped
+         
          self.coachMarksController.start(on: self)
       }
    }
@@ -326,6 +327,8 @@ extension UserProfileController: CoachMarksControllerDataSource, CoachMarksContr
       super.viewWillDisappear(animated)
       
       self.coachMarksController.stop(immediately: true)
+      let defaults = UserDefaults.standard
+      defaults.set(false, forKey: "firstLaunchOfUserProfile")
    }
 }
 

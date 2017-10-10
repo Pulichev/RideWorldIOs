@@ -137,12 +137,12 @@ UITableViewDelegate {
          || userId! == currentUserId) // if current user is post author
          && cell.comment.key != "" { // cant delete desc
          cell.rightButtons = [
-            MGSwipeButton(title: "", icon: UIImage(named:"delete.png"), backgroundColor: .red) {
+            MGSwipeButton(title: "", icon: UIImage(named:"deleteInComments"), backgroundColor: .red) {
                (sender: MGSwipeTableCell!) -> Bool in
                self.removeCell(cell, at: row)
                return true
             },
-            MGSwipeButton(title: "", icon: UIImage(named:"reply.png"), backgroundColor: .darkGray) {
+            MGSwipeButton(title: "", icon: UIImage(named:"replyInComments"), backgroundColor: .darkGray) {
                (sender: MGSwipeTableCell!) -> Bool in
                self.replyToUser(with: cell.userItem.login)
                return true
@@ -151,7 +151,7 @@ UITableViewDelegate {
       } else {
          // add only reply button
          cell.rightButtons = [
-            MGSwipeButton(title: "", icon: UIImage(named:"reply.png"), backgroundColor: .darkGray) {
+            MGSwipeButton(title: "", icon: UIImage(named:"replyInComments"), backgroundColor: .darkGray) {
                (sender: MGSwipeTableCell!) -> Bool in
                self.replyToUser(with: cell.userItem.login)
                return true

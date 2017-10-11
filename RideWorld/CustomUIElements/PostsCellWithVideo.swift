@@ -25,7 +25,7 @@ class PostsCellWithVideo: UITableViewCell {
    
    @IBOutlet weak var spotPostMediaHeight: NSLayoutConstraint!
    @IBOutlet var spotPostMedia: MediaContainerView!
-   var player = Player()
+   var player: Player!
    
    @IBOutlet weak var postDate: UILabel!
    @IBOutlet weak var postDescription: ActiveLabel! {
@@ -47,6 +47,7 @@ class PostsCellWithVideo: UITableViewCell {
    
    func initialize(with cachedCell: PostItemCellCache, _ post: PostItem) {
       self.post            = post
+      self.player          = Player()
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
       

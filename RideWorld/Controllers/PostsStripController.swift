@@ -263,6 +263,10 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
          // force update of width
          cell.frame.size.width = view.frame.width
+         let width = view.frame.size.width
+         let height = width * CGFloat(post.mediaAspectRatio)
+         cell.spotPostPhotoHeight.constant = height
+         cell.spotPostPhoto.frame.size.height = height
          cell.layoutIfNeeded()
          
          cell.initialize(with: cellFromCache, post)
@@ -273,11 +277,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
          cell.openComments.tag = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
-         
-         let width = view.frame.size.width
-         let height = width * CGFloat(cell.post.mediaAspectRatio)
-         cell.spotPostPhotoHeight.constant = height
-         cell.spotPostPhoto.frame.size.height = height
          
          setPhoto(on: cell)
          
@@ -287,6 +286,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
          // force update of width
          cell.frame.size.width = view.frame.width
+         let width = view.frame.size.width
+         let height = width * CGFloat(post.mediaAspectRatio)
+         cell.spotPostMediaHeight.constant = height
          cell.layoutIfNeeded()
          
          cell.initialize(with: cellFromCache, post)
@@ -297,10 +299,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          
          cell.openComments.tag = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
-         
-         let width = view.frame.size.width
-         let height = width * CGFloat(cell.post.mediaAspectRatio)
-         cell.spotPostMediaHeight.constant = height
          
          setVideo(on: cell, cacheKey: row)
          
@@ -313,9 +311,12 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       customCell.player.stop()
       customCell.player.muted = true
+      customCell.player.playerLayer()?.isHidden = true
       customCell.player.willMove(toParentViewController: self)
       customCell.player.view.removeFromSuperview()
       customCell.player.removeFromParentViewController()
+      customCell.player.url = nil
+      customCell.player = nil
    }
    
    private func updateCellLikesCache(objectId: String) {
@@ -359,9 +360,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       //Check cache. Exists -> get it, no - plce thumbnail and download
       if (mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
-         cell.player.fillMode = PlayerFillMode.resizeAspectFill.avFoundationType
-         
          cell.player.view.frame = cell.spotPostMedia.bounds
+         cell.player.fillMode = PlayerFillMode.resizeAspectFill.avFoundationType
          
          self.addChildViewController(cell.player)
          cell.spotPostMedia.addSubview(cell.player.view)
@@ -395,18 +395,20 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          imageViewForView.layer.contentsGravity = kCAGravityResize
          imageViewForView.contentMode = .scaleAspectFill
          imageViewForView.frame = cell.spotPostMedia.bounds
-         
+
          cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
          cell.spotPostMedia.playerLayer = imageViewForView.layer
-         
+      
          self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
       }
    }
    
    private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
-      cell.player.fillMode = PlayerFillMode.resizeAspectFill.avFoundationType
-      
       cell.player.view.frame = cell.spotPostMedia.bounds
+      cell.player.view.frame.size.height = cell.spotPostMedia.frame.height
+      cell.player.view.layoutIfNeeded()
+      cell.layoutIfNeeded()
+      cell.player.fillMode = PlayerFillMode.resizeAspectFill.avFoundationType
       
       self.addChildViewController(cell.player)
       cell.spotPostMedia.addSubview(cell.player.view)

@@ -13,7 +13,7 @@ class PostItemCellCache {
    var key: String!
    var post: PostItem!
    var postDate: String!
-   var isLikedPhoto = UIImageView() // need to fix it.
+   var isLikedPhoto = UIImageView()
    var postIsLiked: Bool!
    var likesCount = Int()
    var commentsCount = Int()

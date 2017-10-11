@@ -11,8 +11,7 @@ import ActiveLabel
 import MGSwipeTableCell
 import SVProgressHUD
 
-class CommentariesController: UIViewController, UITableViewDataSource,
-UITableViewDelegate {
+class CommentariesController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
    var post: PostItem!
    

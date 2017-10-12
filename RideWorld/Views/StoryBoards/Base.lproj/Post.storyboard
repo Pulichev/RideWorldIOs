@@ -399,7 +399,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="521.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="pti-Mk-zcp" customClass="MediaContainerView" customModule="RideWorld" customModuleProvider="target">
+                                                <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="pti-Mk-zcp" customClass="MediaContainerView" customModule="RideWorld" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="44" width="375" height="289"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -762,9 +762,9 @@
         <image name="respectPassive" width="94" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="COh-cw-Ntn"/>
-        <segue reference="0eg-2s-RsF"/>
-        <segue reference="pip-4n-Igg"/>
-        <segue reference="I78-xn-cQP"/>
+        <segue reference="QOa-aY-bXL"/>
+        <segue reference="TEa-lr-7L1"/>
+        <segue reference="6R6-CY-IE2"/>
+        <segue reference="Xyq-8K-e8w"/>
     </inferredMetricsTieBreakers>
 </document>

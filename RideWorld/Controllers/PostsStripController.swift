@@ -249,9 +249,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return posts.count
    }
-   
-   // not best code, but idk atm how to review it.
-   //                   ﾉ (￣▽￣)ノ
+
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let row = indexPath.row
       
@@ -300,7 +298,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
-   // MARK: - Delegate from cell with video
+   // Delegate from cell with video
    func addToCacheArray(new asset: AVAsset, on row: Int) {
       mediaCache.setObject(asset, forKey: row as NSCopying)
    }

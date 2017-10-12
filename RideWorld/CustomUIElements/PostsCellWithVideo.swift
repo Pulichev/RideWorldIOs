@@ -25,7 +25,8 @@ class PostsCellWithVideo: UITableViewCell {
    
    @IBOutlet weak var spotPostMediaHeight: NSLayoutConstraint!
    @IBOutlet var spotPostMedia: MediaContainerView!
-   var player: Player!
+   
+   var player: AVPlayer!
    
    @IBOutlet weak var postDate: UILabel!
    @IBOutlet weak var postDescription: ActiveLabel! {
@@ -71,6 +72,12 @@ class PostsCellWithVideo: UITableViewCell {
       addDoubleTapGestureOnUserPhoto()
    }
    
+   override func prepareForReuse() {
+      super.prepareForReuse()
+      
+      self.spotPostMedia.layer.sublayers?.removeAll()
+   }
+   
    private func addDoubleTapGestureOnUserPhoto() {
       let tap = UITapGestureRecognizer(target:self, action:#selector(userInfoTapped))
       tap.numberOfTapsRequired = 1
@@ -95,7 +102,7 @@ class PostsCellWithVideo: UITableViewCell {
    func addTapGestureOnVideo() {
       let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
       tapGestureRecognizer.numberOfTapsRequired = 1
-      player.view.addGestureRecognizer(tapGestureRecognizer)
+      spotPostMedia.addGestureRecognizer(tapGestureRecognizer)
    }
    
    var mutedImageLayer  : CALayer!
@@ -147,11 +154,11 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-      if player.muted {
-         player.muted = false
+      if player.isMuted {
+         player.isMuted = false
          addSoundImage(isMuted: false)
       } else {
-         player.muted = true
+         player.isMuted = true
          addSoundImage(isMuted: true)
       }
    }

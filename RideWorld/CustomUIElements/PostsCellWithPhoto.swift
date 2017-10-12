@@ -46,11 +46,11 @@ class PostsCellWithPhoto: UITableViewCell {
    
    var postIsLiked: Bool!
    
-   func initialize(with cachedCell: PostItemCellCache, _ post: PostItem) {
+   func initialize(with cachedCell: PostItemCellCache, _ post: PostItem, cellWidth: CGFloat) {
       self.post            = post
       
-      setPhotoFrame()
-      setPhoto()
+      setPhotoFrame(width: cellWidth)
+//      setPhoto()
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
       
@@ -75,6 +75,11 @@ class PostsCellWithPhoto: UITableViewCell {
       addDoubleTapGestureOnUserPhoto()
    }
    
+   func initializeForWillDisplay(cellWidth: CGFloat) {
+//      setPhotoFrame(width: cellWidth)
+      setPhoto()
+   }
+   
    func addDoubleTapGestureOnUserPhoto() {
       let tap = UITapGestureRecognizer(target:self, action:#selector(userInfoTapped))
       tap.numberOfTapsRequired = 1
@@ -96,11 +101,10 @@ class PostsCellWithPhoto: UITableViewCell {
    }
    
    // MARK: - Set photo part
-   private func setPhotoFrame() {
-      let width = frame.size.width
+   private func setPhotoFrame(width: CGFloat) {
       let height = width * CGFloat(post.mediaAspectRatio)
-      
       spotPostPhotoHeight.constant = height
+      backgroundView?.setNeedsDisplay()
    }
    
    private func setPhoto() {

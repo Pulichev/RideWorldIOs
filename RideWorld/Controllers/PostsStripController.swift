@@ -256,10 +256,14 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       let cellFromCache = postItemCellsCache[row]
       let post = posts[row]
       
+      ///
+      let width = view.frame.width
+      ///
+      
       if post.isPhoto {
          let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithPhoto", for: indexPath) as! PostsCellWithPhoto
          
-         cell.initialize(with: cellFromCache, post)
+         cell.initialize(with: cellFromCache, post, cellWidth: width)
          
          cell.delegateUserTaps     = self
          cell.delegateSpotInfoTaps = self
@@ -273,7 +277,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithVideo", for: indexPath) as! PostsCellWithVideo
          
          let cachedAsset = mediaCache.object(forKey: row) as? AVAsset
-         cell.initialize(with: cellFromCache, post, cachedAsset, row: row)
+         cell.initialize(with: cellFromCache, post, cachedAsset, row: row, cellWidth: width)
          
          cell.delegateUserTaps     = self
          cell.delegateSpotInfoTaps = self
@@ -284,6 +288,23 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
          
          return cell
+      }
+   }
+   
+   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+      let width = view.frame.width
+      
+      if let cellWithPhoto = cell as? PostsCellWithPhoto {
+         cellWithPhoto.initializeForWillDisplay(cellWidth: width)
+         cellWithPhoto.backgroundView?.setNeedsDisplay()
+      }
+      
+      if let cellWithVideo = cell as? PostsCellWithVideo {
+         cellWithVideo.delegateVideoCache   = self
+         let row = indexPath.row
+         let cachedAsset = mediaCache.object(forKey: row) as? AVAsset
+         cellWithVideo.initializeForWillDisplay(cellWidth: width, cachedAsset, row: row)
+         cellWithVideo.backgroundView?.setNeedsDisplay()
       }
    }
    

@@ -52,13 +52,13 @@ class PostsCellWithVideo: UITableViewCell {
    
    var postIsLiked: Bool!
    
-   func initialize(with cachedCell: PostItemCellCache, _ post: PostItem, _ cachedAsset: AVAsset?, row: Int) {
+   func initialize(with cachedCell: PostItemCellCache, _ post: PostItem, _ cachedAsset: AVAsset?, row: Int, cellWidth: CGFloat) {
       self.post            = post
       
-      setVideoFrame()
-      
-      rowInStripIndex = row
-      setVideo(cachedAsset)
+      setVideoFrame(width: cellWidth)
+//
+//      rowInStripIndex = row
+//      setVideo(cachedAsset)
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
       
@@ -81,6 +81,12 @@ class PostsCellWithVideo: UITableViewCell {
       
       addDoubleTapGestureOnPostPhotos()
       addDoubleTapGestureOnUserPhoto()
+   }
+   
+   func initializeForWillDisplay(cellWidth: CGFloat, _ cachedAsset: AVAsset?, row: Int) {
+//      setVideoFrame(width: cellWidth)
+      rowInStripIndex = row
+      setVideo(cachedAsset)
    }
    
    override func prepareForReuse() {
@@ -117,10 +123,10 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    // MARK: - Set video part
-   private func setVideoFrame() {
-      let width = frame.size.width
+   private func setVideoFrame(width: CGFloat) {
       let height = width * CGFloat(post.mediaAspectRatio)
       spotPostMediaHeight.constant = height
+      backgroundView?.setNeedsDisplay()
    }
    
    private func setVideo(_ cachedAsset: AVAsset?) {

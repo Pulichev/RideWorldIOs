@@ -18,7 +18,7 @@ import FirebaseMessaging
 import Player
 import Instructions
 
-class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class PostsStripController: UIViewController, UITableViewDataSource, UITableViewDelegate, DelegateVideoCache {
    
    var cameFromSpotOrMyStrip = false // true - from spot, default false - from mystrip
    var spotDetailsItem: SpotItem! // using it if come from spot
@@ -285,16 +285,16 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let height = width * CGFloat(post.mediaAspectRatio)
          cell.spotPostMediaHeight.constant = height
          
-         cell.initialize(with: cellFromCache, post)
+         let cachedAsset = mediaCache.object(forKey: row) as? AVAsset
+         cell.initialize(with: cellFromCache, post, cachedAsset, row: row)
          
          cell.delegateUserTaps     = self
          cell.delegateSpotInfoTaps = self
          cell.delegateLikeEvent    = self
+         cell.delegateVideoCache   = self
          
          cell.openComments.tag = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
-         
-         setVideo(on: cell, cacheKey: row)
          
          return cell
       }
@@ -311,71 +311,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       }
    }
    
-   func setVideo(on cell: PostsCellWithVideo, cacheKey: Int) {
-      //Check cache. Exists -> get it, no - plce thumbnail and download
-      if (mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
-         let cachedAsset = mediaCache.object(forKey: cacheKey) as? AVAsset
-         cell.player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
-         cell.player.isMuted = true
-         let playerLayer = AVPlayerLayer(player: (cell.player))
-         playerLayer.contentsGravity = kCAGravityResize
-         playerLayer.videoGravity = AVLayerVideoGravity(rawValue: kCAGravityResizeAspectFill)
-         playerLayer.frame = cell.spotPostMedia.bounds
-         cell.spotPostMedia.layer.addSublayer(playerLayer)
-         cell.spotPostMedia.playerLayer = playerLayer
-         
-         cell.player.play()
-         cell.addSoundImage(isMuted: true)
-         cell.addTapGestureOnVideo()
-      } else {
-         addPlaceHolder(cell: cell)
-         downloadBigThumbnail(postKey: posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
-      }
-   }
-   
-   func addPlaceHolder(cell: PostsCellWithVideo) {
-      let placeholder = UIImageView()
-      let placeholderImage = UIImage(named: "grayRec.png")
-      placeholder.image = placeholderImage
-      placeholder.layer.contentsGravity = kCAGravityResize
-      placeholder.contentMode = .scaleAspectFill
-      placeholder.frame = cell.spotPostMedia.bounds
-      cell.spotPostMedia.layer.addSublayer(placeholder.layer)
-      cell.spotPostMedia.playerLayer = placeholder.layer
-   }
-   
-   private func downloadBigThumbnail(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
-      // thumbnail!
-      let imageViewForView = UIImageView()
-      imageViewForView.kf.setImage(with: URL(string: cell.post.mediaRef700)) { (_, _, _, _) in
-         imageViewForView.layer.contentsGravity = kCAGravityResize
-         imageViewForView.contentMode = .scaleAspectFill
-         imageViewForView.frame = cell.spotPostMedia.bounds
-         
-         cell.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-         cell.spotPostMedia.playerLayer = imageViewForView.layer
-         
-         self.downloadVideo(postKey: postKey, cacheKey: cacheKey, cell: cell)
-      }
-   }
-   
-   private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
-      let assetForCache = AVAsset(url: URL(string: cell.post.videoRef)!)
-      
-      self.mediaCache.setObject(assetForCache, forKey: cacheKey as NSCopying)
-      cell.player = AVPlayer(playerItem: AVPlayerItem(asset: assetForCache))
-      let playerLayer = AVPlayerLayer(player: cell.player)
-      cell.player.isMuted = true
-      playerLayer.contentsGravity = kCAGravityResize
-      playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-      playerLayer.frame = cell.spotPostMedia.bounds
-      
-      cell.spotPostMedia.layer.addSublayer(playerLayer)
-      cell.spotPostMedia.playerLayer = playerLayer
-      
-      cell.player.play()
-      cell.addSoundImage(isMuted: true)
-      cell.addTapGestureOnVideo()
+   // MARK: - Delegate from cell with video
+   func addToCacheArray(new asset: AVAsset, on row: Int) {
+      mediaCache.setObject(asset, forKey: row as NSCopying)
    }
    
    @IBAction func addNewPost(_ sender: Any) {

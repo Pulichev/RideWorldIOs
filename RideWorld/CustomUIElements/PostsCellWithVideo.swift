@@ -12,12 +12,18 @@ import ActiveLabel
 import SVProgressHUD
 import Player
 
+protocol DelegateVideoCache: class {
+   func addToCacheArray(new asset: AVAsset, on row: Int)
+}
+
 class PostsCellWithVideo: UITableViewCell {
    
    weak var delegateUserTaps: TappedUserDelegate? // for sending user info
    weak var delegateSpotInfoTaps: TappedSpotInfoDelegate? // when tapping go to spot info from alert
    weak var delegateLikeEvent: PostsCellLikeEventDelegate?
+   weak var delegateVideoCache: DelegateVideoCache? // for adding new assets to cache in post strip
    
+   var rowInStripIndex: Int!
    var post: PostItem!
    
    @IBOutlet weak var userPhoto: RoundedImageView!
@@ -46,8 +52,11 @@ class PostsCellWithVideo: UITableViewCell {
    
    var postIsLiked: Bool!
    
-   func initialize(with cachedCell: PostItemCellCache, _ post: PostItem) {
+   func initialize(with cachedCell: PostItemCellCache, _ post: PostItem, _ cachedAsset: AVAsset?, row: Int) {
       self.post            = post
+      
+      rowInStripIndex = row
+      setVideo(cachedAsset)
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
       
@@ -105,6 +114,77 @@ class PostsCellWithVideo: UITableViewCell {
       spotPostMedia.addGestureRecognizer(tapGestureRecognizer)
    }
    
+   // MARK: - Set video part
+   func setVideo(_ cachedAsset: AVAsset?) {
+      //Check cache. Exists -> get it, no - plce thumbnail and download
+      if (cachedAsset != nil) { // checking video existance in cache
+         player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
+         player.isMuted = true
+         let playerLayer = AVPlayerLayer(player: (player))
+         playerLayer.contentsGravity = kCAGravityResize
+         playerLayer.videoGravity = AVLayerVideoGravity(rawValue: kCAGravityResizeAspectFill)
+         playerLayer.frame = spotPostMedia.bounds
+         spotPostMedia.layer.addSublayer(playerLayer)
+         spotPostMedia.playerLayer = playerLayer
+         
+         player.play()
+         addSoundImage(isMuted: true)
+         addTapGestureOnVideo()
+      } else {
+         addPlaceHolder()
+         downloadBigThumbnail()
+      }
+   }
+   
+   func addPlaceHolder() {
+      let placeholder = UIImageView()
+      let placeholderImage = UIImage(named: "grayRec.png")
+      placeholder.image = placeholderImage
+      placeholder.layer.contentsGravity = kCAGravityResize
+      placeholder.contentMode = .scaleAspectFill
+      placeholder.frame = spotPostMedia.bounds
+      spotPostMedia.layer.addSublayer(placeholder.layer)
+      spotPostMedia.playerLayer = placeholder.layer
+   }
+   
+   private func downloadBigThumbnail() {
+      // thumbnail!
+      let imageViewForView = UIImageView()
+      imageViewForView.kf.setImage(with: URL(string: post.mediaRef700)) { (_, _, _, _) in
+         imageViewForView.layer.contentsGravity = kCAGravityResize
+         imageViewForView.contentMode = .scaleAspectFill
+         imageViewForView.frame = self.spotPostMedia.bounds
+         
+         self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+         self.spotPostMedia.playerLayer = imageViewForView.layer
+         
+         self.downloadVideo()
+      }
+   }
+   
+   private func downloadVideo() {
+      let asset = AVAsset(url: URL(string: post.videoRef)!)
+      
+      if let del = delegateVideoCache {
+         del.addToCacheArray(new: asset, on: rowInStripIndex)
+      }
+      
+      player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
+      let playerLayer = AVPlayerLayer(player: player)
+      player.isMuted = true
+      playerLayer.contentsGravity = kCAGravityResize
+      playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+      playerLayer.frame = spotPostMedia.bounds
+      
+      spotPostMedia.layer.addSublayer(playerLayer)
+      spotPostMedia.playerLayer = playerLayer
+      
+      player.play()
+      addSoundImage(isMuted: true)
+      addTapGestureOnVideo()
+   }
+
+   // MARK: - Muting part
    var mutedImageLayer  : CALayer!
    var unmutedImageLayer: CALayer!
    

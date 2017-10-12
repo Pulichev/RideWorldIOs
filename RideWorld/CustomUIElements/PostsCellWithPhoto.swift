@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 import ActiveLabel
 import SVProgressHUD
+import Kingfisher
+import KYCircularProgress
 
 class PostsCellWithPhoto: UITableViewCell {
    
@@ -46,6 +48,7 @@ class PostsCellWithPhoto: UITableViewCell {
    
    func initialize(with cachedCell: PostItemCellCache, _ post: PostItem) {
       self.post            = post
+      setPhoto()
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
       
@@ -90,6 +93,35 @@ class PostsCellWithPhoto: UITableViewCell {
       isLikedPhoto.isUserInteractionEnabled = true
    }
    
+   // MARK: - Set photo part
+   private func setPhoto() {
+      // set gray thumbnail
+      spotPostPhoto.image = UIImage(named: "grayRec.png")
+      
+      // blur for 10px thumbnail
+      let blurProc01 = BlurImageProcessor(blurRadius: 0.1)
+      let circularProgress = CircularProgress(on: spotPostPhoto.bounds)
+      spotPostPhoto.addSubview(circularProgress.view)
+      
+      // download 10px thumbnail
+      spotPostPhoto.kf.setImage(
+         with: URL(string: post.mediaRef10),
+         options: [.processor(blurProc01)],
+         completionHandler: { (image, error, cacheType, imageUrl) in
+            // download original
+            self.spotPostPhoto.kf.setImage(
+               with: URL(string: self.post.mediaRef700),
+               placeholder: image, // 10px
+               progressBlock: { receivedSize, totalSize in
+                  let percentage = (Double(receivedSize) / Double(totalSize))
+                  circularProgress.view.progress = percentage
+            }, completionHandler: { (_, _, _, _) in
+               circularProgress.view.isHidden = true
+            })
+      })
+   }
+   
+   // MARK: - Like part
    var likeEventActive = false // true, when sending request
    
    @objc func postLiked() {

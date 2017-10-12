@@ -276,8 +276,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.openComments.tag = row // for segue to send postId to comments
          cell.openComments.addTarget(self, action: #selector(goToComments), for: .touchUpInside)
          
-         setPhoto(on: cell)
-         
          return cell
       } else {
          let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithVideo", for: indexPath) as! PostsCellWithVideo
@@ -311,42 +309,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
             customCell.player = nil
          }
       }
-   }
-   
-   private func updateCellLikesCache(objectId: String) {
-      for postCellCache in postItemCellsCache {
-         if postCellCache.post.key == objectId {
-            postCellCache.changeLikeToDislikeAndViceVersa()
-         }
-      }
-   }
-   
-   // MARK: - Set media part
-   private func setPhoto(on cell: PostsCellWithPhoto) {
-      // set gray thumbnail
-      cell.spotPostPhoto.image = UIImage(named: "grayRec.png")
-      
-      // blur for 10px thumbnail
-      let blurProc01 = BlurImageProcessor(blurRadius: 0.1)
-      let circularProgress = CircularProgress(on: cell.spotPostPhoto.bounds)
-      cell.spotPostPhoto.addSubview(circularProgress.view)
-      
-      // download 10px thumbnail
-      cell.spotPostPhoto.kf.setImage(
-         with: URL(string: cell.post.mediaRef10),
-         options: [.processor(blurProc01)],
-         completionHandler: { (image, error, cacheType, imageUrl) in
-            // download original
-            cell.spotPostPhoto.kf.setImage(
-               with: URL(string: cell.post.mediaRef700),
-               placeholder: image, // 10px
-               progressBlock: { receivedSize, totalSize in
-                  let percentage = (Double(receivedSize) / Double(totalSize))
-                  circularProgress.view.progress = percentage
-            }, completionHandler: { (_, _, _, _) in
-               circularProgress.view.isHidden = true
-            })
-      })
    }
    
    func setVideo(on cell: PostsCellWithVideo, cacheKey: Int) {

@@ -55,6 +55,8 @@ class PostsCellWithVideo: UITableViewCell {
    func initialize(with cachedCell: PostItemCellCache, _ post: PostItem, _ cachedAsset: AVAsset?, row: Int) {
       self.post            = post
       
+      setVideoFrame()
+      
       rowInStripIndex = row
       setVideo(cachedAsset)
       
@@ -115,7 +117,13 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    // MARK: - Set video part
-   func setVideo(_ cachedAsset: AVAsset?) {
+   private func setVideoFrame() {
+      let width = frame.size.width
+      let height = width * CGFloat(post.mediaAspectRatio)
+      spotPostMediaHeight.constant = height
+   }
+   
+   private func setVideo(_ cachedAsset: AVAsset?) {
       //Check cache. Exists -> get it, no - plce thumbnail and download
       if (cachedAsset != nil) { // checking video existance in cache
          player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
@@ -136,7 +144,7 @@ class PostsCellWithVideo: UITableViewCell {
       }
    }
    
-   func addPlaceHolder() {
+   private func addPlaceHolder() {
       let placeholder = UIImageView()
       let placeholderImage = UIImage(named: "grayRec.png")
       placeholder.image = placeholderImage

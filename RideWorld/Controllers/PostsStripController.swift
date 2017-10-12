@@ -261,12 +261,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       if post.isPhoto {
          let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithPhoto", for: indexPath) as! PostsCellWithPhoto
          
-         cell.frame.size.width = view.frame.width
-         let width = view.frame.size.width
-         let height = width * CGFloat(post.mediaAspectRatio)
-         cell.spotPostPhotoHeight.constant = height
-         cell.spotPostPhoto.frame.size.height = height
-         
          cell.initialize(with: cellFromCache, post)
          
          cell.delegateUserTaps     = self
@@ -279,11 +273,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          return cell
       } else {
          let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithVideo", for: indexPath) as! PostsCellWithVideo
-         
-         cell.frame.size.width = view.frame.width
-         let width = view.frame.size.width
-         let height = width * CGFloat(post.mediaAspectRatio)
-         cell.spotPostMediaHeight.constant = height
          
          let cachedAsset = mediaCache.object(forKey: row) as? AVAsset
          cell.initialize(with: cellFromCache, post, cachedAsset, row: row)

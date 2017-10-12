@@ -48,6 +48,8 @@ class PostsCellWithPhoto: UITableViewCell {
    
    func initialize(with cachedCell: PostItemCellCache, _ post: PostItem) {
       self.post            = post
+      
+      setPhotoFrame()
       setPhoto()
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
@@ -94,6 +96,13 @@ class PostsCellWithPhoto: UITableViewCell {
    }
    
    // MARK: - Set photo part
+   private func setPhotoFrame() {
+      let width = frame.size.width
+      let height = width * CGFloat(post.mediaAspectRatio)
+      
+      spotPostPhotoHeight.constant = height
+   }
+   
    private func setPhoto() {
       // set gray thumbnail
       spotPostPhoto.image = UIImage(named: "grayRec.png")

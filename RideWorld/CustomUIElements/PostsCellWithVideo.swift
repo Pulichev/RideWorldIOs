@@ -47,7 +47,6 @@ class PostsCellWithVideo: UITableViewCell {
    
    func initialize(with cachedCell: PostItemCellCache, _ post: PostItem) {
       self.post            = post
-      self.player          = Player()
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
       
@@ -70,7 +69,6 @@ class PostsCellWithVideo: UITableViewCell {
       
       addDoubleTapGestureOnPostPhotos()
       addDoubleTapGestureOnUserPhoto()
-      addTapGestureOnVideo()
    }
    
    private func addDoubleTapGestureOnUserPhoto() {
@@ -94,7 +92,7 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    // MRK: - Video mute part
-   private func addTapGestureOnVideo() {
+   func addTapGestureOnVideo() {
       let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
       tapGestureRecognizer.numberOfTapsRequired = 1
       player.view.addGestureRecognizer(tapGestureRecognizer)

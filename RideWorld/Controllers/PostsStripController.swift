@@ -267,6 +267,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let height = width * CGFloat(post.mediaAspectRatio)
          cell.spotPostPhotoHeight.constant = height
          cell.spotPostPhoto.frame.size.height = height
+         cell.setNeedsUpdateConstraints()
+         cell.setNeedsLayout()
          cell.layoutIfNeeded()
          
          cell.initialize(with: cellFromCache, post)
@@ -284,12 +286,17 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       } else {
          let cell = tableView.dequeueReusableCell(withIdentifier: "PostsCellWithVideo", for: indexPath) as! PostsCellWithVideo
          
+         cell.setNeedsUpdateConstraints()
+         cell.setNeedsLayout()
+         cell.layoutIfNeeded()
          // force update of width
          cell.frame.size.width = view.frame.width
          let width = view.frame.size.width
          let height = width * CGFloat(post.mediaAspectRatio)
          cell.spotPostMediaHeight.constant = height
-         cell.layoutIfNeeded()
+//         cell.setNeedsUpdateConstraints()
+//         cell.setNeedsLayout()
+//         cell.layoutIfNeeded()
          
          cell.initialize(with: cellFromCache, post)
          
@@ -309,13 +316,13 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
       guard let customCell = cell as? PostsCellWithVideo else { return }
       
-      customCell.player.stop()
-      customCell.player.muted = true
-      customCell.player.playerLayer()?.isHidden = true
-      customCell.player.willMove(toParentViewController: self)
-      customCell.player.view.removeFromSuperview()
-      customCell.player.removeFromParentViewController()
-      customCell.player.url = nil
+      customCell.player?.stop()
+      customCell.player?.muted = true
+      customCell.player?.playerLayer()?.isHidden = true
+      customCell.player?.willMove(toParentViewController: self)
+      customCell.player?.view.removeFromSuperview()
+      customCell.player?.removeFromParentViewController()
+      customCell.player?.url = nil
       customCell.player = nil
    }
    
@@ -360,6 +367,9 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       //Check cache. Exists -> get it, no - plce thumbnail and download
       if (mediaCache.object(forKey: cacheKey) != nil) { // checking video existance in cache
+//         downloadBigThumbnail(postKey: posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
+         cell.player = Player()
+         cell.addTapGestureOnVideo()
          cell.player.view.frame = cell.spotPostMedia.bounds
          cell.player.fillMode = PlayerFillMode.resizeAspectFill.avFoundationType
          
@@ -374,6 +384,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          cell.player.playFromBeginning()
       } else {
          downloadBigThumbnail(postKey: posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
+//         downloadVideo(postKey: posts[cacheKey].key, cacheKey: cacheKey, cell: cell)
       }
    }
    
@@ -404,6 +415,8 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
    }
    
    private func downloadVideo(postKey: String, cacheKey: Int, cell: PostsCellWithVideo) {
+      cell.player = Player()
+      cell.addTapGestureOnVideo()
       cell.player.view.frame = cell.spotPostMedia.bounds
       cell.player.view.frame.size.height = cell.spotPostMedia.frame.height
       cell.player.view.layoutIfNeeded()

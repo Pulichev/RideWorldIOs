@@ -104,7 +104,6 @@ class PostsCellWithPhoto: UITableViewCell {
    private func setPhotoFrame(width: CGFloat) {
       let height = width * CGFloat(post.mediaAspectRatio)
       spotPostPhotoHeight.constant = height
-      backgroundView?.setNeedsDisplay()
    }
    
    private func setPhoto() {

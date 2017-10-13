@@ -296,7 +296,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
       
       if let cellWithPhoto = cell as? PostsCellWithPhoto {
          cellWithPhoto.initializeForWillDisplay(cellWidth: width)
-         cellWithPhoto.backgroundView?.setNeedsDisplay()
       }
       
       if let cellWithVideo = cell as? PostsCellWithVideo {
@@ -304,7 +303,6 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
          let row = indexPath.row
          let cachedAsset = mediaCache.object(forKey: row) as? AVAsset
          cellWithVideo.initializeForWillDisplay(cellWidth: width, cachedAsset, row: row)
-         cellWithVideo.backgroundView?.setNeedsDisplay()
       }
    }
    

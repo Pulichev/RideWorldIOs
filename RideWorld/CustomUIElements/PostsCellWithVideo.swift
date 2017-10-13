@@ -30,7 +30,7 @@ class PostsCellWithVideo: UITableViewCell {
    @IBOutlet weak var userLoginHeaderButton: UIButton!
    
    @IBOutlet weak var spotPostMediaHeight: NSLayoutConstraint!
-   @IBOutlet var spotPostMedia: MediaContainerView!
+   @IBOutlet var spotPostMedia: AVPlayerView!
    
    var player: AVPlayer!
    
@@ -92,7 +92,7 @@ class PostsCellWithVideo: UITableViewCell {
    override func prepareForReuse() {
       super.prepareForReuse()
       
-      self.spotPostMedia.layer.sublayers?.removeAll()
+//      self.spotPostMedia.layer.sublayers?.removeAll()
    }
    
    private func addDoubleTapGestureOnUserPhoto() {
@@ -126,23 +126,33 @@ class PostsCellWithVideo: UITableViewCell {
    private func setVideoFrame(width: CGFloat) {
       let height = width * CGFloat(post.mediaAspectRatio)
       spotPostMediaHeight.constant = height
-      backgroundView?.setNeedsDisplay()
+//      spotPostMedia.layoutSublayers(of: spotPostMedia.layer)
    }
+   
+//   override func layoutSubviews() {
+//      super.layoutSubviews()
+//
+//      spotPostMedia.playerLayer?.frame = bounds
+//   }
    
    private func setVideo(_ cachedAsset: AVAsset?) {
       //Check cache. Exists -> get it, no - plce thumbnail and download
       if (cachedAsset != nil) { // checking video existance in cache
          player = AVPlayer(playerItem: AVPlayerItem(asset: cachedAsset!))
          player.isMuted = true
-         let playerLayer = AVPlayerLayer(player: (player))
-         playerLayer.contentsGravity = kCAGravityResize
-         playerLayer.videoGravity = AVLayerVideoGravity(rawValue: kCAGravityResizeAspectFill)
-         playerLayer.frame = spotPostMedia.bounds
-         spotPostMedia.layer.addSublayer(playerLayer)
-         spotPostMedia.playerLayer = playerLayer
+//         let playerLayer = AVPlayerLayer(player: (player))
+         let castedLayer = spotPostMedia.layer as! AVPlayerLayer
+         castedLayer.player = player
+//         playerLayer.contentsGravity = kCAGravityBottomLeft//kCAGravityResize
+//         playerLayer.videoGravity = AVLayerVideoGravity(rawValue: kCAGravityResizeAspectFill)
+//         playerLayer.frame = spotPostMedia.bounds
+         
+//         spotPostMedia.layer.addSublayer(playerLayer)
+//         spotPostMedia.playerLayer = playerLayer
+//         spotPostMedia.layoutSublayers(of: spotPostMedia.layer)
          
          player.play()
-         addSoundImage(isMuted: true)
+//         addSoundImage(isMuted: true)
          addTapGestureOnVideo()
       } else {
          addPlaceHolder()
@@ -150,30 +160,40 @@ class PostsCellWithVideo: UITableViewCell {
       }
    }
    
+//   override var frame: CGRect {
+//      didSet {
+//         super.frame = frame
+//         self.spotPostMedia?.playerLayer?.frame = (spotPostMedia?.bounds)!
+//         self.spotPostMedia?.playerLayer?.layoutIfNeeded()
+//         self.spotPostMedia?.layoutSublayers(of: spotPostMedia.layer)
+//         setNeedsDisplay()
+//      }
+//   }
+   
    private func addPlaceHolder() {
-      let placeholder = UIImageView()
-      let placeholderImage = UIImage(named: "grayRec.png")
-      placeholder.image = placeholderImage
-      placeholder.layer.contentsGravity = kCAGravityResize
-      placeholder.contentMode = .scaleAspectFill
-      placeholder.frame = spotPostMedia.bounds
-      spotPostMedia.layer.addSublayer(placeholder.layer)
-      spotPostMedia.playerLayer = placeholder.layer
+//      let placeholder = UIImageView()
+//      let placeholderImage = UIImage(named: "grayRec.png")
+//      placeholder.image = placeholderImage
+//      placeholder.layer.contentsGravity = kCAGravityResize
+//      placeholder.contentMode = .scaleAspectFill
+//      placeholder.frame = spotPostMedia.bounds
+//      spotPostMedia.layer.addSublayer(placeholder.layer)
+//      spotPostMedia.playerLayer = placeholder.layer
    }
    
    private func downloadBigThumbnail() {
       // thumbnail!
-      let imageViewForView = UIImageView()
-      imageViewForView.kf.setImage(with: URL(string: post.mediaRef700)) { (_, _, _, _) in
-         imageViewForView.layer.contentsGravity = kCAGravityResize
-         imageViewForView.contentMode = .scaleAspectFill
-         imageViewForView.frame = self.spotPostMedia.bounds
-         
-         self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-         self.spotPostMedia.playerLayer = imageViewForView.layer
+//      let imageViewForView = UIImageView()
+//      imageViewForView.kf.setImage(with: URL(string: post.mediaRef700)) { (_, _, _, _) in
+//         imageViewForView.layer.contentsGravity = kCAGravityResize
+//         imageViewForView.contentMode = .scaleAspectFill
+//         imageViewForView.frame = self.spotPostMedia.bounds
+      
+//         self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+//         self.spotPostMedia.playerLayer = imageViewForView.layer
          
          self.downloadVideo()
-      }
+//      }
    }
    
    private func downloadVideo() {
@@ -184,17 +204,21 @@ class PostsCellWithVideo: UITableViewCell {
       }
       
       player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
-      let playerLayer = AVPlayerLayer(player: player)
       player.isMuted = true
-      playerLayer.contentsGravity = kCAGravityResize
-      playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-      playerLayer.frame = spotPostMedia.bounds
       
-      spotPostMedia.layer.addSublayer(playerLayer)
-      spotPostMedia.playerLayer = playerLayer
+      let castedLayer = spotPostMedia.layer as! AVPlayerLayer
+      castedLayer.player = player
+//      let playerLayer = AVPlayerLayer(player: player)
+//      playerLayer.contentsGravity = kCAGravityBottomLeft//kCAGravityResize
+//      playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+//      playerLayer.frame = spotPostMedia.bounds
+      
+//      spotPostMedia.layer.addSublayer(playerLayer)
+//      spotPostMedia.playerLayer = playerLayer
+//      spotPostMedia.layoutSublayers(of: spotPostMedia.layer)
       
       player.play()
-      addSoundImage(isMuted: true)
+//      addSoundImage(isMuted: true)
       addTapGestureOnVideo()
    }
 
@@ -220,8 +244,8 @@ class PostsCellWithVideo: UITableViewCell {
          dismissSoundImage(isMuted: false) // we can mute and fast (<2.0s) unmute
          mutedImageLayer = soundStateImageView.layer
          
-         spotPostMedia.layer.addSublayer(mutedImageLayer)
-         spotPostMedia.playerLayer = mutedImageLayer
+//         spotPostMedia.layer.addSublayer(mutedImageLayer)
+//         spotPostMedia.playerLayer = mutedImageLayer
          // dismiss in 2 secs
          DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
             self.dismissSoundImage(isMuted: true)
@@ -230,13 +254,15 @@ class PostsCellWithVideo: UITableViewCell {
          dismissSoundImage(isMuted: true) // we can mute and fast (<2.0s) unmute
          unmutedImageLayer = soundStateImageView.layer
          
-         spotPostMedia.layer.addSublayer(unmutedImageLayer)
-         spotPostMedia.playerLayer = unmutedImageLayer
+//         spotPostMedia.layer.addSublayer(unmutedImageLayer)
+//         spotPostMedia.playerLayer = unmutedImageLayer
          
          DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
             self.dismissSoundImage(isMuted: false)
          })
       }
+      
+//      spotPostMedia.layoutSublayers(of: spotPostMedia.layer)
    }
    
    private func dismissSoundImage(isMuted: Bool) {

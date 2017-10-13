@@ -64,6 +64,7 @@
 		9F943EE91E6F041300709B79 /* LikeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F943EE81E6F041300709B79 /* LikeItem.swift */; };
 		9F9F9C441F0188E000871628 /* MediaContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F9C431F0188E000871628 /* MediaContainerView.swift */; };
 		9FA5A34B1F45F972008730CD /* PostsCellLikeEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5A34A1F45F972008730CD /* PostsCellLikeEventDelegate.swift */; };
+		9FA812241F9121CA005E4970 /* AVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA812231F9121CA005E4970 /* AVPlayerView.swift */; };
 		9FAE8C201E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */; };
 		9FB681B61E2E70CE00D9A436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB681B51E2E70CE00D9A436 /* AppDelegate.swift */; };
 		9FB681C01E2E70CE00D9A436 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FB681BE1E2E70CE00D9A436 /* LaunchScreen.storyboard */; };
@@ -216,6 +217,7 @@
 		9F9F9C431F0188E000871628 /* MediaContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaContainerView.swift; path = CustomUIElements/MediaContainerView.swift; sourceTree = "<group>"; };
 		9FA5A34A1F45F972008730CD /* PostsCellLikeEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCellLikeEventDelegate.swift; path = Protocols/PostsCellLikeEventDelegate.swift; sourceTree = "<group>"; };
 		9FA5A34C1F46103F008730CD /* RideWorld.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RideWorld.entitlements; sourceTree = "<group>"; };
+		9FA812231F9121CA005E4970 /* AVPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AVPlayerView.swift; path = CustomUIElements/AVPlayerView.swift; sourceTree = "<group>"; };
 		9FAE8C1E1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+EmptyDataSet.h"; path = "Some Obj-C frameworks/UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		9FAE8C1F1E7E849200BB10B9 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+EmptyDataSet.m"; path = "Some Obj-C frameworks/UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		9FB681B21E2E70CE00D9A436 /* RideWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RideWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -576,6 +578,7 @@
 				9FBBFDBE1F7ACF06001120A8 /* SpotFSPagerViewCell.swift */,
 				9F140CC51F7C01D0002D70B0 /* SpotAnnotationViewCallout.swift */,
 				9F140CC71F7C2292002D70B0 /* SpotAnnotationView.swift */,
+				9FA812231F9121CA005E4970 /* AVPlayerView.swift */,
 			);
 			name = CustomUIElements;
 			sourceTree = "<group>";
@@ -1107,6 +1110,7 @@
 				9F61C20E1F0ED8230023B7D1 /* UIViewExtenstions.swift in Sources */,
 				9FD4A1E31EDE019400B4C0D2 /* FeedbackItemsDelegate.swift in Sources */,
 				9FCD27681F38ED52006A8A86 /* FollowTappedFromProfile.swift in Sources */,
+				9FA812241F9121CA005E4970 /* AVPlayerView.swift in Sources */,
 				9F4A84411E62F4C100C1E5F2 /* UserProfileController.swift in Sources */,
 				9F6DD9CF1F0AE0DE00E3300E /* UIButtonX.swift in Sources */,
 				9F0AC5861E8C5138007ABD55 /* ForUpdatingUserProfilePosts.swift in Sources */,

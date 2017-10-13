@@ -399,7 +399,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="521.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="pti-Mk-zcp" customClass="MediaContainerView" customModule="RideWorld" customModuleProvider="target">
+                                                <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="pti-Mk-zcp" customClass="AVPlayerView" customModule="RideWorld" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="44" width="375" height="289"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -546,7 +546,7 @@
                                             <outlet property="openComments" destination="VeH-SJ-JSz" id="5O8-mj-OoN"/>
                                             <outlet property="postDate" destination="9M3-vR-ACh" id="76c-NL-cU1"/>
                                             <outlet property="postDescription" destination="JK3-1Q-fG8" id="UIL-8R-lpL"/>
-                                            <outlet property="spotPostMedia" destination="pti-Mk-zcp" id="4Rd-Cu-43P"/>
+                                            <outlet property="spotPostMedia" destination="pti-Mk-zcp" id="uFc-xu-eq7"/>
                                             <outlet property="spotPostMediaHeight" destination="bx3-6t-HRV" id="htl-dv-kFu"/>
                                             <outlet property="userLoginHeaderButton" destination="nI3-06-gHa" id="efA-4x-cUb"/>
                                             <outlet property="userPhoto" destination="sOO-io-zHl" id="bv3-mZ-35D"/>

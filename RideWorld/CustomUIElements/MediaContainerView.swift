@@ -13,17 +13,4 @@ class MediaContainerView: UIView {
       super.layoutSublayers(of: layer)
       playerLayer?.frame = self.bounds
    }
-   
-//   override func layoutSubviews() {
-//      super.layoutSubviews()
-//      playerLayer?.frame = self.bounds
-//   }
-   
-//   override var frame: CGRect {
-//      didSet {
-//         super.frame = frame
-//         self.playerLayer?.frame = self.bounds
-//         setNeedsDisplay()
-//      }
-//   }
 }

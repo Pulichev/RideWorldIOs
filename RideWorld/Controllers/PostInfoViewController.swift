@@ -347,7 +347,6 @@ class PostInfoViewController: UIViewController {
       let imageView = UIImageView()
       imageView.layer.contentsGravity = kCAGravityResize
       imageView.contentMode = .scaleAspectFill
-      imageView.frame = spotPostMedia.bounds
       
       // blur for 10px thumbnail
       let blurProc01 = BlurImageProcessor(blurRadius: 0.1)

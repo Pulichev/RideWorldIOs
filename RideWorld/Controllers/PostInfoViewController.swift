@@ -80,7 +80,6 @@ class PostInfoViewController: UIViewController {
       let width = view.frame.size.width
       let height = CGFloat(Double(width) * postInfo.mediaAspectRatio)
       mediaContainerHeight.constant = height
-//      spotPostMedia.layoutIfNeeded()
       
       addMediaToView()
    }
@@ -334,8 +333,6 @@ class PostInfoViewController: UIViewController {
    
    // MARK: - Add media
    func addMediaToView() {
-      spotPostMedia.layer.sublayers?.forEach { $0.removeFromSuperlayer() } //deleting old data from view (photo or video)
-      
       //Downloading and caching media
       if postInfo.isPhoto {
          setImage()

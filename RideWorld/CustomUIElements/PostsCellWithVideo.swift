@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import ActiveLabel
 import SVProgressHUD
-import Player
+//import Player
 
 protocol DelegateVideoCache: class {
    func addToCacheArray(new asset: AVAsset, on row: Int)

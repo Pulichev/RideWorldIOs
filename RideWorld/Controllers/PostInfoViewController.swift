@@ -11,7 +11,7 @@ import AVFoundation
 import Kingfisher
 import ActiveLabel
 import SVProgressHUD
-import Player
+//import Player
 
 class PostInfoViewController: UIViewController {
    
@@ -20,11 +20,11 @@ class PostInfoViewController: UIViewController {
    var isCurrentUserProfile: Bool!
    var delegateDeleting: ForUpdatingUserProfilePosts?
    
-   @IBOutlet var spotPostMedia: MediaContainerView!
+   @IBOutlet var spotPostMedia: AVPlayerView!
    @IBOutlet weak var mediaContainerHeight: NSLayoutConstraint!
    
    var isPhoto: Bool!
-   var player = Player()
+   var player: AVPlayer!
    
    @IBOutlet var postDate: UILabel!
    @IBOutlet var postDescription: ActiveLabel! {
@@ -80,7 +80,7 @@ class PostInfoViewController: UIViewController {
       let width = view.frame.size.width
       let height = CGFloat(Double(width) * postInfo.mediaAspectRatio)
       mediaContainerHeight.constant = height
-      spotPostMedia.layoutIfNeeded()
+//      spotPostMedia.layoutIfNeeded()
       
       addMediaToView()
    }
@@ -112,7 +112,7 @@ class PostInfoViewController: UIViewController {
    private func addTapGestureOnVideo() {
       let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
       tapGestureRecognizer.numberOfTapsRequired = 1
-      player.view.addGestureRecognizer(tapGestureRecognizer)
+      spotPostMedia.addGestureRecognizer(tapGestureRecognizer)
    }
    
    var mutedImageLayer  : CALayer!
@@ -130,14 +130,13 @@ class PostInfoViewController: UIViewController {
       let soundStateImageView = UIImageView(image: image)
       soundStateImageView.layer.contentsGravity = kCAGravityBottomLeft
       soundStateImageView.contentMode = .bottomLeft
-      soundStateImageView.frame = spotPostMedia.bounds
       
       if isMuted {
          dismissSoundImage(isMuted: false) // we can mute and fast (<2.0s) unmute
          mutedImageLayer = soundStateImageView.layer
          
          spotPostMedia.layer.addSublayer(mutedImageLayer)
-         spotPostMedia.playerLayer = mutedImageLayer
+         
          // dismiss in 2 secs
          DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
             self.dismissSoundImage(isMuted: true)
@@ -147,7 +146,6 @@ class PostInfoViewController: UIViewController {
          unmutedImageLayer = soundStateImageView.layer
          
          spotPostMedia.layer.addSublayer(unmutedImageLayer)
-         spotPostMedia.playerLayer = unmutedImageLayer
          
          DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
             self.dismissSoundImage(isMuted: false)
@@ -164,11 +162,11 @@ class PostInfoViewController: UIViewController {
    }
    
    @objc func handleTapGestureRecognizer(_ gestureRecognizer: UITapGestureRecognizer) {
-      if player.muted {
-         player.muted = false
+      if player.isMuted {
+         player.isMuted = false
          addSoundImage(isMuted: false)
       } else {
-         player.muted = true
+         player.isMuted = true
          addSoundImage(isMuted: true)
       }
    }
@@ -212,7 +210,9 @@ class PostInfoViewController: UIViewController {
             addNewLike() { isSucceded in
                if !isSucceded {
                   self.showAlertOfError()
-                  self.swapLikeInfo()               }
+                  self.swapLikeInfo()
+                  
+               }
                
                self.likeEventActive = false
             }
@@ -352,9 +352,6 @@ class PostInfoViewController: UIViewController {
       imageView.contentMode = .scaleAspectFill
       imageView.frame = spotPostMedia.bounds
       
-      spotPostMedia.layer.addSublayer(imageView.layer)
-      spotPostMedia.playerLayer = imageView.layer
-      
       // blur for 10px thumbnail
       let blurProc01 = BlurImageProcessor(blurRadius: 0.1)
       
@@ -367,6 +364,8 @@ class PostInfoViewController: UIViewController {
          placeholder: UIImage(named: "grayRec.png"),
          options: [.processor(blurProc01)],
          completionHandler: { (image, error, cacheType, imageUrl) in
+            let spotPostMediaLayer = self.spotPostMedia.layer
+            spotPostMediaLayer.contents = imageView.image!.cgImage
             // download original
             imageView.kf.setImage(
                with: URL(string: self.postInfo.mediaRef700),
@@ -375,6 +374,8 @@ class PostInfoViewController: UIViewController {
                   let percentage = (Double(receivedSize) / Double(totalSize))
                   circularProgress.view.progress = percentage
             }, completionHandler: { (_, _, _, _) in
+               let spotPostMediaLayer = self.spotPostMedia.layer
+               spotPostMediaLayer.contents = imageView.image!.cgImage
                circularProgress.view.isHidden = true
             })
       })
@@ -391,9 +392,8 @@ class PostInfoViewController: UIViewController {
       placeholder.image = placeholderImage
       placeholder.layer.contentsGravity = kCAGravityResize
       placeholder.contentMode = .scaleAspectFill
-      placeholder.frame = spotPostMedia.bounds
-      spotPostMedia.layer.addSublayer(placeholder.layer)
-      spotPostMedia.playerLayer = placeholder.layer
+      let spotPostMediaLayer = spotPostMedia.layer
+      spotPostMediaLayer.contents = placeholderImage!.cgImage
    }
    
    private func downloadBigThumbnail() {
@@ -402,30 +402,36 @@ class PostInfoViewController: UIViewController {
       imageViewForView.kf.setImage(with: URL(string: postInfo.mediaRef700)) { (_, _, _, _) in
          imageViewForView.layer.contentsGravity = kCAGravityResize
          imageViewForView.contentMode = .scaleAspectFill
-         imageViewForView.frame = self.spotPostMedia.bounds
-         
-         self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
-         self.spotPostMedia.playerLayer = imageViewForView.layer
+         let spotPostMediaLayer = self.spotPostMedia.layer
+         spotPostMediaLayer.contents = imageViewForView.image!.cgImage
          
          self.downloadVideo()
       }
    }
    
    private func downloadVideo() {
-      player.fillMode = PlayerFillMode.resizeAspectFill.avFoundationType
+      let asset = AVURLAsset(url: URL(string: postInfo.videoRef)!)
       
-      player.view.frame = spotPostMedia.bounds
+      player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
+      player.isMuted = true
+      let castedLayer = spotPostMedia.layer as! AVPlayerLayer
+      castedLayer.player = player
       
-      self.addChildViewController(player)
-      spotPostMedia.addSubview(player.view)
-      player.didMove(toParentViewController: self)
+      player.play()
       
-      player.url = URL(string: postInfo.videoRef)!
-      player.muted = true
-      
-      player.playbackLoops = true
-      player.playFromBeginning()
       addSoundImage(isMuted: true)
+      addTapGestureOnVideo()
+      
+      // for looping
+      NotificationCenter.default.addObserver(self, selector: #selector(PostsCellWithVideo.playerItemDidReachEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+   }
+   
+   @objc func playerItemDidReachEnd(notification: Notification) {
+      if notification.object as? AVPlayerItem == player?.currentItem {
+         player.pause()
+         player.seek(to: kCMTimeZero)
+         player.play()
+      }
    }
    
    // MARK: - Delete post part

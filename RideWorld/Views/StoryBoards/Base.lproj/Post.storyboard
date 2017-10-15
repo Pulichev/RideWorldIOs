@@ -61,7 +61,7 @@
                                                     <constraint firstAttribute="width" constant="60" id="js9-dE-Ez8"/>
                                                 </constraints>
                                             </imageView>
-                                            <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qxc-pj-QnL" customClass="MediaContainerView" customModule="RideWorld" customModuleProvider="target">
+                                            <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qxc-pj-QnL" customClass="AVPlayerView" customModule="RideWorld" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="44" width="375" height="254"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -207,7 +207,7 @@
                         <outlet property="openComments" destination="kak-qA-K8P" id="fTI-K7-ofz"/>
                         <outlet property="postDate" destination="qPv-s4-Xgo" id="vPM-f5-Zb8"/>
                         <outlet property="postDescription" destination="Gxy-Tq-bi5" id="cNq-UF-CVr"/>
-                        <outlet property="spotPostMedia" destination="Qxc-pj-QnL" id="bnH-5G-T0l"/>
+                        <outlet property="spotPostMedia" destination="Qxc-pj-QnL" id="J1v-Pv-IEg"/>
                         <outlet property="userLoginHeaderButton" destination="5A4-dn-Nmt" id="4rd-O3-WcY"/>
                         <outlet property="userPhoto" destination="TVA-M8-h0L" id="UdS-Eb-SKD"/>
                         <segue destination="8A6-Ce-SPL" kind="show" identifier="fromPostInfoToUserProfile" id="0eg-2s-RsF"/>
@@ -762,9 +762,9 @@
         <image name="respectPassive" width="94" height="59"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QOa-aY-bXL"/>
-        <segue reference="TEa-lr-7L1"/>
-        <segue reference="6R6-CY-IE2"/>
-        <segue reference="Xyq-8K-e8w"/>
+        <segue reference="COh-cw-Ntn"/>
+        <segue reference="0eg-2s-RsF"/>
+        <segue reference="pip-4n-Igg"/>
+        <segue reference="I78-xn-cQP"/>
     </inferredMetricsTieBreakers>
 </document>

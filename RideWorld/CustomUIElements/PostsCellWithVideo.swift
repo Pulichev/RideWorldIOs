@@ -89,6 +89,10 @@ class PostsCellWithVideo: UITableViewCell {
       setVideo(cachedAsset)
    }
    
+   deinit {
+      NotificationCenter.default.removeObserver(self)
+   }
+   
    private func addDoubleTapGestureOnUserPhoto() {
       let tap = UITapGestureRecognizer(target:self, action:#selector(userInfoTapped))
       tap.numberOfTapsRequired = 1
@@ -161,21 +165,33 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    private func downloadVideo() {
-      let asset = AVAsset(url: URL(string: post.videoRef)!)
+      let asset = AVURLAsset(url: URL(string: post.videoRef)!)
       
       if let del = delegateVideoCache {
          del.addToCacheArray(new: asset, on: rowInStripIndex)
       }
-      
+
       player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
       player.isMuted = true
       let castedLayer = spotPostMedia.layer as! AVPlayerLayer
       castedLayer.player = player
       
       player.play()
+      
       addTapGestureOnVideo()
+      
+      // for looping
+      NotificationCenter.default.addObserver(self, selector: #selector(PostsCellWithVideo.playerItemDidReachEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
    }
-
+   
+   @objc func playerItemDidReachEnd(notification: Notification) {
+      if notification.object as? AVPlayerItem == player.currentItem {
+         player.pause()
+         player.seek(to: kCMTimeZero)
+         player.play()
+      }
+   }
+   
    // MARK: - Muting part
    var mutedImageLayer  : CALayer!
    var unmutedImageLayer: CALayer!

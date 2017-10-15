@@ -580,4 +580,16 @@ class PostInfoViewController: UIViewController {
       default: break
       }
    }
+   
+   override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      
+      player?.pause()
+   }
+   
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+      
+      player?.play()
+   }
 }

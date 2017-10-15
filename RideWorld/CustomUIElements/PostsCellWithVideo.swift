@@ -56,9 +56,6 @@ class PostsCellWithVideo: UITableViewCell {
       self.post            = post
       
       setVideoFrame(width: cellWidth)
-//
-//      rowInStripIndex = row
-//      setVideo(cachedAsset)
       
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
       
@@ -84,7 +81,6 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    func initializeForWillDisplay(cellWidth: CGFloat, _ cachedAsset: AVAsset?, row: Int) {
-//      setVideoFrame(width: cellWidth)
       rowInStripIndex = row
       setVideo(cachedAsset)
    }
@@ -149,7 +145,8 @@ class PostsCellWithVideo: UITableViewCell {
       placeholder.image = placeholderImage
       placeholder.layer.contentsGravity = kCAGravityResize
       placeholder.contentMode = .scaleAspectFill
-      spotPostMedia.layer.addSublayer(placeholder.layer)
+      let spotPostMediaLayer = spotPostMedia.layer
+      spotPostMediaLayer.contents = placeholderImage!.cgImage
    }
    
    private func downloadBigThumbnail() {
@@ -158,7 +155,8 @@ class PostsCellWithVideo: UITableViewCell {
       imageViewForView.kf.setImage(with: URL(string: post.mediaRef700)) { (_, _, _, _) in
          imageViewForView.layer.contentsGravity = kCAGravityResize
          imageViewForView.contentMode = .scaleAspectFill
-         self.spotPostMedia.layer.addSublayer(imageViewForView.layer)
+         let spotPostMediaLayer = self.spotPostMedia.layer
+         spotPostMediaLayer.contents = imageViewForView.image!.cgImage
          
          self.downloadVideo()
       }
@@ -166,11 +164,11 @@ class PostsCellWithVideo: UITableViewCell {
    
    private func downloadVideo() {
       let asset = AVURLAsset(url: URL(string: post.videoRef)!)
-      
+
       if let del = delegateVideoCache {
          del.addToCacheArray(new: asset, on: rowInStripIndex)
       }
-
+      
       player = AVPlayer(playerItem: AVPlayerItem(asset: asset))
       player.isMuted = true
       let castedLayer = spotPostMedia.layer as! AVPlayerLayer
@@ -178,6 +176,7 @@ class PostsCellWithVideo: UITableViewCell {
       
       player.play()
       
+      addSoundImage(isMuted: true)
       addTapGestureOnVideo()
       
       // for looping
@@ -185,7 +184,7 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    @objc func playerItemDidReachEnd(notification: Notification) {
-      if notification.object as? AVPlayerItem == player.currentItem {
+      if notification.object as? AVPlayerItem == player?.currentItem {
          player.pause()
          player.seek(to: kCMTimeZero)
          player.play()
@@ -208,13 +207,13 @@ class PostsCellWithVideo: UITableViewCell {
       let soundStateImageView = UIImageView(image: image)
       soundStateImageView.layer.contentsGravity = kCAGravityBottomLeft
       soundStateImageView.contentMode = .bottomLeft
-//      soundStateImageView.frame = spotPostMedia.bounds
       
       if isMuted {
          dismissSoundImage(isMuted: false) // we can mute and fast (<2.0s) unmute
          mutedImageLayer = soundStateImageView.layer
          
          spotPostMedia.layer.addSublayer(mutedImageLayer)
+
          // dismiss in 2 secs
          DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
             self.dismissSoundImage(isMuted: true)

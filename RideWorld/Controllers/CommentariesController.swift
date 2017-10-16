@@ -13,6 +13,10 @@ import SVProgressHUD
 
 class CommentariesController: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
+   deinit {
+      print("deinited")
+   }
+   
    var post: PostItem!
    
    @IBOutlet weak var tableView: UITableView! {
@@ -250,13 +254,12 @@ extension CommentariesController: TappedUserDelegate {
 // MARK: - Scroll view on keyboard show/hide
 extension CommentariesController: UITextFieldDelegate {
    @objc func keyboardWillShow(notification: NSNotification) {
-      if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-         let keyboardHeight = keyboardSize.height
-         UIView.animate(withDuration: 1.0, animations: {
-            self.newCommentViewBotConstraint.constant = -keyboardHeight
-            self.view.layoutIfNeeded()
-         })
-      }
+      let keyboardSize = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue.size
+      let keyboardHeight = keyboardSize.height
+      UIView.animate(withDuration: 1.0, animations: {
+         self.newCommentViewBotConstraint.constant = -keyboardHeight
+         self.view.layoutIfNeeded()
+      })
    }
    
    @objc func keyboardWillHide(notification: NSNotification) {

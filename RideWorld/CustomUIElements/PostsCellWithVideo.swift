@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 import ActiveLabel
 import SVProgressHUD
-//import Player
 
 protocol DelegateVideoCache: class {
    func addToCacheArray(new asset: AVAsset, on row: Int)
@@ -18,10 +17,10 @@ protocol DelegateVideoCache: class {
 
 class PostsCellWithVideo: UITableViewCell {
    
-   weak var delegateUserTaps: TappedUserDelegate? // for sending user info
+   weak var delegateUserTaps: TappedUserDelegate?         // for sending user info
    weak var delegateSpotInfoTaps: TappedSpotInfoDelegate? // when tapping go to spot info from alert
    weak var delegateLikeEvent: PostsCellLikeEventDelegate?
-   weak var delegateVideoCache: DelegateVideoCache? // for adding new assets to cache in post strip
+   weak var delegateVideoCache: DelegateVideoCache?       // for adding new assets to cache in post strip
    
    var rowInStripIndex: Int!
    var post: PostItem!

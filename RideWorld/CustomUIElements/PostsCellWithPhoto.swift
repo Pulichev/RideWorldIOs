@@ -49,9 +49,6 @@ class PostsCellWithPhoto: UITableViewCell {
    func initialize(with cachedCell: PostItemCellCache, _ post: PostItem, cellWidth: CGFloat) {
       self.post            = post
       
-      setPhotoFrame(width: cellWidth)
-//      setPhoto()
-      
       userLoginHeaderButton.setTitle(post.userLogin, for: .normal)
       
       if post.userProfilePhoto90 != "" {
@@ -73,10 +70,11 @@ class PostsCellWithPhoto: UITableViewCell {
       
       addDoubleTapGestureOnPostPhotos()
       addDoubleTapGestureOnUserPhoto()
+      
+      setPhotoFrame(width: cellWidth)
    }
    
    func initializeForWillDisplay(cellWidth: CGFloat) {
-//      setPhotoFrame(width: cellWidth)
       setPhoto()
    }
    
@@ -104,6 +102,7 @@ class PostsCellWithPhoto: UITableViewCell {
    private func setPhotoFrame(width: CGFloat) {
       let height = width * CGFloat(post.mediaAspectRatio)
       spotPostPhotoHeight.constant = height
+//      spotPostPhoto.layoutIfNeeded()
    }
    
    private func setPhoto() {
@@ -112,14 +111,15 @@ class PostsCellWithPhoto: UITableViewCell {
       
       // blur for 10px thumbnail
       let blurProc01 = BlurImageProcessor(blurRadius: 0.1)
-      let circularProgress = CircularProgress(on: spotPostPhoto.bounds)
-      spotPostPhoto.addSubview(circularProgress.view)
       
       // download 10px thumbnail
       spotPostPhoto.kf.setImage(
          with: URL(string: post.mediaRef10),
          options: [.processor(blurProc01)],
          completionHandler: { (image, error, cacheType, imageUrl) in
+            self.spotPostPhoto.layoutIfNeeded()
+            let circularProgress = CircularProgress(on: self.spotPostPhoto.bounds)
+            self.spotPostPhoto.addSubview(circularProgress.view)
             // download original
             self.spotPostPhoto.kf.setImage(
                with: URL(string: self.post.mediaRef700),

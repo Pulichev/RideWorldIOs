@@ -352,6 +352,7 @@ class PostInfoViewController: UIViewController {
       // blur for 10px thumbnail
       let blurProc01 = BlurImageProcessor(blurRadius: 0.1)
       
+      spotPostMedia.layoutIfNeeded()
       let circularProgress = CircularProgress(on: spotPostMedia.bounds)
       spotPostMedia.addSubview(circularProgress.view)
       

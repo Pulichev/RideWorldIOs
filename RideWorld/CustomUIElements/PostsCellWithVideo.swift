@@ -156,7 +156,7 @@ class PostsCellWithVideo: UITableViewCell {
          imageViewForView.layer.contentsGravity = kCAGravityResize
          imageViewForView.contentMode = .scaleAspectFill
          let spotPostMediaLayer = self.spotPostMedia.layer
-         spotPostMediaLayer.contents = imageViewForView.image!.cgImage
+         spotPostMediaLayer.contents = imageViewForView.image?.cgImage
          
          self.downloadVideo()
       }
@@ -189,6 +189,17 @@ class PostsCellWithVideo: UITableViewCell {
          player.seek(to: kCMTimeZero)
          player.play()
       }
+   }
+   
+   override func prepareForReuse() {
+      super.prepareForReuse()
+      
+      setLayerEmpty()
+   }
+   
+   public func setLayerEmpty() {
+      let spotPostMediaLayer = self.spotPostMedia.layer as! AVPlayerLayer
+      spotPostMediaLayer.player = nil
    }
    
    // MARK: - Muting part

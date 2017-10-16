@@ -9,6 +9,7 @@
 import UserNotifications
 import FirebaseInstanceID
 import FirebaseMessaging
+import Kingfisher /// TEMP 4 testing
 
 class MainTabBarController: UITabBarController {
    
@@ -21,6 +22,12 @@ class MainTabBarController: UITabBarController {
       loadFeedbackItems()
       setupMiddleButton()
       requestAndRegisterForNotifications()
+      
+      /// TEMP 4 testing
+      let cache = ImageCache.default
+      cache.clearMemoryCache()
+      cache.clearDiskCache()
+      ///
    }
    
    // to change color of map button on active/inActive

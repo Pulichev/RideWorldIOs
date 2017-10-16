@@ -16,6 +16,7 @@ import SVProgressHUD
 class PostInfoViewController: UIViewController {
    
    var postInfo: PostItem!
+   var cameFromFeedback = false // need for segues to profiles
    
    var isCurrentUserProfile: Bool!
    var delegateDeleting: ForUpdatingUserProfilePosts?
@@ -490,7 +491,7 @@ class PostInfoViewController: UIViewController {
    var ridersInfoForSending: UserItem!
    
    private func goToUserProfile(with tappedUserLogin: String) {
-      if postInfo.userLogin == tappedUserLogin {
+      if postInfo.userLogin == tappedUserLogin && !cameFromFeedback {
          _ = self.navigationController?.popViewController(animated: true) // go back
       } else {
          SVProgressHUD.show()

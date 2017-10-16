@@ -158,6 +158,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
          let newPostInfoController = segue.destination as! PostInfoViewController
          newPostInfoController.postInfo = postInfoForSending
          newPostInfoController.isCurrentUserProfile = true
+         newPostInfoController.cameFromFeedback = true
          
       case "openUserProfileFromFB":
          let userProfileController = segue.destination as! UserProfileController

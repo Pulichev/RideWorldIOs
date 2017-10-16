@@ -132,6 +132,9 @@ class PostsCellWithVideo: UITableViewCell {
          player.play()
          addSoundImage(isMuted: true)
          addTapGestureOnVideo()
+         
+         // for looping
+         NotificationCenter.default.addObserver(self, selector: #selector(PostsCellWithVideo.playerItemDidReachEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
       } else {
          addPlaceHolder()
          downloadBigThumbnail()

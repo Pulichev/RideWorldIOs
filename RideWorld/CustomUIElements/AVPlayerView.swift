@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class AVPlayerView: UIView {
-   override class var layerClass: AnyClass {
-      return AVPlayerLayer.self
-   }
+  override class var layerClass: AnyClass {
+    return AVPlayerLayer.self
+  }
 }

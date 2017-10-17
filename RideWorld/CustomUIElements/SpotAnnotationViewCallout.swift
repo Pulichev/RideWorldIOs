@@ -9,18 +9,18 @@
 import Kingfisher
 
 class SpotAnnotationViewCallout: View {
-   
-   @IBOutlet weak var spotPhoto: UIImageView!
-   @IBOutlet weak var goToInfoButton: UIButtonX!
-   @IBOutlet weak var goToPostsButton: UIButtonX!
-   
-   func addPhoto(spot: SpotItem) {
-      spotPhoto.kf.setImage(with: URL(string: spot.mainPhotoRef))
-      
-      // some settings for image
-      spotPhoto.layer.cornerRadius = spotPhoto.frame.size.height / 10
-      spotPhoto.layer.masksToBounds = true
-      spotPhoto.contentMode = UIViewContentMode.scaleAspectFill
-   }
+  
+  @IBOutlet weak var spotPhoto: UIImageView!
+  @IBOutlet weak var goToInfoButton: UIButtonX!
+  @IBOutlet weak var goToPostsButton: UIButtonX!
+  
+  func addPhoto(spot: SpotItem) {
+    spotPhoto.kf.setImage(with: URL(string: spot.mainPhotoRef))
+    
+    // some settings for image
+    spotPhoto.layer.cornerRadius = spotPhoto.frame.size.height / 10
+    spotPhoto.layer.masksToBounds = true
+    spotPhoto.contentMode = UIViewContentMode.scaleAspectFill
+  }
 }
 

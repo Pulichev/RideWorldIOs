@@ -9,5 +9,6 @@
 import FSPagerView
 
 class SpotFSPagerViewCell: FSPagerViewCell {
+  
    var postPicture: UIImageView!
 }

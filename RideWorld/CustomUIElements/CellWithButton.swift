@@ -1,5 +1,5 @@
 //
-//  CellWithButtonTableViewCell.swift
+//  CellWithButton.swift
 //  RideWorld
 //
 //  Created by Владислав Пуличев on 14.08.17.
@@ -9,5 +9,6 @@
 import UIKit
 
 class CellWithButton: UITableViewCell {
+  
    @IBOutlet weak var button: UIButtonX!
 }

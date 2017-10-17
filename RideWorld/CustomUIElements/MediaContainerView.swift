@@ -7,10 +7,10 @@
 //
 
 class MediaContainerView: UIView {
-   var playerLayer: CALayer?
-   
-   override func layoutSublayers(of layer: CALayer) {
-      super.layoutSublayers(of: layer)
-      playerLayer?.frame = self.bounds
-   }
+  var playerLayer: CALayer?
+  
+  override func layoutSublayers(of layer: CALayer) {
+    super.layoutSublayers(of: layer)
+    playerLayer?.frame = self.bounds
+  }
 }

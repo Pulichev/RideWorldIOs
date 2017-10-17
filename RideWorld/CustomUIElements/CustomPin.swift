@@ -1,5 +1,5 @@
 //
-//  customPin.swift
+//  CustomPin.swift
 //  RideWorld
 //
 //  Created by Владислав Пуличев on 19.01.17.
@@ -10,11 +10,12 @@ import UIKit
 import MapKit
 
 class CustomPin: NSObject, MKAnnotation {
-   var spotItem: SpotItem!
-   var coordinate: CLLocationCoordinate2D
-   var title: String? = ""
-   
-   init(coordinate: CLLocationCoordinate2D) {
-      self.coordinate = coordinate
-   }
+  
+  var spotItem: SpotItem!
+  var coordinate: CLLocationCoordinate2D
+  var title: String? = ""
+  
+  init(coordinate: CLLocationCoordinate2D) {
+    self.coordinate = coordinate
+  }
 }

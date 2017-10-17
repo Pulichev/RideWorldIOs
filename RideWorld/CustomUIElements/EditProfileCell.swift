@@ -9,5 +9,6 @@
 import UIKit
 
 class EditProfileCell: UITableViewCell {
-   @IBOutlet var field: UITextField!
+  
+  @IBOutlet var field: UITextField!
 }

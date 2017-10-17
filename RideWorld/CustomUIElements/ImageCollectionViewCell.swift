@@ -1,5 +1,5 @@
 //
-//  RidersProfileCollectionViewCell.swift
+//  ImageCollectionViewCell.swift
 //  RideWorld
 //
 //  Created by Владислав Пуличев on 16.02.17.
@@ -9,5 +9,6 @@
 import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
-   @IBOutlet var postPicture: UIImageView!
+  
+  @IBOutlet var postPicture: UIImageView!
 }

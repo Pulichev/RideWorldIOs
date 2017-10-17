@@ -141,7 +141,7 @@ class NewPostController: UIViewController, UITextViewDelegate {
    }
    
    private func uploadPhoto(for postItem: PostItem) {
-      PostMedia.uploadPhotoForPost(
+      PostMedia.uploadForPost(
          photoView.image!,
          for: postItem) { (hasFinishedUploading, post) in
             if hasFinishedUploading {

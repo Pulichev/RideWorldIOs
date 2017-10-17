@@ -1,5 +1,5 @@
 //
-//  SpotModel.swift
+//  SpotMedia.swift
 //  RideWorld
 //
 //  Created by Владислав Пуличев on 17.04.17.
@@ -9,6 +9,7 @@
 import FirebaseStorage
 
 struct SpotMedia {
+   
    static let refToSpotMainPhotoURLs = Storage.storage().reference(withPath: "media/spotMainPhotoURLs")
    static let refToSpotInfoPhotos = Storage.storage().reference(withPath: "media/spotInfoPhotos")
    

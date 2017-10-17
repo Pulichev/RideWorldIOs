@@ -1,5 +1,5 @@
 //
-//  PostsCell.swift
+//  PostsCellWithVideo.swift
 //  RideWorld
 //
 //  Created by Владислав Пуличев on 23.01.17.
@@ -108,13 +108,6 @@ class PostsCellWithVideo: UITableViewCell {
       isLikedPhoto.isUserInteractionEnabled = true
    }
    
-   // MRK: - Video mute part
-   func addTapGestureOnVideo() {
-      let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
-      tapGestureRecognizer.numberOfTapsRequired = 1
-      spotPostMedia.addGestureRecognizer(tapGestureRecognizer)
-   }
-   
    // MARK: - Set video part
    private func setVideoFrame(width: CGFloat) {
       let height = width * CGFloat(post.mediaAspectRatio)
@@ -205,6 +198,12 @@ class PostsCellWithVideo: UITableViewCell {
    }
    
    // MARK: - Muting part
+   func addTapGestureOnVideo() {
+      let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
+      tapGestureRecognizer.numberOfTapsRequired = 1
+      spotPostMedia.addGestureRecognizer(tapGestureRecognizer)
+   }
+   
    var mutedImageLayer  : CALayer!
    var unmutedImageLayer: CALayer!
    
@@ -333,25 +332,22 @@ class PostsCellWithVideo: UITableViewCell {
       }
    }
    
+   // MARK: - Alerts part
    private func showAlertOfError() {
       let alert = UIAlertController(title: NSLocalizedString("Oops", comment: ""),
                                     message: NSLocalizedString("Some error occurred. Retry your like/removing like", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-      
       parentViewController?.present(alert, animated: true, completion: nil)
    }
    
    @IBAction func openAlert(_ sender: UIButton) {
-      print("a")
       let alertController = UIAlertController(title: nil,
                                               message: NSLocalizedString("Actions", comment: ""),
                                               preferredStyle: .actionSheet)
-      
-      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
-                                       style: .cancel)
-      
+      let cancelAction       = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
+                                             style: .cancel)
       alertController.addAction(cancelAction)
       
       let goToSpotInfoAction = UIAlertAction(title: NSLocalizedString("Go To Spot Info", comment: ""),
@@ -362,20 +358,21 @@ class PostsCellWithVideo: UITableViewCell {
       
       alertController.addAction(goToSpotInfoAction)
       
-      let reportAction = UIAlertAction(title: NSLocalizedString("Report post", comment: ""),
-                                       style: .destructive)
+      let reportAction       = UIAlertAction(title: NSLocalizedString("Report post", comment: ""),
+                                             style: .destructive)
       { action in
          self.openReportReasonEnterAlert()
       }
       
       alertController.addAction(reportAction)
-      
       parentViewController?.present(alertController, animated: true) // you can see Core/UIViewExtensions
    }
    
    func openReportReasonEnterAlert() {
-      let alertController = UIAlertController(title: NSLocalizedString("Report post", comment: ""), message: "", preferredStyle: .alert)
-      
+      let alertController = UIAlertController(title: NSLocalizedString("Report post", comment: ""),
+                                              message: "",
+                                              preferredStyle: .alert)
+
       let saveAction = UIAlertAction(title: NSLocalizedString("Send", comment: ""),
                                      style: .destructive,
                                      handler: { alert in
@@ -391,10 +388,10 @@ class PostsCellWithVideo: UITableViewCell {
       
       alertController.addAction(saveAction)
       alertController.addAction(cancelAction)
-      
       parentViewController?.present(alertController, animated: true, completion: nil)
    }
    
+   // MARK: - Actions before segues
    @IBAction func userLoginHeaderButtonTapped(_ sender: UIButton) {
       goToUserProfile(tappedUserLogin: post.userLogin)
    }

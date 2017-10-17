@@ -1,5 +1,5 @@
 //
-//  PostsCell.swift
+//  PostsCellWithPhoto.swift
 //  RideWorld
 //
 //  Created by Владислав Пуличев on 23.01.17.
@@ -102,7 +102,6 @@ class PostsCellWithPhoto: UITableViewCell {
    private func setPhotoFrame(width: CGFloat) {
       let height = width * CGFloat(post.mediaAspectRatio)
       spotPostPhotoHeight.constant = height
-//      spotPostPhoto.layoutIfNeeded()
    }
    
    private func setPhoto() {
@@ -205,48 +204,57 @@ class PostsCellWithPhoto: UITableViewCell {
       }
    }
    
+   // MARK: - Alerts part
    private func showAlertOfError() {
       let alert = UIAlertController(title: NSLocalizedString("Oops!", comment: ""),
                                     message: NSLocalizedString("Some error occurred. Retry your like/removing like", comment: ""),
                                     preferredStyle: .alert)
       
       alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-      
       parentViewController?.present(alert, animated: true, completion: nil)
    }
    
    @IBAction func openAlert(_ sender: UIButton) {
-      let alertController = UIAlertController(title: nil, message: NSLocalizedString("Actions", comment: ""),
+      let alertController = UIAlertController(title: nil,
+                                              message: NSLocalizedString("Actions", comment: ""),
                                               preferredStyle: .actionSheet)
       
-      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
+      let cancelAction       = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
       
       alertController.addAction(cancelAction)
       
-      let goToSpotInfoAction = UIAlertAction(title: NSLocalizedString("Go To Spot Info", comment: ""), style: .default) { action in
+      let goToSpotInfoAction = UIAlertAction(title: NSLocalizedString("Go To Spot Info", comment: ""),
+                                             style: .default)
+      { action in
          self.goToSpotInfo()
       }
       
       alertController.addAction(goToSpotInfoAction)
       
-      let reportAction = UIAlertAction(title: NSLocalizedString("Report post", comment: ""), style: .destructive) { action in
+      let reportAction       = UIAlertAction(title: NSLocalizedString("Report post", comment: ""),
+                                             style: .destructive)
+      { action in
          self.openReportReasonEnterAlert()
       }
       
       alertController.addAction(reportAction)
-      
       parentViewController?.present(alertController, animated: true) // you can see Core/UIViewExtensions
    }
    
    func openReportReasonEnterAlert() {
-      let alertController = UIAlertController(title: NSLocalizedString("Report post", comment: ""), message: "", preferredStyle: .alert)
+      let alertController = UIAlertController(title: NSLocalizedString("Report post", comment: ""),
+                                              message: "",
+                                              preferredStyle: .alert)
       
-      let saveAction = UIAlertAction(title: NSLocalizedString("Send", comment: ""), style: .destructive, handler: { alert in
+      let saveAction   = UIAlertAction(title: NSLocalizedString("Send", comment: ""),
+                                     style: .destructive,
+                                     handler: { alert in
          let reasonTextField = alertController.textFields![0] as UITextField
          UserModel.addReportOnPost(with: self.post.key, reason: reasonTextField.text!)
       })
       
-      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .default)
+      let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""),
+                                       style: .default)
       
       alertController.addTextField { textField in
          textField.placeholder = NSLocalizedString("Enter reason..", comment: "")
@@ -254,10 +262,10 @@ class PostsCellWithPhoto: UITableViewCell {
       
       alertController.addAction(saveAction)
       alertController.addAction(cancelAction)
-      
       parentViewController?.present(alertController, animated: true, completion: nil)
    }
    
+   // MARK: - Actions before segues
    @IBAction func userLoginHeaderButtonTapped(_ sender: UIButton) {
       goToUserProfile(tappedUserLogin: post.userLogin)
    }

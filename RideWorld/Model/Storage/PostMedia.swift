@@ -9,6 +9,7 @@
 import FirebaseStorage
 
 struct PostMedia {
+   
    static let refToPostMedia = Storage.storage().reference(withPath: "media/spotPostMedia/")
    
    static func deletePhoto(for spotId: String, _ postId: String, withSize sizePx: Int) {
@@ -33,10 +34,9 @@ struct PostMedia {
    static func upload(_ image: UIImage, for post: PostItem, withSize sizePx: Double,
                       completion: @escaping (_ hasFinished: Bool, _ url: String, _ aspectRatio: Double) -> Void) {
       let resizedPhoto = MyImage.resize(sourceImage: image, toWidth: CGFloat(sizePx))
-      let sizePxInt = Int(sizePx) // to generate link properly. It doesn't have ".0" in sizes
+      let sizePxInt    = Int(sizePx) // to generate link properly. It doesn't have ".0" in sizes
       let sizePxString = String(describing: sizePxInt)
-      let postPhotoRef = refToPostMedia.child(post.spotId)
-         .child(post.key + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
+      let postPhotoRef = refToPostMedia.child(post.spotId).child(post.key + "_resolution" + sizePxString + "x" + sizePxString + ".jpeg")
       
       //with low compression
       let dataLowCompression: Data = UIImageJPEGRepresentation(resizedPhoto.image, 0.8)!
@@ -50,8 +50,8 @@ struct PostMedia {
       }
    }
    
-   static func uploadPhotoForPost(_ image: UIImage, for postForUpdate: PostItem,
-                                  completion: @escaping (_ hasFinished: Bool, _ postWithRef: PostItem?) -> Void) {
+   static func uploadForPost(_ image: UIImage, for postForUpdate: PostItem,
+                             completion: @escaping (_ hasFinished: Bool, _ postWithRef: PostItem?) -> Void) {
       var post = postForUpdate // we will insert refs to media to this object
       UIImageWriteToSavedPhotosAlbum(image, nil, nil , nil) //saving image to camera roll
       
@@ -96,7 +96,7 @@ struct PostMedia {
    }
    
    static func uploadVideo(with url: URL, for post: PostItem,
-                      completion: @escaping (_ hasFinished: Bool, _ url: String) -> Void) {
+                           completion: @escaping (_ hasFinished: Bool, _ url: String) -> Void) {
       do {
          let postVideoRef = refToPostMedia.child(post.spotId).child(post.key + ".m4v")
          

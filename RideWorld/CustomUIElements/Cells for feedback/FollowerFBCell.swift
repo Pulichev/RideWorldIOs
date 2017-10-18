@@ -10,7 +10,14 @@ import UIKit
 import ActiveLabel
 
 class FollowerFBCell: UITableViewCell { // FB = feedback
+  
   weak var delegate: TappedUserDelegate? // for sending user info
+  
+  func initialize(with followItem: FollowerFBItem) {
+    self.userItem = followItem.userItem
+    self.descText = followItem.userItem.login + NSLocalizedString(" started following you.", comment: "")
+    self.dateTime.text = DateTimeParser.getDateTime(from: followItem.dateTime)
+  }
   
   var userItem: UserItem! {
     didSet {

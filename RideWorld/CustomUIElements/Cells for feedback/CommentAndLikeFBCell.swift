@@ -15,6 +15,31 @@ class CommentAndLikeFBCell: UITableViewCell { // FB = feedback
   weak var delegateUserTaps: TappedUserDelegate? // for sending user info
   weak var delegatePostTaps: TappedPostDelegate? // for sending post info
   
+  func initializeForComment(with commentFBItem: CommentFBItem) {
+    self.userItem = commentFBItem.userItem
+    self.postId = commentFBItem.postId
+    self.postItem = commentFBItem.postItem!
+    if commentFBItem.postAddedByUser == UserModel.getCurrentUserId() {
+      self.descText = commentFBItem.userItem.login
+        + NSLocalizedString(" commented your photo: ", comment: "")
+        + commentFBItem.text
+    } else { // for @userId not author
+      self.descText = commentFBItem.userItem.login
+        + NSLocalizedString(" mentioned you in comment: ", comment: "")
+        + commentFBItem.text
+    }
+    
+    self.dateTime.text = DateTimeParser.getDateTime(from: commentFBItem.dateTime)
+  }
+  
+  func initializeForLike(with likeFBItem: LikeFBItem) {
+    self.userItem = likeFBItem.userItem
+    self.postId = likeFBItem.postId
+    self.postItem = likeFBItem.postItem!
+    self.descText = likeFBItem.userItem.login + NSLocalizedString(" liked your post.", comment: "")
+    self.dateTime.text = DateTimeParser.getDateTime(from: likeFBItem.dateTime)
+  }
+  
   var userItem: UserItem! {
     didSet {
       if userItem.photo90ref != "" {

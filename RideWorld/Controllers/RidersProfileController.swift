@@ -60,8 +60,10 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
     ridersBio.maximumNumberOfLines = 2
     let fontAttribute = [ NSAttributedStringKey.font: UIFont(name: "PT Sans", size: 15)!,
                           NSAttributedStringKey.foregroundColor: UIColor.myLightGray() ]
-    ridersBio.attributedReadMoreText = NSAttributedString(string: NSLocalizedString(" ...show more", comment: ""), attributes: fontAttribute)
-    ridersBio.attributedReadLessText = NSAttributedString(string: NSLocalizedString(" show less", comment: ""), attributes: fontAttribute)
+    ridersBio.attributedReadMoreText = NSAttributedString(string: NSLocalizedString(" ...show more", comment: ""),
+                                                          attributes: fontAttribute)
+    ridersBio.attributedReadLessText = NSAttributedString(string: NSLocalizedString(" show less", comment: ""),
+                                                          attributes: fontAttribute)
     
     ridersBio.text = ridersInfo.bioDescription
     userNameAndSename.text = ridersInfo.nameAndSename

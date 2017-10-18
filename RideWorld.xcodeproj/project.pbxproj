@@ -84,7 +84,7 @@
 		9FD4A1DE1ED7591B00B4C0D2 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */; };
 		9FD4A1E31EDE019400B4C0D2 /* FeedbackItemsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */; };
 		9FD648D41E54587800C673CA /* RidersProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648D31E54587800C673CA /* RidersProfileController.swift */; };
-		9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */; };
+		9FD648DE1E57C1A100C673CA /* PostInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD648DD1E57C1A100C673CA /* PostInfoController.swift */; };
 		9FDC46F01F4B85AB00356727 /* SpotFollowingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FDC46EF1F4B85AB00356727 /* SpotFollowingsController.swift */; };
 		9FE3B70C1EBCDC4C00E7ED40 /* LoadingProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B70B1EBCDC4C00E7ED40 /* LoadingProcessView.swift */; };
 		9FE3B7101EC22A2800E7ED40 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3B70F1EC22A2800E7ED40 /* String.swift */; };
@@ -244,7 +244,7 @@
 		9FD4A1DD1ED7591B00B4C0D2 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = Controllers/TabAndNavBars/MainTabBarController.swift; sourceTree = "<group>"; };
 		9FD4A1E21EDE019400B4C0D2 /* FeedbackItemsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackItemsDelegate.swift; path = Protocols/FeedbackItemsDelegate.swift; sourceTree = "<group>"; };
 		9FD648D31E54587800C673CA /* RidersProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RidersProfileController.swift; path = Controllers/RidersProfileController.swift; sourceTree = "<group>"; };
-		9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoViewController.swift; path = Controllers/PostInfoViewController.swift; sourceTree = "<group>"; };
+		9FD648DD1E57C1A100C673CA /* PostInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostInfoController.swift; path = Controllers/PostInfoController.swift; sourceTree = "<group>"; };
 		9FDC46EF1F4B85AB00356727 /* SpotFollowingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotFollowingsController.swift; path = Controllers/SpotFollowingsController.swift; sourceTree = "<group>"; };
 		9FE3B70B1EBCDC4C00E7ED40 /* LoadingProcessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadingProcessView.swift; path = CustomUIElements/LoadingProcessView.swift; sourceTree = "<group>"; };
 		9FE3B70F1EC22A2800E7ED40 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = Core/String.swift; sourceTree = "<group>"; };
@@ -529,7 +529,7 @@
 				9FC14FCC1E48E5E30097579B /* NewSpotController.swift */,
 				9FC14FCD1E48E5E30097579B /* RegistrationController.swift */,
 				9FD648D31E54587800C673CA /* RidersProfileController.swift */,
-				9FD648DD1E57C1A100C673CA /* PostInfoViewController.swift */,
+				9FD648DD1E57C1A100C673CA /* PostInfoController.swift */,
 				9F4A84401E62F4C100C1E5F2 /* UserProfileController.swift */,
 				9F4A843E1E62F16C00C1E5F2 /* EditProfileController.swift */,
 				9F2978FF1E9037090051EF5F /* CommentariesController.swift */,
@@ -1091,7 +1091,7 @@
 				9F66AD241F4C91A7009F6F69 /* FollowTappedFromSpotInfo.swift in Sources */,
 				9F6DD9D81F0AE0DE00E3300E /* UIVisualEffectViewX.swift in Sources */,
 				9FCD276C1F3E19FE006A8A86 /* PasswordResetController.swift in Sources */,
-				9FD648DE1E57C1A100C673CA /* PostInfoViewController.swift in Sources */,
+				9FD648DE1E57C1A100C673CA /* PostInfoController.swift in Sources */,
 				9FC14FCF1E48E5E30097579B /* LoginController.swift in Sources */,
 				9FCC4BE01EFC742300F56ECE /* CircularProgress.swift in Sources */,
 				9F140CC81F7C2292002D70B0 /* SpotAnnotationView.swift in Sources */,

@@ -136,7 +136,7 @@ class FeedbackController: UIViewController, UITableViewDelegate, UITableViewData
       newRidersProfileController.delegateFollowTaps = self
       
     case "goToPostInfoFromFeedback":
-      let newPostInfoController = segue.destination as! PostInfoViewController
+      let newPostInfoController = segue.destination as! PostInfoController
       newPostInfoController.postInfo = postInfoForSending
       newPostInfoController.isCurrentUserProfile = true
       newPostInfoController.cameFromFeedback = true

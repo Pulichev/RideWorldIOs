@@ -227,7 +227,7 @@ class UserProfileController: UIViewController, UICollectionViewDataSource, UICol
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     switch segue.identifier! {
     case "goToPostInfoFromUserProfile":
-      let newPostInfoController = segue.destination as! PostInfoViewController
+      let newPostInfoController = segue.destination as! PostInfoController
       newPostInfoController.postInfo = posts[selectedCellId]
       newPostInfoController.isCurrentUserProfile = true
       newPostInfoController.delegateDeleting = self

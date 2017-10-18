@@ -12,7 +12,7 @@ import Kingfisher
 import ActiveLabel
 import SVProgressHUD
 
-class PostInfoViewController: UIViewController {
+class PostInfoController: UIViewController {
   
   var postInfo: PostItem!
   var cameFromFeedback = false // need for segues to profiles

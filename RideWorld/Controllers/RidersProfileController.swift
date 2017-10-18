@@ -233,7 +233,7 @@ class RidersProfileController: UIViewController, UICollectionViewDataSource, UIC
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     switch segue.identifier! {
     case "goToPostInfo":
-      let newPostInfoController = (segue.destination as! PostInfoViewController)
+      let newPostInfoController = (segue.destination as! PostInfoController)
       newPostInfoController.postInfo = posts[selectedCellId]
       newPostInfoController.isCurrentUserProfile = false
       

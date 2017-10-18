@@ -52,10 +52,6 @@ class SearchController: UITableViewController {
   }
   
   // MARK: - Table View filling part
-  override func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
-  }
-  
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     switch selectedScope {
     case NSLocalizedString("Riders", comment: ""):

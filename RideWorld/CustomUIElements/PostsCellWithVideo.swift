@@ -192,7 +192,7 @@ class PostsCellWithVideo: UITableViewCell {
     setLayerEmpty()
   }
   
-  public func setLayerEmpty() {
+  func setLayerEmpty() {
     let spotPostMediaLayer = self.spotPostMedia.layer as! AVPlayerLayer
     spotPostMediaLayer.player = nil
   }

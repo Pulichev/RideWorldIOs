@@ -301,6 +301,7 @@ extension NewPostController : GalleryControllerDelegate {
   
   private func setMediaLayerEmpty() {
     let postMediaLayer = self.photoOrVideoView.layer as! AVPlayerLayer
+    player = nil
     postMediaLayer.player = nil
   }
   

@@ -279,6 +279,7 @@ extension NewPostController : GalleryControllerDelegate {
   }
   
   func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
+    setMediaLayerEmpty()
     let img = images[0]
     
     haveWeChoosedMedia = true
@@ -298,7 +299,14 @@ extension NewPostController : GalleryControllerDelegate {
     spotPostMediaLayer.contents = photoView.image?.cgImage
   }
   
+  private func setMediaLayerEmpty() {
+    let postMediaLayer = self.photoOrVideoView.layer as! AVPlayerLayer
+    postMediaLayer.player = nil
+  }
+  
   func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
+    setMediaLayerEmpty()
+    
     haveWeChoosedMedia = true
     
     video.fetchAVAsset() { asset in

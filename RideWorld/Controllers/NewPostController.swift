@@ -31,14 +31,11 @@ class NewPostController: UIViewController, UITextViewDelegate {
       // see also func
     }
   }
-  @IBOutlet weak var photoOrVideoView: MediaContainerView!
+  @IBOutlet weak var photoOrVideoView: AVPlayerView!
   
   // MARK: - Media vars part
   var newVideoUrl: URL!
-  var queuePlayer: AVQueuePlayer! // for iOS 10+
   var player: AVPlayer! // for iOS 9 - 9.3.5
-  
-  var playerLooper: NSObject? //for looping video. It should be class variable
   
   var photoView = UIImageView()
   
@@ -83,11 +80,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
     addGestureToOpenCameraOnPhotoTap()
     photoView.image = UIImage(named: "no photo") //Setting default picture
     photoView.tintColor = UIColor.myBlack()
-    photoView.layer.contentsGravity = kCAGravityResize
-    photoView.contentMode = .scaleAspectFill
-    photoView.layer.frame = photoOrVideoView.bounds
-    photoOrVideoView.layer.addSublayer(photoView.layer)
-    photoOrVideoView.playerLayer = photoView.layer
+    let postMediaLayer = self.photoOrVideoView.layer
+    postMediaLayer.contents = photoView.image!.cgImage
   }
   
   func addGestureToOpenCameraOnPhotoTap() {
@@ -168,13 +162,8 @@ class NewPostController: UIViewController, UITextViewDelegate {
         if hasFinishedUploading {
           Post.add(post!) { hasFinishedSuccessfully in
             if hasFinishedSuccessfully {
-              if #available(iOS 10.0, *) {
-                self.queuePlayer.pause()
-                self.queuePlayer = nil
-              } else {
-                self.player.pause()
-                self.player = nil
-              }
+              self.player.pause()
+              self.player = nil
               self.goBackToPosts()
             } else {
               self.errorHappened()
@@ -305,12 +294,8 @@ extension NewPostController : GalleryControllerDelegate {
     changeMediaContainerHeight()
     
     photoView.image = image
-    photoView.layer.contentsGravity = kCAGravityResize
-    photoView.contentMode = .scaleAspectFill
-    photoView.frame = photoOrVideoView.bounds
-    
-    photoOrVideoView.layer.addSublayer(photoView.layer)
-    photoOrVideoView.playerLayer = photoView.layer
+    let spotPostMediaLayer = self.photoOrVideoView.layer
+    spotPostMediaLayer.contents = photoView.image?.cgImage
   }
   
   func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
@@ -322,7 +307,7 @@ extension NewPostController : GalleryControllerDelegate {
         else {
           DispatchQueue.main.async {
             controller.dismiss(animated: true, completion: nil)
-            self.showAlertThatUserLoginNotFounded()
+            self.showAlertThatSlowmoNotSup()
           }
           return
       }
@@ -333,30 +318,14 @@ extension NewPostController : GalleryControllerDelegate {
       self.changeMediaContainerHeight()
       self.isNewMediaIsPhoto = false
       
-      if #available(iOS 10.0, *) {
-        self.queuePlayer = AVQueuePlayer()
-        
-        let playerLayer = AVPlayerLayer(player: self.queuePlayer)
-        let playerItem = AVPlayerItem(url: fileURL)
-        self.playerLooper = AVPlayerLooper(player: self.queuePlayer, templateItem: playerItem)
-        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        playerLayer.frame = self.photoOrVideoView.bounds
-        self.photoOrVideoView.layer.addSublayer(playerLayer)
-        self.photoOrVideoView.playerLayer = playerLayer
-        
-        self.queuePlayer.play()
-      } else {
-        // iOS 9 - 9.3.5
-        self.player = AVPlayer(url: fileURL)
-        
-        let playerLayer = AVPlayerLayer(player: self.player)
-        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        playerLayer.frame = self.photoOrVideoView.bounds
-        self.photoOrVideoView.layer.addSublayer(playerLayer)
-        self.photoOrVideoView.playerLayer = playerLayer
-        
-        self.player.play()
-      }
+      self.player = AVPlayer(url: fileURL)
+      
+      let castedLayer = self.photoOrVideoView.layer as! AVPlayerLayer
+      castedLayer.player = self.player
+      
+      self.player.play()
+      
+      NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.playerItemDidReachEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
       
       self.newVideoUrl = fileURL
       
@@ -397,7 +366,15 @@ extension NewPostController : GalleryControllerDelegate {
     }
   }
   
-  private func showAlertThatUserLoginNotFounded() {
+  @objc func playerItemDidReachEnd(notification: Notification) {
+    if notification.object as? AVPlayerItem == player?.currentItem {
+      player.pause()
+      player.seek(to: kCMTimeZero)
+      player.play()
+    }
+  }
+  
+  private func showAlertThatSlowmoNotSup() {
     DispatchQueue.main.async {
       let alert = UIAlertController(title: NSLocalizedString("Error!", comment: ""),
                                     message: NSLocalizedString("Slow motion videos are not supported!", comment: ""),
@@ -418,9 +395,9 @@ extension NewPostController : GalleryControllerDelegate {
   }
   
   func changeMediaContainerHeight() {
-    let width = view.frame.size.width
-    let height = CGFloat(Double(width) * mediaAspectRatio)
     DispatchQueue.main.async {
+      let width = self.view.frame.size.width
+      let height = CGFloat(Double(width) * self.mediaAspectRatio)
       self.mediaContainerHeight.constant = height
       
       self.photoOrVideoView.layoutIfNeeded()

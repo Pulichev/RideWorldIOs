@@ -327,12 +327,7 @@ extension NewPostController : GalleryControllerDelegate {
       self.changeMediaContainerHeight()
       self.isNewMediaIsPhoto = false
       
-      self.player = AVPlayer(url: fileURL)
-      
-      let castedLayer = self.photoOrVideoView.layer as! AVPlayerLayer
-      castedLayer.player = self.player
-      
-      self.player.play()
+      self.setVideoLayer(forURL: fileURL)
       
       NotificationCenter.default.addObserver(self, selector: #selector(NewPostController.playerItemDidReachEnd), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
       
@@ -341,37 +336,27 @@ extension NewPostController : GalleryControllerDelegate {
       let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
       
       self.compressVideo(inputURL: fileURL as URL, outputURL: compressedURL) { (exportSession) in
-        guard let session = exportSession else {
+        if exportSession == nil {
           return
-        }
-        
-        switch session.status {
-        case .unknown:
-          break
-        case .waiting:
-          break
-        case .exporting:
-          break
-        case .completed:
-          guard let compressedData = NSData(contentsOf: compressedURL) else {
-            return
-          }
-          
-          print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
-        case .failed:
-          break
-        case .cancelled:
-          break
         }
       }
       
-      self.newVideoUrl = compressedURL //update newVideoUrl to already compressed video
-      
-      print("video completed and output to file: \(fileURL)")
+      self.newVideoUrl = compressedURL // update newVideoUrl to already compressed video
       
       DispatchQueue.main.async {
         controller.dismiss(animated: true, completion: nil)
       }
+    }
+  }
+  
+  private func setVideoLayer(forURL fileURL: URL) {
+    DispatchQueue.main.async {
+      self.player = AVPlayer(url: fileURL)
+      
+      let castedLayer = self.photoOrVideoView.layer as! AVPlayerLayer
+      castedLayer.player = self.player
+      
+      self.player.play()
     }
   }
   

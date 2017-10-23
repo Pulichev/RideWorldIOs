@@ -322,7 +322,7 @@ extension NewSpotController {
   // if we tapped UITextField and then another UITextField
   @objc func keyboardWillShow(notification: NSNotification) {
     if !keyBoardAlreadyShowed {
-      if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+      if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
         let keyboardHeight = keyboardSize.height
         UIView.animate(withDuration: 1.0, animations: {
           self.view.frame.origin.y -= (keyboardHeight - 44) // 44 is tab bar height
@@ -334,7 +334,7 @@ extension NewSpotController {
   }
   
   @objc func keyboardWillHide(notification: NSNotification) {
-    if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+    if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
       let keyboardHeight = keyboardSize.height
       UIView.animate(withDuration: 1.0, animations: {
         self.view.frame.origin.y += (keyboardHeight - 44) // 44 is tab bar height

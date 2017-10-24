@@ -335,7 +335,7 @@ extension EditProfileController: UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
     let index = textField.tag
-    userInfoTableValues[index] = textField.text! ?? ""
+    userInfoTableValues[index] = textField.text ?? ""
   }
 }
 

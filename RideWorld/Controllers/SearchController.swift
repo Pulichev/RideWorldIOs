@@ -63,7 +63,7 @@ class SearchController: UITableViewController {
     default: return 0
     }
   }
-  
+
   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 44
   }
@@ -86,7 +86,7 @@ class SearchController: UITableViewController {
       }
       
       cell.name!.text = rider.login
-      
+
     case NSLocalizedString("Spots", comment: ""):
       let spot = filteredSpots[row]
       

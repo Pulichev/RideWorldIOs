@@ -27,8 +27,7 @@ class SpotInfoController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
     didSet {
       pagerView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "SpotFSPagerViewCell")
       pagerView.transformer = FSPagerViewTransformer(type: .overlap)
-      pagerView.isInfinite = true
-      pagerView.automaticSlidingInterval = 2.5
+      pagerView.automaticSlidingInterval = 3.5
       pagerView.interitemSpacing = 10
       pagerView.itemSize = CGSize(width: 315, height: 320)
     }

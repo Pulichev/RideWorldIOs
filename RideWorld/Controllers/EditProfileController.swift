@@ -29,10 +29,14 @@ class EditProfileController: UITableViewController {
     
     sourceLogin = userInfo.login
     
-    NotificationCenter.default.addObserver(self, selector: #selector(EditProfileController.keyboardWillShow),
-                                           name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(EditProfileController.keyboardWillHide),
-                                           name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(EditProfileController.keyboardWillShow),
+                                           name: NSNotification.Name.UIKeyboardWillShow,
+                                           object: nil)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(EditProfileController.keyboardWillHide),
+                                           name: NSNotification.Name.UIKeyboardWillHide,
+                                           object: nil)
     
     if userInfo.photo150ref != nil {
       userPhoto.kf.setImage(with: URL(string: userInfo.photo150ref!))

@@ -63,10 +63,10 @@ class MapController: UIViewController {
   private func customizeClusterManager() {
     // When zoom level is quite close to the pins, disable clustering in order to show individual pins and allow the user to interact with them via callouts.
     manager.cellSize = nil
-    manager.maxZoomLevel = 17
-    manager.minCountForClustering = 3
+    manager.maxZoomLevel = 12
+    manager.minCountForClustering = 2
     manager.shouldRemoveInvisibleAnnotations = false
-    manager.shouldCenterAlignClusters = true
+    manager.shouldCenterAlignClusters = false //
   }
   
   private func mapViewInitialize() {
@@ -96,11 +96,14 @@ class MapController: UIViewController {
   
   func addPinsOnMap() {
     for spot in spotsFromDB {
-      let pin = CustomPin(coordinate: CLLocationCoordinate2DMake(spot.latitude, spot.longitude))
-      
+      let pin = CustomPin()
+      pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
       pin.spotItem = spot
+      pin.type = .color(UIColor.myDarkGray(), radius: 25)
       
-      mapView.addAnnotation(pin)
+      manager.add(pin)
+      //      mapView.addAnnotation(pin)
+      
     }
   }
   
@@ -181,7 +184,7 @@ extension MapController: MKMapViewDelegate {
     if !(view.annotation! is MKUserLocation)
       && view.annotation?.title! != NSLocalizedString("New spot", comment: "") {
       
-      let customPin = view.annotation as! CustomPin
+      guard let customPin = view.annotation as? CustomPin else { return }
       spotDetailsForSendToPostsStripController = customPin.spotItem
       
       configureDetailView(annotationView: view, spotPin: customPin.spotItem)
@@ -193,26 +196,44 @@ extension MapController: MKMapViewDelegate {
       return nil
     }
     
-    if !(annotation is CustomPin) {
-      return nil
-    }
-    
-    let identifier = "CustomPin"
-    var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-    
-    if annotationView == nil {
-      annotationView = SpotAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-      annotationView?.canShowCallout = false
+    if let annotation = annotation as? ClusterAnnotation {
+      guard let type = annotation.type else { return nil }
+      
+      let identifier = "Cluster"
+      var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+      
+      if let view = view as? BorderedClusterAnnotationView {
+        view.annotation = annotation
+        view.configure(with: type)
+      } else {
+        view = BorderedClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier, type: type, borderColor: .white)
+      }
+      return view
     } else {
-      annotationView!.annotation = annotation
+      let identifier = "CustomPin"
+      var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+      
+      if annotationView == nil {
+        annotationView = SpotAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+        annotationView?.canShowCallout = false
+      } else {
+        annotationView!.annotation = annotation
+      }
+      
+      // customize pin image
+      let customPin = annotation as! CustomPin
+      annotationView!.image = getProperImage(for: customPin.spotItem.type)
+      annotationView!.centerOffset = CGPoint(x: 0, y: -33)
+      
+      return annotationView
     }
-    
-    // customize pin image
-    let customPin = annotation as! CustomPin
-    annotationView!.image = getProperImage(for: customPin.spotItem.type)
-    annotationView!.centerOffset = CGPoint(x: 0, y: -33)
-    
-    return annotationView
+  }
+  
+  func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+    views.forEach { $0.alpha = 0 }
+    UIView.animate(withDuration: 0.35, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
+      views.forEach { $0.alpha = 1 }
+    }, completion: nil)
   }
   
   func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -265,6 +286,8 @@ extension MapController: MKMapViewDelegate {
   // func for adding new spot. It is placing new pin on map, that will
   // move on every drag of map.
   func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    manager.reload(mapView, visibleMapRect: mapView.visibleMapRect)
+    
     if weAddingSpot {
       removeOldNewSpotAnnotation()
       addNewSpotAnnotation()
@@ -414,7 +437,8 @@ extension MapController: CLLocationManagerDelegate {
 extension MapController: SpotInfoOnMapDelegate {
   func placeSpotOnMap(_ spot: SpotItem) {
     if let index = spotsFromDB.index(where: { $0.key == spot.key }) {
-      let pin = CustomPin(coordinate: CLLocationCoordinate2DMake(spot.latitude, spot.longitude))
+      let pin = CustomPin()
+      pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
       pin.spotItem = spot
       
       // remove old annotation
@@ -429,7 +453,8 @@ extension MapController: SpotInfoOnMapDelegate {
       // create spot
       spotsFromDB.append(spot)
       
-      let pin = CustomPin(coordinate: CLLocationCoordinate2DMake(spot.latitude, spot.longitude))
+      let pin = CustomPin()
+      pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
       pin.spotItem = spot
       
       mapView.addAnnotation(pin)

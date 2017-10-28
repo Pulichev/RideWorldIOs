@@ -63,10 +63,10 @@ class MapController: UIViewController {
   private func customizeClusterManager() {
     // When zoom level is quite close to the pins, disable clustering in order to show individual pins and allow the user to interact with them via callouts.
     manager.cellSize = nil
-    manager.maxZoomLevel = 12
+    manager.maxZoomLevel = 17
     manager.minCountForClustering = 2
     manager.shouldRemoveInvisibleAnnotations = false
-    manager.shouldCenterAlignClusters = false //
+    manager.shouldCenterAlignClusters = false
   }
   
   private func mapViewInitialize() {
@@ -175,6 +175,11 @@ class MapController: UIViewController {
   fileprivate func closeMenu() {
     menuView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
   }
+  
+  /// property to show, should we reload manager.
+  /// we need it to not relaod, when we are changing
+  /// region for configuring detail view
+  fileprivate var shouldWeReloadManager = true
 }
 
 // MARK: - MKMapViewDelegate
@@ -193,6 +198,10 @@ extension MapController: MKMapViewDelegate {
   
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     if annotation is MKUserLocation {
+      return nil
+    }
+    
+    if annotation is MKPointAnnotation { // not new spot annotation
       return nil
     }
     
@@ -266,6 +275,7 @@ extension MapController: MKMapViewDelegate {
     
     spotAnnotationViewCallout.center = CGPoint(x: annotationView.bounds.size.width / 2, y:  -spotAnnotationViewCallout.bounds.size.height * 0)
     annotationView.addSubview(spotAnnotationViewCallout)
+    shouldWeReloadManager = false
     mapView.setCenter((annotationView.annotation?.coordinate)!, animated: true)
   }
   
@@ -286,7 +296,11 @@ extension MapController: MKMapViewDelegate {
   // func for adding new spot. It is placing new pin on map, that will
   // move on every drag of map.
   func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-    manager.reload(mapView, visibleMapRect: mapView.visibleMapRect)
+    if shouldWeReloadManager {
+      manager.reload(mapView, visibleMapRect: mapView.visibleMapRect)
+    } else {
+      shouldWeReloadManager = true
+    }
     
     if weAddingSpot {
       removeOldNewSpotAnnotation()

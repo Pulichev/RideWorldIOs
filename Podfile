@@ -24,7 +24,7 @@ target 'RideWorld' do
   pod 'FSPagerView'
   pod 'Player', '~> 0.8.0'
   pod 'Instructions', '~> 1.0.0'
-  pod 'Cluster'
+  pod 'Cluster', '~> 2.0.1'
   
   # Pods for RideWorld
 

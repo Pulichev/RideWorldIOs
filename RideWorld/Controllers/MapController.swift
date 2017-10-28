@@ -7,6 +7,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import Instructions
+import Cluster
 
 class MapController: UIViewController {
   
@@ -25,12 +26,16 @@ class MapController: UIViewController {
     return manager
   }()
   
+  let manager = ClusterManager()
+  
   let coachMarksController = CoachMarksController() // onboard tips controller
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     self.coachMarksController.dataSource = self
+    
+    customizeClusterManager()
     
     DispatchQueue.main.async {
       self.mapViewInitialize()
@@ -55,7 +60,16 @@ class MapController: UIViewController {
     startCoachingIfNeeded()
   }
   
-  func mapViewInitialize() {
+  private func customizeClusterManager() {
+    // When zoom level is quite close to the pins, disable clustering in order to show individual pins and allow the user to interact with them via callouts.
+    manager.cellSize = nil
+    manager.maxZoomLevel = 17
+    manager.minCountForClustering = 3
+    manager.shouldRemoveInvisibleAnnotations = false
+    manager.shouldCenterAlignClusters = true
+  }
+  
+  private func mapViewInitialize() {
     mapView.delegate = self
     locationManager.delegate = self
     locationManager.desiredAccuracy = kCLLocationAccuracyBest

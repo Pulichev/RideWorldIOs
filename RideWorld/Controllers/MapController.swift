@@ -102,8 +102,6 @@ class MapController: UIViewController {
       pin.type = .color(UIColor.myDarkGray(), radius: 25)
       
       manager.add(pin)
-      //      mapView.addAnnotation(pin)
-      
     }
   }
   
@@ -261,6 +259,8 @@ extension MapController: MKMapViewDelegate {
       return UIImage(named: "Park")!
     case 2:
       return UIImage(named: "Dirt")!
+    case 3:
+      return UIImage(named: "Flatland")!
     default:
       return UIImage(named: "Street")!
     }
@@ -460,9 +460,10 @@ extension MapController: SpotInfoOnMapDelegate {
       let oldAnnotation = mapView.annotations.first(where: { !($0 is MKUserLocation)
         && ($0 as! CustomPin).spotItem.key == spot.key })!
       spotsFromDB[index] = spot
-      mapView.removeAnnotation(oldAnnotation)
+      manager.remove(oldAnnotation)
       // add updated annotation
-      mapView.addAnnotation(pin)
+      manager.add(pin)
+      manager.reload(mapView, visibleMapRect: mapView.visibleMapRect)
     } else {
       // create spot
       spotsFromDB.append(spot)
@@ -471,7 +472,8 @@ extension MapController: SpotInfoOnMapDelegate {
       pin.coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
       pin.spotItem = spot
       
-      mapView.addAnnotation(pin)
+      manager.add(pin)
+      manager.reload(mapView, visibleMapRect: mapView.visibleMapRect)
     }
   }
 }

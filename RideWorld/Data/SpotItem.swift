@@ -11,7 +11,7 @@ import FirebaseDatabase
 struct SpotItem {
   
   let key: String
-  let type: Int // 1 - Street, 2 - Park, 3 - Dirt
+  let type: Int // 1 - Street, 2 - Park, 3 - Dirt, 4 - Flatland
   
   let name: String
   let description: String

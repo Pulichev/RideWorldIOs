@@ -274,6 +274,8 @@ extension NewSpotController: UIPickerViewDelegate, UIPickerViewDataSource {
       return NSLocalizedString("Park", comment: "")
     case 2:
       return NSLocalizedString("Dirt", comment: "")
+    case 3:
+      return NSLocalizedString("Flatland", comment: "")
     default:
       return ""
     }

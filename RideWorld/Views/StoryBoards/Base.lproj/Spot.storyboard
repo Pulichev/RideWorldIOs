@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -211,7 +211,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssq-cN-93a" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="608"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="615"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spot name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOd-W1-e0u">
                                                 <rect key="frame" x="5" y="373" width="365" height="34"/>
@@ -291,12 +291,47 @@
                                                     <action selector="goToPostsButtonTapped:" destination="6uJ-a1-Lta" eventType="touchUpInside" id="Of0-aL-Cml"/>
                                                 </connections>
                                             </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sSb-Jv-irV" customClass="FSPagerView" customModule="FSPagerView">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="330"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="330" id="xvX-0X-p8C"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="6uJ-a1-Lta" id="0ok-pd-1eh"/>
+                                                    <outlet property="delegate" destination="6uJ-a1-Lta" id="1sG-Gm-wGv"/>
+                                                </connections>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27x-cp-xNR" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
+                                                <rect key="frame" x="253" y="415" width="115" height="30"/>
+                                                <color key="backgroundColor" red="1" green="0.90588235294117647" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="115" id="V22-at-qcB"/>
+                                                    <constraint firstAttribute="height" constant="30" id="zbH-nP-iSN"/>
+                                                </constraints>
+                                                <state key="normal" title="Проголосовать">
+                                                    <color key="titleColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="addVote:" destination="6uJ-a1-Lta" eventType="touchUpInside" id="y0F-7Z-cJb"/>
+                                                </connections>
+                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5nT-Xz-BEn" customClass="CosmosView" customModule="Cosmos">
-                                                <rect key="frame" x="10" y="415" width="200" height="28"/>
+                                                <rect key="frame" x="10" y="416" width="238" height="28"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="CUa-Xu-jZF"/>
-                                                    <constraint firstAttribute="width" constant="200" id="Vz1-rD-IrF"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
@@ -322,41 +357,6 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="updateOnTouch" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sSb-Jv-irV" customClass="FSPagerView" customModule="FSPagerView">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="330"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="330" id="xvX-0X-p8C"/>
-                                                </constraints>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="6uJ-a1-Lta" id="0ok-pd-1eh"/>
-                                                    <outlet property="delegate" destination="6uJ-a1-Lta" id="1sG-Gm-wGv"/>
-                                                </connections>
-                                            </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="27x-cp-xNR" customClass="UIButtonX" customModule="RideWorld" customModuleProvider="target">
-                                                <rect key="frame" x="215" y="415" width="153" height="30"/>
-                                                <color key="backgroundColor" red="1" green="0.90588235294117647" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="zbH-nP-iSN"/>
-                                                </constraints>
-                                                <state key="normal" title="Vote">
-                                                    <color key="titleColor" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.1764705882" green="0.1764705882" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="addVote:" destination="6uJ-a1-Lta" eventType="touchUpInside" id="y0F-7Z-cJb"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -365,11 +365,12 @@
                                             <constraint firstItem="mUH-z7-xDr" firstAttribute="leading" secondItem="ssq-cN-93a" secondAttribute="leading" constant="5" id="7MA-GS-TGf"/>
                                             <constraint firstItem="HOd-W1-e0u" firstAttribute="top" secondItem="JIR-BA-okl" secondAttribute="bottom" constant="5" id="8Jh-lY-UWN"/>
                                             <constraint firstAttribute="trailing" secondItem="QU0-qy-BTX" secondAttribute="trailing" constant="10" id="8nK-At-wne"/>
+                                            <constraint firstItem="QU0-qy-BTX" firstAttribute="top" secondItem="5nT-Xz-BEn" secondAttribute="bottom" constant="7" id="9sL-jV-9Hw"/>
                                             <constraint firstAttribute="trailing" secondItem="HOd-W1-e0u" secondAttribute="trailing" constant="5" id="BB4-Du-cGc"/>
-                                            <constraint firstItem="QU0-qy-BTX" firstAttribute="top" secondItem="5nT-Xz-BEn" secondAttribute="bottom" constant="8" id="FZE-N2-075"/>
                                             <constraint firstAttribute="trailing" secondItem="sSb-Jv-irV" secondAttribute="trailing" id="MQw-z7-Wps"/>
                                             <constraint firstItem="PUz-af-Ftt" firstAttribute="baseline" secondItem="JIR-BA-okl" secondAttribute="baseline" id="NCi-r1-rn0"/>
-                                            <constraint firstAttribute="bottom" secondItem="mUH-z7-xDr" secondAttribute="bottom" id="R2k-UO-0Dg"/>
+                                            <constraint firstItem="QU0-qy-BTX" firstAttribute="top" secondItem="27x-cp-xNR" secondAttribute="bottom" constant="6" id="Nd0-XP-khi"/>
+                                            <constraint firstAttribute="bottom" secondItem="mUH-z7-xDr" secondAttribute="bottom" constant="7" id="R2k-UO-0Dg"/>
                                             <constraint firstItem="QU0-qy-BTX" firstAttribute="leading" secondItem="ssq-cN-93a" secondAttribute="leading" constant="10" id="SLh-zK-KcS"/>
                                             <constraint firstItem="sSb-Jv-irV" firstAttribute="leading" secondItem="ssq-cN-93a" secondAttribute="leading" id="TZA-gB-U8s"/>
                                             <constraint firstItem="27x-cp-xNR" firstAttribute="leading" secondItem="5nT-Xz-BEn" secondAttribute="trailing" constant="5" id="VCu-3f-ADO"/>
@@ -378,7 +379,6 @@
                                             <constraint firstAttribute="trailing" secondItem="27x-cp-xNR" secondAttribute="trailing" constant="7" id="g0v-YH-hQl"/>
                                             <constraint firstItem="mUH-z7-xDr" firstAttribute="top" secondItem="QU0-qy-BTX" secondAttribute="bottom" constant="8" id="h8r-oN-9Gk"/>
                                             <constraint firstItem="27x-cp-xNR" firstAttribute="top" secondItem="HOd-W1-e0u" secondAttribute="bottom" constant="8" id="itB-G7-PaE"/>
-                                            <constraint firstItem="5nT-Xz-BEn" firstAttribute="top" secondItem="HOd-W1-e0u" secondAttribute="bottom" constant="8" id="iys-Yp-F2K"/>
                                             <constraint firstItem="HOd-W1-e0u" firstAttribute="leading" secondItem="ssq-cN-93a" secondAttribute="leading" constant="5" id="ppu-Vc-cnZ"/>
                                             <constraint firstAttribute="trailing" secondItem="mUH-z7-xDr" secondAttribute="trailing" constant="5" id="q5p-2S-c3M"/>
                                             <constraint firstItem="5nT-Xz-BEn" firstAttribute="leading" secondItem="ssq-cN-93a" secondAttribute="leading" constant="10" id="tL5-uc-5vC"/>

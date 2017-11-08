@@ -379,9 +379,9 @@ extension MapController: CLLocationManagerDelegate {
     }
     
     @IBAction func confirmNewSpot(_ sender: UIButton) {
-        let dist = distanceToNearestPin()
+//        let dist = distanceToNearestPin()
         
-        if dist > 50.0 {
+//        if dist > 50.0 {
             weAddingSpot = false
             UIView.animate(withDuration: 0.3, animations: {
                 // return button to .identity
@@ -396,9 +396,9 @@ extension MapController: CLLocationManagerDelegate {
             removeOldNewSpotAnnotation()
             
             performSegue(withIdentifier: "addNewSpot", sender: self)
-        } else {
-            showAlertThatToCloseToExistingSpot()
-        }
+//        } else {
+//            showAlertThatToCloseToExistingSpot()
+//        }
     }
     
     @IBAction func cancelNewSpot(_ sender: UIButton){

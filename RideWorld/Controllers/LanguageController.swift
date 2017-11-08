@@ -73,6 +73,5 @@ class LanguageController: UITableViewController {
     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
     
     present(alert, animated: true, completion: nil)
-    
   }
 }

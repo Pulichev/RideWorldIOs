@@ -205,7 +205,7 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
   
   // function for refresh
   private func clearAllTableButFirstStepCount() {
-    self.tableView.beginUpdates()
+    tableView.beginUpdates()
     // clear all but firsts #postsLoadStep
     // from tableView
     var indexPaths = [IndexPath]()
@@ -215,12 +215,12 @@ class PostsStripController: UIViewController, UITableViewDataSource, UITableView
         indexPaths.append(IndexPath(row: i, section: 0))
       }
       
-      self.tableView.deleteRows(at: indexPaths, with: .none)
+      tableView.deleteRows(at: indexPaths, with: .none)
       
       // from arrays
-      self.posts = Array(self.posts[0..<self.postsLoadStep])
-      self.postItemCellsCache = Array(self.postItemCellsCache[0..<self.postsLoadStep])
-      self.tableView.endUpdates()
+      posts = Array(self.posts[0..<self.postsLoadStep])
+      postItemCellsCache = Array(self.postItemCellsCache[0..<self.postsLoadStep])
+      tableView.endUpdates()
     }
   }
   
